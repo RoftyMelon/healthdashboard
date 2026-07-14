@@ -133,6 +133,7 @@ td.boot span{color:var(--t3);font-size:12.5px}
 .srch .qx:hover{background:var(--btn-h);color:var(--txt)}
 .srch.has .qx{display:block}
 .chip{font-family:inherit;font-size:13px;font-weight:520;padding:9px 16px;border-radius:99px;cursor:pointer;
+  flex:none;white-space:nowrap;   /* scroll past the row's edge, never shrink or wrap */
   background:var(--btn);border:.5px solid var(--btn-b);color:var(--t2);transition:.16s}
 .chip:hover{background:var(--btn-h);color:var(--txt)}
 .chip[aria-pressed=true]{background:var(--sol);color:var(--sol-t);border-color:transparent;font-weight:600}
@@ -336,8 +337,11 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
    hamburger and the toc sit outside the animation and hold still. One element animates,
    both directions (rule 7); exit eases IN (.24s), entry eases OUT (.34s) — the asymmetry
    is what keeps it from reading as a blink. pmSet() choreographs. */
-.swap{display:flex;align-items:center;gap:inherit;row-gap:inherit;flex:1;min-width:0;flex-wrap:wrap;
+.swap{display:flex;align-items:center;gap:inherit;flex:1;min-width:0;
+  flex-wrap:nowrap;overflow-x:auto;                /* search opens -> pills scroll, never wrap */
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
   transition:opacity .34s cubic-bezier(.2,.7,.3,1),transform .34s cubic-bezier(.2,.7,.3,1)}
+.swap::-webkit-scrollbar{display:none}
 .swap.swapping{opacity:0;transform:translateX(-14px);
   transition:opacity .24s cubic-bezier(.55,0,.8,.4),transform .24s cubic-bezier(.55,0,.8,.4)}
 .pt{font-family:inherit;font-size:13.5px;font-weight:550;padding:9px 13px;white-space:nowrap;
@@ -477,6 +481,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
   .pgbtn{width:38px;height:38px}
   .pgnav{width:38px}                          /* the collapse animates from the 38px button */
   .ptabs{margin-right:38px}                   /* clear the pinned theme toggle */
+  .swap{padding-right:38px}                   /* scrolled pills end clear of the toggle too */
   .pt{font-size:12.5px;padding:8px 11px}
   .pt.on::after{left:11px;right:11px}
   html:not([data-page=markers]) .ptabs{margin-left:-11px}   /* narrow .pt padding is 11px */
