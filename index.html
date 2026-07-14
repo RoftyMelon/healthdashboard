@@ -438,15 +438,15 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
   :root{--thh:26px}
   .topbar{padding-top:8px}
   .bar{margin-bottom:6px;row-gap:4px}
-  .chip{padding:8px 12px;font-size:12.5px}
-  .chip .cn{margin-left:5px;font-size:10.5px}
+  .chip{padding:8px 13px;font-size:13px}
+  .chip .cn{margin-left:5px;font-size:11px}
   .srch{width:34px;height:34px}
   .srch .sicon{width:32px;height:32px}
   /* iOS Safari auto-zooms the page when focusing an input whose font-size is under
      16px. 16px exactly is the threshold that leaves the viewport alone. */
   .srch input{font-size:16px}
   button.ic{width:34px;height:34px}
-  .nav{padding:5px 11px;font-size:12px}
+  .nav{padding:6px 12px;font-size:13px}
   /* The toggle leaves the flex row and pins to the top-right, overlaying row 1's slack
      (the .swap wrapper is flex:1, so it owns row 1 and pushes the TOC to its own row;
      row-1 content is width-budgeted at <=430px to clear the toggle). */
@@ -484,9 +484,9 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
   .pgnav{width:38px}                          /* the collapse animates from the 38px button */
   .ptabs{margin-right:38px}                   /* clear the pinned theme toggle */
   .swap{padding-right:38px}                   /* scrolled pills end clear of the toggle too */
-  .pt{font-size:12.5px;padding:8px 11px}
-  .pt.on::after{left:11px;right:11px}
-  html:not([data-page=markers]) .ptabs{margin-left:-11px}   /* narrow .pt padding is 11px */
+  .pt{font-size:13.5px;padding:8px 12px}
+  .pt.on::after{left:12px;right:12px}
+  html:not([data-page=markers]) .ptabs{margin-left:-12px}   /* narrow .pt padding is 12px */
   .pgh{font-size:16px}
   .rht{width:40px}
   .rem{width:40px;font-size:12px}
@@ -496,7 +496,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
    counts that never change (All / By supplement) hide; Flagged keeps its count — it's the
    one that carries signal. Chip order is fixed in render(): all, flag, crit. */
 @media(max-width:430px){
-  .chip{padding:8px 8px;font-size:12px}
+  .chip{padding:8px 10px;font-size:12.5px}
   .bar{gap:4px}
   html:not([data-page=markers]) .pgnav{margin-right:-4px}   /* cancel THIS block's 4px gap */
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
