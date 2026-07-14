@@ -40,7 +40,7 @@
 :root{--thh:30px; --nm:180px; --hh:64px}   /* sizing: theme-independent, must not sit in a theme block */
 /* TYPE SCALE — one rationale across every tab:
    26 page title (.pgh — caps card titles gain ~40% optical size, so the title
-   needs real distance to LOOK biggest) · 15 card/session title (.ccard>b) ·
+   needs real distance to LOOK biggest) · 14 card/session title (.ccard>b), 12.5 .cgrp ·
    16 body & controls (content rows, page-intro .lead notes, subtitles, tabs,
    names, search) · 15 secondary (doses, caveat notes, links, 14.5 filter chips) · 14 caps
    section labels (.pgst/.cgrp) + hints · ~13 micro data (hour marks, kg,
@@ -76,7 +76,7 @@ html.tfade *::before,html.tfade *::after{
              fill .22s ease,stroke .22s ease !important}
 .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 20px 110px}
 .topbar{position:fixed;top:0;left:0;width:100%;z-index:50;background:var(--bg);
-  padding:8px var(--gut,20px) 0;   /* the strip rides the top of the screen */
+  padding:3px var(--gut,20px) 0;   /* the strip rides the top of the screen: ~5px to the tabs */
   transition:border-color .2s ease;border-bottom:.5px solid transparent}
 .topspacer{height:var(--toph,112px)}   /* fixed takes it out of flow; hold its place */
 .topbar.stuck{border-bottom-color:var(--line)}
@@ -113,7 +113,7 @@ td.boot span{color:var(--t3);font-size:15px}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 .topline{display:flex;align-items:flex-start;gap:10px}
-.bar{flex:1;min-width:0;display:flex;gap:6px;row-gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+.bar{flex:1;min-width:0;display:flex;gap:6px;row-gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:2px}
 .chips{display:contents}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
@@ -379,8 +379,8 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
    and .swap clipping would shear the first tab's hover pill at the column edge */
 html:not([data-page=markers]) .swap{overflow:visible}
 
-.pgs{max-width:780px;padding:2px 0 40px}
-.pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:8px 0 3px}
+.pgs{max-width:780px;padding:0 0 40px}
+.pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 3px}
 .pgsub{font-size:16px;color:var(--t3)}
 .pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
 .pgsec{margin-top:22px}
@@ -410,7 +410,8 @@ html:not([data-page=markers]) .swap{overflow:visible}
    guarantees a boundary hour always STARTS its row. The tabular HH:00 ends ~31px;
    left:0 would strike THROUGH it. */
 .rhl.lt::after{content:"";position:absolute;left:44px;top:7px;height:.5px;
-  width:min(calc(100% - 44px),560px);background:var(--t4);opacity:.55}   /* short line, not a full-bleed rule */
+  width:min(calc(100% - 44px),410px);background:var(--t4);opacity:.55}
+  /* 410px = the longest row text ("Gym - phone stays OFF...") — the line matches it */
 /* every row centres its content between the boundary lines of its span — the lines
    sit 7px below the cell tops they belong to, hence 2x7 top padding */
 .rcell{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:14px 0 0}
@@ -420,8 +421,9 @@ html:not([data-page=markers]) .swap{overflow:visible}
    when .rcell went flex-direction:column — blocks drifted to the middle.) */
 /* the day's LAST hour is a terminal point, not a span: its text sits ON the line
    beside the label, and the row carries no empty hour below it */
-.rhr.rlast .rhl{height:auto}
+.rhr.rlast .rhl{height:auto;line-height:24px}   /* match the content's 16px/1.5 line box: BASELINES level */
 .rhr.rlast .rcell{justify-content:flex-start;padding-top:0}
+.rhr.rlast .rev{padding-top:0}
 .rev{display:flex;gap:12px;align-items:baseline;padding:2px 0}
 .rbody{min-width:0}
 .rdo{font-size:16px;color:var(--t2);line-height:1.5}
@@ -447,7 +449,7 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .ccard{flex:0 0 clamp(250px,82vw,310px);background:var(--grp);border-radius:12px;padding:13px 16px 15px}
 /* muscle-group sub-headers: a quiet caps overline — always SMALLER than the
    exercise names they label, or the labels read as the content */
-.cgrp{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--info);text-transform:uppercase;
+.cgrp{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--info);text-transform:uppercase;
   padding:14px 0 2px}
 /* the info tip: a small circled i, details unfold below on tap */
 .infob{display:inline-flex;width:18px;height:18px;margin-left:6px;border-radius:50%;flex:none;
@@ -467,7 +469,7 @@ li.open .exinfo,.srow.open .exinfo{display:block}
 .exset b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;line-height:1.4}
 /* >b : the title is the card's DIRECT child. A bare `.ccard b` swallows every <b>
    in the card — all set numbers and kg/reps legends rendered at title size */
-.ccard>b{font-size:15px;font-weight:750;letter-spacing:.06em;color:var(--txt);text-transform:uppercase}
+.ccard>b{font-size:14px;font-weight:750;letter-spacing:.06em;color:var(--txt);text-transform:uppercase}
 .ccard ul{margin:7px 0 12px;padding:0;list-style:none}
 .ccard ul:last-child{margin-bottom:0}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.65;padding:3.5px 0;border-bottom:.5px solid var(--line2);position:relative}
@@ -501,7 +503,7 @@ li.open .exinfo,.srow.open .exinfo{display:block}
      so changing it here moves both, and they cannot drift apart. */
   :root{--thh:26px}
   .topbar{padding-top:8px}
-  .bar{margin-bottom:6px;row-gap:4px}
+  .bar{margin-bottom:2px;row-gap:4px}
   .chip{padding:8px 13px;font-size:15.5px}
   .chip .cn{margin-left:5px;font-size:13px}
   .srch{width:34px;height:34px}
