@@ -76,8 +76,8 @@ html.tfade *::before,html.tfade *::after{
              fill .22s ease,stroke .22s ease !important}
 .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 20px 110px}
 .topbar{position:fixed;top:0;left:0;width:100%;z-index:50;background:var(--bg);
-  padding:12px var(--gut,20px) 0;   /* ONE constant height for the row — pills and tabs share
-                                       the station; it must not shift between states */
+  padding:8px var(--gut,20px) 0;   /* ONE constant height for the row — pills and tabs share
+                                      the station; 8px is the standard minimum comfortable inset */
   transition:border-color .2s ease;border-bottom:.5px solid transparent}
 .topspacer{height:var(--toph,112px)}   /* fixed takes it out of flow; hold its place */
 .topbar.stuck{border-bottom-color:var(--line)}

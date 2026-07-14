@@ -206,7 +206,7 @@ window.BLOODWORK =
    ]},
    {"t": "Triceps", "items": [
     {"n": "Tricep pushdown", "sets": [[25,20],[25,20]]},
-    {"n": "Overhead tricep extension", "sets": [[20,10],[20,10]]}
+    {"n": "Overhead tricep ext.", "sets": [[20,10],[20,10]]}
    ]},
    {"t": "Chest", "items": [
     {"n": "Incline dumbbell press", "sets": [[30,6],[30,6]]},
