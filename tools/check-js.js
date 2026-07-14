@@ -80,7 +80,10 @@ setTimeout(()=>{
     ok(`routine draws ${ltN} long tics`, count(n.pages.innerHTML,'rhl lt')===ltN,
       count(n.pages.innerHTML,'rhl lt')+' long tics');
     ok(`routine shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
-      count(n.pages.innerHTML,'ccard')+' cards'); }
+      count(n.pages.innerHTML,'ccard')+' cards');
+    const cg=DATA.CARE.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
+    ok(`care cards show ${cg} cadence groups`, count(n.pages.innerHTML,'cgrp')===cg,
+      count(n.pages.innerHTML,'cgrp')+' groups'); }
   catch(e){ ok('routine ruler',false,e.message); }
   // training cards are organised in muscle-group sub-sections; every set renders a column
   try{ setPage('training');

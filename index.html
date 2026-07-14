@@ -713,7 +713,9 @@ function audit(j){
     if(!m.items||!m.items.length)bad.push(`DIET "${m.t}": meal has no items`);
   });
   if(j.CARE)j.CARE.forEach(c=>{
-    if(!Array.isArray(c.items))bad.push(`CARE "${c.t}": items must be an array (empty is fine)`);
+    if(c.groups)c.groups.forEach(g=>{
+      if(!Array.isArray(g.items)||!g.items.length)bad.push(`CARE "${c.t}" / "${g.t}": group needs items`);});
+    else if(!Array.isArray(c.items))bad.push(`CARE "${c.t}": items must be an array (empty is fine)`);
   });
   if(j.TRAINING)(j.TRAINING.cards||[]).forEach(c=>{
     if(c.groups)c.groups.forEach(g=>{
