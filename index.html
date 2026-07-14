@@ -414,6 +414,9 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
 .xico,.xmono{display:inline-flex;width:30px;height:30px;border-radius:8px;align-items:center;justify-content:center;
   background:var(--btn);border:.5px solid var(--btn-b);font-size:12.5px;font-weight:700;color:var(--t2);flex:none}
 .xico svg{width:22px;height:22px}
+/* illustration tiles keep their white artwork background in both themes */
+.xico.ximg{background:#fff;overflow:hidden;padding:1px}
+.xico.ximg img{width:100%;height:100%;object-fit:contain;display:block}
 .ccard li{display:flex;align-items:flex-start;gap:10px}
 .ccard li .xico,.ccard li .xmono{margin-top:1px}
 .ccard b{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--t3);text-transform:uppercase}
@@ -1020,7 +1023,15 @@ const XICONS=[
  [/lateral|deltoid/,XIS('<circle cx="12" cy="4.6" r="1.9" fill="currentColor" stroke="none"/><path d="M12 6.5v7.5"/><path d="M12 14l-1.8 5.6M12 14l1.8 5.6"/><path d="M12 8H5.6M12 8h6.4"/><circle cx="4.4" cy="8" r="1.2" fill="currentColor" stroke="none"/><circle cx="19.6" cy="8" r="1.2" fill="currentColor" stroke="none"/>')],
  [/fly|chest press|bench/,XIS('<path d="M5 17.6h13.5"/><path d="M7 17.6v2.6M16 17.6v2.6"/><circle cx="5.8" cy="13.6" r="1.9" fill="currentColor" stroke="none"/><path d="M8 14.4h8"/><path d="M12 14.2V9.6"/><path d="M8.6 9.2h6.8"/><circle cx="7.3" cy="9.2" r="1.2" fill="currentColor" stroke="none"/><circle cx="16.7" cy="9.2" r="1.2" fill="currentColor" stroke="none"/>')]
 ];
-const xicon=s=>{const n=s.toLowerCase();const hit=XICONS.find(([re])=>re.test(n));
+// User-supplied open-source exercise illustrations (small thumbnails in ex/). Checked
+// FIRST — the drawn figures above stay as fallback until each one gets its illustration.
+const XIMG=[
+ [/chin.?up/,'ex/chin-up.jpeg']
+];
+const xicon=s=>{const n=s.toLowerCase();
+  const img=XIMG.find(([re])=>re.test(n));
+  if(img)return `<span class="xico ximg"><img src="${img[1]}" alt="" loading="lazy"></span>`;
+  const hit=XICONS.find(([re])=>re.test(n));
   return hit?`<span class="xico">${hit[1]}</span>`:null;};
 let page='markers';
 document.documentElement.dataset.page=page;
