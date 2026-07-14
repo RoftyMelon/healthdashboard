@@ -553,6 +553,17 @@ li.open .exinfo{display:block}
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
 }
 </style>
+<script>
+/* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
+   light flash. Sync, right after the stylesheet, so --chrome is resolvable. The CSS
+   default stays light and this is wrapped: if JS dies, the page is light, never black
+   (rule: :root must not hold the dark palette). load() re-applies any saved choice. */
+try{if(matchMedia('(prefers-color-scheme: dark)').matches){
+  const H=document.documentElement;H.dataset.theme='dark';
+  const m=document.querySelector('meta[name=theme-color]');
+  if(m)m.setAttribute('content',getComputedStyle(H).getPropertyValue('--chrome').trim());
+}}catch(e){}
+</script>
 
 <div class="wrap">
   <div class="topbar" id="topbar">
@@ -675,10 +686,12 @@ function paint(){
   const lbl=S.theme==='dark'?'Switch to light mode':'Switch to dark mode';
   const b=document.getElementById('tbtn'); b.setAttribute('aria-label',lbl); b.title=lbl;
 }
+let themeChosen=false;   // a manual flip beats the OS preference, and is persisted
 async function flip(){
   const H=document.documentElement;
   orbitR+=180; setOrbit(true);                 // live button, uninterrupted 850ms orbit
   H.classList.add('tfade');
+  themeChosen=true;
   S.theme=S.theme==='light'?'dark':'light';
   paint();
   clearTimeout(flip._t);
@@ -797,8 +810,16 @@ function askForFile(err){
 }
 
 async function load(){
+  // theme: the DEVICE's scheme is the default; a saved manual flip overrides it
+  let saved=null;
   try{if(window.storage){const r=await window.storage.get(TKEY);
-    if(r&&(r.value==='dark'||r.value==='light'))S.theme=r.value;}}catch(e){}
+    if(r&&(r.value==='dark'||r.value==='light'))saved=r.value;}}catch(e){}
+  const sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)');
+  themeChosen=!!saved;
+  S.theme=saved||(sys&&sys.matches?'dark':'light');
+  if(sys&&sys.addEventListener)sys.addEventListener('change',e=>{   // live: follow the OS until flipped
+    if(themeChosen)return;
+    S.theme=e.matches?'dark':'light';paint();});
   paint();
   // 1. bloodwork.js sitting next to this file. Works from DISK — no server, no CORS,
   //    because <script src> is not subject to the fetch() same-origin rule.

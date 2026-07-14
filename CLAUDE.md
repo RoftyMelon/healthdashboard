@@ -62,6 +62,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
    `300µg` renders as `300MG` — a 1000x dose error. Never let uppercase touch a unit. Use `mcg`.
 6. **Light is the default palette; dark is opt-in.** `:root` must never hold the dark colours —
    before JS runs there is no `data-theme` attribute, and a JS failure would show a black screen.
+   Dark is applied by JS: a sync head script follows the OS scheme before first paint, and a
+   manual toggle (persisted) overrides the OS for good. All of it try/catch'd: JS dies → light.
 7. **Anything that must appear "with" an expansion must live ON the animated element.**
    Two independent easings will not agree.
 
