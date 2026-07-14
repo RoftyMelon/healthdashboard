@@ -339,7 +339,7 @@ html[data-page=markers] .pgbtn[aria-expanded=true] svg{transform:rotate(180deg)}
 html[data-page=markers] .pgbtn[aria-expanded=true] .ham{opacity:0}
 html[data-page=markers] .pgbtn[aria-expanded=true] .x{opacity:1}
 .pgbtn[aria-expanded=true]{color:var(--txt)}
-.ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;
+.ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;position:relative;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
   scrollbar-width:none;-webkit-overflow-scrolling:touch;
   transition:margin-left .34s cubic-bezier(.2,.7,.3,1) .22s}   /* delayed like the button's return */
@@ -364,8 +364,11 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
   letter-spacing:-.005em;transition:color .14s}
 .pt:hover{color:var(--txt)}
 .pt.on{color:var(--txt);font-weight:700}
-.pt.on::after{content:"";position:absolute;left:13px;right:13px;bottom:3px;height:2px;
-  border-radius:2px;background:var(--sol)}
+/* ONE shared underline slides between tabs (pseudo-elements can't animate across
+   buttons). movePtu() positions it from the active tab; it lives in the scroller's
+   content so it rides along when the strip scrolls. */
+.ptu{position:absolute;bottom:3px;height:2px;border-radius:2px;background:var(--sol);
+  left:0;width:0;transition:left .3s cubic-bezier(.3,.7,.2,1),width .3s cubic-bezier(.3,.7,.2,1)}
 /* off the markers page, everything table-flavoured folds away with it */
 html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
 html:not([data-page=markers]) .toc,
@@ -568,7 +571,6 @@ li.open .exinfo,.srow.open .exinfo{display:block}
   .ptabs{margin-right:12px}                   /* tight: all five tabs should FIT, not scroll */
   .swap{padding-right:44px}                   /* scrolled pills end clear of the toggle too */
   .pt{font-size:16px;padding:8px 8px}
-  .pt.on::after{left:8px;right:8px}
   html:not([data-page=markers]) .ptabs{margin-left:-8px}   /* narrow .pt padding is 8px */
   .pgh{font-size:24px}
   .rht{width:56px}
@@ -623,6 +625,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
       <button class="pt" data-pg="routine" onclick="setPage('routine')">Routine</button>
       <button class="pt" data-pg="diet" onclick="setPage('diet')">Diet</button>
       <button class="pt" data-pg="training" onclick="setPage('training')">Training</button>
+      <i class="ptu" id="ptu"></i>
     </nav>
     <div class="srch" id="srch">
       <button class="sicon" id="sbtn" aria-label="Search markers" title="Search  ( / )">
@@ -1109,6 +1112,13 @@ let page='markers';
 document.documentElement.dataset.page=page;
 const PGEL=document.getElementById('pages'),
       PBTN=document.getElementById('pgbtn'),PTABS=document.getElementById('ptabs');
+function movePtu(){   // slide the shared underline under the active tab
+  const on=PTABS.querySelector('.pt.on'),u=document.getElementById('ptu');
+  if(!on||!u||!on.offsetWidth)return;   // hidden strip: keep the last position
+  const pad=parseFloat(getComputedStyle(on).paddingLeft)||0;
+  u.style.left=(on.offsetLeft+pad)+'px';
+  u.style.width=Math.max(0,on.offsetWidth-2*pad)+'px';
+}
 // open = the tab strip stands in for the filter row; html[data-menu=open] drives ALL of it.
 // The swap is choreographed: aria flips at TAP time (the icon reacts instantly), the bar
 // fade-slides out, the content flips while invisible, and the same transition rides back in.
@@ -1117,6 +1127,7 @@ function pmSet(open){
   if(open===menuOpen)return;
   menuOpen=open;
   PBTN.setAttribute('aria-expanded',String(open));
+  requestAnimationFrame(movePtu);   // the strip may have just become visible
   const apply=()=>{ if(open)document.documentElement.dataset.menu='open';
                     else delete document.documentElement.dataset.menu; };
   const B=document.getElementById('swap');
@@ -1138,7 +1149,7 @@ function setPage(p){
   // The topbar changes composition here (toc + pills vs tabs), so --toph must be
   // re-measured HERE. The ResizeObserver alone proved unreliable (unreferenced
   // observers can be GC'd), and a stale --toph leaves a phantom gap under the bar.
-  requestAnimationFrame(()=>setTop());
+  requestAnimationFrame(()=>{setTop();movePtu();});
   setTimeout(()=>setTop(),400);   // again once the .34s strip swap has settled
   window.scrollTo({top:0});
 }
@@ -1303,7 +1314,7 @@ window.addEventListener('scroll',()=>{
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
-window.addEventListener('resize',()=>{setTop();setGut();fitChart();},{passive:true});
+window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{passive:true});
 TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 function onQ(v){qRaw=v.trim();q=norm(qRaw);SRCH.classList.toggle('has',!!q);render();}
 function sShut(){SRCH.classList.remove('open','has');QI.value='';QI.blur();if(q)onQ('');}
