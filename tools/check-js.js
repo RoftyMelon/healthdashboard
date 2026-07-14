@@ -53,7 +53,9 @@ setTimeout(()=>{
   try{ setPage('routine');
     const span=parseInt(DATA.ROUTINE[DATA.ROUTINE.length-1].t)-parseInt(DATA.ROUTINE[0].t)+1;
     ok(`routine shows ${span} hour marks`, count(n.pages.innerHTML,'rhr')===span,
-      count(n.pages.innerHTML,'rhr')+' marks'); }
+      count(n.pages.innerHTML,'rhr')+' marks');
+    ok(`routine shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
+      count(n.pages.innerHTML,'ccard')+' cards'); }
   catch(e){ ok('routine hour marks',false,e.message); }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }

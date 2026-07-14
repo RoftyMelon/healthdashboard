@@ -30,7 +30,7 @@ window.BLOODWORK =
    "supervision": "none"
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
-  "lifestyle_blocks": "STACK, ROUTINE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is the meal a supplement is taken with (breakfast/lunch/dinner) — null means NOT YET ASSIGNED, never guess it. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). .ev tags a candidate's evidence like oc does (strong/moderate/weak). ROUTINE times are HH:MM ascending; a routine entry's .slot pulls the matching STACK items at render time, so meal supplement lists are derived, never written twice. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
+  "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in protocol phases: most items are status 'planned', gated on the first or second blood test of the new protocol (their category says which). STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is the meal a supplement is taken with (breakfast/lunch/dinner) — null means NOT YET ASSIGNED, never guess it. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). A category's .note is the user's own caveat, shown under the section header. ROUTINE times are HH:MM ascending; a routine entry's .slot pulls the matching STACK items at render time, so meal supplement lists are derived, never written twice. CARE holds the dental / face protocols, rendered as cards on the Routine page — deliberately NOT hour-by-hour events, they would duplicate. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
   "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (300mcg iodine; historical draws were ALSO under iodine-fortified Huel, since dropped), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
@@ -95,34 +95,35 @@ window.BLOODWORK =
  ],
  "STACK": {
   "cats": [
-   {"id": "found", "t": "Foundation"},
-   {"id": "anti",  "t": "Antioxidants & botanicals"},
-   {"id": "amino", "t": "Aminos & structure"},
-   {"id": "hair",  "t": "Hair (topical)"},
-   {"id": "sleep", "t": "Sleep & stress"}
+   {"id": "p1", "t": "Will start after first blood test"},
+   {"id": "evening", "t": "Evening"},
+   {"id": "hair", "t": "Hair loss", "note": "Topical application as a serum = fewer side effects. Finasteride 0.1% is a low dose — stay aware of potential effects on libido, erectile function and mood (including depression) during the first 6 months."},
+   {"id": "p2", "t": "Will start after second blood test"},
+   {"id": "sport", "t": "Sport"},
+   {"id": "hairlater", "t": "Hair loss, down the road", "note": "Potential additions to increase scalp absorption."}
   ],
   "items": [
-   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Vitamin D3 5000 IU + K2"},
-   {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Iodine 300mcg"},
-   {"id": "omega3", "name": "Omega-3", "dose": "4.5g (3g EPA + 1.5g DHA)", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
-   {"id": "mglthr", "name": "Magnesium L-threonate", "dose": null, "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Magnesium L-threonate"},
-   {"id": "boron", "name": "Boron", "dose": "5mg", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Boron 5mg"},
-   {"id": "zinc", "name": "Zinc", "dose": null, "cat": "found", "status": "candidate", "when": null, "url": null, "dec": "Zinc + copper"},
-   {"id": "astax", "name": "Astaxanthin", "dose": "24mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": null},
-   {"id": "lyco", "name": "Lycopene", "dose": "50mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": null},
-   {"id": "curcumin", "name": "Curcumin", "dose": null, "cat": "anti", "status": "taking", "when": null, "url": null, "dec": "Curcumin"},
-   {"id": "garlic", "name": "AGE garlic", "dose": "2400mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": "AGE garlic 2400mg"},
-   {"id": "glycine", "name": "Glycine", "dose": "12g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
-   {"id": "taurine", "name": "Taurine", "dose": "5g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
-   {"id": "nac", "name": "NAC", "dose": "2000mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "NAC 2000mg"},
-   {"id": "tmg", "name": "TMG", "dose": "1000mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "TMG 1000mg"},
-   {"id": "collagen", "name": "Collagen", "dose": "2g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
-   {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": null},
-   {"id": "creatine", "name": "Creatine", "dose": "5g", "cat": "amino", "status": "stopped", "when": null, "url": null, "dec": "Creatine 5g"},
-   {"id": "minoxidil", "name": "Minoxidil (topical)", "dose": "5%", "cat": "hair", "status": "taking", "when": null, "url": null, "dec": null},
-   {"id": "finasteride", "name": "Finasteride (topical)", "dose": "0.1%, 1mL", "cat": "hair", "status": "planned", "when": null, "url": null, "dec": "Finasteride (topical) 0.1% - 1mL"},
-   {"id": "ashwagandha", "name": "Ashwagandha", "dose": null, "cat": "sleep", "status": "dropped", "when": null, "url": null, "dec": null},
-   {"id": "melatonin", "name": "Melatonin", "dose": null, "cat": "sleep", "status": "dropped", "when": null, "url": null, "dec": null}
+   {"id": "astax", "name": "Astaxanthin", "dose": "24mg", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "lyco", "name": "Lycopene", "dose": "50mg", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": "Vitamin D3 5000 IU + K2"},
+   {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": "Iodine 300mcg"},
+   {"id": "omega3", "name": "Omega-3", "dose": "3g EPA + 1.5g DHA", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
+   {"id": "collagenc", "name": "Collagen + vitamin C", "dose": "10g", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "ha", "name": "Hyaluronic acid", "dose": "200mg", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "brazilnut", "name": "Brazil nut", "dose": "1 per day", "cat": "p1", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "mglthr", "name": "Magnesium L-threonate", "dose": "2000mg (150mg elemental)", "cat": "evening", "status": "planned", "when": null, "url": null, "dec": "Magnesium L-threonate"},
+   {"id": "minoxidil", "name": "Minoxidil (topical)", "dose": "5-10%, 1mL 2x/day", "cat": "hair", "status": "taking", "when": null, "url": null, "dec": null},
+   {"id": "finasteride", "name": "Finasteride (topical)", "dose": "0.1%, 1mL 2x/day", "cat": "hair", "status": "planned", "when": null, "url": null, "dec": "Finasteride (topical) 0.1% - 1mL"},
+   {"id": "glycine", "name": "Glycine", "dose": "12g", "cat": "p2", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "nac", "name": "NAC", "dose": "2000mg", "cat": "p2", "status": "planned", "when": null, "url": null, "dec": "NAC 2000mg"},
+   {"id": "tmg", "name": "TMG", "dose": "1000mg", "cat": "p2", "status": "planned", "when": null, "url": null, "dec": "TMG 1000mg"},
+   {"id": "garlic", "name": "AGE garlic", "dose": "2400mg", "cat": "p2", "status": "planned", "when": null, "url": null, "dec": "AGE garlic 2400mg"},
+   {"id": "curcumin", "name": "Curcumin", "dose": null, "cat": "p2", "status": "planned", "when": null, "url": null, "dec": "Curcumin"},
+   {"id": "creatine", "name": "Creatine", "dose": "5g (up to 20g in periods of fatigue)", "cat": "sport", "status": "planned", "when": null, "url": null, "dec": "Creatine 5g"},
+   {"id": "taurine", "name": "Taurine", "dose": "5g", "cat": "sport", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "boron", "name": "Boron", "dose": "5mg", "cat": "sport", "status": "planned", "when": null, "url": null, "dec": "Boron 5mg"},
+   {"id": "tretinoin", "name": "Tretinoin / retinoic acid (topical)", "dose": "0.01%, 1mL", "cat": "hairlater", "status": "candidate", "when": null, "url": null, "dec": null},
+   {"id": "ketoconazole", "name": "Ketoconazole (topical)", "dose": "2%, 1mL 3x/week", "cat": "hairlater", "status": "candidate", "when": null, "url": null, "dec": null}
   ]
  },
  "ROUTINE": [
@@ -135,6 +136,20 @@ window.BLOODWORK =
   {"t": "21:00", "do": "Screens off"},
   {"t": "21:30", "do": "Bedtime"},
   {"t": "22:00", "do": "Lights out"}
+ ],
+ "CARE": [
+  {"id": "dental", "t": "Dental", "items": [
+   "Water jet + toothbrush 2-3x/day",
+   "Alternate thread floss & interdental brushes",
+   "Dental scaling 2-3x/year",
+   "Carbamide peroxide 10-15% - 2x/year, applied with custom dental tray"
+  ]},
+  {"id": "face", "t": "Face", "items": [
+   "Morning: serum, then day cream",
+   "Evening: 1% retinol, then night cream, then petroleum (Vaseline)",
+   "Glycolic acid 7%, 2x/week",
+   "Microneedling 1mm, face + scalp, 1x/week"
+  ]}
  ],
  "DIET": {
   "meals": [
