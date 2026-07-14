@@ -395,10 +395,11 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
    START; row content hangs below its hour line. Every hour is exactly --hh tall. */
 .rhl{display:flex;align-items:flex-start;gap:6px;height:var(--hh);white-space:nowrap}
 .rhl::before{content:"";flex:none;width:7px;height:1px;background:var(--t4);opacity:.55;margin-top:7px}
-/* a boundary line spans the WHOLE row. It positions against .rhr at the first label's
-   line — safe because the hour-walk guarantees a boundary hour always STARTS its row */
-.rhl.lt::before{visibility:hidden}
-.rhl.lt::after{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--t4);opacity:.55}
+/* a boundary line runs from just past the label to the row's right edge. It positions
+   against .rhr at the first label's line — safe because the hour-walk guarantees a
+   boundary hour always STARTS its row. left:48px clears the tabular HH:00 text;
+   left:0 would strike THROUGH it. */
+.rhl.lt::after{content:"";position:absolute;left:48px;right:0;top:7px;height:1px;background:var(--t4);opacity:.55}
 .rcell{flex:1;min-width:0;padding:10px 0 4px}   /* text hangs just under its hour line */
 /* block text centres BETWEEN the boundary tic lines, which sit 7px below the cell
    tops they belong to — so the midpoint is the box centre + 7px: pad 2x7 on top. */
