@@ -32,6 +32,9 @@ list below **passed a syntax check and shipped a broken page**:
   first deploy until 2026-07. It is `:root[data-theme=dark]` now. A palette has no error to throw:
   LOOK at both themes.
 - a media query placed *before* a base rule **stopped applying** (media queries add no specificity)
+- `.ccard b` (the card TITLE) matched **every `<b>` in the card** — 84 set numbers and 34
+  kg/reps legends silently rendered at 16px title style, uppercase included. Scope
+  container rules to the child: `.ccard>b`.
 - `position:static` killed sticky on **both** axes when only the horizontal was wanted
 - `--thh` was **circular**: the header was sized from it and it was measured back from the header
 - `offsetLeft` on a table cell resolves against a **different origin** depending on the cell's
