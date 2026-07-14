@@ -386,24 +386,20 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
 .smk:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt)}
 /* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
 .rhr{display:flex;gap:14px}
-.rhr.rempty{border-bottom:.5px solid var(--line2)}   /* only FREE hours draw the hairline */
-.rht{flex:none;width:48px;font-size:11px;font-weight:600;color:var(--t4);
+.rht{flex:none;width:64px;font-size:11px;font-weight:600;color:var(--t4);
   font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.rhl{display:block;height:44px;padding-top:9px}   /* the hour rhythm: 44px per mark */
+/* the ruler is drawn with TICS: a subtle one per hour, a longer darker one where a
+   block starts or ends. No boxes, no hairlines — the rail carries the day's shape. */
+.rhl{display:block;height:44px;padding-top:9px;white-space:nowrap}   /* 44px per hour */
+.rhl::before{content:"";display:inline-block;width:7px;height:1px;background:var(--t4);
+  margin-right:6px;vertical-align:3.5px;opacity:.55}
+.rhl.lt::before{width:15px;height:2px;background:var(--t2);opacity:1;vertical-align:3px}
 .rhr.rempty .rhl{height:auto;padding:5px 0}       /* truly free hours stay slim */
 .rcell{flex:1;min-width:0;padding:5px 0 7px}
 .rhr.rempty .rcell{padding:0}
-/* a CARD means OCCUPIED TIME: anything with a duration gets one (tall when it spans
-   hours, compact for a 30-min range). Instants stay bare rows; free hours are hairlines. */
 .rev{display:flex;gap:12px;align-items:baseline;padding:4px 0}
-.rev.rcard{background:var(--grp);border-radius:11px;padding:9px 12px;margin:4px 0}
 .rem{flex:none;width:44px;font-size:12.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums}
 .ru{display:block;font-size:10px;font-weight:550;color:var(--t4);margin-top:1px}   /* a block's END time */
-/* a block (gym, work) is ONE box spanning its whole duration, 44px per hour */
-.rblock{background:var(--grp);border-radius:11px;padding:10px 14px;margin:4px 0;
-  display:flex;flex-direction:column;gap:2px}
-.rblock b{font-size:13.5px;font-weight:650;color:var(--txt);letter-spacing:-.01em}
-.rbr{font-size:11px;color:var(--t3);font-variant-numeric:tabular-nums}
 .rbody{min-width:0}
 .rdo{font-size:13.5px;color:var(--t2);line-height:1.5}
 .rsup{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
@@ -501,7 +497,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
   .pt.on::after{left:8px;right:8px}
   html:not([data-page=markers]) .ptabs{margin-left:-8px}   /* narrow .pt padding is 8px */
   .pgh{font-size:16px}
-  .rht{width:40px}
+  .rht{width:56px}
   .rem{width:40px;font-size:12px}
 }
 /* On an actual phone, row 1 must still hold hamburger + search + all three pills clear of
@@ -1025,6 +1021,10 @@ function setPage(p){
   window.scrollTo({top:0});
 }
 function renderPage(p){
+  const cardRow=list=>!list.length?'':`<div class="care">`+list.map(c=>
+    `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
+      ?`<ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
+      :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
   let h='';
   if(p==='stack'&&STACK){
     const n=st=>STACK.items.filter(s=>s.status===st).length;
@@ -1053,24 +1053,28 @@ function renderPage(p){
     // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
     // hours take up (a little) space and the day reads as time, not as glued-together events
     const H0=parseInt(ROUTINE[0].t),H1=parseInt(ROUTINE[ROUTINE.length-1].t);
+    // block boundaries earn the LONG tics; every other hour gets a subtle one
+    const lt=new Set();
+    ROUTINE.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    const mark=hh=>`<i class="rhl${lt.has(hh)?' lt':''}">${String(hh).padStart(2,'0')}:00</i>`;
     h=`<div class="pgh">Daily routine</div><div class="pgsub">${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${H1-H0} hours</div>`;
+    h+=cardRow(CARE.filter(c=>c.top));   // the meal-supps cards lead the page
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
-      // a multi-hour BLOCK (gym, work) owns its whole span: it swallows its interior hours,
-      // stacks their labels on the rail, and draws one box proportional to time. A block
-      // that ends within its own hour (a 30-min lunch) renders as a compact card instead —
-      // taking the tall path with endH===hr would never advance the loop.
+      // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
+      // beside it, so its height stays proportional to time — no box, just the tics.
+      // A block ending within its own hour renders as a plain row (endH===hr never advances).
       const block=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>hr?evs[0]:null;
       if(block){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
-        const labels=Array.from({length:span},(_,i)=>`<i class="rhl">${String(hr+i).padStart(2,'0')}:00</i>`).join('');
+        const labels=Array.from({length:span},(_,i)=>mark(hr+i)).join('');
         h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span><div class="rcell">`+
-           `<div class="rblock" style="min-height:${span*44-8}px"><b>${esc(block.do)}</b>`+
-           `<span class="rbr">${block.t} &ndash; ${block.until}</span></div></div></div>`;
+           `<div class="rev"><span class="rem">${block.t}<span class="ru">&ndash;${block.until}</span></span>`+
+           `<div class="rbody"><div class="rdo">${esc(block.do)}</div></div></div></div></div>`;
         hr=endH;continue;
       }
-      h+=`<div class="rhr${evs.length?'':' rempty'}"><span class="rht"><i class="rhl">${String(hr).padStart(2,'0')}:00</i></span><div class="rcell">`+
+      h+=`<div class="rhr${evs.length?'':' rempty'}"><span class="rht">${mark(hr)}</span><div class="rcell">`+
         evs.map(r=>{
           let sup='';
           if(r.slot&&STACK){
@@ -1079,21 +1083,14 @@ function renderPage(p){
               ?`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`
               :`<div class="rhint">which supplements? not assigned yet — set "when":"${r.slot}" on STACK items</div>`;
           }
-          return `<div class="rev${r.until?' rcard':''}"><span class="rem">${r.t}${r.until?`<span class="ru">&ndash;${r.until}</span>`:''}</span><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
+          return `<div class="rev"><span class="rem">${r.t}${r.until?`<span class="ru">&ndash;${r.until}</span>`:''}</span><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
         }).join('')+`</div></div>`;
       hr++;
     }
-    // care cards close the page, below the day; an empty card is a deliberate placeholder
-    if(CARE.length)h+=`<div class="care">`+CARE.map(c=>
-      `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
-        ?`<ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
-        :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
+    h+=cardRow(CARE.filter(c=>!c.top));   // the protocol cards close the page
   } else if(p==='training'&&TRAINING.length){
     h=`<div class="pgh">Training</div><div class="pgsub">${TRAINING.map(c=>esc(c.t)).join(' · ')}</div>`+
-      `<div class="care">`+TRAINING.map(c=>
-        `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
-          ?`<ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
-          :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
+      cardRow(TRAINING);
   } else if(p==='diet'&&DIET){
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.length} meals a day</div>`+
       DIET.meals.map(m=>`<div class="meal"><div class="pgst">${esc(m.t)}<small>${esc(m.at||'')}</small></div>`+

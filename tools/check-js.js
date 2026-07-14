@@ -54,7 +54,7 @@ setTimeout(()=>{
     cardN+=evs.length;_hr++;
   }
   const want={stack:['srow',DATA.STACK.items.length],
-    routine:['rev',cardN],
+    routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.length],
     diet:['meal',DATA.DIET.meals.length]};
   Object.entries(want).forEach(([p,[cls,n2]])=>{
@@ -70,8 +70,14 @@ setTimeout(()=>{
     const blocks=tallN;
     ok(`routine marks ${hours} hours on the rail`, count(n.pages.innerHTML,'rhl')===hours,
       count(n.pages.innerHTML,'rhl')+' marks');
-    ok(`routine draws ${blocks} span blocks`, count(n.pages.innerHTML,'rblock')===blocks,
-      count(n.pages.innerHTML,'rblock')+' blocks');
+    ok(`routine draws ${blocks} span rows`, count(n.pages.innerHTML,'rhr rblockrow')===blocks,
+      count(n.pages.innerHTML,'rhr rblockrow')+' blocks');
+    // block starts/ends earn the LONG tics, clamped to the ruler's range
+    const H0=parseInt(R[0].t),H1=parseInt(R[R.length-1].t),lt=new Set();
+    R.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    const ltN=[...lt].filter(hh=>hh>=H0&&hh<=H1).length;
+    ok(`routine draws ${ltN} long tics`, count(n.pages.innerHTML,'rhl lt')===ltN,
+      count(n.pages.innerHTML,'rhl lt')+' long tics');
     ok(`routine shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
       count(n.pages.innerHTML,'ccard')+' cards'); }
   catch(e){ ok('routine ruler',false,e.message); }

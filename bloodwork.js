@@ -140,10 +140,10 @@ window.BLOODWORK =
   {"t": "22:00", "do": "Lights out"}
  ],
  "CARE": [
-  {"id": "bsupps", "t": "Breakfast supps", "items": []},
-  {"id": "lsupps", "t": "Lunch supps", "items": []},
-  {"id": "dsupps", "t": "Dinner supps", "items": []},
-  {"id": "esupps", "t": "Evening supps", "items": []},
+  {"id": "bsupps", "t": "Breakfast supps", "top": true, "items": []},
+  {"id": "lsupps", "t": "Lunch supps", "top": true, "items": []},
+  {"id": "dsupps", "t": "Dinner supps", "top": true, "items": []},
+  {"id": "esupps", "t": "Evening supps", "top": true, "items": []},
   {"id": "dental", "t": "Dental", "items": [
    "Water jet + toothbrush 2-3x/day",
    "Alternate thread floss & interdental brushes",
