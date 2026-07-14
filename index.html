@@ -412,10 +412,11 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
    card mid-screen read as a bug, so nothing scrolls sideways here anymore */
 .care{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px}
 .ccard{flex:1 1 240px;min-width:min(240px,100%);background:var(--grp);border-radius:12px;padding:13px 16px 15px}
-/* exercise monogram: the workout app's own letter-tile fallback, honestly reproduced */
-.xmono{display:inline-flex;width:20px;height:20px;border-radius:6px;align-items:center;justify-content:center;
+/* exercise tiles: a drawn pictogram when the name matches one, a letter tile otherwise */
+.xico,.xmono{display:inline-flex;width:22px;height:22px;border-radius:6px;align-items:center;justify-content:center;
   background:var(--btn);border:.5px solid var(--btn-b);font-size:10.5px;font-weight:700;color:var(--t3);
-  margin-right:8px;vertical-align:-4px;flex:none}
+  margin-right:8px;vertical-align:-6px;flex:none}
+.xico svg{width:16px;height:16px}
 .ccard b{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--t3);text-transform:uppercase}
 .ccard ul{margin:7px 0 0;padding:0;list-style:none}
 .ccard li{font-size:12.5px;color:var(--t2);line-height:1.7;padding:3px 0;border-bottom:.5px solid var(--line2)}
@@ -991,6 +992,23 @@ function gotoDec(gi){
    into #pages from the STACK / ROUTINE / DIET blocks, and the table-only controls
    fold away via html[data-page] (see the CSS). Nothing here touches table geometry. */
 const PAGES={markers:'Markers',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training'};
+// tiny ORIGINAL pictograms for exercises, matched by name — the workout app's illustrations
+// are its own artwork. Unmatched names fall back to the letter tile.
+const XI=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const XICONS=[
+ [/explosive/,XI('<path d="M4 4h16"/><path d="M12 20V8"/><path d="M8.8 11.2 12 8l3.2 3.2"/>')],
+ [/chin.?up|pull.?up/,XI('<path d="M4 4h16"/><path d="M8.5 4v2.2L12 9l3.5-2.8V4"/><circle cx="12" cy="11.2" r="1.9"/><path d="M12 13.2v3.8l-2 3m2-3 2 3"/>')],
+ [/hang/,XI('<path d="M4 4h16"/><path d="M12 4v5.5"/><circle cx="12" cy="11.5" r="1.9"/><path d="M12 13.5V18"/>')],
+ [/face pull/,XI('<circle cx="7" cy="12" r="2.2"/><path d="M20 7l-8.5 3.6M20 17l-8.5-3.6"/><path d="M11.5 10.6v2.8"/>')],
+ [/row/,XI('<path d="M4 8h9"/><circle cx="16" cy="7.5" r="1.9"/><path d="M9.5 8v5.5"/><path d="M6.5 16h6"/><path d="M8 14.2v3.6M11 14.2v3.6"/>')],
+ [/back extension/,XI('<path d="M4 19h8"/><path d="M6.5 19l4.5-5h3"/><path d="M14 14l4-4.5"/><circle cx="19" cy="8" r="1.8"/>')],
+ [/curl/,XI('<path d="M7 19V9.5C7 7.5 8.5 6 10.5 6"/><path d="M10.5 6l6 6"/><path d="M14.5 14.5l4-4M17.3 16.2l3-3"/>')],
+ [/shrug/,XI('<circle cx="12" cy="6" r="1.9"/><path d="M8.5 11.5h7"/><path d="M6 16v-4m0 0-1.5 1.5M6 12l1.5 1.5M18 16v-4m0 0-1.5 1.5M18 12l1.5 1.5"/>')],
+ [/pull.?over/,XI('<path d="M4 17h10"/><circle cx="16" cy="15" r="1.9"/><path d="M15.5 13c.5-4.5-2.5-7-7-7"/><path d="M8.5 6l-1.9 1.2M8.5 6l.5 2.2"/>')],
+ [/neck/,XI('<circle cx="11" cy="12.5" r="3"/><path d="M11 5.5a7 7 0 0 1 7 7"/><path d="M18 12.5l-1.5-1.6M18 12.5l1.6-1.5"/>')]
+];
+const xicon=s=>{const n=s.toLowerCase();const hit=XICONS.find(([re])=>re.test(n));
+  return hit?`<span class="xico">${hit[1]}</span>`:null;};
 let page='markers';
 document.documentElement.dataset.page=page;
 const PGEL=document.getElementById('pages'),
@@ -1026,7 +1044,7 @@ function setPage(p){
 function renderPage(p){
   const cardRow=(list,mono)=>!list.length?'':`<div class="care">`+list.map(c=>
     `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
-      ?`<ul>${c.items.map(x=>`<li>${mono?`<span class="xmono">${esc((x.trim()[0]||'').toUpperCase())}</span>`:''}${esc(x)}</li>`).join('')}</ul>`
+      ?`<ul>${c.items.map(x=>`<li>${mono?(xicon(x)||`<span class="xmono">${esc((x.trim()[0]||'').toUpperCase())}</span>`):''}${esc(x)}</li>`).join('')}</ul>`
       :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
   let h='';
   if(p==='stack'&&STACK){
