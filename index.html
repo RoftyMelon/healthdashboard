@@ -307,8 +307,8 @@ td.pos{padding-right:14px}
 .pgbtn:hover{background:none;color:var(--txt)}
 /* the hamburger spins and crossfades into an X — the whole morph lives ON the one svg
    (rule 7), and it keys off aria-expanded so it reacts at TAP time, not swap time */
-.pgbtn svg{transition:transform .35s cubic-bezier(.3,.9,.3,1)}
-.pgbtn .ham,.pgbtn .x{transition:opacity .22s ease}
+.pgbtn svg{transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+.pgbtn .ham,.pgbtn .x{transition:opacity .3s ease}
 .pgbtn .x{opacity:0}
 .pgbtn[aria-expanded=true] svg{transform:rotate(180deg)}
 .pgbtn[aria-expanded=true] .ham{opacity:0}
@@ -322,10 +322,12 @@ html:not([data-menu=open]) .ptabs{display:none}
 html[data-menu=open] .srch,html[data-menu=open] .chips,html[data-menu=open] .ptitle,
 html[data-menu=open] .toc,html[data-menu=open] .tspace{display:none}
 /* the swap animates the BAR, not its pieces: old content fade-slides out, the content
-   flips while invisible, new content rides the same easing back in. One element, one
-   easing, both directions (rule 7) — .swapping is choreographed from pmSet(). */
-.bar{transition:opacity .17s ease,transform .17s cubic-bezier(.2,.9,.25,1)}
-.bar.swapping{opacity:0;transform:translateX(-9px)}
+   flips while invisible, new content rides back in. One element both directions (rule 7);
+   the exit eases IN (accelerates away, .24s) and the entry eases OUT (decelerates, .34s)
+   — asymmetric timing is what keeps it from reading as a blink. pmSet() choreographs. */
+.bar{transition:opacity .34s cubic-bezier(.2,.7,.3,1),transform .34s cubic-bezier(.2,.7,.3,1)}
+.bar.swapping{opacity:0;transform:translateX(-14px);
+  transition:opacity .24s cubic-bezier(.55,0,.8,.4),transform .24s cubic-bezier(.55,0,.8,.4)}
 .pt{font-family:inherit;font-size:13.5px;font-weight:550;padding:9px 13px;white-space:nowrap;
   background:none;border:none;border-radius:9px;color:var(--t3);cursor:pointer;position:relative;
   letter-spacing:-.005em;transition:color .14s}
@@ -474,7 +476,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
     <div class="bar" id="bar">
     <span class="pgnav">
       <button class="pgbtn" id="pgbtn" aria-label="Pages" aria-expanded="false">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round">
           <g class="ham"><path d="M3 6h18M3 12h18M3 18h18"/></g>
           <g class="x"><path d="M6 6l12 12M18 6L6 18"/></g>
@@ -954,7 +956,7 @@ function pmSet(open){
   if(!B||!B.animate||matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return;}
   B.classList.add('swapping');
   clearTimeout(pmSet._t);
-  pmSet._t=setTimeout(()=>{apply();B.classList.remove('swapping');},175);
+  pmSet._t=setTimeout(()=>{apply();B.classList.remove('swapping');},250);
 }
 function pmClose(){pmSet(false);}
 function setPage(p){
