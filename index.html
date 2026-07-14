@@ -474,7 +474,13 @@ li.open .exinfo,.srow.open .exinfo{display:block}
 /* name left, spec right: the "40kg - 3x5" column aligns down the card edge */
 .exn{line-height:1.3;font-weight:520;display:flex;align-items:baseline;gap:6px}
 .exnm{flex:1;min-width:0}
-.exkg{font-size:13px;font-weight:450;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* the spec is a fixed micro-ledger: weight right-aligned | dash | sets x reps —
+   constant total width, so every kg, dash and x shares a vertical down the card */
+.exkg{display:inline-grid;grid-template-columns:42px 12px 42px;
+  font-size:13px;font-weight:450;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.exkg .k{text-align:right}
+.exkg .d{text-align:center;color:var(--t4)}
+.exkg .r{text-align:left}
 .exsets{display:flex;flex-wrap:wrap;gap:1px 4px;margin:1px 0 0}
 .exset{display:flex;flex-direction:column;align-items:center;min-width:26px;padding:0 2px}
 .exset i{font-style:normal;font-size:13px;color:var(--t2);font-variant-numeric:tabular-nums;line-height:1.2}
@@ -1146,9 +1152,11 @@ function renderPage(p){
     if(x.sets&&x.sets.length){
       if(uniW&&uniR){
         const kg=x.sets[0][0];
-        kgTag=`<span class="exkg">${kg!=null?esc(String(kg))+'kg - ':''}${x.sets.length}&times;${esc(String(x.sets[0][1]))}</span>`;
+        kgTag=`<span class="exkg"><span class="k">${kg!=null?esc(String(kg))+'kg':''}</span>`+
+              `<span class="d">${kg!=null?'-':''}</span>`+
+              `<span class="r">${x.sets.length}&times;${esc(String(x.sets[0][1]))}</span></span>`;
       }else if(uniW){
-        if(x.sets[0][0]!=null)kgTag=`<span class="exkg">${esc(String(x.sets[0][0]))}kg</span>`;
+        if(x.sets[0][0]!=null)kgTag=`<span class="exkg"><span class="k">${esc(String(x.sets[0][0]))}kg</span></span>`;
         sets=`<div class="exsets">`+x.sets.map(s=>`<span class="exset"><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`;
       }else{
         sets=`<div class="exsets">`+x.sets.map(s=>`<span class="exset"><i>${s[0]==null?'&mdash;':esc(String(s[0]))+'kg'}</i><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`;
