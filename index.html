@@ -471,8 +471,10 @@ html:not([data-page=markers]) .swap{overflow:visible}
   font-size:14.5px;color:var(--t2);line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 li.open .exinfo,.srow.open .exinfo{display:block}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
-.exn{line-height:1.3;font-weight:520}
-.exkg{margin-left:8px;font-size:13px;font-weight:450;color:var(--t2);font-variant-numeric:tabular-nums}
+/* name left, spec right: the "40kg - 3x5" column aligns down the card edge */
+.exn{line-height:1.3;font-weight:520;display:flex;align-items:baseline;gap:6px}
+.exnm{flex:1;min-width:0}
+.exkg{font-size:13px;font-weight:450;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
 .exsets{display:flex;flex-wrap:wrap;gap:1px 4px;margin:1px 0 0}
 .exset{display:flex;flex-direction:column;align-items:center;min-width:26px;padding:0 2px}
 .exset i{font-style:normal;font-size:13px;color:var(--t2);font-variant-numeric:tabular-nums;line-height:1.2}
@@ -1155,7 +1157,7 @@ function renderPage(p){
     const tip=x.info?`<button class="infob" title="${esc(x.info)}" aria-label="Details"
       onclick="tip(this)">i</button>`:'';
     const detail=x.info?`<div class="exinfo">${esc(x.info)}</div>`:'';
-    return `<li><div class="exn">${esc(x.n)}${kgTag}${tip}</div>${detail}${sets}</li>`;};
+    return `<li><div class="exn"><span class="exnm">${esc(x.n)}${tip}</span>${kgTag}</div>${detail}${sets}</li>`;};
   const cardRow=(list,cls)=>!list.length?'':`<div class="care${cls?' '+cls:''}">`+list.map(c=>{
     const inner=c.groups
       ?c.groups.map(g=>`<div class="cgrp">${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')

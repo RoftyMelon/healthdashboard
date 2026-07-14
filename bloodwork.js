@@ -189,7 +189,8 @@ window.BLOODWORK =
     {"n": "Neck extension", "sets": [[20,10],[20,10]]}
    ]},
    {"t": "Accessory", "items": [
-    {"n": "Pull-over + trap-3 raise", "sets": [[10,10],[10,10]]},
+    {"n": "Pull-over", "sets": [[10,10],[10,10]]},
+    {"n": "Trap-3 raise", "sets": [[10,10],[10,10]]},
     {"n": "One arm hang", "sets": [[null,"0:30"],[null,"0:30"]]}
    ]}
   ]},
