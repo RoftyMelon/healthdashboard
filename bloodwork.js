@@ -128,9 +128,13 @@ window.BLOODWORK =
  },
  "ROUTINE": [
   {"t": "07:00", "do": "10 min walk, sunlight, cold shower\nBreakfast + supplements", "slot": "breakfast"},
+  {"t": "08:00", "do": "Gym"},
+  {"t": "10:00", "do": "Work"},
   {"t": "12:00", "do": "Lunch + supplements", "slot": "lunch"},
+  {"t": "13:00", "do": "Work"},
   {"t": "17:00", "do": "Dinner + supplements", "slot": "dinner"},
   {"t": "17:45", "do": "Shower + flossing + skincare"},
+  {"t": "18:00", "do": "Work"},
   {"t": "21:00", "do": "Screens off"},
   {"t": "21:30", "do": "Bedtime"},
   {"t": "22:00", "do": "Lights out"}
