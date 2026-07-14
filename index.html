@@ -369,6 +369,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
 .pgs{max-width:780px;padding:6px 0 40px}
 .pgh{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:18px 0 3px}
 .pgsub{font-size:12.5px;color:var(--t3)}
+.pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
 .pgsec{margin-top:22px}
 /* section titles uppercase like the table's group bars — doses NEVER go through this (µ -> M) */
 .pgst{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);
@@ -1136,7 +1137,9 @@ function renderPage(p){
     }
     h+=cardRow(CARE.filter(c=>!c.top));   // the protocol cards close the page
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
-    h=`<div class="pgh">Training</div><div class="pgsub">${TRAINING.cards.map(c=>esc(c.t)).join(' · ')}</div>`+
+    h=`<div class="pgh">Training</div>`+
+      (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote">${esc(TRAINING.cardio)}</div>`:'')+
+      `<div class="pgst">Resistance</div><div class="pgsub pgsp">${TRAINING.cards.map(c=>esc(c.t)).join(' · ')}</div>`+
       (TRAINING.note?`<div class="cnote">${esc(TRAINING.note)}</div>`:'')+
       cardRow(TRAINING.cards);
   } else if(p==='diet'&&DIET){
