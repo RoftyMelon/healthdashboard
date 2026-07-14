@@ -103,11 +103,11 @@ td.boot span{color:var(--t3);font-size:12.5px}
 .topline{display:flex;align-items:flex-start;gap:10px}
 .bar{flex:1;min-width:0;display:flex;gap:6px;row-gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
 .chips{display:contents}
-/* -4px lines the first link's LABEL up with the hamburger glyph above it: the glyph sits
-   centered in its 40px box (≈7.5px inset from the gutter), the label at -4px + 12px pad ≈ 8px.
+/* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
+   sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
    squeeze it inline and wrap the pills instead. */
-.toc{display:flex;gap:2px;margin-left:-4px;min-width:0;flex-basis:100%;
+.toc{display:flex;gap:2px;margin-left:-5px;min-width:0;flex-basis:100%;
   flex-wrap:nowrap;overflow-x:auto;                 /* never wrap: scroll instead */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .toc::-webkit-scrollbar{display:none}
@@ -475,7 +475,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
     <div class="bar" id="bar">
     <span class="pgnav">
       <button class="pgbtn" id="pgbtn" aria-label="Pages" aria-expanded="false">
-        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round">
           <g class="ham"><path d="M3 6h18M3 12h18M3 18h18"/></g>
           <g class="x"><path d="M6 6l12 12M18 6L6 18"/></g>
