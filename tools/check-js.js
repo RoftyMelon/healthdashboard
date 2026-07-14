@@ -55,7 +55,15 @@ setTimeout(()=>{
     ok(`routine shows ${span} hour marks`, count(n.pages.innerHTML,'rhr')===span,
       count(n.pages.innerHTML,'rhr')+' marks');
     ok(`routine shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
-      count(n.pages.innerHTML,'ccard')+' cards'); }
+      count(n.pages.innerHTML,'ccard')+' cards');
+    // hours inside a gym/work block (t < hour < until, no event of their own) must be tinted
+    const R=DATA.ROUTINE,H0=parseInt(R[0].t),H1=parseInt(R[R.length-1].t);
+    let spanned=0;
+    for(let hr=H0;hr<=H1;hr++){
+      if(!R.some(r=>parseInt(r.t)===hr)&&R.some(r=>r.until&&hr>parseInt(r.t)&&hr<parseInt(r.until)))spanned++;
+    }
+    ok(`routine tints ${spanned} in-block hours`, count(n.pages.innerHTML,'rhr rempty rspan')===spanned,
+      count(n.pages.innerHTML,'rhr rempty rspan')+' tinted'); }
   catch(e){ ok('routine hour marks',false,e.message); }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }
