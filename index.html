@@ -341,8 +341,10 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
   border-radius:2px;background:var(--sol)}
 /* off the markers page, everything table-flavoured folds away with it */
 html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
-html:not([data-page=markers]) .toc,
+html:not([data-page=markers]) .toc,html:not([data-page=markers]) .pgnav,
 html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{display:none}
+/* with the hamburger gone, the first tab's LABEL takes over the gutter alignment */
+html:not([data-page=markers]) .ptabs{margin-left:-13px}
 
 .pgs{max-width:780px;padding:6px 0 40px}
 .pgh{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:18px 0 3px}
@@ -455,6 +457,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
   .ptabs{margin-right:38px}                   /* clear the pinned theme toggle */
   .pt{font-size:12.5px;padding:8px 11px}
   .pt.on::after{left:11px;right:11px}
+  html:not([data-page=markers]) .ptabs{margin-left:-11px}   /* narrow .pt padding is 11px */
   .pgh{font-size:16px}
   .rht{width:40px}
   .rem{width:40px;font-size:12px}
