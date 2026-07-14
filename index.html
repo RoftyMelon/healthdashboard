@@ -1135,16 +1135,23 @@ function renderPage(p){
   // Long protocol details hide behind an info tip so the cards stay narrow.
   const exRow=x=>{
     if(typeof x==='string')return `<li>${esc(x)}</li>`;
-    // one weight across all sets (the usual case) hoists next to the NAME and the
-    // set row shows reps only; mixed weights keep the per-set kg/reps columns
-    const uni=x.sets&&x.sets.length&&new Set(x.sets.map(s=>String(s[0]))).size===1;
-    const kgTag=uni&&x.sets[0][0]!=null?`<span class="exkg">${esc(String(x.sets[0][0]))}kg</span>`:'';
-    const sets=x.sets&&x.sets.length
-      ?`<div class="exsets">`+
-       x.sets.map(s=>uni
-         ?`<span class="exset"><b>${esc(String(s[1]))}</b></span>`
-         :`<span class="exset"><i>${s[0]==null?'&mdash;':esc(String(s[0]))+'kg'}</i><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`
-      :'';
+    // uniform weight AND reps (the usual case) collapse to ONE line on the name:
+    // "40kg - 3x5". Uniform weight with mixed reps keeps a reps row; mixed weights
+    // keep the full per-set kg/reps columns.
+    const uniW=x.sets&&x.sets.length&&new Set(x.sets.map(s=>String(s[0]))).size===1;
+    const uniR=x.sets&&x.sets.length&&new Set(x.sets.map(s=>String(s[1]))).size===1;
+    let kgTag='',sets='';
+    if(x.sets&&x.sets.length){
+      if(uniW&&uniR){
+        const kg=x.sets[0][0];
+        kgTag=`<span class="exkg">${kg!=null?esc(String(kg))+'kg - ':''}${x.sets.length}&times;${esc(String(x.sets[0][1]))}</span>`;
+      }else if(uniW){
+        if(x.sets[0][0]!=null)kgTag=`<span class="exkg">${esc(String(x.sets[0][0]))}kg</span>`;
+        sets=`<div class="exsets">`+x.sets.map(s=>`<span class="exset"><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`;
+      }else{
+        sets=`<div class="exsets">`+x.sets.map(s=>`<span class="exset"><i>${s[0]==null?'&mdash;':esc(String(s[0]))+'kg'}</i><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`;
+      }
+    }
     const tip=x.info?`<button class="infob" title="${esc(x.info)}" aria-label="Details"
       onclick="tip(this)">i</button>`:'';
     const detail=x.info?`<div class="exinfo">${esc(x.info)}</div>`:'';
