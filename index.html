@@ -388,7 +388,7 @@ html[data-page=markers] .topline{margin-top:9px}
 .pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
 .pgsec{margin-top:22px}
 /* section titles uppercase like the table's group bars — doses NEVER go through this (µ -> M) */
-.pgst{font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);
+.pgst{font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--info);
   padding:7px 0;border-bottom:.5px solid var(--line);display:flex;align-items:baseline;gap:9px}
 .pgst small{font-weight:500;letter-spacing:0;font-size:13.5px;color:var(--t4);text-transform:none}
 .srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap;position:relative}
@@ -420,7 +420,7 @@ html[data-page=markers] .topline{margin-top:9px}
    two-event hour (17:00, 21:00) fitting inside one --hh cell — a row that
    stretches breaks the ruler silently. */
 .rcell{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:12px 0 0}
-.rhr.multi .rcell{padding-top:3px}   /* two stacked events ride higher, cell stays 64px */
+.rhr.multi .rcell{padding-top:8px}   /* two events: 2x28 + 8 = exactly one 64px cell, clear of the line */
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -444,6 +444,7 @@ html[data-page=markers] .topline{margin-top:9px}
    line on any phone: divisor 26 = the longest lead line in em ("Striving for 3
    sessions…"), 46px = page padding; wide screens just get the 16px cap. */
 .cnote.lead{font-size:clamp(12px,calc((100vw - 46px)/26),16px);color:var(--t2);font-style:normal}
+.cnote.lead+.pgst{margin-top:16px}   /* air before the section that follows an intro note */
 /* cards sit NEXT TO each other and the row slides sideways when they overflow.
    The row BREAKS OUT of the page's 780px prose measure: it grows to its content,
    clamped to the viewport (minus the content gutters) — so a wide desktop shows
@@ -452,11 +453,11 @@ html[data-page=markers] .topline{margin-top:9px}
   width:max-content;max-width:calc(100vw - var(--gut,20px) - 20px);
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .care::-webkit-scrollbar{display:none}
-.ccard{flex:0 0 clamp(250px,82vw,310px);background:var(--grp);border-radius:12px;padding:13px 16px 15px}
+.ccard{flex:0 0 clamp(250px,82vw,310px);background:var(--grp);border-radius:12px;padding:11px 14px 12px}
 /* muscle-group sub-headers: a quiet caps overline — always SMALLER than the
    exercise names they label, or the labels read as the content */
 .cgrp{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--info);text-transform:uppercase;
-  padding:14px 0 2px}
+  padding:10px 0 1px}
 /* the info tip: a small circled i, details unfold below on tap */
 .infob{display:inline-flex;width:18px;height:18px;margin-left:6px;border-radius:50%;flex:none;
   align-items:center;justify-content:center;background:none;border:1px solid var(--t4);
@@ -469,17 +470,17 @@ html[data-page=markers] .topline{margin-top:9px}
   font-size:14.5px;color:var(--t2);line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 li.open .exinfo,.srow.open .exinfo{display:block}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
-.exn{line-height:1.45;font-weight:520}
-.exsets{display:flex;flex-wrap:wrap;gap:1px 4px;margin:3px 0 1px}
-.exset{display:flex;flex-direction:column;align-items:center;min-width:26px;padding:1px 2px}
-.exset i{font-style:normal;font-size:13px;color:var(--t2);font-variant-numeric:tabular-nums;line-height:1.5}
-.exset b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;line-height:1.4}
+.exn{line-height:1.3;font-weight:520}
+.exsets{display:flex;flex-wrap:wrap;gap:1px 4px;margin:1px 0 0}
+.exset{display:flex;flex-direction:column;align-items:center;min-width:26px;padding:0 2px}
+.exset i{font-style:normal;font-size:13px;color:var(--t2);font-variant-numeric:tabular-nums;line-height:1.2}
+.exset b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;line-height:1.2}
 /* >b : the title is the card's DIRECT child. A bare `.ccard b` swallows every <b>
    in the card — all set numbers and kg/reps legends rendered at title size */
 .ccard>b{font-size:14px;font-weight:750;letter-spacing:.06em;color:var(--txt);text-transform:uppercase}
-.ccard ul{margin:7px 0 12px;padding:0;list-style:none}
+.ccard ul{margin:4px 0 8px;padding:0;list-style:none}
 .ccard ul:last-child{margin-bottom:0}
-.ccard li{font-size:16px;color:var(--txt);line-height:1.65;padding:3.5px 0;border-bottom:.5px solid var(--line2);position:relative}
+.ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2);position:relative}
 .ccard li:last-child{border-bottom:none}
 .cempty{font-size:15px;color:var(--t4);padding:8px 0 2px}
 /* diet */
