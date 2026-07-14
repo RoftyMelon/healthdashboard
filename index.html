@@ -1185,10 +1185,7 @@ function renderPage(p){
     document.querySelectorAll('.ccard li.open,.srow.open').forEach(x=>x.classList.remove('open'))});
   let h='';
   if(p==='stack'&&STACK){
-    const n=st=>STACK.items.filter(s=>s.status===st).length;
-    const parts=['taking','planned','candidate','stopped','dropped']
-      .map(st=>n(st)?`${n(st)} ${st}`:null).filter(Boolean).join(' · ');
-    h=`<div class="pgh">Supplement stack</div><div class="pgsub">${parts} · ${STACK.items.length} listed</div>`;
+    h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed</div>`;
     STACK.cats.forEach(c=>{
       const items=STACK.items.filter(s=>s.cat===c.id);
       if(!items.length)return;
