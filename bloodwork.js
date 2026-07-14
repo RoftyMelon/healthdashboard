@@ -214,8 +214,8 @@ window.BLOODWORK =
     {"n": "Machine leg extension", "sets": [[80,12],[80,12]]}
    ]},
    {"t": "Glutes", "items": [
-    {"n": "Leverage hip thrust", "sets": [[160,10],[160,10],[160,10]]},
     {"n": "Standing abduction", "sets": [[100,20],[100,20],[100,20]]},
+    {"n": "Leverage hip thrust", "sets": [[160,10],[160,10],[160,10]]},
     {"n": "Machine hip abduction", "sets": [[100,15],[100,15],[100,15]]}
    ]},
    {"t": "Hamstrings & groin", "items": [
