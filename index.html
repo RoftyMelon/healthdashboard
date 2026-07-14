@@ -388,7 +388,7 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .pgst{font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);
   padding:7px 0;border-bottom:.5px solid var(--line);display:flex;align-items:baseline;gap:9px}
 .pgst small{font-weight:500;letter-spacing:0;font-size:13.5px;color:var(--t4);text-transform:none}
-.srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap}
+.srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap;position:relative}
 .srow.off .sn{color:var(--t3);text-decoration:line-through;text-decoration-color:var(--t4);text-decoration-thickness:1px}
 .sn{font-size:16px;font-weight:560;color:var(--txt);letter-spacing:-.01em}
 .sd{font-size:15px;color:var(--t2);font-variant-numeric:tabular-nums}
@@ -453,7 +453,7 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .exinfo{display:none;position:absolute;z-index:6;top:0;right:0;width:max-content;max-width:60%;
   background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;
   font-size:14.5px;color:var(--t2);line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.16)}
-li.open .exinfo{display:block}
+li.open .exinfo,.srow.open .exinfo{display:block}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
 .exn{line-height:1.45;font-weight:520}
 .exsets{display:flex;flex-wrap:wrap;gap:1px 4px;margin:3px 0 1px}
@@ -1130,13 +1130,14 @@ function renderPage(p){
       ?c.groups.map(g=>`<div class="cgrp">${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     return `<div class="ccard"><b>${esc(c.t)}</b>${inner}</div>`;}).join('')+`</div>`;
-  // the info bubble floats over the card; a tap anywhere outside it closes it
-  window.tip=b=>{const li=b.closest('li'),was=li.classList.contains('open');
-    document.querySelectorAll('.ccard li.open').forEach(x=>x.classList.remove('open'));
+  // the info bubble floats over its row (card exercise or stack item); a tap
+  // anywhere outside it closes it. NOT bare '.open' — the search box uses it too.
+  window.tip=b=>{const li=b.closest('li,.srow'),was=li.classList.contains('open');
+    document.querySelectorAll('.ccard li.open,.srow.open').forEach(x=>x.classList.remove('open'));
     if(!was)li.classList.add('open')};
   document.addEventListener('click',e=>{
     if(e.target.closest&&e.target.closest('.infob,.exinfo'))return;
-    document.querySelectorAll('.ccard li.open').forEach(x=>x.classList.remove('open'))});
+    document.querySelectorAll('.ccard li.open,.srow.open').forEach(x=>x.classList.remove('open'))});
   let h='';
   if(p==='stack'&&STACK){
     const n=st=>STACK.items.filter(s=>s.status===st).length;
@@ -1153,6 +1154,8 @@ function renderPage(p){
           const gi=s.dec?DECS.indexOf(s.dec):-1;
           return `<div class="srow${dead?' off':''}">`+
             `<span class="sn">${esc(s.name)}</span>`+
+            (s.info?`<button class="infob" title="${esc(s.info)}" aria-label="Details" onclick="tip(this)">i</button>`+
+                    `<div class="exinfo">${esc(s.info)}</div>`:'')+
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             `<span class="sfill"></span>`+
             (gi>=0?`<button class="smk" onclick="gotoDec(${gi})" title="Jump to the markers this bears on">markers &#8599;</button>`:'')+
