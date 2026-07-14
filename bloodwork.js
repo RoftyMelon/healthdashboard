@@ -26,7 +26,7 @@ window.BLOODWORK =
   "subject": {
    "sex": "male",
    "country": "France (Strasbourg)",
-   "diet": "See the DIET block. Rarely oily fish; high mozzarella, eggs (6-10/day) and potatoes; one Brazil nut/day. Huel Black is NO LONGER consumed (dropped as of 2026-07, exact stop date unrecorded) — it was regular through the earlier draws, so its fortification (iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron) is a confound for HISTORICAL draws only, not the current state.",
+   "diet": "See the DIET block. Rarely fish; lots of olive oil; high mozzarella, eggs (6-10/day) and potatoes; one Brazil nut/day. Huel Black is NO LONGER consumed (dropped as of 2026-07, exact stop date unrecorded) — it was regular through the earlier draws, so its fortification (iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron) is a confound for HISTORICAL draws only, not the current state.",
    "supervision": "none"
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
@@ -170,11 +170,13 @@ window.BLOODWORK =
     "200g mozzarella di bufala",
     "Rice or pasta",
     "Ground beef or chicken (frozen, reheated)",
-    "Frozen reheated vegetables"
+    "Frozen reheated vegetables",
+    "Two kiwis"
    ]}
   ],
   "notes": [
-   "Rarely oily fish."
+   "Lots of olive oil.",
+   "Rarely fish."
   ]
  },
  "MARK": [
