@@ -323,10 +323,10 @@ td.pos{padding-right:14px}
    place first, then the button grows in together with the arriving filters — without
    the delay, three motions fight and the return reads as mush. The collapsed rule
    below overrides with zero delay, so LEAVING Markers still slides immediately. */
-.pgnav{display:flex;align-items:center;flex:none;width:40px;overflow:hidden;
+.pgnav{display:flex;align-items:center;flex:none;width:46px;overflow:hidden;
   transition:width .34s cubic-bezier(.2,.7,.3,1) .22s,margin-right .34s cubic-bezier(.2,.7,.3,1) .22s,
              opacity .22s ease .22s,visibility .34s .22s}
-.pgbtn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+.pgbtn{display:flex;align-items:center;justify-content:center;width:46px;height:46px;
   padding:0;background:none;border:none;border-radius:10px;color:var(--t2)}
 .pgbtn:hover{background:none;color:var(--txt)}
 /* the hamburger spins and crossfades into an X — the whole morph lives ON the one svg
@@ -563,10 +563,10 @@ li.open .exinfo,.srow.open .exinfo{display:block}
 }
 /* pages, on a phone: the hamburger slims down so row 1 stays ONE row with all three pills */
 @media(max-width:900px),(max-height:560px){
-  .pgbtn{width:38px;height:38px}
-  .pgnav{width:38px}                          /* the collapse animates from the 38px button */
+  .pgbtn{width:44px;height:44px}
+  .pgnav{width:44px}                          /* the collapse animates from the 38px button */
   .ptabs{margin-right:12px}                   /* tight: all five tabs should FIT, not scroll */
-  .swap{padding-right:38px}                   /* scrolled pills end clear of the toggle too */
+  .swap{padding-right:44px}                   /* scrolled pills end clear of the toggle too */
   .pt{font-size:16px;padding:8px 8px}
   .pt.on::after{left:8px;right:8px}
   html:not([data-page=markers]) .ptabs{margin-left:-8px}   /* narrow .pt padding is 8px */
@@ -609,7 +609,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
     <div class="bar" id="bar">
     <span class="pgnav">
       <button class="pgbtn" id="pgbtn" aria-label="Pages" aria-expanded="false">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round">
           <g class="ham"><path d="M3 6h18M3 12h18M3 18h18"/></g>
           <g class="x"><path d="M6 6l12 12M18 6L6 18"/></g>
