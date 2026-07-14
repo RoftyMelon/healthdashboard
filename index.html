@@ -475,7 +475,7 @@ li.open .exinfo{display:block}
   .topbar{padding-top:8px}
   .bar{margin-bottom:6px;row-gap:4px}
   .chip{padding:8px 13px;font-size:13px}
-  .chip .cn{margin-left:5px;font-size:11px}
+  .chip .cn{margin-left:5px;font-size:11.5px}
   .srch{width:34px;height:34px}
   .srch .sicon{width:32px;height:32px}
   /* iOS Safari auto-zooms the page when focusing an input whose font-size is under
@@ -508,11 +508,28 @@ li.open .exinfo{display:block}
   th.nm,td.nm{width:164px;min-width:164px;max-width:164px;
     border-right:1.5px solid var(--line)}
   td.nm{font-size:12.5px}
-  td.nm .fr{font-size:9.5px}
+  td.nm .fr{font-size:11px}
   /* --nmw is driven by scrollX in JS, so it eases from 164px to 78px as you pull sideways.
      Names ellipsis rather than disappear, and the row height never jumps. */
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
     padding-left:10px;padding-right:6px}
+  /* mobile type floor. Zoom is deliberately disabled, so sizes must stand on their
+     own: no DATA below 12px, no label below ~11px. The 13px body density stays. */
+  thead th{font-size:11px}
+  .tsp{font-size:11px}
+  .cyl span,.cyu{font-size:12px}
+  .ckl em{font-size:10.5px}
+  .mgx span{font-size:10.5px}
+  .lm{font-size:12px}
+  .exc em{font-size:11.5px}
+  .exset i{font-size:11.5px}
+  .exset b{font-size:12.5px}
+  .rht{font-size:12px}
+  .rsup .rs{font-size:12px}
+  .rhint{font-size:11.5px}
+  .dnotes b{font-size:11.5px}
+  .dnotes li{font-size:12.5px}
+  .pgst small{font-size:11.5px}
 }
 /* pages, on a phone: the hamburger slims down so row 1 stays ONE row with all three pills */
 @media(max-width:900px),(max-height:560px){
