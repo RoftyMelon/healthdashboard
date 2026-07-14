@@ -302,7 +302,12 @@ td.pos{padding-right:14px}
 
 /* ---- pages: a naked hamburger, its popover, and the three data pages ----
    Pills FILTER the table; the menu NAVIGATES between pages. Different species on purpose. */
-.pgnav{display:flex;align-items:center;flex:none}
+/* leaving Markers, the button COLLAPSES (width -> 0) rather than display:none, so the
+   strip slides left progressively instead of teleporting. Width, the gap-cancelling
+   margin and the strip's own margin all ride the same curve: one motion. */
+.pgnav{display:flex;align-items:center;flex:none;width:40px;overflow:hidden;
+  transition:width .34s cubic-bezier(.2,.7,.3,1),margin-right .34s cubic-bezier(.2,.7,.3,1),
+             opacity .22s ease,visibility .34s}
 .pgbtn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;
   padding:0;background:none;border:none;border-radius:10px;color:var(--t2)}
 .pgbtn:hover{background:none;color:var(--txt)}
@@ -318,7 +323,8 @@ html[data-page=markers] .pgbtn[aria-expanded=true] .x{opacity:1}
 .pgbtn[aria-expanded=true]{color:var(--txt)}
 .ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
-  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  transition:margin-left .34s cubic-bezier(.2,.7,.3,1)}
 .ptabs::-webkit-scrollbar{display:none}
 /* the strip is PERSISTENT off the Markers page: it hides only when collapsed on Markers,
    where the filters take its place. Only the filter/view row ever swaps; the toc holds still. */
@@ -341,9 +347,10 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
   border-radius:2px;background:var(--sol)}
 /* off the markers page, everything table-flavoured folds away with it */
 html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
-html:not([data-page=markers]) .toc,html:not([data-page=markers]) .pgnav,
+html:not([data-page=markers]) .toc,
 html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{display:none}
-/* with the hamburger gone, the first tab's LABEL takes over the gutter alignment */
+html:not([data-page=markers]) .pgnav{width:0;margin-right:-6px;opacity:0;visibility:hidden;pointer-events:none}
+/* with the hamburger collapsed, the first tab's LABEL takes over the gutter alignment */
 html:not([data-page=markers]) .ptabs{margin-left:-13px}
 
 .pgs{max-width:780px;padding:6px 0 40px}
@@ -454,6 +461,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
 /* pages, on a phone: the hamburger slims down so row 1 stays ONE row with all three pills */
 @media(max-width:900px),(max-height:560px){
   .pgbtn{width:38px;height:38px}
+  .pgnav{width:38px}                          /* the collapse animates from the 38px button */
   .ptabs{margin-right:38px}                   /* clear the pinned theme toggle */
   .pt{font-size:12.5px;padding:8px 11px}
   .pt.on::after{left:11px;right:11px}
@@ -469,6 +477,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
 @media(max-width:430px){
   .chip{padding:8px 8px;font-size:12px}
   .bar{gap:4px}
+  html:not([data-page=markers]) .pgnav{margin-right:-4px}   /* cancel THIS block's 4px gap */
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
 }
 </style>
