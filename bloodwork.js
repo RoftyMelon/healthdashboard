@@ -204,24 +204,24 @@ window.BLOODWORK =
    ]}
   ]},
   {"id": "legs", "t": "Legs", "groups": [
+   {"t": "Calves", "items": [
+    "Machine seated calf raise — 3×20 @ 80kg",
+    "Machine standing calf raises — 3×20 @ 200kg"
+   ]},
    {"t": "Quads", "items": [
     "Shrimp squat — 6×5, bodyweight",
     "Leverage squat — 3×8 @ 80kg",
     "Machine leg extension — 2×12 @ 80kg"
    ]},
-   {"t": "Hamstrings & glutes", "items": [
+   {"t": "Glutes", "items": [
     "Leverage hip thrust — 3×10 @ 160kg",
-    "Nordic curl — 2×8 @ 20kg",
-    "Machine lying leg curl — 2×12 @ 50kg"
-   ]},
-   {"t": "Hips", "items": [
     "Standing abduction — 3×20 @ 100kg",
-    "Machine hip abduction — 3×15 @ 100kg",
-    "Machine hip adduction — 2×12 @ 80kg"
+    "Machine hip abduction — 3×15 @ 100kg"
    ]},
-   {"t": "Calves", "items": [
-    "Machine seated calf raise — 3×20 @ 80kg",
-    "Machine standing calf raises — 3×20 @ 200kg"
+   {"t": "Hamstrings & groin", "items": [
+    "Nordic curl — 2×8 @ 20kg",
+    "Machine lying leg curl — 2×12 @ 50kg",
+    "Machine hip adduction — 2×12 @ 80kg"
    ]},
    {"t": "Core", "items": [
     "Psoas knee raise — 2×10 @ 16kg",
