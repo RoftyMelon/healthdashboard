@@ -187,7 +187,21 @@ window.BLOODWORK =
    "Leverage incline chest press — 2×6 @ 80kg",
    "Machine fly — 2×15 @ 25kg"
   ]},
-  {"id": "legs", "t": "Legs", "items": []}
+  {"id": "legs", "t": "Legs", "items": [
+   "Shrimp squat — 6×5, bodyweight",
+   "Psoas knee raise — 2×10 @ 16kg",
+   "Machine crunch — 2×12 @ 20kg",
+   "Machine seated calf raise — 3×20 @ 80kg",
+   "Machine standing calf raises — 3×20 @ 200kg",
+   "Leverage squat — 3×8 @ 80kg",
+   "Machine leg extension — 2×12 @ 80kg",
+   "Standing abduction — 3×20 @ 100kg",
+   "Leverage hip thrust — 3×10 @ 160kg",
+   "Machine hip abduction — 3×15 @ 100kg",
+   "Nordic curl — 2×8 @ 20kg",
+   "Machine lying leg curl — 2×12 @ 50kg",
+   "Machine hip adduction — 2×12 @ 80kg"
+  ]}
   ]
  },
  "DIET": {
