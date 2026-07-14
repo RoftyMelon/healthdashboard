@@ -43,8 +43,18 @@ setTimeout(()=>{
   onQ('');
   // the three data pages render from their blocks, and every entry survives the trip
   const count=(h,c)=>(h.match(new RegExp(`class="${c}`,'g'))||[]).length;
+  // mirror the renderer's hour walk exactly: a TALL block must reach a later hour AND sit
+  // alone in its starting hour; everything else (sub-hour ranges included) renders as a card
+  const R0=DATA.ROUTINE;
+  let _hr=parseInt(R0[0].t),_hEnd=parseInt(R0[R0.length-1].t),tallN=0,cardN=0;
+  while(_hr<=_hEnd){
+    const evs=R0.filter(r=>parseInt(r.t)===_hr);
+    const b=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>_hr?evs[0]:null;
+    if(b){tallN++;_hr=Math.min(parseInt(b.until),_hEnd+1);continue;}
+    cardN+=evs.length;_hr++;
+  }
   const want={stack:['srow',DATA.STACK.items.length],
-    routine:['rev',DATA.ROUTINE.filter(r=>!r.until).length],   // blocks render as boxes, not events
+    routine:['rev',cardN],
     diet:['meal',DATA.DIET.meals.length]};
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
@@ -56,7 +66,7 @@ setTimeout(()=>{
   try{ setPage('routine');
     const R=DATA.ROUTINE;
     const hours=parseInt(R[R.length-1].t)-parseInt(R[0].t)+1;
-    const blocks=R.filter(r=>r.until).length;
+    const blocks=tallN;
     ok(`routine marks ${hours} hours on the rail`, count(n.pages.innerHTML,'rhl')===hours,
       count(n.pages.innerHTML,'rhl')+' marks');
     ok(`routine draws ${blocks} span blocks`, count(n.pages.innerHTML,'rblock')===blocks,

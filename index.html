@@ -1053,9 +1053,11 @@ function renderPage(p){
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
-      // a BLOCK (gym, work) owns its whole span: it swallows its interior hours, stacks
-      // their labels on the rail, and draws one box whose height is proportional to time
-      const block=evs.length===1&&evs[0].until?evs[0]:null;
+      // a multi-hour BLOCK (gym, work) owns its whole span: it swallows its interior hours,
+      // stacks their labels on the rail, and draws one box proportional to time. A block
+      // that ends within its own hour (a 30-min lunch) renders as a compact card instead —
+      // taking the tall path with endH===hr would never advance the loop.
+      const block=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>hr?evs[0]:null;
       if(block){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
         const labels=Array.from({length:span},(_,i)=>`<i class="rhl">${String(hr+i).padStart(2,'0')}:00</i>`).join('');
