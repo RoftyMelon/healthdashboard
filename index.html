@@ -409,11 +409,13 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
    card mid-screen read as a bug, so nothing scrolls sideways here anymore */
 .care{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 26px}
 .ccard{flex:1 1 240px;min-width:min(240px,100%);background:var(--grp);border-radius:12px;padding:13px 16px 15px}
-/* exercise tiles: a drawn pictogram when the name matches one, a letter tile otherwise */
-.xico,.xmono{display:inline-flex;width:22px;height:22px;border-radius:6px;align-items:center;justify-content:center;
-  background:var(--btn);border:.5px solid var(--btn-b);font-size:10.5px;font-weight:700;color:var(--t3);
-  margin-right:8px;vertical-align:-6px;flex:none}
-.xico svg{width:17px;height:17px}
+/* exercise tiles: an icon when the name matches one, a letter tile otherwise.
+   30px and full-strength ink — detailed silhouettes turn to mud below ~24px. */
+.xico,.xmono{display:inline-flex;width:30px;height:30px;border-radius:8px;align-items:center;justify-content:center;
+  background:var(--btn);border:.5px solid var(--btn-b);font-size:12.5px;font-weight:700;color:var(--t2);flex:none}
+.xico svg{width:22px;height:22px}
+.ccard li{display:flex;align-items:flex-start;gap:10px}
+.ccard li .xico,.ccard li .xmono{margin-top:1px}
 .ccard b{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--t3);text-transform:uppercase}
 .ccard ul{margin:7px 0 0;padding:0;list-style:none}
 .ccard li{font-size:12.5px;color:var(--t2);line-height:1.7;padding:3px 0;border-bottom:.5px solid var(--line2)}
