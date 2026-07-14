@@ -307,10 +307,14 @@ td.pos{padding-right:14px}
    Pills FILTER the table; the menu NAVIGATES between pages. Different species on purpose. */
 /* leaving Markers, the button COLLAPSES (width -> 0) rather than display:none, so the
    strip slides left progressively instead of teleporting. Width, the gap-cancelling
-   margin and the strip's own margin all ride the same curve: one motion. */
+   margin and the strip's own margin all ride the same curve: one motion.
+   The BASE transition (returning to Markers) is DELAYED .22s: the strip fades out in
+   place first, then the button grows in together with the arriving filters — without
+   the delay, three motions fight and the return reads as mush. The collapsed rule
+   below overrides with zero delay, so LEAVING Markers still slides immediately. */
 .pgnav{display:flex;align-items:center;flex:none;width:40px;overflow:hidden;
-  transition:width .34s cubic-bezier(.2,.7,.3,1),margin-right .34s cubic-bezier(.2,.7,.3,1),
-             opacity .22s ease,visibility .34s}
+  transition:width .34s cubic-bezier(.2,.7,.3,1) .22s,margin-right .34s cubic-bezier(.2,.7,.3,1) .22s,
+             opacity .22s ease .22s,visibility .34s .22s}
 .pgbtn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;
   padding:0;background:none;border:none;border-radius:10px;color:var(--t2)}
 .pgbtn:hover{background:none;color:var(--txt)}
@@ -327,7 +331,7 @@ html[data-page=markers] .pgbtn[aria-expanded=true] .x{opacity:1}
 .ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
   scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  transition:margin-left .34s cubic-bezier(.2,.7,.3,1)}
+  transition:margin-left .34s cubic-bezier(.2,.7,.3,1) .22s}   /* delayed like the button's return */
 .ptabs::-webkit-scrollbar{display:none}
 /* the strip is PERSISTENT off the Markers page: it hides only when collapsed on Markers,
    where the filters take its place. Only the filter/view row ever swaps; the toc holds still. */
@@ -355,9 +359,12 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
 html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
 html:not([data-page=markers]) .toc,
 html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{display:none}
-html:not([data-page=markers]) .pgnav{width:0;margin-right:-6px;opacity:0;visibility:hidden;pointer-events:none}
-/* with the hamburger collapsed, the first tab's LABEL takes over the gutter alignment */
-html:not([data-page=markers]) .ptabs{margin-left:-13px}
+html:not([data-page=markers]) .pgnav{width:0;margin-right:-6px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:width .34s cubic-bezier(.2,.7,.3,1),margin-right .34s cubic-bezier(.2,.7,.3,1),
+             opacity .22s ease,visibility .34s}
+/* with the hamburger collapsed, the first tab's LABEL takes over the gutter alignment;
+   zero delay in THIS direction — leaving Markers slides at once */
+html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .34s cubic-bezier(.2,.7,.3,1)}
 
 .pgs{max-width:780px;padding:6px 0 40px}
 .pgh{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:18px 0 3px}
@@ -482,11 +489,11 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px}
 @media(max-width:900px),(max-height:560px){
   .pgbtn{width:38px;height:38px}
   .pgnav{width:38px}                          /* the collapse animates from the 38px button */
-  .ptabs{margin-right:38px}                   /* clear the pinned theme toggle */
+  .ptabs{margin-right:12px}                   /* tight: all five tabs should FIT, not scroll */
   .swap{padding-right:38px}                   /* scrolled pills end clear of the toggle too */
-  .pt{font-size:13.5px;padding:8px 12px}
-  .pt.on::after{left:12px;right:12px}
-  html:not([data-page=markers]) .ptabs{margin-left:-12px}   /* narrow .pt padding is 12px */
+  .pt{font-size:13.5px;padding:8px 8px}
+  .pt.on::after{left:8px;right:8px}
+  html:not([data-page=markers]) .ptabs{margin-left:-8px}   /* narrow .pt padding is 8px */
   .pgh{font-size:16px}
   .rht{width:40px}
   .rem{width:40px;font-size:12px}
