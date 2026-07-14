@@ -420,7 +420,9 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
   color:var(--t3);font-size:10px;font-style:italic;font-weight:700;cursor:pointer;
   vertical-align:middle;margin-top:-2px;padding:0;font-family:Georgia,serif}
 .infob:hover{background:var(--btn-h)}
-.exinfo{display:none;font-size:11.5px;color:var(--t4);line-height:1.55;margin:3px 0 2px}
+.exinfo{display:none;position:absolute;z-index:6;top:26px;left:0;right:6px;
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;
+  font-size:11.5px;color:var(--t2);line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 li.open .exinfo{display:block}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
 .exn{line-height:1.45;font-weight:520}
@@ -432,7 +434,7 @@ li.open .exinfo{display:block}
    in the card — all set numbers and kg/reps legends rendered at title size */
 .ccard>b{font-size:16px;font-weight:750;letter-spacing:.06em;color:var(--txt);text-transform:uppercase}
 .ccard ul{margin:7px 0 0;padding:0;list-style:none}
-.ccard li{font-size:13px;color:var(--txt);line-height:1.65;padding:3.5px 0;border-bottom:.5px solid var(--line2)}
+.ccard li{font-size:13px;color:var(--txt);line-height:1.65;padding:3.5px 0;border-bottom:.5px solid var(--line2);position:relative}
 .ccard li:last-child{border-bottom:none}
 .cempty{font-size:12.5px;color:var(--t4);padding:8px 0 2px}
 /* diet */
@@ -1055,7 +1057,7 @@ function renderPage(p){
        x.sets.map(s=>`<span class="exset"><i>${s[0]==null?'&mdash;':esc(String(s[0]))+'kg'}</i><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`
       :'';
     const tip=x.info?`<button class="infob" title="${esc(x.info)}" aria-label="Details"
-      onclick="this.closest('li').classList.toggle('open')">i</button>`:'';
+      onclick="tip(this)">i</button>`:'';
     const detail=x.info?`<div class="exinfo">${esc(x.info)}</div>`:'';
     return `<li><div class="exn">${esc(x.n)}${tip}</div>${detail}${sets}</li>`;};
   const cardRow=list=>!list.length?'':`<div class="care">`+list.map(c=>{
@@ -1063,6 +1065,13 @@ function renderPage(p){
       ?c.groups.map(g=>`<div class="cgrp">${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     return `<div class="ccard"><b>${esc(c.t)}</b>${inner}</div>`;}).join('')+`</div>`;
+  // the info bubble floats over the card; a tap anywhere outside it closes it
+  window.tip=b=>{const li=b.closest('li'),was=li.classList.contains('open');
+    document.querySelectorAll('.ccard li.open').forEach(x=>x.classList.remove('open'));
+    if(!was)li.classList.add('open')};
+  document.addEventListener('click',e=>{
+    if(e.target.closest&&e.target.closest('.infob,.exinfo'))return;
+    document.querySelectorAll('.ccard li.open').forEach(x=>x.classList.remove('open'))});
   let h='';
   if(p==='stack'&&STACK){
     const n=st=>STACK.items.filter(s=>s.status===st).length;
@@ -1127,8 +1136,8 @@ function renderPage(p){
     h+=cardRow(CARE.filter(c=>!c.top));   // the protocol cards close the page
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div><div class="pgsub">${TRAINING.cards.map(c=>esc(c.t)).join(' · ')}</div>`+
-      cardRow(TRAINING.cards)+
-      (TRAINING.note?`<div class="cnote">${esc(TRAINING.note)}</div>`:'');
+      (TRAINING.note?`<div class="cnote">${esc(TRAINING.note)}</div>`:'')+
+      cardRow(TRAINING.cards);
   } else if(p==='diet'&&DIET){
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.length} meals a day</div>`+
       DIET.meals.map(m=>`<div class="meal"><div class="pgst">${esc(m.t)}<small>${esc(m.at||'')}</small></div>`+
