@@ -165,19 +165,19 @@ window.BLOODWORK =
   {"id": "pull", "t": "Pull", "groups": [
    {"t": "Back", "items": [
     {"n": "Chin up", "sets": [["+30",5],["+30",5],["+30",5]]},
-    {"n": "Explosive pull ups", "sets": [[null,2],[null,2],[null,2]]},
-    {"n": "Cable rope face pull", "sets": [[40,10],[40,10]]},
-    {"n": "Dumbbell single arm row", "sets": [[40,8],[40,8]]},
+    {"n": "Explosive pull up", "sets": [[null,2],[null,2],[null,2]]},
+    {"n": "Face pull", "sets": [[40,10],[40,10]]},
+    {"n": "Single arm row", "sets": [[40,8],[40,8]]},
     {"n": "Back extension", "sets": [[40,12],[40,12]]}
    ]},
    {"t": "Biceps", "items": [
-    {"n": "Dumbbell bicep curl", "sets": [[20,8],[20,8]]},
+    {"n": "Bicep curl", "sets": [[20,8],[20,8]]},
     {"n": "Hammer curl", "sets": [[20,6],[20,6]]},
-    {"n": "Machine preacher curl", "sets": [[40,12],[40,12]]}
+    {"n": "Preacher curl", "sets": [[40,12],[40,12]]}
    ]},
    {"t": "Traps & neck", "items": [
-    {"n": "Dumbbell shrug", "sets": [[40,50],[40,50]]},
-    {"n": "Neck extensions", "sets": [[20,10],[20,10]]}
+    {"n": "Shrug", "sets": [[40,50],[40,50]]},
+    {"n": "Neck extension", "sets": [[20,10],[20,10]]}
    ]},
    {"t": "Accessory", "items": [
     {"n": "Pull-over + trap-3 raise", "sets": [[10,10],[10,10]]},
@@ -189,44 +189,44 @@ window.BLOODWORK =
     {"n": "Shoulder prep", "info": "Figure 8, push-ups, ext. rotations w/ band or dumbbell, skin the cat, dislocates, gymnast seated stretch", "sets": []}
    ]},
    {"t": "Shoulders", "items": [
-    {"n": "Barbell standing military press", "sets": [[50,5],[50,5],[50,5]]},
-    {"n": "Dumbbell standing lateral raise", "sets": [[12,10],[12,10],[12,10]]},
-    {"n": "Machine deltoid raise", "sets": [[50,5],[50,5],[50,5]]},
+    {"n": "Overhead press", "sets": [[50,5],[50,5],[50,5]]},
+    {"n": "Lateral raise", "sets": [[12,10],[12,10],[12,10]]},
+    {"n": "Deltoid raise", "sets": [[50,5],[50,5],[50,5]]},
     {"n": "Rear deltoid", "sets": [[20,15],[20,15],[20,15]]}
    ]},
    {"t": "Triceps", "items": [
-    {"n": "Cable tricep pushdown", "sets": [[25,20],[25,20]]},
-    {"n": "Cable rope overhead tricep extension", "sets": [[20,10],[20,10]]}
+    {"n": "Tricep pushdown", "sets": [[25,20],[25,20]]},
+    {"n": "Overhead tricep extension", "sets": [[20,10],[20,10]]}
    ]},
    {"t": "Chest", "items": [
-    {"n": "Dumbbell incline bench press", "sets": [[30,6],[30,6]]},
-    {"n": "Leverage incline chest press", "sets": [[80,6],[80,6]]},
-    {"n": "Machine fly", "sets": [[25,15],[25,15]]}
+    {"n": "Incline dumbbell press", "sets": [[30,6],[30,6]]},
+    {"n": "Machine incline press", "sets": [[80,6],[80,6]]},
+    {"n": "Fly", "sets": [[25,15],[25,15]]}
    ]}
   ]},
   {"id": "legs", "t": "Legs", "groups": [
    {"t": "Calves", "items": [
-    {"n": "Machine seated calf raise", "sets": [[80,20],[80,20],[80,20]]},
-    {"n": "Machine standing calf raises", "sets": [[200,20],[200,20],[200,20]]}
+    {"n": "Seated calf raise", "sets": [[80,20],[80,20],[80,20]]},
+    {"n": "Standing calf raise", "sets": [[200,20],[200,20],[200,20]]}
    ]},
    {"t": "Quads", "items": [
     {"n": "Shrimp squat", "sets": [[null,5],[null,5],[null,5],[null,5],[null,5],[null,5]]},
-    {"n": "Leverage squat", "sets": [[80,8],[80,8],[80,8]]},
-    {"n": "Machine leg extension", "sets": [[80,12],[80,12]]}
+    {"n": "Machine squat", "sets": [[80,8],[80,8],[80,8]]},
+    {"n": "Leg extension", "sets": [[80,12],[80,12]]}
    ]},
    {"t": "Glutes", "items": [
     {"n": "Standing abduction", "sets": [[100,20],[100,20],[100,20]]},
-    {"n": "Leverage hip thrust", "sets": [[160,10],[160,10],[160,10]]},
-    {"n": "Machine hip abduction", "sets": [[100,15],[100,15],[100,15]]}
+    {"n": "Hip thrust", "sets": [[160,10],[160,10],[160,10]]},
+    {"n": "Hip abduction", "sets": [[100,15],[100,15],[100,15]]}
    ]},
    {"t": "Hamstrings & groin", "items": [
     {"n": "Nordic curl", "sets": [[20,8],[20,8]]},
-    {"n": "Machine lying leg curl", "sets": [[50,12],[50,12]]},
-    {"n": "Machine hip adduction", "sets": [[80,12],[80,12]]}
+    {"n": "Lying leg curl", "sets": [[50,12],[50,12]]},
+    {"n": "Hip adduction", "sets": [[80,12],[80,12]]}
    ]},
    {"t": "Core", "items": [
     {"n": "Psoas knee raise", "sets": [[16,10],[16,10]]},
-    {"n": "Machine crunch", "sets": [[20,12],[20,12]]}
+    {"n": "Crunch", "sets": [[20,12],[20,12]]}
    ]}
   ]}
   ]

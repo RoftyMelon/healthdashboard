@@ -37,7 +37,7 @@
   --mg:rgba(245,244,239,.07);
   --frost:rgba(48,48,46,.72); --frost-b:rgba(245,244,239,.14); --frost-h:rgba(59,59,55,.9);
 }
-:root{--thh:30px; --nm:180px}   /* sizing: theme-independent, must not sit in a theme block */
+:root{--thh:30px; --nm:180px; --hh:44px}   /* sizing: theme-independent, must not sit in a theme block */
 :root,[data-theme=light]{--chrome:#FFFFFF;   /* pre-compensates Safari's darkening; see paint() */
   
   /* Claude cream: warm ivory paper, warm near-black ink */
@@ -391,13 +391,15 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
   font-variant-numeric:tabular-nums;letter-spacing:.02em}
 /* the ruler is drawn with TICS, all the same thin weight. Where a block starts or ends,
    the tick continues PAST the hour text, all the way across the rail. */
-.rhl{display:flex;align-items:center;gap:6px;height:44px;white-space:nowrap}   /* 44px per hour */
+.rhl{display:flex;align-items:center;gap:6px;height:var(--hh);white-space:nowrap}   /* one hour per cell */
 .rhl::before{content:"";flex:none;width:7px;height:1px;background:var(--t4);opacity:.55}
 .rhl.lt::after{content:"";flex:1;height:1px;background:var(--t4);opacity:.55;margin-right:-10px}
 .rhr.rempty .rhl{height:auto;padding:5px 0}       /* truly free hours stay slim */
 .rcell{flex:1;min-width:0;padding:5px 0 7px}
 .rhr.rempty .rcell{padding:0}
-.rhr.rblockrow .rcell{display:flex;align-items:center}  /* block text centres in its span, not on its first hour */
+/* block text centres BETWEEN the boundary tics. Labels sit mid-cell, so the visual
+   midpoint of an n-hour block is the box centre + half a cell: pad one cell on top. */
+.rhr.rblockrow .rcell{display:flex;align-items:center;padding:var(--hh) 0 0}
 .rev{display:flex;gap:12px;align-items:baseline;padding:4px 0}
 .rbody{min-width:0}
 .rdo{font-size:13.5px;color:var(--t2);line-height:1.5}
@@ -1128,9 +1130,7 @@ function renderPage(p){
           let sup='';
           if(r.slot&&STACK){
             const list=STACK.items.filter(s=>s.status==='taking'&&s.when===r.slot);
-            sup=list.length
-              ?`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`
-              :`<div class="rhint">which supplements? not assigned yet — set "when":"${r.slot}" on STACK items</div>`;
+            if(list.length)sup=`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`;
           }
           return `<div class="rev"><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
         }).join('')+`</div></div>`;
