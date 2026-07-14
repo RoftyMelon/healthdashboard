@@ -171,7 +171,7 @@ window.BLOODWORK =
    ]},
    {"t": "Biceps", "items": [
     {"n": "Dumbbell bicep curl", "sets": [[20,8],[20,8]]},
-    {"n": "Dumbbell bicep curl, neutral grip", "sets": [[20,6],[20,6]]},
+    {"n": "Hammer curl", "sets": [[20,6],[20,6]]},
     {"n": "Machine preacher curl", "sets": [[40,12],[40,12]]}
    ]},
    {"t": "Traps & neck", "items": [
