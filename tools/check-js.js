@@ -75,6 +75,7 @@ setTimeout(()=>{
     // block starts/ends earn the LONG tics, clamped to the ruler's range
     const H0=parseInt(R[0].t),H1=parseInt(R[R.length-1].t),lt=new Set();
     R.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    lt.add(H0);   // mirror the renderer: the day's start draws a boundary line
     const ltN=[...lt].filter(hh=>hh>=H0&&hh<=H1).length;
     ok(`routine draws ${ltN} long tics`, count(n.pages.innerHTML,'rhl lt')===ltN,
       count(n.pages.innerHTML,'rhl lt')+' long tics');

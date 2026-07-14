@@ -37,7 +37,7 @@
   --mg:rgba(245,244,239,.07);
   --frost:rgba(48,48,46,.72); --frost-b:rgba(245,244,239,.14); --frost-h:rgba(59,59,55,.9);
 }
-:root{--thh:30px; --nm:180px; --hh:56px}   /* sizing: theme-independent, must not sit in a theme block */
+:root{--thh:30px; --nm:180px; --hh:64px}   /* sizing: theme-independent, must not sit in a theme block */
 :root,[data-theme=light]{--chrome:#FFFFFF;   /* pre-compensates Safari's darkening; see paint() */
   
   /* Claude cream: warm ivory paper, warm near-black ink */
@@ -386,7 +386,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
   border:.5px solid transparent;border-radius:99px;padding:6px 12px;white-space:nowrap}
 .smk:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt)}
 /* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
-.rhr{display:flex;gap:14px}
+.rhr{display:flex;gap:14px;position:relative}   /* anchors the full-width boundary lines */
 .rht{flex:none;width:64px;font-size:11px;font-weight:600;color:var(--t4);
   font-variant-numeric:tabular-nums;letter-spacing:.02em}
 /* the ruler is drawn with TICS, all the same thin weight. Where a block starts or ends,
@@ -395,8 +395,11 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
    START; row content hangs below its hour line. Every hour is exactly --hh tall. */
 .rhl{display:flex;align-items:flex-start;gap:6px;height:var(--hh);white-space:nowrap}
 .rhl::before{content:"";flex:none;width:7px;height:1px;background:var(--t4);opacity:.55;margin-top:7px}
-.rhl.lt::after{content:"";flex:1;height:1px;background:var(--t4);opacity:.55;margin-right:-10px;margin-top:7px}
-.rcell{flex:1;min-width:0;padding:2px 0 4px}
+/* a boundary line spans the WHOLE row. It positions against .rhr at the first label's
+   line — safe because the hour-walk guarantees a boundary hour always STARTS its row */
+.rhl.lt::before{visibility:hidden}
+.rhl.lt::after{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--t4);opacity:.55}
+.rcell{flex:1;min-width:0;padding:10px 0 4px}   /* text hangs just under its hour line */
 /* block text centres BETWEEN the boundary tic lines, which sit 7px below the cell
    tops they belong to — so the midpoint is the box centre + 7px: pad 2x7 on top. */
 .rhr.rblockrow .rcell{display:flex;align-items:center;padding:14px 0 0}
@@ -1108,6 +1111,7 @@ function renderPage(p){
     // block boundaries earn the LONG tics; every other hour gets a subtle one
     const lt=new Set();
     ROUTINE.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    lt.add(H0);   // the day's start earns a boundary line too
     const mark=hh=>`<i class="rhl${lt.has(hh)?' lt':''}">${String(hh).padStart(2,'0')}:00</i>`;
     h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
       `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${24-(H1-H0)}h bed time<br>`+
