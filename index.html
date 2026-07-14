@@ -321,12 +321,13 @@ td.pos{padding-right:14px}
 html:not([data-menu=open]) .ptabs{display:none}
 html[data-menu=open] .srch,html[data-menu=open] .chips,html[data-menu=open] .ptitle,
 html[data-menu=open] .toc,html[data-menu=open] .tspace{display:none}
-/* the swap animates the BAR, not its pieces: old content fade-slides out, the content
-   flips while invisible, new content rides back in. One element both directions (rule 7);
-   the exit eases IN (accelerates away, .24s) and the entry eases OUT (decelerates, .34s)
-   — asymmetric timing is what keeps it from reading as a blink. pmSet() choreographs. */
-.bar{transition:opacity .34s cubic-bezier(.2,.7,.3,1),transform .34s cubic-bezier(.2,.7,.3,1)}
-.bar.swapping{opacity:0;transform:translateX(-14px);
+/* .swap wraps ONLY the swappable row-1 content (title / tabs / search / pills), so the
+   hamburger and the toc sit outside the animation and hold still. One element animates,
+   both directions (rule 7); exit eases IN (.24s), entry eases OUT (.34s) — the asymmetry
+   is what keeps it from reading as a blink. pmSet() choreographs. */
+.swap{display:flex;align-items:center;gap:inherit;row-gap:inherit;flex:1;min-width:0;flex-wrap:wrap;
+  transition:opacity .34s cubic-bezier(.2,.7,.3,1),transform .34s cubic-bezier(.2,.7,.3,1)}
+.swap.swapping{opacity:0;transform:translateX(-14px);
   transition:opacity .24s cubic-bezier(.55,0,.8,.4),transform .24s cubic-bezier(.55,0,.8,.4)}
 .pt{font-family:inherit;font-size:13.5px;font-weight:550;padding:9px 13px;white-space:nowrap;
   background:none;border:none;border-radius:9px;color:var(--t3);cursor:pointer;position:relative;
@@ -482,6 +483,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
         </svg>
       </button>
     </span>
+    <div class="swap" id="swap">
     <span class="ptitle" id="ptitle"></span>
     <nav class="ptabs" id="ptabs" aria-label="Pages">
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
@@ -499,6 +501,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
       <button class="qx" id="qx" title="Clear" aria-label="Clear search">&times;</button>
     </div>
       <div class="chips" id="chips"></div>
+    </div>
       <span class="tspace"></span>
       <div class="toc" id="toc"></div>
     </div>
@@ -951,7 +954,7 @@ function pmSet(open){
   PBTN.setAttribute('aria-expanded',String(open));
   const apply=()=>{ if(open)document.documentElement.dataset.menu='open';
                     else delete document.documentElement.dataset.menu; };
-  const B=document.getElementById('bar');
+  const B=document.getElementById('swap');
   if(!B||!B.animate||matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return;}
   B.classList.add('swapping');
   clearTimeout(pmSet._t);
