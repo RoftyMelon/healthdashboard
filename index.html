@@ -588,7 +588,7 @@ html:not([data-page=markers]) .ptabs{margin-left:-13px;transition:margin-left .3
 // ---- DATA LIVES IN bloodwork.json ----
 // One source of truth. The dashboard reads it; so does any AI you hand it to.
 // To add a draw, edit that file. Never edit data in here.
-let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,ROUTINE=[],DIET=null,CARE=[];
+let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,ROUTINE=[],DIET=null,CARE=[],TRAINING=[];
 
 // Accent-folding, so "hemoglobine" finds "Hémoglobine". NFKD splits the accent off the
 // letter; the range then strips it. œ/æ have no decomposition, so they're folded by hand.
@@ -693,6 +693,9 @@ function audit(j){
   if(j.CARE)j.CARE.forEach(c=>{
     if(!Array.isArray(c.items))bad.push(`CARE "${c.t}": items must be an array (empty is fine)`);
   });
+  if(j.TRAINING)j.TRAINING.forEach(c=>{
+    if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
+  });
   return bad;
 }
 
@@ -707,7 +710,7 @@ function boot(j,cache){
     return;                                   // refuse to render rather than render a lie
   }
   MARK=j.MARK; DECS=j.DECS; CATS=j.CATS; DATA=j.DATA;
-  STACK=j.STACK||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null; CARE=j.CARE||[];
+  STACK=j.STACK||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||[];
   S.draws=DATA.draws;
   MARK.forEach(m=>m._h=norm(m.en+' '+m.fr+' '+m.us));   // search index, derived
   // Remember it, so opening from disk on a phone doesn't mean re-picking the file
@@ -1085,6 +1088,12 @@ function renderPage(p){
       `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
         ?`<ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
         :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
+  } else if(p==='training'&&TRAINING.length){
+    h=`<div class="pgh">Training</div><div class="pgsub">${TRAINING.map(c=>esc(c.t)).join(' · ')}</div>`+
+      `<div class="care">`+TRAINING.map(c=>
+        `<div class="ccard"><b>${esc(c.t)}</b>${c.items.length
+          ?`<ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
+          :`<div class="cempty">&mdash;</div>`}</div>`).join('')+`</div>`;
   } else if(p==='diet'&&DIET){
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.length} meals a day</div>`+
       DIET.meals.map(m=>`<div class="meal"><div class="pgst">${esc(m.t)}<small>${esc(m.at||'')}</small></div>`+
