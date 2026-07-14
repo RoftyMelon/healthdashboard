@@ -41,6 +41,24 @@ setTimeout(()=>{
     try{ ({flip:()=>flip(),goto:()=>goto('cbc'),onQ:()=>onQ('hemoglobine')})[fn](); ok(fn+'()',true); }
     catch(e){ ok(fn+'()',false,e.message); } });
   onQ('');
+  // the three data pages render from their blocks, and every entry survives the trip
+  const count=(h,c)=>(h.match(new RegExp(`class="${c}`,'g'))||[]).length;
+  const want={stack:['srow',DATA.STACK.items.length],routine:['rev',DATA.ROUTINE.length],diet:['meal',DATA.DIET.meals.length]};
+  Object.entries(want).forEach(([p,[cls,n2]])=>{
+    try{ setPage(p);
+      ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
+        count(n.pages.innerHTML,cls)+' rendered'); }
+    catch(e){ ok(`page "${p}"`,false,e.message); } });
+  // the routine is a RULER: one mark per hour from wake to lights-out, empty hours included
+  try{ setPage('routine');
+    const span=parseInt(DATA.ROUTINE[DATA.ROUTINE.length-1].t)-parseInt(DATA.ROUTINE[0].t)+1;
+    ok(`routine shows ${span} hour marks`, count(n.pages.innerHTML,'rhr')===span,
+      count(n.pages.innerHTML,'rhr')+' marks'); }
+  catch(e){ ok('routine hour marks',false,e.message); }
+  try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
+  catch(e){ ok('back to markers',false,e.message); }
+  const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
+  ok('audit rejects a bad STACK status', audit(j2).length===1);
   console.log(fail?`\n  ${fail} FAILED`:'\n  all passed');
   process.exit(fail?1:0);
 },40);

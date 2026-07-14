@@ -26,32 +26,12 @@ window.BLOODWORK =
   "subject": {
    "sex": "male",
    "country": "France (Strasbourg)",
-   "diet": "No oily fish. High mozzarella and potatoes. Regular Huel Black (FORTIFIED: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron).",
+   "diet": "See the DIET block. Rarely oily fish; high mozzarella, eggs (6-10/day) and potatoes; one Brazil nut/day. Huel Black is NO LONGER consumed (dropped as of 2026-07, exact stop date unrecorded) — it was regular through the earlier draws, so its fortification (iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron) is a confound for HISTORICAL draws only, not the current state.",
    "supervision": "none"
   },
-  "stack": {
-   "Astaxanthin": "24mg",
-   "Lycopene": "50mg",
-   "Vitamin D3 + K2": "5000 IU",
-   "Iodine": "300mcg",
-   "Omega-3": "4.5g (3g EPA + 1.5g DHA)",
-   "Glycine": "12g",
-   "NAC": "2000mg",
-   "TMG": "1000mg",
-   "Collagen": "2g",
-   "Hyaluronic acid": "250mg",
-   "AGE garlic": "2400mg",
-   "Curcumin": "unspecified",
-   "Magnesium L-threonate": "unspecified",
-   "Taurine": "5g",
-   "Boron": "5mg",
-   "Creatine": "5g — STOPPED",
-   "Zinc": "CONSIDERING, not started",
-   "Minoxidil topical": "5%",
-   "Finasteride topical": "0.1% 1mL — PLANNED",
-   "Dropped": "ashwagandha, melatonin"
-  },
-  "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (300mcg iodine ON TOP of iodine-fortified Huel), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
+  "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
+  "lifestyle_blocks": "STACK, ROUTINE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is the meal a supplement is taken with (breakfast/lunch/dinner) — null means NOT YET ASSIGNED, never guess it. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). .ev tags a candidate's evidence like oc does (strong/moderate/weak). ROUTINE times are HH:MM ascending; a routine entry's .slot pulls the matching STACK items at render time, so meal supplement lists are derived, never written twice. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
+  "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (300mcg iodine; historical draws were ALSO under iodine-fortified Huel, since dropped), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
    "Every \"u\" string appears verbatim in that marker units[] array.",
@@ -113,6 +93,73 @@ window.BLOODWORK =
   "Vitamin D3 5000 IU + K2",
   "Zinc + copper"
  ],
+ "STACK": {
+  "cats": [
+   {"id": "found", "t": "Foundation"},
+   {"id": "anti",  "t": "Antioxidants & botanicals"},
+   {"id": "amino", "t": "Aminos & structure"},
+   {"id": "hair",  "t": "Hair (topical)"},
+   {"id": "sleep", "t": "Sleep & stress"}
+  ],
+  "items": [
+   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Vitamin D3 5000 IU + K2"},
+   {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Iodine 300mcg"},
+   {"id": "omega3", "name": "Omega-3", "dose": "4.5g (3g EPA + 1.5g DHA)", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
+   {"id": "mglthr", "name": "Magnesium L-threonate", "dose": null, "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Magnesium L-threonate"},
+   {"id": "boron", "name": "Boron", "dose": "5mg", "cat": "found", "status": "taking", "when": null, "url": null, "dec": "Boron 5mg"},
+   {"id": "zinc", "name": "Zinc", "dose": null, "cat": "found", "status": "candidate", "when": null, "url": null, "dec": "Zinc + copper"},
+   {"id": "astax", "name": "Astaxanthin", "dose": "24mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": null},
+   {"id": "lyco", "name": "Lycopene", "dose": "50mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": null},
+   {"id": "curcumin", "name": "Curcumin", "dose": null, "cat": "anti", "status": "taking", "when": null, "url": null, "dec": "Curcumin"},
+   {"id": "garlic", "name": "AGE garlic", "dose": "2400mg", "cat": "anti", "status": "taking", "when": null, "url": null, "dec": "AGE garlic 2400mg"},
+   {"id": "glycine", "name": "Glycine", "dose": "12g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "taurine", "name": "Taurine", "dose": "5g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "nac", "name": "NAC", "dose": "2000mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "NAC 2000mg"},
+   {"id": "tmg", "name": "TMG", "dose": "1000mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "TMG 1000mg"},
+   {"id": "collagen", "name": "Collagen", "dose": "2g", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "cat": "amino", "status": "taking", "when": null, "url": null, "dec": null},
+   {"id": "creatine", "name": "Creatine", "dose": "5g", "cat": "amino", "status": "stopped", "when": null, "url": null, "dec": "Creatine 5g"},
+   {"id": "minoxidil", "name": "Minoxidil (topical)", "dose": "5%", "cat": "hair", "status": "taking", "when": null, "url": null, "dec": null},
+   {"id": "finasteride", "name": "Finasteride (topical)", "dose": "0.1%, 1mL", "cat": "hair", "status": "planned", "when": null, "url": null, "dec": "Finasteride (topical) 0.1% - 1mL"},
+   {"id": "ashwagandha", "name": "Ashwagandha", "dose": null, "cat": "sleep", "status": "dropped", "when": null, "url": null, "dec": null},
+   {"id": "melatonin", "name": "Melatonin", "dose": null, "cat": "sleep", "status": "dropped", "when": null, "url": null, "dec": null}
+  ]
+ },
+ "ROUTINE": [
+  {"t": "07:00", "do": "Wake + 10 min walk, direct sunlight in the eyes"},
+  {"t": "07:10", "do": "Hot + cold shower — quick, 2 min max"},
+  {"t": "07:15", "do": "Breakfast + supplements", "slot": "breakfast"},
+  {"t": "12:00", "do": "Lunch + supplements", "slot": "lunch"},
+  {"t": "17:00", "do": "Dinner + supplements", "slot": "dinner"},
+  {"t": "17:45", "do": "Shower + flossing + skincare"},
+  {"t": "21:00", "do": "Screens off"},
+  {"t": "21:30", "do": "Bedtime"},
+  {"t": "22:00", "do": "Lights out"}
+ ],
+ "DIET": {
+  "meals": [
+   {"id": "breakfast", "t": "Breakfast", "at": "07:15", "items": [
+    "Overnight Bjorg protein muesli with fromage blanc",
+    "Frozen red berries",
+    "1 Brazil nut"
+   ]},
+   {"id": "lunch", "t": "Lunch", "at": "12:00", "items": [
+    "200g mozzarella di bufala",
+    "6-10 eggs",
+    "Air-fried potatoes in duck grease (or other grease)",
+    "Frozen reheated vegetables"
+   ]},
+   {"id": "dinner", "t": "Dinner", "at": "17:00", "items": [
+    "200g mozzarella di bufala",
+    "Rice or pasta",
+    "Ground beef or chicken (frozen, reheated)",
+    "Frozen reheated vegetables"
+   ]}
+  ],
+  "notes": [
+   "Rarely oily fish."
+  ]
+ },
  "MARK": [
   {
    "id": "vitd",

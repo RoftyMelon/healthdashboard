@@ -17,7 +17,10 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-[data-theme=dark]{
+/* :root[data-theme=dark], not bare [data-theme=dark]: the light block below is `:root,...`
+   — equal specificity, later in the file, so a bare attribute selector LOSES the tie and
+   dark can never apply. The :root prefix outranks it; light stays the no-JS default. */
+:root[data-theme=dark]{
   --chrome:#262624;
   /* Claude dark: warm near-black grey, never a cold blue-black */
   --bg:#262624;
@@ -163,6 +166,7 @@ tr.grp .ghd{position:sticky;left:var(--gut,20px);width:fit-content;text-align:le
 tr.grp .gt{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
   /* µ uppercases to Greek Mu, which looks like M. Units must never be case-mapped. */
   color:var(--txt);line-height:1.25}
+.gtx{text-transform:none}   /* supplement group titles carry DOSES: exempt from the uppercase */
 tr.grp .gs{font-size:11px;font-weight:450;letter-spacing:0;color:var(--t4);line-height:1.35}
 
 td.tr{text-align:left;padding-left:14px}
@@ -293,6 +297,77 @@ td.pos{padding-right:14px}
   background:none;border:.5px solid transparent;color:var(--t3);transition:.14s}
 .nav:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt);transform:none}
 
+/* ---- pages: a naked hamburger, its popover, and the three data pages ----
+   Pills FILTER the table; the menu NAVIGATES between pages. Different species on purpose. */
+.pgnav{position:relative;display:flex;align-items:center;flex:none}
+.pgbtn{display:flex;align-items:center;justify-content:center;width:auto;height:auto;
+  padding:6px 5px;margin-left:-5px;background:none;border:none;border-radius:8px;color:var(--t2)}
+.pgbtn:hover{background:none;color:var(--txt)}
+.pmenu{position:absolute;top:calc(100% + 7px);left:-5px;z-index:60;min-width:158px;padding:5px;
+  background:var(--bg);border:.5px solid var(--btn-b);border-radius:13px;
+  box-shadow:0 12px 34px rgba(0,0,0,.18)}
+.pmenu .mi{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px 11px;font-size:12.5px;font-weight:550;color:var(--t2);
+  background:none;border:none;border-radius:9px;text-align:left}
+.pmenu .mi:hover{background:var(--btn-h);color:var(--txt)}
+.pmenu .mi.on{color:var(--txt);font-weight:650}
+.pmenu .mi.on::after{content:"\2713";font-size:11px}
+.msep{height:.5px;background:var(--line2);margin:4px 8px}
+.ptitle{font-size:13.5px;font-weight:650;letter-spacing:-.015em;color:var(--txt);
+  padding:5px 2px;white-space:nowrap}
+/* off the markers page, everything table-flavoured folds away with it */
+html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
+html:not([data-page=markers]) .toc,html:not([data-page=markers]) .tspace,
+html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{display:none}
+
+.pgs{max-width:780px;padding:6px 0 40px}
+.pgh{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:18px 0 3px}
+.pgsub{font-size:12.5px;color:var(--t3)}
+.pgsec{margin-top:22px}
+/* section titles uppercase like the table's group bars — doses NEVER go through this (µ -> M) */
+.pgst{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);
+  padding:7px 0;border-bottom:.5px solid var(--line);display:flex;align-items:baseline;gap:9px}
+.pgst small{font-weight:500;letter-spacing:0;font-size:11px;color:var(--t4);text-transform:none}
+.srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap}
+.srow.off .sn{color:var(--t3);text-decoration:line-through;text-decoration-color:var(--t4);text-decoration-thickness:1px}
+.sn{font-size:13.5px;font-weight:560;color:var(--txt);letter-spacing:-.01em}
+.sd{font-size:12.5px;color:var(--t2);font-variant-numeric:tabular-nums}
+.sb{font-size:10px;font-weight:700;letter-spacing:.07em;padding:2.5px 8px;border-radius:6px;
+  border:.5px solid var(--line);color:var(--t3);white-space:nowrap}
+.sb.taking{color:var(--t2);border-color:var(--t3)}
+.sb.candidate,.sb.planned{border-style:dashed;color:var(--t2)}
+.sb.strong{border-width:1px;color:var(--t2)}
+.sb.weak{border-style:dashed;color:var(--t4)}
+.sfill{flex:1}
+.slink{font-size:11.5px;color:var(--info);text-decoration:none;white-space:nowrap}
+.slink:hover{text-decoration:underline}
+.smk{font-family:inherit;font-size:11.5px;color:var(--t3);background:none;cursor:pointer;
+  border:.5px solid transparent;border-radius:99px;padding:3px 9px;white-space:nowrap}
+.smk:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt)}
+/* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
+.rhr{display:flex;gap:14px;border-bottom:.5px solid var(--line2)}
+.rht{flex:none;width:48px;padding:9px 0;font-size:11px;font-weight:600;color:var(--t4);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.rhr.rempty .rht{padding:5px 0}
+.rcell{flex:1;min-width:0;padding:5px 0 7px}
+.rhr.rempty .rcell{padding:0}
+.rev{display:flex;gap:12px;padding:4px 0;align-items:baseline}
+.rem{flex:none;width:44px;font-size:12.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums}
+.rbody{min-width:0}
+.rdo{font-size:13.5px;color:var(--t2);line-height:1.5}
+.rsup{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.rsup .rs{font-size:11px;color:var(--t2);background:var(--btn);border:.5px solid var(--btn-b);
+  border-radius:99px;padding:3px 9px;font-variant-numeric:tabular-nums}
+.rhint{font-size:11px;color:var(--t4);margin-top:8px;font-style:italic;line-height:1.5}
+/* diet */
+.meal{margin-top:18px}
+.mfoods{margin:8px 0 0;padding:0;list-style:none}
+.mfoods li{font-size:13px;color:var(--t2);padding:7px 0;border-bottom:.5px solid var(--line2);line-height:1.45}
+.dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
+.dnotes b{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
+.dnotes ul{margin:6px 0 0;padding:0;list-style:none}
+.dnotes li{font-size:12px;color:var(--t2);line-height:1.7}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   .orbit-disc,.icon-moon,.icon-sun{transition:none!important}
   html.tfade,html.tfade *{transition:none!important}}
@@ -350,12 +425,41 @@ td.pos{padding-right:14px}
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
     padding-left:10px;padding-right:6px}
 }
+/* pages, on a phone: the hamburger slims down so row 1 stays ONE row with all three pills */
+@media(max-width:900px),(max-height:560px){
+  .pgbtn{padding:4px 4px;margin-left:-4px}
+  .ptitle{font-size:12.5px;padding:2px}
+  .pgh{font-size:16px}
+  .rht{width:40px}
+  .rem{width:40px;font-size:12px}
+}
+/* On an actual phone the hamburger ate row 1's slack: tighten the pills so they clear the
+   pinned theme toggle (x≈341 at 375px) even when a flag count grows a digit. */
+@media(max-width:430px){
+  .chip{padding:4px 9px}
+  .bar{gap:5px}
+}
 </style>
 
 <div class="wrap">
   <div class="topbar" id="topbar">
     <div class="topline">
     <div class="bar">
+    <span class="pgnav">
+      <button class="pgbtn" id="pgbtn" aria-label="Pages" aria-haspopup="true" aria-expanded="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="pmenu" id="pmenu" hidden>
+        <button class="mi on" data-pg="markers" onclick="setPage('markers')">Markers</button>
+        <div class="msep"></div>
+        <button class="mi" data-pg="stack" onclick="setPage('stack')">Stack</button>
+        <button class="mi" data-pg="routine" onclick="setPage('routine')">Routine</button>
+        <button class="mi" data-pg="diet" onclick="setPage('diet')">Diet</button>
+        <button class="mi" data-pg="training" onclick="setPage('training')">Training</button>
+      </div>
+    </span>
+    <span class="ptitle" id="ptitle"></span>
     <div class="srch" id="srch">
       <button class="sicon" id="sbtn" aria-label="Search markers" title="Search  ( / )">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -392,6 +496,7 @@ td.pos{padding-right:14px}
       <b>Loading…</b><br><span>If this stays here, JavaScript did not run.
       iOS previews HTML in a sandbox that sometimes blocks it. Open the file in a browser instead.</span>
     </td></tr></tbody></table></div></div>
+  <div id="pages" class="pgs" hidden></div>
 </div>
 
 <div class="gutmask" aria-hidden="true"></div>
@@ -406,7 +511,7 @@ td.pos{padding-right:14px}
 // ---- DATA LIVES IN bloodwork.json ----
 // One source of truth. The dashboard reads it; so does any AI you hand it to.
 // To add a draw, edit that file. Never edit data in here.
-let MARK=[],DECS=[],CATS=[],DATA={draws:[]};
+let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,ROUTINE=[],DIET=null;
 
 // Accent-folding, so "hemoglobine" finds "Hémoglobine". NFKD splits the accent off the
 // letter; the range then strips it. œ/æ have no decomposition, so they're folded by hand.
@@ -481,6 +586,31 @@ function audit(j){
         bad.push(`draw ${d.date}, ${m.en}: value "${v.r}" is not a number`);
     });
   });
+  // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
+  if(j.STACK){
+    const cids=new Set((j.STACK.cats||[]).map(c=>c.id));
+    const ST=['taking','candidate','stopped','dropped','planned'],SL=['breakfast','lunch','dinner'];
+    (j.STACK.items||[]).forEach(s=>{
+      if(!cids.has(s.cat))bad.push(`STACK "${s.name}": category "${s.cat}" is not in STACK.cats`);
+      if(!ST.includes(s.status))bad.push(`STACK "${s.name}": status "${s.status}" is not one of ${ST.join('/')}`);
+      if(s.when!=null&&!SL.includes(s.when))bad.push(`STACK "${s.name}": when "${s.when}" is not one of ${SL.join('/')}`);
+      if(s.dec!=null&&!j.DECS.includes(s.dec))bad.push(`STACK "${s.name}": dec "${s.dec}" is not a DECS label`);
+      if(s.url!=null&&!/^https:\/\//.test(s.url))bad.push(`STACK "${s.name}": url must start with https://`);
+      if(s.ev!=null&&!['strong','moderate','weak'].includes(s.ev))bad.push(`STACK "${s.name}": ev "${s.ev}" is not strong/moderate/weak`);
+    });
+  }
+  if(j.ROUTINE){
+    let prev='';
+    j.ROUTINE.forEach(r=>{
+      if(!/^\d{2}:\d{2}$/.test(r.t))bad.push(`ROUTINE "${r.do}": time "${r.t}" is not HH:MM`);
+      else{if(r.t<=prev)bad.push(`ROUTINE "${r.t} ${r.do}": times must be ascending`);prev=r.t;}
+      if(r.slot!=null&&!['breakfast','lunch','dinner'].includes(r.slot))
+        bad.push(`ROUTINE "${r.do}": slot "${r.slot}" is not breakfast/lunch/dinner`);
+    });
+  }
+  if(j.DIET)(j.DIET.meals||[]).forEach(m=>{
+    if(!m.items||!m.items.length)bad.push(`DIET "${m.t}": meal has no items`);
+  });
   return bad;
 }
 
@@ -495,12 +625,14 @@ function boot(j,cache){
     return;                                   // refuse to render rather than render a lie
   }
   MARK=j.MARK; DECS=j.DECS; CATS=j.CATS; DATA=j.DATA;
+  STACK=j.STACK||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null;
   S.draws=DATA.draws;
   MARK.forEach(m=>m._h=norm(m.en+' '+m.fr+' '+m.us));   // search index, derived
   // Remember it, so opening from disk on a phone doesn't mean re-picking the file
   // every single time. Re-pick only when the data actually changes.
   if(cache!==false){try{localStorage.setItem(DKEY,JSON.stringify(j));}catch(e){}}
   paint(); render();
+  if(page!=='markers')renderPage(page);   // re-booted (fresh file) while on a data page
 }
 
 // Opened from disk, fetch() is blocked. So offer the file instead: pick it or drop it.
@@ -736,9 +868,9 @@ function render(){
     h+=SEC(null,'Needs attention','Ranked worst first, by how far outside its own range',
       rows.length?rows.map(R).join(''):NONE('Nothing flagged.'));
   } else if(sup){
-    DECS.forEach(g=>{
+    DECS.forEach((g,gi)=>{
       const rows=MARK.filter(m=>m.dec&&m.dec.includes(g));
-      if(rows.length)h+=SEC(null,g,rows.length+' markers',rows.map(R).join(''));
+      if(rows.length)h+=SEC('dec'+gi,`<span class="gtx">${g}</span>`,rows.length+' markers',rows.map(R).join('')); // id: the Stack page jumps here
     });
   } else {
     CATS.forEach(c=>{
@@ -751,19 +883,103 @@ function render(){
   requestAnimationFrame(()=>{if(typeof setTop==='function')setTop();});
 }
 const SRCH=document.getElementById('srch'),QI=document.getElementById('q'),TOP=document.getElementById('top');
-function goto(cat){
-  const run=()=>{
-    const el=document.getElementById('sec-'+cat),th=document.querySelector('thead th');
-    if(!el||!th)return;
-    // The header's rendered bottom, wherever it is pinned. Works for both scrollers.
-    const headBottom=th.getBoundingClientRect().bottom;
-    // (the tbody isn't sticky — only its cells are — so its rect is the true layout position)
-    const barTop=el.getBoundingClientRect().top;
-    window.scrollBy({top:barTop-headBottom+1,behavior:'smooth'});  // +1 tucks under, never a seam
-  };
-  if(filter!=='all'||q){setF('all');requestAnimationFrame(()=>requestAnimationFrame(run));}
-  else run();
+function scrollToSec(sec){
+  const el=document.getElementById('sec-'+sec),th=document.querySelector('thead th');
+  if(!el||!th)return;
+  // The header's rendered bottom, wherever it is pinned. Works for both scrollers.
+  const headBottom=th.getBoundingClientRect().bottom;
+  // (the tbody isn't sticky — only its cells are — so its rect is the true layout position)
+  const barTop=el.getBoundingClientRect().top;
+  window.scrollBy({top:barTop-headBottom+1,behavior:'smooth'});  // +1 tucks under, never a seam
 }
+function goto(cat){
+  if(filter!=='all'||q){setF('all');requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToSec(cat)));}
+  else scrollToSec(cat);
+}
+// from a Stack row to the By-supplement group of markers it bears on
+function gotoDec(gi){
+  setPage('markers');
+  if(filter!=='crit'||q){setF('crit');requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToSec('dec'+gi)));}
+  else scrollToSec('dec'+gi);
+}
+/* ---- pages ----
+   'markers' is the whole table experience, filters and all. The other three render
+   into #pages from the STACK / ROUTINE / DIET blocks, and the table-only controls
+   fold away via html[data-page] (see the CSS). Nothing here touches table geometry. */
+const PAGES={markers:'Markers',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training'};
+let page='markers';
+document.documentElement.dataset.page=page;
+const PGEL=document.getElementById('pages'),PTITLE=document.getElementById('ptitle'),
+      PBTN=document.getElementById('pgbtn'),PMENU=document.getElementById('pmenu');
+function pmClose(){PMENU.hidden=true;PBTN.setAttribute('aria-expanded','false');}
+function pmToggle(){PMENU.hidden=!PMENU.hidden;PBTN.setAttribute('aria-expanded',String(!PMENU.hidden));}
+function setPage(p){
+  if(!PAGES[p]||p===page){pmClose();return;}
+  page=p;
+  document.documentElement.dataset.page=p;
+  PTITLE.textContent=p==='markers'?'':PAGES[p];   // the controls say 'markers'; the title says the rest
+  PGEL.hidden=p==='markers';
+  document.querySelectorAll('#pmenu .mi').forEach(b=>b.classList.toggle('on',b.dataset.pg===p));
+  if(p!=='markers')renderPage(p);
+  pmClose();
+  window.scrollTo({top:0});
+}
+function renderPage(p){
+  let h='';
+  if(p==='stack'&&STACK){
+    const on=STACK.items.filter(s=>s.status==='taking').length;
+    h=`<div class="pgh">Supplement stack</div><div class="pgsub">${on} taking · ${STACK.items.length} listed</div>`;
+    STACK.cats.forEach(c=>{
+      const items=STACK.items.filter(s=>s.cat===c.id);
+      if(!items.length)return;
+      h+=`<div class="pgsec"><div class="pgst">${esc(c.t)}<small>${items.length} item${items.length>1?'s':''}</small></div>`+
+        items.map(s=>{
+          const dead=s.status==='stopped'||s.status==='dropped';
+          const gi=s.dec?DECS.indexOf(s.dec):-1;
+          return `<div class="srow${dead?' off':''}">`+
+            `<span class="sn">${esc(s.name)}</span>`+
+            (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+
+            `<span class="sb ${s.status}">${s.status}</span>`+
+            (s.ev?`<span class="sb ${s.ev}" title="Evidence behind adding it">${s.ev} evidence</span>`:'')+
+            `<span class="sfill"></span>`+
+            (gi>=0?`<button class="smk" onclick="gotoDec(${gi})" title="Jump to the markers this bears on">markers &#8599;</button>`:'')+
+            (s.url?`<a class="slink" href="${esc(s.url)}" target="_blank" rel="noopener">buy &#8599;</a>`:'')+
+          `</div>`;}).join('')+`</div>`;
+    });
+    const un=STACK.items.filter(s=>s.status==='taking'&&!s.when).length;
+    if(un)h+=`<div class="rhint">${un} taking item${un>1?'s':''} have no meal slot yet — set "when" in bloodwork.js and the Routine page picks them up.</div>`;
+  } else if(p==='routine'&&ROUTINE.length){
+    // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
+    // hours take up (a little) space and the day reads as time, not as glued-together events
+    const H0=parseInt(ROUTINE[0].t),H1=parseInt(ROUTINE[ROUTINE.length-1].t);
+    h=`<div class="pgh">Daily routine</div><div class="pgsub">${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${H1-H0} hours</div>`;
+    for(let hr=H0;hr<=H1;hr++){
+      const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
+      h+=`<div class="rhr${evs.length?'':' rempty'}"><span class="rht">${String(hr).padStart(2,'0')}:00</span><div class="rcell">`+
+        evs.map(r=>{
+          let sup='';
+          if(r.slot&&STACK){
+            const list=STACK.items.filter(s=>s.status==='taking'&&s.when===r.slot);
+            sup=list.length
+              ?`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`
+              :`<div class="rhint">which supplements? not assigned yet — set "when":"${r.slot}" on STACK items</div>`;
+          }
+          return `<div class="rev"><span class="rem">${r.t}</span><div class="rbody"><div class="rdo">${esc(r.do)}</div>${sup}</div></div>`;
+        }).join('')+`</div></div>`;
+    }
+  } else if(p==='diet'&&DIET){
+    h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.length} meals a day</div>`+
+      DIET.meals.map(m=>`<div class="meal"><div class="pgst">${esc(m.t)}<small>${esc(m.at||'')}</small></div>`+
+        `<ul class="mfoods">${m.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+    if(DIET.notes&&DIET.notes.length)
+      h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
+  }
+  PGEL.innerHTML=h||`<div class="pgh">${esc(PAGES[p]||p)}</div><div class="pgsub">No data block in bloodwork.js yet.</div>`;
+}
+PBTN.addEventListener('click',e=>{e.stopPropagation();pmToggle();});
+document.addEventListener('click',e=>{
+  if(!PMENU.hidden&&!(e.target.closest&&e.target.closest('.pgnav')))pmClose();});
+
 const TB=document.getElementById('topbar'),WRAP=document.querySelector('.wrap');
 const R0=document.documentElement.style;
 const setGut=()=>{                                   // left margin of the content column
@@ -817,8 +1033,9 @@ document.getElementById('sbtn').addEventListener('click',()=>{
   if(SRCH.classList.contains('open')&&!q)sShut(); else QI.focus();});
 document.getElementById('qx').addEventListener('click',()=>{QI.value='';onQ('');QI.focus();});
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&SRCH.classList.contains('open'))sShut();
-  else if(e.key==='/'&&document.activeElement!==QI){e.preventDefault();QI.focus();}});
+  if(e.key==='Escape'&&!PMENU.hidden)pmClose();
+  else if(e.key==='Escape'&&SRCH.classList.contains('open'))sShut();
+  else if(e.key==='/'&&document.activeElement!==QI&&page==='markers'){e.preventDefault();QI.focus();}});
 QI.placeholder='Search markers…';
 
 // Toggling a row open then shut lands two clicks in the same spot: the browser reads that

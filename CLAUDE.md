@@ -4,7 +4,7 @@ A personal biomarker dashboard. Two files, and the separation between them is th
 
 | file | role |
 |---|---|
-| `bloodwork.js` | **The data. The single source of truth.** 66 markers, 6 draws, the supplement map. Also what gets handed to an AI for biomarker work. |
+| `bloodwork.js` | **The data. The single source of truth.** 66 markers, 6 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
 | `index.html` | **The viewer. Contains ZERO data.** Loads `bloodwork.js` via `<script src>`. |
 
 **Never put data in `index.html`. Never put UI in `bloodwork.js`.** If you find yourself
@@ -27,6 +27,10 @@ list below **passed a syntax check and shipped a broken page**:
 - a regex deleted a block and silently took `norm()` and the entire state object with it —
   the page loaded and rendered nothing
 - a dangling selector `[data-theme=dark] [data-theme=dark]` **swallowed the rule after it**
+- a bare `[data-theme=dark]` block **tied** the light block's `:root` on specificity and, sitting
+  earlier in the file, lost the tie — dark mode silently never applied, on every device, from the
+  first deploy until 2026-07. It is `:root[data-theme=dark]` now. A palette has no error to throw:
+  LOOK at both themes.
 - a media query placed *before* a base rule **stopped applying** (media queries add no specificity)
 - `position:static` killed sticky on **both** axes when only the horizontal was wanted
 - `--thh` was **circular**: the header was sized from it and it was measured back from the header
@@ -62,6 +66,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   (strong / moderate / weak). Do not present a weak target as a finding.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
+- `STACK`, `ROUTINE`, `DIET` feed the hamburger-menu pages (Stack / Routine / Diet).
+  Statuses are a closed enum (taking / candidate / stopped / dropped / planned); `when` is the
+  meal a supplement rides with — **null means not yet assigned, never guess it**. The Routine
+  page derives its supplement lists from `STACK.when` at render time: timing is written in ONE
+  place or nowhere. `audit()` gates these blocks too.
 
 ---
 
