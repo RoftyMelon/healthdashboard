@@ -1171,7 +1171,7 @@ function renderPage(p){
   // an exercise renders as a gridless set table: one column per set, kg over reps.
   // Long protocol details hide behind an info tip so the cards stay narrow.
   const exRow=x=>{
-    if(typeof x==='string')return `<li>${esc(x)}</li>`;
+    if(typeof x==='string')return `<li>${esc(x).replace(/\n/g,'<br>')}</li>`;
     // uniform weight AND reps (the usual case) collapse to ONE line on the name:
     // "40kg - 3x5". Uniform weight with mixed reps keeps a reps row; mixed weights
     // keep the full per-set kg/reps columns.

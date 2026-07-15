@@ -156,11 +156,11 @@ window.BLOODWORK =
   {"id": "face", "t": "Face", "groups": [
    {"t": "Daily", "items": [
     "Morning: serum → day cream",
-    "After dinner: 1% retinol → night cream → petroleum (Vaseline)",
+    "After dinner:\n1% retinol → night cream → petroleum (Vaseline)",
     "Full body hydrating cream after shower"
    ]},
    {"t": "Weekly", "items": [
-    "2x/week, instead of retinol: glycolic acid 7%",
+    "2x/week, instead of retinol:\nglycolic acid 7%",
     "Microneedling 1mm, face + scalp, 1x/week"
    ]}
   ]}
