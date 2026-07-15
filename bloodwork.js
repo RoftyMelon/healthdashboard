@@ -250,7 +250,7 @@ window.BLOODWORK =
      "Other": [["Choline","131 mg"],["Omega-3 (ALA)","4.5 g"],["Omega-6","4.7 g"],["MCT","1.2 g"],["Caffeine","76 mg"],["Green tea","140 mg"],["Lutein","1.8 mg"],["Zeaxanthin","0.1 mg"],["B. coagulans","219 M"]]
     }},
     "Two bananas",
-    "Brazil nut"
+    {"n": "Brazil nut", "info": {"Per nut (~5 g)": [["Energy","33 kcal"],["Fat","3.4 g"],["Protein","0.7 g"],["Carbs","0.6 g"]], "Minerals": [["Selenium","~90 mcg"],["Magnesium","19 mg"],["Phosphorus","36 mg"],["Copper","0.1 mg"]]}}
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
     "200g mozzarella di bufala",
