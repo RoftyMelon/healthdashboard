@@ -91,8 +91,10 @@ button.solid:hover{opacity:.9;background:var(--sol)}
 button.warn{color:var(--out);border-color:var(--out);background:transparent}
 button.warn:hover{background:var(--out);color:#fff}
 button.ic{padding:0;width:40px;height:40px;border-radius:50%;flex:none;
-  display:flex;align-items:center;justify-content:center;color:var(--t2)}
-button.ic:hover{color:var(--txt)}
+  display:flex;align-items:center;justify-content:center;color:var(--t2);
+  background:var(--frost);border:.5px solid var(--frost-b);z-index:1;
+  -webkit-backdrop-filter:blur(10px) saturate(1.3);backdrop-filter:blur(10px) saturate(1.3)}
+button.ic:hover{color:var(--txt);background:var(--frost-h)}
 
 /* Orbit toggle. The clip circle IS the horizon: icons exist only inside it.
    The disc pivots BELOW the window (50% 104%), so they rise and set on a shallow
@@ -595,6 +597,9 @@ li.open .exinfo,.srow.open .exinfo{display:block}
   .pgnav{width:44px}                          /* the collapse animates from the 38px button */
   .ptabs{margin-right:12px}                   /* tight: all five tabs should FIT, not scroll */
   .swap{padding-right:48px}                   /* scrolled pills end clear of the toggle too */
+  /* the tab strip escapes the clearance and runs UNDER the glass toggle; its own
+     end-padding parks the fully-revealed last tab clear of the glass */
+  .ptabs{margin-right:-48px;padding-right:52px}
   .pt{font-size:16px;padding:8px 8px}
   .pgh{font-size:24px}
   .rht{width:56px}
