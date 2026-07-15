@@ -244,13 +244,13 @@ window.BLOODWORK =
   "meals": [
    {"id": "presnack", "t": "Pre-workout snack", "at": "07:15", "items": [
     {"n": "100g Huel Black", "info": {
-     "Per 100g": [["Energy","438 kcal"],["Protein","44 g"],["Fat","18 g"],["– saturates","4.2 g"],["– monounsat.","3.9 g"],["– PUFA","9.5 g"],["Carbs","20 g"],["– sugars","1.8 g"],["Fibre","9.3 g"],["Salt","0.8 g"]],
-     "Vitamins": [["A","197 mcg"],["D","176 IU"],["E","4.4 mg"],["K","43 mcg"],["C","66 mg"],["Thiamin","0.24 mg"],["Riboflavin","0.31 mg"],["Niacin","3.5 mg"],["B6","0.31 mg"],["Pantoth.","1.3 mg"],["Folate","88 mcg"],["B12","0.9 mcg"],["Biotin","13 mcg"]],
-     "Minerals": [["Calcium","263 mg"],["Phosphorus","394 mg"],["Potassium","766 mg"],["Chloride","179 mg"],["Magnesium","96 mg"],["Iron","9.8 mg"],["Zinc","5 mg"],["Copper","0.5 mg"],["Manganese","1 mg"],["Selenium","36 mcg"],["Iodine","33 mcg"],["Chromium","13 mcg"],["Molybdenum","41 mcg"]],
+     "Per 100g": [["Energy","438 kcal","22%"],["Protein","44 g","88%"],["Fat","18 g","26%"],["– saturates","4.2 g","21%"],["– monounsat.","3.9 g"],["– PUFA","9.5 g"],["Carbs","20 g","8%"],["– sugars","1.8 g","2%"],["Fibre","9.3 g"],["Salt","0.8 g","13%"]],
+     "Vitamins": [["A","197 mcg","25%"],["D","176 IU","88%"],["E","4.4 mg","37%"],["K","43 mcg","57%"],["C","66 mg","83%"],["Thiamin","0.24 mg","22%"],["Riboflavin","0.31 mg","22%"],["Niacin","3.5 mg","22%"],["B6","0.31 mg","22%"],["Pantoth.","1.3 mg","22%"],["Folate","88 mcg","44%"],["B12","0.9 mcg","35%"],["Biotin","13 mcg","26%"]],
+     "Minerals": [["Calcium","263 mg","33%"],["Phosphorus","394 mg","56%"],["Potassium","766 mg","38%"],["Chloride","179 mg","22%"],["Magnesium","96 mg","26%"],["Iron","9.8 mg","70%"],["Zinc","5 mg","50%"],["Copper","0.5 mg","50%"],["Manganese","1 mg","50%"],["Selenium","36 mcg","65%"],["Iodine","33 mcg","22%"],["Chromium","13 mcg","33%"],["Molybdenum","41 mcg","82%"]],
      "Other": [["Choline","131 mg"],["Omega-3 (ALA)","4.5 g"],["Omega-6","4.7 g"],["MCT","1.2 g"],["Caffeine","76 mg"],["Green tea","140 mg"],["Lutein","1.8 mg"],["Zeaxanthin","0.1 mg"],["B. coagulans","219 M"]]
     }},
     "Two bananas",
-    {"n": "Brazil nut", "info": {"Per nut (~5 g)": [["Energy","33 kcal"],["Fat","3.4 g"],["Protein","0.7 g"],["Carbs","0.6 g"]], "Minerals": [["Selenium","~90 mcg"],["Magnesium","19 mg"],["Phosphorus","36 mg"],["Copper","0.1 mg"]]}}
+    {"n": "Brazil nut", "info": {"Per nut (~5 g)": [["Energy","33 kcal","2%"],["Fat","3.4 g","5%"],["Protein","0.7 g","1%"],["Carbs","0.6 g"]], "Minerals": [["Selenium","~90 mcg","164%"],["Magnesium","19 mg","5%"],["Phosphorus","36 mg","5%"],["Copper","0.1 mg","10%"]]}}
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
     "200g mozzarella di bufala",
