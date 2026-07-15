@@ -56,7 +56,7 @@ setTimeout(()=>{
   const want={stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
-    diet:['ccard',DATA.DIET.meals.length]};   // meals render as cards
+    diet:['ccard',DATA.DIET.meals.length+1]};   // meal cards + the standalone Evening supps card
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
       ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
@@ -138,6 +138,17 @@ setTimeout(()=>{
     const kgSeen=(n.pages.innerHTML.match(/kg<\/i>/g)||[]).length;
     ok(`training keeps ${kgColN} per-set weights`, kgSeen===kgColN, kgSeen+' in columns'); }
   catch(e){ ok('training groups',false,e.message); }
+  // every meal card embeds a derived Supps sub-section (the evening card's title IS its list)
+  try{ setPage('diet');
+    ok(`diet embeds ${DATA.DIET.meals.length} supp sub-sections`,
+      count(n.pages.innerHTML,'cgrp')===DATA.DIET.meals.length,
+      count(n.pages.innerHTML,'cgrp')+' sections');
+    const evn=DATA.STACK.items.filter(x=>x.when==='evening'&&(x.status==='taking'||x.status==='planned')).length;
+    const shown=(n.pages.innerHTML.match(/Evening supps/g)||[]).length;
+    ok('diet shows the Evening supps card', shown===1, shown+' rendered');
+    ok(`evening card derives ${evn} item(s) from STACK.when`,
+      evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived'); }
+  catch(e){ ok('diet supps',false,e.message); }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';

@@ -603,11 +603,6 @@ li.open .exinfo,.srow.open .exinfo{display:block}
   .care{flex-wrap:wrap;max-width:none;
     width:min(calc(100vw - var(--gut,20px) - 20px),1400px)}
 }
-/* the 2x2 supp grid holds until its right column would touch the screen edge
-   (634px grid + gutters), NOT until the general desktop breakpoint */
-@media(min-width:675px){
-  .care.grid2{flex-wrap:wrap;overflow-x:visible;width:auto;max-width:634px}
-}
 @media(max-width:430px){
   .chip{padding:8px 10px;font-size:14.5px}
   .bar{gap:4px}
@@ -1255,7 +1250,6 @@ function renderPage(p){
     h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
       `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${24-(H1-H0)}h bed time<br>`+
       `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${H1-H0}h wake time</div>`;
-    h+=cardRow(CARE.filter(c=>c.top),'grid2');   // the meal-supps cards lead the page, 2x2 on desktop
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
@@ -1307,10 +1301,20 @@ function renderPage(p){
       (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note)}</div>`:'')+
       cardRow(TRAINING.cards);
   } else if(p==='diet'&&DIET){
+    // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
+    const supps=slot=>{
+      const list=STACK?STACK.items.filter(x=>x.when===slot&&(x.status==='taking'||x.status==='planned')):[];
+      return list.length
+        ?`<ul>${list.map(x=>`<li>${esc(x.name)}${x.dose?`<span class="cwhen">${esc(x.dose)}</span>`:''}</li>`).join('')}</ul>`
+        :`<div class="cempty">&mdash;</div>`;
+    };
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.length} meals a day</div>`+
       `<div class="care col">`+DIET.meals.map(m=>
         `<div class="ccard"><b>${esc(m.t)}</b>${m.at?`<span class="cwhen">${esc(m.at)}</span>`:''}`+
-        `<ul>${m.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`).join('')+`</div>`;
+        `<ul>${m.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`+
+        `<div class="cgrp">Supps</div>`+supps(m.id)+`</div>`).join('')+
+      `<div class="ccard"><b>Evening supps</b>`+supps('evening')+`</div>`+
+      `</div>`;
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
   }
