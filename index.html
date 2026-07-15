@@ -1172,7 +1172,9 @@ function pmSet(open){
   if(open===menuOpen)return;
   menuOpen=open;
   PBTN.setAttribute('aria-expanded',String(open));
-  requestAnimationFrame(movePtu);   // the strip may have just become visible
+  requestAnimationFrame(()=>{movePtu();   // the strip may have just become visible
+    const on=PTABS.querySelector('.pt.on');
+    if(on&&menuOpen)revealTab(on);});   // and it may carry a stale scroll: re-reveal the active tab
   const apply=()=>{ if(open)document.documentElement.dataset.menu='open';
                     else delete document.documentElement.dataset.menu; };
   const B=document.getElementById('swap');
