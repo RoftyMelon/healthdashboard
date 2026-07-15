@@ -49,7 +49,7 @@ setTimeout(()=>{
   let _hr=parseInt(R0[0].t),_hEnd=parseInt(R0[R0.length-1].t),tallN=0,cardN=0;
   while(_hr<=_hEnd){
     const evs=R0.filter(r=>parseInt(r.t)===_hr);
-    const b=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>_hr?evs[0]:null;
+    const b=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>_hr&&parseInt(evs[0].t.slice(3),10)===0?evs[0]:null;
     if(b){tallN++;_hr=Math.min(parseInt(b.until),_hEnd+1);continue;}
     cardN+=evs.length;_hr++;
   }
@@ -75,16 +75,16 @@ setTimeout(()=>{
       count(n.pages.innerHTML,'rhr rblockrow')+' blocks');
     // block starts/ends earn the LONG tics, clamped to the ruler's range
     const H0=parseInt(R[0].t),H1=parseInt(R[R.length-1].t),lt=new Set();
-    R.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    R.forEach(r=>{if(r.until){if(parseInt(r.t.slice(3),10)===0)lt.add(parseInt(r.t));if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
     lt.add(H0);   // mirror the renderer: the day's start draws a boundary line
     // mirror the suppression rule: an hour whose predecessor ended mid-hour
     // with its own cut draws no boundary line
     {let hh=H0;const mm=t=>parseInt(t.slice(3),10)/60;
      while(hh<=H1){const e2=R.filter(r=>parseInt(r.t)===hh);
-       const b2=e2.length===1&&e2[0].until&&parseInt(e2[0].until)>hh?e2[0]:null;
+       const b2=e2.length===1&&e2[0].until&&parseInt(e2[0].until)>hh&&parseInt(e2[0].t.slice(3),10)===0?e2[0]:null;
        if(b2){hh=Math.min(parseInt(b2.until),H1+1);continue;}
        const em2=e2.map(r=>{if(!r.until)return null;const uh=parseInt(r.until);
-         return uh===hh?mm(r.until):(uh===hh+1&&mm(r.until)===0?1:null);});
+         return uh===hh?mm(r.until):(uh>hh?1:null);});
        if(e2.length&&em2.every(x=>x!=null)&&Math.max(...em2)<1)lt.delete(hh+1);
        hh++;}}
     const ltN=[...lt].filter(hh=>hh>=H0&&hh<=H1).length;
@@ -95,11 +95,11 @@ setTimeout(()=>{
     let rlnN=0,hr3=H0;
     while(hr3<=H1){
       const evs3=R.filter(r=>parseInt(r.t)===hr3);
-      const b3=evs3.length===1&&evs3[0].until&&parseInt(evs3[0].until)>hr3?evs3[0]:null;
+      const b3=evs3.length===1&&evs3[0].until&&parseInt(evs3[0].until)>hr3&&parseInt(evs3[0].t.slice(3),10)===0?evs3[0]:null;
       if(b3){hr3=Math.min(parseInt(b3.until),H1+1);continue;}
       const mins=t=>parseInt(t.slice(3),10)/60;
       const sp=evs3.map(r=>{let em=null;
-        if(r.until){const uh=parseInt(r.until);em=uh===hr3?mins(r.until):(uh===hr3+1&&mins(r.until)===0?1:null);}
+        if(r.until){const uh=parseInt(r.until);em=uh===hr3?mins(r.until):(uh>hr3?1:null);}
         return {sm:mins(r.t),em};});
       if(evs3.length&&sp.every(x=>x.em!=null)){
         const st=new Set(sp.map(x=>x.sm)),en=new Set(sp.map(x=>x.em));

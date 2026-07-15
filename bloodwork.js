@@ -30,7 +30,7 @@ window.BLOODWORK =
    "supervision": "none"
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
-  "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in protocol phases: most items are status 'planned', gated on the first or second blood test of the new protocol (their category says which). STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is the slot a supplement is taken with (breakfast/lunch/dinner/evening) — null means NOT YET ASSIGNED, never guess it. Timing lives HERE, not in the categories: cats are protocol phases. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot; an item's optional .info is a caveat shown behind an info tip next to its name. ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; a routine entry's .slot pulls the matching STACK items at render time, so meal supplement lists are derived, never written twice. CARE holds the dental / face protocols, rendered as cards on the Routine page — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with when:'breakfast' belongs to the meal whose id is 'breakfast'. In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. PRESCRIPTION.items is the flat list of biomarkers to collect at the next draw — strings, exactly as the lab order should read. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
+  "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in protocol phases: most items are status 'planned', gated on the first or second blood test of the new protocol (their category says which). STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is the slot a supplement is taken with (presnack/brunch/dinner/evening) — null means NOT YET ASSIGNED, never guess it. Timing lives HERE, not in the categories: cats are protocol phases. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot; an item's optional .info is a caveat shown behind an info tip next to its name. ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; a routine entry's .slot pulls the matching STACK items at render time, so meal supplement lists are derived, never written twice. CARE holds the dental / face protocols, rendered as cards on the Routine page — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with when:'brunch' belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. PRESCRIPTION.items is the flat list of biomarkers to collect at the next draw — strings, exactly as the lab order should read. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
   "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (300mcg iodine; historical draws were ALSO under iodine-fortified Huel, since dropped), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
@@ -130,12 +130,12 @@ window.BLOODWORK =
  },
  "ROUTINE": [
   {"t": "07:00", "do": "Walk, sunlight, cold shower"},
-  {"t": "07:15", "do": "Breakfast + supplements", "slot": "breakfast"},
+  {"t": "07:15", "do": "Pre-workout snack + supplements", "slot": "presnack"},
   {"t": "08:00", "until": "10:00", "do": "Gym - phone stays OFF"},
-  {"t": "10:00", "until": "12:00", "do": "Work"},
-  {"t": "12:00", "until": "12:30", "do": "Lunch + supplements", "slot": "lunch"},
-  {"t": "13:00", "until": "17:00", "do": "Work"},
-  {"t": "17:00", "until": "17:30", "do": "Dinner + supplements", "slot": "dinner"},
+  {"t": "10:00", "until": "10:30", "do": "Brunch + supplements", "slot": "brunch"},
+  {"t": "10:30", "until": "12:00", "do": "Work"},
+  {"t": "13:00", "until": "16:30", "do": "Work"},
+  {"t": "16:30", "until": "17:00", "do": "Dinner + supplements", "slot": "dinner"},
   {"t": "17:30", "until": "18:00", "do": "Shower + flossing + skincare"},
   {"t": "18:00", "until": "21:00", "do": "Work"},
   {"t": "21:00", "do": "Screens off"},
@@ -244,12 +244,12 @@ window.BLOODWORK =
  },
  "DIET": {
   "meals": [
-   {"id": "breakfast", "t": "Breakfast", "at": "07:15", "items": [
-    "Overnight Bjorg protein muesli with greek yogourt",
-    "Frozen red berries",
-    "1 Brazil nut"
+   {"id": "presnack", "t": "Pre-workout snack", "at": "07:15", "items": [
+    "90g Huel Black",
+    "Two bananas",
+    "Brazil nut"
    ]},
-   {"id": "lunch", "t": "Lunch", "at": "12:00", "items": [
+   {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
     "200g mozzarella di bufala",
     "---",
     "6-10 eggs",
@@ -258,7 +258,7 @@ window.BLOODWORK =
     "---",
     "Fruit (apple, pear, peach, apricots…)"
    ]},
-   {"id": "dinner", "t": "Dinner", "at": "17:00", "items": [
+   {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
     "200g mozzarella di bufala",
     "---",
     "Rice or pasta + olive oil",

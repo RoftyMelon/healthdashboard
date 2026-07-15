@@ -800,7 +800,7 @@ function audit(j){
   // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
   if(j.STACK){
     const cids=new Set((j.STACK.cats||[]).map(c=>c.id));
-    const ST=['taking','candidate','stopped','dropped','planned'],SL=['breakfast','lunch','dinner','evening'];
+    const ST=['taking','candidate','stopped','dropped','planned'],SL=['presnack','brunch','dinner','evening'];
     (j.STACK.items||[]).forEach(s=>{
       if(!cids.has(s.cat))bad.push(`STACK "${s.name}": category "${s.cat}" is not in STACK.cats`);
       if(!ST.includes(s.status))bad.push(`STACK "${s.name}": status "${s.status}" is not one of ${ST.join('/')}`);
@@ -821,8 +821,8 @@ function audit(j){
       else{if(r.t<=prev)bad.push(`ROUTINE "${r.t} ${r.do}": times must be ascending`);prev=r.t;}
       if(r.until!=null&&(!/^\d{2}:\d{2}$/.test(r.until)||r.until<=r.t))
         bad.push(`ROUTINE "${r.do}": until "${r.until}" must be HH:MM and later than ${r.t}`);
-      if(r.slot!=null&&!['breakfast','lunch','dinner'].includes(r.slot))
-        bad.push(`ROUTINE "${r.do}": slot "${r.slot}" is not breakfast/lunch/dinner`);
+      if(r.slot!=null&&!['presnack','brunch','dinner'].includes(r.slot))
+        bad.push(`ROUTINE "${r.do}": slot "${r.slot}" is not presnack/brunch/dinner`);
     });
   }
   if(j.DIET)(j.DIET.meals||[]).forEach(m=>{
@@ -1292,7 +1292,9 @@ function renderPage(p){
     const H0=parseInt(ROUTINE[0].t),H1=parseInt(ROUTINE[ROUTINE.length-1].t);
     // block boundaries earn the LONG tics; every other hour gets a subtle one
     const lt=new Set();
-    ROUTINE.forEach(r=>{if(r.until){lt.add(parseInt(r.t));lt.add(parseInt(r.until));}});
+    ROUTINE.forEach(r=>{if(r.until){   // only WHOLE-hour edges draw hour lines; :30s get cuts
+      if(parseInt(r.t.slice(3),10)===0)lt.add(parseInt(r.t));
+      if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
     lt.add(H0);   // the day's start earns a boundary line too
     // a boundary line is REDUNDANT when the hour before it already ended mid-hour
     // with its own cut (lunch ends 12:30 -> no 13:00 line; the shower runs to 18:00
@@ -1300,10 +1302,11 @@ function renderPage(p){
     const supr=new Set();
     {let hh=H0;const mm=t=>parseInt(t.slice(3),10)/60;
      while(hh<=H1){const e2=ROUTINE.filter(r=>parseInt(r.t)===hh);
-       const b2=e2.length===1&&e2[0].until&&parseInt(e2[0].until)>hh?e2[0]:null;
+       const b2=e2.length===1&&e2[0].until&&parseInt(e2[0].until)>hh
+         &&parseInt(e2[0].t.slice(3),10)===0?e2[0]:null;
        if(b2){hh=Math.min(parseInt(b2.until),H1+1);continue;}
        const em2=e2.map(r=>{if(!r.until)return null;const uh=parseInt(r.until);
-         return uh===hh?mm(r.until):(uh===hh+1&&mm(r.until)===0?1:null);});
+         return uh===hh?mm(r.until):(uh>hh?1:null);});
        if(e2.length&&em2.every(x=>x!=null)&&Math.max(...em2)<1)supr.add(hh+1);
        hh++;}}
     const mark=hh=>`<i class="rhl${lt.has(hh)&&!supr.has(hh)?' lt':''}">${String(hh).padStart(2,'0')}:00</i>`;
@@ -1316,7 +1319,8 @@ function renderPage(p){
       // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
       // beside it, so its height stays proportional to time — no box, just the tics.
       // A block ending within its own hour renders as a plain row (endH===hr never advances).
-      const block=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>hr?evs[0]:null;
+      const block=evs.length===1&&evs[0].until&&parseInt(evs[0].until)>hr
+        &&parseInt(evs[0].t.slice(3),10)===0?evs[0]:null;   // blocks start ON the hour
       if(block){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
         const labels=Array.from({length:span},(_,i)=>mark(hr+i)).join('');
@@ -1330,7 +1334,7 @@ function renderPage(p){
       const mins=t=>parseInt(t.slice(3),10)/60;
       const spans=evs.map(r=>{let em=null;
         if(r.until){const uh=parseInt(r.until);
-          em=uh===hr?mins(r.until):(uh===hr+1&&mins(r.until)===0?1:null);}
+          em=uh===hr?mins(r.until):(uh>hr?1:null);}   // continuing past this hour fills it
         return {sm:mins(r.t),em};});
       const prop=evs.length>0&&spans.every(x=>x.em!=null);
       // a cut is drawn only where a span ends into EMPTY time: a boundary that is both
