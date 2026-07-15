@@ -120,7 +120,7 @@ td.boot span{color:var(--t3);font-size:15px}
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
    squeeze it inline and wrap the pills instead. */
-.toc{display:flex;gap:2px;margin-left:-5px;min-width:0;flex-basis:100%;
+.toc{display:flex;gap:2px;min-width:0;flex-basis:100%;   /* pill BOXES align to the gutter */
   flex-wrap:nowrap;overflow-x:auto;                 /* never wrap: scroll instead */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .toc::-webkit-scrollbar{display:none}
@@ -581,6 +581,7 @@ li.open .exinfo,.srow.open .exinfo{display:block}
   th.uc,td.uc{border-right:none}
   th.nm,td.nm{width:164px;min-width:164px;max-width:164px;
     border-right:1.5px solid var(--line)}
+  .pgsec{max-width:335px}   /* phone rows are narrower: rules hug the text */
   td.nm{font-size:15px}
   td.nm .fr{font-size:12.5px}
   /* --nmw is driven by scrollX in JS, so it eases from 164px to 78px as you pull sideways.
