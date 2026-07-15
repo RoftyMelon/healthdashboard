@@ -57,7 +57,7 @@ setTimeout(()=>{
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
-    diet:['ccard',DATA.DIET.meals.length+1]};   // meal cards + the standalone Evening supps card
+    diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meal cards + Evening; untimed sections are plain rows
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
       ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
