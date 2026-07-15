@@ -212,7 +212,7 @@ window.BLOODWORK =
    {"t": "Chest", "items": [
     {"n": "Incline dumbbell press", "sets": [[30,6],[30,6]]},
     {"n": "Machine incline press", "sets": [[80,6],[80,6]]},
-    {"n": "Fly", "sets": [[25,15],[25,15]]}
+    {"n": "Chest fly", "sets": [[25,15],[25,15]]}
    ]}
   ]},
   {"id": "legs", "t": "Legs", "groups": [
