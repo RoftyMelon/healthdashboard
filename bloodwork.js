@@ -245,7 +245,7 @@ window.BLOODWORK =
  "DIET": {
   "meals": [
    {"id": "breakfast", "t": "Breakfast", "at": "07:15", "items": [
-    "Overnight Bjorg protein muesli with greek yogourt/fromage blanc",
+    "Overnight Bjorg protein muesli with greek yogourt",
     "Frozen red berries",
     "1 Brazil nut"
    ]},
