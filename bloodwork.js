@@ -166,7 +166,7 @@ window.BLOODWORK =
  ],
  "TRAINING": {
   "cardio": "One 30' HIT per week - mostly ~5k run.\nStriving for 3 sessions when business will be automated.",
-  "note": "Weights and reps are approximations",
+  "note": "Weights and reps are approximations and may vary dramatically based on the machine used",
   "cards": [
   {"id": "pull", "t": "Pull", "groups": [
    {"t": "Back", "items": [

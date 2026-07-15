@@ -441,7 +441,8 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .rhr.multi:not(.rprop) .rcell{position:relative;padding:0}
 .rhr.multi:not(.rprop) .rev{position:absolute;left:0;right:0;padding:0;top:10px}
 .rhr.multi:not(.rprop) .rev+.rev{top:41px}
-.rhr.multi:not(.rprop):has(+.rlast) .rev+.rev{top:37px}   /* before the terminal row:
+.rhr.multi:not(.rprop):has(+.rlast) .rev{top:9px}   /* the evening trio rides 1px higher as a unit */
+.rhr.multi:not(.rprop):has(+.rlast) .rev+.rev{top:36px}   /* before the terminal row:
    centre the middle moment between its neighbours (equal 27px gaps) */
 /* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
 .rhr.rprop .rcell{position:relative;padding:0}
@@ -456,7 +457,7 @@ html:not([data-page=markers]) .swap{overflow:visible}
    beside the label, and the row carries no empty hour below it */
 .rhr.rlast .rhl{height:auto;line-height:24px}   /* match the content's 16px/1.5 line box: BASELINES level */
 .rhr.rlast .rcell{justify-content:flex-start;padding-top:0}
-.rhr.rlast .rev{padding-top:0}
+.rhr.rlast .rev{padding-top:0;position:relative;top:-1px}   /* rides with the trio above it */
 .rev{display:flex;gap:12px;align-items:baseline;padding:2px 0}
 .rbody{min-width:0}
 .rdo{font-size:16px;color:var(--t2);line-height:1.5}
