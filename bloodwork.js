@@ -160,8 +160,8 @@ window.BLOODWORK =
     "Full body hydrating cream after shower"
    ]},
    {"t": "Weekly", "items": [
-    "2x/week, instead of retinol:\nglycolic acid 7%",
-    "Microneedling 1mm, face + scalp, 1x/week\nNo retinols or acids for 48h!"
+    "Instead of retinol:\nglycolic acid 7%",
+    "Microneedling 1mm, face + scalp\nNo retinols or acids for 48h!"
    ]}
   ]}
  ],
