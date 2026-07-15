@@ -80,6 +80,8 @@ html.tfade *::before,html.tfade *::after{
 .topbar{position:fixed;top:0;left:0;width:100%;z-index:50;background:var(--bg);
   padding:8px var(--gut,20px) 0;   /* ONE constant height for the row — pills and tabs share
                                       the station; 8px is the standard minimum comfortable inset */
+  touch-action:pan-y;   /* a horizontal pan anywhere on the bar must NEVER scroll the table —
+                           the scrollers below re-allow their own horizontal panning */
   transition:border-color .2s ease;border-bottom:.5px solid transparent}
 .topspacer{height:var(--toph,112px)}   /* fixed takes it out of flow; hold its place */
 .topbar.stuck{border-bottom-color:var(--line)}
@@ -125,6 +127,7 @@ td.boot span{color:var(--t3);font-size:15px}
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
    squeeze it inline and wrap the pills instead. */
+.swap,.ptabs,.toc{touch-action:pan-x pan-y}
 .toc{display:flex;gap:2px;min-width:0;flex-basis:100%;   /* pill BOXES align to the gutter */
   padding-top:10px;margin-top:-10px;   /* the scroll surface covers the seam above:
      a horizontal pan between the rows must grab a SCROLLER, never the table */
