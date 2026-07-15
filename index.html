@@ -428,6 +428,8 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .rhr.multi:not(.rprop) .rcell{position:relative;padding:0}
 .rhr.multi:not(.rprop) .rev{position:absolute;left:0;right:0;padding:0;top:10px}
 .rhr.multi:not(.rprop) .rev+.rev{top:41px}
+.rhr.multi:not(.rprop):has(+.rlast) .rev+.rev{top:37px}   /* before the terminal row:
+   centre the middle moment between its neighbours (equal 27px gaps) */
 /* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
 .rhr.rprop .rcell{position:relative;padding:0}
 .rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
@@ -641,8 +643,8 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
     <nav class="ptabs" id="ptabs" aria-label="Pages">
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
       <button class="pt" data-pg="stack" onclick="setPage('stack')">Stack</button>
-      <button class="pt" data-pg="routine" onclick="setPage('routine')">Routine</button>
       <button class="pt" data-pg="diet" onclick="setPage('diet')">Diet</button>
+      <button class="pt" data-pg="routine" onclick="setPage('routine')">Routine</button>
       <button class="pt" data-pg="training" onclick="setPage('training')">Training</button>
       <i class="ptu" id="ptu"></i>
     </nav>
