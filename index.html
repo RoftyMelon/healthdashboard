@@ -423,6 +423,11 @@ html:not([data-page=markers]) .swap{overflow:visible}
    stretches breaks the ruler silently. */
 .rcell{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:12px 0 0}
 .rhr.multi .rcell{padding-top:8px}   /* two events: 2x28 + 8 = exactly one 64px cell, clear of the line */
+/* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
+.rhr.rprop .rcell{position:relative;padding:0}
+.rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
+.rln{position:absolute;left:44px;width:min(calc(100% - 44px),410px);height:.5px;
+  background:var(--t4);opacity:.55}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -1245,14 +1250,28 @@ function renderPage(p){
            `<div class="rev"><div class="rbody"><div class="rdo">${esc(block.do)}</div></div></div></div></div>`;
         hr=endH;continue;
       }
-      h+=`<div class="rhr${evs.length?'':' rempty'}${evs.length>1?' multi':''}${hr===H1?' rlast':''}"><span class="rht">${mark(hr)}</span><div class="rcell">`+
-        evs.map(r=>{
+      // SUB-HOUR TRUTH: when every event in the hour declares a span that ends inside
+      // it (or exactly on the next hour), each event sits at its actual minutes and
+      // the fractional boundaries (12:30, 17:30) get their own hairlines.
+      const mins=t=>parseInt(t.slice(3),10)/60;
+      const spans=evs.map(r=>{let em=null;
+        if(r.until){const uh=parseInt(r.until);
+          em=uh===hr?mins(r.until):(uh===hr+1&&mins(r.until)===0?1:null);}
+        return {sm:mins(r.t),em};});
+      const prop=evs.length>0&&spans.every(x=>x.em!=null);
+      const cuts=prop?[...new Set(spans.flatMap(x=>[x.sm,x.em]).filter(f=>f>0&&f<1))]:[];
+      h+=`<div class="rhr${evs.length?'':' rempty'}${evs.length>1?' multi':''}${hr===H1?' rlast':''}${prop?' rprop':''}">`+
+        `<span class="rht">${mark(hr)}</span>`+
+        cuts.map(f=>`<i class="rln" style="top:calc(var(--hh)*${f} + 7px)"></i>`).join('')+
+        `<div class="rcell">`+
+        evs.map((r,i)=>{
           let sup='';
           if(r.slot&&STACK){
             const list=STACK.items.filter(s=>s.status==='taking'&&s.when===r.slot);
             if(list.length)sup=`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`;
           }
-          return `<div class="rev"><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
+          const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} - 5px)"`:'';
+          return `<div class="rev"${pos}><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
         }).join('')+`</div></div>`;
       hr++;
     }

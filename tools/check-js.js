@@ -79,6 +79,23 @@ setTimeout(()=>{
     const ltN=[...lt].filter(hh=>hh>=H0&&hh<=H1).length;
     ok(`routine draws ${ltN} long tics`, count(n.pages.innerHTML,'rhl lt')===ltN,
       count(n.pages.innerHTML,'rhl lt')+' long tics');
+    // mirror the renderer: rows whose events all end inside their hour draw
+    // hairlines at the fractional boundaries (12:30-style cuts)
+    let rlnN=0,hr3=H0;
+    while(hr3<=H1){
+      const evs3=R.filter(r=>parseInt(r.t)===hr3);
+      const b3=evs3.length===1&&evs3[0].until&&parseInt(evs3[0].until)>hr3?evs3[0]:null;
+      if(b3){hr3=Math.min(parseInt(b3.until),H1+1);continue;}
+      const mins=t=>parseInt(t.slice(3),10)/60;
+      const sp=evs3.map(r=>{let em=null;
+        if(r.until){const uh=parseInt(r.until);em=uh===hr3?mins(r.until):(uh===hr3+1&&mins(r.until)===0?1:null);}
+        return {sm:mins(r.t),em};});
+      if(evs3.length&&sp.every(x=>x.em!=null))
+        rlnN+=new Set(sp.flatMap(x=>[x.sm,x.em]).filter(f=>f>0&&f<1)).size;
+      hr3++;
+    }
+    ok(`routine cuts ${rlnN} half-hour lines`, count(n.pages.innerHTML,'rln')===rlnN,
+      count(n.pages.innerHTML,'rln')+' cuts');
     ok(`routine shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
       count(n.pages.innerHTML,'ccard')+' cards');
     const cg=DATA.CARE.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
