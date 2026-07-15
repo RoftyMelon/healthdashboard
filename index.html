@@ -397,6 +397,9 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 3px}
 .pgsub{font-size:16px;color:var(--t3)}
 .pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
+.pgst.mini{font-size:12.5px}                       /* footnote-grade section */
+.srow.lite{padding:7px 0}
+.srow.lite .sn{font-size:15px;font-weight:450;color:var(--t2)}
 /* THE MEASURE RULE: rules and rows hug their CONTENT, never the 780px container.
    Text-list sections (stack rows, diet meals, section headers) cap at 620px, so
    separators end near the text and right-anchored links stay near the names. */
@@ -1379,11 +1382,11 @@ function renderPage(p){
         `<div class="ccard"><b>${esc(m.t)}</b><span class="cwhen">${esc(m.at)}</span>`+
         `<ul>${m.items.map(x=>x==='---'?'<li class="crs" aria-hidden="true"></li>':`<li>${esc(x)}</li>`).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
-      `<div class="ccard"><b>Evening</b><div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
+      `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`+
       DIET.meals.filter(m=>!m.at).map(m=>
-        `<div class="pgsec"><div class="pgst">${esc(m.t)}</div>`+
-        m.items.map(x=>`<div class="srow"><span class="sn">${esc(x)}</span></div>`).join('')+
+        `<div class="pgsec"><div class="pgst mini">${esc(m.t)}</div>`+
+        m.items.map(x=>`<div class="srow lite"><span class="sn">${esc(x)}</span></div>`).join('')+
         `</div>`).join('');
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
