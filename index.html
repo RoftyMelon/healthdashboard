@@ -1149,10 +1149,11 @@ function revealTab(b){
   if(bl-pb<x)x=Math.max(0,bl-pb);
   // BIAS: keep a sliver of the LAST tab on-screen as a "there's more" hint,
   // as far as possible without pushing the ACTIVE tab off (it always wins)
-  const last=sc.querySelector('.pt:last-of-type');
+  const tabs=sc.querySelectorAll('.pt'),first=tabs[0],last=tabs[tabs.length-1];
   if(last&&last!==b){
     const need=last.offsetLeft+peek-sc.clientWidth;
-    if(need>x)x=Math.min(need,bl);
+    const keepFirst=first.offsetLeft+first.offsetWidth-peek;   // Markers keeps a sliver too
+    if(need>x)x=Math.max(x,Math.min(need,bl,keepFirst));
   }
   if(x!==sc.scrollLeft&&sc.scrollTo)sc.scrollTo({left:x,behavior:'smooth'});
 }
