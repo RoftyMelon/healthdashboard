@@ -4,7 +4,7 @@ A personal biomarker dashboard. Two files, and the separation between them is th
 
 | file | role |
 |---|---|
-| `bloodwork.js` | **The data. The single source of truth.** 66 markers, 6 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `PRESCRIPTION` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
+| `bloodwork.js` | **The data. The single source of truth.** 66 markers, 6 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
 | `index.html` | **The viewer. Contains ZERO data.** Loads `bloodwork.js` via `<script src>`. |
 
 **Never put data in `index.html`. Never put UI in `bloodwork.js`.** If you find yourself
@@ -76,7 +76,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   (strong / moderate / weak). Do not present a weak target as a finding.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
-- `STACK`, `ROUTINE`, `DIET`, `TRAINING`, `PRESCRIPTION` feed the tab pages (Stack / Routine /
+- `STACK`, `ROUTINE`, `DIET`, `TRAINING`, `NEXTDRAW` feed the tab pages (Stack / Routine /
   Diet / Training / Next Draw); `CARE` renders as cards at the foot of the Stack page.
   Statuses are a closed enum (taking / candidate / stopped / dropped / planned); `when` is the
   meal a supplement rides with — **null means not yet assigned, never guess it**. The Routine

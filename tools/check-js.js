@@ -64,7 +64,7 @@ setTimeout(()=>{
     if(cEnd){tallN++;_hr=cEnd;continue;}
     _hr++;
   }
-  const want={prescription:['srow',DATA.PRESCRIPTION.items.length],
+  const want={nextdraw:['srow',DATA.NEXTDRAW.items.length],
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
