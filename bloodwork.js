@@ -249,31 +249,31 @@ window.BLOODWORK =
      "Minerals": [["Calcium","263 mg","33%"],["Phosphorus","394 mg","56%"],["Potassium","766 mg","38%"],["Chloride","179 mg","22%"],["Magnesium","96 mg","26%"],["Iron","9.8 mg","70%"],["Zinc","5 mg","50%"],["Copper","0.5 mg","50%"],["Manganese","1 mg","50%"],["Selenium","36 mcg","65%"],["Iodine","33 mcg","22%"],["Chromium","13 mcg","33%"],["Molybdenum","41 mcg","82%"]],
      "Other": [["Choline","131 mg"],["Omega-3 (ALA)","4.5 g"],["Omega-6","4.7 g"],["MCT","1.2 g"],["Caffeine","76 mg"],["Green tea","140 mg"],["Lutein","1.8 mg"],["Zeaxanthin","0.1 mg"],["B. coagulans","219 M"]]
     }},
-    "Two bananas",
+    {"n": "Two bananas", "info": {"Per 2 (~236 g)":[["Energy","210 kcal","11%"],["Carbs","54 g","21%"],["– sugars","29 g","32%"],["Fibre","6 g"],["Protein","2.6 g","5%"]],"Standouts":[["Potassium","845 mg","42%"],["B6","0.9 mg","64%"],["Vit C","20 mg","25%"],["Magnesium","64 mg","17%"]]}},
     {"n": "Brazil nut", "info": {"Per nut (~5 g)": [["Energy","33 kcal","2%"],["Fat","3.4 g","5%"],["Protein","0.7 g","1%"],["Carbs","0.6 g"]], "Minerals": [["Selenium","~90 mcg","164%"],["Magnesium","19 mg","5%"],["Phosphorus","36 mg","5%"],["Copper","0.1 mg","10%"]]}}
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
-    "200g mozzarella di bufala",
+    {"n": "200g mozzarella di bufala", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
     "---",
-    "6-10 eggs",
-    "Air-fried potatoes in duck grease (or other grease)",
-    "Frozen reheated vegetables",
+    {"n": "6-10 eggs", "info": {"Per ~8 (~400 g)":[["Energy","620 kcal","31%"],["Protein","50 g","100%"],["Fat","44 g","63%"],["– saturates","13 g","65%"]],"Micronutrients":[["Choline","1180 mg"],["Selenium","120 mcg","218%"],["Vit D","320 IU","160%"],["B12","4 mcg","160%"],["Vit A","640 mcg","80%"],["Riboflavin","1.6 mg","114%"],["Folate","190 mcg","95%"]]}},
+    {"n": "Air-fried potatoes in duck grease (or other grease)", "info": {"Per ~300 g + grease":[["Energy","395 kcal","20%"],["Carbs","58 g","22%"],["Fibre","5 g"],["Fat","15 g","21%"],["– saturates","5 g","25%"]],"Standouts":[["Potassium","1200 mg","60%"],["Vit C","30 mg","38%"],["B6","0.9 mg","64%"]]}},
+    {"n": "Frozen reheated vegetables", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
     "---",
-    "Fruit (apple, pear, peach, apricots…)"
+    {"n": "Fruit (apple, pear, peach, apricots…)", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}}
    ]},
    {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
-    "200g mozzarella di bufala",
+    {"n": "200g mozzarella di bufala", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
     "---",
-    "Rice or pasta + olive oil",
-    "Ground beef or chicken (frozen, reheated)",
-    "Frozen reheated vegetables",
+    {"n": "Rice or pasta + olive oil", "info": {"Per ~180 g + oil":[["Energy","360 kcal","18%"],["Carbs","50 g","19%"],["Protein","5 g","10%"],["Fat","15 g","21%"],["Vit E","2 mg","17%"]]}},
+    {"n": "Ground beef or chicken (frozen, reheated)", "info": {"Ground beef (~200 g)":[["Energy","500 kcal","25%"],["Protein","40 g","80%"],["Fat","35 g","50%"],["– saturates","14 g","70%"]],"Minerals":[["Iron","5 mg","36%"],["Zinc","10 mg","100%"],["B12","5 mcg","200%"],["Selenium","30 mcg","55%"]]}},
+    {"n": "Frozen reheated vegetables", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
     "---",
-    "Two kiwis"
+    {"n": "Two kiwis", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}}
    ]},
    {"id": "other", "t": "Other foods", "items": [
-    "Dark chocolate",
-    "Decaf",
-    "Nuts (Walnuts, Almonds, Pistachios)"
+    {"n": "Dark chocolate", "info": {"Per ~30 g":[["Energy","170 kcal","9%"],["Fat","13 g","19%"],["– saturates","8 g","40%"],["Carbs","10 g","4%"],["Fibre","3 g"]],"Minerals":[["Magnesium","70 mg","19%"],["Iron","3.4 mg","24%"],["Copper","0.5 mg","50%"],["Manganese","0.6 mg","30%"]]}},
+    {"n": "Decaf", "info": {"Per cup (~240 ml)":[["Energy","2 kcal"],["Potassium","115 mg","6%"],["Caffeine","~3 mg"]]}},
+    {"n": "Nuts (Walnuts, Almonds, Pistachios)", "info": {"Per ~30 g":[["Energy","180 kcal","9%"],["Fat","16 g","23%"],["Protein","5 g","10%"],["Fibre","2.5 g"]],"Standouts":[["Magnesium","50 mg","13%"],["Vit E","4 mg","33%"],["Omega-3 (ALA)","1.5 g"]]}}
    ]}
   ]
  },

@@ -1396,28 +1396,24 @@ function renderPage(p){
         ?`<ul>${list.map(x=>`<li>${esc(x.name)}${x.dose?`<span class="cwhen">${esc(x.dose)}</span>`:''}</li>`).join('')}</ul>`
         :`<div class="cempty">&mdash;</div>`;
     };
+    const foodTip=x=>{                                   // a food item's optional info: string caveat OR nutrition table
+      if(typeof x!=='object'||!x.info)return '';
+      const info=x.info, body=typeof info==='string'?esc(info)
+        :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>`<div class="nrow"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`).join('')+`</div>`).join('')+`</div>`;
+      return `<button class="infob" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
+    };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
       `<div class="care col">`+DIET.meals.filter(m=>m.at).map(m=>
         `<div class="ccard"><b>${esc(m.t)}</b><span class="cwhen">${esc(m.at)}</span>`+
-        `<ul>${m.items.map(x=>{
-          if(x==='---')return '<li class="crs" aria-hidden="true"></li>';
-          const nm=typeof x==='object'?x.n:x, info=typeof x==='object'?x.info:null;
-          let tip='';
-          if(info){
-            const body=typeof info==='string'?esc(info)
-              :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>`<div class="nrow"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`).join('')+`</div>`).join('')+`</div>`;
-            tip=`<button class="infob" aria-label="${esc(nm)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
-          }
-          return `<li>${esc(nm)}${tip}</li>`;
-        }).join('')}</ul>`+
+        `<ul>${m.items.map(x=>x==='---'?'<li class="crs" aria-hidden="true"></li>':`<li>${esc(typeof x==='object'?x.n:x)}${foodTip(x)}</li>`).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
       `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`+
       DIET.meals.filter(m=>!m.at).map(m=>
         `<div class="pgsec"><div class="pgst mini">${esc(m.t)}</div>`+
-        m.items.map(x=>`<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span></div>`).join('')+
+        m.items.map(x=>`<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span>${foodTip(x)}</div>`).join('')+
         `</div>`).join('');
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
