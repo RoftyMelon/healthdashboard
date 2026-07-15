@@ -494,14 +494,14 @@ a.sbuy:hover{color:var(--info)}
 .tipw .exinfo{top:50%;left:auto;right:calc(100% + 8px);transform:translateY(-50%);
   width:max-content;max-width:230px}
 .tipw:hover .exinfo{display:block}
-/* the info bubble is a compact popover TUCKED INTO THE TOP-RIGHT CORNER of its
-   anchor (the card for exercises, the row for stack items) — floating over
-   whatever sits there rather than spanning or displacing content */
+/* base bubble: a compact popover tucked into the TOP-RIGHT CORNER of its anchor —
+   used by the exercise/care cards (.ccard is position:relative). Stack tips
+   override this via .tipw .exinfo to open leftward beside their icon. */
 .exinfo{display:none;position:absolute;z-index:6;top:6px;right:6px;
   width:max-content;max-width:min(66%,200px);
   background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;
   font-size:13.5px;color:var(--t2);line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.16)}
-li.open .exinfo,.srow.open .exinfo{display:block}
+.exn:hover+.exinfo{display:block}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
 /* name left, spec right: the "40kg - 3x5" column aligns down the card edge */
 .exn{line-height:1.3;font-weight:520;display:flex;align-items:baseline;gap:6px}
@@ -1243,8 +1243,7 @@ function renderPage(p){
         sets=`<div class="exsets">`+x.sets.map(s=>`<span class="exset"><i>${s[0]==null?'&mdash;':esc(String(s[0]))+'kg'}</i><b>${esc(String(s[1]))}</b></span>`).join('')+`</div>`;
       }
     }
-    const tip=x.info?`<button class="infob" title="${esc(x.info)}" aria-label="Details"
-      onclick="tip(this)">i</button>`:'';
+    const tip=x.info?`<button class="infob" aria-label="${esc(x.n)} details">i</button>`:'';
     const detail=x.info?`<div class="exinfo">${esc(x.info)}</div>`:'';
     return `<li><div class="exn"><span class="exnm">${esc(x.n)}${tip}</span>${kgTag}</div>${detail}${sets}</li>`;};
   const cardRow=(list,cls)=>!list.length?'':`<div class="care${cls?' '+cls:''}">`+list.map(c=>{
@@ -1252,14 +1251,8 @@ function renderPage(p){
       ?c.groups.map(g=>`<div class="cgrp">${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     return `<div class="ccard"><b>${esc(c.t)}</b>${inner}</div>`;}).join('')+`</div>`;
-  // the info bubble floats over its row (card exercise or stack item); a tap
-  // anywhere outside it closes it. NOT bare '.open' — the search box uses it too.
-  window.tip=b=>{const li=b.closest('li,.srow'),was=li.classList.contains('open');
-    document.querySelectorAll('.ccard li.open,.srow.open').forEach(x=>x.classList.remove('open'));
-    if(!was)li.classList.add('open')};
-  document.addEventListener('click',e=>{
-    if(e.target.closest&&e.target.closest('.infob,.exinfo'))return;
-    document.querySelectorAll('.ccard li.open,.srow.open').forEach(x=>x.classList.remove('open'))});
+  // stack + card tips both reveal on hover now (.tipw:hover / .exn:hover) — no JS,
+  // no outside-click handler, no '.open' toggling to leak or clash with search.
   let h='';
   if(p==='nextdraw'&&NEXTDRAW){
     const it=NEXTDRAW.items;
