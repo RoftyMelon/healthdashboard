@@ -464,8 +464,12 @@ html:not([data-page=markers]) .swap{overflow:visible}
   color:var(--t3);font-size:12px;font-style:italic;font-weight:700;cursor:pointer;
   vertical-align:middle;margin-top:-2px;padding:0;font-family:Georgia,serif}
 .infob:hover{background:var(--btn-h)}
-.srow .infob{margin-left:-4px;   /* the row's 10px flex gap already separates; net ~6px like the cards */
-  align-self:center;margin-top:0}   /* baseline-aligning a circle by its tiny glyph sinks it; centre it */
+/* stack rows wrap the tip in .tipw so the bubble can anchor to the icon itself:
+   it opens right BESIDE the circled-i, vertically centred on it */
+.srow .tipw{margin-left:-4px;align-self:center;position:relative;display:inline-flex}
+.tipw .infob{margin:0}
+.tipw .exinfo{top:50%;right:auto;left:calc(100% + 8px);transform:translateY(-50%);
+  width:max-content;max-width:230px}
 /* the info bubble is a compact popover TUCKED INTO THE TOP-RIGHT CORNER of its
    anchor (the card for exercises, the row for stack items) — floating over
    whatever sits there rather than spanning or displacing content */
@@ -1199,14 +1203,15 @@ function renderPage(p){
     STACK.cats.forEach(c=>{
       const items=STACK.items.filter(s=>s.cat===c.id);
       if(!items.length)return;
-      h+=`<div class="pgsec"><div class="pgst">${esc(c.t)}<small>${items.length} item${items.length>1?'s':''}</small></div>`+
+      h+=`<div class="pgsec">`+
+        (c.t?`<div class="pgst">${esc(c.t)}<small>${items.length} item${items.length>1?'s':''}</small></div>`:'')+
         (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
         items.map(s=>{
           const dead=s.status==='stopped'||s.status==='dropped';
           return `<div class="srow${dead?' off':''}">`+
             `<span class="sn">${esc(s.name)}</span>`+
-            (s.info?`<button class="infob" title="${esc(s.info)}" aria-label="Details" onclick="tip(this)">i</button>`+
-                    `<div class="exinfo">${esc(s.info)}</div>`:'')+
+            (s.info?`<span class="tipw"><button class="infob" title="${esc(s.info)}" aria-label="Details" onclick="tip(this)">i</button>`+
+                    `<div class="exinfo">${esc(s.info)}</div></span>`:'')+
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             `<span class="sfill"></span>`+
             (s.url?`<a class="slink" href="${esc(s.url)}" target="_blank" rel="noopener">buy &#8599;</a>`:'')+
