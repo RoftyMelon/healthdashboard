@@ -127,7 +127,7 @@ td.boot span{color:var(--t3);font-size:15px}
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
    squeeze it inline and wrap the pills instead. */
-.swap,.ptabs,.toc{touch-action:pan-x pan-y}
+.swap,.ptabs,.toc{touch-action:pan-x pan-y;overscroll-behavior-x:contain}
 .toc{display:flex;gap:2px;min-width:0;flex-basis:100%;   /* pill BOXES align to the gutter */
   padding-top:10px;margin-top:-10px;   /* the scroll surface covers the seam above:
      a horizontal pan between the rows must grab a SCROLLER, never the table */
@@ -1426,6 +1426,17 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 setNmW();
 window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{passive:true});
+// a horizontal pan on the pills band with nothing to scroll drives the TOC below
+// (overscroll containment already stops it from ever reaching the table)
+{const sw=document.querySelector('.swap'),tc=document.getElementById('toc');
+ if(sw&&tc&&sw.addEventListener){let _px=null;
+  sw.addEventListener('pointerdown',e=>{_px=e.clientX},{passive:true});
+  sw.addEventListener('pointermove',e=>{if(_px==null)return;
+    if(sw.scrollWidth<=sw.clientWidth+1)tc.scrollLeft+=_px-e.clientX;
+    _px=e.clientX;},{passive:true});
+  const _end=()=>{_px=null};
+  sw.addEventListener('pointerup',_end,{passive:true});
+  sw.addEventListener('pointercancel',_end,{passive:true});}}
 TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 function onQ(v){qRaw=v.trim();q=norm(qRaw);SRCH.classList.toggle('has',!!q);render();}
 function sShut(){SRCH.classList.remove('open','has');QI.value='';QI.blur();if(q)onQ('');}
