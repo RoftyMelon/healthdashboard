@@ -102,7 +102,7 @@ setTimeout(()=>{
     ok(`routine draws ${ltN} long tics`, count(n.pages.innerHTML,'rhl lt')===ltN,
       count(n.pages.innerHTML,'rhl lt')+' long tics');
     // mirror the renderer: rows whose events all end inside their hour draw
-    // hairlines at the fractional boundaries (12:30-style cuts)
+    // hairlines at the fractional boundaries (17:30-style cuts)
     let rlnN=0,hr3=H0;
     while(hr3<=H1){
       const evsAll=R.filter(r=>parseInt(r.t)===hr3);

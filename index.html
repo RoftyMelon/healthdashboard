@@ -90,10 +90,6 @@ button{font-family:inherit;font-size:15px;font-weight:550;letter-spacing:-.005em
   padding:9px 15px;border-radius:11px;cursor:pointer;transition:.18s cubic-bezier(.3,.9,.3,1);
   background:var(--btn);border:.5px solid var(--btn-b);color:var(--txt)}
 button:hover{background:var(--btn-h)}
-button.solid{background:var(--sol);color:var(--sol-t);border-color:transparent;font-weight:600}
-button.solid:hover{opacity:.9;background:var(--sol)}
-button.warn{color:var(--out);border-color:var(--out);background:transparent}
-button.warn:hover{background:var(--out);color:#fff}
 button.ic{padding:0;width:40px;height:40px;border-radius:50%;flex:none;
   display:flex;align-items:center;justify-content:center;color:var(--t2);
   background:var(--glass);border:.5px solid var(--glass-b);z-index:1;
@@ -753,8 +749,6 @@ const NOW=new Date(),STALE=18;
 const ago=mo=>mo<1?'<1mo':mo<12?mo+'mo':(Math.round(mo/12*10)/10)+'y';
 const months=ds=>{const d=new Date(ds+'T00:00:00');
   return (NOW.getFullYear()-d.getFullYear())*12+(NOW.getMonth()-d.getMonth());};
-const C=()=>S.theme==='light'?{ok:'#1B8A47',watch:'#B4610A',out:'#CE1126'}
-                             :{ok:'#30D158',watch:'#FF9F0A',out:'#FF453A'};
 const ODISC=document.getElementById('odisc'),OMOON=document.getElementById('omoon'),
       OSUN=document.getElementById('osun');
 let orbitR=0;
@@ -1291,7 +1285,7 @@ function renderPage(p){
             (s.url?`<a class="slink" href="${esc(s.url)}" target="_blank" rel="noopener">buy &#8599;</a>`:'')+
           `</div>`;}).join('')+`</div>`;
     });
-    h+=cardRow(CARE.filter(c=>!c.top),'wide');   // the dental/face protocol cards close the page
+    h+=cardRow(CARE,'wide');   // the dental/face protocol cards close the page
   } else if(p==='routine'&&ROUTINE.length){
     // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
     // hours take up (a little) space and the day reads as time, not as glued-together events
@@ -1303,8 +1297,8 @@ function renderPage(p){
       if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
     lt.add(H0);   // the day's start earns a boundary line too
     // a boundary line is REDUNDANT when the hour before it already ended mid-hour
-    // with its own cut (lunch ends 12:30 -> no 13:00 line; the shower runs to 18:00
-    // exactly, so 18:00 keeps its line)
+    // with its own cut (the shower ends 17:30 -> no 18:00 line; the gym runs to
+    // 10:00 exactly, so 10:00 keeps its line)
     const supr=new Set();
     {let hh=H0;const mm=t=>parseInt(t.slice(3),10)/60;
      while(hh<=H1){const e2=ROUTINE.filter(r=>parseInt(r.t)===hh);
@@ -1349,7 +1343,7 @@ function renderPage(p){
       });
       // SUB-HOUR TRUTH: when every event in the hour declares a span that ends inside
       // it (or exactly on the next hour), each event sits at its actual minutes and
-      // the fractional boundaries (12:30, 17:30) get their own hairlines.
+      // the fractional boundaries (10:30, 17:30) get their own hairlines.
       const mins=t=>parseInt(t.slice(3),10)/60;
       const spans=rowEvs.map(r=>{let em=null;
         if(r.until){const uh=parseInt(r.until);
