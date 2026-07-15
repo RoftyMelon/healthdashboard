@@ -502,6 +502,12 @@ a.sbuy:hover{color:var(--info)}
   background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;
   font-size:13.5px;color:var(--t2);line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .exn:hover+.exinfo,.infob:hover+.exinfo{display:block}
+.exinfo.tbl{max-width:min(84%,270px);max-height:66vh;overflow-y:auto;padding:5px 9px 7px}
+.ntab{border-collapse:collapse;width:100%;font-size:12.5px;line-height:1.35}
+.ntab .nsec th{text-align:left;padding:6px 0 2px;font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--txt)}
+.ntab .nsec:first-child th{padding-top:0}
+.ntab td{padding:1px 0;color:var(--t2)}
+.ntab td:last-child{text-align:right;white-space:nowrap;padding-left:12px;color:var(--txt);font-variant-numeric:tabular-nums}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
 /* name left, spec right: the "40kg - 3x5" column aligns down the card edge */
 .exn{line-height:1.3;font-weight:520;display:flex;align-items:baseline;gap:6px}
@@ -1394,8 +1400,13 @@ function renderPage(p){
         `<div class="ccard"><b>${esc(m.t)}</b><span class="cwhen">${esc(m.at)}</span>`+
         `<ul>${m.items.map(x=>{
           if(x==='---')return '<li class="crs" aria-hidden="true"></li>';
-          const nm=typeof x==='object'?x.n:x;
-          const tip=(typeof x==='object'&&x.info)?`<button class="infob" aria-label="${esc(nm)} details">i</button><div class="exinfo">${esc(x.info)}</div>`:'';
+          const nm=typeof x==='object'?x.n:x, info=typeof x==='object'?x.info:null;
+          let tip='';
+          if(info){
+            const body=typeof info==='string'?esc(info)
+              :`<table class="ntab">`+Object.entries(info).map(([sec,rows])=>`<tr class="nsec"><th colspan="2">${esc(sec)}</th></tr>`+rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')).join('')+`</table>`;
+            tip=`<button class="infob" aria-label="${esc(nm)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
+          }
           return `<li>${esc(nm)}${tip}</li>`;
         }).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
