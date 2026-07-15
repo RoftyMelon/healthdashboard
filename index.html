@@ -644,7 +644,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
     <div class="swap" id="swap">
     <nav class="ptabs" id="ptabs" aria-label="Pages">
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
-      <button class="pt" data-pg="prescription" onclick="setPage('prescription')">Prescription</button>
+      <button class="pt" data-pg="prescription" onclick="setPage('prescription')">Next Draw</button>
       <button class="pt" data-pg="stack" onclick="setPage('stack')">Stack</button>
       <button class="pt" data-pg="diet" onclick="setPage('diet')">Diet</button>
       <button class="pt" data-pg="routine" onclick="setPage('routine')">Routine</button>
@@ -1130,7 +1130,7 @@ function goto(cat){
    'markers' is the whole table experience, filters and all. The other three render
    into #pages from the STACK / ROUTINE / DIET blocks, and the table-only controls
    fold away via html[data-page] (see the CSS). Nothing here touches table geometry. */
-const PAGES={markers:'Markers',prescription:'Prescription',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training'};
+const PAGES={markers:'Markers',prescription:'Next Draw',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training'};
 let page='markers';
 document.documentElement.dataset.page=page;
 const PGEL=document.getElementById('pages'),
@@ -1166,7 +1166,8 @@ function setPage(p){
   page=p;
   document.documentElement.dataset.page=p;
   PGEL.hidden=p==='markers';
-  document.querySelectorAll('#ptabs .pt').forEach(b=>b.classList.toggle('on',b.dataset.pg===p));
+  document.querySelectorAll('#ptabs .pt').forEach(b=>{const on=b.dataset.pg===p;b.classList.toggle('on',on);
+    if(on&&b.scrollIntoView)b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});});   // a clipped tab slides fully into view
   if(p!=='markers')renderPage(p);
   pmSet(p!=='markers');   // the strip PERSISTS on pages; only Markers swaps it back for filters
   // The topbar changes composition here (toc + pills vs tabs), so --toph must be
@@ -1220,7 +1221,7 @@ function renderPage(p){
   let h='';
   if(p==='prescription'&&PRESCRIPTION){
     const it=PRESCRIPTION.items;
-    h=`<div class="pgh">Prescription</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
+    h=`<div class="pgh">Next draw</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
       (it.length
         ?`<div class="pgsec">`+it.map(x=>`<div class="srow"><span class="sn">${esc(x)}</span></div>`).join('')+`</div>`
         :`<div class="cempty">&mdash;</div>`);
