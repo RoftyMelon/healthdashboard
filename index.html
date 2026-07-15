@@ -1147,6 +1147,13 @@ function revealTab(b){
   let x=sc.scrollLeft;
   if(br+nb>x+sc.clientWidth)x=br+nb-sc.clientWidth;
   if(bl-pb<x)x=Math.max(0,bl-pb);
+  // BIAS: keep a sliver of the LAST tab on-screen as a "there's more" hint,
+  // as far as possible without pushing the ACTIVE tab off (it always wins)
+  const last=sc.querySelector('.pt:last-of-type');
+  if(last&&last!==b){
+    const need=last.offsetLeft+peek-sc.clientWidth;
+    if(need>x)x=Math.min(need,bl);
+  }
   if(x!==sc.scrollLeft&&sc.scrollTo)sc.scrollTo({left:x,behavior:'smooth'});
 }
 function movePtu(){   // slide the shared underline under the active tab
