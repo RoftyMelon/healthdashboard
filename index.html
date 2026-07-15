@@ -410,8 +410,9 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .sn{font-size:16px;font-weight:560;color:var(--txt);letter-spacing:-.01em}
 .sd{font-size:15px;color:var(--t2);font-variant-numeric:tabular-nums}
 .sfill{flex:1}
-.slink{font-size:15px;color:var(--info);text-decoration:none;white-space:nowrap;padding:5px 0}
-.slink:hover{text-decoration:underline}
+a.sn{text-decoration:none}
+.sarr{font-size:11px;color:var(--t4);margin-left:3px;vertical-align:1px;font-weight:400}
+a.sn:hover .sarr{color:var(--info)}
 /* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
 .rhr{display:flex;gap:14px;position:relative}   /* anchors the full-width boundary lines */
 .pgsub+.rhr{margin-top:18px}   /* the ruler breathes below the header (the old cards carried this gap) */
@@ -1276,13 +1277,14 @@ function renderPage(p){
         (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
         items.map(s=>{
           const dead=s.status==='stopped'||s.status==='dropped';
+          const nm=s.url
+            ? `<a class="sn lnk" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}<span class="sarr">&#8599;</span></a>`
+            : `<span class="sn">${esc(s.name)}</span>`;
           return `<div class="srow${dead?' off':''}">`+
-            `<span class="sn">${esc(s.name)}</span>`+
+            nm+
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             (s.info?`<span class="tipw"><button class="infob" title="${esc(s.info)}" aria-label="Details" onclick="tip(this)">i</button>`+
                     `<div class="exinfo">${esc(s.info)}</div></span>`:'')+
-            `<span class="sfill"></span>`+
-            (s.url?`<a class="slink" href="${esc(s.url)}" target="_blank" rel="noopener">buy &#8599;</a>`:'')+
           `</div>`;}).join('')+`</div>`;
     });
     h+=cardRow(CARE,'wide');   // the dental/face protocol cards close the page
