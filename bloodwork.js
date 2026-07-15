@@ -96,7 +96,7 @@ window.BLOODWORK =
  "STACK": {
   "cats": [
    {"id": "essentials", "t": "Essentials"},
-   {"id": "skin", "t": "Skin & joints"},
+   {"id": "skin", "t": "Skin"},
    {"id": "antiox", "t": "Antioxidants"},
    {"id": "aminos", "t": "Aminos & longevity"},
    {"id": "sport", "t": "Sport"},
@@ -109,7 +109,7 @@ window.BLOODWORK =
    {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Vitamin D3 5000 IU + K2"},
    {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Iodine 300mcg"},
    {"id": "omega3", "name": "Omega-3", "dose": "3g EPA + 1.5g DHA", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
-   {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "~500 Da, ~80% tripeptides — the skin-signalling hydrolysate, with vitamin C. Glycine covers the amino substrate.", "cat": "skin", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
+   {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "~500 Da, ~80% tripeptides — the skin-signalling hydrolysate, with vitamin C. Glycine covers the amino substrate.", "cat": "skin", "status": "planned", "when": null, "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "200mg", "cat": "skin", "status": "planned", "when": null, "url": null, "dec": null},
    {"id": "brazilnut", "name": "Brazil nut", "dose": "1 per day", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": null},
    {"id": "mglthr", "name": "Magnesium L-threonate", "dose": "2000mg", "info": "150mg elemental", "cat": "essentials", "status": "planned", "when": "evening", "url": null, "dec": "Magnesium L-threonate"},
