@@ -1266,11 +1266,13 @@ function renderPage(p){
       // it (or exactly on the next hour), each event sits at its actual minutes and
       // the fractional boundaries (12:30, 17:30) get their own hairlines.
       const mins=t=>parseInt(t.slice(3),10)/60;
-      const spans=evs.map(r=>{let em=null;
+      const spans=evs.map(r=>{const sm=mins(r.t);let em=sm;   // a point event is a zero-length span
         if(r.until){const uh=parseInt(r.until);
           em=uh===hr?mins(r.until):(uh===hr+1&&mins(r.until)===0?1:null);}
-        return {sm:mins(r.t),em};});
-      const prop=evs.length>0&&spans.every(x=>x.em!=null);
+        return {sm,em};});
+      // proportional placement needs company or a span: a LONE point event (07:00's
+      // morning list) stays centred; pairs like Screens off / Bedtime sit at their minutes
+      const prop=spans.every(x=>x.em!=null)&&(evs.length>1||evs.some(r=>r.until));
       // a cut is drawn only where a span ends into EMPTY time: a boundary that is both
       // one event's end and the next one's start needs no line — the texts separate
       const st2=new Set(spans.map(x=>x.sm)),en2=new Set(spans.map(x=>x.em));
