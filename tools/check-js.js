@@ -140,12 +140,12 @@ setTimeout(()=>{
   catch(e){ ok('training groups',false,e.message); }
   // every meal card embeds a derived Supps sub-section (the evening card's title IS its list)
   try{ setPage('diet');
-    ok(`diet embeds ${DATA.DIET.meals.length} supp sub-sections`,
-      count(n.pages.innerHTML,'cgrp')===DATA.DIET.meals.length,
+    ok(`diet embeds ${DATA.DIET.meals.length+1} Supplements sub-sections`,
+      count(n.pages.innerHTML,'cgrp')===DATA.DIET.meals.length+1,
       count(n.pages.innerHTML,'cgrp')+' sections');
     const evn=DATA.STACK.items.filter(x=>x.when==='evening'&&(x.status==='taking'||x.status==='planned')).length;
-    const shown=(n.pages.innerHTML.match(/Evening supps/g)||[]).length;
-    ok('diet shows the Evening supps card', shown===1, shown+' rendered');
+    const shown=(n.pages.innerHTML.match(/<b>Evening<\/b>/g)||[]).length;
+    ok('diet shows the Evening card', shown===1, shown+' rendered');
     ok(`evening card derives ${evn} item(s) from STACK.when`,
       evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived'); }
   catch(e){ ok('diet supps',false,e.message); }

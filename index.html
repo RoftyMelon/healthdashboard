@@ -1313,8 +1313,8 @@ function renderPage(p){
       `<div class="care col">`+DIET.meals.map(m=>
         `<div class="ccard"><b>${esc(m.t)}</b>${m.at?`<span class="cwhen">${esc(m.at)}</span>`:''}`+
         `<ul>${m.items.map(x=>x==='---'?'<li class="crs" aria-hidden="true"></li>':`<li>${esc(x)}</li>`).join('')}</ul>`+
-        `<div class="cgrp">Supps</div>`+supps(m.id)+`</div>`).join('')+
-      `<div class="ccard"><b>Evening supps</b>`+supps('evening')+`</div>`+
+        `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
+      `<div class="ccard"><b>Evening</b><div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`;
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
