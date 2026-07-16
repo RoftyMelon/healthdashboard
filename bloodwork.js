@@ -96,7 +96,7 @@ window.BLOODWORK =
   "Zinc + copper"
  ],
  "STACK": {
-  "intro": "A green dot marks what you're already taking (+ Huel, in the Diet). The rest start after the 1st blood test; the parked list waits for the 2nd.",
+  "intro": "Green dot = currently taking (+ Huel, in the Diet). The rest start after the 1st blood test; the parked list waits for the 2nd.",
   "cats": [
    {"id": "essentials", "t": "Essentials"},
    {"id": "skin", "t": "Skin"},
