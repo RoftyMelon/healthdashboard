@@ -538,6 +538,7 @@ a.sbuy:hover{color:var(--info)}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2)}
 .ccard li.drow{display:flex;align-items:baseline;position:relative}
 .drow .dfn{flex:1;min-width:0}
+.ccard li.drow:last-child{border-bottom:.5px solid var(--line2)}   /* the last food in a meal keeps its line, closing the list before Supplements */
 .drow .exinfo,.srow.lite .exinfo{top:calc(100% + 4px);left:0;right:auto}   /* Diet food tips drop BELOW their own row, not the card corner */
 .ccard li:last-child{border-bottom:none}
 .ccard li.crs{padding:0;height:9px;border-bottom:none}   /* a "---" item = course gap */

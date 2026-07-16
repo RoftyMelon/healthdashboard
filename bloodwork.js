@@ -252,6 +252,7 @@ window.BLOODWORK =
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
     {"n": "Coffee", "info": {"Per cup (~240 ml)":[["Energy","2 kcal"],["Caffeine","~95 mg"],["Potassium","116 mg","6%"],["Chlorogenic acids","~200 mg"]]}},
+    "---",
     {"n": "200g mozzarella di bufala", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
     {"n": "150g cherry tomatoes", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
     "---",
