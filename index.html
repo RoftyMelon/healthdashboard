@@ -1399,7 +1399,7 @@ function renderPage(p){
   } else if(p==='diet'&&DIET){
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
     const supps=slot=>{
-      const list=STACK?STACK.items.filter(x=>x.when===slot&&(x.status==='taking'||x.status==='planned')):[];
+      const list=STACK?STACK.items.filter(x=>x.when===slot&&(x.status==='taking'||x.status==='planned')&&x.cat!=='maylater'):[];   // parked items never derive into a meal
       return list.length
         ?`<ul>${list.map(x=>`<li>${esc(x.name)}${x.dose?`<span class="cwhen">${esc(x.dose)}</span>`:''}</li>`).join('')}</ul>`
         :`<div class="cempty">&mdash;</div>`;

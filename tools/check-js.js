@@ -169,7 +169,7 @@ setTimeout(()=>{
     ok(`diet embeds ${timed+1} Supplements sub-sections`,
       count(n.pages.innerHTML,'cgrp')===timed+1,
       count(n.pages.innerHTML,'cgrp')+' sections');
-    const evn=DATA.STACK.items.filter(x=>x.when==='evening'&&(x.status==='taking'||x.status==='planned')).length;
+    const evn=DATA.STACK.items.filter(x=>x.when==='evening'&&(x.status==='taking'||x.status==='planned')&&x.cat!=='maylater').length;
     const shown=(n.pages.innerHTML.match(/<b>Evening<\/b>/g)||[]).length;
     ok('diet shows the Evening card', shown===1, shown+' rendered');
     ok(`evening card derives ${evn} item(s) from STACK.when`,
