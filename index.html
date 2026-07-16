@@ -429,8 +429,8 @@ a.sbuy:hover{color:var(--info)}
    guarantees a boundary hour always STARTS its row. The tabular HH:00 ends ~31px;
    left:0 would strike THROUGH it. */
 .rhl.lt::after{content:"";position:absolute;left:44px;top:7px;height:.5px;
-  width:min(calc(100% - 44px),250px);background:var(--t4);opacity:.55}
-  /* 410px = the longest row text ("Gym - phone stays OFF...") — the line matches it */
+  width:min(calc(100% - 44px),300px);background:var(--t4);opacity:.55}
+  /* 300px fits the widest row, "10min run, sunlight, hot/cold shower" (~288px). MAGIC NUMBER: re-measure if you add a longer routine line. */
 /* every row centres its content between the boundary lines of its span. UNIFORM
    HEIGHT IS THE CONTRACT: the padding must leave a 2-line row (07:00) and a
    two-event hour (17:00, 21:00) fitting inside one --hh cell — a row that
@@ -447,7 +447,7 @@ a.sbuy:hover{color:var(--info)}
 /* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
 .rhr.rprop .rcell{position:relative;padding:0}
 .rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
-.rln{position:absolute;left:44px;width:min(calc(100% - 44px),250px);height:.5px;
+.rln{position:absolute;left:44px;width:min(calc(100% - 44px),300px);height:.5px;
   background:var(--t4);opacity:.55}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
