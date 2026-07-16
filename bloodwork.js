@@ -90,7 +90,7 @@ window.BLOODWORK =
   "Iodine 300mcg",
   "Magnesium L-threonate",
   "NAC 2000mg",
-  "Omega-3 (3g EPA, 1.5g DHA)",
+  "Omega-3 (800mg EPA, 450mg DHA)",
   "TMG 1000mg",
   "Vitamin D3 5000 IU + K2",
   "Zinc + copper"
@@ -111,7 +111,7 @@ window.BLOODWORK =
    {"id": "lyco", "name": "Lycopene", "dose": "15mg 2x/day", "info": "Red tomato carotenoid — a genuine skin-coloration carotenoid (warm tone) plus photoprotection (raises the UV-burn threshold at 10-16mg). Plasma saturates by ~30-40mg, so 50mg was mostly excreted; 30mg (15mg 2x, fatty meals) captures it, within the EFSA ADI (40mg at 80kg). Tomato-derived (LycoBeads) beats synthetic; cooked tomato + olive oil beats raw.", "cat": "skin", "status": "planned", "when": null, "url": "https://www.sunday.de/en/lycopene-capsules.html", "dec": null},
    {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "essentials", "status": "planned", "when": null, "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 5000 IU + K2"},
    {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Iodine 300mcg"},
-   {"id": "omega3", "name": "Omega-3", "dose": "3g EPA + 1.5g DHA", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
+   {"id": "omega3", "name": "Omega-3", "dose": "800mg EPA + 450mg DHA", "info": "Algae oil (Schizochytrium), natural triglyceride form — cleaner than fish oil (no heavy metals, iodine-free, low TOTOX) and better absorbed. EPA-dominant 16:9, 400mg EPA + 225mg DHA per softgel. Trimmed from 4.5g (triglyceride-tier) to the ~1-2g general-health range: 2/day = 800+450mg. Titrate to omega-3 index (8-12%), up to 3 if low.", "cat": "essentials", "status": "planned", "when": null, "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html", "dec": "Omega-3 (800mg EPA, 450mg DHA)"},
    {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "~500 Da, ~80% tripeptides — the skin-signalling hydrolysate, with vitamin C. Glycine covers the amino substrate.", "cat": "skin", "status": "planned", "when": null, "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "info": "Not deposited intact — ~0.2% bioavailable; gut bacteria fragment it to oligosaccharides that signal the skin's own HA synthesis. 2025 meta-analysis (7 RCTs): modest hydration, elasticity and wrinkle gains. 250mg of medium-MW (0.8-1.3 MDa) HA — the band the positive skin trials used. Cosmetic, microbiome-dependent.", "cat": "skin", "status": "planned", "when": null, "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html", "dec": null},
    {"id": "mglthr", "name": "Magnesium L-threonate", "dose": "2040mg", "info": "147mg elemental · Magtein®. Parked: the sleep case is weak — young & magnesium-replete (diet ~2× RDA), and L-threonate has no sleep RCTs (its research is cognition in older adults). A brain bet, not repletion — deciding via an n=1 sleep washout.", "cat": "maylater", "status": "planned", "when": "evening", "url": "https://www.sunday.fr/magnesium-l-threonate-gelules.html", "dec": "Magnesium L-threonate"},
@@ -551,7 +551,7 @@ window.BLOODWORK =
    "id": "o3",
    "cat": "vitmin",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)"
+    "Omega-3 (800mg EPA, 450mg DHA)"
    ],
    "en": "Omega-3 index",
    "fr": "(OmegaQuant, hors labo FR)",
@@ -874,7 +874,7 @@ window.BLOODWORK =
    "id": "tg",
    "cat": "lipid",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)"
+    "Omega-3 (800mg EPA, 450mg DHA)"
    ],
    "en": "Triglycerides",
    "fr": "Triglycérides",
@@ -1008,7 +1008,7 @@ window.BLOODWORK =
    "id": "hscrp",
    "cat": "lipid",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)",
+    "Omega-3 (800mg EPA, 450mg DHA)",
     "Curcumin"
    ],
    "en": "hs-CRP",
@@ -1038,7 +1038,7 @@ window.BLOODWORK =
    "id": "ldl",
    "cat": "lipid",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)",
+    "Omega-3 (800mg EPA, 450mg DHA)",
     "AGE garlic 2400mg"
    ],
    "en": "LDL cholesterol",
@@ -1076,7 +1076,7 @@ window.BLOODWORK =
    "id": "hdl",
    "cat": "lipid",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)",
+    "Omega-3 (800mg EPA, 450mg DHA)",
     "AGE garlic 2400mg"
    ],
    "en": "HDL cholesterol",
@@ -1746,7 +1746,7 @@ window.BLOODWORK =
    "id": "plt",
    "cat": "cbc",
    "dec": [
-    "Omega-3 (3g EPA, 1.5g DHA)",
+    "Omega-3 (800mg EPA, 450mg DHA)",
     "Curcumin",
     "AGE garlic 2400mg"
    ],
