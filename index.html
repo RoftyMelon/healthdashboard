@@ -825,7 +825,7 @@ function audit(j){
     (j.STACK.items||[]).forEach(s=>{
       if(!cids.has(s.cat))bad.push(`STACK "${s.name}": category "${s.cat}" is not in STACK.cats`);
       if(!ST.includes(s.status))bad.push(`STACK "${s.name}": status "${s.status}" is not one of ${ST.join('/')}`);
-      if(s.when!=null&&!SL.includes(s.when))bad.push(`STACK "${s.name}": when "${s.when}" is not one of ${SL.join('/')}`);
+      if(s.when!=null){if(!Array.isArray(s.when))bad.push(`STACK "${s.name}": when must be null or an array of {at,dose}`);else s.when.forEach(w=>{if(!SL.includes(w.at))bad.push(`STACK "${s.name}": when slot "${w.at}" is not one of ${SL.join('/')}`);});}
       if(s.dec!=null&&!j.DECS.includes(s.dec))bad.push(`STACK "${s.name}": dec "${s.dec}" is not a DECS label`);
       if(s.url!=null&&!/^https:\/\//.test(s.url))bad.push(`STACK "${s.name}": url must start with https://`);
       if(s.ev!=null&&!['strong','moderate','weak'].includes(s.ev))bad.push(`STACK "${s.name}": ev "${s.ev}" is not strong/moderate/weak`);
@@ -1384,8 +1384,8 @@ function renderPage(p){
         rowEvs.map((r,i)=>{
           let sup='';
           if(r.slot&&STACK){
-            const list=STACK.items.filter(s=>s.status==='taking'&&s.when===r.slot);
-            if(list.length)sup=`<div class="rsup">${list.map(s=>`<span class="rs">${esc(s.name)}${s.dose?' · '+esc(s.dose):''}</span>`).join('')}</div>`;
+            const list=STACK.items.filter(s=>s.status==='taking'&&Array.isArray(s.when)&&s.when.some(w=>w.at===r.slot));
+            if(list.length)sup=`<div class="rsup">${list.map(s=>{const w=s.when.find(w=>w.at===r.slot);return `<span class="rs">${esc(s.name)}${w.dose?' · '+esc(w.dose):''}</span>`;}).join('')}</div>`;
           }
           const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} - ${spans[i].sm>0?7:6}px)"`:'';
           return `<div class="rev"${pos}><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div>${sup}</div></div>`;
@@ -1407,9 +1407,9 @@ function renderPage(p){
   } else if(p==='diet'&&DIET){
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
     const supps=slot=>{
-      const list=STACK?STACK.items.filter(x=>x.when===slot&&(x.status==='taking'||x.status==='planned')&&x.cat!=='maylater'):[];   // parked items never derive into a meal
+      const list=STACK?STACK.items.filter(x=>Array.isArray(x.when)&&x.when.some(w=>w.at===slot)&&(x.status==='taking'||x.status==='planned')&&x.cat!=='maylater'):[];   // parked items never derive into a meal
       return list.length
-        ?`<ul>${list.map(x=>`<li>${esc(x.name)}${x.dose?`<span class="cwhen">${esc(x.dose)}</span>`:''}</li>`).join('')}</ul>`
+        ?`<ul>${list.map(x=>{const w=x.when.find(w=>w.at===slot);return `<li>${esc(x.name)}${w.dose?`<span class="cwhen">${esc(w.dose)}</span>`:''}</li>`;}).join('')}</ul>`
         :`<div class="cempty">&mdash;</div>`;
     };
     const foodTip=x=>{                                   // a food item's optional info: string caveat OR nutrition table
