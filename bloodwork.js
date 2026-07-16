@@ -107,7 +107,7 @@ window.BLOODWORK =
    {"id": "maylater", "t": "May add later", "note": "Considered, not committed. Rationale in each item's tip."}
   ],
   "items": [
-   {"id": "astax", "name": "Astaxanthin", "dose": "24mg", "cat": "antiox", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "astax", "name": "Astaxanthin", "dose": "12mg 2x/day", "info": "Xanthophyll carotenoid, potent lipid-phase antioxidant. Its proven skin effect is photoprotection (raises the UV-burn threshold) plus moisture and elasticity — not skin color, which the coloration data pins on beta-carotene and lycopene. Held at 24mg/day (12mg 2x, fatty meals) pending direct evidence; above the EFSA ADI (16mg at 80kg) but safe — studied to 40mg.", "cat": "antiox", "status": "planned", "when": null, "url": null, "dec": null},
    {"id": "lyco", "name": "Lycopene", "dose": "50mg", "cat": "antiox", "status": "planned", "when": null, "url": null, "dec": null},
    {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Vitamin D3 5000 IU + K2"},
    {"id": "iodine", "name": "Iodine", "dose": "300mcg", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Iodine 300mcg"},
