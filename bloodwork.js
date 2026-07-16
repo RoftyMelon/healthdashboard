@@ -247,41 +247,41 @@ window.BLOODWORK =
   "eveningAt": "21:00",
   "meals": [
    {"id": "presnack", "t": "Pre-workout snack", "at": "07:15", "items": [
-    {"n": "90g Huel Black", "info": {
+    {"n": "Huel Black", "amt": "90 g", "info": {
      "Per 90g": [["Energy","400 kcal","20%"],["Protein","40 g","80%"],["Fat","17 g","24%"],["– saturates","4.0 g","20%"],["– monounsat.","3.8 g"],["– PUFA","9.4 g"],["Carbs","19 g","7%"],["– sugars","1.6 g","2%"],["Fibre","8.4 g"],["Salt","0.8 g","13%"]],
      "Vitamins": [["A","180 mcg","23%"],["D","160 IU","80%"],["E","4.0 mg","33%"],["K","39 mcg","52%"],["C","60 mg","75%"],["Thiamin","0.22 mg","20%"],["Riboflavin","0.28 mg","20%"],["Niacin","3.2 mg","20%"],["B6","0.28 mg","20%"],["Pantoth.","1.2 mg","20%"],["Folate","80 mcg","40%"],["B12","0.80 mcg","32%"],["Biotin","12 mcg","24%"]],
      "Minerals": [["Calcium","240 mg","30%"],["Phosphorus","360 mg","51%"],["Potassium","700 mg","35%"],["Chloride","164 mg","21%"],["Magnesium","88 mg","23%"],["Iron","9.0 mg","64%"],["Zinc","4.6 mg","46%"],["Copper","0.50 mg","50%"],["Manganese","0.90 mg","45%"],["Selenium","33 mcg","60%"],["Iodine","30 mcg","20%"],["Chromium","12 mcg","30%"],["Molybdenum","37 mcg","74%"]],
      "Other": [["Choline","120 mg"],["Omega-3 (ALA)","4.0 g"],["Omega-6","4.2 g"],["MCT","1.1 g"],["Caffeine","68 mg"],["Green tea","130 mg"],["Lutein","1.6 mg"],["Zeaxanthin","0.1 mg"],["B. coagulans","200 M"]]
     }},
-    {"n": "Two bananas", "info": {"Per 2 (~236 g)":[["Energy","210 kcal","11%"],["Carbs","54 g","21%"],["– sugars","29 g","32%"],["Fibre","6 g"],["Protein","2.6 g","5%"]],"Standouts":[["Potassium","845 mg","42%"],["B6","0.9 mg","64%"],["Vit C","20 mg","25%"],["Magnesium","64 mg","17%"]]}}
+    {"n": "Bananas", "amt": "2", "info": {"Per 2 (~236 g)":[["Energy","210 kcal","11%"],["Carbs","54 g","21%"],["– sugars","29 g","32%"],["Fibre","6 g"],["Protein","2.6 g","5%"]],"Standouts":[["Potassium","845 mg","42%"],["B6","0.9 mg","64%"],["Vit C","20 mg","25%"],["Magnesium","64 mg","17%"]]}}
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
-    {"n": "Coffee", "info": {"Per cup (~240 ml)":[["Energy","2 kcal"],["Caffeine","~95 mg"],["Potassium","116 mg","6%"],["Chlorogenic acids","~200 mg"]]}},
+    {"n": "Coffee", "amt": "1 cup", "info": {"Per cup (~240 ml)":[["Energy","2 kcal"],["Caffeine","~95 mg"],["Potassium","116 mg","6%"],["Chlorogenic acids","~200 mg"]]}},
     "---",
-    {"n": "200g mozzarella di bufala", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
-    {"n": "150g cherry tomatoes", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
+    {"n": "Mozzarella di bufala", "amt": "200 g", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
+    {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
     "---",
-    {"n": "6-10 eggs", "info": {"Per ~8 (~400 g)":[["Energy","620 kcal","31%"],["Protein","50 g","100%"],["Fat","44 g","63%"],["– saturates","13 g","65%"]],"Micronutrients":[["Choline","1180 mg"],["Selenium","120 mcg","218%"],["Vit D","320 IU","160%"],["B12","4 mcg","160%"],["Vit A","640 mcg","80%"],["Riboflavin","1.6 mg","114%"],["Folate","190 mcg","95%"]]}},
-    {"n": "Air-fried potatoes in duck grease (or other)", "info": {"Per ~300 g + grease":[["Energy","395 kcal","20%"],["Carbs","58 g","22%"],["Fibre","5 g"],["Fat","15 g","21%"],["– saturates","5 g","25%"]],"Standouts":[["Potassium","1200 mg","60%"],["Vit C","30 mg","38%"],["B6","0.9 mg","64%"]]}},
-    {"n": "Frozen reheated vegetables", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
-    {"n": "Olive oil (10mL)", "info": {"Per 10 mL":[["Energy","80 kcal","4%"],["Fat","9 g","13%"],["– monounsat.","7 g"],["Vit E","1 mg","10%"]]}},
+    {"n": "Eggs", "amt": "6–10", "info": {"Per ~8 (~400 g)":[["Energy","620 kcal","31%"],["Protein","50 g","100%"],["Fat","44 g","63%"],["– saturates","13 g","65%"]],"Micronutrients":[["Choline","1180 mg"],["Selenium","120 mcg","218%"],["Vit D","320 IU","160%"],["B12","4 mcg","160%"],["Vit A","640 mcg","80%"],["Riboflavin","1.6 mg","114%"],["Folate","190 mcg","95%"]]}},
+    {"n": "Air-fried potatoes (duck grease)", "amt": "~300 g", "info": {"Per ~300 g + grease":[["Energy","395 kcal","20%"],["Carbs","58 g","22%"],["Fibre","5 g"],["Fat","15 g","21%"],["– saturates","5 g","25%"]],"Standouts":[["Potassium","1200 mg","60%"],["Vit C","30 mg","38%"],["B6","0.9 mg","64%"]]}},
+    {"n": "Frozen vegetables", "amt": "~200 g", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
+    {"n": "Olive oil", "amt": "10 mL", "info": {"Per 10 mL":[["Energy","80 kcal","4%"],["Fat","9 g","13%"],["– monounsat.","7 g"],["Vit E","1 mg","10%"]]}},
     "---",
-    {"n": "Fruit (apple, pear, peach, apricots…)", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}}
+    {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}}
    ]},
    {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
-    {"n": "200g mozzarella di bufala", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
-    {"n": "150g cherry tomatoes", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
+    {"n": "Mozzarella di bufala", "amt": "200 g", "info": {"Per 200 g":[["Energy","550 kcal","28%"],["Protein","34 g","68%"],["Fat","44 g","63%"],["– saturates","30 g","150%"],["Salt","1 g","17%"]],"Minerals":[["Calcium","700 mg","88%"],["Phosphorus","700 mg","100%"],["Zinc","4 mg","40%"]]}},
+    {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
     "---",
-    {"n": "Rice or pasta (150g)", "info": {"Per 150 g cooked":[["Energy","195 kcal","10%"],["Carbs","42 g","16%"],["Protein","4 g","8%"],["Fibre","1 g"]]}},
-    {"n": "Olive oil (50mL)", "info": {"Per 50 mL":[["Energy","405 kcal","20%"],["Fat","46 g","66%"],["– monounsat.","34 g"],["– saturates","6 g","30%"],["Vit E","6 mg","50%"]]}},
-    {"n": "Ground beef or chicken (frozen, reheated)", "info": {"Ground beef (~200 g)":[["Energy","500 kcal","25%"],["Protein","40 g","80%"],["Fat","35 g","50%"],["– saturates","14 g","70%"]],"Minerals":[["Iron","5 mg","36%"],["Zinc","10 mg","100%"],["B12","5 mcg","200%"],["Selenium","30 mcg","55%"]]}},
-    {"n": "Frozen reheated vegetables", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
+    {"n": "Rice or pasta", "amt": "150 g", "info": {"Per 150 g cooked":[["Energy","195 kcal","10%"],["Carbs","42 g","16%"],["Protein","4 g","8%"],["Fibre","1 g"]]}},
+    {"n": "Olive oil", "amt": "50 mL", "info": {"Per 50 mL":[["Energy","405 kcal","20%"],["Fat","46 g","66%"],["– monounsat.","34 g"],["– saturates","6 g","30%"],["Vit E","6 mg","50%"]]}},
+    {"n": "Ground beef or chicken", "amt": "~200 g", "info": {"Ground beef (~200 g)":[["Energy","500 kcal","25%"],["Protein","40 g","80%"],["Fat","35 g","50%"],["– saturates","14 g","70%"]],"Minerals":[["Iron","5 mg","36%"],["Zinc","10 mg","100%"],["B12","5 mcg","200%"],["Selenium","30 mcg","55%"]]}},
+    {"n": "Frozen vegetables", "amt": "~200 g", "info": {"Per ~200 g":[["Energy","70 kcal","4%"],["Carbs","12 g","5%"],["Fibre","6 g"],["Protein","4 g","8%"]],"Vitamins":[["K","50 mcg","67%"],["Folate","80 mcg","40%"],["C","30 mg","38%"],["A","300 mcg","38%"]]}},
     "---",
-    {"n": "Two kiwis", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}}
+    {"n": "Kiwis", "amt": "2", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}}
    ]},
    {"id": "other", "t": "Other foods", "items": [
-    {"n": "Dark chocolate", "info": {"Per ~30 g":[["Energy","170 kcal","9%"],["Fat","13 g","19%"],["– saturates","8 g","40%"],["Carbs","10 g","4%"],["Fibre","3 g"]],"Minerals":[["Magnesium","70 mg","19%"],["Iron","3.4 mg","24%"],["Copper","0.5 mg","50%"],["Manganese","0.6 mg","30%"]]}},
-    {"n": "Nuts (Walnuts, Almonds, Pistachios)", "info": {"Per ~30 g":[["Energy","180 kcal","9%"],["Fat","16 g","23%"],["Protein","5 g","10%"],["Fibre","2.5 g"]],"Standouts":[["Magnesium","50 mg","13%"],["Vit E","4 mg","33%"],["Omega-3 (ALA)","1.5 g"]]}}
+    {"n": "Dark chocolate", "amt": "~30 g", "info": {"Per ~30 g":[["Energy","170 kcal","9%"],["Fat","13 g","19%"],["– saturates","8 g","40%"],["Carbs","10 g","4%"],["Fibre","3 g"]],"Minerals":[["Magnesium","70 mg","19%"],["Iron","3.4 mg","24%"],["Copper","0.5 mg","50%"],["Manganese","0.6 mg","30%"]]}},
+    {"n": "Nuts (walnuts, almonds, pistachios)", "amt": "~30 g", "info": {"Per ~30 g":[["Energy","180 kcal","9%"],["Fat","16 g","23%"],["Protein","5 g","10%"],["Fibre","2.5 g"]],"Standouts":[["Magnesium","50 mg","13%"],["Vit E","4 mg","33%"],["Omega-3 (ALA)","1.5 g"]]}}
    ]}
   ]
  },

@@ -542,6 +542,8 @@ a.sbuy:hover{color:var(--info)}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2)}
 .ccard li.drow{display:flex;align-items:baseline;position:relative}
 .drow .dfn{flex:1;min-width:0}
+.drow .damt{flex:none;margin-left:8px;font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.drow .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ccard li.drow:last-child{border-bottom:.5px solid var(--line2)}   /* the last food in a meal keeps its line, closing the list before Supplements */
 .drow .exinfo,.srow.lite .exinfo{top:calc(100% + 4px);left:0;right:auto}   /* Diet food tips drop BELOW their own row, not the card corner */
 .ccard li:last-child{border-bottom:none}
@@ -1416,17 +1418,15 @@ function renderPage(p){
         :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>`<div class="nrow"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`).join('')+`</div>`).join('')+`</div>`;
       return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
     };
-    const kcalTag=m=>{                                   // approximate meal total, summed live from each food's Energy row
-      let t=0;
-      (m.items||[]).forEach(x=>{if(x&&x.info&&typeof x.info==='object')Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')t+=parseInt(r[1])||0;}));});
-      return t?`<span class="ckcal">~${Math.round(t/50)*50} kcal</span>`:'';
-    };
+    const foodKcal=x=>{let t=0;if(x&&typeof x==='object'&&x.info&&typeof x.info==='object')Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')t+=parseInt(r[1])||0;}));return t;};
+    const kcalTag=m=>{const t=(m.items||[]).reduce((s,x)=>s+foodKcal(x),0);   // meal total, summed live from each food's Energy row
+      return t?`<span class="ckcal">~${Math.round(t/50)*50} kcal</span>`:'';};
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
       `<div class="care col">`+DIET.meals.filter(m=>m.at).map(m=>
         `<div class="ccard"><b>${esc(m.t)}</b>${kcalTag(m)}<span class="cwhen">${esc(m.at)}</span>`+
-        `<ul>${m.items.map(x=>x==='---'?'<li class="crs" aria-hidden="true"></li>':`<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>${foodTip(x)}</li>`).join('')}</ul>`+
+        `<ul>${m.items.map(x=>{if(x==='---')return '<li class="crs" aria-hidden="true"></li>';const k=foodKcal(x);return `<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>`+((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+(k?`<span class="dkcal">${k} kcal</span>`:'')+foodTip(x)+`</li>`;}).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
       `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`+
