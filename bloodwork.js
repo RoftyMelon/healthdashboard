@@ -103,7 +103,7 @@ window.BLOODWORK =
    {"id": "sport", "t": "Sport"},
    {"id": "hair", "t": "Hair loss"},
    {"id": "hairlater", "t": null, "note": "Potential additions to increase scalp absorption."},
-   {"id": "maylater", "t": "May add · after 2nd blood test", "note": "Not committed — reweighed against the 2nd blood test, a few months after the stack starts. Rationale in each tip."}
+   {"id": "maylater", "t": "May add after 2nd blood test", "note": "Not committed — reweighed against the 2nd blood test, a few months after the stack starts. Rationale in each tip."}
   ],
   "items": [
    {"id": "astax", "name": "Astaxanthin", "dose": "12mg 2x/day", "info": "Xanthophyll carotenoid, potent lipid-phase antioxidant. Its proven skin effect is photoprotection (raises the UV-burn threshold) plus moisture and elasticity — not skin color, which the coloration data pins on beta-carotene and lycopene. Held at 24mg/day (12mg 2x, fatty meals) pending direct evidence; above the EFSA ADI (16mg at 80kg) but safe — studied to 40mg.", "cat": "skin", "status": "taking", "when": null, "url": null, "dec": null},
