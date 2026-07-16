@@ -1278,10 +1278,10 @@ function renderPage(p){
         :`<div class="cempty">&mdash;</div>`);
   } else if(p==='stack'&&STACK){
     h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed · Daily doses</div>`;
-    STACK.cats.forEach(c=>{
+    const renderCat=c=>{
       const items=STACK.items.filter(s=>s.cat===c.id);
-      if(!items.length)return;
-      h+=`<div class="pgsec${c.t?'':' nohead'}">`+
+      if(!items.length)return '';
+      return `<div class="pgsec${c.t?'':' nohead'}">`+
         (c.t?`<div class="pgst">${esc(c.t)}<small>${items.length} item${items.length>1?'s':''}</small></div>`:'')+
         (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
         items.map(s=>{
@@ -1296,8 +1296,10 @@ function renderPage(p){
             (s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`
                   :`<span class="sbuy"></span>`)+   // reserved slot: the ↗ column stays aligned
           `</div>`;}).join('')+`</div>`;
-    });
+    };
+    STACK.cats.forEach(c=>{if(c.id!=='maylater')h+=renderCat(c);});   // 'maylater' renders AFTER the cards
     h+=cardRow(CARE,'wide');   // the dental/face protocol cards close the page
+    const ml=STACK.cats.find(c=>c.id==='maylater'); if(ml)h+=renderCat(ml);   // parking lot, at the very foot
   } else if(p==='routine'&&ROUTINE.length){
     // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
     // hours take up (a little) space and the day reads as time, not as glued-together events

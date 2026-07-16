@@ -103,7 +103,8 @@ window.BLOODWORK =
    {"id": "aminos", "t": "Aminos & longevity"},
    {"id": "sport", "t": "Sport"},
    {"id": "hair", "t": "Hair loss"},
-   {"id": "hairlater", "t": null, "note": "Potential additions to increase scalp absorption."}
+   {"id": "hairlater", "t": null, "note": "Potential additions to increase scalp absorption."},
+   {"id": "maylater", "t": "May add later", "note": "Considered, not committed. Rationale in each item's tip."}
   ],
   "items": [
    {"id": "astax", "name": "Astaxanthin", "dose": "24mg", "cat": "antiox", "status": "planned", "when": null, "url": null, "dec": null},
@@ -113,7 +114,7 @@ window.BLOODWORK =
    {"id": "omega3", "name": "Omega-3", "dose": "3g EPA + 1.5g DHA", "cat": "essentials", "status": "planned", "when": null, "url": null, "dec": "Omega-3 (3g EPA, 1.5g DHA)"},
    {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "~500 Da, ~80% tripeptides — the skin-signalling hydrolysate, with vitamin C. Glycine covers the amino substrate.", "cat": "skin", "status": "planned", "when": null, "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "200mg", "cat": "skin", "status": "planned", "when": null, "url": null, "dec": null},
-   {"id": "mglthr", "name": "Magnesium L-threonate", "dose": "2040mg", "info": "147mg elemental · Magtein® (the patented, studied form). 3 caps/day.", "cat": "essentials", "status": "planned", "when": "evening", "url": "https://www.sunday.fr/magnesium-l-threonate-gelules.html", "dec": "Magnesium L-threonate"},
+   {"id": "mglthr", "name": "Magnesium L-threonate", "dose": "2040mg", "info": "147mg elemental · Magtein®. Parked: the sleep case is weak — young & magnesium-replete (diet ~2× RDA), and L-threonate has no sleep RCTs (its research is cognition in older adults). A brain bet, not repletion — deciding via an n=1 sleep washout.", "cat": "maylater", "status": "planned", "when": "evening", "url": "https://www.sunday.fr/magnesium-l-threonate-gelules.html", "dec": "Magnesium L-threonate"},
    {"id": "minoxidil", "name": "Minoxidil (topical)", "dose": "5-10%, 1mL 2x/day", "cat": "hair", "status": "taking", "when": null, "url": null, "dec": null},
    {"id": "finasteride", "name": "Finasteride (topical)", "dose": "0.1%, 1mL 2x/day", "cat": "hair", "status": "planned", "when": null, "url": null, "dec": "Finasteride (topical) 0.1% - 1mL",
     "info": "Topical application as a serum = fewer side effects. Finasteride 0.1% is a low dose, but stay aware of potential effects on libido, erectile function and mood (including depression) during the first 6 months."},
