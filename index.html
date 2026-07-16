@@ -409,6 +409,8 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap;position:relative}
 .srow.off .sn{color:var(--t3);text-decoration:line-through;text-decoration-color:var(--t4);text-decoration-thickness:1px}
 .sn{font-size:16px;font-weight:560;color:var(--txt);letter-spacing:-.01em}
+.srow:not(.lite) .sn::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:transparent;margin-right:8px;vertical-align:middle}   /* reserved status dot — keeps every stack name aligned */
+.srow.on:not(.lite) .sn::before{background:var(--ok)}   /* 'on now' = currently taking (more specific than the base rule, wins the tie) */
 .sd{font-size:15px;color:var(--t2);font-variant-numeric:tabular-nums;text-align:right}
 .sfill{flex:1}
 .sbuy{flex:none;width:14px;text-align:center;font-size:11px;color:var(--t4);text-decoration:none;align-self:center}
@@ -1287,7 +1289,7 @@ function renderPage(p){
         (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
         items.map(s=>{
           const dead=s.status==='stopped'||s.status==='dropped';
-          return `<div class="srow${dead?' off':''}">`+
+          return `<div class="srow${dead?' off':''}${s.status==='taking'?' on':''}">`+
             `<span class="sn">${esc(s.name)}</span>`+
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
