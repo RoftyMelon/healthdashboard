@@ -545,6 +545,7 @@ a.sbuy:hover{color:var(--info)}
 .cempty{font-size:15px;color:var(--t4);padding:8px 0 2px}
 /* diet */
 .cwhen{margin-left:8px;font-size:13px;font-weight:450;color:var(--t4);font-variant-numeric:tabular-nums}
+.ckcal{margin-left:8px;font-size:12.5px;font-weight:450;color:var(--t3);font-variant-numeric:tabular-nums}
 .care.col{flex-direction:column;overflow:visible;width:auto;max-width:none}
 .care.wide{margin-top:34px}   /* air between the last supplement section and the cards */
 .care.wide .ccard{flex-basis:clamp(250px,82vw,344px)}   /* dental/face run a bit wider */
@@ -1407,11 +1408,16 @@ function renderPage(p){
         :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>`<div class="nrow"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`).join('')+`</div>`).join('')+`</div>`;
       return `<button class="infob" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
     };
+    const kcalTag=m=>{                                   // approximate meal total, summed live from each food's Energy row
+      let t=0;
+      (m.items||[]).forEach(x=>{if(x&&x.info&&typeof x.info==='object')Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')t+=parseInt(r[1])||0;}));});
+      return t?`<span class="ckcal">~${Math.round(t/50)*50} kcal</span>`:'';
+    };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
       `<div class="care col">`+DIET.meals.filter(m=>m.at).map(m=>
-        `<div class="ccard"><b>${esc(m.t)}</b><span class="cwhen">${esc(m.at)}</span>`+
+        `<div class="ccard"><b>${esc(m.t)}</b>${kcalTag(m)}<span class="cwhen">${esc(m.at)}</span>`+
         `<ul>${m.items.map(x=>x==='---'?'<li class="crs" aria-hidden="true"></li>':`<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>${foodTip(x)}</li>`).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
       `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
