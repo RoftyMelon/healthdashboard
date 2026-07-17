@@ -256,9 +256,14 @@ window.BLOODWORK =
    {"en": "Anti-TPO antibodies", "fr": "Anticorps anti-TPO"},
    {"en": "Thyroglobulin antibodies (anti-Tg)", "fr": "Anticorps anti-thyroglobuline (anti-Tg)"},
    {"en": "Testosterone (total + free)", "fr": "Testostérone totale et libre"},
+   {"en": "DHT (dihydrotestosterone)", "fr": "DHT (dihydrotestostérone)"},
    {"en": "SHBG", "fr": "SHBG"},
    {"en": "Estradiol", "fr": "Œstradiol (E2)"},
    {"en": "LH", "fr": "LH (hormone lutéinisante)"},
+   {"en": "FSH", "fr": "FSH (hormone folliculo-stimulante)"},
+   {"en": "Prolactin", "fr": "Prolactine"},
+   {"en": "DHEA-S", "fr": "SDHEA (sulfate de DHEA)"},
+   {"en": "IGF-1", "fr": "IGF-1 (somatomédine C)"},
    {"en": "Cortisol (morning)", "fr": "Cortisol (matinal, 8h)"},
    {"en": "25-OH vitamin D", "fr": "Vitamine D (25-OH)"},
    {"en": "Omega-3 index", "fr": "Index oméga-3"},
@@ -268,6 +273,7 @@ window.BLOODWORK =
    {"en": "Zinc", "fr": "Zinc"},
    {"en": "Copper", "fr": "Cuivre"},
    {"en": "Calcium", "fr": "Calcium"},
+   {"en": "PTH (parathyroid hormone)", "fr": "Parathormone (PTH)"},
    {"en": "Magnesium (RBC)", "fr": "Magnésium érythrocytaire"},
    {"en": "Ferritin", "fr": "Ferritine"},
    {"en": "Serum iron", "fr": "Fer sérique"},
@@ -284,7 +290,8 @@ window.BLOODWORK =
    {"en": "Alkaline phosphatase (ALP)", "fr": "Phosphatases alcalines (PAL)"},
    {"en": "Total bilirubin", "fr": "Bilirubine totale"},
    {"en": "Albumin", "fr": "Albumine"},
-   {"en": "Total protein", "fr": "Protéines totales"}
+   {"en": "Total protein", "fr": "Protéines totales"},
+   {"en": "Creatine kinase (CK)", "fr": "Créatine kinase (CPK)"}
   ]
  },
  "DIET": {
