@@ -81,6 +81,7 @@ window.BLOODWORK =
  ],
  "DECS": [
   "AGE garlic 2400mg",
+  "Ashwagandha 600mg",
   "Boron 10mg",
   "Creatine 5g",
   "Curcumin",
@@ -91,8 +92,7 @@ window.BLOODWORK =
   "NAC 12g",
   "Omega-3 (2000mg EPA, 1125mg DHA)",
   "TMG 6g",
-  "Vitamin D3 5000 IU + K2",
-  "Zinc + copper"
+  "Vitamin D3 5000 IU + K2"
  ],
  "STACK": {
   "intro": "Green dot = currently taking (+ Huel, in the Diet). The rest start after the 1st blood test; the parked list waits for the 2nd.",
@@ -124,7 +124,7 @@ window.BLOODWORK =
    {"id": "creatine", "name": "Creatine", "dose": "5g", "info": "Strength, power, likely cognition. 5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing's flexible.", "cat": "sport", "status": "planned", "when": [{"at": "presnack", "dose": "5g"}], "url": "https://amzn.eu/d/09MG0JOC", "dec": "Creatine 5g"},
    {"id": "taurine", "name": "Taurine", "judge": "nothing measurable at your age — a theory bet, not a testable one", "dose": "5g", "info": "5g is a longevity dose (exercise studies use 1-3g), extrapolated from the 2023 mouse-lifespan paper. Human evidence is observational, not trial — cheap and safe to 10g, but unproven. Parked until human data or a clear reason.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
    {"id": "boron", "name": "Boron", "judge": "free testosterone and SHBG", "dose": "10mg", "info": "Lowers SHBG, so more testosterone stays free (and drops estradiol). 10mg is the studied dose (free-T +28% over a week). Modest, and unclear at your age with normal T — parked until T/SHBG bloods justify it.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Boron 10mg"},
-   {"id": "ashwa", "name": "Ashwagandha", "judge": "perceived stress and sleep; testosterone / cortisol on bloods", "dose": "600mg", "info": "Adaptogen — lowers cortisol and stress, improves sleep, and small RCTs show recovery, strength and modest testosterone bumps in trained men. 600mg/day of a standardised root extract (KSM-66). Catch: it can nudge thyroid hormones, so don't start before the baseline draw — it'd confound TSH/T4; rare liver reports too, so cycle it 8-12 weeks on.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": null},
+   {"id": "ashwa", "name": "Ashwagandha", "judge": "perceived stress and sleep; testosterone / cortisol on bloods", "dose": "600mg", "info": "Adaptogen — lowers cortisol and stress, improves sleep, and small RCTs show recovery, strength and modest testosterone bumps in trained men. 600mg/day of a standardised root extract (KSM-66). Catch: it can nudge thyroid hormones, so don't start before the baseline draw — it'd confound TSH/T4; rare liver reports too, so cycle it 8-12 weeks on.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Ashwagandha 600mg"},
    {"id": "tretinoin", "name": "Tretinoin / retinoic acid (topical)", "dose": "0.01%, 1mL", "info": "Boosts minoxidil by increasing follicular absorption. Candidate, not committed.", "cat": "hairlater", "status": "candidate", "when": null, "url": null, "dec": null},
    {"id": "ketoconazole", "name": "Ketoconazole (topical)", "dose": "2%, 1mL 3x/week", "info": "Nizoral shampoo, off-label for hair — lowers scalp DHT and calms inflammation. Modest add-on, not committed.", "cat": "hairlater", "status": "candidate", "when": null, "url": null, "dec": null}
   ]
@@ -446,7 +446,8 @@ window.BLOODWORK =
    "id": "tsh",
    "cat": "thy",
    "dec": [
-    "Huel"
+    "Huel",
+    "Ashwagandha 600mg"
    ],
    "en": "TSH",
    "fr": "TSH",
@@ -474,6 +475,9 @@ window.BLOODWORK =
   {
    "id": "ft4",
    "cat": "thy",
+   "dec": [
+    "Ashwagandha 600mg"
+   ],
    "en": "Free T4",
    "fr": "T4 libre (FT4)",
    "us": "ng/dL",
@@ -653,7 +657,6 @@ window.BLOODWORK =
    "id": "zn",
    "cat": "vitmin",
    "dec": [
-    "Zinc + copper",
     "Huel"
    ],
    "en": "Zinc",
@@ -686,9 +689,6 @@ window.BLOODWORK =
   {
    "id": "cu",
    "cat": "vitmin",
-   "dec": [
-    "Zinc + copper"
-   ],
    "en": "Copper",
    "fr": "Cuivre sérique",
    "us": "µg/dL",
@@ -1408,8 +1408,7 @@ window.BLOODWORK =
    "id": "alp",
    "cat": "liver",
    "dec": [
-    "Vitamin D3 5000 IU + K2",
-    "Zinc + copper"
+    "Vitamin D3 5000 IU + K2"
    ],
    "en": "Alkaline phosphatase",
    "fr": "Phosphatases alcalines",
@@ -1506,7 +1505,7 @@ window.BLOODWORK =
    "dec": [
     "Boron 10mg",
     "Finasteride (topical) 0.1% - 1mL",
-    "Zinc + copper"
+    "Ashwagandha 600mg"
    ],
    "en": "Total testosterone",
    "fr": "Testostérone totale",
@@ -1721,6 +1720,9 @@ window.BLOODWORK =
   {
    "id": "cort",
    "cat": "horm",
+   "dec": [
+    "Ashwagandha 600mg"
+   ],
    "en": "Cortisol (morning)",
    "fr": "Cortisol (8h)",
    "us": "µg/dL",
@@ -1819,9 +1821,6 @@ window.BLOODWORK =
   {
    "id": "hb",
    "cat": "cbc",
-   "dec": [
-    "Zinc + copper"
-   ],
    "en": "Hemoglobin",
    "fr": "Hémoglobine",
    "us": "g/dL",
@@ -1908,9 +1907,6 @@ window.BLOODWORK =
   {
    "id": "mcv",
    "cat": "cbc",
-   "dec": [
-    "Zinc + copper"
-   ],
    "en": "MCV",
    "fr": "VGM",
    "us": "fL",
@@ -2041,9 +2037,6 @@ window.BLOODWORK =
   {
    "id": "neut",
    "cat": "cbc",
-   "dec": [
-    "Zinc + copper"
-   ],
    "en": "Neutrophils",
    "fr": "Polynucléaires neutrophiles",
    "us": "cells/µL",
