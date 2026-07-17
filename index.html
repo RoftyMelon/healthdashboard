@@ -409,7 +409,7 @@ html:not([data-page=markers]) .swap{overflow:visible}
 .ndlist .frn{flex:1;min-width:0;color:var(--t3);font-size:14px;line-height:1.45;user-select:text}
 .ndhead{display:flex;gap:10px;padding:0 0 7px;border-bottom:.5px solid var(--line)}
 .ndhead .sn,.ndhead .frn{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t4)}
-.frcopy{margin-top:8px;font-size:13px;padding:5px 13px;border-radius:7px;border:.5px solid var(--line);background:transparent;color:var(--t2);cursor:pointer}
+.frcopy{margin-top:8px;font-size:13px;padding:5px 13px;border-radius:7px;border:.5px solid var(--line);background:transparent;color:var(--t2);cursor:pointer;min-width:130px;text-align:center}
 .frcopy:hover{background:var(--btn-h);color:var(--txt)}
 .pgsec.nohead{margin-top:0}   /* a headerless section CONTINUES the one above it */
 /* section titles uppercase like the table's group bars — doses NEVER go through this (µ -> M) */
@@ -1074,7 +1074,24 @@ function det(row,id,cols,n,tri){
 
 function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on)btn.classList.add('pin');}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
-function copyNd(btn){const t=(NEXTDRAW.items||[]).map(x=>x.en+' — '+x.fr).join('\n');navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied ✓';setTimeout(()=>{btn.textContent='Copy (EN + FR)';},1500);}).catch(()=>{btn.textContent='—';});}
+function copyNd(btn){
+  const t=(NEXTDRAW.items||[]).map(x=>x.en+' — '+x.fr).join('\n');
+  const flash=m=>{btn.textContent=m;clearTimeout(btn._t);btn._t=setTimeout(()=>{btn.textContent='Copy (EN + FR)';},1500);};
+  const legacy=()=>{try{                                   // iOS / non-secure / rejected-promise fallback
+    const ta=document.createElement('textarea');ta.value=t;ta.readOnly=true;
+    ta.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';
+    document.body.appendChild(ta);
+    if(/ipad|iphone|ipod/i.test(navigator.userAgent)){    // iOS needs an explicit Range + setSelectionRange
+      const r=document.createRange();r.selectNodeContents(ta);
+      const s=window.getSelection();s.removeAllRanges();s.addRange(r);ta.setSelectionRange(0,t.length);
+    }else ta.select();
+    const ok=document.execCommand('copy');document.body.removeChild(ta);
+    flash(ok?'Copied ✓':'Copy failed');
+  }catch(e){flash('Copy failed');}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(t).then(()=>flash('Copied ✓'),legacy);   // reject → legacy, never a bare dash
+  else legacy();
+}
 function render(){
   const ds=chron(), n=ds.length;   // oldest -> newest: this row IS the chart's x-axis
   const cur={};MARK.forEach(m=>cur[m.id]=latest(m));
