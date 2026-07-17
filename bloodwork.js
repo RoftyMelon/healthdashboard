@@ -33,7 +33,7 @@ window.BLOODWORK =
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
   "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in functional categories; most items are status 'planned' — queued for the new protocol, not yet started. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is null (not yet assigned — never guess) OR an array of {at, dose}: one entry per meal slot it's taken at (presnack/brunch/dinner/evening), each carrying the PER-SLOT dose (astaxanthin = [{at:brunch,dose:12mg},{at:dinner,dose:12mg}]; the item's own .dose stays the daily total). Timing lives on the item (.when), not in the categories: cats are functional groups. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot. A meal item is a string, or {n, info} — in a timed meal card, .info opens behind a hover info-tip on the name: .info is a string (plain caveat) OR a {section: [[label,value],…]} object rendered as a compact nutrition table (Huel Black uses this). ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; supplements are NOT shown in ROUTINE — they live only on the Diet tab (derived from STACK.when), so the routine just names the meal or event. CARE holds the dental / face protocols, rendered as cards at the foot of the Stack page — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with a when entry {at:'brunch'} belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. DIET.eveningAt stamps the Evening supplements card's time. NEXTDRAW.items is the biomarker list for the next draw — {en, fr} objects (English label + French lab name); the tab renders a two-column table (Marker | Pour le labo (FR)) with a button that copies every row as 'en — fr'. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
-  "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (300mcg iodine; iodine-fortified Huel spans the historical draws and is back at 90g/day), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
+  "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (100mcg iodine; iodine-fortified Huel spans the historical draws and is back at 90g/day), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
    "Every \"u\" string appears verbatim in that marker units[] array.",
@@ -87,7 +87,7 @@ window.BLOODWORK =
   "Finasteride (topical) 0.1% - 1mL",
   "Glycine 12g + taurine + collagen",
   "Huel",
-  "Iodine 250mcg",
+  "Iodine 100mcg",
   "Magnesium L-threonate",
   "NAC 12g",
   "Omega-3 (800mg EPA, 450mg DHA)",
@@ -109,7 +109,7 @@ window.BLOODWORK =
    {"id": "astax", "name": "Astaxanthin", "dose": "12mg 2x/day", "info": "Photoprotection (raises the UV-burn threshold) plus moisture and elasticity. Not colour — that's beta-carotene's job. 24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg; held pending proof it helps colour.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "12mg"}, {"at": "dinner", "dose": "12mg"}], "url": null, "dec": null},
    {"id": "lyco", "name": "Lycopene", "dose": "15mg 2x/day", "info": "Warm skin tone plus UV photoprotection (10-16mg). Absorption saturates by ~30-40mg, so 30mg (15mg twice with fat) is the ceiling — more just gets excreted. Tomato-derived (LycoBeads) beats synthetic; cooked tomato in olive oil beats raw.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "15mg"}, {"at": "dinner", "dose": "15mg"}], "url": "https://www.sunday.de/en/lycopene-capsules.html", "dec": null},
    {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. 5000 IU/day, but titrate to blood 25-OH-D (40-60 ng/mL), not on autopilot. Already taking — shows in the baseline draw.", "cat": "essentials", "status": "taking", "when": [{"at": "brunch", "dose": "5000 IU"}], "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 5000 IU + K2"},
-   {"id": "iodine", "name": "Iodine", "dose": "250mcg", "info": "Thyroid, 250mcg — but only if you're genuinely low. Pending a thyroid panel (TSH, anti-TPO); Huel, dairy and eggs may already cover you, and excess can tip the thyroid either way.", "cat": "maylater", "status": "planned", "when": null, "url": "https://www.sunday.de/en/potassium-iodide-250-tablets.html", "dec": "Iodine 250mcg"},
+   {"id": "iodine", "name": "Iodine", "dose": "100mcg", "info": "Thyroid — but only if you're genuinely low. 100mcg as potassium iodide (a precise dose, unlike variable kelp). Eggs, dairy and Huel likely already cover the 150mcg RDA, and iodine is U-shaped — too much tips the thyroid either way. Hold until the thyroid panel (TSH, anti-TPO) and urinary iodine say you're short.", "cat": "maylater", "status": "planned", "when": null, "url": "https://www.sunday.de/en/potassium-iodide-100-tablets.html", "dec": "Iodine 100mcg"},
    {"id": "omega3", "name": "Omega-3", "dose": "800mg EPA + 450mg DHA", "info": "EPA/DHA, general-health dose. Algae oil (triglyceride form) — cleaner than fish oil, iodine-free. 2 softgels/day = 800mg EPA + 450mg DHA; titrate to your omega-3 index (8-12%), 3/day if low.", "cat": "essentials", "status": "planned", "when": [{"at": "brunch", "dose": "400mg EPA + 225mg DHA"}, {"at": "dinner", "dose": "400mg EPA + 225mg DHA"}], "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html", "dec": "Omega-3 (800mg EPA, 450mg DHA)"},
    {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "Low-weight peptides (~500 Da) that signal skin to build its own collagen — the trigger, not the raw material (glycine covers that). 2g with vitamin C. Cosmetic, modest evidence.", "cat": "skin", "status": "planned", "when": [{"at": "brunch", "dose": "2g"}], "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "info": "Not absorbed intact (~0.2%) — gut bacteria fragment it into signals for the skin's own HA. 2025 review (7 trials): modest hydration, elasticity and wrinkle gains. 250mg, the trial dose. Cosmetic, gut-flora-dependent.", "cat": "skin", "status": "planned", "when": [{"at": "brunch", "dose": "250mg"}], "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html", "dec": null},
@@ -252,6 +252,7 @@ window.BLOODWORK =
    {"en": "TSH", "fr": "TSH"},
    {"en": "Free T4", "fr": "T4 libre (FT4)"},
    {"en": "Anti-TPO antibodies", "fr": "Anticorps anti-TPO"},
+   {"en": "Urinary iodine (spot)", "fr": "Iodurie (iode urinaire, échantillon)"},
    {"en": "Testosterone (total + free)", "fr": "Testostérone totale et libre"},
    {"en": "SHBG", "fr": "SHBG"},
    {"en": "Estradiol", "fr": "Œstradiol (E2)"},
@@ -424,7 +425,7 @@ window.BLOODWORK =
    "id": "tsh",
    "cat": "thy",
    "dec": [
-    "Iodine 250mcg",
+    "Iodine 100mcg",
     "Huel"
    ],
    "en": "TSH",
@@ -454,7 +455,7 @@ window.BLOODWORK =
    "id": "ft4",
    "cat": "thy",
    "dec": [
-    "Iodine 250mcg"
+    "Iodine 100mcg"
    ],
    "en": "Free T4",
    "fr": "T4 libre (FT4)",
@@ -487,7 +488,7 @@ window.BLOODWORK =
    "id": "atpo",
    "cat": "thy",
    "dec": [
-    "Iodine 250mcg"
+    "Iodine 100mcg"
    ],
    "en": "Anti-TPO antibodies",
    "fr": "Anticorps anti-TPO",
@@ -546,7 +547,7 @@ window.BLOODWORK =
    "id": "sel",
    "cat": "vitmin",
    "dec": [
-    "Iodine 250mcg",
+    "Iodine 100mcg",
     "Huel"
    ],
    "en": "Selenium",
