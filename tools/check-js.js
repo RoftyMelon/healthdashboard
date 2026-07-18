@@ -68,6 +68,7 @@ setTimeout(()=>{
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
+    grooming:['ccard',DATA.CARE.length],   // the dental/face protocol cards, on their own tab
     diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meal cards + Evening; untimed sections are plain rows
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
@@ -132,14 +133,17 @@ setTimeout(()=>{
     ok(`routine cuts ${rlnN} half-hour lines`, count(n.pages.innerHTML,'rln')===rlnN,
       count(n.pages.innerHTML,'rln')+' cuts'); }
   catch(e){ ok('routine ruler',false,e.message); }
-  // the dental/face protocol cards close the STACK page now
+  // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back
   try{ setPage('stack');
-    ok(`stack shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
+    ok('stack keeps no care cards', count(n.pages.innerHTML,'ccard')===0,
+      count(n.pages.innerHTML,'ccard')+' on stack');
+    setPage('grooming');
+    ok(`grooming shows ${DATA.CARE.length} care cards`, count(n.pages.innerHTML,'ccard')===DATA.CARE.length,
       count(n.pages.innerHTML,'ccard')+' cards');
     const cg=DATA.CARE.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
     ok(`care cards show ${cg} cadence groups`, count(n.pages.innerHTML,'cgrp')===cg,
       count(n.pages.innerHTML,'cgrp')+' groups'); }
-  catch(e){ ok('stack care cards',false,e.message); }
+  catch(e){ ok('grooming care cards',false,e.message); }
   // training cards are organised in muscle-group sub-sections; every set renders a column
   try{ setPage('training');
     const grps=DATA.TRAINING.cards.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
