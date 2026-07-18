@@ -162,6 +162,9 @@ window.BLOODWORK =
    {"t": "Weekly (Once)", "items": [
     "Instead of retinol: glycolic acid 7%",
     "Microneedling 1mm, face + scalp\nNo retinols or acids for 48h!"
+   ]},
+   {"t": "Monthly", "items": [
+    "Microneedling 1.75mm, face only — thick areas (cheeks, jaw), not forehead/eyes/nose\nNo retinols or acids for 72h!"
    ]}
   ]}
  ],
