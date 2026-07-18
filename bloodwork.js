@@ -156,7 +156,7 @@ window.BLOODWORK =
   {"id": "face", "t": "Face", "groups": [
    {"t": "Daily", "items": [
     "Morning: serum → day cream → SPF 50\nTue/Thu/Sat: vitamin C (homemade LAA) before serum, on clean skin",
-    "After dinner:\n1% retinol → night cream → petroleum (Vaseline)",
+    "After dinner:\n1% retinol → night cream → petroleum",
     "Full body hydrating cream after shower"
    ]},
    {"t": "Wednesday", "items": [
