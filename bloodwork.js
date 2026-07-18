@@ -316,7 +316,8 @@ window.BLOODWORK =
     {"n": "Mushrooms (cooked)", "amt": "~150 g", "info": {"Per ~150 g (cooked)":[["Energy","45 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","4 g","8%"]],"Standouts":[["Ergothioneine","~3 mg"],["Copper","0.5 mg","50%"],["Pantothenic acid","2 mg","33%"],["Selenium","14 mcg","25%"],["Potassium","400 mg","20%"]]}},
     {"n": "Olive oil", "amt": "10 mL", "info": {"Per 10 mL":[["Energy","80 kcal","4%"],["Fat","9 g","13%"],["– monounsat.","7 g"],["Vit E","1 mg","10%"]]}},
     "---",
-    {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}}
+    {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}},
+    {"n": "Nuts (walnut 6, almond 5, pistachio 4)", "amt": "~15 g", "info": {"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}}
    ]},
    {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
     {"n": "Mozzarella di bufala", "amt": "100 g", "info": {"Per 100 g":[["Energy","275 kcal","14%"],["Protein","17 g","34%"],["Fat","22 g","31%"],["– saturates","15 g","75%"],["Salt","0.5 g","8%"]],"Minerals":[["Calcium","350 mg","44%"],["Phosphorus","350 mg","50%"],["Zinc","2 mg","20%"]]}},
@@ -328,11 +329,11 @@ window.BLOODWORK =
     {"n": "Ground beef or chicken", "amt": "~200 g", "info": {"Ground beef (~200 g)":[["Energy","500 kcal","25%"],["Protein","40 g","80%"],["Fat","35 g","50%"],["– saturates","14 g","70%"]],"Minerals":[["Iron","5 mg","36%"],["Zinc","10 mg","100%"],["B12","5 mcg","200%"],["Selenium","30 mcg","55%"]]}},
     {"n": "Frozen vegetables", "amt": "~100 g", "info": {"Per ~100 g":[["Energy","35 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","2 g","4%"]],"Vitamins":[["K","25 mcg","33%"],["Folate","40 mcg","20%"],["C","15 mg","19%"],["A","150 mcg","19%"]]}},
     "---",
-    {"n": "Kiwis", "amt": "2", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}}
+    {"n": "Kiwis", "amt": "2", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}},
+    {"n": "Nuts (walnut 6, almond 5, pistachio 4)", "amt": "~15 g", "info": {"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}}
    ]},
    {"id": "other", "t": "Other foods", "items": [
-    {"n": "Dark chocolate", "amt": "~30 g", "info": {"Per ~30 g":[["Energy","170 kcal","9%"],["Fat","13 g","19%"],["– saturates","8 g","40%"],["Carbs","10 g","4%"],["Fibre","3 g"]],"Minerals":[["Magnesium","70 mg","19%"],["Iron","3.4 mg","24%"],["Copper","0.5 mg","50%"],["Manganese","0.6 mg","30%"]]}},
-    {"n": "Nuts (walnuts, almonds, pistachios)", "amt": "~30 g", "info": {"Per ~30 g":[["Energy","180 kcal","9%"],["Fat","16 g","23%"],["Protein","5 g","10%"],["Fibre","2.5 g"]],"Standouts":[["Magnesium","50 mg","13%"],["Vit E","4 mg","33%"],["Omega-3 (ALA)","1.5 g"]]}}
+    {"n": "Dark chocolate", "amt": "~30 g", "info": {"Per ~30 g":[["Energy","170 kcal","9%"],["Fat","13 g","19%"],["– saturates","8 g","40%"],["Carbs","10 g","4%"],["Fibre","3 g"]],"Minerals":[["Magnesium","70 mg","19%"],["Iron","3.4 mg","24%"],["Copper","0.5 mg","50%"],["Manganese","0.6 mg","30%"]]}}
    ]}
   ]
  },
