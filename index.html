@@ -333,7 +333,7 @@ td.pos{padding-right:14px}
   max-height:64px;margin-bottom:8px;   /* content ~46px (generous, nothing clips); the margin is
      the breathing room before the filter pills — it rides the SAME easing as max-height so it
      collapses WITH the row on scroll, leaving no phantom gap when the tabs hide */
-  transition:max-height .24s cubic-bezier(.3,.7,.2,1),margin-bottom .24s cubic-bezier(.3,.7,.2,1),opacity .18s ease}
+  transition:max-height .16s cubic-bezier(.3,.7,.2,1),margin-bottom .16s cubic-bezier(.3,.7,.2,1),opacity .12s ease}
 html.tabhid .tabrow{max-height:0;opacity:0;margin-bottom:0;pointer-events:none}
 .ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;position:relative;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
@@ -1458,9 +1458,9 @@ window.addEventListener('scroll',()=>{
   if(s!==_stuck){_stuck=s;TB.classList.toggle('stuck',s);}
   TOP.classList.toggle('on',y>420);
   let hide=_th;
-  if(y<8) hide=false;                  // only pinned-shown at the very top — collapses right away
-  else if(dy>2) hide=true;             // scrolling down: hide almost immediately
-  else if(dy<-3) hide=false;           // scrolling up: reveal
+  if(y<6) hide=false;                  // only pinned-shown at the very top
+  else if(dy>0) hide=true;             // ANY downward scroll hides it at once — no travel needed
+  else if(dy<-4) hide=false;           // a deliberate up-scroll reveals it
   if(hide!==_th){ _th=hide; DE.classList.toggle('tabhid',hide); pumpStick(); }
   _lastY=y;
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
