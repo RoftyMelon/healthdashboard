@@ -161,7 +161,7 @@ td.boot span{color:var(--t3);font-size:15px}
 /* table */
 
 table{border-collapse:separate;border-spacing:0;table-layout:fixed;width:100%;min-width:1130px}
-thead th{position:sticky;top:var(--toph,70px);z-index:8;background:var(--head);
+thead th{position:sticky;top:var(--hvis,70px);z-index:8;background:var(--head);
   font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
   height:var(--thh);padding:0 10px;vertical-align:middle;
   text-align:right;white-space:nowrap;border-bottom:.5px solid var(--line)}
@@ -180,7 +180,7 @@ th.pos,td.pos{width:170px}
 th.tr,td.tr{min-width:104px}   /* no width: absorbs the leftover */
 thead th.nm,thead th.now,thead th.uc{background:var(--head);z-index:9}
 thead th.now{color:var(--txt)}
-tr.grp td{position:sticky;top:calc(var(--toph,70px) + var(--thh) - 3px);z-index:6;padding:0;
+tr.grp td{position:sticky;top:calc(var(--hvis,70px) + var(--thh) - 3px);z-index:6;padding:0;
   background:var(--grp);
   border-top:.5px solid var(--line);border-bottom:.5px solid var(--line)}
 tr.grp .ghd{position:sticky;left:var(--gut,20px);width:fit-content;text-align:left;
@@ -321,13 +321,18 @@ td.pos{padding-right:14px}
   background:none;border:.5px solid transparent;color:var(--t3);transition:.14s}
 .nav:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt);transform:none}
 
-/* ---- pages: a pinned, horizontally-scrollable tab row and the data pages ----
-   The tab strip lives in its OWN row at the top of the bar (with the theme toggle),
-   ABOVE the filter/group pills, and PERSISTS on every page — no hamburger, no auto-hide.
-   Pills FILTER the table; tabs NAVIGATE pages. The row is one scrolling bar; on a phone the
-   toggle overlays its right end (mobile block) and the tabs scroll behind it — .ptabs carries
-   trailing padding there so the last tab (Training) can still scroll fully clear of the glass. */
-.tabrow{display:flex;align-items:center;gap:10px;margin-bottom:-1px}   /* -1px sits it flush to the filter pills */
+/* ---- pages: a pinned tab row that auto-hides on scroll — MARKERS PAGE ONLY — and the data pages ----
+   The tab strip lives in its OWN row at the top of the bar (with the theme toggle), ABOVE the
+   filter/group pills, PERSISTENT on every page — no hamburger. Pills FILTER the table; tabs
+   NAVIGATE pages. ON MARKERS ONLY the scroll handler adds html.tabhid on scroll-down (removes it
+   on scroll-up / near-top); other pages never get the class, so the row stays put there. The row
+   collapses to nothing (opacity:0 cascades to the abs-positioned toggle too, hiding it with the
+   row). --toph (measured) holds the FULL header height so the content spacer never jumps; --hvis
+   tracks the CURRENTLY visible header bottom — what the frozen thead sticks under — so it follows
+   the collapse (setStick/pumpStick drive it; --hvis NOT --stick, which is a colour token). */
+.tabrow{display:flex;align-items:center;gap:10px;overflow:hidden;max-height:64px;margin-bottom:-1px;
+  transition:max-height .16s cubic-bezier(.3,.7,.2,1),margin-bottom .16s cubic-bezier(.3,.7,.2,1),opacity .12s ease}
+html.tabhid .tabrow{max-height:0;opacity:0;margin-bottom:0;pointer-events:none}
 .ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;position:relative;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -1152,7 +1157,9 @@ function movePtu(){   // slide the shared underline under the active tab
   u.style.left=(on.offsetLeft+pad)+'px';
   u.style.width=Math.max(0,on.offsetWidth-2*pad)+'px';
 }
-// The tab strip is a permanent, horizontally-scrollable top row — no menu, no auto-hide.
+// Permanent scrollable top row — no menu. It auto-hides on scroll on the MARKERS page only
+// (html.tabhid); _th tracks whether it's currently hidden. setPage resets it to shown.
+let _th=false;
 function setPage(p){
   if(!PAGES[p])return;
   if(p===page)return;
@@ -1161,6 +1168,7 @@ function setPage(p){
   PGEL.hidden=p==='markers';
   document.querySelectorAll('#ptabs .pt').forEach(b=>b.classList.toggle('on',b.dataset.pg===p));   // no scroll-on-tap: the strip stays exactly where you left it
   if(p!=='markers')renderPage(p);
+  document.documentElement.classList.remove('tabhid'); _th=false;   // land at the top with the tab row shown
   // The topbar changes composition here (pills + category appear only on Markers), so --toph
   // must be re-measured HERE. The ResizeObserver alone proved unreliable (unreferenced
   // observers can be GC'd), and a stale --toph leaves a phantom gap under the bar.
@@ -1370,14 +1378,35 @@ const setGut=()=>{                                   // left margin of the conte
   const pl=parseFloat(getComputedStyle(WRAP).paddingLeft)||0;
   R0.setProperty('--gut',(WRAP.offsetLeft+pl)+'px');
 };
-// --toph = the FULL header height; drives the content spacer AND the frozen thead/group sticky
-// offset. The header no longer collapses, so one measured value serves both. --thh is NOT
-// measured (thead is sized FROM it; measuring back is circular and any drift opens a gap the
-// frozen cells shine through).
-const setTop=()=>{ R0.setProperty('--toph',TB.getBoundingClientRect().height+'px'); };   // sub-pixel, not offsetHeight
+const DE=document.documentElement;
+// --hvis = the CURRENTLY visible header bottom — what the frozen thead sticks under, so it
+// follows the tab-row collapse (Markers page only). NOT --stick (that's the frozen-column
+// background COLOUR token; reusing its name blanks the columns).
+const setStick=()=>{ R0.setProperty('--hvis',TB.getBoundingClientRect().height+'px'); };
+// --toph = the FULL header height; drives the content spacer so it never jumps. Captured ONLY
+// when the tab row is SHOWN and settled (never mid-collapse) — else the spacer shrinks and
+// yanks the page. --thh is NOT measured (thead is sized FROM it; measuring back is circular
+// and any drift opens a gap the frozen cells shine through).
+const setTop=()=>{
+  const h=TB.getBoundingClientRect().height;                            // sub-pixel, not offsetHeight
+  R0.setProperty('--hvis',h+'px');
+  if(!_pumping && !(DE.classList.contains&&DE.classList.contains('tabhid'))) R0.setProperty('--toph',h+'px');
+};
+// While the tab row animates open/closed, pump --hvis every frame so the frozen header rides
+// the moving bar with no seam. (ResizeObserver would too, but it dies silently in the Preview
+// pane / on iOS — so re-measure explicitly at the mutation site.)
+let _pumping=false,_pumpEnd=0;
+function pumpStick(){
+  _pumpEnd=window.performance.now()+300;
+  if(_pumping)return; _pumping=true;
+  const step=()=>{ setStick();
+    if(window.performance.now()<_pumpEnd)requestAnimationFrame(step);
+    else{_pumping=false; setTop();} };   // settle: capture the full --toph once shown
+  requestAnimationFrame(step);
+}
 setGut(); setTop();
 let tbRO;   // hold the reference: an unreferenced ResizeObserver is GC-bait (Safari)
-if(window.ResizeObserver){tbRO=new ResizeObserver(setTop);tbRO.observe(TB);}
+if(window.ResizeObserver){tbRO=new ResizeObserver(setStick);tbRO.observe(TB);}   // stick only — never yank --toph
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{setTop();setGut();});
 let _stuck=false;
 // The frozen marker column narrows PROGRESSIVELY as you scroll sideways: 164px -> 112px
@@ -1396,10 +1425,21 @@ function setNmW(){
     fitChart();                          // the draw columns just moved; the chart must follow
   }
 }
+// Auto-hide the tab row on the MARKERS page only: scroll down hides it, up reveals it, top shows.
+let _lastY=0;
 window.addEventListener('scroll',()=>{
-  const s=window.scrollY>12;
+  const y=window.scrollY, dy=y-_lastY;
+  const s=y>12;
   if(s!==_stuck){_stuck=s;TB.classList.toggle('stuck',s);}
-  TOP.classList.toggle('on',window.scrollY>420);
+  TOP.classList.toggle('on',y>420);
+  if(page==='markers'){                  // collapse ONLY on the table page
+    let hide=_th;
+    if(y<6) hide=false;                  // only pinned-shown at the very top
+    else if(dy>0) hide=true;             // any downward scroll hides it at once
+    else if(dy<-4) hide=false;           // a deliberate up-scroll reveals it
+    if(hide!==_th){ _th=hide; DE.classList.toggle('tabhid',hide); pumpStick(); }
+  }
+  _lastY=y;
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
