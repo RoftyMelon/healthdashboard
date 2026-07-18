@@ -78,8 +78,8 @@ html.tfade *::before,html.tfade *::after{
              fill .22s ease,stroke .22s ease !important}
 .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 20px 110px}
 .topbar{position:fixed;top:0;left:0;width:100%;z-index:50;background:var(--bg);
-  padding:8px var(--gut,20px) 0;   /* ONE constant height for the row — pills and tabs share
-                                      the station; 8px is the standard minimum comfortable inset */
+  padding:8px var(--gut,20px) 0;   /* tab row on top (auto-hides on scroll), pills + category
+                                      below; 8px is the standard minimum comfortable inset */
   touch-action:pan-y;   /* a horizontal pan anywhere on the bar must NEVER scroll the table —
                            the scrollers below re-allow their own horizontal panning */
   transition:border-color .2s ease;border-bottom:.5px solid transparent}
@@ -161,7 +161,7 @@ td.boot span{color:var(--t3);font-size:15px}
 /* table */
 
 table{border-collapse:separate;border-spacing:0;table-layout:fixed;width:100%;min-width:1130px}
-thead th{position:sticky;top:var(--toph,70px);z-index:8;background:var(--head);
+thead th{position:sticky;top:var(--stick,70px);z-index:8;background:var(--head);
   font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
   height:var(--thh);padding:0 10px;vertical-align:middle;
   text-align:right;white-space:nowrap;border-bottom:.5px solid var(--line)}
@@ -180,7 +180,7 @@ th.pos,td.pos{width:170px}
 th.tr,td.tr{min-width:104px}   /* no width: absorbs the leftover */
 thead th.nm,thead th.now,thead th.uc{background:var(--head);z-index:9}
 thead th.now{color:var(--txt)}
-tr.grp td{position:sticky;top:calc(var(--toph,70px) + var(--thh) - 3px);z-index:6;padding:0;
+tr.grp td{position:sticky;top:calc(var(--stick,70px) + var(--thh) - 3px);z-index:6;padding:0;
   background:var(--grp);
   border-top:.5px solid var(--line);border-bottom:.5px solid var(--line)}
 tr.grp .ghd{position:sticky;left:var(--gut,20px);width:fit-content;text-align:left;
@@ -321,50 +321,27 @@ td.pos{padding-right:14px}
   background:none;border:.5px solid transparent;color:var(--t3);transition:.14s}
 .nav:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt);transform:none}
 
-/* ---- pages: a naked hamburger, its popover, and the three data pages ----
-   Pills FILTER the table; the menu NAVIGATES between pages. Different species on purpose. */
-/* leaving Markers, the button COLLAPSES (width -> 0) rather than display:none, so the
-   strip slides left progressively instead of teleporting. Width, the gap-cancelling
-   margin and the strip's own margin all ride the same curve: one motion.
-   The BASE transition (returning to Markers) is DELAYED .22s: the strip fades out in
-   place first, then the button grows in together with the arriving filters — without
-   the delay, three motions fight and the return reads as mush. The collapsed rule
-   below overrides with zero delay, so LEAVING Markers still slides immediately. */
-.pgnav{display:flex;align-items:center;flex:none;width:46px;overflow:hidden;
-  transition:width .34s cubic-bezier(.2,.7,.3,1) .22s,margin-right .34s cubic-bezier(.2,.7,.3,1) .22s,
-             opacity .22s ease .22s,visibility .34s .22s}
-.pgbtn{display:flex;align-items:center;justify-content:center;width:46px;height:46px;
-  padding:0;background:none;border:none;border-radius:10px;color:var(--t2)}
-.pgbtn:hover{background:none;color:var(--txt)}
-/* the hamburger spins and crossfades into an X — the whole morph lives ON the one svg
-   (rule 7). The X means "collapse the strip", which only exists on Markers: land on any
-   other tab and the glyph spins back to the hamburger (the strip there is permanent). */
-.pgbtn svg{transition:transform .5s cubic-bezier(.3,.7,.2,1)}
-.pgbtn .ham,.pgbtn .x{transition:opacity .3s ease}
-.pgbtn .x{opacity:0}
-html[data-page=markers] .pgbtn[aria-expanded=true] svg{transform:rotate(180deg)}
-html[data-page=markers] .pgbtn[aria-expanded=true] .ham{opacity:0}
-html[data-page=markers] .pgbtn[aria-expanded=true] .x{opacity:1}
-.pgbtn[aria-expanded=true]{color:var(--txt)}
+/* ---- pages: a pinned tab row that auto-hides on scroll, and the data pages ----
+   The tab strip lives in its OWN row at the top of the bar (with the theme toggle),
+   ABOVE the filter/group pills, and PERSISTS on every page — no hamburger. Pills FILTER
+   the table; tabs NAVIGATE pages. On scroll DOWN the tab row collapses to nothing
+   (html.tabhid); a scroll UP brings it straight back. The pills + category rows stay
+   pinned. --toph (measured) holds the FULL header height so the content spacer never
+   jumps; --stick tracks the CURRENTLY visible header bottom — what the frozen thead
+   sticks under — so it follows the collapse. setStick()/pumpStick() drive it. */
+.tabrow{display:flex;align-items:center;gap:10px;overflow:hidden;
+  max-height:60px;   /* content is ~44px; generous so nothing clips. collapses to 0 on scroll */
+  transition:max-height .24s cubic-bezier(.3,.7,.2,1),opacity .18s ease}
+html.tabhid .tabrow{max-height:0;opacity:0;pointer-events:none}
 .ptabs{flex:1;min-width:0;display:flex;align-items:center;gap:2px;position:relative;
   flex-wrap:nowrap;overflow-x:auto;                /* never wrap: scroll, like the toc */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ptabs::-webkit-scrollbar{display:none}
-/* the strip is PERSISTENT off the Markers page: it hides only when collapsed on Markers,
-   where the filters take its place. Only the filter/view row ever swaps; the toc holds still. */
-html[data-page=markers]:not([data-menu=open]) .ptabs{display:none}
-html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
-/* .swap wraps ONLY the swappable row-1 content (title / tabs / search / pills), so the
-   hamburger and the toc sit outside the animation and hold still. One element animates,
-   both directions (rule 7); exit eases IN (.24s), entry eases OUT (.34s) — the asymmetry
-   is what keeps it from reading as a blink. pmSet() choreographs. */
+/* .swap now wraps just the search + filter pills (search opening scrolls the pills). */
 .swap{display:flex;align-items:center;gap:inherit;flex:1;min-width:0;
   flex-wrap:nowrap;overflow-x:auto;                /* search opens -> pills scroll, never wrap */
-  scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  transition:opacity .34s cubic-bezier(.2,.7,.3,1),transform .34s cubic-bezier(.2,.7,.3,1)}
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .swap::-webkit-scrollbar{display:none}
-.swap.swapping{opacity:0;transform:translateX(-14px);
-  transition:opacity .24s cubic-bezier(.55,0,.8,.4),transform .24s cubic-bezier(.55,0,.8,.4)}
 .pt{font-family:inherit;font-size:16px;font-weight:550;padding:9px 13px;white-space:nowrap;
   background:none;border:none;border-radius:9px;color:var(--t3);cursor:pointer;position:relative;
   letter-spacing:-.005em;transition:color .14s}
@@ -375,20 +352,10 @@ html[data-menu=open] .srch,html[data-menu=open] .chips{display:none}
    content so it rides along when the strip scrolls. */
 .ptu{position:absolute;bottom:3px;height:2px;border-radius:2px;background:var(--sol);
   left:0;width:0;transition:left .3s cubic-bezier(.3,.7,.2,1),width .3s cubic-bezier(.3,.7,.2,1)}
-/* off the markers page, everything table-flavoured folds away with it */
+/* off the markers page, everything table-flavoured folds away — the tab row stays */
 html:not([data-page=markers]) .srch,html:not([data-page=markers]) .chips,
 html:not([data-page=markers]) .toc,
 html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{display:none}
-html:not([data-page=markers]) .pgnav{width:0;margin-right:-6px;opacity:0;visibility:hidden;pointer-events:none;
-  transition:width .34s cubic-bezier(.2,.7,.3,1),margin-right .34s cubic-bezier(.2,.7,.3,1),
-             opacity .22s ease,visibility .34s}
-/* with the hamburger collapsed, the first tab's LABEL takes over the gutter alignment;
-   zero delay in THIS direction — leaving Markers slides at once */
-/* the strip starts AT the gutter: tab pill BOXES align with the page edge (like the
-   chips), so the first tab's hover pill never juts into the margin or off-screen */
-/* .swap is a scroller for the Markers pills; on pages the tabs scroll INSIDE .ptabs,
-   and .swap clipping would shear the first tab's hover pill at the column edge */
-html:not([data-page=markers]) .swap{overflow:visible}
 
 .pgs{max-width:780px;padding:0 0 40px}
 .pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 3px}
@@ -629,15 +596,7 @@ a.sbuy:hover{color:var(--info)}
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
     padding-left:10px;padding-right:6px}
 }
-/* pages, on a phone: the hamburger slims down so row 1 stays ONE row with all three pills */
 @media(max-width:900px),(max-height:560px){
-  .pgbtn{width:44px;height:44px}
-  .pgnav{width:44px}                          /* the collapse animates from the 38px button */
-  .ptabs{margin-right:12px}                   /* tight: all five tabs should FIT, not scroll */
-  .swap{padding-right:48px}                   /* scrolled pills end clear of the toggle too */
-  /* the tab strip escapes the clearance and runs UNDER the glass toggle; its own
-     end-padding parks the fully-revealed last tab clear of the glass */
-  .ptabs{margin-right:-48px;padding-right:52px}
   .pt{font-size:16px;padding:8px 8px}
   .pgh{font-size:24px}
   .rht{width:56px}
@@ -655,7 +614,6 @@ a.sbuy:hover{color:var(--info)}
 @media(max-width:430px){
   .chip{padding:8px 10px;font-size:14.5px}
   .bar{gap:4px}
-  html:not([data-page=markers]) .pgnav{margin-right:-4px}   /* cancel THIS block's 4px gap */
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
 }
 </style>
@@ -673,18 +631,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
 
 <div class="wrap">
   <div class="topbar" id="topbar">
-    <div class="topline">
-    <div class="bar" id="bar">
-    <span class="pgnav">
-      <button class="pgbtn" id="pgbtn" aria-label="Pages" aria-expanded="false">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2" stroke-linecap="round">
-          <g class="ham"><path d="M3 6h18M3 12h18M3 18h18"/></g>
-          <g class="x"><path d="M6 6l12 12M18 6L6 18"/></g>
-        </svg>
-      </button>
-    </span>
-    <div class="swap" id="swap">
+    <div class="tabrow" id="tabrow">
     <nav class="ptabs" id="ptabs" aria-label="Pages">
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
       <button class="pt" data-pg="nextdraw" onclick="setPage('nextdraw')">Next Draw</button>
@@ -694,18 +641,6 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
       <button class="pt" data-pg="training" onclick="setPage('training')">Training</button>
       <i class="ptu" id="ptu"></i>
     </nav>
-    <div class="srch" id="srch">
-      <button class="sicon" id="sbtn" aria-label="Search markers" title="Search  ( / )">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
-      </button>
-      <input id="q" type="text" autocomplete="off" spellcheck="false">
-      <button class="qx" id="qx" title="Clear" aria-label="Clear search">&times;</button>
-    </div>
-      <div class="chips" id="chips"></div>
-    </div>
-      <div class="toc" id="toc"></div>
-    </div>
     <button class="ic" id="tbtn" onclick="flip()" aria-label="Switch theme">
       <span class="orbit">
         <span class="orbit-disc" id="odisc">
@@ -723,6 +658,22 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
         </span>
       </span>
     </button>
+    </div>
+    <div class="topline">
+    <div class="bar" id="bar">
+    <div class="swap" id="swap">
+    <div class="srch" id="srch">
+      <button class="sicon" id="sbtn" aria-label="Search markers" title="Search  ( / )">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+      </button>
+      <input id="q" type="text" autocomplete="off" spellcheck="false">
+      <button class="qx" id="qx" title="Clear" aria-label="Clear search">&times;</button>
+    </div>
+      <div class="chips" id="chips"></div>
+    </div>
+      <div class="toc" id="toc"></div>
+    </div>
     </div>
   </div>
   <div class="topspacer"></div>
@@ -1195,7 +1146,7 @@ const PAGES={markers:'Markers',nextdraw:'Next Draw',stack:'Stack',routine:'Routi
 let page='markers';
 document.documentElement.dataset.page=page;
 const PGEL=document.getElementById('pages'),
-      PBTN=document.getElementById('pgbtn'),PTABS=document.getElementById('ptabs');
+      PTABS=document.getElementById('ptabs');
 // reveal a clipped tab WITH a sliver of its neighbour, so hidden tabs announce
 // themselves; a tab at either end reveals plainly. (.ptu after the last tab is
 // not a .pt, so the guard treats the last tab as edge.)
@@ -1230,41 +1181,25 @@ function movePtu(){   // slide the shared underline under the active tab
   u.style.left=(on.offsetLeft+pad)+'px';
   u.style.width=Math.max(0,on.offsetWidth-2*pad)+'px';
 }
-// open = the tab strip stands in for the filter row; html[data-menu=open] drives ALL of it.
-// The swap is choreographed: aria flips at TAP time (the icon reacts instantly), the bar
-// fade-slides out, the content flips while invisible, and the same transition rides back in.
-let menuOpen=false;
-function pmSet(open){
-  if(open===menuOpen)return;
-  menuOpen=open;
-  PBTN.setAttribute('aria-expanded',String(open));
-  requestAnimationFrame(()=>{movePtu();   // the strip may have just become visible
-    const on=PTABS.querySelector('.pt.on');
-    if(on&&menuOpen)revealTab(on,true);});   // stale scroll: snap the active tab into view instantly
-  const apply=()=>{ if(open)document.documentElement.dataset.menu='open';
-                    else delete document.documentElement.dataset.menu; };
-  const B=document.getElementById('swap');
-  if(!B||!B.animate||matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return;}
-  B.classList.add('swapping');
-  clearTimeout(pmSet._t);
-  pmSet._t=setTimeout(()=>{apply();B.classList.remove('swapping');},250);
-}
-function pmClose(){pmSet(false);}
+// The tab strip is a permanent top row now — no menu to open. It auto-hides on scroll:
+// _th tracks whether the row is currently hidden (html.tabhid), driven by the scroll
+// handler below and reset to shown on every page switch.
+let _th=false;
 function setPage(p){
   if(!PAGES[p])return;
-  if(p===page){if(p==='markers')pmSet(false);return;}   // re-tapping Markers folds the strip
+  if(p===page)return;
   page=p;
   document.documentElement.dataset.page=p;
   PGEL.hidden=p==='markers';
   document.querySelectorAll('#ptabs .pt').forEach(b=>{const on=b.dataset.pg===p;b.classList.toggle('on',on);
     if(on)revealTab(b);});   // a clipped tab slides fully into view, peeking its neighbour
   if(p!=='markers')renderPage(p);
-  pmSet(p!=='markers');   // the strip PERSISTS on pages; only Markers swaps it back for filters
-  // The topbar changes composition here (toc + pills vs tabs), so --toph must be
-  // re-measured HERE. The ResizeObserver alone proved unreliable (unreferenced
+  document.documentElement.classList.remove('tabhid'); _th=false;   // land at the top with tabs shown
+  // The topbar changes composition here (pills + category appear only on Markers), so --toph
+  // must be re-measured HERE. The ResizeObserver alone proved unreliable (unreferenced
   // observers can be GC'd), and a stale --toph leaves a phantom gap under the bar.
   requestAnimationFrame(()=>{setTop();movePtu();});
-  setTimeout(()=>setTop(),400);   // again once the .34s strip swap has settled
+  setTimeout(()=>setTop(),400);   // again once layout settles
   window.scrollTo({top:0});
 }
 function renderPage(p){
@@ -1460,26 +1395,40 @@ function renderPage(p){
   }
   PGEL.innerHTML=h||`<div class="pgh">${esc(PAGES[p]||p)}</div><div class="pgsub">No data block in bloodwork.js yet.</div>`;
 }
-PBTN.addEventListener('click',e=>{e.stopPropagation();
-  if(page!=='markers')setPage('markers');            // the X on a page = back to the table
-  else pmSet(!menuOpen);});
-document.addEventListener('click',e=>{               // outside-click folds it on Markers only
-  if(menuOpen&&page==='markers'&&!(e.target.closest&&e.target.closest('.pgnav,.ptabs')))pmClose();});
-
 const TB=document.getElementById('topbar'),WRAP=document.querySelector('.wrap');
 const R0=document.documentElement.style;
 const setGut=()=>{                                   // left margin of the content column
   const pl=parseFloat(getComputedStyle(WRAP).paddingLeft)||0;
   R0.setProperty('--gut',(WRAP.offsetLeft+pl)+'px');
 };
+const DE=document.documentElement;
+// --stick = the CURRENTLY visible header bottom — what the frozen thead sticks under, so it
+// follows the tab row collapsing/expanding. Updated on EVERY measure.
+const setStick=()=>{ R0.setProperty('--stick',TB.getBoundingClientRect().height+'px'); };
+// --toph = the FULL header height; drives the content spacer so it never jumps. Captured ONLY
+// when the tab row is SHOWN and settled (never mid-collapse) — else the spacer shrinks and
+// yanks the page. --thh is NOT measured (thead is sized FROM it; measuring back is circular
+// and any drift opens a gap the frozen cells shine through).
 const setTop=()=>{
-  R0.setProperty('--toph',TB.getBoundingClientRect().height+'px');      // sub-pixel, not offsetHeight
-  // --thh is NOT measured. `thead th{height:var(--thh)}` sizes the header FROM it, so measuring
-  // it back would be circular, and any drift opens a gap the frozen cells shine through.
+  const h=TB.getBoundingClientRect().height;                            // sub-pixel, not offsetHeight
+  R0.setProperty('--stick',h+'px');
+  if(!_pumping && !(DE.classList.contains&&DE.classList.contains('tabhid'))) R0.setProperty('--toph',h+'px');
 };
+// While the tab row animates open/closed, pump --stick every frame so the frozen header rides
+// the moving bar with no seam. (ResizeObserver would too, but it dies silently in the Preview
+// pane / on iOS — so re-measure explicitly at the mutation site.)
+let _pumping=false,_pumpEnd=0;
+function pumpStick(){
+  _pumpEnd=window.performance.now()+300;
+  if(_pumping)return; _pumping=true;
+  const step=()=>{ setStick();
+    if(window.performance.now()<_pumpEnd)requestAnimationFrame(step);
+    else{_pumping=false; setTop();} };   // settle: capture the full --toph once shown
+  requestAnimationFrame(step);
+}
 setGut(); setTop();
 let tbRO;   // hold the reference: an unreferenced ResizeObserver is GC-bait (Safari)
-if(window.ResizeObserver){tbRO=new ResizeObserver(setTop);tbRO.observe(TB);}
+if(window.ResizeObserver){tbRO=new ResizeObserver(setStick);tbRO.observe(TB);}   // stick only — never yank --toph
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{setTop();setGut();});
 let _stuck=false;
 // The frozen marker column narrows PROGRESSIVELY as you scroll sideways: 164px -> 112px
@@ -1498,10 +1447,20 @@ function setNmW(){
     fitChart();                          // the draw columns just moved; the chart must follow
   }
 }
+// Auto-hide the tab row: scroll DOWN past the header hides it, scroll UP reveals it, and near
+// the very top it's always shown. Hysteresis (±4px) so a jittery thumb can't flicker it.
+let _lastY=0;
 window.addEventListener('scroll',()=>{
-  const s=window.scrollY>12;
+  const y=window.scrollY, dy=y-_lastY;
+  const s=y>12;
   if(s!==_stuck){_stuck=s;TB.classList.toggle('stuck',s);}
-  TOP.classList.toggle('on',window.scrollY>420);
+  TOP.classList.toggle('on',y>420);
+  let hide=_th;
+  if(y<48) hide=false;                 // near top: always show
+  else if(dy>4) hide=true;             // scrolling down: hide
+  else if(dy<-4) hide=false;           // scrolling up: reveal
+  if(hide!==_th){ _th=hide; DE.classList.toggle('tabhid',hide); pumpStick(); }
+  _lastY=y;
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
@@ -1544,8 +1503,7 @@ document.getElementById('sbtn').addEventListener('click',()=>{
   if(SRCH.classList.contains('open')&&!q)sShut(); else QI.focus();});
 document.getElementById('qx').addEventListener('click',()=>{QI.value='';onQ('');QI.focus();});
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&menuOpen&&page==='markers')pmClose();
-  else if(e.key==='Escape'&&SRCH.classList.contains('open'))sShut();
+  if(e.key==='Escape'&&SRCH.classList.contains('open'))sShut();
   else if(e.key==='/'&&document.activeElement!==QI&&page==='markers'){e.preventDefault();QI.focus();}});
 QI.placeholder='Search markers…';
 
