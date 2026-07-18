@@ -322,7 +322,7 @@ window.BLOODWORK =
     "---",
     {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}},
     {"n": "Nuts", "amt": "~15 g", "info": {"Mix":[["Walnut","6g"],["Almond","5g"],["Pistachio","4g"]],"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}},
-    {"n": "Dark chocolate (85% Madagascar)", "amt": "~10 g", "info": {"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
+    {"n": "Dark chocolate", "amt": "~10 g", "info": {"Type":[["Cocoa","85%"],["Origin","Madagascar"]],"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
    ]},
    {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
     {"n": "Mozzarella di bufala", "amt": "100 g", "info": {"Per 100 g":[["Energy","275 kcal","14%"],["Protein","17 g","34%"],["Fat","22 g","31%"],["– saturates","15 g","75%"],["Salt","0.5 g","8%"]],"Minerals":[["Calcium","350 mg","44%"],["Phosphorus","350 mg","50%"],["Zinc","2 mg","20%"]]}},
@@ -336,7 +336,7 @@ window.BLOODWORK =
     "---",
     {"n": "Kiwis", "amt": "2", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}},
     {"n": "Nuts", "amt": "~15 g", "info": {"Mix":[["Walnut","6g"],["Almond","5g"],["Pistachio","4g"]],"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}},
-    {"n": "Dark chocolate (85% Madagascar)", "amt": "~10 g", "info": {"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
+    {"n": "Dark chocolate", "amt": "~10 g", "info": {"Type":[["Cocoa","85%"],["Origin","Madagascar"]],"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
    ]}
   ]
  },
