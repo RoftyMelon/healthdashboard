@@ -161,7 +161,8 @@ window.BLOODWORK =
     "Full body hydrating cream after shower"
    ]},
    {"t": "Wednesday", "items": [
-    "Instead of retinol: glycolic acid 7%"
+    "Instead of retinol: glycolic acid 7%",
+    "Body lotion 12% glycolic acid"
    ]},
    {"t": "Sunday", "items": [
     "Microneedling 1mm (up to 2mm once per month), face; 0.75mm scalp.\nNo retinols or acids for 48h!"
