@@ -313,7 +313,7 @@ window.BLOODWORK =
     "---",
     {"n": "Eggs", "amt": "6–10", "info": {"Per ~8 (~400 g)":[["Energy","620 kcal","31%"],["Protein","50 g","100%"],["Fat","44 g","63%"],["– saturates","13 g","65%"]],"Micronutrients":[["Choline","1180 mg"],["Selenium","120 mcg","218%"],["Vit D","320 IU","160%"],["B12","4 mcg","160%"],["Vit A","640 mcg","80%"],["Riboflavin","1.6 mg","114%"],["Folate","190 mcg","95%"]]}},
     {"n": "Air-fried potatoes (duck grease)", "amt": "~300 g", "info": {"Per ~300 g + grease":[["Energy","395 kcal","20%"],["Carbs","58 g","22%"],["Fibre","5 g"],["Fat","15 g","21%"],["– saturates","5 g","25%"]],"Standouts":[["Potassium","1200 mg","60%"],["Vit C","30 mg","38%"],["B6","0.9 mg","64%"]]}},
-    {"n": "Frozen vegetables", "amt": "~100 g", "info": {"Per ~100 g":[["Energy","35 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","2 g","4%"]],"Vitamins":[["K","25 mcg","33%"],["Folate","40 mcg","20%"],["C","15 mg","19%"],["A","150 mcg","19%"]]}},
+    {"n": "Mushrooms (cooked)", "amt": "~150 g", "info": {"Per ~150 g (cooked)":[["Energy","45 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","4 g","8%"]],"Standouts":[["Ergothioneine","~3 mg"],["Copper","0.5 mg","50%"],["Pantothenic acid","2 mg","33%"],["Selenium","14 mcg","25%"],["Potassium","400 mg","20%"]]}},
     {"n": "Olive oil", "amt": "10 mL", "info": {"Per 10 mL":[["Energy","80 kcal","4%"],["Fat","9 g","13%"],["– monounsat.","7 g"],["Vit E","1 mg","10%"]]}},
     "---",
     {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}}
