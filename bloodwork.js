@@ -159,7 +159,7 @@ window.BLOODWORK =
      {"n": "Serum → Moisturizer → SPF 50", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
     ]},
     {"t": "After dinner", "icon": "sunset", "rows": [
-     {"n": "Retinol 1%", "on": ["Tue", "Thu", "Fri"]},
+     {"n": "Retinal 0.2%", "on": ["Tue", "Thu", "Fri"]},
      {"n": "Glycolic 7%", "on": ["Wed"]},
      {"n": "Moisturizer", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
      {"n": "Body lotion 12% AHA", "on": ["Tue", "Thu", "Sat"]},
@@ -171,7 +171,7 @@ window.BLOODWORK =
    ],
    "notes": [
     "Microneedle: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
-    "Retinol paused 48h before needling, and resumes 48h after."
+    "Retinal paused 48h before needling, and resumes 48h after."
    ]
   }},
   {"id": "dental", "t": "Dental", "groups": [
