@@ -531,10 +531,17 @@ a.sbuy:hover{color:var(--info)}
 .care.col{flex-direction:column;overflow:visible;width:auto;max-width:none}
 .care.wide{margin-top:34px;width:auto;max-width:none}   /* air above; fill the width (mobile) instead of hugging one 344px card */
 /* The dental card is sized to ITS OWN content, never padded out to match the day-grid
-   beside it. 370px = the 337px of "Alternate thread floss & interdental brushes" (the
-   longest line that should sit on one line) + the card's 2x14px padding. The carbamide
-   line is 537px, so it wraps to two — which is the intent, not an accident. */
-.care.wide .ccard{flex:0 1 auto;width:min(370px,100%)}
+   beside it — and the width is chosen to control WHERE the long line wraps.
+   Measured, at this font: "Alternate thread floss & interdental brushes" = 316px,
+   "Carbamide peroxide 10-15% - 2x/year," = 284px, and that same line plus "applied" =
+   341px. So a content width in [316,341) keeps the floss line whole while breaking the
+   carbamide line after the comma:
+       Carbamide peroxide 10-15% - 2x/year,
+       applied with custom dental tray
+   356px = 328px content + the card's 2x14px padding, i.e. the middle of that window, so
+   font-rendering drift on another device can't tip it either way. Re-measure if the text
+   changes: below 344 the floss line breaks, at 370+ "applied" climbs back up. */
+.care.wide .ccard{flex:0 1 auto;width:min(356px,100%)}
 .care.col .ccard{flex:none;width:min(430px,100%)}   /* wide enough that no item wraps */
 .dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
 .dnotes b{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
