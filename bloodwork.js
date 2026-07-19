@@ -155,7 +155,7 @@ window.BLOODWORK =
    ],
    "sections": [
     {"t": "Morning", "icon": "sun", "rows": [
-     {"n": "Vitamin C solution", "on": ["Tue", "Thu", "Sat"]},
+     {"n": "Vitamin C 10% solution", "on": ["Tue", "Thu", "Sat"]},
      {"n": "Serum → Moisturizer → SPF 50", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
     ]},
     {"t": "After dinner", "icon": "sunset", "rows": [
