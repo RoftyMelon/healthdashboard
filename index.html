@@ -628,6 +628,12 @@ a.sbuy:hover{color:var(--info)}
      Names ellipsis rather than disappear, and the row height never jumps. */
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
     padding-left:10px;padding-right:6px}
+  /* Grooming cards run EDGE-TO-EDGE on a phone: the day-grid can never fit 7 columns, so it
+     pans — and every pixel of gutter is a pixel of grid you can't see. The dental card gets
+     the same treatment so the two still line up. Negative gutter margins, NOT width:100vw:
+     100vw counts the scrollbar and would re-open the horizontal overflow we just closed. */
+  .gwrap>.cgscroll,.gwrap>.care.wide{
+    margin-left:calc(-1 * var(--gut,10px));margin-right:calc(-1 * var(--gut,10px))}
 }
 @media(max-width:900px),(max-height:560px){
   .pt{font-size:17px;padding:8px 9px}
