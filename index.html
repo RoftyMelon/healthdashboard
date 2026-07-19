@@ -537,7 +537,9 @@ a.sbuy:hover{color:var(--info)}
 /* face schedule — a CARE .schedule renders as a day-indexed weekly dot-matrix, not a card.
    solid dot = applied, faint = skipped, accent = the procedure. All colours are theme tokens. */
 .cgrid{background:var(--grp);border-radius:12px;padding:12px 15px 13px;width:max-content;max-width:600px;margin-top:22px}
-.cgrid>b{font-size:14px;font-weight:750;letter-spacing:.06em;color:var(--txt);text-transform:uppercase}
+.cgrid>b{font-size:14px;font-weight:750;letter-spacing:.06em;color:var(--info);text-transform:uppercase}   /* SKINCARE title in accent blue */
+.care.wide .ccard>b{color:var(--info)}   /* DENTAL title blue too — scoped to grooming, leaves Training/Diet card titles alone */
+.care.wide .cgrp{color:var(--t3)}   /* grooming DAILY/YEARLY muted grey to match the skincare section labels (Morning/etc.) */
 .cgscroll{overflow-x:auto;scrollbar-width:none}   /* the whole face card pans as one unit on phones */
 .cgscroll::-webkit-scrollbar{display:none}   /* swipe-driven, no bar (cf .care) */
 .cggrid{--cgn:7;display:grid;grid-template-columns:max-content repeat(var(--cgn,7),42px);
