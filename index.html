@@ -90,7 +90,7 @@ button{font-family:inherit;font-size:15px;font-weight:550;letter-spacing:-.005em
   padding:9px 15px;border-radius:11px;cursor:pointer;transition:.18s cubic-bezier(.3,.9,.3,1);
   background:var(--btn);border:.5px solid var(--btn-b);color:var(--txt)}
 button:hover{background:var(--btn-h)}
-button.ic{padding:0;width:40px;height:40px;border-radius:50%;flex:none;position:relative;top:-4px;
+button.ic{padding:0;width:40px;height:40px;border-radius:50%;flex:none;position:relative;top:-2px;
   /* top:-4 lifts the circle level with the tab TEXT — the active-tab underline drags the row's
      geometric centre down, so plain vertical-centre reads ~4px low. relative (not transform) keeps the glass. */
   display:flex;align-items:center;justify-content:center;color:var(--t2);
@@ -598,7 +598,7 @@ a.sbuy:hover{color:var(--info)}
      TAB row's right end; the tab strip runs behind it (glass) and .ptabs gets trailing padding
      so the last tab still scrolls fully clear. .topline goes block so pills + TOC stack. */
   .topline{display:block}
-  button.ic{position:absolute;top:2px;right:var(--gut,10px)}   /* over the tab row's right end; top:2 lifts it
+  button.ic{position:absolute;top:4px;right:var(--gut,10px)}   /* over the tab row's right end; lifted a touch
      level with the tab TEXT (the active-tab underline drags the row's geometric centre down) */
   .ptabs{padding-right:44px}   /* trailing room: the LAST tab (Training) scrolls just clear of the toggle */
   .tabrow{margin-bottom:2px}   /* filter pills sit 3px lower on phones (base margin is -1px) */
