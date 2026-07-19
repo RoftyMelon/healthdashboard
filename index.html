@@ -555,8 +555,9 @@ a.sbuy:hover{color:var(--info)}
 .cgtag em{font-style:normal;font-size:9.5px;color:var(--t3)}
 .cgtag.hi{background:var(--hov);border-color:transparent;color:var(--sel)}   /* the needle day */
 .cgtag.hi em{color:var(--sel)}
-.cgsec{grid-column:1/-1;font-size:12.5px;color:var(--t3);letter-spacing:.03em;
+.cgsec{grid-column:1/-1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--t3);letter-spacing:.03em;
   padding:12px 0 7px;border-top:.5px solid var(--line);margin-top:7px}
+.cgi{width:13px;height:13px;flex:none}   /* section-header icon (sun / sunset / moon), inherits the label's grey via currentColor */
 .cgsec.first{border-top:none;margin-top:0;padding-top:3px}   /* first section sits under the day row, no divider */
 .cgdot{width:9px;height:9px;border-radius:50%;background:var(--txt)}
 .cgdot.off{width:2.5px;height:2.5px;background:var(--t4)}   /* skipped: a faint whisper, not blank */
@@ -1257,6 +1258,11 @@ function renderPage(p){
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     return `<div class="ccard"><b>${esc(c.t)}</b>${inner}</div>`;}).join('')+`</div>`;
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
+  const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
+    sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
+    sunset:'<path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 9V3M4.6 10.6l1.4 1.4M18 12l1.4-1.4M2 18h2M20 18h2M2 22h20"/><path d="M8.5 5.8l3.5 3.4 3.5-3.4"/>',
+    moon:'<path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5 6.6 6.6 0 0 0 20.5 13.2z"/>'};
+  const cgIcon=k=>CGISVG[k]?`<svg class="cgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${CGISVG[k]}</svg>`:'';
   const careGrid=c=>{
     const sc=c.schedule, days=sc.days;
     const head=`<div class="cgrn"></div>`+days.map(d=>
@@ -1264,7 +1270,7 @@ function renderPage(p){
         ?`<span class="cgtag${d.hi?' hi':''}">${esc(d.d)}<em>${esc(d.tag)}</em></span>`
         :`<span class="cgd">${esc(d.d)}</span>`)+`</div>`).join('');
     const body=sc.sections.map((s,i)=>
-      `<div class="cgsec${i?'':' first'}">${esc(s.t)}</div>`+
+      `<div class="cgsec${i?'':' first'}">${cgIcon(s.icon)}${esc(s.t)}</div>`+
       s.rows.map(r=>{const on=new Set(r.on);
         return `<div class="cgrn">${esc(r.n)}</div>`+days.map(d=>
           `<div class="cgcell"><span class="cgdot${on.has(d.d)?(r.hi?' hi':''):' off'}"></span></div>`).join('');
