@@ -538,6 +538,11 @@ a.sbuy:hover{color:var(--info)}
 .ccard ul:last-child{margin-bottom:0}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2)}
 .ccard li.drow{display:flex;align-items:baseline;position:relative}
+/* Supplement rows push their dose flush right, matching the food rows above them: the
+   name takes the slack. NOT .drow — that carries a :last-child border rule which outranks
+   the li:last-child that removes it, so the last supplement would sprout a stray line. */
+.ccard li.suprow{display:flex;align-items:baseline}
+.suprow .sdn{flex:1;min-width:0}
 .drow .dfn{flex:1;min-width:0}
 .drow .damt{flex:none;margin-left:8px;font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
 .drow .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -1526,7 +1531,7 @@ function renderPage(p){
     const supps=slot=>{
       const list=STACK?STACK.items.filter(x=>Array.isArray(x.when)&&x.when.some(w=>w.at===slot)&&(x.status==='taking'||x.status==='planned')&&x.cat!=='maylater'):[];   // parked items never derive into a meal
       return list.length
-        ?`<ul>${list.map(x=>{const w=x.when.find(w=>w.at===slot);return `<li>${esc(x.name)}${w.dose?`<span class="cwhen">${esc(w.dose)}</span>`:''}</li>`;}).join('')}</ul>`
+        ?`<ul>${list.map(x=>{const w=x.when.find(w=>w.at===slot);return `<li class="suprow"><span class="sdn">${esc(x.name)}</span>${w.dose?`<span class="cwhen">${esc(w.dose)}</span>`:''}</li>`;}).join('')}</ul>`
         :`<div class="cempty">&mdash;</div>`;
     };
     const foodTip=x=>{                                   // a food item's optional info: string caveat OR nutrition table
