@@ -145,12 +145,12 @@ window.BLOODWORK =
  "CARE": [
   {"id": "face", "t": "Skincare", "schedule": {
    "days": [
-    {"d": "Mon", "tag": "rest"},
+    {"d": "Mon"},
     {"d": "Tue"},
     {"d": "Wed"},
     {"d": "Thu"},
     {"d": "Fri"},
-    {"d": "Sat", "tag": "pre"},
+    {"d": "Sat"},
     {"d": "Sun", "tag": "needle", "hi": true}
    ],
    "sections": [
