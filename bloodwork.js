@@ -920,7 +920,7 @@ window.BLOODWORK =
     }
    ],
    "clin": [
-    90,
+    60,
     140
    ],
    "opt": [
@@ -1028,7 +1028,7 @@ window.BLOODWORK =
     0,
     80
    ],
-   "oc": "strong",
+   "oc": "moderate",
    "axis": [
     0,
     160
@@ -1052,13 +1052,13 @@ window.BLOODWORK =
    ],
    "clin": [
     0,
-    75
+    105
    ],
    "opt": [
     0,
-    30
+    62
    ],
-   "oc": "strong",
+   "oc": "moderate",
    "axis": [
     0,
     150
@@ -1095,7 +1095,7 @@ window.BLOODWORK =
     0,
     130
    ],
-   "oc": "strong",
+   "oc": "moderate",
    "axis": [
     0,
     200
@@ -1163,7 +1163,7 @@ window.BLOODWORK =
     0,
     100
    ],
-   "oc": "strong",
+   "oc": "moderate",
    "axis": [
     0,
     190
@@ -1197,11 +1197,6 @@ window.BLOODWORK =
     40,
     100
    ],
-   "opt": [
-    55,
-    100
-   ],
-   "oc": "weak",
    "axis": [
     20,
     110
@@ -2606,7 +2601,7 @@ window.BLOODWORK =
    ],
    "clin": [
     0,
-    500
+    150
    ],
    "axis": [
     0,
@@ -3395,10 +3390,6 @@ window.BLOODWORK =
      "trf": {
       "r": 2.59,
       "u": "g/L"
-     },
-     "upcr": {
-      "r": 250,
-      "u": "mg/g"
      },
      "ucrea": {
       "r": 417,
