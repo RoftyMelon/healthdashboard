@@ -2846,7 +2846,7 @@ window.BLOODWORK =
    {
     "id": "d20230130",
     "date": "2023-01-30",
-    "note": "InsideTracker upload. Free T (0.9 ng/dL) excluded: 0.163% of that draw's total T, an order of magnitude below any plausible free fraction. Cause undetermined — a 10x transcription slip fits well (9.0 ng/dL = 90 pg/mL sits mid-band for Vermeulen on this draw), a different assay scale fits too. Not plottable against the 47-244 pg/mL band either way.",
+    "note": "Cerballiance Clairval (Marseille), drawn 14h53 — an AFTERNOON draw, so this total T is NOT comparable to the morning draws either side of it; testosterone peaks around 08:00 and falls through the day. Hormone send-outs to CERBA. TESTOSTERONE LIBRE by RIA: 32.3 pmol/L / 9.3 pg/mL, in range against that assay's own printed reference of 30.0-87.0 pmol/L / 8.7-25.0 pg/mL. This is the value once stored as '0.9 ng/dL' and excluded as a suspected 10x transcription error — it was neither an error nor mislabelled: 9.3 pg/mL IS 0.93 ng/dL. What was wrong was the range it was judged against, the marker's 47-244 pg/mL, which belongs to a different method entirely. Kept as a note rather than a marker value: direct analog RIA free T is the method the Endocrine Society says not to use, and it shares no scale with the calculated free T this panel uses going forward.",
     "v": {
      "wbc": {
       "r": 4.9,
@@ -2873,8 +2873,12 @@ window.BLOODWORK =
       "u": "cells/µL"
      },
      "tt": {
-      "r": 553.3,
-      "u": "ng/dL"
+      "r": 19.2,
+      "u": "nmol/L"
+     },
+     "shbg": {
+      "r": 53,
+      "u": "nmol/L"
      },
      "hb": {
       "r": 16.4,
@@ -2980,19 +2984,15 @@ window.BLOODWORK =
    {
     "id": "d20240402",
     "date": "2024-04-02",
-    "note": "InsideTracker upload",
+    "note": "Cerballiance Provence Azur (La Rouvière, Marseille), drawn 09:56, Roche Cobas ECLIA; hormone send-outs to CERBA. Reached this file via an InsideTracker upload that RE-CONVERTED the SI values instead of transcribing the printed US ones, which is why earlier entries drifted from the report (B12 551 vs the printed 554 ng/L, total T 625.4 vs the printed 629.30 ng/dL) — values are now stored as the lab printed them, in SI. TESTOSTERONE BIODISPONIBLE by RIA: 3.6 nmol/L / 1.05 ng/mL, in range against that assay's own printed reference of 2.7-12.0 nmol/L / 0.78-3.46 ng/mL. Kept as a note rather than a marker: one measurement on an assay not being reordered, and it cannot be compared to the calculated free T this panel uses going forward. The 'free testosterone 83 pg/mL' previously stored here appears NOWHERE in the lab report — an InsideTracker artifact, now removed.",
     "v": {
      "b12": {
-      "r": 551,
-      "u": "pg/mL"
+      "r": 407,
+      "u": "pmol/L"
      },
      "tt": {
-      "r": 625.4,
-      "u": "ng/dL"
-     },
-     "ft": {
-      "r": 83,
-      "u": "pg/mL"
+      "r": 21.7,
+      "u": "nmol/L"
      },
      "shbg": {
       "r": 49,
