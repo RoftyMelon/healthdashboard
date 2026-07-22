@@ -2608,99 +2608,39 @@ window.BLOODWORK =
    {
     "id": "d20201210",
     "date": "2020-12-10",
-    "note": "InsideTracker upload",
+    "note": "Cerballiance Clairval (Marseille), drawn 10:38, Roche Cobas; hormones on Cobas ECLIA. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — all restored here from the report. THE LAB FLAGGED THREE VALUES: calcium 2.58 mmol/L against 2.15-2.50, creatinine 110 umol/L against 59-104, and potassium 4.7 against 3.4-4.5. Read the potassium with care — the report states 'legere hemolyse detectee dans le serum', and haemolysis releases intracellular potassium, which is the usual cause of a mildly high result on an otherwise normal panel. No albumin was measured, so corrected calcium cannot be derived for this draw.",
     "v": {
      "wbc": {
       "r": 6.2,
       "u": "G/L"
      },
      "neut": {
-      "r": 4560,
-      "u": "cells/µL"
+      "r": 4.56,
+      "u": "G/L"
      },
      "lymph": {
-      "r": 1050,
-      "u": "cells/µL"
+      "r": 1.05,
+      "u": "G/L"
      },
      "mono": {
-      "r": 470,
-      "u": "cells/µL"
+      "r": 0.47,
+      "u": "G/L"
      },
      "eos": {
-      "r": 50,
-      "u": "cells/µL"
+      "r": 0.05,
+      "u": "G/L"
      },
      "baso": {
-      "r": 70,
-      "u": "cells/µL"
-     },
-     "chol": {
-      "r": 156,
-      "u": "mg/dL"
-     },
-     "hdl": {
-      "r": 70,
-      "u": "mg/dL"
-     },
-     "ldl": {
-      "r": 75,
-      "u": "mg/dL"
-     },
-     "tg": {
-      "r": 55,
-      "u": "mg/dL"
-     },
-     "tt": {
-      "r": 746.4,
-      "u": "ng/dL"
-     },
-     "mg": {
-      "r": 2.1,
-      "u": "mg/dL"
-     },
-     "vitd": {
-      "r": 47,
-      "u": "ng/mL"
-     },
-     "glu": {
-      "r": 105,
-      "u": "mg/dL"
-     },
-     "a1c": {
-      "r": 5.1,
-      "u": "%"
-     },
-     "alt": {
-      "r": 25,
-      "u": "UI/L"
-     },
-     "ast": {
-      "r": 31,
-      "u": "UI/L"
-     },
-     "ggt": {
-      "r": 27,
-      "u": "UI/L"
-     },
-     "ca": {
-      "r": 10.3,
-      "u": "mg/dL"
-     },
-     "ferr": {
-      "r": 72,
-      "u": "µg/L"
-     },
-     "iron": {
-      "r": 82,
-      "u": "µg/dL"
+      "r": 0.07,
+      "u": "G/L"
      },
      "hb": {
       "r": 16.4,
       "u": "g/dL"
      },
      "rbc": {
-      "r": 5.3,
-      "u": "10⁶/µL"
+      "r": 5.33,
+      "u": "T/L"
      },
      "hct": {
       "r": 48.3,
@@ -2715,20 +2655,112 @@ window.BLOODWORK =
       "u": "pg"
      },
      "mchc": {
-      "r": 34,
+      "r": 33.9,
       "u": "g/dL"
      },
      "plt": {
       "r": 166,
       "u": "G/L"
      },
-     "k": {
-      "r": 4.7,
-      "u": "mmol/L"
+     "glu": {
+      "r": 1.05,
+      "u": "g/L"
+     },
+     "a1c": {
+      "r": 5.1,
+      "u": "%"
+     },
+     "crea": {
+      "r": 12.5,
+      "u": "mg/L"
+     },
+     "egfr": {
+      "r": 80,
+      "u": "mL/min/1.73m²"
+     },
+     "ua": {
+      "r": 305,
+      "u": "µmol/L"
+     },
+     "chol": {
+      "r": 1.56,
+      "u": "g/L"
+     },
+     "hdl": {
+      "r": 0.71,
+      "u": "g/L"
+     },
+     "ldl": {
+      "r": 0.75,
+      "u": "g/L"
+     },
+     "tg": {
+      "r": 0.55,
+      "u": "g/L"
      },
      "na": {
       "r": 139,
       "u": "mmol/L"
+     },
+     "k": {
+      "r": 4.7,
+      "u": "mmol/L"
+     },
+     "tp": {
+      "r": 81,
+      "u": "g/L"
+     },
+     "ca": {
+      "r": 103,
+      "u": "mg/L"
+     },
+     "mg": {
+      "r": 0.86,
+      "u": "mmol/L"
+     },
+     "iron": {
+      "r": 14.62,
+      "u": "µmol/L"
+     },
+     "ferr": {
+      "r": 72,
+      "u": "µg/L"
+     },
+     "ast": {
+      "r": 31,
+      "u": "UI/L"
+     },
+     "alt": {
+      "r": 25,
+      "u": "UI/L"
+     },
+     "alp": {
+      "r": 62,
+      "u": "UI/L"
+     },
+     "ggt": {
+      "r": 27,
+      "u": "UI/L"
+     },
+     "vitd": {
+      "r": 47,
+      "u": "ng/mL"
+     },
+     "ft3": {
+      "r": 3.12,
+      "u": "pg/mL"
+     },
+     "ft4": {
+      "r": 17.28,
+      "u": "pmol/L"
+     },
+     "tsh": {
+      "r": 0.99,
+      "u": "mUI/L"
+     },
+     "tt": {
+      "r": 25.9,
+      "u": "nmol/L"
      }
     }
    },
