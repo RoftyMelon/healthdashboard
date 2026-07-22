@@ -2409,6 +2409,202 @@ window.BLOODWORK =
     3,
     6
    ]
+  },
+  {
+   "id": "ft3",
+   "cat": "thy",
+   "en": "Free T3",
+   "fr": "T3 libre (FT3)",
+   "us": "pg/mL",
+   "units": [
+    {
+     "l": "pmol/L",
+     "m": 0.651
+    },
+    {
+     "l": "pg/mL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    2,
+    4.4
+   ],
+   "axis": [
+    1.5,
+    5
+   ]
+  },
+  {
+   "id": "atg",
+   "cat": "thy",
+   "en": "Thyroglobulin antibodies",
+   "fr": "Anticorps anti-thyroglobuline",
+   "us": "IU/mL",
+   "units": [
+    {
+     "l": "UI/mL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    0,
+    115
+   ],
+   "axis": [
+    0,
+    150
+   ]
+  },
+  {
+   "id": "dheas",
+   "cat": "horm",
+   "en": "DHEA-S",
+   "fr": "SDHEA (sulfate de DHEA)",
+   "us": "µg/dL",
+   "units": [
+    {
+     "l": "µmol/L",
+     "m": 36.85
+    },
+    {
+     "l": "µg/dL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    160,
+    449
+   ],
+   "axis": [
+    100,
+    500
+   ]
+  },
+  {
+   "id": "igf1",
+   "cat": "horm",
+   "en": "IGF-1",
+   "fr": "IGF-1 (somatomédine C)",
+   "us": "ng/mL",
+   "units": [
+    {
+     "l": "nmol/L",
+     "m": 7.69
+    },
+    {
+     "l": "ng/mL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    82,
+    241
+   ],
+   "axis": [
+    60,
+    280
+   ]
+  },
+  {
+   "id": "tp",
+   "cat": "liver",
+   "en": "Total protein",
+   "fr": "Protéines totales",
+   "us": "g/dL",
+   "units": [
+    {
+     "l": "g/L",
+     "m": 0.1
+    },
+    {
+     "l": "g/dL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    6.4,
+    8.3
+   ],
+   "axis": [
+    5.5,
+    9
+   ]
+  },
+  {
+   "id": "trf",
+   "cat": "iron",
+   "en": "Transferrin",
+   "fr": "Transferrine",
+   "us": "mg/dL",
+   "units": [
+    {
+     "l": "g/L",
+     "m": 100
+    },
+    {
+     "l": "mg/dL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    200,
+    360
+   ],
+   "axis": [
+    150,
+    420
+   ]
+  },
+  {
+   "id": "upcr",
+   "cat": "renal",
+   "en": "Urine protein/creatinine",
+   "fr": "Ratio protéines/créatinine urinaire",
+   "us": "mg/g",
+   "units": [
+    {
+     "l": "mg/mmol",
+     "m": 8.84
+    },
+    {
+     "l": "mg/g",
+     "m": 1
+    }
+   ],
+   "clin": [
+    0,
+    500
+   ],
+   "axis": [
+    0,
+    600
+   ]
+  },
+  {
+   "id": "ucrea",
+   "cat": "renal",
+   "en": "Urine creatinine",
+   "fr": "Créatinine urinaire",
+   "us": "mg/L",
+   "units": [
+    {
+     "l": "mmol/L",
+     "m": 113.12
+    },
+    {
+     "l": "mg/L",
+     "m": 1
+    }
+   ],
+   "clin": [
+    400,
+    2780
+   ],
+   "axis": [
+    300,
+    3000
+   ]
   }
  ],
  "DATA": {
@@ -3143,6 +3339,38 @@ window.BLOODWORK =
      "cort": {
       "r": 292.4,
       "u": "nmol/L"
+     },
+     "ft3": {
+      "r": 3,
+      "u": "pg/mL"
+     },
+     "atg": {
+      "r": 19.1,
+      "u": "UI/mL"
+     },
+     "dheas": {
+      "r": 257,
+      "u": "µg/dL"
+     },
+     "igf1": {
+      "r": 104.6,
+      "u": "ng/mL"
+     },
+     "tp": {
+      "r": 72,
+      "u": "g/L"
+     },
+     "trf": {
+      "r": 2.59,
+      "u": "g/L"
+     },
+     "upcr": {
+      "r": 250,
+      "u": "mg/g"
+     },
+     "ucrea": {
+      "r": 417,
+      "u": "mg/L"
      }
     }
    }
