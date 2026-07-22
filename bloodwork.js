@@ -106,7 +106,7 @@ window.BLOODWORK =
   "items": [
    {"id": "astax", "name": "Astaxanthin", "dose": "12mg 2x/day", "info": "Photoprotection (raises the UV-burn threshold) plus moisture and elasticity. Not colour — that's beta-carotene's job. 24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg; held pending proof it helps colour.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "12mg"}, {"at": "dinner", "dose": "12mg"}], "url": null, "dec": null},
    {"id": "lyco", "name": "Lycopene", "dose": "15mg 2x/day", "info": "Warm skin tone plus UV photoprotection (10-16mg). Absorption saturates by ~30-40mg, so 30mg (15mg twice with fat) is the ceiling — more just gets excreted. Tomato-derived (LycoBeads) beats synthetic; cooked tomato in olive oil beats raw.", "cat": "skin", "status": "taking", "when": [{"at": "presnack", "dose": "15mg"}, {"at": "dinner", "dose": "15mg"}], "url": "https://www.sunday.de/en/lycopene-capsules.html", "dec": null},
-   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "10000 IU", "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. Doubled from 5000 IU on 2026-07-21: the July draw came back at 28 ng/mL, below the 40-60 target and below the lab's own 30-60 floor, so 5000 was not enough — likely because daily SPF 50 leaves supplementation doing all the work with almost no cutaneous synthesis. 2 tablets. Above the EFSA/IOM upper limit of 4000 IU (the Endocrine Society ceiling is 10000), so this is titration, NOT a new autopilot: retest 25-OH-D AND calcium at 3 months, and come back down if it lands above 60-70.", "cat": "essentials", "status": "taking", "when": [{"at": "brunch", "dose": "10000 IU"}], "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 10000 IU + K2"},
+   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "10000 IU", "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. Doubled from 5000 IU on 2026-07-21: the July draw came back at 28 ng/mL, below the lab's own sufficiency floor of 30 ng/mL (75 nmol/L), so 5000 was not enough — likely because daily SPF 50 leaves supplementation doing all the work with almost no cutaneous synthesis. 2 tablets. Above the EFSA/IOM upper limit of 4000 IU (the Endocrine Society ceiling is 10000), so this is titration, NOT a new autopilot: retest 25-OH-D AND calcium at 3 months, and come back down if it lands above 60-70.", "cat": "essentials", "status": "taking", "when": [{"at": "brunch", "dose": "10000 IU"}], "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 10000 IU + K2"},
    {"id": "omega3", "name": "Omega-3", "dose": "2000mg EPA + 1125mg DHA", "info": "EPA-forward dose aimed at skin and inflammation — about double the general-health dose. Algae oil (triglyceride form), cleaner than fish oil and iodine-free. 5 softgels/day = 2000mg EPA + 1125mg DHA, split 1 at the pre-workout snack + 2 at brunch + 2 at dinner, each a meal with fat for absorption. Titrate to your omega-3 index (8-12%).", "cat": "essentials", "status": "taking", "when": [{"at": "presnack", "dose": "400mg EPA + 225mg DHA"}, {"at": "brunch", "dose": "800mg EPA + 450mg DHA"}, {"at": "dinner", "dose": "800mg EPA + 450mg DHA"}], "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html", "dec": "Omega-3 (2000mg EPA, 1125mg DHA)"},
    {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "Low-weight peptides (~500 Da) that signal skin to build its own collagen — the trigger, not the raw material (glycine covers that). 2g with vitamin C. Cosmetic, modest evidence.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "2g"}], "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "info": "Not absorbed intact (~0.2%) — gut bacteria fragment it into signals for the skin's own HA. 2025 review (7 trials): modest hydration, elasticity and wrinkle gains. 250mg, the trial dose. Cosmetic, gut-flora-dependent.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "250mg"}], "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html", "dec": null},
@@ -379,7 +379,7 @@ window.BLOODWORK =
    ],
    "clin": [
     30,
-    60
+    100
    ],
    "opt": [
     30,
@@ -2772,8 +2772,8 @@ window.BLOODWORK =
       "u": "UI/L"
      },
      "vitd": {
-      "r": 47,
-      "u": "ng/mL"
+      "r": 117.5,
+      "u": "nmol/L"
      },
      "ft3": {
       "r": 3.12,
@@ -2915,8 +2915,8 @@ window.BLOODWORK =
       "u": "UI/L"
      },
      "vitd": {
-      "r": 32,
-      "u": "ng/mL"
+      "r": 80.0,
+      "u": "nmol/L"
      },
      "hscrp": {
       "r": 0.5,
@@ -3100,8 +3100,8 @@ window.BLOODWORK =
       "u": "nmol/L"
      },
      "vitd": {
-      "r": 29,
-      "u": "ng/mL"
+      "r": 73.0,
+      "u": "nmol/L"
      }
     }
    },
