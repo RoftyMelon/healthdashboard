@@ -1988,6 +1988,10 @@ window.BLOODWORK =
    "us": "g/dL",
    "units": [
     {
+     "l": "g/L",
+     "m": 0.1
+    },
+    {
      "l": "g/dL",
      "m": 1
     }
@@ -2853,24 +2857,24 @@ window.BLOODWORK =
       "u": "G/L"
      },
      "neut": {
-      "r": 2900,
-      "u": "cells/µL"
+      "r": 2.9,
+      "u": "G/L"
      },
      "lymph": {
-      "r": 1470,
-      "u": "cells/µL"
+      "r": 1.47,
+      "u": "G/L"
      },
      "mono": {
-      "r": 390,
-      "u": "cells/µL"
+      "r": 0.39,
+      "u": "G/L"
      },
      "eos": {
-      "r": 100,
-      "u": "cells/µL"
+      "r": 0.1,
+      "u": "G/L"
      },
      "baso": {
-      "r": 30,
-      "u": "cells/µL"
+      "r": 0.03,
+      "u": "G/L"
      },
      "tt": {
       "r": 19.2,
@@ -2881,12 +2885,12 @@ window.BLOODWORK =
       "u": "nmol/L"
      },
      "hb": {
-      "r": 16.4,
-      "u": "g/dL"
+      "r": 164,
+      "u": "g/L"
      },
      "rbc": {
-      "r": 5.3,
-      "u": "10⁶/µL"
+      "r": 5.26,
+      "u": "T/L"
      },
      "hct": {
       "r": 47.3,
@@ -2901,12 +2905,20 @@ window.BLOODWORK =
       "u": "pg"
      },
      "mchc": {
-      "r": 35,
-      "u": "g/dL"
+      "r": 347,
+      "u": "g/L"
      },
      "plt": {
       "r": 153,
       "u": "G/L"
+     },
+     "crea": {
+      "r": 106,
+      "u": "µmol/L"
+     },
+     "egfr": {
+      "r": 82,
+      "u": "mL/min/1.73m²"
      },
      "k": {
       "r": 4.6,
