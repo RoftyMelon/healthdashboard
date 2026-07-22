@@ -1812,27 +1812,6 @@ window.BLOODWORK =
    ]
   },
   {
-   "id": "mpv",
-   "cat": "cbc",
-   "en": "MPV",
-   "fr": "V.P.M.",
-   "us": "fL",
-   "units": [
-    {
-     "l": "fL",
-     "m": 1
-    }
-   ],
-   "clin": [
-    7,
-    11
-   ],
-   "axis": [
-    5,
-    14
-   ]
-  },
-  {
    "id": "plt",
    "cat": "cbc",
    "dec": [
@@ -1861,6 +1840,27 @@ window.BLOODWORK =
    "axis": [
     100,
     450
+   ]
+  },
+  {
+   "id": "mpv",
+   "cat": "cbc",
+   "en": "MPV",
+   "fr": "V.P.M.",
+   "us": "fL",
+   "units": [
+    {
+     "l": "fL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    7,
+    11
+   ],
+   "axis": [
+    5,
+    14
    ]
   },
   {
