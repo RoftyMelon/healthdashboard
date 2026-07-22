@@ -1570,14 +1570,14 @@ window.BLOODWORK =
     }
    ],
    "clin": [
-    300,
-    1000
+    264,
+    916
    ],
    "opt": [
     550,
     900
    ],
-   "oc": "moderate",
+   "oc": "weak",
    "axis": [
     200,
     1100
@@ -1611,7 +1611,7 @@ window.BLOODWORK =
     100,
     200
    ],
-   "oc": "moderate",
+   "oc": "weak",
    "axis": [
     20,
     280
@@ -2881,7 +2881,7 @@ window.BLOODWORK =
    {
     "id": "d20230130",
     "date": "2023-01-30",
-    "note": "InsideTracker upload. Free T (0.9 ng/dL) excluded: suspected 10x transcription error.",
+    "note": "InsideTracker upload. Free T (0.9 ng/dL) excluded: 0.163% of that draw's total T, impossible as a true free fraction — almost certainly a direct/analog immunoassay reading on a different scale, not a transcription error. Cannot be plotted against the 47-244 pg/mL band either way.",
     "v": {
      "wbc": {
       "r": 4.9,
