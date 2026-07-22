@@ -89,7 +89,7 @@ window.BLOODWORK =
   "TMG 6g",
   "Curcumin",
   "Creatine 5g",
-  "Vitamin D3 5000 IU + K2",
+  "Vitamin D3 10000 IU + K2",
   "Magnesium L-threonate",
   "Glycine 12g + taurine + collagen",
   "Huel"
@@ -107,7 +107,7 @@ window.BLOODWORK =
   "items": [
    {"id": "astax", "name": "Astaxanthin", "dose": "12mg 2x/day", "info": "Photoprotection (raises the UV-burn threshold) plus moisture and elasticity. Not colour — that's beta-carotene's job. 24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg; held pending proof it helps colour.", "cat": "skin", "status": "taking", "when": [{"at": "brunch", "dose": "12mg"}, {"at": "dinner", "dose": "12mg"}], "url": null, "dec": null},
    {"id": "lyco", "name": "Lycopene", "dose": "15mg 2x/day", "info": "Warm skin tone plus UV photoprotection (10-16mg). Absorption saturates by ~30-40mg, so 30mg (15mg twice with fat) is the ceiling — more just gets excreted. Tomato-derived (LycoBeads) beats synthetic; cooked tomato in olive oil beats raw.", "cat": "skin", "status": "taking", "when": [{"at": "presnack", "dose": "15mg"}, {"at": "dinner", "dose": "15mg"}], "url": "https://www.sunday.de/en/lycopene-capsules.html", "dec": null},
-   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "5000 IU", "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. 5000 IU/day, but titrate to blood 25-OH-D (40-60 ng/mL), not on autopilot. Already taking — shows in the baseline draw.", "cat": "essentials", "status": "taking", "when": [{"at": "brunch", "dose": "5000 IU"}], "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 5000 IU + K2"},
+   {"id": "vitd3k2", "name": "Vitamin D3 + K2", "dose": "10000 IU", "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. Doubled from 5000 IU on 2026-07-21: the July draw came back at 28 ng/mL, below the 40-60 target and below the lab's own 30-60 floor, so 5000 was not enough — likely because daily SPF 50 leaves supplementation doing all the work with almost no cutaneous synthesis. 2 tablets. Above the EFSA/IOM upper limit of 4000 IU (the Endocrine Society ceiling is 10000), so this is titration, NOT a new autopilot: retest 25-OH-D AND calcium at 3 months, and come back down if it lands above 60-70.", "cat": "essentials", "status": "taking", "when": [{"at": "brunch", "dose": "10000 IU"}], "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html", "dec": "Vitamin D3 10000 IU + K2"},
    {"id": "omega3", "name": "Omega-3", "dose": "2000mg EPA + 1125mg DHA", "info": "EPA-forward dose aimed at skin and inflammation — about double the general-health dose. Algae oil (triglyceride form), cleaner than fish oil and iodine-free. 5 softgels/day = 2000mg EPA + 1125mg DHA, split 1 at the pre-workout snack + 2 at brunch + 2 at dinner, each a meal with fat for absorption. Titrate to your omega-3 index (8-12%).", "cat": "essentials", "status": "planned", "when": [{"at": "presnack", "dose": "400mg EPA + 225mg DHA"}, {"at": "brunch", "dose": "800mg EPA + 450mg DHA"}, {"at": "dinner", "dose": "800mg EPA + 450mg DHA"}], "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html", "dec": "Omega-3 (2000mg EPA, 1125mg DHA)"},
    {"id": "collagenc", "name": "Collagen peptides (low-MW)", "dose": "2g", "info": "Low-weight peptides (~500 Da) that signal skin to build its own collagen — the trigger, not the raw material (glycine covers that). 2g with vitamin C. Cosmetic, modest evidence.", "cat": "skin", "status": "planned", "when": [{"at": "brunch", "dose": "2g"}], "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html", "dec": "Glycine 12g + taurine + collagen"},
    {"id": "ha", "name": "Hyaluronic acid", "dose": "250mg", "info": "Not absorbed intact (~0.2%) — gut bacteria fragment it into signals for the skin's own HA. 2025 review (7 trials): modest hydration, elasticity and wrinkle gains. 250mg, the trial dose. Cosmetic, gut-flora-dependent.", "cat": "skin", "status": "planned", "when": [{"at": "brunch", "dose": "250mg"}], "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html", "dec": null},
@@ -342,7 +342,6 @@ window.BLOODWORK =
     {"n": "Dark chocolate", "amt": "~10 g", "info": {"Type":[["Cocoa","85%"],["Origin","Madagascar"]],"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
    ]},
    {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
-    {"n": "Mozzarella di bufala", "amt": "100 g", "info": {"Per 100 g":[["Energy","275 kcal","14%"],["Protein","17 g","34%"],["Fat","22 g","31%"],["– saturates","15 g","75%"],["Salt","0.5 g","8%"]],"Minerals":[["Calcium","350 mg","44%"],["Phosphorus","350 mg","50%"],["Zinc","2 mg","20%"]]}},
     {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
     "---",
     {"n": "Wild rice or whole-grain pasta", "amt": "~75 g", "info": {"Per ~75 g cooked":[["Energy","90 kcal","5%"],["Carbs","19 g","7%"],["Protein","4 g","8%"],["Fibre","2 g"]]}},
@@ -362,7 +361,7 @@ window.BLOODWORK =
    "id": "vitd",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 5000 IU + K2",
+    "Vitamin D3 10000 IU + K2",
     "Boron 10mg",
     "Huel"
    ],
@@ -427,7 +426,7 @@ window.BLOODWORK =
    "id": "ca",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 5000 IU + K2",
+    "Vitamin D3 10000 IU + K2",
     "Huel"
    ],
    "en": "Calcium",
@@ -465,7 +464,7 @@ window.BLOODWORK =
    "id": "pth",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 5000 IU + K2"
+    "Vitamin D3 10000 IU + K2"
    ],
    "en": "Parathyroid hormone",
    "fr": "Parathormone (PTH)",
@@ -1464,7 +1463,7 @@ window.BLOODWORK =
    "id": "alp",
    "cat": "liver",
    "dec": [
-    "Vitamin D3 5000 IU + K2"
+    "Vitamin D3 10000 IU + K2"
    ],
    "en": "Alkaline phosphatase",
    "fr": "Phosphatases alcalines",
@@ -1526,7 +1525,7 @@ window.BLOODWORK =
    "id": "alb",
    "cat": "liver",
    "dec": [
-    "Vitamin D3 5000 IU + K2"
+    "Vitamin D3 10000 IU + K2"
    ],
    "en": "Albumin",
    "fr": "Albumine",
