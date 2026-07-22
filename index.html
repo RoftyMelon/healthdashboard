@@ -1290,7 +1290,11 @@ function render(){
     if(L){const st=status(m,L.v),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v);
       pill=`<span class="pill ${st}" title="${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}">${fmt(dV(m,L.v))}</span>`;
       lm=`<span class="lm${old?' old':''}" title="Measured ${L.d.date}${old?' · over 18 months old':''}">${ago(mo)}</span>`;
-      if(ex)off=`<span class="exc ${st}">${ex} <em>${uLab(m)}</em></span>`;}
+      // No unit here on purpose: the Unit column is FROZEN, so it is already visible on
+      // this same row. Repeating it made the nowrap span up to 50px wider than its 150px
+      // cell, spilling over the gauge — and no fixed width fixes that for good, since a
+      // long label like "mmol/mol (IFCC)" would overflow again.
+      if(ex)off=`<span class="exc ${st}">${ex}</span>`;}
     const cells=ds.map((d,i)=>{const e=d.v[m.id];
       if(!e)return `<td class="c nil ${i===n-1?'dnow':''}">·</td>`;
       const v=toUS(m,e.r,e.u);      // canonical: status() must judge in canonical
