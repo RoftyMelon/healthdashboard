@@ -2926,6 +2926,225 @@ window.BLOODWORK =
       "u": "mUI/L"
      }
     }
+   },
+   {
+    "id": "d2026jul",
+    "date": "2026-07-20",
+    "note": "French lab (B2A Brumath; Cerba/Barbier for send-outs), 10h fast, drawn 08:37. OFF creatine — the clean kidney read the March draw could not give. hs-CRP printed '<0.6' and anti-TPO '<8.0'; both stored AT the limit because r must be a number, so read them as upper bounds, not measurements. The lab refused erythrocyte magnesium and substituted serum (the marker is serum, so it lands correctly). The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. Pending at Cerba/Barbier: ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG, zinc, copper, selenium, omega-3 index.",
+    "v": {
+     "rbc": {
+      "r": 4.94,
+      "u": "T/L"
+     },
+     "hb": {
+      "r": 15.3,
+      "u": "g/dL"
+     },
+     "hct": {
+      "r": 43.5,
+      "u": "%"
+     },
+     "mcv": {
+      "r": 88,
+      "u": "fL"
+     },
+     "mch": {
+      "r": 31.0,
+      "u": "pg"
+     },
+     "mchc": {
+      "r": 35.2,
+      "u": "g/dL"
+     },
+     "rdw": {
+      "r": 12.1,
+      "u": "%"
+     },
+     "wbc": {
+      "r": 4.18,
+      "u": "G/L"
+     },
+     "neut": {
+      "r": 2.47,
+      "u": "G/L"
+     },
+     "lymph": {
+      "r": 1.34,
+      "u": "G/L"
+     },
+     "mono": {
+      "r": 0.25,
+      "u": "G/L"
+     },
+     "eos": {
+      "r": 0.08,
+      "u": "G/L"
+     },
+     "baso": {
+      "r": 0.04,
+      "u": "G/L"
+     },
+     "plt": {
+      "r": 152,
+      "u": "G/L"
+     },
+     "glu": {
+      "r": 0.88,
+      "u": "g/L"
+     },
+     "a1c": {
+      "r": 5.1,
+      "u": "%"
+     },
+     "ins": {
+      "r": 4.2,
+      "u": "mUI/L"
+     },
+     "tg": {
+      "r": 0.65,
+      "u": "g/L"
+     },
+     "chol": {
+      "r": 2.05,
+      "u": "g/L"
+     },
+     "hdl": {
+      "r": 0.50,
+      "u": "g/L"
+     },
+     "nonhdl": {
+      "r": 1.55,
+      "u": "g/L"
+     },
+     "ldl": {
+      "r": 1.42,
+      "u": "g/L"
+     },
+     "crea": {
+      "r": 11.6,
+      "u": "mg/L"
+     },
+     "egfr": {
+      "r": 83.4,
+      "u": "mL/min/1.73m²"
+     },
+     "ua": {
+      "r": 250,
+      "u": "µmol/L"
+     },
+     "na": {
+      "r": 140,
+      "u": "mmol/L"
+     },
+     "k": {
+      "r": 4.0,
+      "u": "mmol/L"
+     },
+     "ca": {
+      "r": 2.4,
+      "u": "mmol/L"
+     },
+     "mg": {
+      "r": 0.86,
+      "u": "mmol/L"
+     },
+     "ast": {
+      "r": 22,
+      "u": "UI/L"
+     },
+     "alt": {
+      "r": 17,
+      "u": "UI/L"
+     },
+     "ggt": {
+      "r": 16,
+      "u": "UI/L"
+     },
+     "alp": {
+      "r": 63,
+      "u": "UI/L"
+     },
+     "bili": {
+      "r": 13,
+      "u": "µmol/L"
+     },
+     "ck": {
+      "r": 77,
+      "u": "UI/L"
+     },
+     "ferr": {
+      "r": 58,
+      "u": "µg/L"
+     },
+     "iron": {
+      "r": 14.5,
+      "u": "µmol/L"
+     },
+     "tsat": {
+      "r": 22,
+      "u": "%"
+     },
+     "hscrp": {
+      "r": 0.6,
+      "u": "mg/L"
+     },
+     "alb": {
+      "r": 51,
+      "u": "g/L"
+     },
+     "fol": {
+      "r": 6.3,
+      "u": "ng/mL"
+     },
+     "b12": {
+      "r": 522,
+      "u": "pg/mL"
+     },
+     "vitd": {
+      "r": 70.0,
+      "u": "nmol/L"
+     },
+     "tsh": {
+      "r": 1,
+      "u": "mUI/L"
+     },
+     "ft4": {
+      "r": 19.31,
+      "u": "pmol/L"
+     },
+     "atpo": {
+      "r": 8.0,
+      "u": "UI/mL"
+     },
+     "fsh": {
+      "r": 4.3,
+      "u": "UI/L"
+     },
+     "lh": {
+      "r": 4.6,
+      "u": "UI/L"
+     },
+     "e2": {
+      "r": 58.7,
+      "u": "pmol/L"
+     },
+     "prl": {
+      "r": 7.76,
+      "u": "ng/mL"
+     },
+     "tt": {
+      "r": 22.12,
+      "u": "nmol/L"
+     },
+     "pth": {
+      "r": 17.9,
+      "u": "pg/mL"
+     },
+     "cort": {
+      "r": 292.4,
+      "u": "nmol/L"
+     }
+    }
    }
   ]
  }
