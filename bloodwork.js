@@ -2881,7 +2881,7 @@ window.BLOODWORK =
    {
     "id": "d20230130",
     "date": "2023-01-30",
-    "note": "InsideTracker upload. Free T (0.9 ng/dL) excluded: 0.163% of that draw's total T, impossible as a true free fraction — almost certainly a direct/analog immunoassay reading on a different scale, not a transcription error. Cannot be plotted against the 47-244 pg/mL band either way.",
+    "note": "InsideTracker upload. Free T (0.9 ng/dL) excluded: 0.163% of that draw's total T, an order of magnitude below any plausible free fraction. Cause undetermined — a 10x transcription slip fits well (9.0 ng/dL = 90 pg/mL sits mid-band for Vermeulen on this draw), a different assay scale fits too. Not plottable against the 47-244 pg/mL band either way.",
     "v": {
      "wbc": {
       "r": 4.9,
