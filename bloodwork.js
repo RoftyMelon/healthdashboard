@@ -3018,43 +3018,39 @@ window.BLOODWORK =
    {
     "id": "d20230313",
     "date": "2023-03-13",
-    "note": "InsideTracker upload",
+    "note": "Cerballiance Barral (Marseille), drawn 09:45 — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: IgE came back 122 UI/mL against a reference of <100 and was flagged, with Phadiatop and Trophatop sent out (those results are not in this report and there is no IgE marker in this panel). Arrived via an InsideTracker upload that rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED THREE HAEMATOLOGY VALUES: lymphocytes 1.06 G/L against 1.34-3.92 (low), platelets 157 against 172-398 (low), and MPV 12.1 fL against 7.4-10.8 (high). READ THE MPV SERIES WITH CARE: across four reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one. Fibrinogen 2.0 g/L and an ESR of 2 mm / 5 mm were also run; neither has a marker here.",
     "v": {
      "wbc": {
-      "r": 4.2,
+      "r": 4.18,
       "u": "G/L"
      },
-     "hscrp": {
-      "r": 1.4,
-      "u": "mg/L"
-     },
      "neut": {
-      "r": 2520,
-      "u": "cells/µL"
+      "r": 2.52,
+      "u": "G/L"
      },
      "lymph": {
-      "r": 1060,
-      "u": "cells/µL"
+      "r": 1.06,
+      "u": "G/L"
      },
      "mono": {
-      "r": 460,
-      "u": "cells/µL"
+      "r": 0.46,
+      "u": "G/L"
      },
      "eos": {
-      "r": 90,
-      "u": "cells/µL"
+      "r": 0.09,
+      "u": "G/L"
      },
      "baso": {
-      "r": 50,
-      "u": "cells/µL"
+      "r": 0.05,
+      "u": "G/L"
      },
      "hb": {
-      "r": 15.2,
-      "u": "g/dL"
+      "r": 152,
+      "u": "g/L"
      },
      "rbc": {
-      "r": 5,
-      "u": "10⁶/µL"
+      "r": 5.04,
+      "u": "T/L"
      },
      "hct": {
       "r": 45.4,
@@ -3069,12 +3065,20 @@ window.BLOODWORK =
       "u": "pg"
      },
      "mchc": {
-      "r": 34,
-      "u": "g/dL"
+      "r": 335,
+      "u": "g/L"
      },
      "plt": {
       "r": 157,
       "u": "G/L"
+     },
+     "mpv": {
+      "r": 12.1,
+      "u": "fL"
+     },
+     "hscrp": {
+      "r": 1.4,
+      "u": "mg/L"
      }
     }
    },
