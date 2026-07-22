@@ -2931,7 +2931,7 @@ window.BLOODWORK =
    {
     "id": "d20230130",
     "date": "2023-01-30",
-    "note": "Cerballiance Clairval (Marseille), drawn 14h53 — an AFTERNOON draw, so this total T is NOT comparable to the morning draws either side of it; testosterone peaks around 08:00 and falls through the day. Hormone send-outs to CERBA. TESTOSTERONE LIBRE by RIA: 32.3 pmol/L / 9.3 pg/mL, in range against that assay's own printed reference of 30.0-87.0 pmol/L / 8.7-25.0 pg/mL. This is the value once stored as '0.9 ng/dL' and excluded as a suspected 10x transcription error — it was neither an error nor mislabelled: 9.3 pg/mL IS 0.93 ng/dL. What was wrong was the range it was judged against, the marker's 47-244 pg/mL, which belongs to a different method entirely. Kept as a note rather than a marker value: direct analog RIA free T is the method the Endocrine Society says not to use, and it shares no scale with the calculated free T this panel uses going forward.",
+    "note": "Cerballiance Clairval (Marseille), drawn 14h53 — an AFTERNOON draw, so this total T is NOT comparable to the morning draws either side of it; testosterone peaks around 08:00 and falls through the day. Hormone send-outs to CERBA. TESTOSTERONE LIBRE by RIA: 32.3 pmol/L / 9.3 pg/mL, in range against that assay's own printed reference of 30.0-87.0 pmol/L / 8.7-25.0 pg/mL. This is the value once stored as '0.9 ng/dL' and excluded as a suspected 10x transcription error — it was neither an error nor mislabelled: 9.3 pg/mL IS 0.93 ng/dL. What was wrong was the range it was judged against, the marker's 47-244 pg/mL, which belongs to a different method entirely. Kept as a note rather than a marker value: direct analog RIA free T is the method the Endocrine Society says not to use, and it shares no scale with the calculated free T this panel uses going forward. THE LAB FLAGGED THREE VALUES: platelets 153 against ITS OWN reference of 172-398 (this lab uses a narrower interval than the 150-400 this panel carries, so 153 reads normal here and low there), creatinine 106 umol/L against 59-104, and potassium 4.6 against 3.4-4.5 on a heparinised tube. The report also notes 'serum legerement lactescent' — mild lipaemia, which can interfere with spectrophotometric assays.",
     "v": {
      "wbc": {
       "r": 4.9,
@@ -2998,8 +2998,8 @@ window.BLOODWORK =
       "u": "fL"
      },
      "crea": {
-      "r": 106,
-      "u": "µmol/L"
+      "r": 12.0,
+      "u": "mg/L"
      },
      "egfr": {
       "r": 82,
