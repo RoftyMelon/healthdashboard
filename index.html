@@ -1020,7 +1020,13 @@ function derive(j){
   const put=(d,id,v,u)=>{d.v[id]={r:Math.round(v*100)/100,u};};
   j.DATA.draws.forEach(d=>{
     const ca=d.v.ca,al=d.v.alb;
-    if(!ca||!al)delete d.v.cacorr;               // needs BOTH; a stale one must not survive
+    // Needs BOTH, and a stale one must not survive. The albumin ceiling is the SOURCE LAB'S
+    // OWN RULE, printed verbatim on the 2022 report: "Calcium corrigé non indiqué car
+    // albumine >40 g/L". Above 40 g/L the correction subtracts (albumin-4) from a calcium
+    // that never needed correcting, manufacturing a low reading out of a normal one — which
+    // is exactly what it did here, ranking 8.3 as the worst flag on the panel against a
+    // measured 9.4. Refusing to compute is what the lab does; an empty cell is the finding.
+    if(!ca||!al||canon(AL,al)>4)delete d.v.cacorr;
     else{
       // the SOURCE LAB'S coefficient (1.0 mg/L per g/L albumin), not Payne's 0.02 mmol/L —
       // so the number reproduces the printed report instead of quietly disagreeing with it.

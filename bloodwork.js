@@ -394,7 +394,7 @@ window.BLOODWORK =
   {
    "id": "cacorr",
    "cat": "vitmin",
-   "calc": "DERIVED, never stored: ca − (alb in g/dL − 4.0). Computed at load from the same draw's calcium and albumin — see derive() in index.html. The coefficient is the SOURCE LAB'S (1.0 mg/L per g/L of albumin), not Payne's 0.02 mmol/L, so the figure reproduces what the lab printed rather than disagreeing with the report a clinician is holding.",
+   "calc": "DERIVED, never stored: ca − (alb in g/dL − 4.0). Computed at load from the same draw's calcium and albumin — see derive() in index.html. The coefficient is the SOURCE LAB'S (1.0 mg/L per g/L of albumin), not Payne's 0.02 mmol/L, so the figure reproduces what the lab printed rather than disagreeing with the report a clinician is holding. NOT COMPUTED WHEN ALBUMIN EXCEEDS 40 g/L (4.0 g/dL) — the source lab's own rule, printed verbatim on the 2022 report: 'Calcium corrigé non indiqué car albumine >40 g/L'. Above that the correction subtracts a large (albumin − 4) from a calcium that needed no correction, turning a normal result into a falsely low one. Every draw here that measured albumin measured it above 40 (52.9 g/L in 2022, 51 in July 2026), so this row is expected to be EMPTY and that emptiness is the answer, not a gap: for this person, corrected calcium is not indicated. Read the measured calcium instead.",
    "en": "Corrected calcium",
    "fr": "Calcium corrigé",
    "us": "mg/dL",
@@ -1812,6 +1812,27 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "mpv",
+   "cat": "cbc",
+   "en": "MPV",
+   "fr": "V.P.M.",
+   "us": "fL",
+   "units": [
+    {
+     "l": "fL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    7,
+    11
+   ],
+   "axis": [
+    5,
+    14
+   ]
+  },
+  {
    "id": "plt",
    "cat": "cbc",
    "dec": [
@@ -2662,6 +2683,10 @@ window.BLOODWORK =
       "r": 166,
       "u": "G/L"
      },
+     "mpv": {
+      "r": 9.2,
+      "u": "fL"
+     },
      "glu": {
       "r": 1.05,
       "u": "g/L"
@@ -2825,6 +2850,10 @@ window.BLOODWORK =
       "r": 172,
       "u": "G/L"
      },
+     "mpv": {
+      "r": 11.7,
+      "u": "fL"
+     },
      "glu": {
       "r": 0.85,
       "u": "g/L"
@@ -2963,6 +2992,10 @@ window.BLOODWORK =
      "plt": {
       "r": 153,
       "u": "G/L"
+     },
+     "mpv": {
+      "r": 9.4,
+      "u": "fL"
      },
      "crea": {
       "r": 106,
