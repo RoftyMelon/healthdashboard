@@ -1480,6 +1480,12 @@ function setPage(p){
   requestAnimationFrame(()=>{setTop();movePtu();});
   setTimeout(()=>setTop(),400);   // again once layout settles
   window.scrollTo({top:0});
+  // Deep link: the open tab is mirrored into the URL HASH so any page can be shared directly.
+  // It must be the hash and NEVER the query string — location.search is already spoken for as
+  // the bloodwork.js cache-buster (see the document.write in <head>), so a ?page= would change
+  // the script URL it fetches. replaceState, not pushState: tab-switching shouldn't stack up
+  // back-button history.
+  try{history.replaceState(null,'',p==='markers'?location.pathname+location.search:'#'+p);}catch(e){}
 }
 function renderPage(p){
   // an exercise renders as a gridless set table: one column per set, kg over reps.
@@ -1853,4 +1859,11 @@ document.getElementById('tbl').addEventListener('mousedown',e=>{
 });
 
 load();
+// ...and honour an incoming one: a shared #grooming link opens on that tab. After load(), so
+// the data is already in. hashchange too, so pasting a different #tab into the bar navigates.
+try{
+  const openHash=()=>{const h=(location.hash||'').replace(/^#/,'');if(h&&PAGES[h])setPage(h);};
+  openHash();
+  window.addEventListener('hashchange',openHash);
+}catch(e){}
 </script>
