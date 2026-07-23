@@ -134,37 +134,27 @@ window.BLOODWORK =
   {"t": "22:00", "do": "Lights out"}
  ],
  "CARE": [
-  {"id": "face", "t": "Skincare", "schedule": {
-   "days": [
-    {"d": "Mon"},
-    {"d": "Tue"},
-    {"d": "Wed"},
-    {"d": "Thu"},
-    {"d": "Fri"},
-    {"d": "Sat"},
-    {"d": "Sun", "tag": "needle", "hi": true}
-   ],
-   "sections": [
-    {"t": "Morning", "icon": "sun", "rows": [
-     {"n": "Vitamin C 10% solution", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
-     {"n": "Serum → Moisturizer → SPF 50", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
-     {"n": "Finasteride 0.1% + Minoxidil 5%", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+  {"id": "face", "t": "Skincare",
+   "groups": [
+    {"t": "Morning", "items": [
+     "Vitamin C 10% solution",
+     "Serum → Moisturizer → SPF 50",
+     "Finasteride 0.1% + Minoxidil 5%"
     ]},
-    {"t": "Before sleep", "icon": "moon", "rows": [
-     {"n": "Retinal 0.2%", "on": ["Mon", "Tue", "Thu", "Fri", "Sat"]},
-     {"n": "Glycolic 7%", "on": ["Wed"]},
-     {"n": "Moisturizer", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-     {"n": "Body lotion 12% AHA", "on": ["Tue", "Thu", "Sat"]},
-     {"n": "Finasteride 0.1% + Minoxidil 5%", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-     {"n": "Matrixyl 10% + HA", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-     {"n": "Petroleum", "on": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
+    {"t": "Before sleep", "items": [
+     "Retinal 0.2%",
+     "Moisturizer",
+     "Body lotion 12% AHA",
+     "Finasteride 0.1% + Minoxidil 5%",
+     "Matrixyl 10% + HA",
+     "Petroleum"
     ]}
    ],
    "notes": [
+    "Glycolic 7% once a week instead of Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
     "Finasteride + minoxidil skip the needling evening — fresh channels spike absorption."
-   ]
-  }},
+   ]},
   {"id": "dental", "t": "Dental", "groups": [
    {"t": "Daily", "items": [
     "Water jet + toothbrush 2-3x/day",

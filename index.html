@@ -1494,7 +1494,10 @@ function renderPage(p){
     const inner=c.groups
       ?c.groups.map(g=>`<div class="cgrp">${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
-    return `<div class="ccard"><b>${esc(c.t)}</b>${inner}</div>`;}).join('')+`</div>`;
+    // footer notes under a list card (Skincare): the same .cgnote the schedule grid used, so a
+    // card that dropped its dot-matrix keeps its footnotes reading exactly as before.
+    const notes=(c.notes||[]).map(n=>`<div class="cgnote">${esc(n)}</div>`).join('');
+    return `<div class="ccard"><b>${esc(c.t)}</b>${inner}${notes}</div>`;}).join('')+`</div>`;
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
     sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
@@ -1552,9 +1555,10 @@ function renderPage(p){
     const ml=STACK.cats.find(c=>c.id==='maylater'); if(ml)h+=renderCat(ml);   // parking lot, at the very foot
   } else if(p==='grooming'&&CARE.length){
     // the face schedule renders as a day-indexed grid; the dental protocol stays a cadence card
+    const grids=CARE.filter(c=>c.schedule);
     h=`<div class="pgh">Grooming</div><div class="pgsub">${CARE.map(c=>esc(c.t)).join(' &middot; ')}</div>`+
       `<div class="gwrap">`+
-        `<div class="cgscroll">`+CARE.filter(c=>c.schedule).map(careGrid).join('')+`</div>`+
+        (grids.length?`<div class="cgscroll">`+grids.map(careGrid).join('')+`</div>`:'')+   // no grid left → no empty scroller
         cardRow(CARE.filter(c=>!c.schedule),'wide')+
       `</div>`;
   } else if(p==='routine'&&ROUTINE.length){
