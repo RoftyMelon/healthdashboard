@@ -1581,9 +1581,16 @@ function renderPage(p){
        if(e2.length&&em2.every(x=>x!=null)&&Math.max(...em2)<1)supr.add(hh+1);
        hh++;}}
     const mark=hh=>`<i class="rhl${lt.has(hh)&&!supr.has(hh)?' lt':''}">${String(hh).padStart(2,'0')}:00</i>`;
+    // minutes, not parseInt hours: the moment a first/last time carries a :30 (lights-out
+    // is 22:30) the hour-only math reads it as 22:00 and prints "9h" for a true 8h30. dur()
+    // keeps the half and formats "8h30" / "15h30", collapsing to a bare "9h" when it lands
+    // on the hour so the common case is unchanged.
+    const _min=t=>{const[a,b]=t.split(':');return +a*60+ +b;},
+          dur=mn=>{const H=Math.floor(mn/60),M=mn%60;return M?`${H}h${String(M).padStart(2,'0')}`:`${H}h`;},
+          _wake=_min(ROUTINE[ROUTINE.length-1].t)-_min(ROUTINE[0].t);
     h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
-      `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${24-(H1-H0)}h bed time<br>`+
-      `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${H1-H0}h wake time</div>`;
+      `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${dur(1440-_wake)} bed time<br>`+
+      `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${dur(_wake)} wake time</div>`;
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
