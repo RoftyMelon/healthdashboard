@@ -579,6 +579,10 @@ a.sbuy:hover{color:var(--info)}
 .drow .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ccard li.drow:last-child{border-bottom:.5px solid var(--line2)}   /* the last food in a meal keeps its line, closing the list before Supplements */
 .drow .exinfo,.srow.lite .exinfo{top:calc(100% + 4px);left:0;right:auto}   /* Diet food tips drop BELOW their own row, not the card corner */
+/* Same treatment for a skincare product row carrying a caveat: position:relative makes the ROW
+   the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
+.ccard li.lrow{position:relative}
+.ccard li.lrow .exinfo{top:calc(100% + 4px);left:0;right:auto;max-width:min(94vw,260px)}
 .ccard li:last-child{border-bottom:none}
 .ccard li.crs{padding:0;height:9px;border-bottom:none}   /* a "---" item = course gap */
 .cempty{font-size:15px;color:var(--t4);padding:8px 0 2px}
@@ -1482,8 +1486,14 @@ function renderPage(p){
   // Long protocol details hide behind an info tip so the cards stay narrow.
   const exRow=x=>{
     if(typeof x==='string')return `<li>${esc(x).replace(/\n/g,'<br>')}</li>`;
-    // a product row that links out (skincare) — the ↗ hugs the name, same glyph/class as the Stack buy link
-    if(x.url)return `<li>${esc(x.n)} <a class="sbuy" href="${esc(x.url)}" target="_blank" rel="noopener" aria-label="Open ${esc(x.n)}">&#8599;</a></li>`;
+    // a product row that links out and/or carries a caveat tip (skincare). ↗ is the Stack's buy
+    // glyph. The ⓘ button and its bubble MUST stay adjacent siblings — the CSS reveals the bubble
+    // via `.infob:hover+.exinfo`, so anything inserted between them silently kills the tooltip.
+    if(x.url||x.info){
+      const link=x.url?` <a class="sbuy" href="${esc(x.url)}" target="_blank" rel="noopener" aria-label="Open ${esc(x.n)}">&#8599;</a>`:'';
+      const tip=x.info?`<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo">${esc(x.info)}</div>`:'';
+      return `<li${x.info?' class="lrow"':''}>${esc(x.n)}${link}${tip}</li>`;
+    }
     // uniform weight AND reps (the usual case) collapse to ONE line on the name:
     // "40kg - 3x5". Uniform weight with mixed reps keeps a reps row; mixed weights
     // keep the full per-set kg/reps columns.
