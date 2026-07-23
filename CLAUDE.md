@@ -4,7 +4,7 @@ A personal biomarker dashboard. Two files, and the separation between them is th
 
 | file | role |
 |---|---|
-| `bloodwork.js` | **The data. The single source of truth.** 66 markers, 6 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
+| `bloodwork.js` | **The data. The single source of truth.** 76 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
 | `index.html` | **The viewer. Contains ZERO data.** Loads `bloodwork.js` via `<script src>`. |
 
 **Never put data in `index.html`. Never put UI in `bloodwork.js`.** If you find yourself
@@ -16,7 +16,7 @@ about to, stop and ask.
 
 ```
 python3 tools/check-css.py     # dangling/mangled selectors, undefined vars
-node     tools/check-js.js     # BOOTS the page and asserts it renders 66 rows
+node     tools/check-js.js     # BOOTS the page and asserts it renders 76 rows
 ```
 
 **Both must pass. Every time. No exceptions.**
@@ -40,6 +40,9 @@ list below **passed a syntax check and shipped a broken page**:
   Hold the observer in a variable AND re-measure explicitly at the mutation site
   (setPage). Related: the Preview pane throttles rendering — rAF/ResizeObserver
   callbacks may never run there; only synchronous reads are trustworthy in it.
+- the ⓘ tooltip is revealed by `.infob:hover+.exinfo` — an **adjacent-sibling** selector. The
+  button and its bubble must be emitted back-to-back with nothing between them. Insert anything
+  and the tooltip silently stops opening: no error, no warning, the ⓘ just does nothing.
 - `position:static` killed sticky on **both** axes when only the horizontal was wanted
 - `--thh` was **circular**: the header was sized from it and it was measured back from the header
 - `offsetLeft` on a table cell resolves against a **different origin** depending on the cell's
@@ -66,6 +69,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
    manual toggle (persisted) overrides the OS for good. All of it try/catch'd: JS dies → light.
 7. **Anything that must appear "with" an expansion must live ON the animated element.**
    Two independent easings will not agree.
+8. **The open tab lives in the URL HASH (`#grooming`), never the query string.**
+   `location.search` is already spoken for: the head's `document.write` appends it to the
+   `bloodwork.js` script src as a cache-buster. A `?page=` would change which script URL is
+   fetched. `setPage` mirrors the tab into the hash with `replaceState` (not `pushState` —
+   tab-switching must not stack back-button history).
 
 ## Data rules
 
@@ -76,10 +84,27 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   (strong / moderate / weak). Do not present a weak target as a finding.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
+- Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
+  (from transferrin), free testosterone (Vermeulen, from total T + SHBG + albumin). A MEASURED
+  value must always win — that is what the `!d.v.<id>` guards are for. Corrected calcium is
+  deliberately **not computed when albumin exceeds 40 g/L**: that is the source lab's own
+  printed rule, and above it the correction subtracts a large (albumin − 4) from a calcium that
+  needed no correcting, manufacturing a low reading out of a normal one. Every albumin in this
+  file is above 40, so that row is expected to be **empty — and the emptiness IS the finding**.
+  Do not "fix" an empty derived row by inventing a value.
+- **Distrust any draw that reached this file through a third-party export.** The 2020–2024 draws
+  came via InsideTracker, which RE-CONVERTED the lab's SI values instead of transcribing the
+  printed ones: results arrived rounded (RBC 5.26→5.3, MCHC 347 g/L→34) and whole panels were
+  silently dropped (2020 held 30 of its 38 values; the entire thyroid panel was missing). All
+  six original reports have now been reconciled against the file. Enter what the lab PRINTED.
 - `STACK`, `ROUTINE`, `DIET`, `TRAINING`, `NEXTDRAW`, `CARE` feed the tab pages (Stack /
-  Routine / Diet / Training / Next Draw / Grooming); `CARE` is the Grooming tab — Dental as a
-  cadence card, Skincare (id 'face') as a day-indexed weekly grid (`.schedule`: days[]/sections[]/rows{n,on[]},
-  a dot-matrix; every `on` day name must exist in `days[]` or `audit()` refuses to render).
+  Routine / Diet / Training / Next Draw / Grooming); `CARE` is the Grooming tab — Dental AND
+  Skincare (id 'face') are both cadence cards now: `groups:[{t, icon?, items[]}]` plus an
+  optional card-level `notes[]` that renders as bulleted footnotes under the list. An item is
+  either a plain string or `{n, url?, info?}` — `url` draws a ↗ (the Stack's `.sbuy` link),
+  `info` draws a ⓘ tooltip. Skincare was a day-indexed dot-matrix (`.schedule`: days[]/rows{n,on[]})
+  until 2026-07; `careGrid()` still renders that shape, but no card uses it — do not "restore"
+  the grid, the days were removed deliberately and the frequencies now live in `notes[]`.
   Statuses are a closed enum (taking / candidate / stopped / dropped / planned); `when` is the
   meal a supplement rides with — **null means not yet assigned, never guess it**. The Diet
   page derives its supplement lists from `STACK.when` at render time: timing is written in ONE
