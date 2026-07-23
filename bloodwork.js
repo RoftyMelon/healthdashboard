@@ -156,7 +156,8 @@ window.BLOODWORK =
    ],
    "notes": [
     "Glycolic 7% once a week instead of Retinal",
-    "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly."
+    "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
+    "No Retinal after microneedling; slug with Infadolan instead of Petrolatum"
    ]},
   {"id": "dental", "t": "Dental", "groups": [
    {"t": "Daily", "items": [
