@@ -147,9 +147,9 @@ window.BLOODWORK =
      "Retinal 0.2%",
      "Moisturizer",
      "Body lotion 12% AHA",
-     "Finasteride 0.1% + Minoxidil 5%",
      "Matrixyl 10% + HA",
-     "Petroleum"
+     "Petroleum",
+     "Finasteride 0.1% + Minoxidil 5%"
     ]}
    ],
    "notes": [

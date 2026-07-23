@@ -630,8 +630,11 @@ a.sbuy:hover{color:var(--info)}
 .cgdot{width:9px;height:9px;border-radius:50%;background:var(--txt)}
 .cgdot.off{width:2.5px;height:2.5px;background:var(--t4)}   /* skipped: a faint whisper, not blank */
 .cgdot.hi{width:11px;height:11px;background:var(--sel)}   /* the microneedle, the week's one procedure */
-.cgnote{font-size:11.5px;color:var(--t3);line-height:1.55;margin-top:13px;border-top:.5px solid var(--line);padding-top:10px}
-.cgnote~.cgnote{border-top:none;margin-top:3px;padding-top:0}   /* stacked notes: only the first carries the divider */
+.cgnote{font-size:11.5px;color:var(--t3);line-height:1.55;margin-top:13px;border-top:.5px solid var(--line);
+  padding:10px 0 0 14px;position:relative}   /* left pad = room for the bullet, with a hanging indent on wrap */
+.cgnote::before{content:"•";position:absolute;left:2px;top:10px;color:var(--t4)}   /* aligns with the first (padded) line */
+.cgnote~.cgnote{border-top:none;margin-top:6px;padding-top:0}   /* stacked notes: only the first carries the divider */
+.cgnote~.cgnote::before{top:0}   /* later notes have no top padding, so the bullet rides up with the text */
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   .orbit-disc,.icon-moon,.icon-sun{transition:none!important}
