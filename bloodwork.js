@@ -141,16 +141,16 @@ window.BLOODWORK =
      {"n": "Serum - Niacinamide 10% (B3) + Zinc PCA + Sarcosine", "url": "https://geekandgorgeous.com/products/b-bomb"},
      {"n": "Moisturizer - Ceramides + Cholesterol", "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"},
      {"n": "SPF 50", "url": "https://roundlab.com/en-ca/products/birch-moisturizing-uv-sunscreen?variant=43645688021206"},
-     "Finasteride 0.1% + Minoxidil 5%"
+     "Serum - Finasteride 0.1% + Minoxidil 5%"
     ]},
     {"t": "Before sleep", "icon": "moon", "items": [
      {"n": "Body lotion 12% AHA", "info": "Apply immediately after shower while still wet"},
      {"n": "Retinal 0.2%", "url": "https://geekandgorgeous.com/products/a-game-20"},
      {"n": "Moisturizer - Ceramides + Cholesterol", "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"},
-     {"n": "Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
-     {"n": "Copper Peptides 1%", "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html", "info": "Do not apply on Glycolic Acid days"},
+     {"n": "Serum - Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
+     {"n": "Serum - Copper Peptides 1%", "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html", "info": "Do not apply on Glycolic Acid days"},
      "Slugging - Petrolatum",
-     "Finasteride 0.1% + Minoxidil 5%",
+     "Serum - Finasteride 0.1% + Minoxidil 5%",
      {"n": "Serum - Greyverse", "url": "https://neofollics.com/products/anti-grey-hair-serum"}
     ]}
    ],
