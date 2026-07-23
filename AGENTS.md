@@ -150,14 +150,17 @@ git init
 git add .
 git commit -m "Bloodwork panel"
 git branch -M main
-gh repo create bloodwork --public --source=. --push
+gh repo create healthdashboard --public --source=. --push
 
 # turn on Pages, serving main / root
-gh api --method POST /repos/{owner}/bloodwork/pages \
+gh api --method POST /repos/{owner}/healthdashboard/pages \
   -f "source[branch]=main" -f "source[path]=/"
 ```
 
-Live in ~60s at `https://<user>.github.io/bloodwork/`.
+Live in ~60s at `https://<user>.github.io/healthdashboard/`. Tabs deep-link off the hash:
+`…/healthdashboard/#grooming`. (The repo was renamed from `bloodwork` on 2026-07-23 — the
+DATA file is still `bloodwork.js`, which is accurate: it holds bloodwork. The repo covers
+more than that. GitHub Pages does NOT redirect a renamed repo, so the old path is dead.)
 On the iPhone: open it in Safari → **Share → Add to Home Screen**. It runs standalone —
 no address bar, no toolbar. That is what all the chrome-trimming was for.
 
