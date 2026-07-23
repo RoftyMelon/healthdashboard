@@ -144,7 +144,7 @@ window.BLOODWORK =
      "Finasteride 0.1% + Minoxidil 5%"
     ]},
     {"t": "Before sleep", "icon": "moon", "items": [
-     "Retinal 0.2%",
+     {"n": "Retinal 0.2%", "url": "https://geekandgorgeous.com/products/a-game-20"},
      {"n": "Moisturizer - Ceramides + Cholesterol", "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"},
      "Body lotion 12% AHA",
      {"n": "Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
