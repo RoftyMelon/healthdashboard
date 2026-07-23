@@ -586,7 +586,10 @@ a.sbuy:hover{color:var(--info)}
 .cwhen{margin-left:8px;font-size:13px;font-weight:450;color:var(--t4);font-variant-numeric:tabular-nums}
 .ckcal{margin-left:8px;font-size:12.5px;font-weight:450;color:var(--t3);font-variant-numeric:tabular-nums}
 .care.col{flex-direction:column;overflow:visible;width:auto;max-width:none}
-.care.wide{margin-top:34px;width:auto;max-width:none}   /* air above; fill the width (mobile) instead of hugging one 344px card */
+.care.wide{margin-top:34px;width:auto;max-width:none;display:flex;flex-direction:column;gap:14px;overflow-x:visible}
+   /* stacked (superposé): the grooming cards sit one above the other. display+direction are set
+      HERE, at .care.wide specificity, so they beat the desktop `.care{display:grid}` (side-by-side)
+      and the mobile `.care{flex-direction:row;overflow-x:auto}` (horizontal pan) both. */
 /* The dental card is sized to ITS OWN content, never padded out to match the day-grid
    beside it — and the width is chosen to control WHERE the long line wraps.
    Measured, at this font: "Alternate thread floss & interdental brushes" = 316px,
