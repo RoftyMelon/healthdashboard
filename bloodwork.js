@@ -100,7 +100,6 @@ window.BLOODWORK =
    {"id": "essentials", "t": "Essentials"},
    {"id": "skin", "t": "Skin"},
    {"id": "sport", "t": "Sport"},
-   {"id": "hair", "t": "Hair loss"},
    {"id": "maylater", "t": "May add later", "note": "The trial tier — plausible but unproven for me. Each is added alone as a 3-month experiment after the bloodwork, judged by the readout below, then kept, cycled, or (usually) dropped."}
   ],
   "items": [
