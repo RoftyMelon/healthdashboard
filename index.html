@@ -583,6 +583,11 @@ a.sbuy:hover{color:var(--info)}
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
 .ccard li.lrow .exinfo{top:calc(100% + 4px);left:0;right:auto;max-width:min(94vw,260px)}
+/* The ↗ in a card list. Scoped to .ccard li so the Stack's own .sbuy (a flex item in .srow,
+   where align-self:center already centres it) is untouched. Here the <li> is a block, so the
+   arrow is an inline 11px glyph sitting on the 16px text's baseline — measured 1.7px below the
+   row's optical centre. top:-2px lifts it; margin-left widens the single space to a real gap. */
+.ccard li .sbuy{margin-left:4px;position:relative;top:-2px}
 .ccard li:last-child{border-bottom:none}
 .ccard li.crs{padding:0;height:9px;border-bottom:none}   /* a "---" item = course gap */
 .cempty{font-size:15px;color:var(--t4);padding:8px 0 2px}
