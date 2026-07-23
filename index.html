@@ -710,6 +710,11 @@ a.sbuy:hover{color:var(--info)}
   .pgsec{max-width:335px}   /* phone rows are narrower: rules hug the text */
   td.nm{font-size:15px}
   td.nm .fr{font-size:12.5px}
+  /* Card footnotes: 11.5px reads fine on a laptop and too small on a phone. Bumped here, in
+     the media block, NOT on the base rule — media queries add no specificity, so a later base
+     rule would silently win and the phone would go back to 11.5px with nothing to show for it. */
+  .cgnote{font-size:13px;line-height:1.5}
+  .cgnote::before{top:9px}   /* the bullet re-aligns to the taller first line */
   /* --nmw is driven by scrollX in JS, so it eases from 164px to 78px as you pull sideways.
      Names ellipsis rather than disappear, and the row height never jumps. */
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
