@@ -149,7 +149,7 @@ window.BLOODWORK =
      "Body lotion 12% AHA",
      {"n": "Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
      {"n": "Copper Peptides 1%", "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html", "info": "Do not apply on Glycolic Acid days"},
-     "Petroleum",
+     "Slugging - Petrolatum",
      "Finasteride 0.1% + Minoxidil 5%"
     ]}
    ],
