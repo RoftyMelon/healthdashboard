@@ -136,12 +136,14 @@ window.BLOODWORK =
  "CARE": [
   {"id": "face", "t": "Skincare",
    "groups": [
-    {"t": "Morning", "items": [
+    {"t": "Morning", "icon": "sun", "items": [
      "Vitamin C 10% solution",
-     "Serum → Moisturizer → SPF 50",
+     "Serum",
+     "Moisturizer",
+     "SPF 50",
      "Finasteride 0.1% + Minoxidil 5%"
     ]},
-    {"t": "Before sleep", "items": [
+    {"t": "Before sleep", "icon": "moon", "items": [
      "Retinal 0.2%",
      "Moisturizer",
      "Body lotion 12% AHA",
@@ -151,9 +153,9 @@ window.BLOODWORK =
     ]}
    ],
    "notes": [
+    "Finasteride + minoxidil skip the needling evening — fresh channels spike absorption.",
     "Glycolic 7% once a week instead of Retinal",
-    "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
-    "Finasteride + minoxidil skip the needling evening — fresh channels spike absorption."
+    "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly."
    ]},
   {"id": "dental", "t": "Dental", "groups": [
    {"t": "Daily", "items": [
