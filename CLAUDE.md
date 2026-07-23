@@ -55,6 +55,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
 ## Rules that are load-bearing
 
 1. **Media queries go LAST in the stylesheet.** They add no specificity; a later base rule wins.
+   The same applies BETWEEN media queries: when two both match, the one further down the file
+   wins. Checking that your override follows the *base* rule is not enough — grep the selector
+   and read every hit. A `.cgnote` bump inside `max-width:900px` was silently beaten by an 8px
+   rule in a `max-width:580px` block 70 lines later, and the phone rendered 8px for a day.
 2. **`--thh` and `--nm` are DECLARED, never measured.** The header is sized by `--thh` and the
    section bar is offset by `--thh`. If a measured value and a declared value drift by 1px, a
    row's frozen cells shine through the seam.
@@ -161,8 +165,6 @@ Live in ~60s at `https://<user>.github.io/healthdashboard/`. Tabs deep-link off 
 `…/healthdashboard/#grooming`. (The repo was renamed from `bloodwork` on 2026-07-23 — the
 DATA file is still `bloodwork.js`, which is accurate: it holds bloodwork. The repo covers
 more than that. GitHub Pages does NOT redirect a renamed repo, so the old path is dead.)
-On the iPhone: open it in Safari → **Share → Add to Home Screen**. It runs standalone —
-no address bar, no toolbar. That is what all the chrome-trimming was for.
 
 ## Every deploy after that
 

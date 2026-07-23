@@ -786,11 +786,10 @@ a.sbuy:hover{color:var(--info)}
   .bar{gap:4px}
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
 }
-@media(max-width:580px){   /* the grid layout is now identical at every width (a content-width card that
-  pans in .cgscroll when it can't fit), so the only phone-specific tweak left is the footnotes, which
-  read too large on a small screen. */
-  .cgnote{font-size:8px}
-}
+/* (A max-width:580px block used to shrink .cgnote to 8px. That was written when this card was a
+   day-indexed dot-matrix, where the footnotes sat under a wide panning grid and had to stay out of
+   the way. The card is a plain list now and 8px was simply unreadable on a phone. Removed 2026-07-23
+   so the 13px set in the max-width:900px block above actually reaches the phone.) */
 </style>
 <script>
 /* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
