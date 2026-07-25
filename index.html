@@ -510,12 +510,10 @@ html.tabhid .tabrow{max-height:0;opacity:0;margin-bottom:0;padding-top:0;pointer
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ptabs::-webkit-scrollbar{display:none}
 /* .swap now wraps just the search + filter pills (search opening scrolls the pills). */
-/* Pinned inside the row's scroller: the line still scrolls as one gesture, but the search and
-   filter pills hold the left edge while the categories slide under them — otherwise reaching
-   the last category pushes the filters off-screen entirely. The hairline rides here too, so
-   the divider stays with the block it divides. */
+/* Not pinned: the whole row — search, filters, hairline, categories — scrolls as one unit.
+   flex:none so it sizes to its content rather than absorbing the free space, which is what
+   lets the row overflow and scroll at all. */
 .swap{display:flex;align-items:center;gap:inherit;flex:none;min-width:0;
-  position:sticky;left:0;z-index:2;background:var(--bg);
   padding-right:11px;margin-right:6px;border-right:1px solid var(--line);
   flex-wrap:nowrap;overflow-x:auto;                /* search opens -> pills scroll, never wrap */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
