@@ -3275,7 +3275,7 @@ window.BLOODWORK =
       "lr": [null, 5],
       "lt": true,
       "a": "Immuno-Turbidimétrie Beckman",
-      "an": "CRP STANDARD, réf <5 mg/L — pas ultra-sensible"
+      "an": "CRP STANDARD, pas ultra-sensible — voir lr"
      },
      "tsh": {
       "r": 0.783,
