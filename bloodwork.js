@@ -321,7 +321,7 @@ window.BLOODWORK =
     {"n": "Berries (frozen)", "amt": "50 g", "info": {"Per 50g (mixed)":[["Energy","26 kcal","1%"],["Carbs","6 g","2%"],["– sugars","3 g","4%"],["Fibre","2 g"],["Protein","0.5 g","1%"]],"Standouts":[["Anthocyanins","~100 mg"],["Vit C","15 mg","19%"],["Manganese","0.2 mg","11%"],["Vit K","7 mcg","10%"]]}}
    ]},
    {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
-    {"n": "Coffee", "amt": "1 cup", "info": {"Per cup (~240 ml)":[["Energy","2 kcal"],["Caffeine","~95 mg"],["Potassium","116 mg","6%"],["Chlorogenic acids","~200 mg"]]}},
+    {"n": "Coffee (half-caff) + milk", "amt": "230 + 100 ml", "info": {"Per 330 ml":[["Energy","~50 kcal","2%"],["Protein","3.4 g","7%"],["Fat","1.7 g","2%"],["Carbs (lactose)","4.8 g","2%"]],"Standouts":[["Caffeine","~80 mg"],["Chlorogenic acids","~150 mg"],["Calcium","120 mg","15%"],["Potassium","~260 mg","13%"]]}},
     "---",
     {"n": "Mozzarella di bufala", "amt": "100 g", "info": {"Per 100 g":[["Energy","275 kcal","14%"],["Protein","17 g","34%"],["Fat","22 g","31%"],["– saturates","15 g","75%"],["Salt","0.5 g","8%"]],"Minerals":[["Calcium","350 mg","44%"],["Phosphorus","350 mg","50%"],["Zinc","2 mg","20%"]]}},
     {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
