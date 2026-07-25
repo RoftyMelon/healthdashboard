@@ -818,7 +818,10 @@ a.sbuy:hover{color:var(--info)}
   /* --nmw is driven by scrollX in JS, so it eases from 164px to 78px as you pull sideways.
      Names ellipsis rather than disappear, and the row height never jumps. */
   th.nm,td.nm{width:var(--nmw,164px);min-width:var(--nmw,164px);max-width:var(--nmw,164px);
-    padding-left:10px;padding-right:6px}
+    /* 15px, matching the base rule: this block is a media query and therefore LATER in the
+       file, so leaving 10px here silently beat the base and only the phone kept the chevron
+       jammed against the names. */
+    padding-left:15px;padding-right:6px}
   /* Grooming cards run EDGE-TO-EDGE on a phone: the day-grid can never fit 7 columns, so it
      pans — and every pixel of gutter is a pixel of grid you can't see. The dental card gets
      the same treatment so the two still line up. Negative gutter margins, NOT width:100vw:
