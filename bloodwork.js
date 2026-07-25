@@ -248,7 +248,7 @@ window.BLOODWORK =
   "sections": [
    {
     "t": "Identity",
-    "line": "Male · born February 1995 · 187 cm · France",
+    "line": "Male · 187 cm · ~80 kg · ~12% bodyfat · born Feb 1995 · France",
     "rows": []
    },
    {
