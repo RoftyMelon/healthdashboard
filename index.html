@@ -1635,7 +1635,7 @@ function render(){
       // the bar doubles as a JUMP: goto() already clears the query (via setF) and scrolls,
       // which is exactly "drop the search and show me this section in the real table".
       if(r2.length)h+=SEC(c.id,
-        `<button class="gjump" onclick="goto('${c.id}')" title="Clear the search and jump to ${esc(c.t)}">`+
+        `<button class="gjump" onclick="goto('${c.id}')">`+
         `${esc(c.t)}<span class="gjc" aria-hidden="true">&rsaquo;</span></button>`,
         r2.length+(r2.length===1?' marker':' markers'),r2.map(R).join(''));
     });
