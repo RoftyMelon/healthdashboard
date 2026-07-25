@@ -291,12 +291,16 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    the SAME rule as .chart — two independent easings would not agree on an expansion. The
    label is scoped .dassay>b, not .dassay b: a container rule matching every descendant <b>
    is exactly how 84 set numbers once rendered at title size. */
+/* white-space:normal is LOAD-BEARING and not cosmetic: the enclosing <td> sets nowrap and it
+   inherits all the way down here, so a technique string ran 568px inside a 382px box and the
+   tail was silently cut off by .dclip's overflow:hidden — no error, just a sentence that
+   stops. Measuring the BOX said "no overflow"; only scrollWidth caught it. */
 .dassay{position:sticky;left:var(--gut,20px);width:fit-content;max-width:min(94vw,760px);
-  padding:0 10px 16px;opacity:0;transition:opacity .2s ease;
+  padding:0 10px 16px;opacity:0;transition:opacity .2s ease;white-space:normal;
   font-size:13px;line-height:1.5;color:var(--t4)}
 .dassay>b{display:block;font-size:11.5px;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--t3);padding-bottom:3px}
-.dassay i{font-style:normal;color:var(--t3);font-variant-numeric:tabular-nums}
+.dassay i{font-style:normal;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
    .chart here would leave the footnote permanently at opacity:0 for those users. */
