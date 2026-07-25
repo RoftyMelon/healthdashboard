@@ -245,6 +245,15 @@ window.BLOODWORK =
   ]
  },
  "NEXTDRAW": {
+  "blood": {
+   "date": "2024-08-30",
+   "rows": [
+    ["Groupe sanguin ABO-D", "O positif"],
+    ["Phénotype Rhésus-Kell", "C+ E+ c+ e+ K- · RH : 1,2,3,4,5 KEL : -1"],
+    ["Agglutinines irrégulières (RAI)", "Négatif"]
+   ],
+   "note": "One determination. A French carte de groupe sanguin needs two, from two separate draws — this is for reference, not a transfusion document."
+  },
   "items": [
    {"en": "Cystatin C", "fr": "Cystatine C"},
    {"en": "Creatinine + eGFR", "fr": "Créatinine + DFG"},

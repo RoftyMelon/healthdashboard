@@ -1000,6 +1000,9 @@ function audit(j){
   if(j.NEXTDRAW){
     if(!Array.isArray(j.NEXTDRAW.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
     else j.NEXTDRAW.items.forEach(x=>{if(typeof x!=='object'||!x.en||!x.fr)bad.push('NEXTDRAW items must be {en, fr}');});
+    if(j.NEXTDRAW.blood){const b=j.NEXTDRAW.blood;
+      if(!Array.isArray(b.rows)||!b.rows.length)bad.push('NEXTDRAW.blood.rows must be a non-empty array');
+      else b.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])bad.push('NEXTDRAW.blood rows must be [label, value]');});}
   }
   if(j.ROUTINE){
     let prev='';
@@ -1564,8 +1567,15 @@ function renderPage(p){
   // no outside-click handler, no '.open' toggling to leak or clash with search.
   let h='';
   if(p==='nextdraw'&&NEXTDRAW){
-    const it=NEXTDRAW.items;
+    const it=NEXTDRAW.items,bl=NEXTDRAW.blood;
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
+      // Blood group sits FIRST and reuses the .ndlist two-column shape: this is the page you
+      // hand to a lab, and group/phenotype is what gets asked for. Labels stay in French —
+      // the reader is French clinical staff. Fixed for life, so it carries no trend or range.
+      (bl?`<div class="pgsec ndlist"><div class="ndhead"><span class="sn">Blood group</span>`+
+        `<span class="frn">${esc(bl.date||'')}</span></div>`+
+        bl.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')+
+        `</div>`+(bl.note?`<div class="cnote">${esc(bl.note)}</div>`:''):'')+
       (it.length
         ?`<div class="pgsec ndlist"><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+it.map(x=>`<div class="srow"><span class="sn">${esc(x.en)}</span><span class="frn">${esc(x.fr)}</span></div>`).join('')+`</div>`
          +`<button class="frcopy" onclick="copyNd(this)">Copy (EN + FR)</button>`

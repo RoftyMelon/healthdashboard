@@ -64,7 +64,8 @@ setTimeout(()=>{
     if(cEnd){tallN++;_hr=cEnd;continue;}
     _hr++;
   }
-  const want={nextdraw:['srow',DATA.NEXTDRAW.items.length],
+  const want={nextdraw:['srow',DATA.NEXTDRAW.items.length
+      +((DATA.NEXTDRAW.blood&&DATA.NEXTDRAW.blood.rows.length)||0)],   // blood group rows share the .srow shape
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
