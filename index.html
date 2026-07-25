@@ -297,14 +297,15 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    the SAME rule as .chart — two independent easings would not agree on an expansion. The
    label is scoped .dassay>b, not .dassay b: a container rule matching every descendant <b>
    is exactly how 84 set numbers once rendered at title size. */
-/* white-space:normal is LOAD-BEARING and not cosmetic: the enclosing <td> sets nowrap and it
-   inherits all the way down here, so a technique string ran 568px inside a 382px box and the
-   tail was silently cut off by .dclip's overflow:hidden — no error, just a sentence that
-   stops. Measuring the BOX said "no overflow"; only scrollWidth caught it. */
+/* Two overrides, one culprit: `tbody td` sets BOTH white-space:nowrap and text-align:right,
+   and both inherit all the way down here. The nowrap ran a technique string 568px wide inside
+   a 382px box, where .dclip's overflow:hidden silently ate the tail — no error, just a
+   sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
+   The right-align then set every wrapped line ragged-left against a left-anchored label. */
 .dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
   /* clears .ckey, which owns the rightmost 160px of the pane (right:48 + 34 + 14 + 64) */
   max-width:calc(100% - 172px);min-width:0;
-  padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;
+  padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t4)}
 .dassay>b{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:var(--t3);padding-bottom:2px}
