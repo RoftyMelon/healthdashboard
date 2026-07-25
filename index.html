@@ -144,8 +144,7 @@ td.boot span{color:var(--t3);font-size:15px}
    inside it. flex-basis is auto now — 100% was what forced the toc onto its own row — and
    the -12px seam hack goes with it, since there is no longer a seam between two rows.
    The hairline marks where filtering ends and jumping begins. */
-.toc{display:flex;gap:2px;flex:none;align-self:stretch;align-items:center;
-  margin-left:6px;padding-left:11px;border-left:1px solid var(--line);flex-wrap:nowrap}
+.toc{display:flex;gap:2px;flex:none;align-self:stretch;align-items:center;flex-wrap:nowrap}
 .toc::-webkit-scrollbar{display:none}
 .nav{flex:none}
 .srch{display:flex;align-items:center;flex:none;width:36px;height:36px;border-radius:99px;overflow:hidden;
@@ -511,7 +510,13 @@ html.tabhid .tabrow{max-height:0;opacity:0;margin-bottom:0;padding-top:0;pointer
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ptabs::-webkit-scrollbar{display:none}
 /* .swap now wraps just the search + filter pills (search opening scrolls the pills). */
-.swap{display:flex;align-items:center;gap:inherit;flex:1;min-width:0;
+/* Pinned inside the row's scroller: the line still scrolls as one gesture, but the search and
+   filter pills hold the left edge while the categories slide under them — otherwise reaching
+   the last category pushes the filters off-screen entirely. The hairline rides here too, so
+   the divider stays with the block it divides. */
+.swap{display:flex;align-items:center;gap:inherit;flex:none;min-width:0;
+  position:sticky;left:0;z-index:2;background:var(--bg);
+  padding-right:11px;margin-right:6px;border-right:1px solid var(--line);
   flex-wrap:nowrap;overflow-x:auto;                /* search opens -> pills scroll, never wrap */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .swap::-webkit-scrollbar{display:none}
