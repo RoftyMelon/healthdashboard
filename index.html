@@ -192,7 +192,9 @@ td.boot span{color:var(--t3);font-size:15px}
   cursor:pointer;flex:none;white-space:nowrap;   /* scroll past the row's edge, never wrap */
   background:transparent;color:var(--t3);letter-spacing:-.005em;
   transition:background .18s ease,color .18s ease,box-shadow .18s ease}
-.chip:hover{color:var(--txt)}
+/* background:none is load-bearing: the generic `button:hover` paints --btn-h, which is a
+   different tone from the thumb and showed as a second, clashing rectangle. */
+.chip:hover{background:none;color:var(--txt)}
 .chip[aria-pressed=true]{color:var(--txt);font-weight:600}
 .cn{font-size:12.5px;font-weight:700;margin-left:6px;opacity:.45;font-variant-numeric:tabular-nums}
 .cn.hot{color:var(--out);opacity:1}
@@ -2256,7 +2258,7 @@ function moveSegT(){
   if(!_segReady)t.style.transition='none';
   t.style.opacity='1';
   t.style.width=r.width+'px';
-  t.style.transform='translateX('+(r.left-b.left-3)+'px)';
+  t.style.transform='translateX('+(r.left-b.left)+'px)';
   if(!_segReady){void t.offsetWidth;t.style.transition='';_segReady=true;}
 }
 window.addEventListener('resize',moveSegT,{passive:true});
