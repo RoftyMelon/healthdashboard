@@ -1032,6 +1032,11 @@ function audit(j){
         bad.push(`draw ${d.date}, ${m.en}: assay note "an" must be a non-empty string when present`);
       if(v.an!==undefined&&v.a===undefined)
         bad.push(`draw ${d.date}, ${m.en}: "an" without "a" — a caveat with no technique to qualify`);
+      // .lt marks a CENSORED result: the lab printed "<x" because the assay could not resolve
+      // below its detection limit. r holds the limit (r must be a number), so without this flag
+      // the panel shows a bound as though it were a measurement.
+      if(v.lt!==undefined&&v.lt!==true)
+        bad.push(`draw ${d.date}, ${m.en}: "lt" may only be true — omit it for a real measurement`);
     });
   });
   // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
@@ -1350,7 +1355,8 @@ function det(row,id,cols,n,tri){
   const grid=L.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
   const path=pts.map((o,k)=>`${k?'L':'M'}${X(o.i).toFixed(2)},${(100-P(V(o.d))).toFixed(2)}`).join(' ');
   const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
-    ` title="${o.d.date} · ${fmt(dV(m,V(o.d)))} ${uLab(m)}"></div>`).join('');
+    ` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}${
+      o.d.v[m.id].lt?' · upper bound, below the detection limit':''}"></div>`).join('');
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
   // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
   // is built exactly like the column headers so the footnote names the same column you see.
@@ -1447,11 +1453,17 @@ function render(){
     `<th class="pos lft">Range &amp; position</th>${hd}`+
     `<th class="tr lft" title="Latest reading vs the one before it">Since prev.</th></tr></thead>`;
 
+  // A censored result prints its DETECTION LIMIT, not a measurement — "<0.6" means somewhere
+  // in [0, 0.6). Conversion keeps the inequality: every units[] slope is positive, so the "<"
+  // survives toUS()/dV() and can be prefixed after converting. status() deliberately still
+  // judges at the limit — the worst case the assay allows — so no flag changes.
+  const LT=e=>e&&e.lt?'&lt;':'';
   const R=m=>{
     const L=cur[m.id];
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
     if(L){const st=status(m,L.v),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v);
-      pill=`<span class="pill ${st}" title="${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}">${fmt(dV(m,L.v))}</span>`;
+      pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
+        L.raw&&L.raw.lt?' · below the assay detection limit — an upper bound, not a measurement':''}">${LT(L.raw)}${fmt(dV(m,L.v))}</span>`;
       lm=`<span class="lm${old?' old':''}" title="Measured ${L.d.date}${old?' · over 18 months old':''}">${ago(mo)}</span>`;
       // No unit here on purpose: the Unit column is FROZEN, so it is already visible on
       // this same row. Repeating it made the nowrap span up to 50px wider than its 150px
@@ -1462,8 +1474,9 @@ function render(){
       if(!e)return `<td class="c nil ${i===n-1?'dnow':''}">·</td>`;
       const v=toUS(m,e.r,e.u);      // canonical: status() must judge in canonical
       // the tooltip keeps the value AS THE LAB PRINTED IT — provenance, never converted
-      return `<td class="c has ${status(m,v)} ${i===n-1?'dnow':''}" title="${fmt(e.r)} ${unitOf(m,e.u).l}${
-        e.a?' · '+esc(e.a):''}">${fmt(dV(m,v))}</td>`;}).join('');
+      return `<td class="c has ${status(m,v)} ${i===n-1?'dnow':''}" title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}${
+        e.lt?' · below the detection limit — upper bound':''}${
+        e.a?' · '+esc(e.a):''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
       <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
       <td class="now">${pill}</td>
