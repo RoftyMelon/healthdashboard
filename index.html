@@ -1480,17 +1480,19 @@ function det(row,id,cols,n,tri){
   row.nextElementSibling.querySelectorAll('.cka').forEach(k=>{
     const lab=k.querySelector('.ckl'),br=k.querySelector('.ckbr');
     if(!lab||!br)return;
-    const base=parseFloat(getComputedStyle(lab).fontSize),bh=br.getBoundingClientRect().height;
-    if(!bh)return;
-    const lh=lab.getBoundingClientRect().height;
-    if(lh<=bh)return;                              // already fits: never grow, never touch
-    const need=base*bh/lh;
-    if(need<12)return;                             // no size both fits AND stays legible
-    lab.style.fontSize=need+'px';
-    // The evidence chip has its own fixed size and does NOT scale with the label, so on the
-    // optimal key the prediction can miss. Verify the shrink actually fit; undo it if not —
-    // smaller AND still overhanging is strictly worse than the honest overhang.
-    if(lab.getBoundingClientRect().height>bh+1.5)lab.style.fontSize='';
+    const bh=br.getBoundingClientRect().height;
+    if(!bh||lab.getBoundingClientRect().height<=bh)return;   // fits already: never grow
+    /* Step down and MEASURE rather than compute a ratio. Text height is NOT linear in
+       font-size — this label measures 116.6 / 105.9 / 98.8 / 95.2 px at 14.5 / 13 / 12 / 11.5,
+       consistently above what scaling predicts, so a computed size overshoots and still
+       overflows. 11.5px is this file's floor for chart text. */
+    let fs=parseFloat(getComputedStyle(lab).fontSize);
+    while(fs>11.5&&lab.getBoundingClientRect().height>bh){
+      fs=Math.max(11.5,fs-0.5);lab.style.fontSize=fs+'px';
+    }
+    // Even the floor overflows — true wherever the optimal band is narrow, and its evidence
+    // chip is fixed-size so it never shrinks with the text. Legible beats tidy: put it back.
+    if(lab.getBoundingClientRect().height>bh)lab.style.fontSize='';
   });
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
