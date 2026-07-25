@@ -134,12 +134,16 @@ td.boot span{color:var(--t3);font-size:15px}
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   touch-action:pan-x pan-y;overscroll-behavior-x:contain;margin-bottom:2px}
 .bar::-webkit-scrollbar{display:none}
-/* Segmented control, not chips. These three are mutually exclusive VIEWS, and a row of
-   rounded chips reads as multi-select tags you can combine. One container with dividers says
-   "pick one of three" instead. overflow:hidden is what clips the active fill to the rounded
-   ends, so no inner radius has to be maintained. */
-.chips{display:flex;align-items:center;flex:none;
-  border:.5px solid var(--btn-b);border-radius:99px;background:var(--btn);overflow:hidden}
+/* Segmented control: a RECESSED TRACK holding a RAISED THUMB, which is the idiom every
+   platform converged on for "pick one of these". The track sits darker than the page, the
+   selected segment sits lighter with a hairline and a 1px lift — so selection reads as a
+   physical object resting in a groove rather than a filled rectangle.
+
+   No dividers: the thumb's own edge is the only boundary the eye needs, and dividers are what
+   made the previous version look coarse. The 3px inset is what keeps the thumb from touching
+   the track's walls; without it the two radii fight and the corners look chewed. */
+.chips{display:flex;align-items:center;flex:none;gap:0;
+  padding:3px;border-radius:12px;background:var(--grp);border:.5px solid transparent}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
@@ -172,17 +176,18 @@ td.boot span{color:var(--t3);font-size:15px}
 .srch.has .qx{display:block}
 /* Ghosted at rest: the pill shape appears on hover, and stays only on the selected one. The
    border is transparent rather than absent so the box never resizes when it shows. */
-.chip{font-family:inherit;font-size:13.5px;font-weight:520;padding:7px 13px;border:0;border-radius:0;
+.chip{font-family:inherit;font-size:13px;font-weight:560;padding:5px 12px;border:0;border-radius:9px;
   cursor:pointer;flex:none;white-space:nowrap;   /* scroll past the row's edge, never wrap */
-  background:transparent;color:var(--t2);transition:.16s}
-/* a divider between segments, but never against the filled one — its own edge is the boundary */
-.chip+.chip{box-shadow:inset .5px 0 0 var(--btn-b)}
-.chip[aria-pressed=true]+.chip,.chip[aria-pressed=true]{box-shadow:none}
-.chip:hover{background:var(--btn-h);color:var(--txt)}
-.chip[aria-pressed=true]{background:var(--sol);color:var(--sol-t);font-weight:600}
+  background:transparent;color:var(--t3);letter-spacing:-.005em;
+  transition:background .18s ease,color .18s ease,box-shadow .18s ease}
+.chip:hover{color:var(--txt)}
+.chip[aria-pressed=true]{color:var(--txt);font-weight:640;
+  background:var(--bg);box-shadow:0 1px 2.5px rgba(0,0,0,.10),0 0 0 .5px rgba(31,30,29,.09)}
+:root[data-theme=dark] .chip[aria-pressed=true]{background:var(--btn-h);
+  box-shadow:0 1px 2.5px rgba(0,0,0,.35),0 0 0 .5px rgba(245,244,239,.10)}
 .cn{font-size:12.5px;font-weight:700;margin-left:6px;opacity:.45;font-variant-numeric:tabular-nums}
 .cn.hot{color:var(--out);opacity:1}
-.chip[aria-pressed=true] .cn{color:inherit;opacity:.55}
+.chip[aria-pressed=true] .cn{color:inherit;opacity:.42}
 
 /* table */
 
