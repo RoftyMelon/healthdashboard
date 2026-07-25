@@ -330,6 +330,9 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* the gap line is a TODO, not a finding — dimmest step, and set apart from the techniques
    above it so a known method is never mistaken for a missing one. */
 .dassay .agap{color:var(--t4);font-style:italic;padding-top:5px}
+/* a detected method change is a FINDING, not a to-do — it reads at the weight of the
+   techniques it contradicts, not at the gap line's whisper */
+.dassay .achg{color:var(--watch);padding-top:4px;font-weight:560}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
    .chart here would leave the footnote permanently at opacity:0 for those users. */
@@ -1062,6 +1065,20 @@ function audit(j){
       // differently. Distinct from .an, which is about the METHOD: creatine is not an assay.
       if(v.cx!==undefined&&(typeof v.cx!=='string'||!v.cx.trim()))
         bad.push(`draw ${d.date}, ${m.en}: "cx" must be a non-empty string when present`);
+      /* .lr is the LAB's own printed interval for this result, in the same unit as .u —
+         [lo, hi], either end null where the report printed only one ("<5" is [null, 5]).
+         Never invent the missing end: a one-sided range is one-sided. It is stored because a
+         printed interval fingerprints the assay, and an interval that CHANGES between draws
+         is a method change whether or not the technique was printed. */
+      if(v.lr!==undefined){
+        const L=v.lr;
+        if(!Array.isArray(L)||L.length!==2)bad.push(`draw ${d.date}, ${m.en}: "lr" must be [lo, hi]`);
+        else if(L.every(x=>x===null))bad.push(`draw ${d.date}, ${m.en}: "lr" has no bound at all`);
+        else if(L.some(x=>x!==null&&(typeof x!=='number'||!isFinite(x))))
+          bad.push(`draw ${d.date}, ${m.en}: "lr" bounds must be numbers or null`);
+        else if(L[0]!==null&&L[1]!==null&&L[0]>=L[1])
+          bad.push(`draw ${d.date}, ${m.en}: "lr" lo ${L[0]} is not below hi ${L[1]}`);
+      }
     });
   });
   // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
@@ -1419,12 +1436,16 @@ function det(row,id,cols,n,tri){
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
   // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
   // is built exactly like the column headers so the footnote names the same column you see.
-  const asy=pts.filter(o=>o.d.v[m.id].a);
+  // a printed interval is evidence from the report just as a technique is, so a draw that has
+  // only .lr still earns a line — and is NOT counted as a gap, or it would be listed twice.
+  const asy=pts.filter(o=>o.d.v[m.id].a||o.d.v[m.id].lr);
+  const rng=e=>{const L=e.lr;
+    return L[0]===null?`&lt;${fmt(L[1])}`:L[1]===null?`&gt;${fmt(L[0])}`:`${fmt(L[0])}&ndash;${fmt(L[1])}`;};
   // On a marker flagged m.am the METHOD is part of the reading, so a draw that recorded none
   // is a real gap and gets named. Collapsed to one line rather than a row per draw: four
   // "not recorded" lines would drown the techniques that ARE known. Markers without .am stay
   // silent — most methods cannot move their number, and listing them would be noise.
-  const gaps=m.am?pts.filter(o=>!o.d.v[m.id].a):[];
+  const gaps=m.am?pts.filter(o=>!o.d.v[m.id].a&&!o.d.v[m.id].lr):[];
   const dlab=o=>{const dt=new Date(o.d.date+'T00:00:00');
     return `${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}`;};
   // Context is a SEPARATE claim from method: creatine raising creatinine is a fact about the
@@ -1435,8 +1456,21 @@ function det(row,id,cols,n,tri){
       const e=o.d.v[m.id];
       // technique on its own line, caveat under it: the two are different KINDS of claim —
       // .a is transcribed off the report, .an is what it means for reading the number.
-      return `<div><i>${dlab(o)}</i> &mdash; ${esc(e.a)}</div>`+(e.an?`<em>${esc(e.an)}</em>`:'');
-    }).join('')}${gaps.length?`<div class="agap">Not recorded &mdash; ${gaps.map(dlab).join(', ')}</div>`:''}`:'';
+      // The lab's own interval rides on the same line, in the unit the lab printed it in.
+      const bits=[];
+      if(e.a)bits.push(esc(e.a));
+      if(e.lr)bits.push(`lab ref ${rng(e)} ${esc(e.u)}`);
+      return `<div><i>${dlab(o)}</i> &mdash; ${bits.join(' &middot; ')}</div>`+(e.an?`<em>${esc(e.an)}</em>`:'');
+    }).join('')}${
+      /* The reason .lr is worth storing at all: a lab does not move its printed interval unless
+         the METHOD moved. Two different intervals across draws is therefore an assay change,
+         detectable with no technique line anywhere — which is exactly the case that misled this
+         panel before (a standard CRP read as high-sensitivity, an RIA free T judged against a
+         dialysis range). Flagged, never auto-resolved: it says look, not what to conclude. */
+      (()=>{const L=asy.filter(o=>o.d.v[m.id].lr);
+        if(L.length<2||new Set(L.map(o=>JSON.stringify(o.d.v[m.id].lr))).size<2)return '';
+        return `<div class="achg">Lab range differs between draws &mdash; the method changed</div>`;})()
+    }${gaps.length?`<div class="agap">Not recorded &mdash; ${gaps.map(dlab).join(', ')}</div>`:''}`:'';
   const cBlock=ctx.length?`<b>Context</b>${ctx.map(o=>
       `<div><i>${dlab(o)}</i> &mdash; ${esc(o.d.v[m.id].cx)}</div>`).join('')}`:'';
   const anote=(aBlock||cBlock)?`<div class="dassay">${aBlock}${cBlock}</div>`:'';

@@ -12,7 +12,7 @@ window.BLOODWORK =
 {
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
-  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. Do NOT record the lab's printed reference interval as a matter of course. The panel never judges against it — clin[] does that — so as a RANGE it is noise, and it must never overwrite clin[]. Record it inside an in ONE case: when it fingerprints the ASSAY on an am marker. The March CRP printed ref <5 mg/L and that alone identified it as standard rather than ultra-sensitive; a free-T interval of 8.7-25.0 pg/mL identifies a direct RIA, and that mismatch is what produced two wrong explanations of the 2023 free-T value before the report was read. Do NOT record it merely because it differs from clin[]: on markers where clin[] is deliberately a guideline interval (total T, eGFR, Lp(a), urine protein/creatinine) it differs BY CONSTRUCTION and says nothing about which assay ran.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on\n    creatine, 2 days into a diet change) or what the lab did differently (substituted serum for\n    the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the\n    markers it actually explains, never as a draw-wide sentence — the creatine caveat is about\n    creatinine and eGFR and nothing else on that panel.",
+  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end and never let it touch clin[] — clin[] is what the panel judges against, lr is what the lab claimed. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (ref <5 mg/L is how the March CRP was known to be standard rather than ultra-sensitive; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on\n    creatine, 2 days into a diet change) or what the lab did differently (substituted serum for\n    the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the\n    markers it actually explains, never as a draw-wide sentence — the creatine caveat is about\n    creatinine and eGFR and nothing else on that panel.",
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
   "optimal_ranges": "opt[] and oc are INFERENCES, not lab data. oc is the evidence behind the target: strong = outcome data (RCTs, dose-response vs hard endpoints); moderate = association studies or physiology; weak = convention or industry framing, no outcome data. 3 strong, 29 moderate, 26 weak, 18 with no target at all. A value outside a WEAK band is an opinion, not a finding. A marker with NO opt is deliberate: it means no defensible target exists, and adding one back is a regression, not an improvement.",
   "clin_ranges": "clin[] is the REFERENCE INTERVAL this panel judges against, and it is best-evidence rather than provenance. Usually it IS the lab's own printed range, transcribed. Not always: where a lab prints an interval the current evidence has moved past, the harmonised or guideline one wins and clin[] carries that instead — total testosterone on the Travison/Endocrine Society interval rather than a lab's 300-1000, eGFR on KDIGO, Lp(a) on ESC/EAS, urine protein/creatinine on KDIGO A1. That is why the panel labels it Reference range and NOT Lab reference range, and why a lab's own printed interval belongs in an (rule 8) when it differs. Still distinct from opt[]: clin[] is the range outside which a result is abnormal, opt[] is a target to aim at.",
@@ -3147,75 +3147,93 @@ window.BLOODWORK =
     "v": {
      "rbc": {
       "r": 5.17,
-      "u": "T/L"
+      "u": "T/L",
+      "lr": [4.28, 6.0]
      },
      "hb": {
       "r": 16.2,
-      "u": "g/dL"
+      "u": "g/dL",
+      "lr": [13.4, 16.7]
      },
      "hct": {
       "r": 44.8,
-      "u": "%"
+      "u": "%",
+      "lr": [39.0, 49.0]
      },
      "mcv": {
       "r": 87,
-      "u": "fL"
+      "u": "fL",
+      "lr": [78, 98]
      },
      "mch": {
       "r": 31.3,
-      "u": "pg"
+      "u": "pg",
+      "lr": [26.0, 34.0]
      },
      "mchc": {
       "r": 36.2,
-      "u": "g/dL"
+      "u": "g/dL",
+      "lr": [31.0, 36.5]
      },
      "rdw": {
       "r": 11.7,
-      "u": "%"
+      "u": "%",
+      "lr": [0.0, 15.0]
      },
      "wbc": {
       "r": 4.48,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [4.0, 11.0]
      },
      "neut": {
       "r": 2.41,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [1.8, 6.9]
      },
      "eos": {
       "r": 0.09,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [null, 0.63]
      },
      "baso": {
       "r": 0.04,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [null, 0.11]
      },
      "lymph": {
       "r": 1.55,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [1.0, 4.8]
      },
      "mono": {
       "r": 0.39,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [0.18, 1.0]
      },
      "plt": {
       "r": 148,
-      "u": "G/L"
+      "u": "G/L",
+      "lr": [150, 400]
      },
      "glu": {
       "r": 0.9,
-      "u": "g/L"
+      "u": "g/L",
+      "lr": [0.74, 1.06]
      },
      "tg": {
       "r": 0.5,
-      "u": "g/L"
+      "u": "g/L",
+      "lr": [0.5, 1.5]
      },
      "chol": {
       "r": 1.55,
-      "u": "g/L"
+      "u": "g/L",
+      "lr": [1.2, 2.0]
      },
      "hdl": {
       "r": 0.45,
-      "u": "g/L"
+      "u": "g/L",
+      "lr": [0.4, 0.6]
      },
      "ldl": {
       "r": 1,
@@ -3230,6 +3248,7 @@ window.BLOODWORK =
      "crea": {
       "r": 15,
       "u": "mg/L",
+      "lr": [7.2, 11.8],
       "cx": "ON CREATINE — creatine raises serum creatinine directly, independent of kidney function",
       "a": "Créatininase Beckman, enzymatique",
       "an": "Traçable IDMS — la calibration que suppose CKD-EPI"
@@ -3242,15 +3261,18 @@ window.BLOODWORK =
      },
      "ast": {
       "r": 25,
-      "u": "UI/L"
+      "u": "UI/L",
+      "lr": [null, 50]
      },
      "alt": {
       "r": 22,
-      "u": "UI/L"
+      "u": "UI/L",
+      "lr": [null, 50]
      },
      "hscrp": {
       "r": 1,
       "u": "mg/L",
+      "lr": [null, 5],
       "lt": true,
       "a": "Immuno-Turbidimétrie Beckman",
       "an": "CRP STANDARD, réf <5 mg/L — pas ultra-sensible"
@@ -3258,6 +3280,7 @@ window.BLOODWORK =
      "tsh": {
       "r": 0.783,
       "u": "mUI/L",
+      "lr": [0.4, 5.33],
       "a": "Chimifluorescence UniCel DxI 800 Beckman Coulter"
      }
     }
