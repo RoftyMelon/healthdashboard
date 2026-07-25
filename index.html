@@ -246,7 +246,10 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    overflow:hidden. fitChart() only ever writes widths, so nothing depends on the 200. */
 .chart{display:flex;min-height:200px;padding:22px 0 18px;opacity:0;transition:opacity .2s ease}
 .dwrap.open .chart{opacity:1}
-.cy{flex:none;position:relative;color:var(--t3)}
+/* Every other .cy child (.cyl, .cyu, .ckey) is absolutely positioned, so turning this into a
+   column flex disturbs none of them — it exists purely to drop the one flow child, the assay
+   note, to the BOTTOM of the otherwise empty left pane. */
+.cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-end}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
 .cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--grp);padding:0 5px;
   transform:translateY(-.5px)}
@@ -309,12 +312,16 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    a 382px box, where .dclip's overflow:hidden silently ate the tail — no error, just a
    sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
-/* The assay record. Context-neutral now that it lives inside the marker tooltip rather than
-   the chart pane. white-space and text-align are re-declared, not inherited: `tbody td` sets
-   nowrap and right-align for numeric cells, and both reach in here. */
-.dassay{white-space:normal;text-align:left;font-size:11.5px;line-height:1.45;color:var(--t3)}
+.dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
+  /* clears .ckey, which owns the rightmost 160px of the pane (right:48 + 34 + 14 + 64) */
+  max-width:calc(100% - 172px);min-width:0;
+  padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+  font-size:11px;line-height:1.45;color:var(--t3)}
 .dassay>b{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:var(--t4);padding-bottom:2px}
+/* a second section heading (Context under Assay) needs air above it; child-scoped so it
+   cannot reach a <b> inside the entries themselves */
+.dassay>b:not(:first-child){padding-top:7px}
 .dassay i{font-style:normal;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
 /* the caveat sits a step quieter than the technique it qualifies — t4 is the faintest step
    (.27 alpha), which is why the TECHNIQUE lines moved up to t3 rather than staying there. */
@@ -587,17 +594,6 @@ a.sbuy:hover{color:var(--info)}
 .exn:hover+.exinfo,.infob:hover+.exinfo{display:block}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
 .exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
-/* The marker-name assay tip. FIXED, not absolute: td.nm is overflow:hidden AND a fixed-width
-   frozen column, which squeezed a test bubble to 52px inside an 81px cell. Fixed escapes
-   ancestor clipping (nothing in the chain has a transform to trap it) but ignores its anchor,
-   so pinTip() sets top/left. That also means HOVER cannot open it — it would appear wherever
-   it was last placed — hence click-only, which is what the phone needs anyway. */
-.exinfo.mk{position:fixed;top:auto;right:auto;width:min(92vw,330px);max-width:min(92vw,330px)}
-.infob:hover:not(.pin)+.exinfo.mk{display:none}
-.exinfo .dassay{color:var(--t2)}
-.mkb{position:absolute;right:5px;top:50%;transform:translateY(-50%);margin:0}
-/* the name and its French line stop short of the icon instead of running under it */
-td.nm.hasi .n1,td.nm.hasi .fr{padding-right:23px}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 .nsecw{break-inside:avoid}
 .nsec{font-weight:700;font-size:10.5px;letter-spacing:.02em;color:var(--t3);padding:6px 0 2px}
@@ -1062,6 +1058,10 @@ function audit(j){
       // the panel shows a bound as though it were a measurement.
       if(v.lt!==undefined&&v.lt!==true)
         bad.push(`draw ${d.date}, ${m.en}: "lt" may only be true — omit it for a real measurement`);
+      // .cx is how to read THIS number in THIS draw — state at the time, or what the lab did
+      // differently. Distinct from .an, which is about the METHOD: creatine is not an assay.
+      if(v.cx!==undefined&&(typeof v.cx!=='string'||!v.cx.trim()))
+        bad.push(`draw ${d.date}, ${m.en}: "cx" must be a non-empty string when present`);
     });
   });
   // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
@@ -1419,6 +1419,27 @@ function det(row,id,cols,n,tri){
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
   // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
   // is built exactly like the column headers so the footnote names the same column you see.
+  const asy=pts.filter(o=>o.d.v[m.id].a);
+  // On a marker flagged m.am the METHOD is part of the reading, so a draw that recorded none
+  // is a real gap and gets named. Collapsed to one line rather than a row per draw: four
+  // "not recorded" lines would drown the techniques that ARE known. Markers without .am stay
+  // silent — most methods cannot move their number, and listing them would be noise.
+  const gaps=m.am?pts.filter(o=>!o.d.v[m.id].a):[];
+  const dlab=o=>{const dt=new Date(o.d.date+'T00:00:00');
+    return `${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}`;};
+  // Context is a SEPARATE claim from method: creatine raising creatinine is a fact about the
+  // subject that day, not about the assay. Own section, same block so the pane geometry and
+  // the fade apply once.
+  const ctx=pts.filter(o=>o.d.v[m.id].cx);
+  const aBlock=(asy.length||gaps.length)?`<b>Assay</b>${asy.map(o=>{
+      const e=o.d.v[m.id];
+      // technique on its own line, caveat under it: the two are different KINDS of claim —
+      // .a is transcribed off the report, .an is what it means for reading the number.
+      return `<div><i>${dlab(o)}</i> &mdash; ${esc(e.a)}</div>`+(e.an?`<em>${esc(e.an)}</em>`:'');
+    }).join('')}${gaps.length?`<div class="agap">Not recorded &mdash; ${gaps.map(dlab).join(', ')}</div>`:''}`:'';
+  const cBlock=ctx.length?`<b>Context</b>${ctx.map(o=>
+      `<div><i>${dlab(o)}</i> &mdash; ${esc(o.d.v[m.id].cx)}</div>`).join('')}`:'';
+  const anote=(aBlock||cBlock)?`<div class="dassay">${aBlock}${cBlock}</div>`:'';
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
   const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
@@ -1439,7 +1460,7 @@ function det(row,id,cols,n,tri){
               <span class="ckl">Optimal target<em class="${m.oc}">${m.oc}</em></span><span class="ckbr opt"></span></div>
           </div>`:''}
         </div>
-        <div class="cyu">${uLab(m)}</div>${ylab}</div>
+        <div class="cyu">${uLab(m)}</div>${ylab}${anote}</div>
       <div class="cplot">
         <div class="cb clin" style="bottom:${P(m.clin[0]).toFixed(2)}%;height:${(P(m.clin[1])-P(m.clin[0])).toFixed(2)}%"></div>
         ${m.opt?`<div class="cb opt" style="bottom:${P(m.opt[0]).toFixed(2)}%;height:${(P(m.opt[1])-P(m.opt[0])).toFixed(2)}%"></div>`:''}
@@ -1454,45 +1475,7 @@ function det(row,id,cols,n,tri){
   requestAnimationFrame(()=>w.classList.add('open'));
 }
 
-/* The assay record for one marker, as tooltip content: a line per draw that recorded a
-   technique, its caveat beneath, then ONE line naming the draws that recorded none. The gap
-   line only appears on markers flagged .am, where the method is part of the reading —
-   elsewhere a missing technique cannot move the number and saying so would be noise. */
-function assayHTML(m){
-  const pts=chron().filter(d=>d.v[m.id]);
-  const asy=pts.filter(d=>d.v[m.id].a),gaps=m.am?pts.filter(d=>!d.v[m.id].a):[];
-  if(!asy.length&&!gaps.length)return '';
-  const dlab=d=>{const dt=new Date(d.date+'T00:00:00');
-    return `${dt.toLocaleString('en',{month:'short'})} &rsquo;${d.date.slice(2,4)}`;};
-  return `<div class="dassay"><b>Assay</b>${asy.map(d=>{const e=d.v[m.id];
-      // technique on its own line, caveat under it: different KINDS of claim — .a is
-      // transcribed off the report, .an is what it means for reading the number.
-      return `<div><i>${dlab(d)}</i> &mdash; ${esc(e.a)}</div>`+(e.an?`<em>${esc(e.an)}</em>`:'');
-    }).join('')}${gaps.length?`<div class="agap">Not recorded &mdash; ${gaps.map(dlab).join(', ')}</div>`:''}</div>`;
-}
-function pinTip(btn,e){
-  e.stopPropagation();
-  const on=btn.classList.contains('pin');
-  document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));
-  if(on)return;                                   // second tap closes
-  btn.classList.add('pin');
-  const bub=btn.nextElementSibling;               // adjacency: the CSS reveal depends on it
-  if(!bub||!bub.classList.contains('mk'))return;
-  /* .mk bubbles are position:FIXED because td.nm is overflow:hidden AND a fixed-width frozen
-     column — an absolute bubble measured 52px inside an 81px cell. Fixed escapes ancestor
-     clipping but ignores the anchor, so place it here: below the icon, flipped above when it
-     would fall off the bottom, and clamped so it never leaves the viewport sideways. */
-  bub.style.left='0px';bub.style.top='0px';
-  const r=btn.getBoundingClientRect(),b=bub.getBoundingClientRect();
-  const L=Math.min(Math.max(8,r.left-6),Math.max(8,innerWidth-b.width-8));
-  const under=r.bottom+6,over=r.top-b.height-6;
-  bub.style.left=L+'px';
-  bub.style.top=((under+b.height>innerHeight-8&&over>8)?over:under)+'px';
-}
-// a fixed bubble cannot follow its anchor, so any scroll closes it rather than leaving it
-// stranded over unrelated rows. Capture phase: the table has its own inner scrollers.
-window.addEventListener('scroll',()=>{const p=document.querySelector('.infob.pin');
-  if(p)p.classList.remove('pin');},{passive:true,capture:true});
+function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on)btn.classList.add('pin');}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
 function copyNd(btn){
   const t=(NEXTDRAW.items||[]).map(x=>x.en+' — '+x.fr).join('\n');
@@ -1546,7 +1529,7 @@ function render(){
   // judges at the limit — the worst case the assay allows — so no flag changes.
   const LT=e=>e&&e.lt?'&lt;':'';
   const R=m=>{
-    const L=cur[m.id],ai=assayHTML(m);        // '' when there is nothing to say: no ⓘ at all
+    const L=cur[m.id];
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
     if(L){const st=status(m,L.v),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
       pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
@@ -1565,9 +1548,7 @@ function render(){
         e.lt?' · below the detection limit — upper bound':''}${
         e.a?' · '+esc(e.a):''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
-      <td class="nm${ai?' hasi':''}"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span>${
-        // button and bubble MUST stay back-to-back: the reveal is an adjacent-sibling selector
-        ai?`<button class="infob mkb" onclick="pinTip(this,event)" aria-label="${esc(m.en)}: assay method">i</button><div class="exinfo mk">${ai}</div>`:''}</td>
+      <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
       <td class="now">${pill}</td>
       <td class="uc" title="Reported in: ${m.units.map(u=>u.l).join(' / ')}${
         S.units==='si'&&!siOf(m)?' · no SI equivalent — shown unconverted':''}">${uLab(m)}</td>
