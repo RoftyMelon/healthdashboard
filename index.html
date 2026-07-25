@@ -1480,8 +1480,17 @@ function det(row,id,cols,n,tri){
   row.nextElementSibling.querySelectorAll('.cka').forEach(k=>{
     const lab=k.querySelector('.ckl'),br=k.querySelector('.ckbr');
     if(!lab||!br)return;
-    const lh=lab.getBoundingClientRect().height,bh=br.getBoundingClientRect().height;
-    if(lh>bh&&bh>0)lab.style.fontSize=Math.max(11.5,parseFloat(getComputedStyle(lab).fontSize)*bh/lh)+'px';
+    const base=parseFloat(getComputedStyle(lab).fontSize),bh=br.getBoundingClientRect().height;
+    if(!bh)return;
+    const lh=lab.getBoundingClientRect().height;
+    if(lh<=bh)return;                              // already fits: never grow, never touch
+    const need=base*bh/lh;
+    if(need<12)return;                             // no size both fits AND stays legible
+    lab.style.fontSize=need+'px';
+    // The evidence chip has its own fixed size and does NOT scale with the label, so on the
+    // optimal key the prediction can miss. Verify the shrink actually fit; undo it if not —
+    // smaller AND still overhanging is strictly worse than the honest overhang.
+    if(lab.getBoundingClientRect().height>bh+1.5)lab.style.fontSize='';
   });
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
