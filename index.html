@@ -1823,18 +1823,20 @@ function render(){
 }
 const SRCH=document.getElementById('srch'),QI=document.getElementById('q'),TOP=document.getElementById('top');
 function scrollToSec(sec){
-  const el=document.getElementById('sec-'+sec),th=document.querySelector('thead th');
-  if(!el||!th)return;
-  /* Aim at where the section bar COMES TO REST, not at the header's bottom edge. The bar is
-     sticky at its own offset below the header, so targeting the header left exactly that
-     offset of daylight — filled by the PREVIOUS section's bar, still pinned, plus a sliver of
-     its last row. Read the resting offset off the bar itself rather than recomputing it from
-     --hvis and --thh, which would drift the moment either changes. */
-  const bar=el.querySelector('tr.grp td'),stuck=bar?parseFloat(getComputedStyle(bar).top):NaN;
-  const target=isFinite(stuck)?stuck:th.getBoundingClientRect().bottom;
-  // (the tbody isn't sticky — only its cells are — so its rect is the true layout position)
-  const barTop=el.getBoundingClientRect().top;
-  window.scrollBy({top:barTop-target+1,behavior:'smooth'});  // +1 tucks under, never a seam
+  const el=document.getElementById('sec-'+sec); if(!el)return;
+  /* Distance from where this section's bar IS to where it comes to rest. Recomputed each pass
+     rather than cached, because the tab row collapses as you scroll down — which lifts the
+     sticky offset mid-flight and leaves a single pass always landing short, with the previous
+     section's bar still pinned in the gap. */
+  const aim=()=>{const bar=el.querySelector('tr.grp td'); if(!bar)return 0;
+    const stuck=parseFloat(getComputedStyle(bar).top),th=document.querySelector('thead th');
+    const rest=isFinite(stuck)?stuck:(th?th.getBoundingClientRect().bottom:0);
+    return el.getBoundingClientRect().top-rest+1;};   // +1 tucks under, never a seam
+  window.scrollBy({top:aim(),behavior:'smooth'});
+  let n=0;
+  const settle=()=>{const d=aim();
+    if(Math.abs(d)>1&&n++<3){window.scrollBy({top:d,behavior:'smooth'});setTimeout(settle,240);}};
+  setTimeout(settle,400);
 }
 function goto(cat){
   if(filter!=='all'||q){setF('all');requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToSec(cat)));}
