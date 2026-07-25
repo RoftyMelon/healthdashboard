@@ -391,8 +391,10 @@ td.c.ok{color:var(--ok)}td.c.watch{color:var(--watch)}td.c.out{color:var(--out);
 /* pill around the digits themselves. Negative margins cancel the padding, so the cell
    width is untouched and no column shifts when it appears. */
 td.c .dtl{cursor:pointer;display:inline-block;border-radius:7px;
-  padding:2px 6px;margin:-2px -6px;transition:background .12s ease}
-td.c .dtl:hover,td.c .dtl.act{background:var(--hovs)}
+  padding:2px 6px;margin:-2px -6px;transition:box-shadow .12s ease}
+/* a ring hugging the digits, like the chart dots — outline rather than fill, so the number
+   stays the thing you read and the mark stays an affordance */
+td.c .dtl:hover,td.c .dtl.act{box-shadow:0 0 0 1.5px var(--t3)}
 /* Everything known about ONE reading. position:fixed so it escapes the table's own scroller
    and the frozen column's clipping; placed by JS, which is also why it is click-driven —
    a hover-revealed fixed bubble would open wherever it was last put, and the phone has no
