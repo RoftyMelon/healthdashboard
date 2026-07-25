@@ -286,7 +286,21 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
   border:2px solid var(--grp)}
 .cd.ok{background:var(--ok)} .cd.watch{background:var(--watch)} .cd.out{background:var(--out)}
 .cpad{flex:none}
-@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart{opacity:1}}
+/* Assay footnote under an expanded row: which METHOD produced each point. Sticky-left like
+   tr.grp .ghd, so it holds the gutter while the table pans horizontally. Its opacity rides
+   the SAME rule as .chart — two independent easings would not agree on an expansion. The
+   label is scoped .dassay>b, not .dassay b: a container rule matching every descendant <b>
+   is exactly how 84 set numbers once rendered at title size. */
+.dassay{position:sticky;left:var(--gut,20px);width:fit-content;max-width:min(94vw,760px);
+  padding:0 10px 16px;opacity:0;transition:opacity .2s ease;
+  font-size:13px;line-height:1.5;color:var(--t4)}
+.dassay>b{display:block;font-size:11.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--t3);padding-bottom:3px}
+.dassay i{font-style:normal;color:var(--t3);font-variant-numeric:tabular-nums}
+.dwrap.open .dassay{opacity:1}
+/* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
+   .chart here would leave the footnote permanently at opacity:0 for those users. */
+@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart,.dassay{opacity:1}}
 tbody td{padding:9px 10px;font-size:15.5px;text-align:right;white-space:nowrap;color:var(--t2);
   border-bottom:.5px solid var(--line2);font-variant-numeric:tabular-nums}
 tr.m{cursor:pointer;transition:background .14s}
@@ -1316,6 +1330,14 @@ function det(row,id,cols,n,tri){
   const path=pts.map((o,k)=>`${k?'L':'M'}${X(o.i).toFixed(2)},${(100-P(V(o.d))).toFixed(2)}`).join(' ');
   const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
     ` title="${o.d.date} · ${fmt(dV(m,V(o.d)))} ${uLab(m)}"></div>`).join('');
+  // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
+  // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
+  // is built exactly like the column headers so the footnote names the same column you see.
+  const asy=pts.filter(o=>o.d.v[m.id].a);
+  const anote=asy.length?`<div class="dassay"><b>Assay</b>${asy.map(o=>{
+      const dt=new Date(o.d.date+'T00:00:00');
+      return `<div><i>${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}</i> &mdash; ${esc(o.d.v[m.id].a)}</div>`;
+    }).join('')}</div>`:'';
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
   const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
@@ -1347,7 +1369,7 @@ function det(row,id,cols,n,tri){
         ${dots}
       </div>
       <div class="cpad" style="width:${padW}px"></div>
-    </div></div></div></td></tr>`;
+    </div>${anote}</div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
