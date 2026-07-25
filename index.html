@@ -177,10 +177,9 @@ td.boot span{color:var(--t3);font-size:15px}
 .srch .sicon{position:relative;cursor:pointer}
 .srch .sicon svg{transition:opacity .16s ease,transform .3s cubic-bezier(.32,.72,0,1)}
 .srch .i-x{position:absolute;opacity:0;transform:rotate(-90deg) scale(.65)}
-.srch.has .i-mag{opacity:0;transform:rotate(90deg) scale(.65)}
-.srch.has .i-x{opacity:1;transform:none}
-.srch.has .sicon{color:var(--t2)}
-.srch.has .sicon:hover{color:var(--txt)}
+.srch.open .i-mag{opacity:0;transform:rotate(90deg) scale(.65)}
+.srch.open .i-x{opacity:1;transform:none}
+.srch.open .sicon:hover{color:var(--txt)}
 .srch input{flex:1;min-width:0;height:100%;padding:0;border:none;background:none;border-radius:0;outline:none;
   font-family:inherit;font-size:16px;font-weight:450;color:var(--txt);
   opacity:0;transition:opacity .16s ease .1s}
