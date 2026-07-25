@@ -382,7 +382,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "A steroid hormone made in skin under UV light and stored as 25-OH, the form measured here. Tracked for bone, immune and muscle function, and because deficiency is common. Moves over months rather than days, and daily sunscreen removes most cutaneous synthesis, so intake does nearly all the work.",
+   "note": "Technically a hormone rather than a vitamin. Skin makes it from UVB light, the liver converts it to the 25-OH form measured here, and the kidney activates it.\n\n25-OH is the right thing to measure because it is the storage form with a long half-life — the active form fluctuates far too quickly to be informative.\n\nIt moves over months rather than days. And daily sunscreen removes most skin synthesis, which leaves diet and supplements doing nearly all the work.",
    "axis": [
     0,
     120
@@ -413,7 +413,7 @@ window.BLOODWORK =
     8.6,
     10.2
    ],
-   "note": "Calcium adjusted for albumin, since roughly half of blood calcium travels bound to albumin and only the free half is active. Tracked so that low albumin is not mistaken for low calcium. Deliberately not computed above 40 g/L albumin — the source lab's own rule — so an empty row is the answer, not a gap.",
+   "note": "Calcium adjusted for how much albumin is available to bind it, so that low albumin is not mistaken for genuinely low calcium.\n\nIt is calculated, not measured — and only when it is valid to do so.\n\nDeliberately left empty here: the source lab's own printed rule is not to correct above 40 g/L albumin, and every albumin in this file is above that. Above that threshold the formula subtracts from a calcium that needed no correction, manufacturing a low result out of a normal one.\n\nSo an empty row is the correct answer, not a missing value.",
    "axis": [
     8,
     11
@@ -452,7 +452,7 @@ window.BLOODWORK =
     10
    ],
    "oc": "strong",
-   "note": "Total blood calcium, bound and free, held in a narrow range by PTH and vitamin D. Tracked for bone and parathyroid function and as a safety check when supplementing vitamin D. Roughly half is bound to albumin, so the total misleads whenever albumin is abnormal.",
+   "note": "Total calcium in blood, held in an extremely narrow range by PTH and vitamin D — because both muscle contraction and nerve signalling depend on it.\n\nOnly about half is free and active; the rest travels bound to albumin.\n\nThat is the catch with the total: when albumin is low, the total drops while the active half is untouched. Which is exactly what corrected calcium is for.",
    "axis": [
     8,
     11
@@ -491,7 +491,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "A hormone from the parathyroid glands that raises blood calcium by pulling it from bone and activating vitamin D. Tracked to interpret calcium and vitamin D rather than on its own. It rises whenever either runs low, so a high PTH usually points at the deficiency behind it.",
+   "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.",
    "axis": [
     0,
     90
@@ -522,7 +522,7 @@ window.BLOODWORK =
     2.5
    ],
    "oc": "moderate",
-   "note": "The pituitary's instruction to the thyroid, rising when thyroid hormone is low. Tracked as the most sensitive first look at thyroid function, since it moves before T4 does. It also falls in acute illness and drifts with time of day, so one odd value is a recheck, not a diagnosis.",
+   "note": "Not a thyroid hormone at all — it is the pituitary's instruction TO the thyroid. When thyroid hormone runs low the pituitary shouts louder, so TSH rises.\n\nThat inversion is why it reads backwards: high TSH means an underactive thyroid.\n\nIt is also the most sensitive early signal, moving before T4 does. But it drifts with time of day and drops during any acute illness, so a single odd value is a recheck rather than a diagnosis.",
    "axis": [
     0,
     6
@@ -557,7 +557,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "The unbound fraction of the main thyroid hormone, the reservoir converted to active T3 in tissue. Tracked with TSH to separate a thyroid problem from a pituitary one. Measured by analog immunoassay in most labs, which is less reliable when binding proteins are abnormal.",
+   "note": "The unbound fraction of thyroxine, the thyroid's main output. Think of it as the reservoir — most of it is converted into the more active T3 inside tissues.\n\nRead together with TSH, because the combination locates the problem: low T4 with high TSH is the thyroid failing, low T4 with low TSH points instead at the pituitary.\n\nMost labs measure it by an indirect method that becomes unreliable when binding proteins are abnormal.",
    "axis": [
     0.4,
     2.2
@@ -580,7 +580,7 @@ window.BLOODWORK =
     35
    ],
    "am": "critical",
-   "note": "Antibodies against the enzyme that makes thyroid hormone, and the clearest marker of autoimmune thyroid disease. Tracked once to establish whether an abnormal TSH is autoimmune in origin. Assays are poorly standardised, so absolute values do not compare between labs — only positive or negative does.",
+   "note": "Antibodies your immune system has made against the enzyme the thyroid uses to build its hormones. Their presence means the thyroid is under autoimmune attack.\n\nThe reason to measure it once: it tells you WHY a TSH is abnormal, which changes what happens next.\n\nThe number itself means little — these assays are poorly standardised and values do not compare between labs. Positive or negative is the finding.",
    "axis": [
     0,
     80
@@ -612,7 +612,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "An amino acid produced during methionine metabolism and cleared using B12, folate and B6. Tracked as a functional read on those vitamins and as a cardiovascular risk association. Exceptionally handling-sensitive: it climbs in the tube if plasma is not separated promptly.",
+   "note": "An amino acid produced as an intermediate in normal metabolism, then cleared using B12, folate and B6.\n\nSo it works as a functional test of those three: when any of them is short, homocysteine backs up. That makes it more informative than measuring the vitamins directly, since it shows whether the pathway is actually working.\n\nExceptionally sensitive to handling — it keeps rising in the tube if plasma is not separated promptly, which produces falsely high results.",
    "axis": [
     0,
     20
@@ -647,7 +647,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "An essential trace mineral used by antioxidant enzymes and in thyroid hormone conversion. Tracked because both deficiency and excess cause harm and the window between them is narrow. Serum reflects recent intake more than tissue stores, and levels vary with regional soil content.",
+   "note": "A trace mineral built into the enzymes that regenerate the body's antioxidants, and into the enzyme that converts T4 into active T3.\n\nUnusual in having a narrow safe window — both deficiency and excess cause real harm, so more is not better here.\n\nBlood levels vary widely by region, because the amount in food depends on how much selenium is in the soil where it grew. Serum reflects recent intake more than long-term stores.",
    "axis": [
     40,
     200
@@ -678,7 +678,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "EPA and DHA as a percentage of the fatty acids in red cell membranes. Tracked because membranes turn over slowly, so it reflects months of intake rather than the last meal. Method matters — only the red-cell version carries the published 8-12% target; plasma and whole blood do not.",
+   "note": "EPA and DHA expressed as a percentage of all the fatty acids in your red cell membranes.\n\nMembranes turn over slowly, so unlike a blood fatty acid level this reflects months of intake rather than the last meal — closer to an HbA1c for omega-3 status.\n\nMethod matters: the published targets belong specifically to the red-cell measurement. Plasma and whole-blood versions produce different numbers that those targets do not apply to.",
    "axis": [
     0,
     14
@@ -710,7 +710,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "The protein that stores iron, and the best single estimate of total body iron. But it is also an acute-phase reactant that rises with any inflammation, so a high ferritin alongside normal serum iron and saturation usually means inflammation rather than iron loading.",
+   "note": "The protein that stores iron inside cells, and the best single estimate of total body iron stores.\n\nWith one large caveat: ferritin is also an acute-phase protein, meaning inflammation raises it regardless of iron. So a high ferritin has two very different explanations.\n\nThe way to tell them apart is the rest of the panel — genuine iron loading raises transferrin saturation too, while inflammation leaves saturation normal or low.",
    "axis": [
     0,
     300
@@ -745,7 +745,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "An essential trace mineral used by hundreds of enzymes, and needed for immune function, wound healing and testosterone synthesis. Serum holds only a tiny fraction of body zinc and it redistributes into tissue during inflammation, so any illness makes the number understate stores.",
+   "note": "An essential trace mineral used by hundreds of enzymes, and required for immune function, wound healing, taste, and testosterone synthesis.\n\nSerum zinc is a weak proxy: it holds a tiny fraction of body zinc, and during inflammation zinc actively redistributes out of the blood into tissue as part of the immune response.\n\nSo a low value taken during any illness understates real stores, and can look like deficiency when it is simply the immune system relocating it.",
    "axis": [
     50,
     140
@@ -777,7 +777,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "An essential trace mineral used in iron transport, connective tissue and antioxidant enzymes. Read against zinc, since the two compete for the same absorption pathway and supplementing one can deplete the other. Copper also rises with inflammation and with oestrogen.",
+   "note": "An essential trace mineral used in iron transport, connective tissue formation and antioxidant enzymes.\n\nRead against zinc rather than alone, because the two compete for the same intestinal transporter — sustained zinc supplementation is a well-recognised cause of copper deficiency.\n\nCopper also rises with inflammation and with oestrogen, which complicates a high result.",
    "axis": [
     40,
     180
@@ -813,7 +813,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "A vitamin required for red cell production and nerve myelination, stored in the liver for years. Tracked for anaemia and neurological symptoms. Serum B12 measures total rather than the active fraction, so it can read normal in real deficiency — methylmalonic acid settles ambiguous cases.",
+   "note": "A vitamin needed to build red blood cells and to maintain the myelin sheath around nerves. Only bacteria make it, so dietary sources are animal foods.\n\nThe liver stores years' worth, which is why deficiency develops slowly and silently.\n\nMeasurement caveat: serum B12 counts total B12, but most of it is bound to a protein that cannot deliver it to cells. So the result can read normal in genuine deficiency — methylmalonic acid settles the ambiguous cases.",
    "axis": [
     100,
     1000
@@ -849,7 +849,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "A B vitamin needed for DNA synthesis and red cell production, working with B12. Tracked alongside it, since supplementing folate can mask B12 deficiency's anaemia while nerve damage continues. Serum folate reflects recent intake; red cell folate reflects stores.",
+   "note": "A B vitamin required for DNA synthesis and red cell production, working in the same pathway as B12.\n\nThe reason they are read together is a specific trap: folate can correct the anaemia of B12 deficiency while doing nothing for the nerve damage, which then progresses unnoticed and can become permanent.\n\nSerum folate reflects the last few days of intake; red cell folate reflects months of stores.",
    "axis": [
     0,
     20
@@ -888,7 +888,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "A waste product of muscle metabolism, produced at a rate set by muscle mass and cleared by the kidney. Tracked as the standard kidney filtration marker. Muscle mass, meat intake and creatine supplements each raise it on their own, which reads as worse kidney function when nothing changed.",
+   "note": "A waste product of normal muscle metabolism, produced at a steady rate and cleared by the kidneys. If the kidneys filter less, it accumulates — which is what makes it the standard kidney marker.\n\nThe problem is that production varies as much as clearance:\n\n• More muscle mass produces more of it\n• Meat raises it for a day or so\n• Creatine supplements raise it directly\n\nAll three read as worse kidney function when nothing about the kidney has changed.",
    "axis": [
     0.4,
     1.8
@@ -919,7 +919,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "A small protein made by every nucleated cell at a constant rate and filtered by the kidney. Tracked as a filtration marker that, unlike creatinine, is independent of muscle mass — which makes it the more trustworthy estimate in someone lifting and supplementing creatine.",
+   "note": "A small protein produced at a constant rate by every nucleated cell in the body, and filtered out by the kidneys.\n\nIts advantage over creatinine is what it does NOT depend on: muscle mass, meat intake and creatine supplements leave it alone. That makes it the more trustworthy filtration estimate in anyone who lifts, eats a lot of protein, or supplements creatine — where creatinine systematically reads worse than the kidney actually is.",
    "axis": [
     0.3,
     1.4
@@ -950,7 +950,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "An estimate of how fast the kidneys filter blood. Not measured at all — calculated from creatinine, age and sex, so it inherits every confound creatinine has, including muscle mass and creatine use. Which equation was used also changes the number, so the method matters as much as the value.",
+   "note": "An estimate of how fast the kidneys are filtering blood, in millilitres per minute.\n\nIt is not measured. It is calculated from creatinine, age and sex — so every creatinine confound flows straight into it, including muscle mass and creatine use. A creatinine artificially raised by supplements produces an eGFR artificially low, with no kidney problem anywhere.\n\nWhich equation the lab used also changes the number, so the method matters as much as the value.",
    "axis": [
     40,
     140
@@ -985,7 +985,7 @@ window.BLOODWORK =
     18
    ],
    "oc": "weak",
-   "note": "A nitrogen waste product from protein breakdown, cleared by the kidney. Tracked alongside creatinine, where the ratio between them separates dehydration from true kidney impairment. Rises with a high-protein diet and with dehydration independently of kidney function.",
+   "note": "A nitrogen waste product from breaking down protein, cleared by the kidneys.\n\nRarely useful alone — its value is in the ratio to creatinine, which separates two situations that look similar: dehydration raises urea disproportionately, while true kidney impairment raises both together.\n\nA high-protein diet also raises it independently of kidney function.",
    "axis": [
     0,
     30
@@ -1023,7 +1023,7 @@ window.BLOODWORK =
     90
    ],
    "oc": "strong",
-   "note": "Fat circulating in the blood, carried mainly on VLDL. Tracked as a marker of metabolic health more than a direct cardiovascular target, since high triglycerides usually accompany insulin resistance. Extremely responsive to the last meal and to alcohol — a non-fasted sample is uninterpretable.",
+   "note": "Fat circulating in the blood, carried mainly on VLDL particles.\n\nLess a direct cardiovascular target than a window onto metabolic health — high triglycerides usually travel with insulin resistance, and that is the thing worth acting on.\n\nExtremely responsive to what you did recently: the last meal, and alcohol in particular, move it a lot. A non-fasted sample is close to uninterpretable, and even a fasted one reflects the previous evening.",
    "axis": [
     0,
     200
@@ -1055,7 +1055,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "A protein carried once by every atherogenic particle — LDL, VLDL and Lp(a) — so it counts particles directly rather than the cholesterol inside them. Tracked as a better cardiovascular risk measure than LDL when the two disagree, and it is unaffected by the triglycerides that distort calculated LDL.",
+   "note": "A protein that sits on every particle capable of lodging in an artery wall — LDL, VLDL and Lp(a) — exactly one copy each.\n\nSo ApoB counts the particles directly, rather than measuring the cholesterol they happen to be carrying. That matters when the two disagree: two people with identical LDL can carry very different particle numbers, and the particle count is what tracks risk.\n\nIt is also immune to the triglyceride level that distorts calculated LDL.",
    "axis": [
     0,
     160
@@ -1087,7 +1087,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "An LDL-like particle carrying an extra apolipoprotein(a), and an independent cardiovascular risk factor. Set almost entirely by genetics and near-constant for life, so one good measurement usually settles it. Reported in mass or molar units, which are not interchangeable.",
+   "note": "An LDL particle with an extra protein wrapped around it, which makes it stickier in artery walls and resistant to clearing. An independent cardiovascular risk factor.\n\nAlmost entirely inherited, and essentially fixed for life — so unlike LDL it is not something you move. One good measurement settles it, which is why it is usually checked once.\n\nWatch the units: it is reported either as mass (mg/dL) or particle count (nmol/L), and the two are not interchangeable.",
    "axis": [
     0,
     150
@@ -1125,7 +1125,7 @@ window.BLOODWORK =
     130
    ],
    "oc": "moderate",
-   "note": "Total cholesterol minus HDL, so every atherogenic particle's cholesterol in one number. Tracked as a fasting-independent alternative to LDL that captures the remnant particles LDL alone misses. Needs no calculation beyond subtraction, so it avoids the Friedewald formula's failure modes.",
+   "note": "Total cholesterol minus HDL — in other words, all the cholesterol on particles that can lodge in an artery wall, in one number.\n\nTwo practical advantages over LDL: it needs no calculation beyond a subtraction, so it avoids the formula that makes calculated LDL unreliable, and it stays valid when you have not fasted.\n\nIt also captures remnant particles that LDL alone misses.",
    "axis": [
     0,
     200
@@ -1157,7 +1157,7 @@ window.BLOODWORK =
    ],
    "oc": "strong",
    "am": "critical",
-   "note": "A protein released by the liver during inflammation, measured on a high-sensitivity assay to resolve the low range where cardiovascular risk sits. Utterly non-specific: infection, injury or hard training in the preceding days all raise it, so a single high value means recheck, not conclusion.",
+   "note": "A protein the liver releases whenever there is inflammation anywhere in the body. The high-sensitivity version resolves the low range where cardiovascular risk sits, rather than the high range used to detect infection.\n\nCompletely non-specific. A cold, a cut, a dental problem, or a hard training session in the days before the draw all raise it.\n\nSo a single high value means repeat it, not conclude something. Only a persistently raised hs-CRP with no obvious cause is a finding.",
    "axis": [
     0,
     6
@@ -1197,7 +1197,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "The cholesterol carried on LDL particles, and the primary lipid treatment target. Usually calculated from total cholesterol, HDL and triglycerides rather than measured directly, and that formula loses accuracy exactly where it matters — at low LDL and at high triglycerides.",
+   "note": "The cholesterol carried on LDL particles, and the main target of lipid treatment.\n\nUsually not measured. Most labs calculate it from total cholesterol, HDL and triglycerides using a formula that assumes a fixed relationship between them. That assumption breaks down in the two places it matters most:\n\n• When LDL is low, the estimate drifts\n• When triglycerides are high, it under-reports\n\nWorth knowing whether a given result was measured directly or calculated.",
    "axis": [
     0,
     190
@@ -1231,7 +1231,7 @@ window.BLOODWORK =
     40,
     100
    ],
-   "note": "Cholesterol on HDL particles, historically read as protective. Tracked as part of the standard panel and to compute non-HDL. Deliberately carries no optimal target here: raising it pharmacologically has never reduced events, and very high values associate with higher mortality, not lower.",
+   "note": "Cholesterol on HDL particles, long described as the 'good' cholesterol because higher levels track with lower risk in population studies.\n\nThat description has not survived testing. Drugs that raise HDL do not reduce heart attacks, and genetic variants that raise it lifelong do not protect — so the association appears to be a marker of something else, not a cause.\n\nVery high values are also associated with higher mortality, not lower. Which is why there is deliberately no target here.",
    "axis": [
     20,
     110
@@ -1269,7 +1269,7 @@ window.BLOODWORK =
     180
    ],
    "oc": "weak",
-   "note": "All cholesterol in blood, across every particle type. Tracked mostly out of convention and as an input to non-HDL, since the split between particles matters far more than the total. A normal total can hide a high LDL offset by a high HDL.",
+   "note": "Every cholesterol molecule in the blood, across all particle types.\n\nKept mostly out of convention and as the input to non-HDL. On its own it is close to uninformative, because it adds together particles that raise risk and particles that do not.\n\nA perfectly normal total can conceal a high LDL that happens to be offset by a high HDL.",
    "axis": [
     100,
     280
@@ -1304,7 +1304,7 @@ window.BLOODWORK =
     90
    ],
    "oc": "moderate",
-   "note": "Blood sugar after an overnight fast. Tracked as the simplest screen for glucose regulation, though it is the last thing to move as regulation deteriorates. A single snapshot, shifted by the previous evening's meal, poor sleep and stress — HbA1c answers the same question more smoothly.",
+   "note": "Blood sugar after an overnight fast — the simplest screen for how well glucose is regulated.\n\nIts weakness is timing: fasting glucose is the last thing to move as regulation deteriorates. The body will hold it normal for years by producing more insulin, so it can look fine well after the underlying problem has started.\n\nAlso a single snapshot, shifted by the previous evening's meal, poor sleep and stress. HbA1c answers the same question with far less noise.",
    "axis": [
     60,
     130
@@ -1337,7 +1337,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "The fraction of haemoglobin with glucose stuck to it, reflecting average blood sugar over a red cell's ~3-month life, weighted to recent weeks. Anything that shortens red cell survival gives the glucose less time to attach, so the result understates true average sugar.",
+   "note": "A snapshot of the past three months rather than this morning. Glucose slowly sticks to haemoglobin inside red cells, and since a red cell lives about 120 days, the fraction that is coated reflects average blood sugar over that window — weighted toward the most recent weeks.\n\nThe main trap: anything that shortens red cell lifespan gives glucose less time to attach, so the result understates true average sugar. It is only as reliable as the blood count sitting next to it.",
    "axis": [
     4,
     7
@@ -1369,7 +1369,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "The hormone that moves glucose into cells, measured fasting. Tracked because it rises for years to hold glucose normal before glucose itself moves, making it the earlier warning of insulin resistance. Assays are not standardised, so absolute values do not transfer between labs.",
+   "note": "The hormone that moves glucose out of the blood and into cells, measured fasting.\n\nThe reason to track it is timing. As cells become resistant, the pancreas compensates by producing more insulin — and it succeeds for years. Glucose stays normal the whole time. Insulin is what rises first, which makes it the early warning that fasting glucose cannot give.\n\nCaveat: insulin assays are not standardised, so absolute values do not transfer between labs.",
    "axis": [
     0,
     25
@@ -1400,7 +1400,7 @@ window.BLOODWORK =
     5.5
    ],
    "oc": "moderate",
-   "note": "The end product of purine breakdown, cleared by the kidney. Tracked for gout risk and as a metabolic marker, since it rises with insulin resistance and fructose intake. Also rises transiently with fasting, dehydration and intense exercise.",
+   "note": "The waste product left when the body breaks down purines, cleared by the kidneys.\n\nTwo reasons to watch it: above a certain concentration it crystallises in joints, which is gout, and it rises alongside insulin resistance and high fructose intake, making it a rough metabolic marker.\n\nAlso rises temporarily with fasting, dehydration and intense exercise — all three raise it without anything changing underneath.",
    "axis": [
     2,
     9
@@ -1432,7 +1432,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "An enzyme concentrated in liver cells and released when they are damaged. The more liver-specific of the two transaminases, which is what makes the pair informative: ALT holding steady while AST climbs points at muscle rather than liver.",
+   "note": "An enzyme that lives inside liver cells. When those cells are damaged it leaks into the blood, so a rise means liver injury.\n\nIt is the more liver-specific of the two transaminases — which is precisely what makes the pair useful together. AST is also abundant in muscle; ALT largely is not. So if AST climbs and ALT stays put, the source is muscle rather than liver.",
    "axis": [
     0,
     70
@@ -1464,7 +1464,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "An enzyme found in liver, skeletal muscle and heart, released when those cells are damaged. Tracked as a liver marker, usually read alongside ALT. But muscle contributes heavily, so hard training raises it with the liver untouched — a rise without a matching rise in ALT points at muscle.",
+   "note": "An enzyme found in liver cells, but also in skeletal muscle and heart. It leaks into the blood whenever any of those are damaged.\n\nThat breadth is its weakness. Hard training damages muscle fibres as a normal part of adaptation, which raises AST with the liver entirely untouched.\n\nSo AST is read alongside ALT rather than alone: both rising points at liver, AST rising by itself points at muscle.",
    "axis": [
     0,
     70
@@ -1494,7 +1494,7 @@ window.BLOODWORK =
     25
    ],
    "oc": "moderate",
-   "note": "A liver enzyme concentrated in bile ducts. Tracked because it distinguishes a liver source from a bone source when alkaline phosphatase is high, and because it is the most sensitive routine marker of alcohol intake. Also induced by many medications with no liver injury at all.",
+   "note": "An enzyme concentrated in the small bile ducts inside the liver.\n\nTwo jobs. First, it disambiguates a high alkaline phosphatase — ALP comes from both liver and bone, and a raised GGT alongside it says the source is liver. Second, it is the most sensitive routine marker of alcohol intake.\n\nCaveat: many ordinary medications induce it, raising the number with no liver injury at all.",
    "axis": [
     0,
     90
@@ -1524,7 +1524,7 @@ window.BLOODWORK =
     110
    ],
    "oc": "weak",
-   "note": "An enzyme from bile ducts and from bone. Tracked for cholestasis, but the two sources make it ambiguous alone: GGT rising alongside points at liver, GGT staying normal points at bone. Physiologically high during growth and in healing fractures.",
+   "note": "An enzyme that comes from two unrelated places — bile ducts and bone — which is what makes it ambiguous on its own.\n\nRaised ALP means the liver or the skeleton, and you cannot tell which from this number. GGT settles it: raised alongside points at liver, normal alongside points at bone.\n\nPhysiologically high during adolescent growth and while a fracture heals, neither of which is a problem.",
    "axis": [
     20,
     170
@@ -1553,7 +1553,7 @@ window.BLOODWORK =
     0.2,
     1.2
    ],
-   "note": "The pigment left when haemoglobin is broken down, processed by the liver. Tracked for liver function and haemolysis. A mildly high unconjugated bilirubin is most often Gilbert's syndrome, a harmless inherited variant that becomes more pronounced with fasting or illness.",
+   "note": "The yellow pigment left over when old red blood cells are broken down. The liver picks it up, processes it, and excretes it in bile.\n\nSo it rises either when the liver cannot process it or when red cells are being destroyed faster than usual.\n\nThe common finding by far is neither: a mildly raised unprocessed bilirubin is usually Gilbert's syndrome, a harmless inherited quirk in about 1 in 20 people. It becomes more obvious with fasting, illness or stress.",
    "axis": [
     0,
     2
@@ -1588,7 +1588,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "The most abundant protein in blood, made by the liver, carrying hormones and drugs and holding fluid inside vessels. Tracked for liver synthesis and nutritional status. It is also an input to both corrected calcium and calculated free testosterone, so its assay method propagates into both.",
+   "note": "The most abundant protein in blood, made by the liver. It carries hormones, drugs and calcium, and holds fluid inside blood vessels by osmotic pull.\n\nTracked for liver output and nutritional status.\n\nIt matters here for a second reason: it is an input to both corrected calcium and calculated free testosterone. So however albumin was measured propagates into both of those numbers.",
    "axis": [
     3,
     5.5
@@ -1625,7 +1625,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "All testosterone in blood, bound and free. Tracked as the primary androgen measure. It peaks within a few hours of waking and declines through the day, so draws at different clock times are not directly comparable — and immunoassays disagree with LC-MS/MS, particularly at low concentrations.",
+   "note": "All the testosterone in your blood — the roughly 98% bound to carrier proteins plus the small free fraction.\n\nThe headline androgen number, but it needs context to read:\n\n• It peaks a few hours after waking and declines through the day, so a morning and an afternoon draw are not comparable\n• Immunoassays and mass spectrometry disagree, especially at lower concentrations\n\nMost of it is bound to SHBG and unavailable, which is why total alone can mislead when SHBG is unusual.",
    "axis": [
     200,
     1100
@@ -1661,7 +1661,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "The small fraction of testosterone not bound to SHBG or albumin, and the portion able to enter cells. Calculated here by the Vermeulen equation from total T, SHBG and albumin rather than measured, so it inherits the assay quirks of all three — and direct free-T immunoassays are unreliable.",
+   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three.\n\nThat is still the better option: direct free-testosterone immunoassays are notoriously unreliable, and this panel already discarded one implausible value from that kind of assay.",
    "axis": [
     20,
     280
@@ -1693,7 +1693,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "A liver protein that binds testosterone and controls how much stays free. Tracked because it sets free testosterone independently of the total, and because it moves with metabolic health — rising with thyroid hormone and falling with insulin resistance and higher body fat.",
+   "note": "A liver-made protein that grips testosterone and carries it through the blood. Bound testosterone cannot enter cells, so SHBG effectively decides how much of your total is usable.\n\nThat makes it necessary rather than optional: the same total testosterone means different things at high and low SHBG.\n\nIt also reports on metabolic health — it rises with thyroid hormone and falls with insulin resistance and higher body fat.",
    "axis": [
     10,
     70
@@ -1724,7 +1724,7 @@ window.BLOODWORK =
     40
    ],
    "am": "critical",
-   "note": "The main oestrogen, in men produced mostly by aromatisation of testosterone in fat tissue. Tracked because both too little and too much cause symptoms, and because it moves with testosterone. Immunoassays are unreliable at male concentrations; LC-MS/MS is the reference method.",
+   "note": "The main oestrogen. In men it is not produced directly in any quantity — it is converted from testosterone by the aromatase enzyme, mostly in fat tissue.\n\nWorth tracking because both directions cause problems, and because it moves with testosterone rather than independently of it. More fat mass means more conversion.\n\nMeasurement is the difficulty: standard immunoassays are unreliable at the low concentrations found in men, and mass spectrometry is the reference method.",
    "axis": [
     0,
     60
@@ -1754,7 +1754,7 @@ window.BLOODWORK =
     102
    ],
    "am": "critical",
-   "note": "The most potent androgen, converted from testosterone by 5-alpha-reductase in skin, prostate and hair follicles. Tracked because it drives androgenic effects more than testosterone does, and because finasteride blocks its production. Immunoassays cross-react with testosterone; LC-MS/MS is required.",
+   "note": "The strongest androgen in the body, converted from testosterone by 5-alpha-reductase in skin, hair follicles and prostate.\n\nIt binds the androgen receptor several times more tightly than testosterone, which is why it — not testosterone — drives male-pattern hair loss and prostate growth.\n\nAlso the direct target of finasteride, which blocks that conversion.\n\nMeasurement caveat: immunoassays cross-react heavily with testosterone. Mass spectrometry is effectively required.",
    "axis": [
     0,
     110
@@ -1776,7 +1776,7 @@ window.BLOODWORK =
     1.7,
     8.6
    ],
-   "note": "The pituitary signal telling the testes to make testosterone. Tracked with testosterone to locate a problem: low testosterone with high LH points at the testes, low with low LH points at the pituitary. Released in pulses, so a single draw catches an arbitrary point in the cycle.",
+   "note": "The pituitary's signal telling the testes to produce testosterone.\n\nIts value is in localising a problem rather than in the number itself:\n\n• Low testosterone with HIGH LH — the testes are being asked and not delivering\n• Low testosterone with LOW LH — the signal itself is missing, so the problem is upstream in the pituitary\n\nReleased in pulses through the day, so a single draw catches an arbitrary point in that rhythm.",
    "axis": [
     0,
     12
@@ -1803,7 +1803,7 @@ window.BLOODWORK =
     10
    ],
    "oc": "weak",
-   "note": "The pituitary signal driving sperm production. Tracked alongside LH for the same reason, and as the more sensitive of the two to testicular damage. Also pulsatile, though less sharply than LH.",
+   "note": "The pituitary's other gonadal signal, driving sperm production in the testes.\n\nRead alongside LH for the same localising logic, and it is the more sensitive of the two to testicular damage — FSH often rises first when the testes are struggling.\n\nAlso pulsatile, though its swings are gentler than LH's.",
    "axis": [
     0,
     16
@@ -1838,7 +1838,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "useful",
-   "note": "The main stress hormone, released on a strong daily rhythm. Tracked for adrenal function and chronic stress load. It peaks within an hour of waking and falls steeply after, so the reference range assumes a morning draw — an afternoon sample can look deficient when nothing is wrong.",
+   "note": "The main stress hormone, and one of the most strongly rhythmic things in the body. It surges in the first hour after waking, then falls steadily all day.\n\nThat rhythm dominates the measurement. The reference range assumes a morning draw — the same person sampled in the afternoon can look adrenally deficient with nothing wrong at all.\n\nSo the collection time is not a detail here; without it the number cannot be interpreted.",
    "axis": [
     0,
     30
@@ -1877,7 +1877,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "A pituitary hormone that suppresses testosterone when persistently high. Tracked because a prolactin-secreting tumour is a treatable cause of low testosterone. Stress and sleep raise it, and macroprolactin — a harmless bound form the body cannot use — adds to the total unless the lab screens for it.",
+   "note": "A pituitary hormone best known for lactation, but relevant here because when it is persistently high it suppresses testosterone.\n\nWorth checking once in anyone with unexplained low testosterone, since a small prolactin-secreting pituitary tumour is both a real cause and a treatable one.\n\nTwo things inflate it harmlessly: stress and sleep, and macroprolactin — a bulky bound form the body cannot use, which some labs count in the total unless they screen for it.",
    "axis": [
     0,
     30
@@ -1909,7 +1909,7 @@ window.BLOODWORK =
     350
    ],
    "oc": "moderate",
-   "note": "Cell fragments that form the initial plug at a bleeding site. Tracked for bleeding and clotting risk and as a general marrow check. Platelets clump in the EDTA collection tube in some people, which the analyser reads as a falsely low count rather than a real one.",
+   "note": "Cell fragments that form the first plug at a bleeding site — the beginning of a clot.\n\nTracked for bleeding and clotting risk, and as a general check on bone marrow output.\n\nOne common artefact: in some people platelets clump together inside the collection tube. The analyser counts a clump as one platelet, so the result comes back falsely low. If a low count appears out of nowhere in someone with no symptoms, this is the first thing to rule out.",
    "axis": [
     100,
     450
@@ -1932,7 +1932,7 @@ window.BLOODWORK =
     11
    ],
    "am": "critical",
-   "note": "The average size of circulating platelets, larger meaning younger and more recently produced. Read alongside the platelet count for a sense of marrow turnover. It drifts upward the longer blood sits in the EDTA tube, so it varies with lab handling as much as with physiology.",
+   "note": "The average size of your platelets. Bigger platelets are younger, so a high value suggests the marrow is producing them quickly.\n\nRead alongside the platelet count rather than alone — the pair together says more about turnover than either does.\n\nBig caveat: platelets swell the longer they sit in the tube before being measured. That makes MPV as much a reflection of how fast the sample reached the analyser as of anything happening in you.",
    "axis": [
     5,
     14
@@ -1963,7 +1963,7 @@ window.BLOODWORK =
     17
    ],
    "oc": "moderate",
-   "note": "The oxygen-carrying protein inside red cells, and the number that defines anaemia. Tracked as the core oxygen-delivery measure. It is a concentration, so the amount of plasma it sits in moves it: dehydration concentrates the same red cells and the value rises, while endurance training adds plasma and dilutes it.",
+   "note": "The protein inside red blood cells that actually carries oxygen. Low haemoglobin IS anaemia — the two mean the same thing.\n\nIt is a concentration: grams of haemoglobin per volume of blood. So the number moves when the amount of fluid changes, even if your red cells do not:\n\n• Dehydrated — less plasma, same cells, so it reads higher\n• Endurance-trained — the body carries extra plasma, diluting it, so it reads lower\n\nThat second one is why fit endurance athletes often look mildly anaemic on paper and are not.",
    "axis": [
     11,
     19
@@ -1990,7 +1990,7 @@ window.BLOODWORK =
     50
    ],
    "oc": "moderate",
-   "note": "The percentage of blood volume made up of red cells. Tracks with haemoglobin and adds little on its own. Being a ratio it is even more sensitive to plasma volume: the same red cells suspended in less fluid give a higher percentage, without a single extra cell existing.",
+   "note": "The share of your blood that is red cells rather than liquid, as a percentage. Roughly 45% cells, 55% plasma.\n\nIt says much the same thing as haemoglobin and rarely adds to it. Because it is a ratio, it is even more sensitive to hydration: the same red cells suspended in less fluid make a bigger share of the total, so the percentage climbs without a single new cell being made.",
    "axis": [
     35,
     58
@@ -2021,7 +2021,7 @@ window.BLOODWORK =
     5.6
    ],
    "oc": "weak",
-   "note": "The number of red cells per unit of blood. Useful mainly as the denominator for MCV, MCH and MCHC rather than on its own, since it says nothing about how much haemoglobin each cell carries. Being a per-volume count, it shifts with hydration exactly as haemoglobin does.",
+   "note": "A straight count of how many red cells are in a given volume of blood.\n\nOn its own it says surprisingly little, because it counts cells without asking how much haemoglobin each one carries — you can have plenty of cells that are each under-filled. Its real job is as the denominator for MCV, MCH and MCHC, which is where the useful detail lives.\n\nBeing a per-volume count, hydration shifts it exactly as it shifts haemoglobin.",
    "axis": [
     3.5,
     6.5
@@ -2048,7 +2048,7 @@ window.BLOODWORK =
     95
    ],
    "oc": "weak",
-   "note": "Average red cell volume, calculated from the count and haematocrit. Tracked because cell size sorts anaemia by cause: small points at iron deficiency or thalassaemia, large at B12 or folate deficiency, alcohol, or thyroid. Normal size does not rule out either if two causes offset.",
+   "note": "The average size of your red blood cells.\n\nSize is the single most useful clue to why someone is anaemic, because the common causes push it in opposite directions:\n\n• Small cells — iron deficiency, or thalassaemia trait\n• Large cells — B12 or folate deficiency, alcohol, or an underactive thyroid\n\nThe catch: if two causes are present at once they cancel out and the average lands normal. A normal MCV does not rule out either problem.",
    "axis": [
     70,
     110
@@ -2075,7 +2075,7 @@ window.BLOODWORK =
     33
    ],
    "oc": "weak",
-   "note": "The average mass of haemoglobin per red cell. Moves with MCV almost in lockstep, so it rarely adds anything beyond it. Useful mainly as a cross-check that the analyser's size and haemoglobin figures agree.",
+   "note": "The average amount of haemoglobin packed into each red cell, by weight.\n\nIt moves almost in lockstep with cell size, so in practice it rarely tells you anything MCV has not already. Mostly it serves as a consistency check that the analyser's sizing and its haemoglobin measurement agree with each other.",
    "axis": [
     22,
     38
@@ -2106,7 +2106,7 @@ window.BLOODWORK =
     36.5
    ],
    "oc": "weak",
-   "note": "Haemoglobin concentration within the cell rather than per cell. Tracked because it is the one red cell index that is largely method-independent. A high value usually means a measurement artefact — lipaemia, haemolysis, or cold agglutinins — rather than a real finding.",
+   "note": "How concentrated the haemoglobin is inside each cell — not how much per cell, but how tightly packed.\n\nUnusual among the red cell indices in being largely independent of the instrument used. That makes a high value informative in an unexpected way: it is usually a sign of a measurement problem rather than a real finding — fat in the sample, ruptured cells, or cold-clumping antibodies confusing the analyser.",
    "axis": [
     29,
     38
@@ -2133,7 +2133,7 @@ window.BLOODWORK =
     13.5
    ],
    "oc": "weak",
-   "note": "The spread of red cell sizes, high meaning a mixed population. Tracked because it often moves before the average size does, and because a rising RDW with normal indices can be the first sign of a developing deficiency. Also rises simply when two causes coexist.",
+   "note": "How much your red cells vary in size — a high value means a mixed population rather than a uniform one.\n\nUseful because it often moves before the average size does. When a deficiency is developing, new cells come out the wrong size while the old normal ones are still circulating, so the spread widens while MCV still reads normal.\n\nIt also rises when two causes overlap, which is exactly the case where MCV is misleadingly normal.",
    "axis": [
     9,
     18
@@ -2160,7 +2160,7 @@ window.BLOODWORK =
     8.5
    ],
    "oc": "weak",
-   "note": "The total count of immune cells. Tracked as a broad screen for infection, inflammation and marrow function, though the differential below it carries nearly all the information. Transiently raised by acute stress, adrenaline and recent hard exercise.",
+   "note": "The total number of immune cells in circulation. A broad screen for infection, inflammation and bone-marrow function.\n\nThe total by itself is fairly blunt — nearly all the information is in the breakdown below it, since a high count from neutrophils means something very different from a high count from lymphocytes.\n\nRises briefly with acute stress, adrenaline, and recent hard exercise, none of which involve illness.",
    "axis": [
     2,
     13
@@ -2191,7 +2191,7 @@ window.BLOODWORK =
     6000
    ],
    "oc": "weak",
-   "note": "The immune cells that respond first to bacterial infection, and usually the largest fraction. Tracked as the main driver of a high or low white count. They rise within hours of physical stress, exercise or a poor night's sleep, so a mild elevation often has no infectious cause at all.",
+   "note": "The immune system's first responders, and usually the largest white cell group. They arrive first at bacterial infections.\n\nThey are also the main reason a white count swings either way.\n\nWorth knowing: they climb within hours of physical stress — a hard training session, a bad night's sleep, or simply the adrenaline of the blood draw itself. A mild elevation very often has nothing to do with infection.",
    "axis": [
     1000,
     9000
@@ -2222,7 +2222,7 @@ window.BLOODWORK =
     3000
    ],
    "oc": "weak",
-   "note": "T and B cells, the arm of immunity handling viruses and long-term memory. Tracked for immune competence and, when persistently high or low, for something more. Falls acutely with cortisol — stress or an early-morning draw both push it down temporarily.",
+   "note": "T cells and B cells — the part of the immune system that handles viruses and remembers past infections.\n\nTracked for immune competence, and because a persistently high or low count can point at something more.\n\nThey drop sharply when cortisol is high, so stress or an early-morning draw both push them down temporarily. A single low reading is usually the clock or the day, not the immune system.",
    "axis": [
     500,
     4500
@@ -2253,7 +2253,7 @@ window.BLOODWORK =
     800
    ],
    "oc": "weak",
-   "note": "Cells that clear debris and mature into tissue macrophages. Tracked as a marker of chronic inflammation and the recovery phase after infection, when they rise as neutrophils fall. Rarely informative alone; the ratio to lymphocytes carries more.",
+   "note": "Cells that clean up debris and mature into the macrophages that live in tissue.\n\nThey rise during chronic inflammation and during recovery from infection — often climbing just as neutrophils fall, which is a useful sign that something is resolving rather than starting.\n\nRarely informative on its own; the ratio to lymphocytes carries more than the raw count.",
    "axis": [
     0,
     1100
@@ -2284,7 +2284,7 @@ window.BLOODWORK =
     350
    ],
    "oc": "weak",
-   "note": "White cells involved in allergy and parasitic defence. Tracked because they are the clearest blood signal of an allergic or atopic process. Normally a very small fraction, so small absolute changes look dramatic in percentage terms — read the absolute count.",
+   "note": "White cells that deal with allergy and parasites, and the clearest blood signal that an allergic process is active.\n\nThey normally make up a very small fraction of white cells, which creates a trap: a tiny absolute change looks dramatic when expressed as a percentage. Read the absolute count, not the percent.",
    "axis": [
     0,
     600
@@ -2315,7 +2315,7 @@ window.BLOODWORK =
     150
    ],
    "oc": "weak",
-   "note": "The rarest white cell, involved in histamine release and allergic response. Present in such small numbers that the count is imprecise by nature. Persistently high values matter more than any single reading, which is usually just counting noise.",
+   "note": "The rarest white cell, involved in histamine release and allergic reactions.\n\nThey are present in such small numbers that the count is imprecise by nature — a single high or low value is usually just the statistics of counting very few things. A persistent pattern across several draws means something; one reading does not.",
    "axis": [
     0,
     250
@@ -2349,7 +2349,7 @@ window.BLOODWORK =
     150
    ],
    "oc": "weak",
-   "note": "Iron circulating bound to transferrin at this instant. Tracked only as part of the iron panel, never alone. It swings by a third across a single day and rises sharply after an iron-containing meal or supplement, which makes a lone serum iron close to meaningless.",
+   "note": "The iron travelling in your blood bound to transferrin at the exact moment of the draw.\n\nAlmost meaningless on its own, for two reasons: it swings by roughly a third across a single day on its own rhythm, and it jumps after any iron-containing meal or supplement.\n\nIt exists to be combined — with transferrin it produces saturation, which is the number that actually says whether iron is available.",
    "axis": [
     20,
     220
@@ -2381,7 +2381,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "useful",
-   "note": "The blood's total capacity to bind iron, a proxy for transferrin. Tracked to compute saturation. It rises in iron deficiency as the body makes more transferrin, and falls in inflammation and malnutrition, so it moves opposite to ferritin in deficiency and with it in illness.",
+   "note": "How much iron the blood could carry if every transferrin binding site were full — in effect a measure of transferrin itself.\n\nIts job is to be the denominator for saturation.\n\nWhat makes it informative is that it moves opposite to ferritin in deficiency: running low on iron, the body makes MORE transferrin, so capacity rises while stores fall. In inflammation both drop together instead.",
    "axis": [
     180,
     500
@@ -2407,7 +2407,7 @@ window.BLOODWORK =
     45
    ],
    "am": "useful",
-   "note": "Serum iron divided by binding capacity — the fraction of transport actually loaded. Tracked as the best single indicator of iron availability, and the one that separates true deficiency from inflammation-driven low iron. Inherits serum iron's daily swing, so it varies with draw time.",
+   "note": "Serum iron divided by total capacity — the percentage of your iron transport that is actually loaded.\n\nThe most useful single number in the iron panel, because it reflects iron that is available right now rather than stored or potential.\n\nIt is also what separates true iron deficiency from the low iron of inflammation, where ferritin alone is ambiguous.\n\nInherits serum iron's daily swing, so time of draw affects it.",
    "axis": [
     0,
     60
@@ -2442,7 +2442,7 @@ window.BLOODWORK =
     2.4
    ],
    "oc": "weak",
-   "note": "A mineral required by hundreds of enzymes, held mostly inside cells and bone. Tracked for muscle, nerve and cardiac function. Serum holds under 1% of body magnesium and is defended tightly, so a normal serum level does not rule out depletion — which is why the erythrocyte assay was ordered.",
+   "note": "A mineral needed by hundreds of enzymes, including every reaction that uses ATP. Central to muscle relaxation, nerve conduction and heart rhythm.\n\nThe measurement problem is severe: under 1% of the body's magnesium is in blood, and that fraction is defended tightly by pulling from bone and muscle.\n\nSo serum magnesium can look perfectly normal while tissue stores are depleted. That limitation is why the erythrocyte assay was ordered instead — it looks inside cells, where the magnesium actually is.",
    "axis": [
     1.4,
     2.8
@@ -2465,7 +2465,7 @@ window.BLOODWORK =
     380
    ],
    "am": "useful",
-   "note": "An enzyme that leaks from skeletal muscle whenever fibres are damaged. Tracked for muscle injury and, at extremes, rhabdomyolysis. Ordinary resistance training raises it for several days, so in a training week a high value reflects the training rather than disease.",
+   "note": "An enzyme that leaks out of muscle fibres whenever they are damaged. At extreme levels it signals rhabdomyolysis, where muscle breakdown overwhelms the kidneys.\n\nBut ordinary resistance training damages fibres by design — that is how muscle adapts — and CK stays elevated for several days afterwards.\n\nSo in anyone training regularly, a high CK reflects the training. The reference range assumes a sedentary person and is close to meaningless otherwise.",
    "axis": [
     0,
     600
@@ -2492,7 +2492,7 @@ window.BLOODWORK =
     143
    ],
    "oc": "weak",
-   "note": "The main extracellular electrolyte, and the number that sets blood volume and cell hydration. Tracked as a core safety marker for kidney, adrenal and water balance. It is regulated so tightly that it barely moves — which is why a shift of even 3-4 mmol/L is meaningful rather than noise.",
+   "note": "The main electrolyte outside cells, and the thing that determines how much water your body holds and how hydrated each cell is.\n\nThe body defends it fiercely — kidneys, thirst and hormones all work to keep it within a couple of percent.\n\nWhich is exactly why it is worth watching. Because it barely moves, a shift of even 3 or 4 units is a real signal about kidney, adrenal or water balance rather than noise.",
    "axis": [
     130,
     150
@@ -2519,7 +2519,7 @@ window.BLOODWORK =
     5
    ],
    "oc": "weak",
-   "note": "An electrolyte held mostly inside cells, with the narrow blood range that governs heart rhythm. Tracked as a core safety marker. Potassium leaks out of red cells if the sample sits too long or is shaken, which reads as falsely high — a high value with no symptoms is usually the tube.",
+   "note": "An electrolyte kept mostly inside cells, with only a small amount in blood — but that small amount governs heart rhythm, which makes it one of the few genuinely urgent lab values.\n\nThe common artefact: potassium leaks out of red cells if the sample sits too long or is shaken in transit. That reads as high potassium in someone entirely fine.\n\nA high result with no symptoms is usually the tube, not the patient — which is why it gets repeated.",
    "axis": [
     3,
     6
@@ -2546,7 +2546,7 @@ window.BLOODWORK =
     4.4
    ],
    "am": "critical",
-   "note": "The active thyroid hormone, mostly converted from T4 inside tissue rather than secreted. Tracked when TSH and T4 disagree with symptoms. Falls in illness, fasting and heavy caloric restriction as a normal adaptation, which is easily mistaken for thyroid disease.",
+   "note": "The active thyroid hormone — the one that actually drives metabolic rate in tissue. Most of it is converted from T4 locally rather than secreted by the thyroid.\n\nUseful when TSH and T4 look fine but symptoms do not.\n\nImportant caveat: T3 falls during illness, fasting and sustained calorie restriction. That is a deliberate energy-saving adaptation, not thyroid disease, and it is routinely mistaken for one.",
    "axis": [
     1.5,
     5
@@ -2569,7 +2569,7 @@ window.BLOODWORK =
     115
    ],
    "am": "critical",
-   "note": "Antibodies against thyroglobulin, the protein thyroid hormone is built on. Tracked alongside anti-TPO, adding sensitivity when TPO is negative but autoimmunity is still suspected. Same standardisation problem: the number means little, the presence means something.",
+   "note": "Antibodies against thyroglobulin, the scaffold protein the thyroid builds its hormones on. A second marker of autoimmune thyroid disease.\n\nChecked alongside anti-TPO because a minority of people are positive for one and not the other, so testing both catches more.\n\nSame limitation: the presence is what matters, the magnitude is not comparable between labs.",
    "axis": [
     0,
     150
@@ -2596,7 +2596,7 @@ window.BLOODWORK =
     449
    ],
    "am": "useful",
-   "note": "An adrenal androgen precursor, and the most abundant steroid in blood. Tracked as a stable read on adrenal output, since unlike cortisol it does not swing hourly. Declines steadily with age, so it is interpreted against age rather than a fixed range.",
+   "note": "An adrenal steroid, and the most abundant hormone in the bloodstream. It acts as a raw material the body converts into other androgens and oestrogens.\n\nUseful as a stable read on adrenal output, because unlike cortisol it does not swing hour to hour — one draw represents you well.\n\nIt declines steadily from the twenties onward, so it is judged against age rather than a single fixed range.",
    "axis": [
     100,
     500
@@ -2623,7 +2623,7 @@ window.BLOODWORK =
     241
    ],
    "am": "critical",
-   "note": "The growth factor through which growth hormone acts, made by the liver. Tracked as a stable proxy for GH, which is too pulsatile to measure directly. Deliberately carries no optimal target: mortality is U-shaped with the low end the stronger signal, so 'lower is better' is backwards here.",
+   "note": "The messenger through which growth hormone actually works. GH itself is released in short pulses and is nearly impossible to measure meaningfully; it tells the liver to make IGF-1, which circulates steadily.\n\nSo IGF-1 is the practical read on GH status.\n\nDeliberately has no optimal target here. Mortality against IGF-1 is U-shaped, and the LOW side is the stronger signal — so the common longevity claim that lower is better runs against the population data.",
    "axis": [
     60,
     280
@@ -2649,7 +2649,7 @@ window.BLOODWORK =
     6.4,
     8.3
    ],
-   "note": "All protein in blood — mostly albumin plus the globulins. Tracked as a crude check on liver synthesis and immune protein production. Too coarse to interpret alone: albumin and globulins can move in opposite directions and leave the total unchanged.",
+   "note": "All the protein in blood added together — mostly albumin, plus the globulins that include antibodies.\n\nToo coarse to interpret alone, because the two components can move in opposite directions and leave the total looking unchanged. A falling albumin masked by rising globulins reads as perfectly normal here.\n\nUseful mainly as a first pass before splitting it into its parts.",
    "axis": [
     5.5,
     9
@@ -2675,7 +2675,7 @@ window.BLOODWORK =
     200,
     360
    ],
-   "note": "The protein that carries iron through blood, made by the liver. Tracked as the direct measure behind binding capacity. Rises in iron deficiency and falls with inflammation, liver disease or poor nutrition, so a low transferrin has several unrelated explanations.",
+   "note": "The protein that ferries iron through the bloodstream, made by the liver. Iron is toxic loose in the blood, so essentially none travels unbound.\n\nThe direct measurement behind total binding capacity.\n\nA low transferrin has several unrelated causes — inflammation, liver disease, or poor nutrition — so it is read with the rest of the iron panel rather than alone.",
    "axis": [
     150,
     420
@@ -2701,7 +2701,7 @@ window.BLOODWORK =
     0,
     150
    ],
-   "note": "Protein in urine relative to creatinine, correcting for how dilute the sample is. Tracked as the earliest sign of glomerular damage, often years before filtration falls. A single positive is not a finding — exercise, fever and standing all cause transient proteinuria.",
+   "note": "Protein leaking into urine, expressed relative to urine creatinine so that a dilute sample and a concentrated one give comparable answers.\n\nOne of the earliest signs of glomerular damage — often detectable years before filtration rate starts to fall. That makes it more of a leading indicator than eGFR.\n\nA single positive is not a diagnosis: exercise, fever and simply standing for a long time all cause transient, harmless proteinuria.",
    "axis": [
     0,
     600
@@ -2727,7 +2727,7 @@ window.BLOODWORK =
     400,
     2780
    ],
-   "note": "Creatinine concentration in urine, used to normalise other urine measurements for dilution rather than interpreted on its own. A low value simply means dilute urine, which is why ratios rather than raw concentrations are reported.",
+   "note": "How concentrated your urine is, in effect.\n\nNot interpreted on its own. Its purpose is to normalise other urine measurements — a low value just means dilute urine, which would otherwise make everything measured in that sample look low too. This is why urine results are reported as ratios rather than raw concentrations.",
    "axis": [
     300,
     3000
