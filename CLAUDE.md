@@ -84,8 +84,20 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
 - `v: {"r": <exactly what the lab printed>, "u": "<the unit label they used>"}`.
   **Never pre-convert.** `toUS()` does that.
 - `u` is a **unit label string** ("mg/L"), not an index. Indices are fat-fingerable; strings are not.
-- `clin[]` is lab data. `opt[]` and `oc` are **inferences** with an evidence tag
+- `clin[]` is the **reference interval**, and it is best-evidence, not provenance. Usually it is
+  the lab's printed range transcribed — but where the evidence has moved past what a lab prints,
+  the harmonised interval wins (total T on Travison, eGFR on KDIGO, Lp(a) on ESC/EAS, uPCR on
+  KDIGO A1). The chart therefore says "Reference range", **not** "Lab reference range": four
+  markers would have been lying. A lab's own printed interval goes in a value's `an`, never over
+  `clin[]`. `opt[]` and `oc` are **inferences** with an evidence tag
   (strong / moderate / weak). Do not present a weak target as a finding.
+- A value is `{r, u}` plus four optional keys, each a DIFFERENT kind of claim, and they must not
+  be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
+  reading the number (usually inference); `cx` = context for this number in this draw (on
+  creatine, 2 days into a diet change) — state, not method; `lt: true` = the result was CENSORED,
+  the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement.
+  A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
+  panel names the draws where an `am` marker recorded no method.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
