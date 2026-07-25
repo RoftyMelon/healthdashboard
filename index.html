@@ -143,7 +143,8 @@ td.boot span{color:var(--t3);font-size:15px}
    made the previous version look coarse. The 3px inset is what keeps the thumb from touching
    the track's walls; without it the two radii fight and the corners look chewed. */
 .chips{display:flex;align-items:center;flex:none;gap:0;
-  padding:3px;border-radius:12px;background:var(--grp);border:.5px solid transparent}
+  padding:3px;border-radius:12px;border:.5px solid transparent;
+  background:color-mix(in srgb,var(--grp) 55%,var(--bg))}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
@@ -181,10 +182,10 @@ td.boot span{color:var(--t3);font-size:15px}
   background:transparent;color:var(--t3);letter-spacing:-.005em;
   transition:background .18s ease,color .18s ease,box-shadow .18s ease}
 .chip:hover{color:var(--txt)}
-.chip[aria-pressed=true]{color:var(--txt);font-weight:640;
-  background:var(--bg);box-shadow:0 1px 2.5px rgba(0,0,0,.10),0 0 0 .5px rgba(31,30,29,.09)}
+.chip[aria-pressed=true]{color:var(--txt);font-weight:600;
+  background:var(--bg);box-shadow:0 1px 1.5px rgba(0,0,0,.055),0 0 0 .5px rgba(31,30,29,.055)}
 :root[data-theme=dark] .chip[aria-pressed=true]{background:var(--btn-h);
-  box-shadow:0 1px 2.5px rgba(0,0,0,.35),0 0 0 .5px rgba(245,244,239,.10)}
+  box-shadow:0 1px 1.5px rgba(0,0,0,.22),0 0 0 .5px rgba(245,244,239,.07)}
 .cn{font-size:12.5px;font-weight:700;margin-left:6px;opacity:.45;font-variant-numeric:tabular-nums}
 .cn.hot{color:var(--out);opacity:1}
 .chip[aria-pressed=true] .cn{color:inherit;opacity:.42}
