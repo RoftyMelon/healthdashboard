@@ -388,8 +388,11 @@ td.c{font-size:15px;color:var(--t3);text-align:center;padding:9px 4px}
 th.dcol{text-align:center;width:64px;padding:0 4px;letter-spacing:.05em}
 td.c.has{color:var(--t2)}
 td.c.ok{color:var(--ok)}td.c.watch{color:var(--watch)}td.c.out{color:var(--out);font-weight:600}
-td.c.dtl{cursor:pointer}
-td.c.dtl:hover,td.c.dtl.act{background:var(--hovs)}
+/* pill around the digits themselves. Negative margins cancel the padding, so the cell
+   width is untouched and no column shifts when it appears. */
+td.c .dtl{cursor:pointer;display:inline-block;border-radius:7px;
+  padding:2px 6px;margin:-2px -6px;transition:background .12s ease}
+td.c .dtl:hover,td.c .dtl.act{background:var(--hovs)}
 /* Everything known about ONE reading. position:fixed so it escapes the table's own scroller
    and the frozen column's clipping; placed by JS, which is also why it is click-driven —
    a hover-revealed fixed bubble would open wherever it was last put, and the phone has no
@@ -1707,10 +1710,12 @@ function render(){
       // A cell with more to say is its own target, addressed by data- rather than an inline
       // handler so the listeners survive every re-render. It drops its title: a native tooltip
       // would open on hover directly on top of the bubble that hover now opens.
-      const more=!!ptHTML(m,d);
-      return `<td class="c has ${status(m,v)} ${more?'dtl ':''}${i===n-1?'dnow':''}"${
-        more?` data-mk="${m.id}" data-dt="${d.date}"`
-            :` title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}"`}>${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
+      // The trigger is the NUMBER, not the cell around it: the highlight should sit on the
+      // thing being asked about, and a whole-cell target made most of a row hoverable.
+      const more=!!ptHTML(m,d),shown=`${LT(e)}${fmt(dV(m,v))}`;
+      return `<td class="c has ${status(m,v)} ${i===n-1?'dnow':''}"${
+        more?'':` title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}"`}>${
+        more?`<span class="dtl" data-mk="${m.id}" data-dt="${d.date}">${shown}</span>`:shown}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
       <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
       <td class="now">${pill}</td>
