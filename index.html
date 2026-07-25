@@ -249,7 +249,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* Every other .cy child (.cyl, .cyu, .ckey) is absolutely positioned, so turning this into a
    column flex disturbs none of them — it exists purely to drop the one flow child, the assay
    note, to the BOTTOM of the otherwise empty left pane. */
-.cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-end}
+.cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-start}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
 .cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--grp);padding:0 5px;
   transform:translateY(-.5px)}
@@ -345,12 +345,12 @@ tr.m:hover td.nm{background:linear-gradient(90deg,var(--sel) 0,var(--sel) 3px,va
    gutter between the 3px selection band and the marker name — which is why it costs no layout:
    the cell already pads its text to 10px, so nothing has to move to make room. Points right at
    rest, turns down while that row is open. */
-td.nm::before{content:"";position:absolute;left:4px;top:50%;width:4px;height:4px;
-  border-right:1.5px solid var(--sel);border-bottom:1.5px solid var(--sel);
+td.nm::before{content:"";position:absolute;left:5px;top:50%;width:5px;height:5px;
+  border-right:1.75px solid var(--t3);border-bottom:1.75px solid var(--t3);
   transform:translateY(-50%) rotate(-45deg);opacity:0;
   transition:opacity .12s ease,transform .18s ease}
 tr.m:hover td.nm::before{opacity:.9}
-tr.m.op td.nm::before{opacity:1;transform:translateY(-50%) rotate(45deg)}
+tr.m.op td.nm::before{opacity:1;border-color:var(--sel);transform:translateY(-50%) rotate(45deg)}
 td.nm{font-size:16px;font-weight:560;color:var(--txt);letter-spacing:-.01em;overflow:hidden}
 td.nm .n1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 td.nm .fr{font-size:12.5px;font-weight:400;color:var(--t4);display:block;margin-top:2px;
