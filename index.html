@@ -324,8 +324,9 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
 .dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
   /* clears .ckey, which owns the rightmost 160px of the pane (right:48 + 34 + 14 + 64) */
-  max-width:calc(100% - 172px);min-width:0;
-  padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+  /* 190 not 172: clearing .ckey by 12px put the text almost against "Reference range". */
+  max-width:calc(100% - 190px);min-width:0;
+  margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
@@ -340,12 +341,12 @@ tbody td{padding:9px 10px;font-size:15.5px;text-align:right;white-space:nowrap;c
 tr.m{cursor:pointer;transition:background .14s}
 tr.m:hover td{background:var(--hov)}
 tr.m:hover td.now,tr.m:hover td.uc{background:var(--hovs)}
-tr.m:hover td.nm{background:linear-gradient(90deg,var(--sel) 0,var(--sel) 3px,var(--hovs) 3px)}
+tr.m:hover td.nm{background:var(--hovs)}
 /* The row expands on click and nothing said so. A chevron appears on hover in the 7px of dead
    gutter between the 3px selection band and the marker name — which is why it costs no layout:
    the cell already pads its text to 10px, so nothing has to move to make room. Points right at
    rest, turns down while that row is open. */
-td.nm::before{content:"";position:absolute;left:5px;top:50%;width:5px;height:5px;
+td.nm::before{content:"";position:absolute;left:2px;top:50%;width:6px;height:6px;
   border-right:1.75px solid var(--t3);border-bottom:1.75px solid var(--t3);
   transform:translateY(-50%) rotate(-45deg);opacity:0;
   transition:opacity .12s ease,transform .18s ease}
