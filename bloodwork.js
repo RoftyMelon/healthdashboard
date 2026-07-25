@@ -248,36 +248,24 @@ window.BLOODWORK =
   "sections": [
    {
     "t": "Identity",
-    "rows": [
-     [
-      "Sex",
-      "male"
-     ],
-     [
-      "Height",
-      "187 cm"
-     ],
-     [
-      "Country",
-      "France"
-     ]
-    ]
+    "line": "Male · born February 1995 · 187 cm · France",
+    "rows": []
    },
    {
     "t": "Blood group",
     "date": "2024-08-30",
     "rows": [
      [
-      "Groupe sanguin ABO-D",
-      "O positif"
+      "ABO-D group",
+      "O positive"
      ],
      [
-      "Phénotype Rhésus-Kell",
-      "C+ E+ c+ e+ K- · RH : 1,2,3,4,5 KEL : -1"
+      "Rhesus-Kell phenotype",
+      "C+ E+ c+ e+ K− · RH : 1,2,3,4,5 KEL : -1"
      ],
      [
-      "Agglutinines irrégulières (RAI)",
-      "Négatif"
+      "Irregular antibody screen",
+      "Negative"
      ]
     ]
    },
