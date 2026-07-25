@@ -326,8 +326,11 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
 .dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
   /* clears .ckey, which owns the rightmost 160px of the pane (right:48 + 34 + 14 + 64) */
-  /* 190 not 172: clearing .ckey by 12px put the text almost against "Reference range". */
-  max-width:calc(100% - 190px);min-width:0;
+  /* Pinned, not proportional. The pane narrows as the marker column eases 164->78px on
+     horizontal scroll, which re-wrapped this text mid-scroll. min() holds it at the width
+     it would reach fully pulled, so it reads identically at rest and never overlaps the
+     key; the calc branch still guards any narrower case. */
+  max-width:min(271px,calc(100% - 190px));min-width:0;
   margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
