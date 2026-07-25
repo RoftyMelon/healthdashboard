@@ -351,12 +351,17 @@ tr.m:hover td.nm{background:var(--hovs)}
    gutter between the 3px selection band and the marker name — which is why it costs no layout:
    the cell already pads its text to 10px, so nothing has to move to make room. Points right at
    rest, turns down while that row is open. */
-td.nm::before{content:"";position:absolute;left:2px;top:50%;width:6px;height:6px;
-  border-right:1.75px solid var(--t3);border-bottom:1.75px solid var(--t3);
-  transform:translateY(-50%) rotate(-45deg);opacity:0;
+td.nm::before{content:"";position:absolute;left:1px;top:50%;width:11px;height:11px;
+  /* An SVG mask, not two rotated borders: borders mitre to a sharp point and at this size
+     that reads as crude. A mask keeps stroke-linecap:round AND still takes the theme
+     colour, which a background-image data URI could not — it has no currentColor. */
+  background:var(--t3);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/11px no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/11px no-repeat;
+  transform:translateY(-50%) rotate(0deg);opacity:0;
   transition:opacity .12s ease,transform .18s ease}
-tr.m:hover td.nm::before{opacity:.9}
-tr.m.op td.nm::before{opacity:1;border-color:var(--sel);transform:translateY(-50%) rotate(45deg)}
+tr.m:hover td.nm::before{opacity:.85}
+tr.m.op td.nm::before{opacity:1;background:var(--sel);transform:translateY(-50%) rotate(90deg)}
 /* 15px not 10: the chevron sits in 0-9px and the names used to begin at 10, which left them
    touching. Padding is inside the border-box, so --nm and every column beyond it are
    untouched — only the text starts later. The header matches so the column stays aligned. */
