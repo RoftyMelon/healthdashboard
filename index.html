@@ -323,19 +323,6 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
   max-width:calc(100% - 172px);min-width:0;
   padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
-.dassay>b{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--t4);padding-bottom:2px}
-/* a second section heading (Context under Assay) needs air above it; child-scoped so it
-   cannot reach a <b> inside the entries themselves */
-.dassay>b:not(:first-child){padding-top:7px}
-.dassay i{font-style:normal;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
-/* the caveat sits a step quieter than the technique it qualifies — t4 is the faintest step
-   (.27 alpha), which is why the TECHNIQUE lines moved up to t3 rather than staying there. */
-.dassay em{display:block;font-style:normal;color:var(--t4);padding-bottom:4px}
-.dassay em:last-child{padding-bottom:0}
-/* the gap line is a TODO, not a finding — dimmest step, and set apart from the techniques
-   above it so a known method is never mistaken for a missing one. */
-.dassay .agap{color:var(--t4);font-style:italic;padding-top:5px}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
 .dassay .achg{color:var(--watch);padding-top:4px;font-weight:560}
@@ -383,6 +370,23 @@ td.c.ok{color:var(--ok)}td.c.watch{color:var(--watch)}td.c.out{color:var(--out);
    ::after, so the cell never needs position:relative — changing a table cell's position is how
    sticky broke on both axes once before. Nothing later sets a background shorthand on td.c. */
 td.c.cxm{background-image:radial-gradient(circle at calc(100% - 4px) 7px,var(--t3) 1.7px,transparent 2px)}
+td.c.pt{cursor:pointer}
+/* Everything known about ONE reading. position:fixed so it escapes the table's own scroller
+   and the frozen column's clipping; placed by JS, which is also why it is click-driven —
+   a hover-revealed fixed bubble would open wherever it was last put, and the phone has no
+   hover at all. white-space and text-align are re-declared: this is filled from cell content
+   whose defaults are nowrap and right-aligned. */
+.ptip{display:none;position:fixed;z-index:60;width:min(92vw,330px);max-width:min(92vw,330px);
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px 10px;
+  font-size:12.5px;line-height:1.5;color:var(--t2);white-space:normal;text-align:left;
+  box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.ptip.on{display:block}
+.ptip b{display:block;font-size:13.5px;font-weight:600;color:var(--txt);padding-bottom:3px;
+  font-variant-numeric:tabular-nums}
+.ptip .pk{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--t4);padding:6px 0 1px}
+.ptip .pq{color:var(--t3)}
+.ptip .pw{color:var(--watch)}
 td.nil{color:var(--t4)}
 td.now{white-space:nowrap;padding-right:4px}
 td.dnow,th.dnow{font-weight:700;color:var(--txt)}
@@ -937,6 +941,11 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
 
 <div class="gutmask" aria-hidden="true"></div>
 
+<!-- ONE shared datapoint bubble, filled and placed on demand. Not one per cell: with seven
+     reports extracted that would be ~500 hidden nodes, and each would inherit the nowrap and
+     right-align that `tbody td` imposes on anything living in a cell. -->
+<div id="ptip" class="ptip" role="dialog" aria-label="Reading detail"></div>
+
 <button class="top" id="top" aria-label="Back to top" title="Back to top">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1440,51 +1449,22 @@ function det(row,id,cols,n,tri){
     return `<path d="M${XY(p)} L${XY(o)}" fill="none" stroke="currentColor" stroke-width="1.6"`+
       ` vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"${
       dash?' stroke-dasharray="3 4"':''}/>`;}).join('');
-  const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}${o.d.v[m.id].cx?' cxm':''}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
+  const dots=pts.map(o=>{const more=!!ptHTML(m,o.d);
+    return `<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}${o.d.v[m.id].cx?' cxm':''}${more?' pt':''}"`+
+    ` style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
+    (more?` onclick="openPt(this,'${m.id}','${o.d.date}',event)"`:'')+
     ` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}${
-      o.d.v[m.id].lt?' · upper bound, below the detection limit':''}${
-      o.d.v[m.id].cx?' · '+esc(o.d.v[m.id].cx):''}"></div>`).join('');
+      more?' · tap for detail':''}"></div>`;}).join('');
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
   // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
   // is built exactly like the column headers so the footnote names the same column you see.
-  // a printed interval is evidence from the report just as a technique is, so a draw that has
-  // only .lr still earns a line — and is NOT counted as a gap, or it would be listed twice.
-  const asy=pts.filter(o=>o.d.v[m.id].a||o.d.v[m.id].lr);
-  const rng=e=>{const L=e.lr;
-    return L[0]===null?`&lt;${fmt(L[1])}`:L[1]===null?`&gt;${fmt(L[0])}`:`${fmt(L[0])}&ndash;${fmt(L[1])}`;};
-  // On a marker flagged m.am the METHOD is part of the reading, so a draw that recorded none
-  // is a real gap and gets named. Collapsed to one line rather than a row per draw: four
-  // "not recorded" lines would drown the techniques that ARE known. Markers without .am stay
-  // silent — most methods cannot move their number, and listing them would be noise.
-  const gaps=m.am?pts.filter(o=>!o.d.v[m.id].a&&!o.d.v[m.id].lr):[];
-  const dlab=o=>{const dt=new Date(o.d.date+'T00:00:00');
-    return `${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}`;};
-  // Context is a SEPARATE claim from method: creatine raising creatinine is a fact about the
-  // subject that day, not about the assay. Own section, same block so the pane geometry and
-  // the fade apply once.
-  const ctx=pts.filter(o=>o.d.v[m.id].cx);
-  const aBlock=(asy.length||gaps.length)?`<b>Assay</b>${asy.map(o=>{
-      const e=o.d.v[m.id];
-      // technique on its own line, caveat under it: the two are different KINDS of claim —
-      // .a is transcribed off the report, .an is what it means for reading the number.
-      // The lab's own interval rides on the same line, in the unit the lab printed it in.
-      const bits=[];
-      if(e.a)bits.push(esc(e.a));
-      if(e.lr)bits.push(`lab ref ${rng(e)} ${esc(e.u)}`);
-      return `<div><i>${dlab(o)}</i> &mdash; ${bits.join(' &middot; ')}</div>`+(e.an?`<em>${esc(e.an)}</em>`:'');
-    }).join('')}${
-      /* The reason .lr is worth storing at all: a lab does not move its printed interval unless
-         the METHOD moved. Two different intervals across draws is therefore an assay change,
-         detectable with no technique line anywhere — which is exactly the case that misled this
-         panel before (a standard CRP read as high-sensitivity, an RIA free T judged against a
-         dialysis range). Flagged, never auto-resolved: it says look, not what to conclude. */
-      (()=>{const L=asy.filter(o=>o.d.v[m.id].lr);
-        if(L.length<2||new Set(L.map(o=>JSON.stringify(o.d.v[m.id].lr))).size<2)return '';
-        return `<div class="achg">Lab range differs between draws &mdash; the method changed</div>`;})()
-    }${gaps.length?`<div class="agap">Not recorded &mdash; ${gaps.map(dlab).join(', ')}</div>`:''}`:'';
-  const cBlock=ctx.length?`<b>Context</b>${ctx.map(o=>
-      `<div><i>${dlab(o)}</i> &mdash; ${esc(o.d.v[m.id].cx)}</div>`).join('')}`:'';
-  const anote=(aBlock||cBlock)?`<div class="dassay">${aBlock}${cBlock}</div>`:'';
+  /* Per-draw detail now lives in the datapoint bubble — the pane cannot hold seven techniques,
+     seven intervals and their caveats at 200px tall. What stays is the one finding that is NOT
+     per-point: a printed interval that DIFFERS across draws means the lab changed method, which
+     no single reading can reveal because it only exists in the comparison. */
+  const lrs=pts.filter(o=>o.d.v[m.id].lr);
+  const anote=(lrs.length>1&&new Set(lrs.map(o=>JSON.stringify(o.d.v[m.id].lr))).size>1)
+    ?`<div class="dassay"><div class="achg">Lab reference range differs between draws &mdash; the method changed</div></div>`:'';
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
   const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
@@ -1543,6 +1523,47 @@ function det(row,id,cols,n,tri){
   requestAnimationFrame(()=>w.classList.add('open'));
 }
 
+/* Everything known about ONE reading of ONE marker. Returns '' when the value carries nothing
+   beyond its number — then no bubble opens at all, because repeating the figure already on
+   screen is not worth a tap. This is where the per-draw record lives now: the chart pane
+   cannot hold seven techniques, seven intervals and their caveats at 200px tall. */
+function ptHTML(m,d){
+  const e=d.v[m.id]; if(!e)return '';
+  const has=e.a||e.an||e.lr||e.cx||e.lt||(m.am&&!e.a);
+  if(!has)return '';
+  const dt=new Date(d.date+'T00:00:00');
+  const when=`${dt.toLocaleString('en',{month:'short'})} ’${d.date.slice(2,4)}`;
+  const rng=L=>L[0]===null?`&lt;${fmt(L[1])}`:L[1]===null?`&gt;${fmt(L[0])}`:`${fmt(L[0])}&ndash;${fmt(L[1])}`;
+  let h=`<b>${when} &middot; ${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}</b>`;
+  if(e.lt)h+=`<div class="pw">Below the assay detection limit &mdash; an upper bound, not a measurement.</div>`;
+  if(e.a||e.lr||(m.am&&!e.a)){
+    h+=`<span class="pk">Assay</span>`;
+    if(e.a)h+=`<div>${esc(e.a)}</div>`;
+    else if(m.am)h+=`<div class="pq">Method not recorded on this report.</div>`;
+    if(e.an)h+=`<div class="pq">${esc(e.an)}</div>`;
+    if(e.lr)h+=`<div class="pq">Lab reference ${rng(e.lr)} ${esc(e.u)}</div>`;
+  }
+  if(e.cx)h+=`<span class="pk">Context</span><div>${esc(e.cx)}</div>`;
+  return h;
+}
+const PTIP=document.getElementById('ptip');
+function openPt(el,id,date,ev){
+  ev.stopPropagation();                       // never let this also expand/collapse the row
+  const m=MARK.find(x=>x.id===id),d=chron().find(x=>x.date===date);
+  const html=m&&d?ptHTML(m,d):'';
+  if(!html||PTIP.dataset.k===id+date&&PTIP.classList.contains('on')){closePt();return;}
+  PTIP.innerHTML=html; PTIP.dataset.k=id+date; PTIP.classList.add('on');
+  // measure only once it is displayable, then clamp into the viewport on both axes
+  const r=el.getBoundingClientRect(),b=PTIP.getBoundingClientRect();
+  PTIP.style.left=Math.min(Math.max(8,r.left+r.width/2-b.width/2),Math.max(8,innerWidth-b.width-8))+'px';
+  const under=r.bottom+8,over=r.top-b.height-8;
+  PTIP.style.top=((under+b.height>innerHeight-8&&over>8)?over:under)+'px';
+}
+function closePt(){PTIP.classList.remove('on');PTIP.dataset.k='';}
+document.addEventListener('click',e=>{if(!e.target.closest('#ptip'))closePt();});
+// fixed cannot follow its anchor, so any scroll closes rather than stranding it over a
+// different row entirely
+window.addEventListener('scroll',closePt,{passive:true,capture:true});
 function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on)btn.classList.add('pin');}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
 function copyNd(btn){
@@ -1612,9 +1633,12 @@ function render(){
       if(!e)return `<td class="c nil ${i===n-1?'dnow':''}">·</td>`;
       const v=toUS(m,e.r,e.u);      // canonical: status() must judge in canonical
       // the tooltip keeps the value AS THE LAB PRINTED IT — provenance, never converted
-      return `<td class="c has ${status(m,v)} ${e.cx?'cxm ':''}${i===n-1?'dnow':''}" title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}${
-        e.lt?' · below the detection limit — upper bound':''}${
-        e.a?' · '+esc(e.a):''}${e.cx?' · '+esc(e.cx):''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
+      // a cell with more to say becomes its own tap target; one with only a number stays inert
+      // and the click falls through to the row, which is what opens the chart.
+      const more=!!ptHTML(m,d);
+      return `<td class="c has ${status(m,v)} ${e.cx?'cxm ':''}${more?'pt ':''}${i===n-1?'dnow':''}"${
+        more?` onclick="openPt(this,'${m.id}','${d.date}',event)"`:''} title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}${
+        more?' · tap for detail':''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
       <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
       <td class="now">${pill}</td>
