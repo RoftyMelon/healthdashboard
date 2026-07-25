@@ -290,7 +290,17 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cgl.o{border-top-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 .cd{position:absolute;width:9px;height:9px;border-radius:50%;transform:translate(-50%,50%);
   border:2px solid var(--grp)}
-.cd.ok{background:var(--ok)} .cd.watch{background:var(--watch)} .cd.out{background:var(--out)}
+/* colour is carried as well as background so the censored variants below can reach the status
+   hue through currentColor instead of restating three rules per decoration. */
+.cd.ok{background:var(--ok);color:var(--ok)}
+.cd.watch{background:var(--watch);color:var(--watch)}
+.cd.out{background:var(--out);color:var(--out)}
+/* A censored point is an upper BOUND, not a reading — the true value lies somewhere BELOW it.
+   Hollow ring plus a downward tick, the usual convention for "≤ this". Filled like its
+   neighbours it claims a precision the assay never had. */
+.cd.lt{background:transparent;box-shadow:inset 0 0 0 2px currentColor}
+.cd.lt::after{content:'';position:absolute;left:50%;top:calc(100% + 2px);transform:translateX(-50%);
+  border-left:3px solid transparent;border-right:3px solid transparent;border-top:4px solid currentColor}
 .cpad{flex:none}
 /* Assay footnote under an expanded row: which METHOD produced each point. Sticky-left like
    tr.grp .ghd, so it holds the gutter while the table pans horizontally. Its opacity rides
@@ -1290,7 +1300,17 @@ function trend(m){
   const A=pts[pts.length-2],B=pts[pts.length-1],diff=V(B)-V(A);
   const yrs=(new Date(B.date+'T00:00:00')-new Date(A.date+'T00:00:00'))/31557600000;
   const same=Math.abs(diff)<1e-9;
-  const lbl=same?'no change':(diff>0?'↑':'↓')+' '+fmt(dD(m,Math.abs(diff)));
+  /* A CENSORED endpoint is an interval [0, limit), not a point, so latest-minus-previous is
+     not a number. Sometimes a direction still follows, when the intervals cannot overlap:
+     1.4 against a later "<1" can only have fallen, and by MORE than 0.4. When both ends are
+     censored nothing follows at all — "<1" then "<0.6" is consistent with 0.9→0.5 (down) and
+     with 0.1→0.55 (up) alike, so the honest delta is no delta. */
+  const eA=A.v[m.id],eB=B.v[m.id],cens=!!(eA.lt||eB.lt);
+  const bound=cens?(!eA.lt&&eB.lt&&V(B)<=V(A)?'↓ &gt;'+fmt(dD(m,V(A)-V(B)))
+                  :eA.lt&&!eB.lt&&V(B)>=V(A)?'↑ &gt;'+fmt(dD(m,V(B)-V(A)))
+                  :null):null;
+  const lbl=cens?(bound||'<span class="tnil">—</span>')
+                :same?'no change':(diff>0?'↑':'↓')+' '+fmt(dD(m,Math.abs(diff)));
   /* % change rides alongside the absolute delta, never replaces it: for some markers the
      absolute is what matters clinically (HbA1c moving 0.3, eGFR moving 6), for others the
      percentage is the only way to compare across wildly different scales.
@@ -1298,11 +1318,13 @@ function trend(m){
      undefined — never merely because it is large. A big percentage on a small baseline is
      a real signal (anti-TPO 2 -> 8 is early autoimmunity, not noise), and hiding it would
      be worse than showing it: a missing % reads as missing data. */
-  const prev=V(A),pc=(same||prev===0)?null:(diff/Math.abs(prev))*100;
+  const prev=V(A),pc=(same||prev===0||cens)?null:(diff/Math.abs(prev))*100;
   const pcs=pc===null?'':(pc>0?'+':'-')+
     (Math.abs(pc)>=10?Math.round(Math.abs(pc)):Math.round(Math.abs(pc)*10)/10)+'%';
-  const tip=`${fmt(dV(m,V(A)))} (${A.date}) → ${fmt(dV(m,V(B)))} (${B.date}) ${uLab(m)}`+
-    (pcs?` · ${pcs}`:'');
+  const tip=`${eA.lt?'<':''}${fmt(dV(m,V(A)))} (${A.date}) → ${eB.lt?'<':''}${fmt(dV(m,V(B)))} (${B.date}) ${uLab(m)}`+
+    (pcs?` · ${pcs}`:'')+
+    (cens?(bound?' · at least this much: one endpoint is a detection limit, not a reading'
+                :' · not computable: both endpoints are detection limits, so the true change could go either way'):'');
   // .pct is emitted even when EMPTY: .trw is a grid with fixed tracks, so omitting the
   // span would slide the timespan into the percentage's column and break the alignment
   // on exactly the rows that have no percentage.
@@ -1353,8 +1375,16 @@ function det(row,id,cols,n,tri){
     if(L.every(([w])=>Math.abs(P(v)-P(w))>7))L.push([v,'o']);});
   const ylab=L.map(([v,c])=>`<div class="cyl ${c}" style="bottom:${P(v).toFixed(2)}%"><span>${fmt(dV(m,v))}</span></div>`).join('');
   const grid=L.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
-  const path=pts.map((o,k)=>`${k?'L':'M'}${X(o.i).toFixed(2)},${(100-P(V(o.d))).toFixed(2)}`).join(' ');
-  const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
+  // One <path> PER SEGMENT rather than a single polyline, so a leg touching a censored point
+  // can be dashed: joining a bound to anything draws a slope nobody measured. Solid only
+  // between two real readings.
+  const XY=o=>`${X(o.i).toFixed(2)},${(100-P(V(o.d))).toFixed(2)}`;
+  const path=pts.slice(1).map((o,k)=>{
+    const p=pts[k],dash=p.d.v[m.id].lt||o.d.v[m.id].lt;
+    return `<path d="M${XY(p)} L${XY(o)}" fill="none" stroke="currentColor" stroke-width="1.6"`+
+      ` vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"${
+      dash?' stroke-dasharray="3 4"':''}/>`;}).join('');
+  const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
     ` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}${
       o.d.v[m.id].lt?' · upper bound, below the detection limit':''}"></div>`).join('');
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
@@ -1393,9 +1423,7 @@ function det(row,id,cols,n,tri){
         <div class="cb clin" style="bottom:${P(m.clin[0]).toFixed(2)}%;height:${(P(m.clin[1])-P(m.clin[0])).toFixed(2)}%"></div>
         ${m.opt?`<div class="cb opt" style="bottom:${P(m.opt[0]).toFixed(2)}%;height:${(P(m.opt[1])-P(m.opt[0])).toFixed(2)}%"></div>`:''}
         ${grid}
-        ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="${path}" fill="none"
-          stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke"
-          stroke-linecap="round" stroke-linejoin="round" opacity=".8"/></svg>`:''}
+        ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
         ${dots}
       </div>
       <div class="cpad" style="width:${padW}px"></div>
