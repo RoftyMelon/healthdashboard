@@ -12,7 +12,7 @@ window.BLOODWORK =
 {
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
-  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.",
+  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.",
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
   "optimal_ranges": "opt[] and oc are INFERENCES, not lab data. oc is the evidence behind the target: strong = outcome data (RCTs, dose-response vs hard endpoints); moderate = association studies or physiology; weak = convention or industry framing, no outcome data. 3 strong, 29 moderate, 26 weak, 18 with no target at all. A value outside a WEAK band is an opinion, not a finding. A marker with NO opt is deliberate: it means no defensible target exists, and adding one back is a regression, not an improvement.",
   "clin_ranges": "clin[] IS lab data, off the report.",
@@ -381,6 +381,7 @@ window.BLOODWORK =
     50
    ],
    "oc": "weak",
+   "am": "critical",
    "axis": [
     0,
     120
@@ -486,6 +487,7 @@ window.BLOODWORK =
     50
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0,
     90
@@ -549,6 +551,7 @@ window.BLOODWORK =
     1.5
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0.4,
     2.2
@@ -570,6 +573,7 @@ window.BLOODWORK =
     0,
     35
    ],
+   "am": "critical",
    "axis": [
     0,
     80
@@ -600,6 +604,7 @@ window.BLOODWORK =
     9
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     20
@@ -633,6 +638,7 @@ window.BLOODWORK =
     130
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     40,
     200
@@ -662,6 +668,7 @@ window.BLOODWORK =
     12
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0,
     14
@@ -692,6 +699,7 @@ window.BLOODWORK =
     150
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     300
@@ -725,6 +733,7 @@ window.BLOODWORK =
     110
    ],
    "oc": "weak",
+   "am": "critical",
    "axis": [
     50,
     140
@@ -755,6 +764,7 @@ window.BLOODWORK =
     120
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     40,
     180
@@ -789,6 +799,7 @@ window.BLOODWORK =
     900
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     100,
     1000
@@ -823,6 +834,7 @@ window.BLOODWORK =
     17
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     20
@@ -860,6 +872,7 @@ window.BLOODWORK =
     1.2
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0.4,
     1.8
@@ -889,6 +902,7 @@ window.BLOODWORK =
     0.9
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0.3,
     1.4
@@ -918,6 +932,7 @@ window.BLOODWORK =
     140
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     40,
     140
@@ -1019,6 +1034,7 @@ window.BLOODWORK =
     80
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     160
@@ -1049,6 +1065,7 @@ window.BLOODWORK =
     62
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0,
     150
@@ -1116,6 +1133,7 @@ window.BLOODWORK =
     1
    ],
    "oc": "strong",
+   "am": "critical",
    "axis": [
     0,
     6
@@ -1154,6 +1172,7 @@ window.BLOODWORK =
     100
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0,
     190
@@ -1289,6 +1308,7 @@ window.BLOODWORK =
     5.4
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     4,
     7
@@ -1319,6 +1339,7 @@ window.BLOODWORK =
     7
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     0,
     25
@@ -1379,6 +1400,7 @@ window.BLOODWORK =
     30
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     70
@@ -1409,6 +1431,7 @@ window.BLOODWORK =
     30
    ],
    "oc": "moderate",
+   "am": "useful",
    "axis": [
     0,
     70
@@ -1528,6 +1551,7 @@ window.BLOODWORK =
     5.2
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     3,
     5.5
@@ -1563,6 +1587,7 @@ window.BLOODWORK =
     900
    ],
    "oc": "weak",
+   "am": "critical",
    "axis": [
     200,
     1100
@@ -1597,6 +1622,7 @@ window.BLOODWORK =
     200
    ],
    "oc": "weak",
+   "am": "critical",
    "axis": [
     20,
     280
@@ -1627,6 +1653,7 @@ window.BLOODWORK =
     45
    ],
    "oc": "moderate",
+   "am": "critical",
    "axis": [
     10,
     70
@@ -1656,6 +1683,7 @@ window.BLOODWORK =
     10,
     40
    ],
+   "am": "critical",
    "axis": [
     0,
     60
@@ -1684,6 +1712,7 @@ window.BLOODWORK =
     23,
     102
    ],
+   "am": "critical",
    "axis": [
     0,
     110
@@ -1764,6 +1793,7 @@ window.BLOODWORK =
     18
    ],
    "oc": "weak",
+   "am": "useful",
    "axis": [
     0,
     30
@@ -1801,6 +1831,7 @@ window.BLOODWORK =
     15
    ],
    "oc": "weak",
+   "am": "critical",
    "axis": [
     0,
     30
@@ -1853,6 +1884,7 @@ window.BLOODWORK =
     7,
     11
    ],
+   "am": "critical",
    "axis": [
     5,
     14
@@ -2286,6 +2318,7 @@ window.BLOODWORK =
     400
    ],
    "oc": "weak",
+   "am": "useful",
    "axis": [
     180,
     500
@@ -2310,6 +2343,7 @@ window.BLOODWORK =
     20,
     45
    ],
+   "am": "useful",
    "axis": [
     0,
     60
@@ -2365,6 +2399,7 @@ window.BLOODWORK =
     30,
     380
    ],
+   "am": "useful",
    "axis": [
     0,
     600
@@ -2442,6 +2477,7 @@ window.BLOODWORK =
     2,
     4.4
    ],
+   "am": "critical",
    "axis": [
     1.5,
     5
@@ -2463,6 +2499,7 @@ window.BLOODWORK =
     0,
     115
    ],
+   "am": "critical",
    "axis": [
     0,
     150
@@ -2488,6 +2525,7 @@ window.BLOODWORK =
     160,
     449
    ],
+   "am": "useful",
    "axis": [
     100,
     500
@@ -2513,6 +2551,7 @@ window.BLOODWORK =
     82,
     241
    ],
+   "am": "critical",
    "axis": [
     60,
     280
