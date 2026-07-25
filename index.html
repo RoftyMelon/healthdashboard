@@ -1129,8 +1129,16 @@ function derive(j){
     return x.a!==undefined?x.a*e.r+x.b:e.r*x.m;};
   const TT=M('tt'),SH=M('shbg'),TF=M('trf'),TB=M('tibc'),FT=M('ft');
   const put=(d,id,v,u)=>{d.v[id]={r:Math.round(v*100)/100,u};};
+  /* Never derive FROM a censored input. A bound propagates through these formulas in ways
+     that are not uniform — corrected calcium rises with calcium but FALLS with albumin, and
+     Vermeulen is non-linear in all three of its inputs — so "<x" in gives neither a value nor
+     a reliable bound out. Deriving anyway would mint a confident number from one the assay
+     never resolved, which is the same class of error as storing a limit as a measurement.
+     No current input is censored, so this changes nothing today; it is here so a future
+     "<x" cannot silently become a derived reading. */
+  const ok=e=>e&&!e.lt;
   j.DATA.draws.forEach(d=>{
-    const ca=d.v.ca,al=d.v.alb;
+    const ca=ok(d.v.ca)?d.v.ca:null,al=ok(d.v.alb)?d.v.alb:null;
     // Needs BOTH, and a stale one must not survive. The albumin ceiling is the SOURCE LAB'S
     // OWN RULE, printed verbatim on the 2022 report: "Calcium corrigé non indiqué car
     // albumine >40 g/L". Above 40 g/L the correction subtracts (albumin-4) from a calcium
@@ -1148,14 +1156,14 @@ function derive(j){
     // over a computed one, so this only fills a gap and never overwrites. 1.4023 = 25.1
     // µmol/L per g/L carried into canonical units; it reproduces the lab's own TSAT
     // (81.0/363.2 = 22.3% vs their printed 22%), which is what validates the factor.
-    const tf=d.v.trf;
+    const tf=ok(d.v.trf)?d.v.trf:null;
     if(TF&&TB&&tf&&!d.v.tibc)put(d,'tibc',canon(TF,tf)*1.4023,'µg/dL');
 
     // Calculated free testosterone (Vermeulen 1999) — the clinical standard when
     // equilibrium dialysis is unavailable, and far more reliable than a direct free-T
     // immunoassay (this dataset already had one such value thrown out as a 10x error).
     // Solves N·Kt·FT² + FT·(N + Kt·(S−T)) − T = 0 for the free fraction.
-    const tt=d.v.tt,sh=d.v.shbg;
+    const tt=ok(d.v.tt)?d.v.tt:null,sh=ok(d.v.shbg)?d.v.shbg:null;
     if(TT&&SH&&FT&&tt&&sh&&al&&!d.v.ft){         // never overwrite a measured free T
       const T=canon(TT,tt)/28.84*1e-9,          // ng/dL → nmol/L → mol/L
             S=canon(SH,sh)*1e-9,                 // nmol/L → mol/L
@@ -1263,7 +1271,7 @@ function mini(m){
     return `<span style="left:${p}%;transform:${tf}">${fmt(v)}</span>`;};
   const tip=`Clinical ${fmt(dV(m,m.clin[0]))}–${fmt(dV(m,m.clin[1]))} ${uLab(m)}`+
     (m.opt?` · Optimal ${fmt(dV(m,m.opt[0]))}–${fmt(dV(m,m.opt[1]))} (${m.oc})`:'')+
-    (L?` · You: ${fmt(dV(m,L.v))}`:' · not measured');
+    (L?` · You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''}`:' · not measured');
   return `<div title="${tip}">
     <div class="mg"><div class="mgc" style="left:${cl}%;width:${cw}%"></div>
       ${m.opt?`<div class="mgo" style="left:${ol}%;width:${ow}%"></div>`:''}${tick}</div>
@@ -1284,12 +1292,18 @@ function sev(m,v){
     if(v<m.opt[0])return (m.opt[0]-v)/w*k; if(v>m.opt[1])return (v-m.opt[1])/w*k; }
   return 0;
 }
-function excursion(m,v){                    // how far past the edge, in the CURRENT reading unit
+function excursion(m,v,e){                  // how far past the edge, in the CURRENT reading unit
   // dD not dV: these are gaps, and a gap carries no zero-offset.
-  if(v<m.clin[0])return `${fmt(dD(m,m.clin[0]-v))} under`;
-  if(v>m.clin[1])return `${fmt(dD(m,v-m.clin[1]))} over`;
-  if(m.opt){ if(v<m.opt[0])return `${fmt(dD(m,m.opt[0]-v))} below target`;
-             if(v>m.opt[1])return `${fmt(dD(m,v-m.opt[1]))} above target`; }
+  /* A censored value is an upper bound, so an excursion computed from it is a bound too — and
+     the two directions are NOT symmetric. Over the top edge the true value sits below v, so it
+     may not be over at all: "at most". Under the bottom edge the true value is lower still, so
+     the gap can only be wider: "more than". Saying a flat number either way would assert a
+     distance the assay never measured. */
+  const lt=!!(e&&e.lt),hi=lt?'at most ':'',lo=lt?'more than ':'';
+  if(v<m.clin[0])return `${lo}${fmt(dD(m,m.clin[0]-v))} under`;
+  if(v>m.clin[1])return `${hi}${fmt(dD(m,v-m.clin[1]))} over`;
+  if(m.opt){ if(v<m.opt[0])return `${lo}${fmt(dD(m,m.opt[0]-v))} below target`;
+             if(v>m.opt[1])return `${hi}${fmt(dD(m,v-m.opt[1]))} above target`; }
   return '';
 }
 function trend(m){
@@ -1489,7 +1503,7 @@ function render(){
   const R=m=>{
     const L=cur[m.id];
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
-    if(L){const st=status(m,L.v),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v);
+    if(L){const st=status(m,L.v),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
       pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
         L.raw&&L.raw.lt?' · below the assay detection limit — an upper bound, not a measurement':''}">${LT(L.raw)}${fmt(dV(m,L.v))}</span>`;
       lm=`<span class="lm${old?' old':''}" title="Measured ${L.d.date}${old?' · over 18 months old':''}">${ago(mo)}</span>`;
