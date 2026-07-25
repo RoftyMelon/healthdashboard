@@ -12,7 +12,7 @@ window.BLOODWORK =
 {
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
-  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.",
+  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.",
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
   "optimal_ranges": "opt[] and oc are INFERENCES, not lab data. oc is the evidence behind the target: strong = outcome data (RCTs, dose-response vs hard endpoints); moderate = association studies or physiology; weak = convention or industry framing, no outcome data. 3 strong, 29 moderate, 26 weak, 18 with no target at all. A value outside a WEAK band is an opinion, not a finding. A marker with NO opt is deliberate: it means no defensible target exists, and adding one back is a regression, not an improvement.",
   "clin_ranges": "clin[] IS lab data, off the report.",
@@ -3180,7 +3180,8 @@ window.BLOODWORK =
      "ldl": {
       "r": 1,
       "u": "g/L",
-      "a": "Formule de Friedwald (calculé, non mesuré)"
+      "a": "Formule de Friedwald",
+      "an": "Calculé à partir des triglycérides, non mesuré"
      },
      "nonhdl": {
       "r": 1.1,
@@ -3189,7 +3190,8 @@ window.BLOODWORK =
      "crea": {
       "r": 15,
       "u": "mg/L",
-      "a": "Créatininase Beckman, technique enzymatique IDMS"
+      "a": "Créatininase Beckman, enzymatique",
+      "an": "Traçable IDMS — la calibration que suppose CKD-EPI"
      },
      "egfr": {
       "r": 61,
@@ -3207,7 +3209,8 @@ window.BLOODWORK =
      "hscrp": {
       "r": 1,
       "u": "mg/L",
-      "a": "Immuno-Turbidimétrie Beckman — CRP STANDARD, réf <5 mg/L, pas ultra-sensible"
+      "a": "Immuno-Turbidimétrie Beckman",
+      "an": "CRP STANDARD, réf <5 mg/L — pas ultra-sensible"
      },
      "tsh": {
       "r": 0.783,
@@ -3376,7 +3379,8 @@ window.BLOODWORK =
      "hscrp": {
       "r": 0.6,
       "u": "mg/L",
-      "a": "Immunoturbidimétrie Cobas Roche — CRP ultra-sensible; changement de technique au 27/05/2026"
+      "a": "Immunoturbidimétrie Cobas Roche",
+      "an": "CRP ultra-sensible; changement de technique au 27/05/2026"
      },
      "alb": {
       "r": 51,

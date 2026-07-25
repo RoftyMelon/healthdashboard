@@ -306,10 +306,14 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
   /* clears .ckey, which owns the rightmost 160px of the pane (right:48 + 34 + 14 + 64) */
   max-width:calc(100% - 172px);min-width:0;
   padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
-  font-size:11px;line-height:1.45;color:var(--t4)}
+  font-size:11px;line-height:1.45;color:var(--t3)}
 .dassay>b{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--t3);padding-bottom:2px}
-.dassay i{font-style:normal;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
+  text-transform:uppercase;color:var(--t4);padding-bottom:2px}
+.dassay i{font-style:normal;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* the caveat sits a step quieter than the technique it qualifies — t4 is the faintest step
+   (.27 alpha), which is why the TECHNIQUE lines moved up to t3 rather than staying there. */
+.dassay em{display:block;font-style:normal;color:var(--t4);padding-bottom:4px}
+.dassay em:last-child{padding-bottom:0}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
    .chart here would leave the footnote permanently at opacity:0 for those users. */
@@ -1024,6 +1028,10 @@ function audit(j){
       // vs high-sensitivity CRP). Absent means unrecorded, never "same as the row above".
       if(v.a!==undefined&&(typeof v.a!=='string'||!v.a.trim()))
         bad.push(`draw ${d.date}, ${m.en}: assay "a" must be a non-empty string when present`);
+      if(v.an!==undefined&&(typeof v.an!=='string'||!v.an.trim()))
+        bad.push(`draw ${d.date}, ${m.en}: assay note "an" must be a non-empty string when present`);
+      if(v.an!==undefined&&v.a===undefined)
+        bad.push(`draw ${d.date}, ${m.en}: "an" without "a" — a caveat with no technique to qualify`);
     });
   });
   // lifestyle blocks are optional, but if present they obey the same contract: exact or rejected
@@ -1348,8 +1356,11 @@ function det(row,id,cols,n,tri){
   // is built exactly like the column headers so the footnote names the same column you see.
   const asy=pts.filter(o=>o.d.v[m.id].a);
   const anote=asy.length?`<div class="dassay"><b>Assay</b>${asy.map(o=>{
-      const dt=new Date(o.d.date+'T00:00:00');
-      return `<div><i>${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}</i> &mdash; ${esc(o.d.v[m.id].a)}</div>`;
+      const e=o.d.v[m.id],dt=new Date(o.d.date+'T00:00:00');
+      // technique on its own line, caveat under it: the two are different KINDS of claim —
+      // .a is transcribed off the report, .an is what it means for reading the number.
+      return `<div><i>${dt.toLocaleString('en',{month:'short'})} &rsquo;${o.d.date.slice(2,4)}</i> &mdash; ${esc(e.a)}</div>`+
+             (e.an?`<em>${esc(e.an)}</em>`:'');
     }).join('')}</div>`:'';
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
