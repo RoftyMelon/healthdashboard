@@ -1421,8 +1421,16 @@ function render(){
 
   if(q){
     const rows=MARK.filter(m=>m._h.includes(q));
+    // Matches keep their CATEGORY header: a hit is only half an answer if you cannot then
+    // find the row again in the unfiltered table, and the category is that address. The
+    // Search bar stays as the tally, then one section per category that actually matched \u2014
+    // same tbody-per-section shape as the default view, so the sticky bars still don't pile.
     h+=SEC(null,'Search',`${rows.length} of ${MARK.length} markers match \u201c${esc(qRaw)}\u201d`,
-      rows.length?rows.map(R).join(''):NONE('No marker matches that.'));
+      rows.length?'':NONE('No marker matches that.'));
+    if(rows.length)CATS.forEach(c=>{
+      const r2=rows.filter(m=>m.cat===c.id);
+      if(r2.length)h+=SEC(c.id,c.t,r2.length+(r2.length===1?' marker':' markers'),r2.map(R).join(''));
+    });
   } else if(filter==='flag'){
     const rows=MARK.filter(m=>cur[m.id]&&['out','watch'].includes(status(m,cur[m.id].v)))
                    .sort((a,b)=>sev(b,cur[b.id].v)-sev(a,cur[a.id].v));
