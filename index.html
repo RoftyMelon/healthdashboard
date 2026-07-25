@@ -150,6 +150,7 @@ td.boot span{color:var(--t3);font-size:15px}
   transition:transform .32s cubic-bezier(.32,.72,0,1),width .32s cubic-bezier(.32,.72,0,1)}
 :root[data-theme=dark] .segt{background:var(--btn-h);
   box-shadow:0 1px 1.5px rgba(0,0,0,.22),0 0 0 .5px rgba(245,244,239,.07)}
+.chipset{display:flex;align-items:center}
 .chip{position:relative;z-index:1}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
@@ -175,7 +176,7 @@ td.boot span{color:var(--t3);font-size:15px}
    control, one place to look. They are stacked and counter-rotated, so the swap reads as the
    same glyph turning rather than two icons cross-fading. */
 .srch .sicon{position:relative;cursor:pointer}
-.srch .sicon svg{transition:opacity .16s ease,transform .3s cubic-bezier(.32,.72,0,1)}
+.srch .sicon svg{transition:opacity .22s ease,transform .34s cubic-bezier(.32,.72,0,1)}
 .srch .i-x{position:absolute;opacity:0;transform:rotate(-90deg) scale(.65)}
 .srch.open .i-mag{opacity:0;transform:rotate(90deg) scale(.65)}
 .srch.open .i-x{opacity:1;transform:none}
@@ -1015,7 +1016,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
       </button>
       <input id="q" type="text" autocomplete="off" spellcheck="false">
     </div>
-      <div class="chips" id="chips"></div>
+      <div class="chips" id="chips"><span class="segt" id="segt"></span><span class="chipset" id="chipset"></span></div>
     </div>
       <div class="toc" id="toc"></div>
     </div>
@@ -1725,7 +1726,10 @@ function render(){
   const stl=MARK.filter(m=>cur[m.id]&&months(cur[m.id].d.date)>STALE);
   const nev=MARK.filter(m=>!cur[m.id]);
   const N={all:MARK.length,flag:out.length+wat.length,crit:DECS.length};   // the label says 'supplement', so count supplements
-  document.getElementById('chips').innerHTML='<span class="segt" id="segt"></span>'+
+  /* Buttons only. The thumb lives outside this innerHTML on purpose: rebuilding it every
+     render destroyed the element mid-transition, so it grew from zero width at the left edge
+     instead of sliding from the segment it was on. */
+  document.getElementById('chipset').innerHTML=
     [{id:'all',t:'All'},{id:'flag',t:'Flagged'},{id:'crit',t:'By supplement'}]
       .map(c=>`<button class="chip" aria-pressed="${filter===c.id&&!q}" onclick="setF('${c.id}')"`+
         (c.id==='flag'?` title="Outside the lab reference range, or outside the optimal target"`
