@@ -239,7 +239,9 @@ td.tr{text-align:left;padding-left:14px}
 tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dwrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.25,.9,.3,1)}
 .dwrap.open{grid-template-rows:1fr}
-.dclip{overflow:hidden;min-height:0;background:var(--grp)}
+/* the panel now sits on the page background: no tint, so the only boundary is the row
+   border above it. The two rules below are keyed to THIS colour and move with it. */
+.dclip{overflow:hidden;min-height:0;background:var(--bg)}
 /* min-height, not height: the assay note now lives in the left pane, and a marker with many
    tagged draws must GROW the chart rather than be silently swallowed by .dclip's
    overflow:hidden. fitChart() only ever writes widths, so nothing depends on the 200. */
@@ -250,7 +252,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    note, to the BOTTOM of the otherwise empty left pane. */
 .cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-start}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
-.cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--grp);padding:0 5px;
+.cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--bg);padding:0 5px;
   transform:translateY(-.5px)}
 .cyl.o span{color:var(--ok);font-weight:600}
 .cyu{position:absolute;right:14px;top:-7px;font-size:13px;font-weight:500;color:var(--t4)}
@@ -288,7 +290,8 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cgl{position:absolute;left:0;right:0;height:0;border-top:.5px dashed var(--line)}
 .cgl.o{border-top-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 .cd{position:absolute;width:10px;height:10px;border-radius:50%;transform:translate(-50%,50%);
-  border:2px solid var(--grp)}
+  /* halo in the PANEL background, so a dot reads as separate from the line behind it */
+  border:2px solid var(--bg)}
 /* colour is carried as well as background so the censored variants below can reach the status
    hue through currentColor instead of restating three rules per decoration. */
 .cd.ok{background:var(--ok);color:var(--ok)}
