@@ -413,7 +413,7 @@ window.BLOODWORK =
     8.6,
     10.2
    ],
-   "note": "Calcium adjusted for albumin, since roughly half of blood calcium is albumin-bound and only the free half is active. Tracked so a low albumin does not read as low calcium. Deliberately not computed above 40 g/L albumin — the source lab's own rule — so an empty row here is the answer, not a gap.",
+   "note": "Calcium adjusted for albumin, since roughly half of blood calcium travels bound to albumin and only the free half is active. Tracked so that low albumin is not mistaken for low calcium. Deliberately not computed above 40 g/L albumin — the source lab's own rule — so an empty row is the answer, not a gap.",
    "axis": [
     8,
     11
@@ -1337,7 +1337,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
-   "note": "The fraction of haemoglobin that has glucose bound to it, reflecting average blood sugar over the ~3-month lifespan of a red cell, weighted toward recent weeks. Anything that shortens red cell survival reads falsely low, so it is only as reliable as the blood count beside it.",
+   "note": "The fraction of haemoglobin with glucose stuck to it, reflecting average blood sugar over a red cell's ~3-month life, weighted to recent weeks. Anything that shortens red cell survival gives the glucose less time to attach, so the result understates true average sugar.",
    "axis": [
     4,
     7
@@ -1838,7 +1838,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "useful",
-   "note": "The main stress hormone, released on a strong daily rhythm. Tracked for adrenal function and chronic stress load. It peaks within an hour of waking and falls steeply afterwards, so the reference range assumes a morning draw — a later one reads low with nothing wrong.",
+   "note": "The main stress hormone, released on a strong daily rhythm. Tracked for adrenal function and chronic stress load. It peaks within an hour of waking and falls steeply after, so the reference range assumes a morning draw — an afternoon sample can look deficient when nothing is wrong.",
    "axis": [
     0,
     30
@@ -1877,7 +1877,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "A pituitary hormone that suppresses testosterone when persistently high. Tracked because a prolactin-secreting tumour is a treatable cause of low testosterone. Rises with stress and sleep, and macroprolactin — a harmless bound form — inflates it unless the lab screens for it.",
+   "note": "A pituitary hormone that suppresses testosterone when persistently high. Tracked because a prolactin-secreting tumour is a treatable cause of low testosterone. Stress and sleep raise it, and macroprolactin — a harmless bound form the body cannot use — adds to the total unless the lab screens for it.",
    "axis": [
     0,
     30
@@ -1963,7 +1963,7 @@ window.BLOODWORK =
     17
    ],
    "oc": "moderate",
-   "note": "The oxygen-carrying protein inside red cells, and the number that actually defines anaemia. Tracked as the core oxygen-delivery measure. Plasma volume shifts it without any change in red cell mass — dehydration reads high, and endurance training expands plasma so it reads low.",
+   "note": "The oxygen-carrying protein inside red cells, and the number that defines anaemia. Tracked as the core oxygen-delivery measure. It is a concentration, so the amount of plasma it sits in moves it: dehydration concentrates the same red cells and the value rises, while endurance training adds plasma and dilutes it.",
    "axis": [
     11,
     19
@@ -1990,7 +1990,7 @@ window.BLOODWORK =
     50
    ],
    "oc": "moderate",
-   "note": "The percentage of blood volume occupied by red cells. Tracks with haemoglobin and adds little on its own. Being a ratio it is even more sensitive to hydration than haemoglobin: the same red cells in less plasma read as a higher haematocrit.",
+   "note": "The percentage of blood volume made up of red cells. Tracks with haemoglobin and adds little on its own. Being a ratio it is even more sensitive to plasma volume: the same red cells suspended in less fluid give a higher percentage, without a single extra cell existing.",
    "axis": [
     35,
     58
@@ -2021,7 +2021,7 @@ window.BLOODWORK =
     5.6
    ],
    "oc": "weak",
-   "note": "The count of red cells per volume. Mostly useful as the denominator for MCV, MCH and MCHC rather than on its own, since it says nothing about how much haemoglobin each cell carries. Same hydration caveat as haemoglobin and haematocrit.",
+   "note": "The number of red cells per unit of blood. Useful mainly as the denominator for MCV, MCH and MCHC rather than on its own, since it says nothing about how much haemoglobin each cell carries. Being a per-volume count, it shifts with hydration exactly as haemoglobin does.",
    "axis": [
     3.5,
     6.5
