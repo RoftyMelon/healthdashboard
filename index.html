@@ -142,9 +142,15 @@ td.boot span{color:var(--t3);font-size:15px}
    No dividers: the thumb's own edge is the only boundary the eye needs, and dividers are what
    made the previous version look coarse. The 3px inset is what keeps the thumb from touching
    the track's walls; without it the two radii fight and the corners look chewed. */
-.chips{display:flex;align-items:center;flex:none;gap:0;
+.chips{display:flex;align-items:center;flex:none;gap:0;position:relative;
   padding:3px;border-radius:12px;border:.5px solid transparent;
   background:color-mix(in srgb,var(--grp) 55%,var(--bg))}
+.segt{position:absolute;left:0;top:3px;bottom:3px;width:0;border-radius:9px;pointer-events:none;
+  background:var(--bg);box-shadow:0 1px 1.5px rgba(0,0,0,.055),0 0 0 .5px rgba(31,30,29,.055);
+  transition:transform .32s cubic-bezier(.32,.72,0,1),width .32s cubic-bezier(.32,.72,0,1)}
+:root[data-theme=dark] .segt{background:var(--btn-h);
+  box-shadow:0 1px 1.5px rgba(0,0,0,.22),0 0 0 .5px rgba(245,244,239,.07)}
+.chip{position:relative;z-index:1}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
    sits centered in its 40px box (6px inset from the gutter), the label at -5px + 12px pad ≈ 7px.
    flex-basis:100% pins the toc to its OWN flex line — otherwise the packing math is free to
@@ -182,10 +188,7 @@ td.boot span{color:var(--t3);font-size:15px}
   background:transparent;color:var(--t3);letter-spacing:-.005em;
   transition:background .18s ease,color .18s ease,box-shadow .18s ease}
 .chip:hover{color:var(--txt)}
-.chip[aria-pressed=true]{color:var(--txt);font-weight:600;
-  background:var(--bg);box-shadow:0 1px 1.5px rgba(0,0,0,.055),0 0 0 .5px rgba(31,30,29,.055)}
-:root[data-theme=dark] .chip[aria-pressed=true]{background:var(--btn-h);
-  box-shadow:0 1px 1.5px rgba(0,0,0,.22),0 0 0 .5px rgba(245,244,239,.07)}
+.chip[aria-pressed=true]{color:var(--txt);font-weight:600}
 .cn{font-size:12.5px;font-weight:700;margin-left:6px;opacity:.45;font-variant-numeric:tabular-nums}
 .cn.hot{color:var(--out);opacity:1}
 .chip[aria-pressed=true] .cn{color:inherit;opacity:.42}
@@ -1714,12 +1717,13 @@ function render(){
   const stl=MARK.filter(m=>cur[m.id]&&months(cur[m.id].d.date)>STALE);
   const nev=MARK.filter(m=>!cur[m.id]);
   const N={all:MARK.length,flag:out.length+wat.length,crit:DECS.length};   // the label says 'supplement', so count supplements
-  document.getElementById('chips').innerHTML=
+  document.getElementById('chips').innerHTML='<span class="segt" id="segt"></span>'+
     [{id:'all',t:'All'},{id:'flag',t:'Flagged'},{id:'crit',t:'By supplement'}]
       .map(c=>`<button class="chip" aria-pressed="${filter===c.id&&!q}" onclick="setF('${c.id}')"`+
         (c.id==='flag'?` title="Outside the lab reference range, or outside the optimal target"`
          :c.id==='crit'?` title="${DECS.length} supplements, ${MARK.filter(m=>m.dec).length} markers between them"`:'')+
         `>${c.t}<span class="cn${c.id==='flag'&&out.length?' hot':''}">${N[c.id]}</span></button>`).join('');
+  moveSegT();
   document.getElementById('toc').innerHTML=
     CATS.map(c=>`<button class="nav" onclick="goto('${c.id}')">${c.t}</button>`).join('');
   const tri=filter==='flag',sup=filter==='crit';                 // triage view earns an extra column
@@ -2232,6 +2236,24 @@ window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{
 TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 function onQ(v){qRaw=v.trim();q=norm(qRaw);SRCH.classList.toggle('has',!!q);render();}
 function sShut(){SRCH.classList.remove('open','has');QI.value='';QI.blur();if(q)onQ('');}
+/* One thumb that TRAVELS, rather than a background that blinks from one button to the next.
+   Position is measured because the three segments are different widths — "By supplement" is
+   twice "All". The transition is suppressed on the very first placement, or the thumb would
+   fly in from the left edge on load. */
+let _segReady=false;
+function moveSegT(){
+  const t=document.getElementById('segt'),box=document.getElementById('chips');
+  if(!t||!box)return;
+  const on=box.querySelector('.chip[aria-pressed=true]');
+  if(!on){t.style.opacity='0';return;}
+  const b=box.getBoundingClientRect(),r=on.getBoundingClientRect();
+  if(!_segReady)t.style.transition='none';
+  t.style.opacity='1';
+  t.style.width=r.width+'px';
+  t.style.transform='translateX('+(r.left-b.left-3)+'px)';
+  if(!_segReady){void t.offsetWidth;t.style.transition='';_segReady=true;}
+}
+window.addEventListener('resize',moveSegT,{passive:true});
 function setF(f){filter=f;
   if(q){QI.value='';q='';qRaw='';SRCH.classList.remove('has');}
   render();}
