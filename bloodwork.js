@@ -144,7 +144,6 @@ window.BLOODWORK =
      "Serum - Finasteride 0.1% + Minoxidil 5%"
     ]},
     {"t": "Before sleep", "icon": "moon", "items": [
-     {"n": "Body lotion 12% AHA", "info": "Apply immediately after shower while still wet"},
      {"n": "Serum - Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
      {"n": "Serum - Copper Peptides 1%", "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html", "info": "Do not apply on Glycolic Acid days"},
      {"n": "Retinal 0.2%", "url": "https://geekandgorgeous.com/products/a-game-20"},
@@ -155,6 +154,7 @@ window.BLOODWORK =
     ]}
    ],
    "notes": [
+    "Body lotion 12% AHA while still wet after morning shower, at least once a week",
     "Glycolic 7% once a week instead of Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
     "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
