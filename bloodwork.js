@@ -382,6 +382,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
+   "note": "25-OH is the storage form and the right one to measure. Responds over months, not days, and daily sunscreen removes most cutaneous synthesis.",
    "axis": [
     0,
     120
@@ -488,6 +489,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Regulates calcium and rises when calcium or vitamin D runs low. Only interpretable alongside both, never alone.",
    "axis": [
     0,
     90
@@ -518,6 +520,7 @@ window.BLOODWORK =
     2.5
    ],
    "oc": "moderate",
+   "note": "The pituitary's response to thyroid hormone, so it moves before T4 does. Sensitive to time of day and suppressed by acute illness.",
    "axis": [
     0,
     6
@@ -605,6 +608,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "Rises when B12, folate or B6 are low. Extremely handling-sensitive — plasma must be separated promptly or the value climbs in the tube.",
    "axis": [
     0,
     20
@@ -669,6 +673,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "EPA and DHA as a percentage of red cell fatty acids, so it reflects months of intake rather than the last meal. Only the RBC method carries the published targets.",
    "axis": [
     0,
     14
@@ -700,6 +705,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "Iron stores, but also an acute-phase protein: inflammation raises it on its own, so a high ferritin alongside normal iron often means inflammation.",
    "axis": [
     0,
     300
@@ -734,6 +740,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
+   "note": "Serum zinc drops during inflammation as it redistributes into tissue, so a low value during any illness understates real stores.",
    "axis": [
     50,
     140
@@ -765,6 +772,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Rises with inflammation and with oestrogen. Interpreted against zinc rather than alone, since the two compete for absorption.",
    "axis": [
     40,
     180
@@ -873,6 +881,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "A muscle breakdown product cleared by the kidney. Muscle mass, meat intake and creatine supplements each raise it without kidney function changing.",
    "axis": [
     0.4,
     1.8
@@ -903,6 +912,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "A filtration marker independent of muscle mass, which is exactly why it is the more trustworthy kidney estimate here.",
    "axis": [
     0.3,
     1.4
@@ -933,6 +943,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Not measured — calculated from creatinine, age and sex, so it inherits every confound creatinine has. Cystatin C is the better estimate when muscle mass is high.",
    "axis": [
     40,
     140
@@ -1035,6 +1046,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "Counts atherogenic particles directly, one per LDL, VLDL and Lp(a) particle. Unaffected by the triglyceride level that distorts calculated LDL.",
    "axis": [
     0,
     160
@@ -1066,6 +1078,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Almost entirely genetic and near-constant for life, so one good measurement usually settles it. Reported in mass or molar units, which are not interchangeable.",
    "axis": [
     0,
     150
@@ -1134,6 +1147,7 @@ window.BLOODWORK =
    ],
    "oc": "strong",
    "am": "critical",
+   "note": "A general inflammation marker with no specificity at all. Infection, injury or hard training in the days before a draw all raise it.",
    "axis": [
     0,
     6
@@ -1173,6 +1187,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Usually calculated from total cholesterol, HDL and triglycerides rather than measured, and that formula degrades at low LDL and high triglycerides.",
    "axis": [
     0,
     190
@@ -1277,6 +1292,7 @@ window.BLOODWORK =
     90
    ],
    "oc": "moderate",
+   "note": "A single fasting snapshot, moved by the last meal, sleep and stress. HbA1c is the smoother version of the same question.",
    "axis": [
     60,
     130
@@ -1309,6 +1325,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "Average glucose over roughly three months, weighted to recent weeks. Anything shortening red cell lifespan reads falsely low.",
    "axis": [
     4,
     7
@@ -1340,6 +1357,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Rises years before fasting glucose does. Assays are not standardised, so absolute values do not transfer between labs.",
    "axis": [
     0,
     25
@@ -1401,6 +1419,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "The more liver-specific transaminase. Far less moved by muscle than AST, so ALT holding steady while AST rises points at muscle rather than liver.",
    "axis": [
     0,
     70
@@ -1432,6 +1451,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "useful",
+   "note": "A liver enzyme that is also abundant in skeletal muscle, so exercise raises it with the liver untouched. ALT is the more liver-specific of the pair.",
    "axis": [
     0,
     70
@@ -1552,6 +1572,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "The main blood protein. Also an input to both corrected calcium and calculated free testosterone, so its assay method propagates into both.",
    "axis": [
     3,
     5.5
@@ -1588,6 +1609,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
+   "note": "Peaks within a few hours of waking and falls through the day. Draws at different clock times are not directly comparable.",
    "axis": [
     200,
     1100
@@ -1623,6 +1645,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
+   "note": "The fraction not bound to SHBG or albumin. Calculated here (Vermeulen) from total T, SHBG and albumin, so it inherits all three assays' quirks.",
    "axis": [
     20,
     280
@@ -1654,6 +1677,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
+   "note": "Binds testosterone and sets how much stays free. Rises with thyroid hormone, falls with insulin resistance — and feeds the free-T calculation.",
    "axis": [
     10,
     70
@@ -1684,6 +1708,7 @@ window.BLOODWORK =
     40
    ],
    "am": "critical",
+   "note": "In men mostly aromatised from testosterone. Immunoassays are unreliable at male concentrations; LC-MS/MS is the reference method.",
    "axis": [
     0,
     60
@@ -1794,6 +1819,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "useful",
+   "note": "Highest shortly after waking, then falls steeply. The reference range assumes a morning draw; a later one reads low with nothing wrong.",
    "axis": [
     0,
     30
@@ -1863,6 +1889,7 @@ window.BLOODWORK =
     350
    ],
    "oc": "moderate",
+   "note": "Clotting cells. Platelets clumping in the EDTA tube read as a falsely low count rather than a real one.",
    "axis": [
     100,
     450
@@ -1885,6 +1912,7 @@ window.BLOODWORK =
     11
    ],
    "am": "critical",
+   "note": "Average platelet size. Drifts upward the longer blood sits in the EDTA tube, so it varies with lab handling as much as with physiology.",
    "axis": [
     5,
     14
@@ -2400,6 +2428,7 @@ window.BLOODWORK =
     380
    ],
    "am": "useful",
+   "note": "Leaks from skeletal muscle after exertion and clears over days. In a training week a high reading reflects the training, not disease.",
    "axis": [
     0,
     600
@@ -2452,6 +2481,7 @@ window.BLOODWORK =
     5
    ],
    "oc": "weak",
+   "note": "Leaks out of red cells when a sample sits too long or is shaken, which reads as falsely high potassium.",
    "axis": [
     3,
     6
