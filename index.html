@@ -515,8 +515,10 @@ html.tabhid .tabrow{max-height:0;opacity:0;margin-bottom:0;padding-top:0;pointer
    lets the row overflow and scroll at all. */
 .swap{display:flex;align-items:center;gap:inherit;flex:none;min-width:0;
   padding-right:11px;margin-right:6px;border-right:1px solid var(--line);
-  flex-wrap:nowrap;overflow-x:auto;                /* search opens -> pills scroll, never wrap */
-  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  /* NOT a scroller. It used to own one so the pills could slide when the search box opened,
+     but .bar scrolls the whole row now — and a nested scroller with nothing to scroll simply
+     swallowed the wheel, so horizontal scrolling died wherever the pointer sat over a pill. */
+  flex-wrap:nowrap}
 .swap::-webkit-scrollbar{display:none}
 .pt{font-family:inherit;font-size:17px;font-weight:550;padding:9px 13px;white-space:nowrap;
   background:none;border:none;border-radius:9px;color:var(--t3);cursor:pointer;position:relative;
