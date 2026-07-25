@@ -1471,6 +1471,18 @@ function det(row,id,cols,n,tri){
       <div class="cpad" style="width:${padW}px"></div>
     </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
+  /* A key label longer than its own bracket reads as uncentred even when it is centred to the
+     pixel — the bracket looks like a container, so text spilling past both ends looks wrong.
+     The bracket's height IS the clin/opt span and cannot move, so the LABEL yields: shrink it
+     to fit. Measured SYNCHRONOUSLY, before .open — the Preview pane throttles rAF, and the
+     size has to be right on first paint. 11.5px is this file's stated floor for chart text;
+     below that legibility loses to tidiness, so a tiny bracket keeps its overhang. */
+  row.nextElementSibling.querySelectorAll('.cka').forEach(k=>{
+    const lab=k.querySelector('.ckl'),br=k.querySelector('.ckbr');
+    if(!lab||!br)return;
+    const lh=lab.getBoundingClientRect().height,bh=br.getBoundingClientRect().height;
+    if(lh>bh&&bh>0)lab.style.fontSize=Math.max(11.5,parseFloat(getComputedStyle(lab).fontSize)*bh/lh)+'px';
+  });
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
 }
