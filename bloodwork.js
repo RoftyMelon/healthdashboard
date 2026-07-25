@@ -244,15 +244,71 @@ window.BLOODWORK =
   ]}
   ]
  },
+ "RECORD": {
+  "sections": [
+   {
+    "t": "Identity",
+    "rows": [
+     [
+      "Sex",
+      "male"
+     ],
+     [
+      "Height",
+      "187 cm"
+     ],
+     [
+      "Country",
+      "France"
+     ]
+    ]
+   },
+   {
+    "t": "Blood group",
+    "date": "2024-08-30",
+    "rows": [
+     [
+      "Groupe sanguin ABO-D",
+      "O positif"
+     ],
+     [
+      "Phénotype Rhésus-Kell",
+      "C+ E+ c+ e+ K- · RH : 1,2,3,4,5 KEL : -1"
+     ],
+     [
+      "Agglutinines irrégulières (RAI)",
+      "Négatif"
+     ]
+    ]
+   },
+   {
+    "t": "Vaccinations",
+    "rows": [],
+    "empty": "Nothing recorded yet."
+   },
+   {
+    "t": "Serology",
+    "rows": [],
+    "empty": "Immunity titres — what the vaccinations actually achieved. Nothing recorded yet."
+   },
+   {
+    "t": "Genotyping",
+    "rows": [],
+    "empty": "Nothing recorded yet. APOE is the variant worth having; MTHFR is not."
+   },
+   {
+    "t": "Family history",
+    "rows": [],
+    "empty": "Nothing recorded yet. Age at a parent's first cardiac event is the single most useful entry."
+   },
+   {
+    "t": "Baseline studies",
+    "rows": [],
+    "empty": "One-off results worth keeping: coronary calcium score, DEXA, ECG. Nothing recorded yet."
+   }
+  ]
+ },
  "NEXTDRAW": {
-  "blood": {
-   "date": "2024-08-30",
-   "rows": [
-    ["Groupe sanguin ABO-D", "O positif"],
-    ["Phénotype Rhésus-Kell", "C+ E+ c+ e+ K- · RH : 1,2,3,4,5 KEL : -1"],
-    ["Agglutinines irrégulières (RAI)", "Négatif"]
-   ]
-  },
   "items": [
    {"en": "Cystatin C", "fr": "Cystatine C"},
    {"en": "Creatinine + eGFR", "fr": "Créatinine + DFG"},

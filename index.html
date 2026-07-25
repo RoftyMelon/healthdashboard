@@ -1059,7 +1059,7 @@ document.write('<script src="./bloodwork.js'+(location.search||'')+'"><\/script>
 // ---- DATA LIVES IN bloodwork.json ----
 // One source of truth. The dashboard reads it; so does any AI you hand it to.
 // To add a draw, edit that file. Never edit data in here.
-let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,ROUTINE=[],DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null;
+let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,RECORD=null,ROUTINE=[],DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null;
 
 // Accent-folding, so "hemoglobine" finds "Hémoglobine". NFKD splits the accent off the
 // letter; the range then strips it. œ/æ have no decomposition, so they're folded by hand.
@@ -1221,6 +1221,17 @@ function audit(j){
       if(s.judge!=null&&typeof s.judge!=='string')bad.push(`STACK "${s.name}": judge must be a string`);
     });
   }
+  if(j.RECORD){
+    if(!Array.isArray(j.RECORD.sections))bad.push('RECORD.sections must be an array');
+    else j.RECORD.sections.forEach(sec=>{
+      if(!sec.t)bad.push('RECORD section is missing a title');
+      if(!Array.isArray(sec.rows))bad.push(`RECORD "${sec.t}": rows must be an array (empty is fine)`);
+      else sec.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])
+        bad.push(`RECORD "${sec.t}": every row must be [label, value]`);});
+      // a section with nothing in it must SAY so — a silent blank reads as a rendering fault
+      if(sec.rows&&!sec.rows.length&&!sec.empty)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
+    });
+  }
   if(j.NEXTDRAW){
     if(!Array.isArray(j.NEXTDRAW.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
     else j.NEXTDRAW.items.forEach(x=>{if(typeof x!=='object'||!x.en||!x.fr)bad.push('NEXTDRAW items must be {en, fr}');});
@@ -1346,7 +1357,7 @@ function boot(j,cache){
     return;                                   // refuse to render rather than render a lie
   }
   MARK=j.MARK; DECS=j.DECS; CATS=j.CATS; DATA=j.DATA;
-  STACK=j.STACK||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null;
+  STACK=j.STACK||null; RECORD=j.RECORD||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null;
   S.draws=DATA.draws;
   MARK.forEach(m=>m._h=norm(m.en+' '+m.fr+' '+m.us));   // search index, derived
   // Remember it, so opening from disk on a phone doesn't mean re-picking the file
@@ -1870,7 +1881,7 @@ function goto(cat){
    'markers' is the whole table experience, filters and all. The other three render
    into #pages from the STACK / ROUTINE / DIET blocks, and the table-only controls
    fold away via html[data-page] (see the CSS). Nothing here touches table geometry. */
-const PAGES={markers:'Markers',nextdraw:'Next Draw',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training',grooming:'Grooming'};
+const PAGES={markers:'Markers',nextdraw:'Next Draw',stack:'Stack',routine:'Routine',diet:'Diet',training:'Training',grooming:'Grooming',record:'Record'};
 let page='markers';
 document.documentElement.dataset.page=page;
 const PGEL=document.getElementById('pages'),
@@ -1975,19 +1986,25 @@ function renderPage(p){
   // no outside-click handler, no '.open' toggling to leak or clash with search.
   let h='';
   if(p==='nextdraw'&&NEXTDRAW){
-    const it=NEXTDRAW.items,bl=NEXTDRAW.blood;
+    const it=NEXTDRAW.items;
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
-      // Blood group sits FIRST and reuses the .ndlist two-column shape: this is the page you
-      // hand to a lab, and group/phenotype is what gets asked for. Labels stay in French —
-      // the reader is French clinical staff. Fixed for life, so it carries no trend or range.
-      (bl?`<div class="pgsec ndlist"><div class="ndhead"><span class="sn">Blood group</span>`+
-        `<span class="frn">${esc(bl.date||'')}</span></div>`+
-        bl.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')+
-        `</div>`+(bl.note?`<div class="cnote">${esc(bl.note)}</div>`:''):'')+
       (it.length
         ?`<div class="pgsec ndlist"><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+it.map(x=>`<div class="srow"><span class="sn">${esc(x.en)}</span><span class="frn">${esc(x.fr)}</span></div>`).join('')+`</div>`
          +`<button class="frcopy" onclick="copyNd(this)">Copy (EN + FR)</button>`
         :`<div class="cempty">&mdash;</div>`);
+  } else if(p==='record'&&RECORD){
+    /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
+       two-column list rather than anything from the marker table. A section with no rows still
+       renders its heading and says what belongs there — an invisible section reads as a bug. */
+    const n=RECORD.sections.reduce((a,x)=>a+x.rows.length,0);
+    h=`<div class="pgh">Record</div><div class="pgsub">${n} standing fact${n===1?'':'s'}</div>`+
+      RECORD.sections.map(sec=>
+        `<div class="pgsec ndlist"><div class="ndhead"><span class="sn">${esc(sec.t)}</span>`+
+        `<span class="frn">${esc(sec.date||'')}</span></div>`+
+        (sec.rows.length
+          ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
+          : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||'')}</span></div>`)+
+        `</div>`).join('');
   } else if(p==='stack'&&STACK){
     h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed · Daily doses</div>`;
     if(STACK.intro)h+=`<div class="cnote lead">${esc(STACK.intro)}</div>`;
