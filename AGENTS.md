@@ -88,8 +88,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   the lab's printed range transcribed — but where the evidence has moved past what a lab prints,
   the harmonised interval wins (total T on Travison, eGFR on KDIGO, Lp(a) on ESC/EAS, uPCR on
   KDIGO A1). The chart therefore says "Reference range", **not** "Lab reference range": four
-  markers would have been lying. A lab's own printed interval goes in a value's `an`, never over
-  `clin[]`. `opt[]` and `oc` are **inferences** with an evidence tag
+  markers would have been lying. A lab's own printed interval is **not** worth storing as a rule —
+  nothing judges against it — and never overwrites `clin[]`. Record it in a value's `an` only when
+  it **fingerprints the assay** on an `am` marker: "réf <5 mg/L" is how the March CRP was known to
+  be standard rather than ultra-sensitive, and an 8.7–25.0 pg/mL free-T interval names a direct
+  RIA. Not merely because it differs — where `clin[]` is deliberately a guideline interval it
+  differs by construction. `opt[]` and `oc` are **inferences** with an evidence tag
   (strong / moderate / weak). Do not present a weak target as a finding.
 - A value is `{r, u}` plus four optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
