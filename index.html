@@ -170,17 +170,23 @@ td.boot span{color:var(--t3);font-size:15px}
 .srch .sicon{flex:none;width:34px;height:34px; display:flex;align-items:center;justify-content:center;
   padding:0;border:none;background:none;border-radius:50%;color:var(--t3)}
 .srch .sicon:hover{background:none;color:var(--txt)}
-.srch.open .sicon{color:var(--t2);cursor:default}
+.srch.open .sicon{color:var(--t2)}
+/* The magnifier turns into the cross rather than a second button appearing beside it: one
+   control, one place to look. They are stacked and counter-rotated, so the swap reads as the
+   same glyph turning rather than two icons cross-fading. */
+.srch .sicon{position:relative;cursor:pointer}
+.srch .sicon svg{transition:opacity .16s ease,transform .3s cubic-bezier(.32,.72,0,1)}
+.srch .i-x{position:absolute;opacity:0;transform:rotate(-90deg) scale(.65)}
+.srch.has .i-mag{opacity:0;transform:rotate(90deg) scale(.65)}
+.srch.has .i-x{opacity:1;transform:none}
+.srch.has .sicon{color:var(--t2)}
+.srch.has .sicon:hover{color:var(--txt)}
 .srch input{flex:1;min-width:0;height:100%;padding:0;border:none;background:none;border-radius:0;outline:none;
   font-family:inherit;font-size:16px;font-weight:450;color:var(--txt);
   opacity:0;transition:opacity .16s ease .1s}
 .srch.open input{opacity:1}
 .srch input::placeholder{color:var(--t3)}
 .srch input:focus-visible{outline:none}
-.srch .qx{display:none;flex:none;width:26px;height:26px;margin-right:5px;padding:0;line-height:24px;
-  text-align:center;font-size:20px;font-weight:400;border:none;background:none;border-radius:50%;color:var(--t3)}
-.srch .qx:hover{background:var(--btn-h);color:var(--txt)}
-.srch.has .qx{display:block}
 /* Ghosted at rest: the pill shape appears on hover, and stays only on the selected one. The
    border is transparent rather than absent so the box never resizes when it shows. */
 .chip{font-family:inherit;font-size:13px;font-weight:560;padding:5px 12px;border:0;border-radius:9px;
@@ -1001,11 +1007,12 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
     <div class="swap" id="swap">
     <div class="srch" id="srch">
       <button class="sicon" id="sbtn" aria-label="Search markers" title="Search  ( / )">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg class="i-mag" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        <svg class="i-x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6 18 18M18 6 6 18"/></svg>
       </button>
       <input id="q" type="text" autocomplete="off" spellcheck="false">
-      <button class="qx" id="qx" title="Clear" aria-label="Clear search">&times;</button>
     </div>
       <div class="chips" id="chips"></div>
     </div>
@@ -2262,8 +2269,10 @@ QI.addEventListener('input',e=>onQ(e.target.value));
 QI.addEventListener('blur',()=>setTimeout(()=>{               // let a click on the × land first
   if(!q&&document.activeElement!==QI)SRCH.classList.remove('open');},150));
 document.getElementById('sbtn').addEventListener('click',()=>{
-  if(SRCH.classList.contains('open')&&!q)sShut(); else QI.focus();});
-document.getElementById('qx').addEventListener('click',()=>{QI.value='';onQ('');QI.focus();});
+  // once it is a cross it does what a cross does: wipe the query and shut the field
+  if(q||SRCH.classList.contains('has'))sShut();
+  else if(SRCH.classList.contains('open'))sShut();
+  else QI.focus();});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&SRCH.classList.contains('open'))sShut();
   else if(e.key==='/'&&document.activeElement!==QI&&page==='markers'){e.preventDefault();QI.focus();}});
