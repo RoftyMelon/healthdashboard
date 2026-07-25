@@ -150,6 +150,13 @@ td.boot span{color:var(--t3);font-size:15px}
   transition:transform .32s cubic-bezier(.32,.72,0,1),width .32s cubic-bezier(.32,.72,0,1)}
 :root[data-theme=dark] .segt{background:var(--btn-h);
   box-shadow:0 1px 1.5px rgba(0,0,0,.22),0 0 0 .5px rgba(245,244,239,.07)}
+/* Scroll affordance: the row's right edge fades while more categories remain, and resolves
+   to a hard edge once you reach the end — so the fade means "there is more", not "this is a
+   row". A mask rather than an overlay gradient, because the row sits on two different
+   backgrounds (page and, when scrolled under, the sticky header) and a painted gradient would
+   have to match both. */
+.bar.more{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 38px),transparent);
+  mask-image:linear-gradient(to right,#000 calc(100% - 38px),transparent)}
 .chipset{display:flex;align-items:center}
 .chip{position:relative;z-index:1}
 /* -5px lines the first link's LABEL up with the hamburger glyph above it: the 28px glyph
@@ -1735,7 +1742,7 @@ function render(){
         (c.id==='flag'?` title="Outside the lab reference range, or outside the optimal target"`
          :c.id==='crit'?` title="${DECS.length} supplements, ${MARK.filter(m=>m.dec).length} markers between them"`:'')+
         `>${c.t}<span class="cn${c.id==='flag'&&out.length?' hot':''}">${N[c.id]}</span></button>`).join('');
-  moveSegT();
+  moveSegT();barFade();
   document.getElementById('toc').innerHTML=
     CATS.map(c=>`<button class="nav" onclick="goto('${c.id}')">${c.t}</button>`).join('');
   const tri=filter==='flag',sup=filter==='crit';                 // triage view earns an extra column
@@ -2266,6 +2273,14 @@ function moveSegT(){
   if(!_segReady){void t.offsetWidth;t.style.transition='';_segReady=true;}
 }
 window.addEventListener('resize',moveSegT,{passive:true});
+/* Only when something is actually out of reach — a permanent fade would read as decoration
+   and stop meaning anything. 4px of slack because scrollWidth and scrollLeft disagree by a
+   sub-pixel at the end on fractional-DPI screens, which otherwise leaves it faded forever. */
+function barFade(){const b=document.getElementById('bar');
+  if(b)b.classList.toggle('more',b.scrollWidth-b.clientWidth-b.scrollLeft>4);}
+window.addEventListener('resize',barFade,{passive:true});
+document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('bar');
+  if(b)b.addEventListener('scroll',barFade,{passive:true});barFade();});
 function setF(f){filter=f;
   if(q){QI.value='';q='';qRaw='';SRCH.classList.remove('has');}
   render();}
