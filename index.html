@@ -479,10 +479,14 @@ td.pos{padding-right:14px}
 .top.on{opacity:1;pointer-events:auto;transform:none}
 .top:hover{color:var(--txt)}
 
-/* the categories navigate, they do not filter */
-.nav{font-family:inherit;font-size:15px;font-weight:500;padding:5px 12px;border-radius:99px;cursor:pointer;
-  background:none;border:.5px solid transparent;color:var(--t3);transition:.14s}
-.nav:hover{background:var(--btn);border-color:var(--btn-b);color:var(--txt);transform:none}
+/* The categories navigate, they do not filter — so they are set as small caps matching the
+   BLOOD COUNT / LIVER bands they jump to, rather than as a third pill shape competing with the
+   page tabs above and the filter pills beside them. The label looks like its destination. */
+.nav{font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.09em;
+  /* no unit ever passes through here, so uppercase cannot turn a µ into an M */
+  text-transform:uppercase;padding:6px 7px;border:0;border-radius:0;cursor:pointer;
+  background:none;color:var(--t4);transition:color .14s ease}
+.nav:hover{color:var(--txt);background:none}
 
 /* ---- pages: a pinned tab row that auto-hides on scroll — MARKERS PAGE ONLY — and the data pages ----
    The tab strip lives in its OWN row at the top of the bar (with the theme toggle), ABOVE the
@@ -812,7 +816,9 @@ a.sbuy:hover{color:var(--info)}
      16px. 16px exactly is the threshold that leaves the viewport alone. */
   .srch input{font-size:16px}
   button.ic{width:40px;height:40px}
-  .nav{padding:5px 12px;font-size:15px}
+  /* matches the base rule: this block is later in the file, so leaving the old pill sizing
+     here would silently beat it on every phone. */
+  .nav{padding:6px 7px;font-size:11.5px}
   /* The toggle leaves the flex row and pins to the top-right of the header, overlaying the
      TAB row's right end; the tab strip runs behind it (glass) and .ptabs gets trailing padding
      so the last tab still scrolls fully clear. .topline goes block so pills + TOC stack. */
