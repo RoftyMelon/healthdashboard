@@ -589,6 +589,8 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .pgsec.stk .pgst{max-width:135px;white-space:nowrap}   /* underline caps at the longest title ("MAY ADD LATER" ~130px), not full width */
 .ndlist .srow{align-items:flex-start}
 .ndlist .sn{flex:0 0 43%;min-width:0}
+/* a whole-section one-liner: no label column, so it runs the full width */
+.ndlist .rline{flex:1;min-width:0;font-size:15px;line-height:1.45;color:var(--t2);user-select:text}
 .ndlist .frn{flex:1;min-width:0;color:var(--t3);font-size:14px;line-height:1.45;user-select:text}
 .ndhead{display:flex;gap:10px;padding:0 0 7px;border-bottom:.5px solid var(--line)}
 .ndhead .sn,.ndhead .frn{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t4)}
@@ -1230,7 +1232,7 @@ function audit(j){
       else sec.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])
         bad.push(`RECORD "${sec.t}": every row must be [label, value]`);});
       // a section with nothing in it must SAY so — a silent blank reads as a rendering fault
-      if(sec.rows&&!sec.rows.length&&!sec.empty)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
+      if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
     });
   }
   if(j.NEXTDRAW){
@@ -2002,9 +2004,11 @@ function renderPage(p){
       RECORD.sections.map(sec=>
         `<div class="pgsec ndlist"><div class="ndhead"><span class="sn">${esc(sec.t)}</span>`+
         `<span class="frn">${esc(sec.date||'')}</span></div>`+
-        (sec.rows.length
-          ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
-          : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||'')}</span></div>`)+
+        (sec.line
+          ? `<div class="srow"><span class="rline">${esc(sec.line)}</span></div>`
+          : sec.rows.length
+            ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
+            : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||'')}</span></div>`)+
         `</div>`).join('');
   } else if(p==='stack'&&STACK){
     h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed · Daily doses</div>`;
