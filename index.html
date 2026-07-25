@@ -241,7 +241,9 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dwrap.open{grid-template-rows:1fr}
 /* the panel now sits on the page background: no tint, so the only boundary is the row
    border above it. The two rules below are keyed to THIS colour and move with it. */
-.dclip{overflow:hidden;min-height:0;background:var(--bg)}
+/* No tint: the region is bracketed instead. The row above already draws a border, so one
+   below the panel closes the pair and the chart reads as belonging to that row. */
+.dclip{overflow:hidden;min-height:0;background:var(--bg);border-bottom:1px solid var(--line)}
 /* min-height, not height: the assay note now lives in the left pane, and a marker with many
    tagged draws must GROW the chart rather than be silently swallowed by .dclip's
    overflow:hidden. fitChart() only ever writes widths, so nothing depends on the 200. */
