@@ -1541,12 +1541,11 @@ function ptHTML(m,d){
   const e=d.v[m.id]; if(!e)return '';
   const has=e.a||e.an||e.lr||e.cx||e.lt||(m.am&&!e.a);
   if(!has)return '';
-  const dt=new Date(d.date+'T00:00:00');
-  const when=`${dt.toLocaleString('en',{month:'short'})} ’${d.date.slice(2,4)}`;
   const rng=L=>L[0]===null?`&lt;${fmt(L[1])}`:L[1]===null?`&gt;${fmt(L[0])}`:`${fmt(L[0])}&ndash;${fmt(L[1])}`;
-  // the collection time rides the header when the report printed one — it is the difference
-  // between two comparable readings and two taken at opposite ends of a diurnal swing
-  let h=`<b>${when}${d.t?` <span class="pt2">${esc(d.t)}</span>`:''} &middot; ${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}</b>`;
+  /* No date: the column header already names the draw, and the bubble is anchored to that
+     column either way. The TIME does earn its place — it is nowhere else on screen, and it is
+     what separates two comparable readings from two at opposite ends of a diurnal swing. */
+  let h=`<b>${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}${d.t?` <span class="pt2">&middot; ${esc(d.t)}</span>`:''}</b>`;
   if(e.lt)h+=`<div class="pw">Below the assay detection limit &mdash; an upper bound, not a measurement.</div>`;
   if(e.a||e.lr||(m.am&&!e.a)){
     h+=`<span class="pk">Assay</span>`;
