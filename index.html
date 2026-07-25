@@ -136,10 +136,10 @@ td.boot span{color:var(--t3);font-size:15px}
    squeeze it inline and wrap the pills instead. */
 .swap,.ptabs,.toc{touch-action:pan-x pan-y;overscroll-behavior-x:contain}
 .toc{display:flex;gap:2px;min-width:0;flex-basis:100%;   /* pill BOXES align to the gutter */
-  /* 17 not 10: the pills and the category chips ended up 4px apart, which reads as touching.
+  /* 17 not 10: 4px read as touching, 11px as unrelated; 7px is the middle.
      The padding grows and the negative margin does NOT, so the extra lands as GAP while the
      12px of upward overlap that makes the seam grabbable is preserved. */
-  padding-top:17px;margin-top:-12px;   /* the scroll surface covers the seam above:
+  padding-top:13px;margin-top:-12px;   /* the scroll surface covers the seam above:
      a horizontal pan between the rows must grab a SCROLLER, never the table */
   flex-wrap:nowrap;overflow-x:auto;                 /* never wrap: scroll instead */
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
