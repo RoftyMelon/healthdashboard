@@ -301,6 +301,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cd.lt{background:transparent;box-shadow:inset 0 0 0 2px currentColor}
 .cd.lt::after{content:'';position:absolute;left:50%;top:calc(100% + 2px);transform:translateX(-50%);
   border-left:3px solid transparent;border-right:3px solid transparent;border-top:4px solid currentColor}
+/* A point carrying CONTEXT wears an outer ring. Always visible, never hover-dependent — that
+   is the entire point: the phone has no hover, so the mark says WHICH point has a caveat and
+   the CONTEXT block below says what it is. Restated for the censored variant because box-shadow
+   does NOT accumulate across rules: .cd.lt would otherwise silently erase the ring. */
+.cd.cxm{box-shadow:0 0 0 2.5px var(--t3)}
+.cd.lt.cxm{box-shadow:inset 0 0 0 2px currentColor,0 0 0 2.5px var(--t3)}
 .cpad{flex:none}
 /* Assay footnote under an expanded row: which METHOD produced each point. Sticky-left like
    tr.grp .ghd, so it holds the gutter while the table pans horizontally. Its opacity rides
@@ -373,6 +379,10 @@ td.c{font-size:15px;color:var(--t3);text-align:center;padding:9px 4px}
 th.dcol{text-align:center;width:64px;padding:0 4px;letter-spacing:.05em}
 td.c.has{color:var(--t2)}
 td.c.ok{color:var(--ok)}td.c.watch{color:var(--watch)}td.c.out{color:var(--out);font-weight:600}
+/* the same context mark in the table: a corner tick. Drawn as a background-image rather than a
+   ::after, so the cell never needs position:relative — changing a table cell's position is how
+   sticky broke on both axes once before. Nothing later sets a background shorthand on td.c. */
+td.c.cxm{background-image:radial-gradient(circle at calc(100% - 4px) 7px,var(--t3) 1.7px,transparent 2px)}
 td.nil{color:var(--t4)}
 td.now{white-space:nowrap;padding-right:4px}
 td.dnow,th.dnow{font-weight:700;color:var(--txt)}
@@ -1430,9 +1440,10 @@ function det(row,id,cols,n,tri){
     return `<path d="M${XY(p)} L${XY(o)}" fill="none" stroke="currentColor" stroke-width="1.6"`+
       ` vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"${
       dash?' stroke-dasharray="3 4"':''}/>`;}).join('');
-  const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
+  const dots=pts.map(o=>`<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}${o.d.v[m.id].cx?' cxm':''}" style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
     ` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}${
-      o.d.v[m.id].lt?' · upper bound, below the detection limit':''}"></div>`).join('');
+      o.d.v[m.id].lt?' · upper bound, below the detection limit':''}${
+      o.d.v[m.id].cx?' · '+esc(o.d.v[m.id].cx):''}"></div>`).join('');
   // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
   // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
   // is built exactly like the column headers so the footnote names the same column you see.
@@ -1601,9 +1612,9 @@ function render(){
       if(!e)return `<td class="c nil ${i===n-1?'dnow':''}">·</td>`;
       const v=toUS(m,e.r,e.u);      // canonical: status() must judge in canonical
       // the tooltip keeps the value AS THE LAB PRINTED IT — provenance, never converted
-      return `<td class="c has ${status(m,v)} ${i===n-1?'dnow':''}" title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}${
+      return `<td class="c has ${status(m,v)} ${e.cx?'cxm ':''}${i===n-1?'dnow':''}" title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}${
         e.lt?' · below the detection limit — upper bound':''}${
-        e.a?' · '+esc(e.a):''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
+        e.a?' · '+esc(e.a):''}${e.cx?' · '+esc(e.cx):''}">${LT(e)}${fmt(dV(m,v))}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
       <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
       <td class="now">${pill}</td>
