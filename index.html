@@ -340,6 +340,16 @@ tr.m{cursor:pointer;transition:background .14s}
 tr.m:hover td{background:var(--hov)}
 tr.m:hover td.now,tr.m:hover td.uc{background:var(--hovs)}
 tr.m:hover td.nm{background:linear-gradient(90deg,var(--sel) 0,var(--sel) 3px,var(--hovs) 3px)}
+/* The row expands on click and nothing said so. A chevron appears on hover in the 7px of dead
+   gutter between the 3px selection band and the marker name — which is why it costs no layout:
+   the cell already pads its text to 10px, so nothing has to move to make room. Points right at
+   rest, turns down while that row is open. */
+td.nm::before{content:"";position:absolute;left:4px;top:50%;width:4px;height:4px;
+  border-right:1.5px solid var(--sel);border-bottom:1.5px solid var(--sel);
+  transform:translateY(-50%) rotate(-45deg);opacity:0;
+  transition:opacity .12s ease,transform .18s ease}
+tr.m:hover td.nm::before{opacity:.9}
+tr.m.op td.nm::before{opacity:1;transform:translateY(-50%) rotate(45deg)}
 td.nm{font-size:16px;font-weight:560;color:var(--txt);letter-spacing:-.01em;overflow:hidden}
 td.nm .n1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 td.nm .fr{font-size:12.5px;font-weight:400;color:var(--t4);display:block;margin-top:2px;
@@ -1426,12 +1436,14 @@ function det(row,id,cols,n,tri){
   if(cur&&openRow===row){                                // toggle shut THIS row
     const w=cur.querySelector('.dwrap');openRow=null;
     if(!w){cur.remove();return;}
-    w.classList.remove('open');
+    w.classList.remove('open');row.classList.remove('op');
     let done=false;const kill=()=>{if(!done){done=true;cur.remove();}};
     w.addEventListener('transitionend',e=>{if(e.target===w&&e.propertyName==='grid-template-rows')kill();});
     setTimeout(kill,420); return;
   }
   if(cur)cur.remove();
+  document.querySelectorAll('tr.m.op').forEach(x=>x.classList.remove('op'));
+  row.classList.add('op');
   openRow=row;
   const m=MARK.find(x=>x.id===id),ds=chron();
   const V=d=>toUS(m,d.v[m.id].r,d.v[m.id].u);
