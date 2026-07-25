@@ -401,11 +401,17 @@ td.c .dtl:hover,td.c .dtl.act{
    a hover-revealed fixed bubble would open wherever it was last put, and the phone has no
    hover at all. white-space and text-align are re-declared: this is filled from cell content
    whose defaults are nowrap and right-aligned. */
-.ptip{display:none;position:fixed;z-index:60;width:min(92vw,330px);max-width:min(92vw,330px);
+.ptip{position:fixed;z-index:60;width:min(92vw,330px);max-width:min(92vw,330px);
   background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px 10px;
   font-size:12.5px;line-height:1.5;color:var(--t2);white-space:normal;text-align:left;
-  box-shadow:0 10px 28px rgba(0,0,0,.18)}
-.ptip.on{display:block}
+  box-shadow:0 10px 28px rgba(0,0,0,.18);
+  /* visibility, not display: display cannot be transitioned, and unlike display:none a hidden
+     element still has dimensions — which showPt() needs in order to place it. The 0s visibility
+     step is DELAYED on the way out so the fade finishes before it stops being hit-testable. */
+  visibility:hidden;opacity:0;transform:translateY(-4px);
+  transition:opacity .14s ease,transform .14s ease,visibility 0s linear .14s}
+.ptip.on{visibility:visible;opacity:1;transform:none;
+  transition:opacity .14s ease,transform .14s ease,visibility 0s}
 .ptip b{display:block;font-size:13.5px;font-weight:600;color:var(--txt);padding-bottom:3px;
   font-variant-numeric:tabular-nums}
 .ptip .pk{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
