@@ -2663,6 +2663,7 @@ window.BLOODWORK =
    {
     "id": "d20201210",
     "date": "2020-12-10",
+    "t": "10:38",
     "note": "Cerballiance Clairval (Marseille), drawn 10:38, Roche Cobas; hormones on Cobas ECLIA. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — all restored here from the report. THE LAB FLAGGED THREE VALUES: calcium 2.58 mmol/L against 2.15-2.50, creatinine 110 umol/L against 59-104, and potassium 4.7 against 3.4-4.5. Read the potassium with care — the report states 'legere hemolyse detectee dans le serum', and haemolysis releases intracellular potassium, which is the usual cause of a mildly high result on an otherwise normal panel. No albumin was measured, so corrected calcium cannot be derived for this draw. ONE VALUE HERE IS NOT FROM THIS COLLECTION: zinc (13.9 umol/L, atomic absorption, CERBA) was drawn 22.12.2020 at 09h58, twelve days later, and arrived with the same report bundle. Folded in deliberately rather than given its own draw — the time axis is in years, so twelve days is invisible, and a separate draw would add a table column in which 74 of 75 rows are empty.",
     "v": {
      "wbc": {
@@ -2830,6 +2831,7 @@ window.BLOODWORK =
    {
     "id": "d20220514",
     "date": "2022-05-14",
+    "t": "10:15",
     "note": "Cerballiance La Rouviere (Marseille), drawn 10:15, Roche Cobas / Cobas ECLIA. Arrived via an InsideTracker upload: four results were dropped (creatinine, eGFR, alkaline phosphatase, TSH) and three were rounded (RBC 5.28 stored as 5.3, MCHC 34.8 as 35, albumin 52.9 g/L as 5.3 g/dL) — all restored from the report. THE LAB FLAGGED THREE VALUES: albumin 52.9 g/L against 35-52, creatinine 106 umol/L against 59-104, and MPV 11.7 fL against 7.0-11.0 (no MPV marker in this panel; it was 9.2 in 2020). CRITICAL FOR THE CORRECTED-CALCIUM MARKER: this report prints, verbatim, 'Calcium corrige non indique car albumine >40 g/L' — the laboratory REFUSED to compute corrected calcium because albumin exceeds 40 g/L, which it does in every draw where albumin was measured (52.9 here, 51 in July 2026). Urea was deliberately not performed: the report states it is only reimbursed for dialysis, acute renal failure, or nutritional assessment in chronic renal failure, so the empty urea marker is a French reimbursement rule and not a dropped value. hs-CRP printed 'Inf a 0,5 mg/L' and is stored AT the limit, so read it as an upper bound.",
     "v": {
      "wbc": {
@@ -2966,6 +2968,7 @@ window.BLOODWORK =
    {
     "id": "d20230130",
     "date": "2023-01-30",
+    "t": "14:53",
     "note": "Cerballiance Clairval (Marseille), drawn 14h53 — an AFTERNOON draw, so this total T is NOT comparable to the morning draws either side of it; testosterone peaks around 08:00 and falls through the day. Hormone send-outs to CERBA. TESTOSTERONE LIBRE by RIA: 32.3 pmol/L / 9.3 pg/mL, in range against that assay's own printed reference of 30.0-87.0 pmol/L / 8.7-25.0 pg/mL. This is the value once stored as '0.9 ng/dL' and excluded as a suspected 10x transcription error — it was neither an error nor mislabelled: 9.3 pg/mL IS 0.93 ng/dL. What was wrong was the range it was judged against, the marker's 47-244 pg/mL, which belongs to a different method entirely. Kept as a note rather than a marker value: direct analog RIA free T is the method the Endocrine Society says not to use, and it shares no scale with the calculated free T this panel uses going forward. THE LAB FLAGGED THREE VALUES: platelets 153 against ITS OWN reference of 172-398 (this lab uses a narrower interval than the 150-400 this panel carries, so 153 reads normal here and low there), creatinine 106 umol/L against 59-104, and potassium 4.6 against 3.4-4.5 on a heparinised tube. The report also notes 'serum legerement lactescent' — mild lipaemia, which can interfere with spectrophotometric assays.",
     "v": {
      "wbc": {
@@ -3053,6 +3056,7 @@ window.BLOODWORK =
    {
     "id": "d20230313",
     "date": "2023-03-13",
+    "t": "09:45",
     "note": "Cerballiance Barral (Marseille), drawn 09:45 — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: IgE came back 122 UI/mL against a reference of <100 and was flagged, with Phadiatop and Trophatop sent out (those results are not in this report and there is no IgE marker in this panel). Arrived via an InsideTracker upload that rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED THREE HAEMATOLOGY VALUES: lymphocytes 1.06 G/L against 1.34-3.92 (low), platelets 157 against 172-398 (low), and MPV 12.1 fL against 7.4-10.8 (high). READ THE MPV SERIES WITH CARE: across four reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one. Fibrinogen 2.0 g/L and an ESR of 2 mm / 5 mm were also run; neither has a marker here.",
     "v": {
      "wbc": {
@@ -3120,6 +3124,7 @@ window.BLOODWORK =
    {
     "id": "d20240402",
     "date": "2024-04-02",
+    "t": "09:56",
     "note": "Cerballiance Provence Azur (La Rouvière, Marseille), drawn 09:56, Roche Cobas ECLIA; hormone send-outs to CERBA. Reached this file via an InsideTracker upload that RE-CONVERTED the SI values instead of transcribing the printed US ones, which is why earlier entries drifted from the report (B12 551 vs the printed 554 ng/L, total T 625.4 vs the printed 629.30 ng/dL) — values are now stored as the lab printed them, in SI. TESTOSTERONE BIODISPONIBLE by RIA: 3.6 nmol/L / 1.05 ng/mL, in range against that assay's own printed reference of 2.7-12.0 nmol/L / 0.78-3.46 ng/mL. Kept as a note rather than a marker: one measurement on an assay not being reordered, and it cannot be compared to the calculated free T this panel uses going forward. The 'free testosterone 83 pg/mL' previously stored here appears NOWHERE in the lab report — an InsideTracker artifact, now removed.",
     "v": {
      "b12": {
@@ -3288,6 +3293,7 @@ window.BLOODWORK =
    {
     "id": "d2026jul",
     "date": "2026-07-20",
+    "t": "08:37",
     "note": "French lab (B2A Brumath; Cerba/Barbier for send-outs), 10h fast, drawn 08:37. OFF creatine — the clean kidney read the March draw could not give. hs-CRP printed '<0.6' and anti-TPO '<8.0'; both stored AT the limit because r must be a number, so read them as upper bounds, not measurements. The lab refused erythrocyte magnesium and substituted serum (the marker is serum, so it lands correctly). The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. Pending at Cerba/Barbier: ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG, zinc, copper, selenium, omega-3 index.",
     "v": {
      "rbc": {

@@ -288,7 +288,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cb.opt{background:var(--ok);opacity:.22}
 .cgl{position:absolute;left:0;right:0;height:0;border-top:.5px dashed var(--line)}
 .cgl.o{border-top-color:color-mix(in srgb,var(--ok) 45%,transparent)}
-.cd{position:absolute;width:9px;height:9px;border-radius:50%;transform:translate(-50%,50%);
+.cd{position:absolute;width:11px;height:11px;border-radius:50%;transform:translate(-50%,50%);
   border:2px solid var(--grp)}
 /* colour is carried as well as background so the censored variants below can reach the status
    hue through currentColor instead of restating three rules per decoration. */
@@ -306,6 +306,9 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    know is which one they are about to open. Restated for the censored variant because
    box-shadow does not accumulate across rules. */
 .cd.dtl{cursor:pointer}
+/* box-shadow is painted, never hit-tested: without this the visible ring was decoration
+   over an 11px target. inset:-6px matches the 3px ring plus a finger-sized margin. */
+.cd.dtl::before{content:"";position:absolute;inset:-6px;border-radius:50%}
 .cd.dtl:hover,.cd.dtl.act{box-shadow:0 0 0 3px var(--t3)}
 .cd.lt.dtl:hover,.cd.lt.dtl.act{box-shadow:inset 0 0 0 2px currentColor,0 0 0 3px var(--t3)}
 .cpad{flex:none}
@@ -384,6 +387,7 @@ td.c.dtl:hover,td.c.dtl.act{background:var(--hovs)}
 .ptip .pk{display:block;font-size:9.5px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:var(--t4);padding:6px 0 1px}
 .ptip .pq{color:var(--t3)}
+.ptip .pt2{font-weight:500;color:var(--t3)}
 .ptip .pw{color:var(--watch)}
 td.nil{color:var(--t4)}
 td.now{white-space:nowrap;padding-right:4px}
@@ -774,6 +778,9 @@ a.sbuy:hover{color:var(--info)}
 /* 900px, not 760: a phone in LANDSCAPE is 852px wide, and the 380px frozen block would
    eat 45% of it. Landscape keeps slipping through width breakpoints because it is WIDER. */
 @media(max-width:900px){
+  /* a finger is not a mouse: the dot and its target both grow */
+  .cd{width:14px;height:14px}
+  .cd.dtl::before{inset:-9px}
   /* Freeze the marker column and nothing else. */
   /* left:auto unfreezes them HORIZONTALLY. position:static would also kill their
      sticky-TOP, and these <th> are part of the pinned header row. */
@@ -1057,6 +1064,11 @@ function audit(j){
   });
   j.DATA.draws.forEach(d=>{
     if(!/^\d{4}-\d{2}-\d{2}$/.test(d.date))bad.push(`draw "${d.id}": date "${d.date}" is not YYYY-MM-DD`);
+    // .t is the COLLECTION time, 24h HH:MM. Optional, because not every report prints one —
+    // absent means unrecorded, never assumed. It matters because cortisol and testosterone
+    // swing hard across a morning, so two draws hours apart are not directly comparable.
+    if(d.t!=null&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(d.t))
+      bad.push(`draw ${d.date}: time "${d.t}" is not 24h HH:MM`);
     Object.entries(d.v).forEach(([id,v])=>{
       const m=j.MARK.find(x=>x.id===id);
       if(!m){bad.push(`draw ${d.date}: unknown marker "${id}" — it will be IGNORED`);return;}
@@ -1532,7 +1544,9 @@ function ptHTML(m,d){
   const dt=new Date(d.date+'T00:00:00');
   const when=`${dt.toLocaleString('en',{month:'short'})} ’${d.date.slice(2,4)}`;
   const rng=L=>L[0]===null?`&lt;${fmt(L[1])}`:L[1]===null?`&gt;${fmt(L[0])}`:`${fmt(L[0])}&ndash;${fmt(L[1])}`;
-  let h=`<b>${when} &middot; ${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}</b>`;
+  // the collection time rides the header when the report printed one — it is the difference
+  // between two comparable readings and two taken at opposite ends of a diurnal swing
+  let h=`<b>${when}${d.t?` <span class="pt2">${esc(d.t)}</span>`:''} &middot; ${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}</b>`;
   if(e.lt)h+=`<div class="pw">Below the assay detection limit &mdash; an upper bound, not a measurement.</div>`;
   if(e.a||e.lr||(m.am&&!e.a)){
     h+=`<span class="pk">Assay</span>`;
