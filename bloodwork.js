@@ -1485,103 +1485,64 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Frozen vegetables",
-      "amt": "~100 g",
-      "info": {
-       "Per ~100 g": [
-        [
-         "Energy",
-         "35 kcal",
-         "2%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "Fibre",
-         "3 g"
-        ],
-        [
-         "Protein",
-         "2 g",
-         "4%"
-        ]
-       ],
-       "Vitamins": [
-        [
-         "K",
-         "25 mcg",
-         "33%"
-        ],
-        [
-         "Folate",
-         "40 mcg",
-         "20%"
-        ],
-        [
-         "C",
-         "15 mg",
-         "19%"
-        ],
-        [
-         "A",
-         "150 mcg",
-         "19%"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Spinach (frozen, reheated)",
+      "n": "Frozen greens — spinach, broccoli, kale",
       "amt": "~150 g",
       "info": {
        "Per ~150 g cooked": [
         [
          "Energy",
-         "35 kcal",
+         "45 kcal",
          "2%"
         ],
         [
          "Carbs",
-         "1.5 g",
-         "1%"
+         "4 g",
+         "2%"
         ],
         [
          "Fibre",
-         "3.3 g"
+         "4 g"
         ],
         [
          "Protein",
-         "4.4 g",
-         "9%"
+         "4 g",
+         "8%"
+        ]
+       ],
+       "Folate, by green": [
+        [
+         "Spinach",
+         "220 mcg",
+         "55%"
+        ],
+        [
+         "Broccoli",
+         "160 mcg",
+         "40%"
+        ],
+        [
+         "Kale",
+         "20 mcg",
+         "5%"
         ]
        ],
        "Standouts": [
         [
-         "Folate",
-         "215 mcg",
-         "54%"
+         "Vit K",
+         "400-1100 mcg"
         ],
         [
-         "Vit K",
-         "740 mcg",
-         "987%"
+         "Vit C",
+         "30-145 mg"
         ],
         [
          "Magnesium",
-         "130 mg",
-         "35%"
+         "~90 mg"
         ],
         [
          "Iron",
-         "2.6 mg",
-         "19%"
-        ],
-        [
-         "Lutein/zeaxanthin",
-         "~17 mg"
+         "~2 mg",
+         "14%"
         ]
        ]
       }
