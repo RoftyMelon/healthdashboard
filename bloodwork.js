@@ -991,51 +991,77 @@ window.BLOODWORK =
       "n": "Berries (frozen)",
       "amt": "50 g",
       "info": {
-       "Per 50g (mixed)": [
+       "Made with": [
+        [
+         "Berries",
+         "redcurrant, blackberry, blackcurrant, wild blueberry, raspberry"
+        ],
+        [
+         "Farming",
+         "organic"
+        ]
+       ],
+       "Per 50 g": [
         [
          "Energy",
-         "26 kcal",
+         "24 kcal",
          "1%"
         ],
         [
          "Carbs",
-         "6 g",
-         "2%"
+         "3.8 g",
+         "1%"
         ],
         [
          "– sugars",
-         "3 g",
-         "4%"
+         "3.1 g",
+         "3%"
         ],
         [
          "Fibre",
-         "2 g"
+         "2.1 g"
         ],
         [
          "Protein",
          "0.5 g",
+         "1%"
+        ],
+        [
+         "Fat",
+         "0.3 g",
+         "0%"
+        ],
+        [
+         "Salt",
+         "0.08 g",
          "1%"
         ]
        ],
        "Standouts": [
         [
          "Anthocyanins",
-         "~100 mg"
+         "~120 mg"
         ],
         [
          "Vit C",
-         "15 mg",
-         "19%"
+         "~25 mg",
+         "31%"
         ],
         [
          "Manganese",
-         "0.2 mg",
-         "11%"
+         "0.15 mg",
+         "8%"
         ],
         [
          "Vit K",
-         "7 mcg",
-         "10%"
+         "6 mcg",
+         "8%"
+        ]
+       ],
+       "Note": [
+        [
+         "Densest two",
+         "wild blueberry and blackcurrant"
         ]
        ]
       }
