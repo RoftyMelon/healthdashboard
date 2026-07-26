@@ -291,14 +291,18 @@ window.BLOODWORK =
      ],
      [
       "Anti-HBs",
-      "94 IU/L — immune (lab threshold 10)"
+      "90 IU/L — immune (94 in 2020)"
      ],
      [
       "Anti-HCV",
       "Negative"
+     ],
+     [
+      "Syphilis (TPHA)",
+      "Negative"
      ]
     ],
-    "date": "2020-12-10"
+    "date": "2022-05-14"
    },
    {
     "t": "Genotyping",
@@ -1689,6 +1693,29 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "ptime",
+   "cat": "liver",
+   "en": "Prothrombin time",
+   "fr": "Taux de prothrombine (TP)",
+   "us": "%",
+   "units": [
+    {
+     "l": "%",
+     "m": 1
+    }
+   ],
+   "clin": [
+    70,
+    100
+   ],
+   "am": "useful",
+   "note": "How fast plasma clots once the cascade is triggered from outside the vessel — a pathway that runs on clotting factors the liver makes, most of them vitamin K–dependent.\n\nFrance reports it as a percentage of normal, so a higher number is faster clotting and a lower one is slower.\n\nTwo things pull it down: liver disease, because the factors stop being made, and warfarin, because it blocks the vitamin K they need.\n\nIt is also why INR exists. Labs use reagents of differing strength, and INR is the arithmetic that makes one lab's result comparable with another's.",
+   "axis": [
+    40,
+    120
+   ]
+  },
+  {
    "id": "tt",
    "cat": "horm",
    "dec": [
@@ -2025,7 +2052,7 @@ window.BLOODWORK =
     7,
     11
    ],
-   "am": "critical",
+   "am": "useful",
    "note": "The average size of your platelets. Bigger platelets are younger, so a high value suggests the marrow is producing them quickly.\n\nRead alongside the platelet count rather than alone — the pair together says more about turnover than either does.\n\nBig caveat: platelets swell the longer they sit in the tube before being measured. That makes MPV as much a reflection of how fast the sample reached the analyser as of anything happening in you.",
    "axis": [
     5,
@@ -3278,136 +3305,305 @@ window.BLOODWORK =
     "id": "d20220514",
     "date": "2022-05-14",
     "t": "10:15",
-    "note": "Cerballiance La Rouviere (Marseille), drawn 10:15, Roche Cobas / Cobas ECLIA. Arrived via an InsideTracker upload: four results were dropped (creatinine, eGFR, alkaline phosphatase, TSH) and three were rounded (RBC 5.28 stored as 5.3, MCHC 34.8 as 35, albumin 52.9 g/L as 5.3 g/dL) — all restored from the report. THE LAB FLAGGED THREE VALUES: albumin 52.9 g/L against 35-52, creatinine 106 umol/L against 59-104, and MPV 11.7 fL against 7.0-11.0 (no MPV marker in this panel; it was 9.2 in 2020). CRITICAL FOR THE CORRECTED-CALCIUM MARKER: this report prints, verbatim, 'Calcium corrige non indique car albumine >40 g/L' — the laboratory REFUSED to compute corrected calcium because albumin exceeds 40 g/L, which it does in every draw where albumin was measured (52.9 here, 51 in July 2026). Urea was deliberately not performed: the report states it is only reimbursed for dialysis, acute renal failure, or nutritional assessment in chronic renal failure, so the empty urea marker is a French reimbursement rule and not a dropped value. hs-CRP printed 'Inf a 0,5 mg/L' and is stored AT the limit, so read it as an upper bound.",
+    "note": "Collected at Cerballiance La Rouvière (Marseille) on a Hôpital La Conception prescription, but RUN AT A DIFFERENT SITE than the 2020 panel — BD here, CL then — which is why several printed intervals moved without any technique changing. Roche Cobas throughout, TSH and vitamin D by ECLIA, prothrombin time on a Stago Sta. Every method and printed interval is recorded on the values. Arrived via an InsideTracker upload: four results were dropped (creatinine, eGFR, alkaline phosphatase, TSH) and three were rounded (RBC 5.28 stored as 5.3, MCHC 34.8 as 35, albumin 52.9 g/L as 5.3 g/dL) — all restored from the report, and all 33 values reconciled against it. The lab flagged albumin, creatinine and MPV; each carries its own annotation. CRITICAL FOR THE CORRECTED-CALCIUM MARKER: this report prints, verbatim, 'Calcium corrige non indique car albumine >40 g/L' — the laboratory REFUSED to compute it because albumin exceeds 40 g/L, which it does in every draw where albumin was measured. Urea was deliberately not performed: the report states it is only reimbursed for dialysis, acute renal failure, or nutritional assessment in chronic renal failure, so the empty urea marker is a French reimbursement rule and not a dropped value. Serology (HIV, hepatitis B and C, syphilis) is on the Record tab.",
+
     "v": {
      "wbc": {
       "r": 5.3,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4,
+       11
+      ]
      },
      "neut": {
       "r": 3.32,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.7,
+       7
+      ]
      },
      "lymph": {
       "r": 1.46,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1,
+       4.8
+      ]
      },
      "mono": {
       "r": 0.41,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.18,
+       1
+      ]
      },
      "eos": {
       "r": 0.07,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.02,
+       0.63
+      ]
      },
      "baso": {
       "r": 0.05,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0,
+       0.11
+      ]
      },
      "hb": {
       "r": 16.3,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       13.4,
+       16.7
+      ]
      },
      "rbc": {
       "r": 5.28,
-      "u": "T/L"
+      "u": "T/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.28,
+       6
+      ]
      },
      "hct": {
       "r": 46.8,
-      "u": "%"
+      "u": "%",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       39,
+       49
+      ]
      },
      "mcv": {
       "r": 88.6,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       78,
+       98
+      ]
      },
      "mch": {
       "r": 30.9,
-      "u": "pg"
+      "u": "pg",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       26,
+       34
+      ]
      },
      "mchc": {
       "r": 34.8,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       31,
+       36.5
+      ]
      },
      "plt": {
       "r": 172,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       150,
+       400
+      ]
      },
      "mpv": {
       "r": 11.7,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
+      "lr": [
+       7,
+       11
+      ],
+      "cx": "Flagged high against the lab’s 7.0–11.0."
      },
      "glu": {
       "r": 0.85,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.74,
+       1.09
+      ]
      },
      "crea": {
       "r": 12.0,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
+      "lr": [
+       6.7,
+       11.7
+      ],
+      "cx": "Flagged high against the lab’s 59–104 µmol/L."
      },
      "egfr": {
       "r": 82,
-      "u": "mL/min/1.73m²"
+      "u": "mL/min/1.73m²",
+      "a": "Calculé selon la formule CKD-EPI",
+      "an": "CKD-EPI 2009, calculated from the creatinine above.",
+      "lr": [
+       60,
+       null
+      ]
      },
      "chol": {
       "r": 1.49,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie"
      },
      "hdl": {
       "r": 0.53,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.54,
+       null
+      ]
      },
      "ldl": {
       "r": 0.81,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Formule de Friedewald",
+      "an": "Calculated by Friedewald, not measured."
      },
      "tg": {
       "r": 0.73,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       null,
+       1.5
+      ]
      },
      "na": {
       "r": 140,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       136,
+       145
+      ]
      },
      "k": {
       "r": 4.4,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       3.5,
+       5.1
+      ]
      },
      "alb": {
       "r": 52.9,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       35,
+       52
+      ],
+      "cx": "Flagged high. The lab prints: corrected calcium not indicated because albumin >40 g/L."
      },
      "ca": {
       "r": 100,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       86,
+       100
+      ]
      },
      "ast": {
       "r": 28,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       40
+      ]
      },
      "alt": {
       "r": 20,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       40
+      ]
      },
      "alp": {
       "r": 61,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       40,
+       129
+      ]
      },
      "ggt": {
       "r": 21,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       45
+      ]
      },
      "vitd": {
       "r": 80.0,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "Roche Cobas / Electrochimiluminescence",
+      "an": "D2 and D3 together as total 25-OH-D. Biotin-sensitive."
      },
      "hscrp": {
       "r": 0.5,
       "u": "mg/L",
-      "lt": true
+      "lt": true,
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Standard CRP, not high-sensitivity — the lab’s <5.0 range gives it away.",
+      "lr": [
+       null,
+       5
+      ]
      },
      "tsh": {
       "r": 0.87,
-      "u": "mUI/L"
+      "u": "mUI/L",
+      "a": "Roche Cobas / ECLIA",
+      "lr": [
+       0.27,
+       4.2
+      ]
+     },
+     "ptime": {
+      "r": 82,
+      "u": "%",
+      "a": "Chronométrie / NéoPTimal",
+      "lr": [
+       70,
+       100
+      ],
+      "an": "Chronometric on a NéoPTimal reagent; reagents differ in strength, which is why INR exists.",
+      "cx": "INR 1.14. The lab notes that only the TP is to be interpreted."
      }
     }
    },

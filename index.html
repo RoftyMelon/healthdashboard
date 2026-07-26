@@ -1608,14 +1608,18 @@ function det(row,id,cols,n,tri){
      seven intervals and their caveats at 200px tall. What stays is the one finding that is NOT
      per-point: a printed interval that DIFFERS across draws means the lab changed method, which
      no single reading can reveal because it only exists in the comparison. */
-  const lrs=pts.filter(o=>o.d.v[m.id].lr);
-  const uniq=k=>new Set(lrs.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x)));
-  /* A differing interval alone does NOT prove a differing assay — labs also disagree on where to
-     cut a range. So say which we actually know: if every point names its assay AND those differ,
-     the method changed and it is a fact; otherwise the interval moved and the cause is open. */
-  const chg=(lrs.length>1&&uniq('lr').size>1)
-    ?`<div class="achg">${lrs.every(o=>o.d.v[m.id].a)&&uniq('a').size>1
+  /* Two independent signals, and they do not imply each other. A DIFFERING ASSAY is decisive on
+     its own — hs-CRP ran on three platforms that all printed the same "<5", so keying off the
+     interval alone would have missed the very series this field exists for. A differing INTERVAL
+     with no assay change is weaker: labs also just disagree on where to cut a range. Say which
+     one is actually in evidence rather than collapsing both into one warning. */
+  const many=k=>new Set(pts.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x))).size>1;
+  const aDiff=many('a'),lDiff=many('lr');
+  const chg=(aDiff||lDiff)
+    ?`<div class="achg">${aDiff&&lDiff
         ?'Assay AND reference range both differ between draws &mdash; not one continuous series'
+      :aDiff
+        ?'Assay differs between draws &mdash; these numbers are not on one scale'
         :'Reference range differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
   // moves it, plus the one cross-draw finding no single point can carry.
