@@ -783,7 +783,7 @@ window.BLOODWORK =
     "Omega-3 (2000mg EPA, 1125mg DHA)"
    ],
    "en": "Omega-3 index",
-   "fr": "(OmegaQuant, hors labo FR)",
+   "fr": "Index oméga-3 (AGRAS)",
    "us": "%",
    "units": [
     {
