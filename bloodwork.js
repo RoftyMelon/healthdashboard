@@ -991,7 +991,7 @@ window.BLOODWORK =
       "n": "Berries (frozen)",
       "amt": "75 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "1. Redcurrant",
          "the largest share"
@@ -1344,7 +1344,7 @@ window.BLOODWORK =
       "n": "Frozen sautéed vegetables",
       "amt": "~300 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Potatoes",
          "20-42%"
@@ -1551,7 +1551,7 @@ window.BLOODWORK =
       "n": "Kefir",
       "amt": "100 mL (1 bottle)",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Ferments",
          "grains de kéfir + levures"
@@ -1622,7 +1622,7 @@ window.BLOODWORK =
       "n": "Nuts",
       "amt": "~15 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Walnut",
          "6g"
@@ -1679,7 +1679,7 @@ window.BLOODWORK =
       "n": "Dark chocolate",
       "amt": "~10 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Cocoa",
          "85%"
@@ -2103,7 +2103,7 @@ window.BLOODWORK =
       "n": "Kefir",
       "amt": "200 mL (2 bottles)",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Ferments",
          "grains de kéfir + levures"
@@ -2174,7 +2174,7 @@ window.BLOODWORK =
       "n": "Nuts",
       "amt": "~15 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Walnut",
          "6g"
@@ -2231,7 +2231,7 @@ window.BLOODWORK =
       "n": "Dark chocolate",
       "amt": "~10 g",
       "info": {
-       "Made with": [
+       "Ingredients": [
         [
          "Cocoa",
          "85%"
