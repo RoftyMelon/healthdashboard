@@ -721,7 +721,8 @@ a.sbuy:hover{color:var(--info)}
 .nsec{font-weight:700;font-size:10.5px;letter-spacing:.02em;color:var(--t3);padding:6px 0 2px}
 .nsecw:first-child .nsec{padding-top:0}
 .nrow{display:flex;gap:8px;align-items:baseline}
-.nrow .nlab{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t2)}
+/* labels WRAP rather than ellipsise — a clipped "Anthocyani…" is worse than two lines */
+.nrow .nlab{flex:1;min-width:0;color:var(--t2)}
 .nrow .nval{color:var(--txt);white-space:nowrap;font-variant-numeric:tabular-nums}
 .nrow .npct{color:var(--t4);font-size:10px;margin-left:4px;font-variant-numeric:tabular-nums}
 /* Prose rows stack: the label becomes a heading over its own sentence. Without this the

@@ -993,24 +993,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "1. Redcurrant",
-         "the largest share"
-        ],
-        [
-         "2. Blackberry",
-         ""
-        ],
-        [
-         "3. Blackcurrant",
-         ""
-        ],
-        [
-         "4. Wild blueberry",
-         ""
-        ],
-        [
-         "5. Raspberry",
-         "the smallest"
+         "Berries",
+         "redcurrant, blackberry, blackcurrant, wild blueberry, raspberry"
         ],
         [
          "Farming",
@@ -1071,16 +1055,6 @@ window.BLOODWORK =
          "Vit K",
          "~9 mcg",
          "12%"
-        ]
-       ],
-       "Note": [
-        [
-         "Order is by weight",
-         "EU labelling rule"
-        ],
-        [
-         "So",
-         "redcurrant leads and it is the weakest of the five for anthocyanin"
         ]
        ],
        "Changed": [
