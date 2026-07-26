@@ -1293,7 +1293,7 @@ window.BLOODWORK =
       "n": "Frozen sautéed vegetables",
       "amt": "~300 g",
       "info": {
-       "Typical pack": [
+       "Made with": [
         [
          "Potatoes",
          "20-42%"
@@ -1500,6 +1500,12 @@ window.BLOODWORK =
       "n": "Kefir",
       "amt": "100 mL (1 bottle)",
       "info": {
+       "Made with": [
+        [
+         "Kefir grains",
+         "grains de kéfir + levures"
+        ]
+       ],
        "Per 100 mL": [
         [
          "Energy",
@@ -1553,12 +1559,6 @@ window.BLOODWORK =
          "lactose only, none added"
         ]
        ],
-       "Ferment": [
-        [
-         "Made with",
-         "grains de kéfir + levures"
-        ]
-       ],
        "Changed": [
         [
          "26 Jul 2026",
@@ -1571,7 +1571,7 @@ window.BLOODWORK =
       "n": "Nuts",
       "amt": "~15 g",
       "info": {
-       "Mix": [
+       "Made with": [
         [
          "Walnut",
          "6g"
@@ -1628,7 +1628,7 @@ window.BLOODWORK =
       "n": "Dark chocolate",
       "amt": "~10 g",
       "info": {
-       "Type": [
+       "Made with": [
         [
          "Cocoa",
          "85%"
@@ -1895,16 +1895,6 @@ window.BLOODWORK =
          "23%"
         ]
        ],
-       "vs 20% beef": [
-        [
-         "Saturates",
-         "4.5 g instead of 14 g"
-        ],
-        [
-         "Energy",
-         "300 kcal instead of 500"
-        ]
-       ],
        "Minerals": [
         [
          "Iron",
@@ -2062,6 +2052,12 @@ window.BLOODWORK =
       "n": "Kefir",
       "amt": "200 mL (2 bottles)",
       "info": {
+       "Made with": [
+        [
+         "Kefir grains",
+         "grains de kéfir + levures"
+        ]
+       ],
        "Per 200 mL": [
         [
          "Energy",
@@ -2115,12 +2111,6 @@ window.BLOODWORK =
          "lactose only, none added"
         ]
        ],
-       "Ferment": [
-        [
-         "Made with",
-         "grains de kéfir + levures"
-        ]
-       ],
        "Changed": [
         [
          "26 Jul 2026",
@@ -2133,7 +2123,7 @@ window.BLOODWORK =
       "n": "Nuts",
       "amt": "~15 g",
       "info": {
-       "Mix": [
+       "Made with": [
         [
          "Walnut",
          "6g"
@@ -2190,7 +2180,7 @@ window.BLOODWORK =
       "n": "Dark chocolate",
       "amt": "~10 g",
       "info": {
-       "Type": [
+       "Made with": [
         [
          "Cocoa",
          "85%"
@@ -2305,16 +2295,6 @@ window.BLOODWORK =
          "Potassium",
          "~1200 mg",
          "60%"
-        ]
-       ],
-       "Why": [
-        [
-         "Targets",
-         "omega-3 index 6.12%, DHA below range"
-        ],
-        [
-         "Also",
-         "the only oily fish in the week"
         ]
        ],
        "Changed": [
