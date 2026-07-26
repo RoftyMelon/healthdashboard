@@ -94,6 +94,7 @@ window.BLOODWORK =
   "Vitamin D3 10000 IU + K2",
   "Magnesium L-threonate",
   "Glycine 12g + taurine + collagen",
+  "Beef liver 5g x2",
   "Huel"
  ],
  "STACK": {
@@ -195,6 +196,27 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html",
     "dec": "Omega-3 (2000mg EPA, 1125mg DHA)"
+   },
+   {
+    "id": "liver",
+    "name": "Beef liver",
+    "dose": "5g x2",
+    "judge": "serum copper — and vitamin A is the ceiling, not the target",
+    "info": "Food eaten as a dose: 10g/day of cooked beef liver, frozen in cubes, 5g with brunch and 5g with dinner. It is here for COPPER, which came back at 69.9 ug/dL against a floor of 70 — a small gap needing roughly +0.5-1.0 mg/day, and 10g of liver carries ~1.5mg. Everything else it brings (B12, folate, iron, vitamin A) is a passenger. The dose is set by the passenger, not the target: liver holds ~9440 mcg vitamin A per 100g, so 20g/day would put total preformed intake near 2550 mcg against a 3000 ceiling, EVERY day — and chronic intake above ~1500 mcg is the range linked to lower bone density. 10g/day lands near 1600 total. Do not scale it up because it is only food.",
+    "cat": "essentials",
+    "status": "taking",
+    "when": [
+     {
+      "at": "brunch",
+      "dose": "5g"
+     },
+     {
+      "at": "dinner",
+      "dose": "5g"
+     }
+    ],
+    "url": null,
+    "dec": "Beef liver 5g x2"
    },
    {
     "id": "collagenc",
@@ -1456,87 +1478,6 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Beef liver (frozen portion)",
-      "amt": "25 g, once a week",
-      "info": {
-       "Why": [
-        [
-         "Copper",
-         "the deficit it targets"
-        ],
-        [
-         "Eat",
-         "brunch and dinner on DIFFERENT days"
-        ]
-       ],
-       "Per 25 g cooked": [
-        [
-         "Energy",
-         "48 kcal",
-         "2%"
-        ],
-        [
-         "Protein",
-         "7.3 g",
-         "15%"
-        ],
-        [
-         "Fat",
-         "1.3 g",
-         "2%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Copper",
-         "3.6 mg",
-         "400%"
-        ],
-        [
-         "Vit A",
-         "2360 mcg",
-         "295%"
-        ],
-        [
-         "B12",
-         "17.5 mcg",
-         "700%"
-        ],
-        [
-         "Folate",
-         "63 mcg",
-         "16%"
-        ],
-        [
-         "Iron",
-         "1.6 mg",
-         "11%"
-        ],
-        [
-         "Selenium",
-         "9 mcg",
-         "16%"
-        ]
-       ],
-       "Ceiling": [
-        [
-         "Vit A upper limit",
-         "3000 mcg/day"
-        ],
-        [
-         "Two servings same day",
-         "~4700 mcg — too much"
-        ]
-       ],
-       "Changed": [
-        [
-         "26 Jul 2026",
-         "added"
-        ]
-       ]
-      }
-     },
-     {
       "n": "Yoghurt (plain, 0% MG)",
       "amt": "125 g",
       "info": {
@@ -2067,87 +2008,6 @@ window.BLOODWORK =
          "Vit E",
          "2 mg",
          "17%"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Beef liver (frozen portion)",
-      "amt": "25 g, once a week",
-      "info": {
-       "Why": [
-        [
-         "Copper",
-         "the deficit it targets"
-        ],
-        [
-         "Eat",
-         "brunch and dinner on DIFFERENT days"
-        ]
-       ],
-       "Per 25 g cooked": [
-        [
-         "Energy",
-         "48 kcal",
-         "2%"
-        ],
-        [
-         "Protein",
-         "7.3 g",
-         "15%"
-        ],
-        [
-         "Fat",
-         "1.3 g",
-         "2%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Copper",
-         "3.6 mg",
-         "400%"
-        ],
-        [
-         "Vit A",
-         "2360 mcg",
-         "295%"
-        ],
-        [
-         "B12",
-         "17.5 mcg",
-         "700%"
-        ],
-        [
-         "Folate",
-         "63 mcg",
-         "16%"
-        ],
-        [
-         "Iron",
-         "1.6 mg",
-         "11%"
-        ],
-        [
-         "Selenium",
-         "9 mcg",
-         "16%"
-        ]
-       ],
-       "Ceiling": [
-        [
-         "Vit A upper limit",
-         "3000 mcg/day"
-        ],
-        [
-         "Two servings same day",
-         "~4700 mcg — too much"
-        ]
-       ],
-       "Changed": [
-        [
-         "26 Jul 2026",
-         "added"
         ]
        ]
       }
@@ -2792,7 +2652,8 @@ window.BLOODWORK =
    "cat": "iron",
    "dec": [
     "Curcumin",
-    "Huel"
+    "Huel",
+    "Beef liver 5g x2"
    ],
    "en": "Ferritin",
    "fr": "Ferritine",
@@ -2884,6 +2745,9 @@ window.BLOODWORK =
    "axis": [
     40,
     180
+   ],
+   "dec": [
+    "Beef liver 5g x2"
    ]
   },
   {
@@ -2892,7 +2756,8 @@ window.BLOODWORK =
    "dec": [
     "TMG 6g",
     "Huel",
-    "B-complex (methylfolate)"
+    "B-complex (methylfolate)",
+    "Beef liver 5g x2"
    ],
    "en": "Vitamin B12",
    "fr": "Vitamine B12",
@@ -2929,7 +2794,8 @@ window.BLOODWORK =
    "dec": [
     "TMG 6g",
     "Huel",
-    "B-complex (methylfolate)"
+    "B-complex (methylfolate)",
+    "Beef liver 5g x2"
    ],
    "en": "Folate",
    "fr": "Folates (vitamine B9)",
@@ -4589,7 +4455,8 @@ window.BLOODWORK =
    "id": "iron",
    "cat": "iron",
    "dec": [
-    "Huel"
+    "Huel",
+    "Beef liver 5g x2"
    ],
    "en": "Serum iron",
    "fr": "Fer sérique",
