@@ -1497,50 +1497,55 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Yoghurt (plain, 0% MG)",
-      "amt": "125 g",
+      "n": "Kefir (I Love Kéfir, nature)",
+      "amt": "150 mL",
       "info": {
-       "Per 125 g": [
+       "Per 150 mL": [
         [
          "Energy",
-         "45 kcal",
-         "2%"
+         "71 kcal",
+         "4%"
         ],
         [
          "Carbs",
-         "5.6 g",
-         "2%"
+         "7.2 g",
+         "3%"
         ],
         [
          "– sugars",
-         "5.6 g",
-         "6%"
+         "7.2 g",
+         "8%"
         ],
         [
          "Protein",
-         "5.4 g",
+         "5.6 g",
          "11%"
         ],
         [
          "Fat",
-         "0 g",
-         "0%"
+         "2.3 g",
+         "3%"
         ],
         [
          "– saturates",
-         "0 g",
-         "0%"
+         "1.4 g",
+         "7%"
         ],
         [
          "Salt",
-         "0.16 g",
-         "3%"
+         "0.26 g",
+         "4%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "~190 mg",
+         "180 mg",
+         "23%"
+        ],
+        [
+         "Vit D",
+         "1.2 mcg",
          "24%"
         ],
         [
@@ -1548,20 +1553,30 @@ window.BLOODWORK =
          "lactose only, none added"
         ]
        ],
-       "Note": [
+       "Ferment": [
         [
-         "Label omits",
-         "calcium — estimated"
+         "Made with",
+         "grains de kéfir + levures"
         ],
         [
-         "Eat with",
-         "the nuts and fruit"
+         "Yeasts",
+         "what separates kefir from yoghurt"
+        ]
+       ],
+       "Why 150 not 100": [
+        [
+         "100 mL x2",
+         "240 mg Ca — drops the day under 1000"
+        ],
+        [
+         "150 mL x2",
+         "360 mg Ca — clears it"
         ]
        ],
        "Changed": [
         [
          "26 Jul 2026",
-         "added x2/day"
+         "replaced both yoghurts"
         ]
        ]
       }
@@ -2058,75 +2073,86 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Kefir yoghurt (plain)",
-      "amt": "125 g",
+      "n": "Kefir (I Love Kéfir, nature)",
+      "amt": "150 mL",
       "info": {
-       "Per 125 g": [
+       "Per 150 mL": [
         [
          "Energy",
-         "84 kcal",
+         "71 kcal",
          "4%"
         ],
         [
          "Carbs",
-         "6 g",
-         "2%"
+         "7.2 g",
+         "3%"
         ],
         [
          "– sugars",
-         "6 g",
-         "7%"
+         "7.2 g",
+         "8%"
         ],
         [
          "Protein",
-         "5 g",
-         "10%"
+         "5.6 g",
+         "11%"
         ],
         [
          "Fat",
-         "4.4 g",
-         "6%"
+         "2.3 g",
+         "3%"
         ],
         [
          "– saturates",
-         "2.9 g",
-         "15%"
+         "1.4 g",
+         "7%"
         ],
         [
          "Salt",
-         "0.13 g",
-         "2%"
+         "0.26 g",
+         "4%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "166 mg",
-         "21%"
+         "180 mg",
+         "23%"
         ],
         [
-         "Cultures",
-         "kefir yeasts + Bifidobacterium"
+         "Vit D",
+         "1.2 mcg",
+         "24%"
         ],
         [
          "Sugars",
          "lactose only, none added"
         ]
        ],
-       "Why": [
+       "Ferment": [
         [
-         "Adds",
-         "yeasts, which plain yoghurt has none of"
+         "Made with",
+         "grains de kéfir + levures"
         ],
         [
-         "Cost",
-         "+2.9 g saturated fat vs the 0% pot"
+         "Yeasts",
+         "what separates kefir from yoghurt"
+        ]
+       ],
+       "Why 150 not 100": [
+        [
+         "100 mL x2",
+         "240 mg Ca — drops the day under 1000"
+        ],
+        [
+         "150 mL x2",
+         "360 mg Ca — clears it"
         ]
        ],
        "Changed": [
         [
          "26 Jul 2026",
-         "replaced one of the two 0% yoghurts"
+         "replaced both yoghurts"
         ]
        ]
       }
