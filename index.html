@@ -592,7 +592,10 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    Text-list sections (stack rows, diet meals, section headers) cap at 620px, so
    separators end near the text and right-anchored links stay near the names. */
 .pgsec{margin-top:22px;max-width:430px}   /* stack rows are short: name + dose + tip */
-.pgsec.dfoods{max-width:none;padding:0 14px}   /* untimed Diet foods: full-width like the (stretched) meal cards + their 14px side padding, so the tips share the cards' (i) column */
+/* Untimed Diet foods sit UNDER the meal cards and must measure the same, or the row runs
+   the full page while the cards stop at 430px and the (i) lands in a different column.
+   Was max-width:none, written when the cards still stretched; .care.col caps them now. */
+.pgsec.dfoods{max-width:min(430px,100%);padding:0 14px}
 .pgsec.stk{max-width:none}   /* stack sections: full width, edge to edge (dose flushes to the far right) */
 .pgsec.stk .pgst{max-width:135px;white-space:nowrap}   /* underline caps at the longest title ("MAY ADD LATER" ~130px), not full width */
 .ndlist .srow{align-items:flex-start}
