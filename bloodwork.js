@@ -1557,24 +1557,6 @@ window.BLOODWORK =
         [
          "Made with",
          "grains de kéfir + levures"
-        ],
-        [
-         "Yeasts",
-         "what separates kefir from yoghurt"
-        ]
-       ],
-       "Split": [
-        [
-         "Brunch",
-         "1 bottle — mozzarella and coffee milk give 470 mg there"
-        ],
-        [
-         "Dinner",
-         "2 bottles — no other calcium at that meal"
-        ],
-        [
-         "Why",
-         "fractional Ca absorption falls above ~500 mg per sitting"
         ]
        ],
        "Changed": [
@@ -2137,24 +2119,6 @@ window.BLOODWORK =
         [
          "Made with",
          "grains de kéfir + levures"
-        ],
-        [
-         "Yeasts",
-         "what separates kefir from yoghurt"
-        ]
-       ],
-       "Split": [
-        [
-         "Brunch",
-         "1 bottle — mozzarella and coffee milk give 470 mg there"
-        ],
-        [
-         "Dinner",
-         "2 bottles — no other calcium at that meal"
-        ],
-        [
-         "Why",
-         "fractional Ca absorption falls above ~500 mg per sitting"
         ]
        ],
        "Changed": [
