@@ -31,7 +31,10 @@ setTimeout(()=>{
   const cols=h=>{const th=(h.match(/<th /g)||[]).length;
     const f=h.slice(h.indexOf('<tr class="m"'),h.indexOf('</tr>',h.indexOf('<tr class="m"')));
     return [th,(f.match(/<td /g)||[]).length];};
-  ok('renders 76 rows', rows(n.tbl.innerHTML)===76, rows(n.tbl.innerHTML)+' rows');
+  // two separate guards: the renderer must not DROP a marker, and the data must not LOSE one
+  ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
+    rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
+  ok('79 markers', DATA.MARK.length===79, DATA.MARK.length+' markers');
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
   ['all','flag','crit'].forEach(f=>{ setF(f);
     const [th,td]=cols(n.tbl.innerHTML);

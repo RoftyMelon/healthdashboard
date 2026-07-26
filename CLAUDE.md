@@ -4,7 +4,7 @@ A personal biomarker dashboard. Two files, and the separation between them is th
 
 | file | role |
 |---|---|
-| `bloodwork.js` | **The data. The single source of truth.** 76 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
+| `bloodwork.js` | **The data. The single source of truth.** 79 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
 | `index.html` | **The viewer. Contains ZERO data.** Loads `bloodwork.js` via `<script src>`. |
 
 **Never put data in `index.html`. Never put UI in `bloodwork.js`.** If you find yourself
@@ -16,7 +16,7 @@ about to, stop and ask.
 
 ```
 python3 tools/check-css.py     # dangling/mangled selectors, undefined vars
-node     tools/check-js.js     # BOOTS the page and asserts it renders 76 rows
+node     tools/check-js.js     # BOOTS the page and asserts a row per marker
 ```
 
 **Both must pass. Every time. No exceptions.**

@@ -1586,8 +1586,14 @@ function det(row,id,cols,n,tri){
      per-point: a printed interval that DIFFERS across draws means the lab changed method, which
      no single reading can reveal because it only exists in the comparison. */
   const lrs=pts.filter(o=>o.d.v[m.id].lr);
-  const chg=(lrs.length>1&&new Set(lrs.map(o=>JSON.stringify(o.d.v[m.id].lr))).size>1)
-    ?`<div class="achg">Lab reference range differs between draws &mdash; the method changed</div>`:'';
+  const uniq=k=>new Set(lrs.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x)));
+  /* A differing interval alone does NOT prove a differing assay — labs also disagree on where to
+     cut a range. So say which we actually know: if every point names its assay AND those differ,
+     the method changed and it is a fact; otherwise the interval moved and the cause is open. */
+  const chg=(lrs.length>1&&uniq('lr').size>1)
+    ?`<div class="achg">${lrs.every(o=>o.d.v[m.id].a)&&uniq('a').size>1
+        ?'Assay AND reference range both differ between draws &mdash; not one continuous series'
+        :'Reference range differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
   // moves it, plus the one cross-draw finding no single point can carry.
   const anote=(m.note||chg)?`<div class="dassay">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';

@@ -276,8 +276,29 @@ window.BLOODWORK =
    },
    {
     "t": "Serology",
-    "rows": [],
-    "empty": "Immunity titres — what the vaccinations actually achieved. Nothing recorded yet."
+    "rows": [
+     [
+      "HIV 1 & 2 screen",
+      "Negative"
+     ],
+     [
+      "HBs antigen",
+      "Negative"
+     ],
+     [
+      "Anti-HBc total",
+      "Negative"
+     ],
+     [
+      "Anti-HBs",
+      "94 IU/L — immune (lab threshold 10)"
+     ],
+     [
+      "Anti-HCV",
+      "Negative"
+     ]
+    ],
+    "date": "2020-12-10"
    },
    {
     "t": "Genotyping",
@@ -538,6 +559,36 @@ window.BLOODWORK =
    "axis": [
     0,
     90
+   ]
+  },
+  {
+   "id": "phos",
+   "cat": "vitmin",
+   "en": "Phosphate",
+   "fr": "Phosphore (phosphorémie)",
+   "us": "mg/dL",
+   "units": [
+    {
+     "l": "mmol/L",
+     "m": 3.097
+    },
+    {
+     "l": "mg/L",
+     "m": 0.1
+    },
+    {
+     "l": "mg/dL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    2.5,
+    4.5
+   ],
+   "note": "An anion that pairs with calcium in bone, carries every cell's energy as the phosphate groups of ATP, and forms the backbone of DNA.\n\nIt is governed by PTH and vitamin D — the same two hormones that run calcium — but pushed the opposite way: PTH raises calcium while lowering phosphate.\n\nSo it is read next to calcium and PTH, never alone.\n\nTwo things move it independently of any disease: a meal raises it, and falling kidney function raises it early, because excreting the excess is the kidney's job.",
+   "axis": [
+    1.5,
+    6
    ]
   },
   {
@@ -2365,6 +2416,29 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "esr",
+   "cat": "cbc",
+   "en": "ESR (1st hour)",
+   "fr": "Vitesse de sédimentation",
+   "us": "mm/h",
+   "units": [
+    {
+     "l": "mm/h",
+     "m": 1
+    }
+   ],
+   "clin": [
+    0,
+    15
+   ],
+   "am": "useful",
+   "note": "How far red cells sink through a column of plasma in one hour. Inflammation produces proteins that make red cells stack together, and stacks sink faster.\n\nSo it is an indirect and slow read on inflammation: days to rise, weeks to fall, where CRP does both within hours.\n\nThat lag is its one real advantage — it describes the past few weeks rather than this morning. For everything else hs-CRP is simply better, and this test is largely a survivor from pre-CRP medicine.\n\nAge, anaemia and sex all shift it with no inflammation present at all.",
+   "axis": [
+    0,
+    30
+   ]
+  },
+  {
    "id": "iron",
    "cat": "iron",
    "dec": [
@@ -2566,6 +2640,28 @@ window.BLOODWORK =
    "axis": [
     3,
     6
+   ]
+  },
+  {
+   "id": "cl",
+   "cat": "other",
+   "en": "Chloride",
+   "fr": "Chlore (chlorémie)",
+   "us": "mmol/L",
+   "units": [
+    {
+     "l": "mmol/L",
+     "m": 1
+    }
+   ],
+   "clin": [
+    98,
+    107
+   ],
+   "note": "The main negative ion outside cells, and the counterweight that keeps blood electrically neutral as sodium comes and goes.\n\nIt tracks sodium almost perfectly, which is why on its own it adds very little.\n\nIts value is in the gap between the two. Chloride that moves independently of sodium points at an acid–base problem rather than a water one — it climbs when bicarbonate is being lost, and falls with prolonged vomiting or with diuretics.",
+   "axis": [
+    90,
+    115
    ]
   },
   {
@@ -2783,127 +2879,274 @@ window.BLOODWORK =
     "id": "d20201210",
     "date": "2020-12-10",
     "t": "10:38",
-    "note": "Cerballiance Clairval (Marseille), drawn 10:38, Roche Cobas; hormones on Cobas ECLIA. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — all restored here from the report. THE LAB FLAGGED THREE VALUES: calcium 2.58 mmol/L against 2.15-2.50, creatinine 110 umol/L against 59-104, and potassium 4.7 against 3.4-4.5. Read the potassium with care — the report states 'legere hemolyse detectee dans le serum', and haemolysis releases intracellular potassium, which is the usual cause of a mildly high result on an otherwise normal panel. No albumin was measured, so corrected calcium cannot be derived for this draw. ONE VALUE HERE IS NOT FROM THIS COLLECTION: zinc (13.9 umol/L, atomic absorption, CERBA) was drawn 22.12.2020 at 09h58, twelve days later, and arrived with the same report bundle. Folded in deliberately rather than given its own draw — the time axis is in years, so twelve days is invisible, and a separate draw would add a table column in which 74 of 75 rows are empty.",
+    "note": "Cerballiance Clairval (Marseille), Roche Cobas throughout: chemistry by spectrophotometry, electrolytes by ISE potentiometry, thyroid/testosterone/vitamin D by ECLIA. HbA1c went out to the Sebia Capillarys 3 for capillary electrophoresis, and the ESR ran on an Alifax analyser. Every method and every printed interval is now recorded on the values themselves. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — the original report has since been transcribed in full and all 43 values reconciled against it. The lab flagged calcium, creatinine and potassium against its own intervals; each carries its own annotation. ONE VALUE HERE IS NOT FROM THIS COLLECTION: zinc (13.9 umol/L, atomic absorption, CERBA) was drawn 22.12.2020 at 09h58, twelve days later, and arrived with the same report bundle. Folded in deliberately rather than given its own draw — the time axis is in years, so twelve days is invisible, and a separate draw would add a table column in which 74 of 75 rows are empty. The serology this report also carried (HIV, hepatitis B and C) is on the Record tab.",
+
     "v": {
      "wbc": {
       "r": 6.2,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4,
+       11
+      ]
      },
      "neut": {
       "r": 4.56,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.7,
+       7
+      ]
      },
      "lymph": {
       "r": 1.05,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1,
+       4.8
+      ]
      },
      "mono": {
       "r": 0.47,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.18,
+       1
+      ]
      },
      "eos": {
       "r": 0.05,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.02,
+       0.63
+      ]
      },
      "baso": {
       "r": 0.07,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0,
+       0.11
+      ]
      },
      "hb": {
       "r": 16.4,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       13.4,
+       16.7
+      ]
      },
      "rbc": {
       "r": 5.33,
-      "u": "T/L"
+      "u": "T/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.28,
+       6
+      ]
      },
      "hct": {
       "r": 48.3,
-      "u": "%"
+      "u": "%",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       39,
+       49
+      ]
      },
      "mcv": {
       "r": 90.6,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       78,
+       98
+      ]
      },
      "mch": {
       "r": 30.7,
-      "u": "pg"
+      "u": "pg",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       26,
+       34
+      ]
      },
      "mchc": {
       "r": 33.9,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       31,
+       36.5
+      ]
      },
      "plt": {
       "r": 166,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       150,
+       400
+      ]
      },
      "mpv": {
       "r": 9.2,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       7,
+       11
+      ]
      },
      "glu": {
       "r": 1.05,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.74,
+       1.09
+      ]
      },
      "a1c": {
       "r": 5.1,
-      "u": "%"
+      "u": "%",
+      "a": "Electrophorèse capillaire sur sang total / Capillarys 3 Sebia",
+      "an": "Capillary electrophoresis separates HbA1c physically instead of binding it, so a haemoglobin variant shows up as its own peak rather than quietly skewing the number. The most trustworthy of the three common methods."
      },
      "crea": {
       "r": 12.5,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Printed only as \"spectrophotométrie\", which covers both Jaffé and enzymatic. Jaffé reads several µmol/L higher and is not IDMS-traceable, so this result may not be directly comparable with the enzymatic Beckman value from 2026.",
+      "lr": [
+       6.7,
+       11.7
+      ],
+      "cx": "Flagged high by the lab against its own 59–104 µmol/L."
      },
      "egfr": {
       "r": 80,
-      "u": "mL/min/1.73m²"
+      "u": "mL/min/1.73m²",
+      "a": "Calculé selon la formule CKD-EPI",
+      "an": "CKD-EPI, and in France in 2020 that means the 2009 equation with its race coefficient. It is calculated from the creatinine above, so it inherits whatever bias that method carried.",
+      "lr": [
+       60,
+       null
+      ]
      },
      "ua": {
       "r": 305,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       202,
+       417
+      ]
      },
      "chol": {
       "r": 1.56,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie"
      },
      "hdl": {
       "r": 0.71,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.54,
+       null
+      ]
      },
      "ldl": {
       "r": 0.75,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Formule de Friedewald",
+      "an": "Calculated from the other three lipids by Friedewald, not measured."
      },
      "tg": {
       "r": 0.55,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       null,
+       1.5
+      ]
      },
      "na": {
       "r": 139,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       136,
+       145
+      ]
      },
      "k": {
       "r": 4.7,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       3.4,
+       4.5
+      ],
+      "cx": "Drawn on a heparin tube and re-run by the lab to confirm. The report notes \"légère hémolyse détectée dans le sérum\" — haemolysis leaks potassium out of red cells and is the usual reason a mildly high result appears on an otherwise normal panel."
      },
      "tp": {
       "r": 81,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       66,
+       87
+      ]
      },
      "ca": {
       "r": 103,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       86,
+       100
+      ],
+      "cx": "Flagged high by the lab against its own 2.15–2.50 mmol/L. No albumin was run this draw, so corrected calcium cannot be derived — the total is all there is."
      },
      "mg": {
       "r": 0.86,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.65,
+       1.05
+      ]
      },
      "iron": {
       "r": 14.62,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       5.83,
+       34.5
+      ]
      },
      "ferr": {
       "r": 72,
-      "u": "µg/L"
+      "u": "µg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Immunoturbidimetric on the chemistry channel rather than the ECLIA used for the hormones. Also biotin-flagged.",
+      "lr": [
+       30,
+       300
+      ]
      },
      "zn": {
       "r": 13.9,
@@ -2911,39 +3154,114 @@ window.BLOODWORK =
      },
      "ast": {
       "r": 31,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       40
+      ]
      },
      "alt": {
       "r": 25,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       40
+      ]
      },
      "alp": {
       "r": 62,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       40,
+       129
+      ]
      },
      "ggt": {
       "r": 27,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       10,
+       45
+      ]
      },
      "vitd": {
       "r": 117.5,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "Roche Cobas / Electrochimiluminescence",
+      "an": "Measures D2 and D3 together as total 25-OH-D. Biotin-sensitive: the lab flags high-dose biotin as an interference on this platform."
      },
      "ft3": {
       "r": 3.12,
-      "u": "pg/mL"
+      "u": "pg/mL",
+      "a": "Roche Cobas / ECLIA",
+      "an": "Free hormone by analogue immunoassay rather than equilibrium dialysis — the ordinary method, but the reference interval belongs to this platform and does not transfer to another lab’s.",
+      "lr": [
+       2,
+       4.4
+      ]
      },
      "ft4": {
       "r": 17.28,
-      "u": "pmol/L"
+      "u": "pmol/L",
+      "a": "Roche Cobas / ECLIA",
+      "an": "Free hormone by analogue immunoassay rather than equilibrium dialysis — the ordinary method, but the reference interval belongs to this platform and does not transfer to another lab’s.",
+      "lr": [
+       12,
+       22
+      ]
      },
      "tsh": {
       "r": 0.99,
-      "u": "mUI/L"
+      "u": "mUI/L",
+      "a": "Roche Cobas / ECLIA",
+      "lr": [
+       0.27,
+       4.2
+      ]
      },
      "tt": {
       "r": 25.9,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "Roche Cobas / ECLIA",
+      "an": "Immunoassay (ECLIA), not LC-MS/MS. Dependable across the male range, but it does not read identically to mass spectrometry, so absolute comparison with a mass-spec result is not safe.",
+      "lr": [
+       12.1,
+       29.5
+      ]
+     },
+     "phos": {
+      "r": 1.19,
+      "u": "mmol/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "lr": [
+       0.81,
+       1.45
+      ],
+      "cx": "The report’s own two lines disagree: 1.19 mmol/L converts to 36.9 mg/L, but it printed 38 mg/L. The SI value is stored, being the one consistent with the SI interval printed beside it."
+     },
+     "cl": {
+      "r": 102,
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       98,
+       107
+      ]
+     },
+     "esr": {
+      "r": 2,
+      "u": "mm/h",
+      "a": "Beckman Coulter Alifax Test 1 THL",
+      "lr": [
+       null,
+       15
+      ],
+      "an": "Photometric rheology, not a Westergren tube. The lab states it is correlated with Westergren rather than identical to it, and it is deliberately insensitive to the haematological variables that move a true Westergren.",
+      "cx": "Second hour 5 mm. Only the first hour is stored — it is the value everything is referenced against."
      }
     }
    },
@@ -3363,7 +3681,7 @@ window.BLOODWORK =
       "r": 1,
       "u": "g/L",
       "a": "Formule de Friedwald",
-      "an": "Calculé à partir des triglycérides, non mesuré"
+      "an": "Calculated from the other lipids by Friedewald, not measured."
      },
      "nonhdl": {
       "r": 1.1,
@@ -3375,7 +3693,7 @@ window.BLOODWORK =
       "lr": [7.2, 11.8],
       "cx": "Taking creatine supplements at the time. Creatine raises serum creatinine directly, independent of how well the kidney is filtering.",
       "a": "Créatininase Beckman, enzymatique",
-      "an": "Traçable IDMS — la calibration que suppose CKD-EPI"
+      "an": "IDMS-traceable, which is the calibration CKD-EPI assumes."
      },
      "egfr": {
       "r": 61,
@@ -3399,7 +3717,7 @@ window.BLOODWORK =
       "lr": [null, 5],
       "lt": true,
       "a": "Immuno-Turbidimétrie Beckman",
-      "an": "CRP STANDARD, pas ultra-sensible — voir lr"
+      "an": "STANDARD CRP, not the high-sensitivity assay — the lab range below gives it away."
      },
      "tsh": {
       "r": 0.783,
@@ -3578,7 +3896,7 @@ window.BLOODWORK =
       "u": "mg/L",
       "lt": true,
       "a": "Immunoturbidimétrie Cobas Roche",
-      "an": "CRP ultra-sensible; changement de technique au 27/05/2026"
+      "an": "High-sensitivity CRP. The lab changed technique on 27/05/2026, so this does not sit on the same scale as the March result."
      },
      "alb": {
       "r": 51,
