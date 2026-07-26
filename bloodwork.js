@@ -116,7 +116,7 @@ window.BLOODWORK =
    {"id": "tmg", "name": "TMG", "judge": "homocysteine — it exists only to offset NAC's rise", "dose": "6g", "info": "Methyl donor that lowers homocysteine — 6g is the effective dose, sized to offset the homocysteine your 12g NAC raises. Catch: betaine above ~4g can nudge LDL up, so watch it. Pending homocysteine, the number that justifies the loop.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "TMG 6g"},
    {"id": "garlic", "name": "AGE garlic", "judge": "blood pressure and LDL / ApoB", "dose": "2400mg", "info": "Aged garlic extract — modest BP (~5-8 mmHg in hypertensives) and lipid effects, plus slowed coronary plaque. 2400mg is the plaque-trial dose (BP works at 600-1200mg). Parked: the payoff is for elevated BP or CVD risk, not a fit 31-yo — revisit if your lipids or BP give it a job.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "AGE garlic 2400mg"},
    {"id": "curcumin", "name": "Curcumin", "judge": "hs-CRP", "dose": null, "info": "Anti-inflammatory (NF-κB). No dose set on purpose — raw curcumin barely absorbs, so the form (piperine, Meriva, liposomal) matters more than the mg. Parked until an inflammatory marker (hs-CRP) runs high enough to target, then pick a bioavailable form.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Curcumin"},
-   {"id": "creatine", "name": "Creatine", "dose": "5g", "info": "Strength, power, likely cognition. 5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing's flexible. NOT a trial, unlike the rest of this tier — it is the best-evidenced supplement on the list and was already being taken. It sits here only because it is paused: stopped before the 2026-07-20 draw so creatinine and eGFR would read clean without it, restarting shortly. Back to Sport then.", "cat": "maylater", "status": "planned", "when": [{"at": "presnack", "dose": "5g"}], "url": "https://amzn.eu/d/09MG0JOC", "dec": "Creatine 5g"},
+   {"id": "creatine", "name": "Creatine", "dose": "5g", "info": "Strength, power, likely cognition. 5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing's flexible. NOT a trial, unlike the rest of this tier — it is the best-evidenced supplement on the list and was already being taken. It sits here only because it was paused: stopped before the 2026-07-20 draw so creatinine and eGFR would read clean without it. Restarting August 2026 — which also removes the body's single largest methyl-group demand, so it may pull homocysteine down on its own.", "cat": "maylater", "status": "planned", "when": [{"at": "presnack", "dose": "5g"}], "url": "https://amzn.eu/d/09MG0JOC", "dec": "Creatine 5g"},
    {"id": "taurine", "name": "Taurine", "judge": "nothing measurable at your age — a theory bet, not a testable one", "dose": "5g", "info": "5g is a longevity dose (exercise studies use 1-3g), extrapolated from the 2023 mouse-lifespan paper. Human evidence is observational, not trial — cheap and safe to 10g, but unproven. Parked until human data or a clear reason.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Glycine 12g + taurine + collagen"},
    {"id": "boron", "name": "Boron", "judge": "free testosterone and SHBG", "dose": "10mg", "info": "Lowers SHBG, so more testosterone stays free (and drops estradiol). 10mg is the studied dose (free-T +28% over a week). Modest, and unclear at your age with normal T — parked until T/SHBG bloods justify it.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Boron 10mg"},
    {"id": "ashwa", "name": "Ashwagandha", "judge": "perceived stress and sleep; testosterone / cortisol on bloods", "dose": "600mg", "info": "Adaptogen — lowers cortisol and stress, improves sleep, and small RCTs show recovery, strength and modest testosterone bumps in trained men. 600mg/day of a standardised root extract (KSM-66). Catch: it can nudge thyroid hormones, so don't start before the baseline draw — it'd confound TSH/T4; rare liver reports too, so cycle it 8-12 weeks on.", "cat": "maylater", "status": "planned", "when": null, "url": null, "dec": "Ashwagandha 600mg"}
@@ -403,44 +403,1362 @@ window.BLOODWORK =
  "DIET": {
   "eveningAt": "21:00",
   "meals": [
-   {"id": "presnack", "t": "Pre-workout snack", "at": "07:15", "items": [
-    {"n": "Huel Black", "amt": "90 g", "info": {
-     "Per 90g": [["Energy","400 kcal","20%"],["Protein","40 g","80%"],["Fat","17 g","24%"],["– saturates","4.0 g","20%"],["– monounsat.","3.8 g"],["– PUFA","9.4 g"],["Carbs","19 g","7%"],["– sugars","1.6 g","2%"],["Fibre","8.4 g"],["Salt","0.8 g","13%"]],
-     "Vitamins": [["A","180 mcg","23%"],["D","160 IU","80%"],["E","4.0 mg","33%"],["K","39 mcg","52%"],["C","60 mg","75%"],["Thiamin","0.22 mg","20%"],["Riboflavin","0.28 mg","20%"],["Niacin","3.2 mg","20%"],["B6","0.28 mg","20%"],["Pantoth.","1.2 mg","20%"],["Folate","80 mcg","40%"],["B12","0.80 mcg","32%"],["Biotin","12 mcg","24%"]],
-     "Minerals": [["Calcium","240 mg","30%"],["Phosphorus","360 mg","51%"],["Potassium","700 mg","35%"],["Chloride","164 mg","21%"],["Magnesium","88 mg","23%"],["Iron","9.0 mg","64%"],["Zinc","4.6 mg","46%"],["Copper","0.50 mg","50%"],["Manganese","0.90 mg","45%"],["Selenium","33 mcg","60%"],["Iodine","30 mcg","20%"],["Chromium","12 mcg","30%"],["Molybdenum","37 mcg","74%"]],
-     "Other": [["Choline","120 mg"],["Omega-3 (ALA)","4.0 g"],["Omega-6","4.2 g"],["MCT","1.1 g"],["Caffeine","68 mg"],["Green tea","130 mg"],["Lutein","1.6 mg"],["Zeaxanthin","0.1 mg"],["B. coagulans","200 M"]]
-    }},
-    {"n": "Banana", "amt": "1", "info": {"Per 1 (~118 g)":[["Energy","105 kcal","5%"],["Carbs","27 g","10%"],["– sugars","14 g","16%"],["Fibre","3 g"],["Protein","1.3 g","3%"]],"Standouts":[["Potassium","422 mg","21%"],["B6","0.45 mg","32%"],["Vit C","10 mg","12%"],["Magnesium","32 mg","8%"]]}},
-    {"n": "Berries (frozen)", "amt": "50 g", "info": {"Per 50g (mixed)":[["Energy","26 kcal","1%"],["Carbs","6 g","2%"],["– sugars","3 g","4%"],["Fibre","2 g"],["Protein","0.5 g","1%"]],"Standouts":[["Anthocyanins","~100 mg"],["Vit C","15 mg","19%"],["Manganese","0.2 mg","11%"],["Vit K","7 mcg","10%"]]}}
-   ]},
-   {"id": "brunch", "t": "Brunch", "at": "10:00", "items": [
-    {"n": "Coffee (half-caff) + milk", "amt": "230 + 100 ml", "info": {"Per 330 ml":[["Energy","~50 kcal","2%"],["Protein","3.4 g","7%"],["Fat","1.7 g","2%"],["Carbs (lactose)","4.8 g","2%"]],"Standouts":[["Caffeine","~80 mg"],["Chlorogenic acids","~150 mg"],["Calcium","120 mg","15%"],["Potassium","~260 mg","13%"]]}},
-    "---",
-    {"n": "Mozzarella di bufala", "amt": "100 g", "info": {"Per 100 g":[["Energy","275 kcal","14%"],["Protein","17 g","34%"],["Fat","22 g","31%"],["– saturates","15 g","75%"],["Salt","0.5 g","8%"]],"Minerals":[["Calcium","350 mg","44%"],["Phosphorus","350 mg","50%"],["Zinc","2 mg","20%"]]}},
-    {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
-    "---",
-    {"n": "Eggs", "amt": "6", "info": {"Per 6 (~300 g)":[["Energy","465 kcal","23%"],["Protein","38 g","75%"],["Fat","33 g","47%"],["– saturates","10 g","49%"]],"Micronutrients":[["Choline","885 mg"],["Selenium","90 mcg","164%"],["Vit D","240 IU","120%"],["B12","3 mcg","120%"],["Vit A","480 mcg","60%"],["Riboflavin","1.2 mg","86%"],["Folate","143 mcg","71%"]]}},
-    {"n": "Air-fried potatoes", "amt": "~300 g", "info": {"Prep":[["Cooked in","duck grease"]],"Per ~300 g":[["Energy","395 kcal","20%"],["Carbs","58 g","22%"],["Fibre","5 g"],["Fat","15 g","21%"],["– saturates","5 g","25%"]],"Standouts":[["Potassium","1200 mg","60%"],["Vit C","30 mg","38%"],["B6","0.9 mg","64%"]]}},
-    {"n": "Mushrooms (cooked)", "amt": "~150 g", "info": {"Per ~150 g (cooked)":[["Energy","45 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","4 g","8%"]],"Standouts":[["Ergothioneine","~3 mg"],["Copper","0.5 mg","50%"],["Pantothenic acid","2 mg","33%"],["Selenium","14 mcg","25%"],["Potassium","400 mg","20%"]]}},
-    {"n": "Olive oil", "amt": "10 mL", "info": {"Per 10 mL":[["Energy","80 kcal","4%"],["Fat","9 g","13%"],["– monounsat.","7 g"],["Vit E","1 mg","10%"]]}},
-    "---",
-    {"n": "Fruit (apple, pear, peach…)", "amt": "~150 g", "info": {"Per piece (~150 g)":[["Energy","80 kcal","4%"],["Carbs","20 g","8%"],["– sugars","15 g","17%"],["Fibre","3 g"],["Vit C","7 mg","9%"],["Potassium","180 mg","9%"]]}},
-    {"n": "Nuts", "amt": "~15 g", "info": {"Mix":[["Walnut","6g"],["Almond","5g"],["Pistachio","4g"]],"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}},
-    {"n": "Dark chocolate", "amt": "~10 g", "info": {"Type":[["Cocoa","85%"],["Origin","Madagascar"]],"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
-   ]},
-   {"id": "dinner", "t": "Dinner", "at": "16:30", "items": [
-    {"n": "Cherry tomatoes", "amt": "150 g", "info": {"Per 150 g": [["Energy","27 kcal","1%"],["Carbs","6 g","2%"],["– sugars","4 g","4%"],["Fibre","1.8 g"],["Protein","1.4 g","3%"]], "Standouts": [["Vit C","21 mg","26%"],["Potassium","355 mg","18%"],["Lycopene","~4 mg"],["Vit K","12 mcg","16%"],["Vit A","63 mcg","8%"]]}},
-    "---",
-    {"n": "Wild rice or whole-grain pasta", "amt": "~75 g", "info": {"Per ~75 g cooked":[["Energy","90 kcal","5%"],["Carbs","19 g","7%"],["Protein","4 g","8%"],["Fibre","2 g"]]}},
-    {"n": "Legumes (lentils, beans...)", "amt": "~75 g", "info": {"Per ~75 g cooked":[["Energy","95 kcal","5%"],["Carbs","17 g","7%"],["Protein","7 g","14%"],["Fibre","6 g"]],"Standouts":[["Folate","120 mcg","60%"],["Iron","2 mg","14%"],["Potassium","270 mg","14%"]]}},
-    {"n": "Olive oil", "amt": "50 mL", "info": {"Per 50 mL":[["Energy","405 kcal","20%"],["Fat","46 g","66%"],["– monounsat.","34 g"],["– saturates","6 g","30%"],["Vit E","6 mg","50%"]]}},
-    {"n": "Ground beef or chicken", "amt": "~200 g", "info": {"Ground beef (~200 g)":[["Energy","500 kcal","25%"],["Protein","40 g","80%"],["Fat","35 g","50%"],["– saturates","14 g","70%"]],"Minerals":[["Iron","5 mg","36%"],["Zinc","10 mg","100%"],["B12","5 mcg","200%"],["Selenium","30 mcg","55%"]]}},
-    {"n": "Frozen vegetables", "amt": "~100 g", "info": {"Per ~100 g":[["Energy","35 kcal","2%"],["Carbs","6 g","2%"],["Fibre","3 g"],["Protein","2 g","4%"]],"Vitamins":[["K","25 mcg","33%"],["Folate","40 mcg","20%"],["C","15 mg","19%"],["A","150 mcg","19%"]]}},
-    "---",
-    {"n": "Kiwis", "amt": "2", "info": {"Per 2 (~140 g)":[["Energy","85 kcal","4%"],["Carbs","20 g","8%"],["– sugars","13 g","14%"],["Fibre","4 g"]],"Standouts":[["Vit C","130 mg","163%"],["Vit K","55 mcg","73%"],["Potassium","430 mg","22%"],["Vit E","2 mg","17%"]]}},
-    {"n": "Nuts", "amt": "~15 g", "info": {"Mix":[["Walnut","6g"],["Almond","5g"],["Pistachio","4g"]],"Per ~15 g":[["Energy","90 kcal","5%"],["Protein","3 g","6%"],["Fat","8 g","11%"],["Fibre","1.5 g"]],"Standouts":[["Omega-3 (ALA)","0.6 g"],["Vitamin E","1.3 mg","11%"],["Magnesium","28 mg","7%"]]}},
-    {"n": "Dark chocolate", "amt": "~10 g", "info": {"Type":[["Cocoa","85%"],["Origin","Madagascar"]],"Per ~10 g":[["Energy","60 kcal","3%"],["Fat","5 g","7%"],["– saturates","3 g","14%"],["Carbs","2 g","1%"],["Fibre","1 g"]],"Minerals":[["Magnesium","23 mg","6%"],["Iron","1.1 mg","8%"],["Copper","0.2 mg","18%"],["Manganese","0.2 mg","10%"]]}}
-   ]}
+   {
+    "id": "presnack",
+    "t": "Pre-workout snack",
+    "at": "07:15",
+    "items": [
+     {
+      "n": "Huel Black",
+      "amt": "90 g",
+      "info": {
+       "Per 90g": [
+        [
+         "Energy",
+         "400 kcal",
+         "20%"
+        ],
+        [
+         "Protein",
+         "40 g",
+         "80%"
+        ],
+        [
+         "Fat",
+         "17 g",
+         "24%"
+        ],
+        [
+         "– saturates",
+         "4.0 g",
+         "20%"
+        ],
+        [
+         "– monounsat.",
+         "3.8 g"
+        ],
+        [
+         "– PUFA",
+         "9.4 g"
+        ],
+        [
+         "Carbs",
+         "19 g",
+         "7%"
+        ],
+        [
+         "– sugars",
+         "1.6 g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "8.4 g"
+        ],
+        [
+         "Salt",
+         "0.8 g",
+         "13%"
+        ]
+       ],
+       "Vitamins": [
+        [
+         "A",
+         "180 mcg",
+         "23%"
+        ],
+        [
+         "D",
+         "160 IU",
+         "80%"
+        ],
+        [
+         "E",
+         "4.0 mg",
+         "33%"
+        ],
+        [
+         "K",
+         "39 mcg",
+         "52%"
+        ],
+        [
+         "C",
+         "60 mg",
+         "75%"
+        ],
+        [
+         "Thiamin",
+         "0.22 mg",
+         "20%"
+        ],
+        [
+         "Riboflavin",
+         "0.28 mg",
+         "20%"
+        ],
+        [
+         "Niacin",
+         "3.2 mg",
+         "20%"
+        ],
+        [
+         "B6",
+         "0.28 mg",
+         "20%"
+        ],
+        [
+         "Pantoth.",
+         "1.2 mg",
+         "20%"
+        ],
+        [
+         "Folate",
+         "80 mcg",
+         "40%"
+        ],
+        [
+         "B12",
+         "0.80 mcg",
+         "32%"
+        ],
+        [
+         "Biotin",
+         "12 mcg",
+         "24%"
+        ]
+       ],
+       "Minerals": [
+        [
+         "Calcium",
+         "240 mg",
+         "30%"
+        ],
+        [
+         "Phosphorus",
+         "360 mg",
+         "51%"
+        ],
+        [
+         "Potassium",
+         "700 mg",
+         "35%"
+        ],
+        [
+         "Chloride",
+         "164 mg",
+         "21%"
+        ],
+        [
+         "Magnesium",
+         "88 mg",
+         "23%"
+        ],
+        [
+         "Iron",
+         "9.0 mg",
+         "64%"
+        ],
+        [
+         "Zinc",
+         "4.6 mg",
+         "46%"
+        ],
+        [
+         "Copper",
+         "0.50 mg",
+         "50%"
+        ],
+        [
+         "Manganese",
+         "0.90 mg",
+         "45%"
+        ],
+        [
+         "Selenium",
+         "33 mcg",
+         "60%"
+        ],
+        [
+         "Iodine",
+         "30 mcg",
+         "20%"
+        ],
+        [
+         "Chromium",
+         "12 mcg",
+         "30%"
+        ],
+        [
+         "Molybdenum",
+         "37 mcg",
+         "74%"
+        ]
+       ],
+       "Other": [
+        [
+         "Choline",
+         "120 mg"
+        ],
+        [
+         "Omega-3 (ALA)",
+         "4.0 g"
+        ],
+        [
+         "Omega-6",
+         "4.2 g"
+        ],
+        [
+         "MCT",
+         "1.1 g"
+        ],
+        [
+         "Caffeine",
+         "68 mg"
+        ],
+        [
+         "Green tea",
+         "130 mg"
+        ],
+        [
+         "Lutein",
+         "1.6 mg"
+        ],
+        [
+         "Zeaxanthin",
+         "0.1 mg"
+        ],
+        [
+         "B. coagulans",
+         "200 M"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Banana",
+      "amt": "1",
+      "info": {
+       "Per 1 (~118 g)": [
+        [
+         "Energy",
+         "105 kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "27 g",
+         "10%"
+        ],
+        [
+         "– sugars",
+         "14 g",
+         "16%"
+        ],
+        [
+         "Fibre",
+         "3 g"
+        ],
+        [
+         "Protein",
+         "1.3 g",
+         "3%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Potassium",
+         "422 mg",
+         "21%"
+        ],
+        [
+         "B6",
+         "0.45 mg",
+         "32%"
+        ],
+        [
+         "Vit C",
+         "10 mg",
+         "12%"
+        ],
+        [
+         "Magnesium",
+         "32 mg",
+         "8%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Berries (frozen)",
+      "amt": "50 g",
+      "info": {
+       "Per 50g (mixed)": [
+        [
+         "Energy",
+         "26 kcal",
+         "1%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "3 g",
+         "4%"
+        ],
+        [
+         "Fibre",
+         "2 g"
+        ],
+        [
+         "Protein",
+         "0.5 g",
+         "1%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Anthocyanins",
+         "~100 mg"
+        ],
+        [
+         "Vit C",
+         "15 mg",
+         "19%"
+        ],
+        [
+         "Manganese",
+         "0.2 mg",
+         "11%"
+        ],
+        [
+         "Vit K",
+         "7 mcg",
+         "10%"
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "brunch",
+    "t": "Brunch",
+    "at": "10:00",
+    "items": [
+     {
+      "n": "Coffee (half-caff) + milk",
+      "amt": "230 + 100 ml",
+      "info": {
+       "Per 330 ml": [
+        [
+         "Energy",
+         "~50 kcal",
+         "2%"
+        ],
+        [
+         "Protein",
+         "3.4 g",
+         "7%"
+        ],
+        [
+         "Fat",
+         "1.7 g",
+         "2%"
+        ],
+        [
+         "Carbs (lactose)",
+         "4.8 g",
+         "2%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Caffeine",
+         "~80 mg"
+        ],
+        [
+         "Chlorogenic acids",
+         "~150 mg"
+        ],
+        [
+         "Calcium",
+         "120 mg",
+         "15%"
+        ],
+        [
+         "Potassium",
+         "~260 mg",
+         "13%"
+        ]
+       ]
+      }
+     },
+     "---",
+     {
+      "n": "Mozzarella di bufala",
+      "amt": "100 g",
+      "info": {
+       "Per 100 g": [
+        [
+         "Energy",
+         "275 kcal",
+         "14%"
+        ],
+        [
+         "Protein",
+         "17 g",
+         "34%"
+        ],
+        [
+         "Fat",
+         "22 g",
+         "31%"
+        ],
+        [
+         "– saturates",
+         "15 g",
+         "75%"
+        ],
+        [
+         "Salt",
+         "0.5 g",
+         "8%"
+        ]
+       ],
+       "Minerals": [
+        [
+         "Calcium",
+         "350 mg",
+         "44%"
+        ],
+        [
+         "Phosphorus",
+         "350 mg",
+         "50%"
+        ],
+        [
+         "Zinc",
+         "2 mg",
+         "20%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Cherry tomatoes",
+      "amt": "150 g",
+      "info": {
+       "Per 150 g": [
+        [
+         "Energy",
+         "27 kcal",
+         "1%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "4 g",
+         "4%"
+        ],
+        [
+         "Fibre",
+         "1.8 g"
+        ],
+        [
+         "Protein",
+         "1.4 g",
+         "3%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Vit C",
+         "21 mg",
+         "26%"
+        ],
+        [
+         "Potassium",
+         "355 mg",
+         "18%"
+        ],
+        [
+         "Lycopene",
+         "~4 mg"
+        ],
+        [
+         "Vit K",
+         "12 mcg",
+         "16%"
+        ],
+        [
+         "Vit A",
+         "63 mcg",
+         "8%"
+        ]
+       ]
+      }
+     },
+     "---",
+     {
+      "n": "Eggs",
+      "amt": "6",
+      "info": {
+       "Per 6 (~300 g)": [
+        [
+         "Energy",
+         "465 kcal",
+         "23%"
+        ],
+        [
+         "Protein",
+         "38 g",
+         "75%"
+        ],
+        [
+         "Fat",
+         "33 g",
+         "47%"
+        ],
+        [
+         "– saturates",
+         "10 g",
+         "49%"
+        ]
+       ],
+       "Micronutrients": [
+        [
+         "Choline",
+         "885 mg"
+        ],
+        [
+         "Selenium",
+         "90 mcg",
+         "164%"
+        ],
+        [
+         "Vit D",
+         "240 IU",
+         "120%"
+        ],
+        [
+         "B12",
+         "3 mcg",
+         "120%"
+        ],
+        [
+         "Vit A",
+         "480 mcg",
+         "60%"
+        ],
+        [
+         "Riboflavin",
+         "1.2 mg",
+         "86%"
+        ],
+        [
+         "Folate",
+         "143 mcg",
+         "71%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Air-fried potatoes",
+      "amt": "~300 g",
+      "info": {
+       "Prep": [
+        [
+         "Cooked in",
+         "duck grease"
+        ]
+       ],
+       "Per ~300 g": [
+        [
+         "Energy",
+         "395 kcal",
+         "20%"
+        ],
+        [
+         "Carbs",
+         "58 g",
+         "22%"
+        ],
+        [
+         "Fibre",
+         "5 g"
+        ],
+        [
+         "Fat",
+         "15 g",
+         "21%"
+        ],
+        [
+         "– saturates",
+         "5 g",
+         "25%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Potassium",
+         "1200 mg",
+         "60%"
+        ],
+        [
+         "Vit C",
+         "30 mg",
+         "38%"
+        ],
+        [
+         "B6",
+         "0.9 mg",
+         "64%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Mushrooms (cooked)",
+      "amt": "~150 g",
+      "info": {
+       "Per ~150 g (cooked)": [
+        [
+         "Energy",
+         "45 kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "3 g"
+        ],
+        [
+         "Protein",
+         "4 g",
+         "8%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Ergothioneine",
+         "~3 mg"
+        ],
+        [
+         "Copper",
+         "0.5 mg",
+         "50%"
+        ],
+        [
+         "Pantothenic acid",
+         "2 mg",
+         "33%"
+        ],
+        [
+         "Selenium",
+         "14 mcg",
+         "25%"
+        ],
+        [
+         "Potassium",
+         "400 mg",
+         "20%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Olive oil",
+      "amt": "10 mL",
+      "info": {
+       "Per 10 mL": [
+        [
+         "Energy",
+         "80 kcal",
+         "4%"
+        ],
+        [
+         "Fat",
+         "9 g",
+         "13%"
+        ],
+        [
+         "– monounsat.",
+         "7 g"
+        ],
+        [
+         "Vit E",
+         "1 mg",
+         "10%"
+        ]
+       ]
+      }
+     },
+     "---",
+     {
+      "n": "Fruit (apple, pear, peach…)",
+      "amt": "~150 g",
+      "info": {
+       "Per piece (~150 g)": [
+        [
+         "Energy",
+         "80 kcal",
+         "4%"
+        ],
+        [
+         "Carbs",
+         "20 g",
+         "8%"
+        ],
+        [
+         "– sugars",
+         "15 g",
+         "17%"
+        ],
+        [
+         "Fibre",
+         "3 g"
+        ],
+        [
+         "Vit C",
+         "7 mg",
+         "9%"
+        ],
+        [
+         "Potassium",
+         "180 mg",
+         "9%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Nuts",
+      "amt": "~15 g",
+      "info": {
+       "Mix": [
+        [
+         "Walnut",
+         "6g"
+        ],
+        [
+         "Almond",
+         "5g"
+        ],
+        [
+         "Pistachio",
+         "4g"
+        ]
+       ],
+       "Per ~15 g": [
+        [
+         "Energy",
+         "90 kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "3 g",
+         "6%"
+        ],
+        [
+         "Fat",
+         "8 g",
+         "11%"
+        ],
+        [
+         "Fibre",
+         "1.5 g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Omega-3 (ALA)",
+         "0.6 g"
+        ],
+        [
+         "Vitamin E",
+         "1.3 mg",
+         "11%"
+        ],
+        [
+         "Magnesium",
+         "28 mg",
+         "7%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Dark chocolate",
+      "amt": "~10 g",
+      "info": {
+       "Type": [
+        [
+         "Cocoa",
+         "85%"
+        ],
+        [
+         "Origin",
+         "Madagascar"
+        ]
+       ],
+       "Per ~10 g": [
+        [
+         "Energy",
+         "60 kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5 g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3 g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2 g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1 g"
+        ]
+       ],
+       "Minerals": [
+        [
+         "Magnesium",
+         "23 mg",
+         "6%"
+        ],
+        [
+         "Iron",
+         "1.1 mg",
+         "8%"
+        ],
+        [
+         "Copper",
+         "0.2 mg",
+         "18%"
+        ],
+        [
+         "Manganese",
+         "0.2 mg",
+         "10%"
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "dinner",
+    "t": "Dinner",
+    "at": "16:30",
+    "items": [
+     {
+      "n": "Cherry tomatoes",
+      "amt": "150 g",
+      "info": {
+       "Per 150 g": [
+        [
+         "Energy",
+         "27 kcal",
+         "1%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "4 g",
+         "4%"
+        ],
+        [
+         "Fibre",
+         "1.8 g"
+        ],
+        [
+         "Protein",
+         "1.4 g",
+         "3%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Vit C",
+         "21 mg",
+         "26%"
+        ],
+        [
+         "Potassium",
+         "355 mg",
+         "18%"
+        ],
+        [
+         "Lycopene",
+         "~4 mg"
+        ],
+        [
+         "Vit K",
+         "12 mcg",
+         "16%"
+        ],
+        [
+         "Vit A",
+         "63 mcg",
+         "8%"
+        ]
+       ]
+      }
+     },
+     "---",
+     {
+      "n": "Wild rice or whole-grain pasta",
+      "amt": "~75 g",
+      "info": {
+       "Per ~75 g cooked": [
+        [
+         "Energy",
+         "90 kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "19 g",
+         "7%"
+        ],
+        [
+         "Protein",
+         "4 g",
+         "8%"
+        ],
+        [
+         "Fibre",
+         "2 g"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Legumes (lentils, beans...)",
+      "amt": "~75 g",
+      "info": {
+       "Per ~75 g cooked": [
+        [
+         "Energy",
+         "95 kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "17 g",
+         "7%"
+        ],
+        [
+         "Protein",
+         "7 g",
+         "14%"
+        ],
+        [
+         "Fibre",
+         "6 g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Folate",
+         "120 mcg",
+         "60%"
+        ],
+        [
+         "Iron",
+         "2 mg",
+         "14%"
+        ],
+        [
+         "Potassium",
+         "270 mg",
+         "14%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Olive oil",
+      "amt": "50 mL",
+      "info": {
+       "Per 50 mL": [
+        [
+         "Energy",
+         "405 kcal",
+         "20%"
+        ],
+        [
+         "Fat",
+         "46 g",
+         "66%"
+        ],
+        [
+         "– monounsat.",
+         "34 g"
+        ],
+        [
+         "– saturates",
+         "6 g",
+         "30%"
+        ],
+        [
+         "Vit E",
+         "6 mg",
+         "50%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Ground beef or chicken",
+      "amt": "~200 g",
+      "info": {
+       "Ground beef (~200 g)": [
+        [
+         "Energy",
+         "500 kcal",
+         "25%"
+        ],
+        [
+         "Protein",
+         "40 g",
+         "80%"
+        ],
+        [
+         "Fat",
+         "35 g",
+         "50%"
+        ],
+        [
+         "– saturates",
+         "14 g",
+         "70%"
+        ]
+       ],
+       "Minerals": [
+        [
+         "Iron",
+         "5 mg",
+         "36%"
+        ],
+        [
+         "Zinc",
+         "10 mg",
+         "100%"
+        ],
+        [
+         "B12",
+         "5 mcg",
+         "200%"
+        ],
+        [
+         "Selenium",
+         "30 mcg",
+         "55%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Frozen vegetables",
+      "amt": "~100 g",
+      "info": {
+       "Per ~100 g": [
+        [
+         "Energy",
+         "35 kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "3 g"
+        ],
+        [
+         "Protein",
+         "2 g",
+         "4%"
+        ]
+       ],
+       "Vitamins": [
+        [
+         "K",
+         "25 mcg",
+         "33%"
+        ],
+        [
+         "Folate",
+         "40 mcg",
+         "20%"
+        ],
+        [
+         "C",
+         "15 mg",
+         "19%"
+        ],
+        [
+         "A",
+         "150 mcg",
+         "19%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Spinach (frozen, reheated)",
+      "amt": "~150 g",
+      "info": {
+       "Per ~150 g cooked": [
+        [
+         "Energy",
+         "35 kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "1.5 g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "3.3 g"
+        ],
+        [
+         "Protein",
+         "4.4 g",
+         "9%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Folate",
+         "215 mcg",
+         "54%"
+        ],
+        [
+         "Vit K",
+         "740 mcg",
+         "987%"
+        ],
+        [
+         "Magnesium",
+         "130 mg",
+         "35%"
+        ],
+        [
+         "Iron",
+         "2.6 mg",
+         "19%"
+        ],
+        [
+         "Lutein/zeaxanthin",
+         "~17 mg"
+        ]
+       ]
+      }
+     },
+     "---",
+     {
+      "n": "Kiwis",
+      "amt": "2",
+      "info": {
+       "Per 2 (~140 g)": [
+        [
+         "Energy",
+         "85 kcal",
+         "4%"
+        ],
+        [
+         "Carbs",
+         "20 g",
+         "8%"
+        ],
+        [
+         "– sugars",
+         "13 g",
+         "14%"
+        ],
+        [
+         "Fibre",
+         "4 g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Vit C",
+         "130 mg",
+         "163%"
+        ],
+        [
+         "Vit K",
+         "55 mcg",
+         "73%"
+        ],
+        [
+         "Potassium",
+         "430 mg",
+         "22%"
+        ],
+        [
+         "Vit E",
+         "2 mg",
+         "17%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Nuts",
+      "amt": "~15 g",
+      "info": {
+       "Mix": [
+        [
+         "Walnut",
+         "6g"
+        ],
+        [
+         "Almond",
+         "5g"
+        ],
+        [
+         "Pistachio",
+         "4g"
+        ]
+       ],
+       "Per ~15 g": [
+        [
+         "Energy",
+         "90 kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "3 g",
+         "6%"
+        ],
+        [
+         "Fat",
+         "8 g",
+         "11%"
+        ],
+        [
+         "Fibre",
+         "1.5 g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Omega-3 (ALA)",
+         "0.6 g"
+        ],
+        [
+         "Vitamin E",
+         "1.3 mg",
+         "11%"
+        ],
+        [
+         "Magnesium",
+         "28 mg",
+         "7%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Dark chocolate",
+      "amt": "~10 g",
+      "info": {
+       "Type": [
+        [
+         "Cocoa",
+         "85%"
+        ],
+        [
+         "Origin",
+         "Madagascar"
+        ]
+       ],
+       "Per ~10 g": [
+        [
+         "Energy",
+         "60 kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5 g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3 g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2 g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1 g"
+        ]
+       ],
+       "Minerals": [
+        [
+         "Magnesium",
+         "23 mg",
+         "6%"
+        ],
+        [
+         "Iron",
+         "1.1 mg",
+         "8%"
+        ],
+        [
+         "Copper",
+         "0.2 mg",
+         "18%"
+        ],
+        [
+         "Manganese",
+         "0.2 mg",
+         "10%"
+        ]
+       ]
+      }
+     }
+    ]
+   }
   ]
  },
  "MARK": [
