@@ -1202,6 +1202,14 @@ function audit(j){
       // differently. Distinct from .an, which is about the METHOD: creatine is not an assay.
       if(v.cx!==undefined&&(typeof v.cx!=='string'||!v.cx.trim()))
         bad.push(`draw ${d.date}, ${m.en}: "cx" must be a non-empty string when present`);
+      // .t overrides the DRAW's time for a value that was not collected with the rest of it.
+      // Only meaningful alongside a .cx saying so — a bare override is a typo, not a fact.
+      if(v.t!==undefined){
+        if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(v.t))
+          bad.push(`draw ${d.date}, ${m.en}: time "${v.t}" is not 24h HH:MM`);
+        else if(v.cx===undefined)
+          bad.push(`draw ${d.date}, ${m.en}: "t" differs from the draw's but no "cx" explains why`);
+      }
       /* .lr is the LAB's own printed interval for this result, in the same unit as .u —
          [lo, hi], either end null where the report printed only one ("<5" is [null, 5]).
          Never invent the missing end: a one-sided range is one-sided. It is stored because a
@@ -1683,7 +1691,11 @@ function ptHTML(m,d){
   /* No date: the column header already names the draw, and the bubble is anchored to that
      column either way. The TIME does earn its place — it is nowhere else on screen, and it is
      what separates two comparable readings from two at opposite ends of a diurnal swing. */
-  let h=`<b>${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}${d.t?` <span class="pt2">&middot; ${esc(d.t)}</span>`:''}</b>`;
+  /* A value may carry its OWN time, and it wins: a result folded into a draw it was not
+     collected with (zinc, sent out twelve days later) would otherwise print the draw's time and
+     flatly contradict the context line underneath it. */
+  const tm=e.t||d.t;
+  let h=`<b>${e.lt?'&lt;':''}${fmt(e.r)} ${esc(e.u)}${tm?` <span class="pt2">&middot; ${esc(tm)}</span>`:''}</b>`;
   if(e.lt)h+=`<div class="pw">Below the assay detection limit &mdash; an upper bound, not a measurement.</div>`;
   if(e.a||e.lr||(m.am&&!e.a)){
     h+=`<span class="pk">Assay</span>`;

@@ -3152,6 +3152,7 @@ window.BLOODWORK =
      "zn": {
       "r": 13.9,
       "u": "µmol/L",
+      "t": "09:58",
       "a": "Absorption atomique",
       "an": "Atomic absorption spectrometry, the reference method for trace metals — specific in a way the colorimetric alternatives are not.",
       "lr": [
