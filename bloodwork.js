@@ -1498,55 +1498,55 @@ window.BLOODWORK =
      },
      {
       "n": "Kefir (I Love Kéfir, nature)",
-      "amt": "150 mL",
+      "amt": "100 mL (1 bottle)",
       "info": {
-       "Per 150 mL": [
+       "Per 100 mL": [
         [
          "Energy",
-         "71 kcal",
-         "4%"
+         "47 kcal",
+         "2%"
         ],
         [
          "Carbs",
-         "7.2 g",
-         "3%"
+         "4.8 g",
+         "2%"
         ],
         [
          "– sugars",
-         "7.2 g",
-         "8%"
+         "4.8 g",
+         "5%"
         ],
         [
          "Protein",
-         "5.6 g",
-         "11%"
-        ],
-        [
-         "Fat",
-         "2.3 g",
-         "3%"
-        ],
-        [
-         "– saturates",
-         "1.4 g",
+         "3.7 g",
          "7%"
         ],
         [
-         "Salt",
-         "0.26 g",
+         "Fat",
+         "1.5 g",
+         "2%"
+        ],
+        [
+         "– saturates",
+         "0.9 g",
          "4%"
+        ],
+        [
+         "Salt",
+         "0.17 g",
+         "3%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "180 mg",
-         "23%"
+         "120 mg",
+         "15%"
         ],
         [
          "Vit D",
-         "1.2 mcg",
-         "24%"
+         "0.8 mcg",
+         "16%"
         ],
         [
          "Sugars",
@@ -1563,14 +1563,18 @@ window.BLOODWORK =
          "what separates kefir from yoghurt"
         ]
        ],
-       "Why 150 not 100": [
+       "Split": [
         [
-         "100 mL x2",
-         "240 mg Ca — drops the day under 1000"
+         "Brunch",
+         "1 bottle — mozzarella already gives 350 mg Ca there"
         ],
         [
-         "150 mL x2",
-         "360 mg Ca — clears it"
+         "Dinner",
+         "2 bottles — no other calcium at that meal"
+        ],
+        [
+         "Why",
+         "fractional Ca absorption falls above ~500 mg per sitting"
         ]
        ],
        "Changed": [
@@ -2074,55 +2078,55 @@ window.BLOODWORK =
      },
      {
       "n": "Kefir (I Love Kéfir, nature)",
-      "amt": "150 mL",
+      "amt": "200 mL (2 bottles)",
       "info": {
-       "Per 150 mL": [
+       "Per 200 mL": [
         [
          "Energy",
-         "71 kcal",
-         "4%"
+         "94 kcal",
+         "5%"
         ],
         [
          "Carbs",
-         "7.2 g",
-         "3%"
+         "9.6 g",
+         "2%"
         ],
         [
          "– sugars",
-         "7.2 g",
-         "8%"
+         "9.6 g",
+         "5%"
         ],
         [
          "Protein",
-         "5.6 g",
-         "11%"
+         "7.4 g",
+         "15%"
         ],
         [
          "Fat",
-         "2.3 g",
-         "3%"
+         "3.0 g",
+         "2%"
         ],
         [
          "– saturates",
-         "1.4 g",
-         "7%"
+         "1.8 g",
+         "9%"
         ],
         [
          "Salt",
-         "0.26 g",
-         "4%"
+         "0.34 g",
+         "3%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "180 mg",
-         "23%"
+         "240 mg",
+         "30%"
         ],
         [
          "Vit D",
-         "1.2 mcg",
-         "24%"
+         "1.6 mcg",
+         "32%"
         ],
         [
          "Sugars",
@@ -2139,14 +2143,18 @@ window.BLOODWORK =
          "what separates kefir from yoghurt"
         ]
        ],
-       "Why 150 not 100": [
+       "Split": [
         [
-         "100 mL x2",
-         "240 mg Ca — drops the day under 1000"
+         "Brunch",
+         "1 bottle — mozzarella already gives 350 mg Ca there"
         ],
         [
-         "150 mL x2",
-         "360 mg Ca — clears it"
+         "Dinner",
+         "2 bottles — no other calcium at that meal"
+        ],
+        [
+         "Why",
+         "fractional Ca absorption falls above ~500 mg per sitting"
         ]
        ],
        "Changed": [
