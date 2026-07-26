@@ -1217,74 +1217,64 @@ window.BLOODWORK =
      "---",
      {
       "n": "Eggs",
-      "amt": "4",
+      "amt": "5",
       "info": {
-       "Per 4 (~200 g)": [
+       "Per 5 (~250 g)": [
         [
          "Energy",
-         "310 kcal",
-         "16%"
+         "388 kcal",
+         "19%"
         ],
         [
          "Protein",
-         "25 g",
-         "50%"
+         "31 g",
+         "62%"
         ],
         [
          "Fat",
-         "22 g",
-         "31%"
+         "27 g",
+         "39%"
         ],
         [
          "– saturates",
-         "6.5 g",
-         "33%"
+         "8 g",
+         "41%"
         ]
        ],
        "Micronutrients": [
         [
          "Choline",
-         "590 mg"
+         "738 mg"
         ],
         [
          "Selenium",
-         "60 mcg",
-         "109%"
+         "75 mcg",
+         "136%"
         ],
         [
          "Vit D",
-         "160 IU",
-         "80%"
+         "200 IU",
+         "100%"
         ],
         [
          "B12",
-         "2 mcg",
-         "80%"
+         "2.5 mcg",
+         "100%"
         ],
         [
          "Vit A",
-         "320 mcg",
-         "40%"
+         "400 mcg",
+         "50%"
         ],
         [
          "Riboflavin",
-         "0.8 mg",
-         "57%"
+         "1 mg",
+         "71%"
         ],
         [
          "Folate",
-         "95 mcg",
-         "48%"
-        ]
-       ],
-       "Why 4": [
-        [
-         "Arachidonic acid",
-         "yolk is among the densest sources"
-        ],
-        [
-         "AA was",
-         "16.26% vs 12.46-15.54"
+         "119 mcg",
+         "60%"
         ]
        ],
        "Changed": [
@@ -1294,7 +1284,7 @@ window.BLOODWORK =
         ],
         [
          "26 Jul 2026",
-         "6 → 4"
+         "6 → 5"
         ]
        ]
       }
@@ -2068,71 +2058,75 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Yoghurt (plain, 0% MG)",
+      "n": "Kefir yoghurt (plain)",
       "amt": "125 g",
       "info": {
        "Per 125 g": [
         [
          "Energy",
-         "45 kcal",
-         "2%"
+         "84 kcal",
+         "4%"
         ],
         [
          "Carbs",
-         "5.6 g",
+         "6 g",
          "2%"
         ],
         [
          "– sugars",
-         "5.6 g",
-         "6%"
+         "6 g",
+         "7%"
         ],
         [
          "Protein",
-         "5.4 g",
-         "11%"
+         "5 g",
+         "10%"
         ],
         [
          "Fat",
-         "0 g",
-         "0%"
+         "4.4 g",
+         "6%"
         ],
         [
          "– saturates",
-         "0 g",
-         "0%"
+         "2.9 g",
+         "15%"
         ],
         [
          "Salt",
-         "0.16 g",
-         "3%"
+         "0.13 g",
+         "2%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "~190 mg",
-         "24%"
+         "166 mg",
+         "21%"
+        ],
+        [
+         "Cultures",
+         "kefir yeasts + Bifidobacterium"
         ],
         [
          "Sugars",
          "lactose only, none added"
         ]
        ],
-       "Note": [
+       "Why": [
         [
-         "Label omits",
-         "calcium — estimated"
+         "Adds",
+         "yeasts, which plain yoghurt has none of"
         ],
         [
-         "Eat with",
-         "the nuts and fruit"
+         "Cost",
+         "+2.9 g saturated fat vs the 0% pot"
         ]
        ],
        "Changed": [
         [
          "26 Jul 2026",
-         "added x2/day"
+         "replaced one of the two 0% yoghurts"
         ]
        ]
       }
