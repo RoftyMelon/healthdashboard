@@ -4367,6 +4367,38 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "hco3",
+   "cat": "other",
+   "en": "Bicarbonate",
+   "fr": "Bicarbonates (CO₂ total)",
+   "us": "mmol/L",
+   "units": [
+    {
+     "l": "mmol/L",
+     "m": 1
+    },
+    {
+     "l": "mEq/L",
+     "m": 1
+    }
+   ],
+   "clin": [
+    22,
+    29
+   ],
+   "opt": [
+    24,
+    28
+   ],
+   "oc": "weak",
+   "am": "useful",
+   "note": "The blood's main buffer, and the number that reports your acid-base balance. The kidneys make and retain it; the lungs adjust CO₂ to match.\n\nLow means acid is accumulating or bicarbonate is being lost. High means the reverse — usually vomiting or diuretics.\n\nThe version that matters here is the slow one. A diet heavy in animal protein and dairy generates a daily acid load, and the body buffers part of it out of bone and muscle. That shows up as a bicarbonate sitting at the low end of normal, not as anything dramatic.\n\nIt is also fragile: CO₂ escapes from a tube left open, so a delayed sample reads falsely low. Repeat before believing one low value.",
+   "axis": [
+    15,
+    35
+   ]
+  },
+  {
    "id": "ft3",
    "cat": "thy",
    "en": "Free T3",
@@ -6158,7 +6190,7 @@ window.BLOODWORK =
      "tg": {
       "r": 0.65,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche",
       "lr": [
        null,
@@ -6168,13 +6200,13 @@ window.BLOODWORK =
      "chol": {
       "r": 2.05,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche"
      },
      "hdl": {
       "r": 0.5,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche",
       "lr": [
        0.4,
@@ -6184,14 +6216,14 @@ window.BLOODWORK =
      "nonhdl": {
       "r": 1.55,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Calcul",
       "an": "Total cholesterol minus HDL. Arithmetic, not an assay."
      },
      "ldl": {
       "r": 1.42,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Calculé selon la formule de Friedewald",
       "ak": "Friedewald",
       "an": "Calculated by Friedewald, not measured."
