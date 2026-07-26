@@ -291,7 +291,7 @@ window.BLOODWORK =
      ],
      [
       "Anti-HBs",
-      "90 IU/L — immune (94 in 2020)"
+      "93 IU/L — immune (90 in 2022, 94 in 2020)"
      ],
      [
       "Anti-HCV",
@@ -302,7 +302,31 @@ window.BLOODWORK =
       "Negative"
      ]
     ],
-    "date": "2022-05-14"
+    "date": "2023-03-13",
+    "foot": "Roche Cobas ECLIA. Screened three times — Dec 2020, May 2022 and Mar 2023 — with the same result each time."
+   },
+   {
+    "t": "Allergy",
+    "date": "2023-03-13",
+    "rows": [
+     [
+      "Phadiatop — dust mite, mould, animal dander, grass/weed/tree pollen",
+      "Negative · 0.78"
+     ],
+     [
+      "Trophatop fx5 — egg white, cow's milk, cod, wheat, peanut, soy",
+      "Borderline · 0.99"
+     ],
+     [
+      "Trophatop fx24 — hazelnut, shrimp, kiwi, banana",
+      "Borderline · 0.88"
+     ],
+     [
+      "Trophatop fx25 — sesame, brewer's yeast, garlic, celery",
+      "Negative · 0.64"
+     ]
+    ],
+    "foot": "ImmunoCAP Phadia, reported as a ratio to the positivity threshold: positive above 1.17, borderline 0.83–1.17, negative below 0.83. Neither borderline mix identifies WHICH food it responded to — that needs single allergens. The lab's own advice is to follow symptoms and repeat if any appear."
    },
    {
     "t": "Genotyping",
@@ -3862,7 +3886,8 @@ window.BLOODWORK =
     "id": "d20230313",
     "date": "2023-03-13",
     "t": "09:45",
-    "note": "Cerballiance Barral (Marseille), drawn 09:45 — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: IgE came back 122 UI/mL against a reference of <100 and was flagged, with Phadiatop and Trophatop sent out (those results are not in this report and there is no IgE marker in this panel). Arrived via an InsideTracker upload that rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED THREE HAEMATOLOGY VALUES: lymphocytes 1.06 G/L against 1.34-3.92 (low), platelets 157 against 172-398 (low), and MPV 12.1 fL against 7.4-10.8 (high). READ THE MPV SERIES WITH CARE: across four reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one. Fibrinogen 2.0 g/L and an ESR of 2 mm / 5 mm were also run; neither has a marker here.",
+    "note": "Cerballiance Barral (Marseille) — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: IgE came back 122 UI/mL against a reference of <100 and was flagged, with Phadiatop and Trophatop sent out to CERBA; those send-outs are now on the Record tab (both mixed-food panels landed just under the positivity threshold). THE ORIGINAL HAEMATOLOGY REPORT FOR THIS DATE HAS NOT BEEN SEEN — the PDF on file covers only the serology and the CERBA allergy send-outs, so the fifteen counts below still carry no assay method, and the IgE 122, fibrinogen 2.0 g/L and ESR 2 mm / 5 mm are known only second-hand through the InsideTracker upload. That upload also rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED THREE HAEMATOLOGY VALUES: lymphocytes 1.06 G/L against 1.34-3.92 (low), platelets 157 against 172-398 (low), and MPV 12.1 fL against 7.4-10.8 (high). READ THE MPV SERIES WITH CARE: across four reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one.",
+
     "v": {
      "wbc": {
       "r": 4.18,

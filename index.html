@@ -597,6 +597,9 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .pgsec.stk .pgst{max-width:135px;white-space:nowrap}   /* underline caps at the longest title ("MAY ADD LATER" ~130px), not full width */
 .ndlist .srow{align-items:flex-start}
 .ndlist .sn{flex:0 0 43%;min-width:0}
+/* the scale a section's rows are read against, set under them — a ratio of 0.99 is meaningless
+   until you know 1.17 is the positive threshold */
+.ndlist .rfoot{padding:9px 0 2px;font-size:13px;line-height:1.5;color:var(--t4);user-select:text}
 /* a whole-section one-liner: no label column, so it runs the full width */
 .ndlist .rline{flex:1;min-width:0;font-size:15px;line-height:1.45;color:var(--t2);user-select:text}
 .ndlist .frn{flex:1;min-width:0;color:var(--t3);font-size:14px;line-height:1.45;user-select:text}
@@ -1249,6 +1252,9 @@ function audit(j){
         bad.push(`RECORD "${sec.t}": every row must be [label, value]`);});
       // a section with nothing in it must SAY so — a silent blank reads as a rendering fault
       if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
+      // .foot is the scale a section's rows are read against — a ratio means nothing without it
+      if(sec.foot!==undefined&&(typeof sec.foot!=='string'||!sec.foot.trim()))
+        bad.push(`RECORD "${sec.t}": "foot" must be a non-empty string when present`);
     });
   }
   if(j.NEXTDRAW){
@@ -2051,6 +2057,7 @@ function renderPage(p){
           : sec.rows.length
             ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
             : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||'')}</span></div>`)+
+        (sec.foot?`<div class="rfoot">${esc(sec.foot)}</div>`:'')+
         `</div>`).join('');
   } else if(p==='stack'&&STACK){
     h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed · Daily doses</div>`;
