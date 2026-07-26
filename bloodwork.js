@@ -2516,6 +2516,42 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "plp",
+   "cat": "vitmin",
+   "dec": [
+    "B-complex (methylfolate)",
+    "Huel"
+   ],
+   "en": "Vitamin B6 (PLP)",
+   "fr": "Vitamine B6 (pyridoxal-5-phosphate)",
+   "us": "nmol/L",
+   "units": [
+    {
+     "l": "nmol/L",
+     "m": 1
+    },
+    {
+     "l": "µg/L",
+     "m": 4.046
+    }
+   ],
+   "clin": [
+    20,
+    125
+   ],
+   "opt": [
+    40,
+    110
+   ],
+   "oc": "moderate",
+   "am": "critical",
+   "note": "Pyridoxal-5-phosphate, the active form of vitamin B6 — the coenzyme for well over a hundred enzymes, most of them handling amino acids.\n\nIt is the third input to homocysteine clearance, and the one that works differently from the other two. Folate and B12 recycle homocysteine back into methionine; B6 runs the other exit, breaking it down to cysteine for good.\n\nSo a homocysteine that will not fall on folate alone often needs this one looked at.\n\nMeasure PLP, not \"vitamin B6\": the plain assay counts inactive forms as well and can read normal on a genuine deficiency. It also falls with inflammation independently of intake.",
+   "axis": [
+    0,
+    180
+   ]
+  },
+  {
    "id": "crea",
    "cat": "renal",
    "dec": [
