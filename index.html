@@ -1194,6 +1194,16 @@ function audit(j){
         bad.push(`draw ${d.date}, ${m.en}: assay "a" must be a non-empty string when present`);
       if(v.an!==undefined&&(typeof v.an!=='string'||!v.an.trim()))
         bad.push(`draw ${d.date}, ${m.en}: assay note "an" must be a non-empty string when present`);
+      /* .ak is what the printed .a actually IS — a canonical key used ONLY for cross-draw
+         comparison. Needed because .a is a TRANSCRIPTION: one lab prints "Formule de FRIEDEWALD",
+         another misspells it "Friedwald", a third writes bare "ECLIA" where the first named the
+         analyser. Correcting .a to make those match would falsify the record; .ak lets the record
+         stay verbatim and the comparison stay right. Omit it when two draws genuinely might
+         differ — an absent .ak means "compare the printed strings", which is the safe default. */
+      if(v.ak!==undefined&&(typeof v.ak!=='string'||!v.ak.trim()))
+        bad.push(`draw ${d.date}, ${m.en}: "ak" must be a non-empty string when present`);
+      if(v.ak!==undefined&&v.a===undefined)
+        bad.push(`draw ${d.date}, ${m.en}: "ak" without "a" — a canonical key for nothing`);
       if(v.an!==undefined&&v.a===undefined)
         bad.push(`draw ${d.date}, ${m.en}: "an" without "a" — a caveat with no technique to qualify`);
       // .lt marks a CENSORED result: the lab printed "<x" because the assay could not resolve
@@ -1620,10 +1630,12 @@ function det(row,id,cols,n,tri){
      with no assay change is weaker: labs also just disagree on where to cut a range. Say which
      one is actually in evidence rather than collapsing both into one warning. */
   const many=k=>new Set(pts.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x))).size>1;
+  // compare the canonical key where one is given, the printed string otherwise
+  const aDiffer=new Set(pts.map(o=>o.d.v[m.id]).map(e=>e.ak||e.a).filter(Boolean)).size>1;
   /* lr is stored in the VALUE's unit, so two labs printing the identical interval in g/dL and
      g/L compare as different strings. Normalise through toUS first — the same rule the rest of
      the panel obeys: compare in canonical units, format in whatever unit was printed. */
-  const aDiff=many('a'),lDiff=new Set(pts.map(o=>o.d.v[m.id]).filter(e=>e.lr)
+  const aDiff=aDiffer,lDiff=new Set(pts.map(o=>o.d.v[m.id]).filter(e=>e.lr)
     .map(e=>JSON.stringify(e.lr.map(x=>x===null?null:+toUS(m,x,e.u).toFixed(6))))).size>1;
   const chg=(aDiff||lDiff)
     ?`<div class="achg">${aDiff&&lDiff

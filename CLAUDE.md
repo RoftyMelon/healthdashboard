@@ -102,7 +102,14 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `[lo, hi]` with either end `null` for a one-sided range; `lt: true` = the result was CENSORED,
   the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement;
   `t` = a collection time that OVERRIDES the draw's, for a result folded in from a different
-  day (the Dec 2020 zinc) — `audit()` requires a `cx` beside it, since a bare override is a typo.
+  day (the Dec 2020 zinc) — `audit()` requires a `cx` beside it, since a bare override is a typo;
+  `ak` = what the printed `a` actually IS, a canonical key used ONLY to compare draws and never
+  shown. `a` is a TRANSCRIPTION, and labs transcribe one method three ways — "Formule de
+  FRIEDEWALD", the misspelled "Formule de Friedwald", and bare "ECLIA" where another named the
+  analyser. Editing `a` to make them agree falsifies the record; `ak` carries the equivalence
+  instead. Set it only where you are SURE, and leave it off where two might genuinely differ —
+  CKD-EPI has none, because the 2009 and 2021 equations print identically and are not the same
+  calculation.
   A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
   panel names the draws where an `am` marker recorded no method.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
