@@ -989,79 +989,104 @@ window.BLOODWORK =
      },
      {
       "n": "Berries (frozen)",
-      "amt": "50 g",
+      "amt": "75 g",
       "info": {
        "Made with": [
         [
-         "Berries",
-         "redcurrant, blackberry, blackcurrant, wild blueberry, raspberry"
+         "1. Redcurrant",
+         "the largest share"
+        ],
+        [
+         "2. Blackberry",
+         ""
+        ],
+        [
+         "3. Blackcurrant",
+         ""
+        ],
+        [
+         "4. Wild blueberry",
+         ""
+        ],
+        [
+         "5. Raspberry",
+         "the smallest"
         ],
         [
          "Farming",
          "organic"
         ]
        ],
-       "Per 50 g": [
+       "Per 75 g": [
         [
          "Energy",
-         "24 kcal",
-         "1%"
+         "36 kcal",
+         "2%"
         ],
         [
          "Carbs",
-         "3.8 g",
-         "1%"
+         "5.6 g",
+         "2%"
         ],
         [
          "– sugars",
-         "3.1 g",
-         "3%"
+         "4.6 g",
+         "5%"
         ],
         [
          "Fibre",
-         "2.1 g"
+         "3.2 g"
         ],
         [
          "Protein",
-         "0.5 g",
+         "0.7 g",
          "1%"
         ],
         [
          "Fat",
-         "0.3 g",
-         "0%"
+         "0.4 g",
+         "1%"
         ],
         [
          "Salt",
-         "0.08 g",
-         "1%"
+         "0.11 g",
+         "2%"
         ]
        ],
-       "Standouts": [
+       "Standouts (estimated)": [
         [
          "Anthocyanins",
-         "~120 mg"
+         "~100-200 mg"
         ],
         [
          "Vit C",
-         "~25 mg",
-         "31%"
+         "~30-45 mg"
         ],
         [
          "Manganese",
-         "0.15 mg",
-         "8%"
+         "~0.2 mg",
+         "11%"
         ],
         [
          "Vit K",
-         "6 mcg",
-         "8%"
+         "~9 mcg",
+         "12%"
         ]
        ],
        "Note": [
         [
-         "Densest two",
-         "wild blueberry and blackcurrant"
+         "Order is by weight",
+         "EU labelling rule"
+        ],
+        [
+         "So",
+         "redcurrant leads and it is the weakest of the five for anthocyanin"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "50 → 75 g; panel from the label"
         ]
        ]
       }
