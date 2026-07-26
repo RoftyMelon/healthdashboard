@@ -1537,61 +1537,71 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Yoghurt (whole milk, fruit)",
-      "amt": "150 g",
+      "n": "Yoghurt (plain, 0% MG)",
+      "amt": "125 g",
       "info": {
-       "Per 150 g": [
+       "Per 125 g": [
         [
          "Energy",
-         "149 kcal",
-         "7%"
+         "45 kcal",
+         "2%"
         ],
         [
          "Carbs",
-         "20 g",
-         "8%"
+         "5.6 g",
+         "2%"
         ],
         [
          "– sugars",
-         "19.5 g",
-         "22%"
+         "5.6 g",
+         "6%"
         ],
         [
          "Protein",
-         "5.7 g",
+         "5.4 g",
          "11%"
         ],
         [
          "Fat",
-         "4.8 g",
-         "7%"
+         "0 g",
+         "0%"
         ],
         [
          "– saturates",
-         "2.6 g",
-         "13%"
+         "0 g",
+         "0%"
         ],
         [
          "Salt",
-         "0.12 g",
-         "2%"
+         "0.16 g",
+         "3%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "~180 mg",
-         "23%"
+         "~190 mg",
+         "24%"
         ],
         [
-         "Added sugar",
-         "~13 g of the 19.5"
+         "Sugars",
+         "lactose only, none added"
+        ]
+       ],
+       "Note": [
+        [
+         "Label omits",
+         "calcium — estimated"
+        ],
+        [
+         "Eat with",
+         "the nuts and fruit"
         ]
        ],
        "Changed": [
         [
          "26 Jul 2026",
-         "added, x2/day"
+         "added x2/day"
         ]
        ]
       }
@@ -2143,61 +2153,71 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Yoghurt (whole milk, fruit)",
-      "amt": "150 g",
+      "n": "Yoghurt (plain, 0% MG)",
+      "amt": "125 g",
       "info": {
-       "Per 150 g": [
+       "Per 125 g": [
         [
          "Energy",
-         "149 kcal",
-         "7%"
+         "45 kcal",
+         "2%"
         ],
         [
          "Carbs",
-         "20 g",
-         "8%"
+         "5.6 g",
+         "2%"
         ],
         [
          "– sugars",
-         "19.5 g",
-         "22%"
+         "5.6 g",
+         "6%"
         ],
         [
          "Protein",
-         "5.7 g",
+         "5.4 g",
          "11%"
         ],
         [
          "Fat",
-         "4.8 g",
-         "7%"
+         "0 g",
+         "0%"
         ],
         [
          "– saturates",
-         "2.6 g",
-         "13%"
+         "0 g",
+         "0%"
         ],
         [
          "Salt",
-         "0.12 g",
-         "2%"
+         "0.16 g",
+         "3%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "~180 mg",
-         "23%"
+         "~190 mg",
+         "24%"
         ],
         [
-         "Added sugar",
-         "~13 g of the 19.5"
+         "Sugars",
+         "lactose only, none added"
+        ]
+       ],
+       "Note": [
+        [
+         "Label omits",
+         "calcium — estimated"
+        ],
+        [
+         "Eat with",
+         "the nuts and fruit"
         ]
        ],
        "Changed": [
         [
          "26 Jul 2026",
-         "added, x2/day"
+         "added x2/day"
         ]
        ]
       }
