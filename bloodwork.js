@@ -1763,6 +1763,29 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "fib",
+   "cat": "liver",
+   "en": "Fibrinogen",
+   "fr": "Fibrinogène",
+   "us": "g/L",
+   "units": [
+    {
+     "l": "g/L",
+     "m": 1
+    }
+   ],
+   "clin": [
+    2,
+    4
+   ],
+   "am": "useful",
+   "note": "The protein that clotting converts into fibrin — the mesh a clot is actually built from. Made by the liver, and the most abundant clotting factor in blood.\n\nIt is also an acute-phase reactant, so it climbs with any inflammation, infection or injury, alongside CRP but more slowly and for longer.\n\nThat double role is the difficulty: low means the liver is struggling or the fibrinogen is being consumed, while high usually means inflammation rather than any clotting problem at all.\n\nIt is measured by timing a clot, so heparin in the sample distorts it.",
+   "axis": [
+    1,
+    6
+   ]
+  },
+  {
    "id": "tt",
    "cat": "horm",
    "dec": [
@@ -2456,6 +2479,37 @@ window.BLOODWORK =
    "axis": [
     0,
     600
+   ]
+  },
+  {
+   "id": "ige",
+   "cat": "cbc",
+   "en": "IgE (total)",
+   "fr": "Immunoglobuline E totale",
+   "us": "UI/mL",
+   "units": [
+    {
+     "l": "UI/mL",
+     "m": 1
+    },
+    {
+     "l": "kUI/L",
+     "m": 1
+    },
+    {
+     "l": "ng/mL",
+     "m": 0.4167
+    }
+   ],
+   "clin": [
+    0,
+    100
+   ],
+   "am": "useful",
+   "note": "The antibody class evolved to fight parasites, which in wealthy countries mostly ends up doing allergy instead. It sits on the surface of mast cells, and when its target binds, the cell dumps histamine.\n\nTotal IgE adds every specificity together, so it says you react to something without saying what. It rises with hay fever, asthma, eczema and food allergy — and much further with parasites, or with an allergic reaction to a mould growing in the airways.\n\nA normal total does not rule allergy out: one strong sensitivity can hide inside a normal sum. Specific IgE against named allergens is what actually answers the question.",
+   "axis": [
+    0,
+    300
    ]
   },
   {
@@ -3886,68 +3940,181 @@ window.BLOODWORK =
     "id": "d20230313",
     "date": "2023-03-13",
     "t": "09:45",
-    "note": "Cerballiance Barral (Marseille) — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: IgE came back 122 UI/mL against a reference of <100 and was flagged, with Phadiatop and Trophatop sent out to CERBA; those send-outs are now on the Record tab (both mixed-food panels landed just under the positivity threshold). THE ORIGINAL HAEMATOLOGY REPORT FOR THIS DATE HAS NOT BEEN SEEN — the PDF on file covers only the serology and the CERBA allergy send-outs, so the fifteen counts below still carry no assay method, and the IgE 122, fibrinogen 2.0 g/L and ESR 2 mm / 5 mm are known only second-hand through the InsideTracker upload. That upload also rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED THREE HAEMATOLOGY VALUES: lymphocytes 1.06 G/L against 1.34-3.92 (low), platelets 157 against 172-398 (low), and MPV 12.1 fL against 7.4-10.8 (high). READ THE MPV SERIES WITH CARE: across four reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one.",
+    "note": "Cerballiance Barral (Marseille) — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: total IgE 122 UI/mL against a printed <100, flagged, with Phadiatop and Trophatop sent out to CERBA; those send-outs are on the Record tab, where both mixed-food panels landed just under the positivity threshold and the aeroallergen screen came back clean. Both halves of the report have now been transcribed and all 18 values reconciled. The InsideTracker upload this draw originally arrived through had rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED lymphocytes 1.06 G/L against 1.34-3.92 and platelets 157 against 172-398; each carries its own annotation. READ THE MPV SERIES WITH CARE: across five reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one.",
+
 
     "v": {
      "wbc": {
       "r": 4.18,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.09,
+       11
+      ]
      },
      "neut": {
       "r": 2.52,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.78,
+       6.95
+      ]
      },
      "lymph": {
       "r": 1.06,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.34,
+       3.92
+      ],
+      "cx": "Flagged low against this lab’s 1.34–3.92."
      },
      "mono": {
       "r": 0.46,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.23,
+       0.77
+      ]
      },
      "eos": {
       "r": 0.09,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.05,
+       0.59
+      ]
      },
      "baso": {
       "r": 0.05,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0,
+       0.1
+      ]
      },
      "hb": {
       "r": 152,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       134,
+       167
+      ]
      },
      "rbc": {
       "r": 5.04,
-      "u": "T/L"
+      "u": "T/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.53,
+       5.79
+      ]
      },
      "hct": {
       "r": 45.4,
-      "u": "%"
+      "u": "%",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       39.2,
+       48.6
+      ]
      },
      "mcv": {
       "r": 90.1,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       79.6,
+       94
+      ]
      },
      "mch": {
       "r": 30.2,
-      "u": "pg"
+      "u": "pg",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       27.3,
+       32.8
+      ]
      },
      "mchc": {
       "r": 335,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       324,
+       363
+      ]
      },
      "plt": {
       "r": 157,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       172,
+       398
+      ],
+      "cx": "Flagged low — but against this lab’s own 172–398, narrower than the 150–400 used here."
      },
      "mpv": {
       "r": 12.1,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       7.4,
+       10.8
+      ],
+      "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
+      "cx": "High against the lab’s 7.4–10.8. This site’s MPVs run high across the board."
      },
      "hscrp": {
       "r": 1.4,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Standard CRP, not high-sensitivity — the lab’s <5.0 range gives it away.",
+      "lr": [
+       null,
+       5
+      ]
+     },
+     "esr": {
+      "r": 2,
+      "u": "mm/h",
+      "a": "Beckman Coulter Alifax Test 1 THL",
+      "lr": [
+       null,
+       15
+      ],
+      "an": "Photometric rheology, not a Westergren tube — correlated with it, not identical.",
+      "cx": "Second hour 5 mm."
+     },
+     "fib": {
+      "r": 2.0,
+      "u": "g/L",
+      "a": "Chronométrie",
+      "lr": [
+       2,
+       4
+      ],
+      "an": "Chronometric (Clauss-type). Derived-fibrinogen methods read differently and do not interchange."
+     },
+     "ige": {
+      "r": 122,
+      "u": "UI/mL",
+      "a": "Roche Cobas / Immunoturbidimétrie",
+      "lr": [
+       null,
+       100
+      ],
+      "an": "Immunoturbidimetric total IgE, not the ImmunoCAP fluoroenzyme assay used for the allergen mixes.",
+      "cx": "Flagged high. The allergen mixes it triggered are on the Record tab."
      }
     }
    },
