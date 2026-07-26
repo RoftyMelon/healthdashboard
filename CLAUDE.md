@@ -95,14 +95,21 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   and **an `lr` that changes between draws is a method change even when no technique was printed**.
   `opt[]` and `oc` are **inferences** with an evidence tag
   (strong / moderate / weak). Do not present a weak target as a finding.
-- A value is `{r, u}` plus five optional keys, each a DIFFERENT kind of claim, and they must not
+- A value is `{r, u}` plus six optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on
   creatine, 2 days into a diet change) — state, not method; `lr` = the lab's printed interval,
   `[lo, hi]` with either end `null` for a one-sided range; `lt: true` = the result was CENSORED,
-  the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement.
+  the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement;
+  `t` = a collection time that OVERRIDES the draw's, for a result folded in from a different
+  day (the Dec 2020 zinc) — `audit()` requires a `cx` beside it, since a bare override is a typo.
   A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
   panel names the draws where an `am` marker recorded no method.
+- **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
+  render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
+  State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why
+  the SI value was kept over the mg/L one) is reasoning, and reasoning does not go on screen.
+  The marker's `note` is the long field; these two are not.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC

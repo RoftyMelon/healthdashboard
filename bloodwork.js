@@ -3022,24 +3022,24 @@ window.BLOODWORK =
       "r": 5.1,
       "u": "%",
       "a": "Electrophorèse capillaire sur sang total / Capillarys 3 Sebia",
-      "an": "Capillary electrophoresis separates HbA1c physically instead of binding it, so a haemoglobin variant shows up as its own peak rather than quietly skewing the number. The most trustworthy of the three common methods."
+      "an": "Capillary electrophoresis — a haemoglobin variant shows as its own peak instead of skewing the number."
      },
      "crea": {
       "r": 12.5,
       "u": "mg/L",
       "a": "Roche Cobas / Spectrophotométrie",
-      "an": "Printed only as \"spectrophotométrie\", which covers both Jaffé and enzymatic. Jaffé reads several µmol/L higher and is not IDMS-traceable, so this result may not be directly comparable with the enzymatic Beckman value from 2026.",
+      "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
       "lr": [
        6.7,
        11.7
       ],
-      "cx": "Flagged high by the lab against its own 59–104 µmol/L."
+      "cx": "Flagged high against the lab's 59–104 µmol/L."
      },
      "egfr": {
       "r": 80,
       "u": "mL/min/1.73m²",
       "a": "Calculé selon la formule CKD-EPI",
-      "an": "CKD-EPI, and in France in 2020 that means the 2009 equation with its race coefficient. It is calculated from the creatinine above, so it inherits whatever bias that method carried.",
+      "an": "CKD-EPI 2009, calculated from the creatinine above.",
       "lr": [
        60,
        null
@@ -3072,7 +3072,7 @@ window.BLOODWORK =
       "r": 0.75,
       "u": "g/L",
       "a": "Formule de Friedewald",
-      "an": "Calculated from the other three lipids by Friedewald, not measured."
+      "an": "Calculated by Friedewald, not measured."
      },
      "tg": {
       "r": 0.55,
@@ -3100,7 +3100,7 @@ window.BLOODWORK =
        3.4,
        4.5
       ],
-      "cx": "Drawn on a heparin tube and re-run by the lab to confirm. The report notes \"légère hémolyse détectée dans le sérum\" — haemolysis leaks potassium out of red cells and is the usual reason a mildly high result appears on an otherwise normal panel."
+      "cx": "Heparin tube, re-run by the lab. The serum was slightly haemolysed, which leaks potassium."
      },
      "tp": {
       "r": 81,
@@ -3119,7 +3119,7 @@ window.BLOODWORK =
        86,
        100
       ],
-      "cx": "Flagged high by the lab against its own 2.15–2.50 mmol/L. No albumin was run this draw, so corrected calcium cannot be derived — the total is all there is."
+      "cx": "Flagged high. No albumin this draw, so corrected calcium cannot be derived."
      },
      "mg": {
       "r": 0.86,
@@ -3143,7 +3143,7 @@ window.BLOODWORK =
       "r": 72,
       "u": "µg/L",
       "a": "Roche Cobas / Spectrophotométrie",
-      "an": "Immunoturbidimetric on the chemistry channel rather than the ECLIA used for the hormones. Also biotin-flagged.",
+      "an": "Immunoturbidimetric, not the ECLIA used for the hormones. Biotin-sensitive.",
       "lr": [
        30,
        300
@@ -3154,12 +3154,12 @@ window.BLOODWORK =
       "u": "µmol/L",
       "t": "09:58",
       "a": "Absorption atomique",
-      "an": "Atomic absorption spectrometry, the reference method for trace metals — specific in a way the colorimetric alternatives are not.",
+      "an": "The reference method for trace metals.",
       "lr": [
        11,
        24
       ],
-      "cx": "NOT from the 10.12 collection. A separate serum draw on 22.12.2020 at 09:58, sent out to Cerba rather than run at Clairval. Folded into this draw because the time axis is in years, so twelve days is invisible — and a draw of its own would add a column in which 78 of 79 rows are empty."
+      "cx": "Drawn 22.12.2020, twelve days after the rest of this panel, and sent out to Cerba."
      },
      "ast": {
       "r": 31,
@@ -3201,13 +3201,13 @@ window.BLOODWORK =
       "r": 117.5,
       "u": "nmol/L",
       "a": "Roche Cobas / Electrochimiluminescence",
-      "an": "Measures D2 and D3 together as total 25-OH-D. Biotin-sensitive: the lab flags high-dose biotin as an interference on this platform."
+      "an": "D2 and D3 together as total 25-OH-D. Biotin-sensitive."
      },
      "ft3": {
       "r": 3.12,
       "u": "pg/mL",
       "a": "Roche Cobas / ECLIA",
-      "an": "Free hormone by analogue immunoassay rather than equilibrium dialysis — the ordinary method, but the reference interval belongs to this platform and does not transfer to another lab’s.",
+      "an": "Analogue immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
       "lr": [
        2,
        4.4
@@ -3217,7 +3217,7 @@ window.BLOODWORK =
       "r": 17.28,
       "u": "pmol/L",
       "a": "Roche Cobas / ECLIA",
-      "an": "Free hormone by analogue immunoassay rather than equilibrium dialysis — the ordinary method, but the reference interval belongs to this platform and does not transfer to another lab’s.",
+      "an": "Analogue immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
       "lr": [
        12,
        22
@@ -3236,7 +3236,7 @@ window.BLOODWORK =
       "r": 25.9,
       "u": "nmol/L",
       "a": "Roche Cobas / ECLIA",
-      "an": "Immunoassay (ECLIA), not LC-MS/MS. Dependable across the male range, but it does not read identically to mass spectrometry, so absolute comparison with a mass-spec result is not safe.",
+      "an": "Immunoassay, not LC-MS/MS — does not read identically to mass spec.",
       "lr": [
        12.1,
        29.5
@@ -3250,7 +3250,7 @@ window.BLOODWORK =
        0.81,
        1.45
       ],
-      "cx": "The report’s own two lines disagree: 1.19 mmol/L converts to 36.9 mg/L, but it printed 38 mg/L. The SI value is stored, being the one consistent with the SI interval printed beside it."
+      "cx": "The report printed 1.19 mmol/L and 38 mg/L, which disagree. The SI value is stored."
      },
      "cl": {
       "r": 102,
@@ -3269,8 +3269,8 @@ window.BLOODWORK =
        null,
        15
       ],
-      "an": "Photometric rheology, not a Westergren tube. The lab states it is correlated with Westergren rather than identical to it, and it is deliberately insensitive to the haematological variables that move a true Westergren.",
-      "cx": "Second hour 5 mm. Only the first hour is stored — it is the value everything is referenced against."
+      "an": "Photometric rheology, not a Westergren tube — correlated with it, not identical.",
+      "cx": "Second hour 5 mm."
      }
     }
    },
@@ -3690,7 +3690,7 @@ window.BLOODWORK =
       "r": 1,
       "u": "g/L",
       "a": "Formule de Friedwald",
-      "an": "Calculated from the other lipids by Friedewald, not measured."
+      "an": "Calculated by Friedewald, not measured."
      },
      "nonhdl": {
       "r": 1.1,
@@ -3700,14 +3700,14 @@ window.BLOODWORK =
       "r": 15,
       "u": "mg/L",
       "lr": [7.2, 11.8],
-      "cx": "Taking creatine supplements at the time. Creatine raises serum creatinine directly, independent of how well the kidney is filtering.",
+      "cx": "On creatine, which raises serum creatinine directly.",
       "a": "Créatininase Beckman, enzymatique",
       "an": "IDMS-traceable, which is the calibration CKD-EPI assumes."
      },
      "egfr": {
       "r": 61,
       "u": "mL/min/1.73m²",
-      "cx": "Taking creatine supplements at the time. eGFR is calculated FROM creatinine, which creatine raises on its own, so this dip reflects the supplement rather than a fall in filtration.",
+      "cx": "On creatine — eGFR is calculated from creatinine, so this dip is the supplement.",
       "a": "Equation CKD-EPI"
      },
      "ast": {
@@ -3726,7 +3726,7 @@ window.BLOODWORK =
       "lr": [null, 5],
       "lt": true,
       "a": "Immuno-Turbidimétrie Beckman",
-      "an": "STANDARD CRP, not the high-sensitivity assay — the lab range below gives it away."
+      "an": "Standard CRP, not high-sensitivity — the lab range gives it away."
      },
      "tsh": {
       "r": 0.783,
@@ -3813,27 +3813,27 @@ window.BLOODWORK =
      "tg": {
       "r": 0.65,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella 400→200 g/day, eggs 10→6) landed only 2 days before the draw — still reflects the prior intake"
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
      },
      "chol": {
       "r": 2.05,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella 400→200 g/day, eggs 10→6) landed only 2 days before the draw — still reflects the prior intake"
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
      },
      "hdl": {
       "r": 0.50,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella 400→200 g/day, eggs 10→6) landed only 2 days before the draw — still reflects the prior intake"
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
      },
      "nonhdl": {
       "r": 1.55,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella 400→200 g/day, eggs 10→6) landed only 2 days before the draw — still reflects the prior intake"
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
      },
      "ldl": {
       "r": 1.42,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella 400→200 g/day, eggs 10→6) landed only 2 days before the draw — still reflects the prior intake"
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
      },
      "crea": {
       "r": 11.6,
@@ -3862,7 +3862,7 @@ window.BLOODWORK =
      "mg": {
       "r": 0.86,
       "u": "mmol/L",
-      "cx": "Lab refused the erythrocyte assay and ran SERUM instead — this marker IS serum so it lands correctly, but it is not the intracellular measure that was ordered"
+      "cx": "Lab ran serum instead of the erythrocyte assay that was ordered."
      },
      "ast": {
       "r": 22,
@@ -3905,7 +3905,7 @@ window.BLOODWORK =
       "u": "mg/L",
       "lt": true,
       "a": "Immunoturbidimétrie Cobas Roche",
-      "an": "High-sensitivity CRP. The lab changed technique on 27/05/2026, so this does not sit on the same scale as the March result."
+      "an": "High-sensitivity CRP; the lab changed technique on 27/05/2026."
      },
      "alb": {
       "r": 51,
