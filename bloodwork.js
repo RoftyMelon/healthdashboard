@@ -94,7 +94,6 @@ window.BLOODWORK =
   "Vitamin D3 10000 IU + K2",
   "Magnesium L-threonate",
   "Glycine 12g + taurine + collagen",
-  "Beef liver 5g x2",
   "Huel"
  ],
  "STACK": {
@@ -196,27 +195,6 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html",
     "dec": "Omega-3 (2000mg EPA, 1125mg DHA)"
-   },
-   {
-    "id": "liver",
-    "name": "Beef liver",
-    "dose": "5g x2",
-    "judge": "serum copper — and vitamin A is the ceiling, not the target",
-    "info": "Food eaten as a dose: 10g/day of cooked beef liver, frozen in cubes, 5g with brunch and 5g with dinner. It is here for COPPER, which came back at 69.9 ug/dL against a floor of 70 — a small gap needing roughly +0.5-1.0 mg/day, and 10g of liver carries ~1.5mg. Everything else it brings (B12, folate, iron, vitamin A) is a passenger. The dose is set by the passenger, not the target: liver holds ~9440 mcg vitamin A per 100g, so 20g/day would put total preformed intake near 2550 mcg against a 3000 ceiling, EVERY day — and chronic intake above ~1500 mcg is the range linked to lower bone density. 10g/day lands near 1600 total. Do not scale it up because it is only food.",
-    "cat": "essentials",
-    "status": "taking",
-    "when": [
-     {
-      "at": "brunch",
-      "dose": "5g"
-     },
-     {
-      "at": "dinner",
-      "dose": "5g"
-     }
-    ],
-    "url": null,
-    "dec": "Beef liver 5g x2"
    },
    {
     "id": "collagenc",
@@ -2652,8 +2630,7 @@ window.BLOODWORK =
    "cat": "iron",
    "dec": [
     "Curcumin",
-    "Huel",
-    "Beef liver 5g x2"
+    "Huel"
    ],
    "en": "Ferritin",
    "fr": "Ferritine",
@@ -2745,9 +2722,6 @@ window.BLOODWORK =
    "axis": [
     40,
     180
-   ],
-   "dec": [
-    "Beef liver 5g x2"
    ]
   },
   {
@@ -2756,8 +2730,7 @@ window.BLOODWORK =
    "dec": [
     "TMG 6g",
     "Huel",
-    "B-complex (methylfolate)",
-    "Beef liver 5g x2"
+    "B-complex (methylfolate)"
    ],
    "en": "Vitamin B12",
    "fr": "Vitamine B12",
@@ -2794,8 +2767,7 @@ window.BLOODWORK =
    "dec": [
     "TMG 6g",
     "Huel",
-    "B-complex (methylfolate)",
-    "Beef liver 5g x2"
+    "B-complex (methylfolate)"
    ],
    "en": "Folate",
    "fr": "Folates (vitamine B9)",
@@ -4455,8 +4427,7 @@ window.BLOODWORK =
    "id": "iron",
    "cat": "iron",
    "dec": [
-    "Huel",
-    "Beef liver 5g x2"
+    "Huel"
    ],
    "en": "Serum iron",
    "fr": "Fer sérique",
