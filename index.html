@@ -337,11 +337,19 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cd.watch{background:var(--watch);color:var(--watch)}
 .cd.out{background:var(--out);color:var(--out)}
 /* A censored point is an upper BOUND, not a reading — the true value lies somewhere BELOW it.
-   Hollow ring plus a downward tick, the usual convention for "≤ this". Filled like its
-   neighbours it claims a precision the assay never had. */
+   Hollow ring, because filled like its neighbours it claims a precision the assay never had.
+   The ring is the CAP of the bar below, not a datapoint. */
 .cd.lt{background:transparent;box-shadow:inset 0 0 0 2px currentColor}
-.cd.lt::after{content:'';position:absolute;left:50%;top:calc(100% + 2px);transform:translateX(-50%);
-  border-left:3px solid transparent;border-right:3px solid transparent;border-top:4px solid currentColor}
+/* ...and the bar IS the result: everything from zero up to the limit is equally consistent with
+   what the lab reported, so the plot draws that whole span rather than a point inside it. Fades
+   downward only because the eye needs to find the cap; the interval is uniform, not a gradient.
+   Named .cbnd, not .cw — .cwhen already exists and two-letter names in this file have collided
+   before. */
+.cbnd{position:absolute;width:2px;transform:translateX(-50%);border-radius:1px;pointer-events:none;
+  background:linear-gradient(to top,transparent,currentColor);opacity:.38}
+.cbnd.ok{color:var(--ok)}
+.cbnd.watch{color:var(--watch)}
+.cbnd.out{color:var(--out)}
 /* Hover/press highlight — an AFFORDANCE, not a data flag. Every point will carry something
    once the reports are in, so marking them at rest would mark nothing; what the user needs to
    know is which one they are about to open. Restated for the censored variant because
@@ -1563,15 +1571,22 @@ function det(row,id,cols,n,tri){
     if(L.every(([w])=>Math.abs(P(v)-P(w))>7))L.push([v,'o']);});
   const ylab=L.map(([v,c])=>`<div class="cyl ${c}" style="bottom:${P(v).toFixed(2)}%"><span>${fmt(dV(m,v))}</span></div>`).join('');
   const grid=L.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
-  // One <path> PER SEGMENT rather than a single polyline, so a leg touching a censored point
-  // can be dashed: joining a bound to anything draws a slope nobody measured. Solid only
-  // between two real readings.
+  // One <path> PER SEGMENT rather than a single polyline, because a leg touching a censored
+  // point is not drawn at all. A "<0.5" was never measured at 0.5 — it is somewhere in [0, 0.5]
+  // — so any slope drawn to it is invented, and dashing it only softens the invention.
   const XY=o=>`${X(o.i).toFixed(2)},${(100-P(V(o.d))).toFixed(2)}`;
   const path=pts.slice(1).map((o,k)=>{
-    const p=pts[k],dash=p.d.v[m.id].lt||o.d.v[m.id].lt;
+    const p=pts[k];
+    if(p.d.v[m.id].lt||o.d.v[m.id].lt)return '';
     return `<path d="M${XY(p)} L${XY(o)}" fill="none" stroke="currentColor" stroke-width="1.6"`+
-      ` vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"${
-      dash?' stroke-dasharray="3 4"':''}/>`;}).join('');
+      ` vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"/>`;}).join('');
+  // What a censored result actually says: the value is between zero and the limit. Drawn as that
+  // interval. Base is P(0) clamped to the plot floor — the axis can start above zero, and a bar
+  // hanging off the bottom of the panel would claim a span the marker cannot have.
+  const bnds=pts.filter(o=>o.d.v[m.id].lt).map(o=>{
+    const top=P(V(o.d)),base=Math.max(0,P(0));
+    return `<div class="cbnd ${status(m,V(o.d))}" style="left:${X(o.i).toFixed(2)}%;`+
+      `bottom:${base.toFixed(2)}%;height:${Math.max(0,top-base).toFixed(2)}%"></div>`;}).join('');
   const dots=pts.map(o=>{const more=!!ptHTML(m,o.d);
     return `<div class="cd ${status(m,V(o.d))}${o.d.v[m.id].lt?' lt':''}${more?' dtl':''}"`+
     ` style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
@@ -1623,6 +1638,7 @@ function det(row,id,cols,n,tri){
         ${m.opt?`<div class="cb opt" style="bottom:${P(m.opt[0]).toFixed(2)}%;height:${(P(m.opt[1])-P(m.opt[0])).toFixed(2)}%"></div>`:''}
         ${grid}
         ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
+        ${bnds}
         ${dots}
       </div>
       <div class="cpad" style="width:${padW}px"></div>
