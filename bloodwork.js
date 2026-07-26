@@ -1249,56 +1249,90 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Air-fried potatoes",
+      "n": "Frozen sautéed vegetables",
       "amt": "~300 g",
       "info": {
-       "Prep": [
+       "Typical pack": [
+        [
+         "Potatoes",
+         "20-42%"
+        ],
+        [
+         "Plus",
+         "broccoli, carrots, green beans, mangetout"
+        ],
         [
          "Cooked in",
-         "duck grease"
+         "sunflower oil + cream"
         ]
        ],
        "Per ~300 g": [
         [
          "Energy",
-         "395 kcal",
-         "20%"
+         "235 kcal",
+         "12%"
         ],
         [
          "Carbs",
-         "58 g",
-         "22%"
+         "26 g",
+         "10%"
         ],
         [
          "Fibre",
-         "5 g"
+         "8 g"
+        ],
+        [
+         "Protein",
+         "6 g",
+         "12%"
         ],
         [
          "Fat",
-         "15 g",
-         "21%"
+         "10 g",
+         "14%"
         ],
         [
          "– saturates",
-         "5 g",
+         "1.5 g",
+         "8%"
+        ],
+        [
+         "Salt",
+         "1.5 g",
          "25%"
         ]
        ],
        "Standouts": [
         [
-         "Potassium",
-         "1200 mg",
-         "60%"
+         "Vit A",
+         "~500 mcg",
+         "63%"
         ],
         [
-         "Vit C",
-         "30 mg",
+         "Potassium",
+         "~750 mg",
          "38%"
         ],
         [
-         "B6",
-         "0.9 mg",
-         "64%"
+         "Vit C",
+         "~30 mg",
+         "38%"
+        ],
+        [
+         "Folate",
+         "~90 mcg",
+         "23%"
+        ],
+        [
+         "Vit K",
+         "~60 mcg",
+         "80%"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "replaced 300 g air-fried potatoes"
         ]
        ]
       }
@@ -1417,6 +1451,147 @@ window.BLOODWORK =
          "Potassium",
          "180 mg",
          "9%"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Beef liver (frozen portion)",
+      "amt": "25 g, once a week",
+      "info": {
+       "Why": [
+        [
+         "Copper",
+         "the deficit it targets"
+        ],
+        [
+         "Eat",
+         "brunch and dinner on DIFFERENT days"
+        ]
+       ],
+       "Per 25 g cooked": [
+        [
+         "Energy",
+         "48 kcal",
+         "2%"
+        ],
+        [
+         "Protein",
+         "7.3 g",
+         "15%"
+        ],
+        [
+         "Fat",
+         "1.3 g",
+         "2%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Copper",
+         "3.6 mg",
+         "400%"
+        ],
+        [
+         "Vit A",
+         "2360 mcg",
+         "295%"
+        ],
+        [
+         "B12",
+         "17.5 mcg",
+         "700%"
+        ],
+        [
+         "Folate",
+         "63 mcg",
+         "16%"
+        ],
+        [
+         "Iron",
+         "1.6 mg",
+         "11%"
+        ],
+        [
+         "Selenium",
+         "9 mcg",
+         "16%"
+        ]
+       ],
+       "Ceiling": [
+        [
+         "Vit A upper limit",
+         "3000 mcg/day"
+        ],
+        [
+         "Two servings same day",
+         "~4700 mcg — too much"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Yoghurt (whole milk, fruit)",
+      "amt": "150 g",
+      "info": {
+       "Per 150 g": [
+        [
+         "Energy",
+         "149 kcal",
+         "7%"
+        ],
+        [
+         "Carbs",
+         "20 g",
+         "8%"
+        ],
+        [
+         "– sugars",
+         "19.5 g",
+         "22%"
+        ],
+        [
+         "Protein",
+         "5.7 g",
+         "11%"
+        ],
+        [
+         "Fat",
+         "4.8 g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "2.6 g",
+         "13%"
+        ],
+        [
+         "Salt",
+         "0.12 g",
+         "2%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Calcium",
+         "~180 mg",
+         "23%"
+        ],
+        [
+         "Added sugar",
+         "~13 g of the 19.5"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added, x2/day"
         ]
        ]
       }
@@ -1887,6 +2062,147 @@ window.BLOODWORK =
       }
      },
      {
+      "n": "Beef liver (frozen portion)",
+      "amt": "25 g, once a week",
+      "info": {
+       "Why": [
+        [
+         "Copper",
+         "the deficit it targets"
+        ],
+        [
+         "Eat",
+         "brunch and dinner on DIFFERENT days"
+        ]
+       ],
+       "Per 25 g cooked": [
+        [
+         "Energy",
+         "48 kcal",
+         "2%"
+        ],
+        [
+         "Protein",
+         "7.3 g",
+         "15%"
+        ],
+        [
+         "Fat",
+         "1.3 g",
+         "2%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Copper",
+         "3.6 mg",
+         "400%"
+        ],
+        [
+         "Vit A",
+         "2360 mcg",
+         "295%"
+        ],
+        [
+         "B12",
+         "17.5 mcg",
+         "700%"
+        ],
+        [
+         "Folate",
+         "63 mcg",
+         "16%"
+        ],
+        [
+         "Iron",
+         "1.6 mg",
+         "11%"
+        ],
+        [
+         "Selenium",
+         "9 mcg",
+         "16%"
+        ]
+       ],
+       "Ceiling": [
+        [
+         "Vit A upper limit",
+         "3000 mcg/day"
+        ],
+        [
+         "Two servings same day",
+         "~4700 mcg — too much"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Yoghurt (whole milk, fruit)",
+      "amt": "150 g",
+      "info": {
+       "Per 150 g": [
+        [
+         "Energy",
+         "149 kcal",
+         "7%"
+        ],
+        [
+         "Carbs",
+         "20 g",
+         "8%"
+        ],
+        [
+         "– sugars",
+         "19.5 g",
+         "22%"
+        ],
+        [
+         "Protein",
+         "5.7 g",
+         "11%"
+        ],
+        [
+         "Fat",
+         "4.8 g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "2.6 g",
+         "13%"
+        ],
+        [
+         "Salt",
+         "0.12 g",
+         "2%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Calcium",
+         "~180 mg",
+         "23%"
+        ],
+        [
+         "Added sugar",
+         "~13 g of the 19.5"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added, x2/day"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Nuts",
       "amt": "~15 g",
       "info": {
@@ -2003,6 +2319,81 @@ window.BLOODWORK =
          "Manganese",
          "0.2 mg",
          "10%"
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "weekly",
+    "t": "Weekly",
+    "items": [
+     {
+      "n": "Trout — 300 g, once a week (weekend)",
+      "info": {
+       "Per 300 g cooked": [
+        [
+         "Energy",
+         "500 kcal",
+         "25%"
+        ],
+        [
+         "Protein",
+         "72 g",
+         "144%"
+        ],
+        [
+         "Fat",
+         "21 g",
+         "30%"
+        ],
+        [
+         "– saturates",
+         "4.5 g",
+         "23%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "EPA + DHA",
+         "~3 g"
+        ],
+        [
+         "Vit D",
+         "~1600 IU",
+         "800%"
+        ],
+        [
+         "B12",
+         "~15 mcg",
+         "600%"
+        ],
+        [
+         "Selenium",
+         "~42 mcg",
+         "76%"
+        ],
+        [
+         "Potassium",
+         "~1200 mg",
+         "60%"
+        ]
+       ],
+       "Why": [
+        [
+         "Targets",
+         "omega-3 index 6.12%, DHA below range"
+        ],
+        [
+         "Also",
+         "the only oily fish in the week"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added"
         ]
        ]
       }
