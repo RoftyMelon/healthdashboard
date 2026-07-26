@@ -1106,6 +1106,16 @@ window.BLOODWORK =
          "2 mg",
          "20%"
         ]
+       ],
+       "Changed": [
+        [
+         "18 Jul 2026",
+         "200 → 100 g/meal"
+        ],
+        [
+         "22 Jul 2026",
+         "dropped from dinner"
+        ]
        ]
       }
      },
@@ -1228,6 +1238,12 @@ window.BLOODWORK =
          "Folate",
          "143 mcg",
          "71%"
+        ]
+       ],
+       "Changed": [
+        [
+         "18 Jul 2026",
+         "6–10 → 6"
         ]
        ]
       }
@@ -1616,6 +1632,12 @@ window.BLOODWORK =
          "Fibre",
          "2 g"
         ]
+       ],
+       "Changed": [
+        [
+         "18 Jul 2026",
+         "150 → 75 g, refined → whole"
+        ]
        ]
       }
      },
@@ -1659,6 +1681,12 @@ window.BLOODWORK =
          "Potassium",
          "270 mg",
          "14%"
+        ]
+       ],
+       "Changed": [
+        [
+         "18 Jul 2026",
+         "added, 75 g"
         ]
        ]
       }
@@ -1798,6 +1826,12 @@ window.BLOODWORK =
         [
          "Iron",
          "1-2.6 mg"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "added, ~150 g"
         ]
        ]
       }
