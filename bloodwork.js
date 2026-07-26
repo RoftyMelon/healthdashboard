@@ -3151,7 +3151,8 @@ window.BLOODWORK =
       "r": 5.1,
       "u": "%",
       "a": "Electrophorèse capillaire sur sang total / Capillarys 3 Sebia",
-      "an": "Capillary electrophoresis — a haemoglobin variant shows as its own peak instead of skewing the number."
+      "an": "Capillary electrophoresis — a haemoglobin variant shows as its own peak instead of skewing the number.",
+      "ak": "Capillarys — électrophorèse capillaire"
      },
      "crea": {
       "r": 12.5,
@@ -3341,7 +3342,8 @@ window.BLOODWORK =
       "lr": [
        2,
        4.4
-      ]
+      ],
+      "ak": "ECLIA Roche"
      },
      "ft4": {
       "r": 17.28,
@@ -3351,7 +3353,8 @@ window.BLOODWORK =
       "lr": [
        12,
        22
-      ]
+      ],
+      "ak": "ECLIA Roche"
      },
      "tsh": {
       "r": 0.99,
@@ -3360,7 +3363,8 @@ window.BLOODWORK =
       "lr": [
        0.27,
        4.2
-      ]
+      ],
+      "ak": "ECLIA Roche"
      },
      "tt": {
       "r": 25.9,
@@ -3697,7 +3701,8 @@ window.BLOODWORK =
       "lr": [
        0.27,
        4.2
-      ]
+      ],
+      "ak": "ECLIA Roche"
      },
      "ptime": {
       "r": 82,
@@ -4138,7 +4143,8 @@ window.BLOODWORK =
        145,
        569
       ],
-      "an": "Total B12 by immunoassay — it counts the inactive haptocorrin-bound fraction, which is most of it."
+      "an": "Total B12 by immunoassay — it counts the inactive haptocorrin-bound fraction, which is most of it.",
+      "ak": "ECLIA Roche"
      },
      "tt": {
       "r": 21.7,
@@ -4421,257 +4427,672 @@ window.BLOODWORK =
     "id": "d2026jul",
     "date": "2026-07-20",
     "t": "08:37",
-    "note": "French lab (B2A Brumath; Cerba/Barbier for send-outs), 10h fast, drawn 08:37. OFF creatine — the clean kidney read the March draw could not give. hs-CRP printed '<0.6' and anti-TPO '<8.0'; both stored AT the limit because r must be a number, so read them as upper bounds, not measurements. The lab refused erythrocyte magnesium and substituted serum (the marker is serum, so it lands correctly). The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. Pending at Cerba/Barbier: ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG, zinc, copper, selenium, omega-3 index.",
+    "note": "B2A Canal / Brumath (Vendenheim), Cobas Roche chemistry on an XN Sysmex haematology analyser, with Diasorin CLIA for insulin, vitamin D, PTH and IGF-1; send-outs to CERBA (trace elements, ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG) and to Laboratoire Barbier for the erythrocyte fatty-acid profile. 10h fast, drawn 08:37, serum limpide and non-haemolysed. All 71 values are reconciled against the printed report. THE LAB CHANGED TECHNIQUE ON 27/05/2026 across much of its chemistry, immunology and serology, and says so on page one: 'entrainant une rupture des anteriorites'. That break lands between this draw and the March one — the thyroid antibodies moved on 26/05, homocysteine on 22/06, IGF-1 back on 23/09/2025, and the CRP became genuinely ultra-sensitive, which is why the March '<1' and this '<0.6' are not two points on one line. OFF creatine — the clean kidney read the March draw could not give. The lab refused erythrocyte magnesium (discontinued for limited clinical benefit) and substituted serum; it also discontinued the ESR outright, per HAS 2025, replacing it with CRP. The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. THE LAB PRINTED A CORRECTED CALCIUM OF 83 mg/L (2.1 mmol/L) AND FLAGGED IT LOW. It is not stored, and that is deliberate: albumin was 51 g/L, and above 40 the correction subtracts a large (albumin - 4) from a calcium that needed no correcting, manufacturing a low reading out of a normal one. The measured calcium, 94 mg/L, is mid-range. This is the artefact the empty corrected-calcium row exists to avoid, printed in black and white by a laboratory that ran the formula anyway.",
+
     "v": {
      "rbc": {
       "r": 4.94,
-      "u": "T/L"
+      "u": "T/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       4.28,
+       6
+      ]
      },
      "hb": {
       "r": 15.3,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       13.4,
+       16.7
+      ]
      },
      "hct": {
       "r": 43.5,
-      "u": "%"
+      "u": "%",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       39,
+       49
+      ]
      },
      "mcv": {
       "r": 88,
-      "u": "fL"
+      "u": "fL",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       78,
+       98
+      ]
      },
      "mch": {
       "r": 31.0,
-      "u": "pg"
+      "u": "pg",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       26,
+       34
+      ]
      },
      "mchc": {
       "r": 35.2,
-      "u": "g/dL"
+      "u": "g/dL",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       31,
+       36.5
+      ]
      },
      "rdw": {
       "r": 12.1,
-      "u": "%"
+      "u": "%",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       0,
+       15
+      ]
      },
      "wbc": {
       "r": 4.18,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       4,
+       11
+      ]
      },
      "neut": {
       "r": 2.47,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       1.8,
+       6.9
+      ]
      },
      "lymph": {
       "r": 1.34,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       1,
+       4.8
+      ]
      },
      "mono": {
       "r": 0.25,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       0.18,
+       1
+      ]
      },
      "eos": {
       "r": 0.08,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       null,
+       0.63
+      ]
      },
      "baso": {
       "r": 0.04,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
+      "lr": [
+       null,
+       0.11
+      ]
      },
      "plt": {
       "r": 152,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Impédance, optique XN Sysmex",
+      "lr": [
+       150,
+       400
+      ]
      },
      "glu": {
       "r": 0.88,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Technique enzymatique à l'hexokinase Cobas Roche",
+      "lr": [
+       0.7,
+       1.1
+      ]
      },
      "a1c": {
       "r": 5.1,
-      "u": "%"
+      "u": "%",
+      "a": "Electrophorèse capillaire Capillarys Sébia",
+      "an": "Capillary electrophoresis — a haemoglobin variant shows as its own peak instead of skewing the number.",
+      "ak": "Capillarys — électrophorèse capillaire"
      },
      "ins": {
       "r": 4.2,
-      "u": "mUI/L"
+      "u": "mUI/L",
+      "a": "CLIA LIAISON XL Diasorin",
+      "lr": [
+       3.2,
+       16.3
+      ],
+      "an": "CLIA on a Diasorin platform. Insulin assays differ substantially between manufacturers."
      },
      "tg": {
       "r": 0.65,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       null,
+       1.5
+      ]
      },
      "chol": {
       "r": 2.05,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "a": "Technique enzymatique Cobas Roche"
      },
      "hdl": {
-      "r": 0.50,
+      "r": 0.5,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       0.4,
+       null
+      ]
      },
      "nonhdl": {
       "r": 1.55,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "a": "Calcul",
+      "an": "Total cholesterol minus HDL. Arithmetic, not an assay."
      },
      "ldl": {
       "r": 1.42,
       "u": "g/L",
-      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw."
+      "cx": "Diet cut (mozzarella halved, eggs 10→6) landed 2 days before the draw.",
+      "a": "Calculé selon la formule de Friedewald",
+      "ak": "Friedewald",
+      "an": "Calculated by Friedewald, not measured."
      },
      "crea": {
       "r": 11.6,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Technique enzymatique traçable IDMS Cobas Roche",
+      "lr": [
+       6.7,
+       11.7
+      ],
+      "an": "IDMS-traceable, which is the calibration CKD-EPI assumes."
      },
      "egfr": {
       "r": 83.4,
-      "u": "mL/min/1.73m²"
+      "u": "mL/min/1.73m²",
+      "a": "DFG estimé selon la formule CKD-EPI en fonction de l'âge et du sexe",
+      "lr": [
+       60,
+       null
+      ]
      },
      "ua": {
       "r": 250,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Technique colorimétrique enzymatique Cobas Roche",
+      "lr": [
+       202,
+       417
+      ]
      },
      "na": {
       "r": 140,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Potentiométrie indirecte Cobas Roche",
+      "lr": [
+       136,
+       145
+      ]
      },
      "k": {
       "r": 4.0,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Potentiométrie indirecte Cobas Roche",
+      "lr": [
+       3.5,
+       5.1
+      ]
      },
      "ca": {
       "r": 94,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Colorimétrie Cobas Roche",
+      "lr": [
+       86,
+       100
+      ]
      },
      "mg": {
       "r": 0.86,
       "u": "mmol/L",
-      "cx": "Lab ran serum instead of the erythrocyte assay that was ordered."
+      "cx": "Lab ran serum instead of the erythrocyte assay that was ordered.",
+      "a": "Colorimétrie Cobas Roche",
+      "lr": [
+       0.66,
+       1.07
+      ]
      },
      "ast": {
       "r": 22,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       null,
+       50
+      ]
      },
      "alt": {
       "r": 17,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       null,
+       50
+      ]
      },
      "ggt": {
       "r": 16,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Technique colorimétrique enzymatique Cobas Roche",
+      "lr": [
+       null,
+       60
+      ]
      },
      "alp": {
       "r": 63,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Technique colorimétrique enzymatique Cobas Roche",
+      "lr": [
+       40,
+       129
+      ]
      },
      "bili": {
       "r": 13,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Colorimétrie par méthode diazo Cobas Roche",
+      "lr": [
+       null,
+       21
+      ]
      },
      "ck": {
       "r": 77,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       null,
+       190
+      ]
      },
      "ferr": {
       "r": 58,
-      "u": "µg/L"
+      "u": "µg/L",
+      "a": "Immunoturbidimétrie Cobas Roche",
+      "lr": [
+       30,
+       400
+      ]
      },
      "iron": {
       "r": 14.5,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Colorimétrie Cobas Roche",
+      "lr": [
+       10.6,
+       28.3
+      ]
      },
      "tsat": {
       "r": 22,
-      "u": "%"
+      "u": "%",
+      "a": "Calcul",
+      "lr": [
+       20,
+       45
+      ],
+      "an": "Iron divided by transferrin. Arithmetic, not an assay."
      },
      "hscrp": {
       "r": 0.6,
       "u": "mg/L",
       "lt": true,
       "a": "Immunoturbidimétrie Cobas Roche",
-      "an": "High-sensitivity CRP; the lab changed technique on 27/05/2026."
+      "an": "ULTRA-SENSITIVE from 27/05/2026 — a different technique from March, which was standard CRP.",
+      "lr": [
+       null,
+       5
+      ]
      },
      "alb": {
       "r": 51,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Immunoturbidimétrie Cobas Roche",
+      "lr": [
+       35,
+       52
+      ]
      },
      "fol": {
       "r": 6.3,
-      "u": "ng/mL"
+      "u": "ng/mL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       3.9,
+       26.8
+      ]
      },
      "b12": {
       "r": 522,
-      "u": "pg/mL"
+      "u": "pg/mL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       197,
+       771
+      ],
+      "ak": "ECLIA Roche"
      },
      "vitd": {
       "r": 70.0,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "CLIA LIAISON XL Diasorin",
+      "an": "Diasorin CLIA — a different platform from the Roche ECLIA used through 2024."
      },
      "tsh": {
       "r": 1,
-      "u": "mUI/L"
+      "u": "mUI/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       0.27,
+       4.2
+      ],
+      "ak": "ECLIA Roche"
      },
      "ft4": {
       "r": 19.31,
-      "u": "pmol/L"
+      "u": "pmol/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       11.84,
+       21.62
+      ],
+      "an": "Free hormone by immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
+      "ak": "ECLIA Roche"
      },
      "atpo": {
       "r": 8.0,
       "u": "UI/mL",
-      "lt": true
+      "lt": true,
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       null,
+       20
+      ],
+      "an": "Technique AND reference range both changed on 26/05/2026. No comparison with earlier results."
      },
      "fsh": {
       "r": 4.3,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       1.5,
+       12.4
+      ]
      },
      "lh": {
       "r": 4.6,
-      "u": "UI/L"
+      "u": "UI/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       1.7,
+       8.6
+      ]
      },
      "e2": {
       "r": 58.7,
-      "u": "pmol/L"
+      "u": "pmol/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       40.4,
+       157.8
+      ]
      },
      "prl": {
       "r": 7.76,
-      "u": "ng/mL"
+      "u": "ng/mL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       4.04,
+       15.2
+      ]
      },
      "tt": {
       "r": 22.12,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       8.63,
+       28.98
+      ],
+      "ak": "ECLIA",
+      "an": "Immunoassay, not LC-MS/MS — does not read identically to mass spec."
      },
      "pth": {
       "r": 17.9,
-      "u": "pg/mL"
+      "u": "pg/mL",
+      "a": "CLIA LIAISON XL Diasorin",
+      "lr": [
+       6.5,
+       36.8
+      ],
+      "an": "Intact PTH (1-84) on Diasorin CLIA. PTH assays are notoriously platform-dependent."
      },
      "cort": {
       "r": 292.4,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       132.4,
+       537.9
+      ]
      },
      "ft3": {
       "r": 3,
-      "u": "pg/mL"
+      "u": "pg/mL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       2,
+       4.4
+      ],
+      "an": "Free hormone by immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
+      "ak": "ECLIA Roche"
      },
      "atg": {
       "r": 19.1,
-      "u": "UI/mL"
+      "u": "UI/mL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       null,
+       115
+      ],
+      "an": "Technique AND reference range both changed on 26/05/2026. No comparison with earlier results."
      },
      "dheas": {
       "r": 257,
-      "u": "µg/dL"
+      "u": "µg/dL",
+      "a": "ECLIA Cobas Roche",
+      "lr": [
+       160,
+       449
+      ]
      },
      "igf1": {
       "r": 104.6,
-      "u": "ng/mL"
+      "u": "ng/mL",
+      "a": "CLIA LIAISON XL Diasorin",
+      "lr": [
+       82,
+       241
+      ],
+      "an": "New technique from 23/09/2025. IGF-1 assays differ more widely between platforms than almost any other."
      },
      "tp": {
       "r": 72,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Colorimétrie Biuret Cobas Roche",
+      "lr": [
+       64,
+       83
+      ]
      },
      "trf": {
       "r": 2.59,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Immunoturbidimétrie Cobas Roche",
+      "lr": [
+       2,
+       3.6
+      ]
      },
      "ucrea": {
       "r": 417,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Technique enzymatique Cobas Roche",
+      "lr": [
+       400,
+       2780
+      ]
+     },
+     "shbg": {
+      "r": 46,
+      "u": "nmol/L",
+      "a": "ECLIA",
+      "ak": "ECLIA",
+      "lr": [
+       18,
+       54
+      ]
+     },
+     "zn": {
+      "r": 16.3,
+      "u": "µmol/L",
+      "a": "Absorption atomique",
+      "lr": [
+       11,
+       24
+      ],
+      "an": "The reference method for trace metals."
+     },
+     "cu": {
+      "r": 11,
+      "u": "µmol/L",
+      "a": "ICP-MS",
+      "lr": [
+       11,
+       20
+      ],
+      "an": "Mass spectrometry — the reference method for trace metals.",
+      "cx": "Sits exactly on the floor of the range: 11 against 11–20."
+     },
+     "sel": {
+      "r": 93.5,
+      "u": "µg/L",
+      "a": "ICP-MS",
+      "lr": [
+       70,
+       130
+      ],
+      "an": "Mass spectrometry — the reference method for trace metals."
+     },
+     "hcy": {
+      "r": 15,
+      "u": "µmol/L",
+      "a": "Enzymatique",
+      "lr": [
+       null,
+       15
+      ],
+      "an": "Technique, reagent AND reference range all changed on 22/06/2026.",
+      "cx": "Exactly at the ceiling: 15.00 against an expected under 15."
+     },
+     "cysc": {
+      "r": 0.85,
+      "u": "mg/L",
+      "a": "Immunonéphélémétrie",
+      "lr": [
+       0.62,
+       1.11
+      ],
+      "an": "Nephelometric cystatin C. Unlike creatinine it does not care about muscle mass.",
+      "cx": "The lab also printed a cystatin-C eGFR of 116 mL/min by the Larsson equation."
+     },
+     "apob": {
+      "r": 0.94,
+      "u": "g/L",
+      "a": "Immunoturbidimétrie",
+      "lr": [
+       0.66,
+       1.33
+      ],
+      "an": "Counts particles rather than the cholesterol inside them, so it does not track LDL-C."
+     },
+     "lpa": {
+      "r": 7,
+      "u": "nmol/L",
+      "lt": true,
+      "a": "Immunoturbidimétrie",
+      "lr": [
+       null,
+       75
+      ],
+      "an": "Reported in nmol/L — particle NUMBER. A mg/dL result is mass and does not convert reliably."
+     },
+     "dht": {
+      "r": 1.8,
+      "u": "nmol/L",
+      "a": "LC-MS-MS",
+      "lr": [
+       0.86,
+       3.44
+      ],
+      "an": "Mass spectrometry, the reference method — unlike the immunoassays used for the other androgens."
+     },
+     "o3": {
+      "r": 6.12,
+      "u": "%",
+      "lr": [
+       8,
+       11
+      ],
+      "cx": "Erythrocyte membrane fatty-acid profile (AGRAS), run at Laboratoire Barbier."
+     },
+     "upcr": {
+      "r": 25,
+      "u": "mg/mmol",
+      "lt": true,
+      "a": "Turbidimétrie Cobas Roche",
+      "lr": [
+       null,
+       50
+      ],
+      "cx": "The assay floor (<25 mg/mmol) is coarser than the 150 mg/g cut-off, so it cannot clear it."
      }
     }
    }
