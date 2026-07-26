@@ -1497,7 +1497,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Kefir (I Love Kéfir, nature)",
+      "n": "Kefir",
       "amt": "100 mL (1 bottle)",
       "info": {
        "Per 100 mL": [
@@ -1566,7 +1566,7 @@ window.BLOODWORK =
        "Split": [
         [
          "Brunch",
-         "1 bottle — mozzarella already gives 350 mg Ca there"
+         "1 bottle — mozzarella and coffee milk give 470 mg there"
         ],
         [
          "Dinner",
@@ -2077,7 +2077,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Kefir (I Love Kéfir, nature)",
+      "n": "Kefir",
       "amt": "200 mL (2 bottles)",
       "info": {
        "Per 200 mL": [
@@ -2146,7 +2146,7 @@ window.BLOODWORK =
        "Split": [
         [
          "Brunch",
-         "1 bottle — mozzarella already gives 350 mg Ca there"
+         "1 bottle — mozzarella and coffee milk give 470 mg there"
         ],
         [
          "Dinner",
