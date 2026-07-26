@@ -1716,6 +1716,29 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "aptt",
+   "cat": "liver",
+   "en": "aPTT ratio",
+   "fr": "TCA (rapport patient/témoin)",
+   "us": "ratio",
+   "units": [
+    {
+     "l": "ratio",
+     "m": 1
+    }
+   ],
+   "clin": [
+    0,
+    1.2
+   ],
+   "am": "useful",
+   "note": "How long plasma takes to clot when the cascade is triggered from inside the vessel — the contact pathway, which runs on a different set of factors from the prothrombin time.\n\nReported as a ratio against the lab's own control, because reagents vary so much that raw seconds mean nothing between laboratories.\n\nA long result means a factor is missing or something is blocking the reaction. Haemophilia shows here, and so does lupus anticoagulant — which, confusingly, causes clotting rather than bleeding.\n\nIt is also the test used to follow unfractionated heparin.",
+   "axis": [
+    0.6,
+    1.6
+   ]
+  },
+  {
    "id": "tt",
    "cat": "horm",
    "dec": [
@@ -3611,87 +3634,227 @@ window.BLOODWORK =
     "id": "d20230130",
     "date": "2023-01-30",
     "t": "14:53",
-    "note": "Cerballiance Clairval (Marseille), drawn 14h53 — an AFTERNOON draw, so this total T is NOT comparable to the morning draws either side of it; testosterone peaks around 08:00 and falls through the day. Hormone send-outs to CERBA. TESTOSTERONE LIBRE by RIA: 32.3 pmol/L / 9.3 pg/mL, in range against that assay's own printed reference of 30.0-87.0 pmol/L / 8.7-25.0 pg/mL. This is the value once stored as '0.9 ng/dL' and excluded as a suspected 10x transcription error — it was neither an error nor mislabelled: 9.3 pg/mL IS 0.93 ng/dL. What was wrong was the range it was judged against, the marker's 47-244 pg/mL, which belongs to a different method entirely. Kept as a note rather than a marker value: direct analog RIA free T is the method the Endocrine Society says not to use, and it shares no scale with the calculated free T this panel uses going forward. THE LAB FLAGGED THREE VALUES: platelets 153 against ITS OWN reference of 172-398 (this lab uses a narrower interval than the 150-400 this panel carries, so 153 reads normal here and low there), creatinine 106 umol/L against 59-104, and potassium 4.6 against 3.4-4.5 on a heparinised tube. The report also notes 'serum legerement lactescent' — mild lipaemia, which can interfere with spectrophotometric assays.",
+    "note": "Cerballiance Clairval (Marseille) — an AFTERNOON draw at 14:53, the only one in this file, which is why the total testosterone here is not comparable with the morning draws either side of it. Hormones sent out to CERBA and run by ECLIA. Every method and printed interval is recorded on the values. TESTOSTERONE LIBRE was also measured, by direct RIA: 32.3 pmol/L / 9.3 pg/mL, and in range against that assay's own printed 30.0-87.0 pmol/L. It is deliberately NOT stored as a value. This is the number once held as '0.9 ng/dL' and dismissed as a 10x transcription error — it was neither an error nor mislabelled, since 9.3 pg/mL IS 0.93 ng/dL. What was wrong was judging it against the marker's 47-244 pg/mL, which belongs to the Vermeulen calculation and not to a direct assay. Storing it would put two incompatible scales on one line: direct analog RIA is the method the Endocrine Society says not to use, and it would plot at roughly a tenth of the calculated values around it. The report also notes 'serum legerement lactescent' — mild lipaemia, which can disturb spectrophotometric assays.",
+
     "v": {
      "wbc": {
       "r": 4.9,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.09,
+       11
+      ]
      },
      "neut": {
       "r": 2.9,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.78,
+       6.95
+      ]
      },
      "lymph": {
       "r": 1.47,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       1.34,
+       3.92
+      ]
      },
      "mono": {
       "r": 0.39,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.23,
+       0.77
+      ]
      },
      "eos": {
       "r": 0.1,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0.05,
+       0.59
+      ]
      },
      "baso": {
       "r": 0.03,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       0,
+       0.1
+      ]
      },
      "tt": {
       "r": 19.2,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "ECLIA",
+      "an": "Immunoassay, not LC-MS/MS — does not read identically to mass spec.",
+      "lr": [
+       8.6,
+       29
+      ],
+      "cx": "Afternoon draw: testosterone peaks near 08:00 and falls through the day."
      },
      "shbg": {
       "r": 53,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "ECLIA",
+      "lr": [
+       18,
+       54
+      ]
      },
      "hb": {
       "r": 164,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       134,
+       167
+      ]
      },
      "rbc": {
       "r": 5.26,
-      "u": "T/L"
+      "u": "T/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       4.53,
+       5.79
+      ]
      },
      "hct": {
       "r": 47.3,
-      "u": "%"
+      "u": "%",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       39.2,
+       48.6
+      ]
      },
      "mcv": {
       "r": 89.9,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       79.6,
+       94
+      ]
      },
      "mch": {
       "r": 31.2,
-      "u": "pg"
+      "u": "pg",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       27.3,
+       32.8
+      ]
      },
      "mchc": {
       "r": 347,
-      "u": "g/L"
+      "u": "g/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       324,
+       363
+      ]
      },
      "plt": {
       "r": 153,
-      "u": "G/L"
+      "u": "G/L",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "lr": [
+       172,
+       398
+      ],
+      "cx": "Flagged low — but against this lab’s own 172–398, narrower than the 150–400 used here."
      },
      "mpv": {
       "r": 9.4,
-      "u": "fL"
+      "u": "fL",
+      "a": "Sang total EDTA / Cytométrie en flux",
+      "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
+      "lr": [
+       7.4,
+       10.8
+      ]
      },
      "crea": {
       "r": 12.0,
-      "u": "mg/L"
+      "u": "mg/L",
+      "a": "Roche Cobas / Spectrophotométrie",
+      "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
+      "lr": [
+       6.7,
+       11.7
+      ],
+      "cx": "Flagged high. The serum was mildly lipaemic, which can disturb spectrophotometry."
      },
      "egfr": {
       "r": 82,
-      "u": "mL/min/1.73m²"
+      "u": "mL/min/1.73m²",
+      "a": "Calculé selon la formule CKD-EPI",
+      "an": "CKD-EPI 2009, calculated from the creatinine above.",
+      "lr": [
+       90,
+       null
+      ]
      },
      "k": {
       "r": 4.6,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       3.4,
+       4.5
+      ],
+      "cx": "Heparin tube. Flagged high against the lab’s 3.4–4.5."
      },
      "na": {
       "r": 141,
-      "u": "mmol/L"
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       136,
+       145
+      ]
+     },
+     "cl": {
+      "r": 103,
+      "u": "mmol/L",
+      "a": "Roche Cobas / Potentiométrie",
+      "lr": [
+       98,
+       107
+      ]
+     },
+     "ptime": {
+      "r": 81,
+      "u": "%",
+      "a": "Chronométrie / Néoplastine CI+",
+      "lr": [
+       70,
+       100
+      ],
+      "an": "Néoplastine CI+ — a DIFFERENT reagent from the 2022 draw, so the two are not strictly comparable.",
+      "cx": "INR 1.06."
+     },
+     "aptt": {
+      "r": 1.18,
+      "u": "ratio",
+      "a": "Chronométrie / Céphascreen",
+      "lr": [
+       null,
+       1.2
+      ],
+      "an": "Céphascreen, sensitive to intrinsic-pathway deficiencies. Read as a ratio, never as raw seconds.",
+      "cx": "Patient 32.4 s against a 27.5 s control."
      }
     }
    },
@@ -3885,7 +4048,7 @@ window.BLOODWORK =
      "ldl": {
       "r": 1,
       "u": "g/L",
-      "a": "Formule de Friedwald",
+      "a": "Formule de Friedewald",
       "an": "Calculated by Friedewald, not measured."
      },
      "nonhdl": {

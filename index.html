@@ -1614,7 +1614,11 @@ function det(row,id,cols,n,tri){
      with no assay change is weaker: labs also just disagree on where to cut a range. Say which
      one is actually in evidence rather than collapsing both into one warning. */
   const many=k=>new Set(pts.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x))).size>1;
-  const aDiff=many('a'),lDiff=many('lr');
+  /* lr is stored in the VALUE's unit, so two labs printing the identical interval in g/dL and
+     g/L compare as different strings. Normalise through toUS first — the same rule the rest of
+     the panel obeys: compare in canonical units, format in whatever unit was printed. */
+  const aDiff=many('a'),lDiff=new Set(pts.map(o=>o.d.v[m.id]).filter(e=>e.lr)
+    .map(e=>JSON.stringify(e.lr.map(x=>x===null?null:+toUS(m,x,e.u).toFixed(6))))).size>1;
   const chg=(aDiff||lDiff)
     ?`<div class="achg">${aDiff&&lDiff
         ?'Assay AND reference range both differ between draws &mdash; not one continuous series'
