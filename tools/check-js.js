@@ -195,6 +195,13 @@ setTimeout(()=>{
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
   ok('audit rejects a bad STACK status', audit(j2).length===1);
+  // a per-value collection time is a claim about provenance: malformed, or unexplained, it lies
+  const clone=()=>JSON.parse(JSON.stringify(DATA));
+  const zn=j=>j.DATA.draws.find(d=>d.date==='2020-12-10').v.zn;
+  const j3=clone(); zn(j3).t='9:58';
+  ok('audit rejects a malformed value time', audit(j3).length===1, audit(j3)[0]||'');
+  const j4=clone(); zn(j4).t='11:00'; delete zn(j4).cx;
+  ok('audit rejects a value time with no cx', audit(j4).length===1, audit(j4)[0]||'');
   console.log(fail?`\n  ${fail} FAILED`:'\n  all passed');
   process.exit(fail?1:0);
 },40);
