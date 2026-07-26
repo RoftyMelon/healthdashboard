@@ -1485,7 +1485,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Frozen greens — spinach, broccoli, kale",
+      "n": "Frozen greens — spinach, broccoli",
       "amt": "~150 g",
       "info": {
        "Per ~150 g cooked": [
@@ -1496,7 +1496,7 @@ window.BLOODWORK =
         ],
         [
          "Carbs",
-         "4 g",
+         "6 g",
          "2%"
         ],
         [
@@ -1519,30 +1519,24 @@ window.BLOODWORK =
          "Broccoli",
          "160 mcg",
          "40%"
-        ],
-        [
-         "Kale",
-         "20 mcg",
-         "5%"
         ]
        ],
        "Standouts": [
         [
          "Vit K",
-         "400-1100 mcg"
+         "210-740 mcg"
         ],
         [
          "Vit C",
-         "30-145 mg"
+         "15-100 mg"
         ],
         [
          "Magnesium",
-         "~90 mg"
+         "30-130 mg"
         ],
         [
          "Iron",
-         "~2 mg",
-         "14%"
+         "1-2.6 mg"
         ]
        ]
       }
