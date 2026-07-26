@@ -27,9 +27,10 @@ window.BLOODWORK =
    "height": "187 cm",
    "weight": "80 kg",
    "bodyfat": "~12%",
-   "training": "daily resistance",
+   "training": "resistance 1h15/day, plus one 30-min HIT run per week",
    "country": "France",
-   "diet": "See the DIET tab. Rarely fish; lots of olive oil; mozzarella 100g/meal, 6 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Rarely fish; lots of olive oil; mozzarella 100g/meal, 4 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "alcohol": "none — does not drink",
    "supervision": "none"
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
@@ -384,16 +385,52 @@ window.BLOODWORK =
   ]
  },
  "ROUTINE": [
-  {"t": "07:00", "do": "10min run, sunlight, hot/cold shower"},
-  {"t": "07:15", "do": "Pre-workout snack"},
-  {"t": "08:00", "until": "10:00", "do": "Gym - phone stays OFF"},
-  {"t": "10:00", "until": "10:30", "do": "Brunch"},
-  {"t": "10:30", "until": "16:30", "do": "Work"},
-  {"t": "16:30", "until": "17:00", "do": "Dinner"},
-  {"t": "17:00", "until": "21:00", "do": "Work"},
-  {"t": "21:00", "until": "21:30", "do": "Shower + floss + skincare"},
-  {"t": "21:30", "do": "Bedtime"},
-  {"t": "22:00", "do": "Lights out"}
+  {
+   "t": "07:00",
+   "do": "10min run, sunlight, hot/cold shower"
+  },
+  {
+   "t": "07:15",
+   "do": "Pre-workout snack"
+  },
+  {
+   "t": "08:00",
+   "until": "10:00",
+   "do": "Gym — 1h15 lifting, the rest is commute. Phone stays OFF"
+  },
+  {
+   "t": "10:00",
+   "until": "10:30",
+   "do": "Brunch"
+  },
+  {
+   "t": "10:30",
+   "until": "16:30",
+   "do": "Work"
+  },
+  {
+   "t": "16:30",
+   "until": "17:00",
+   "do": "Dinner"
+  },
+  {
+   "t": "17:00",
+   "until": "21:00",
+   "do": "Work"
+  },
+  {
+   "t": "21:00",
+   "until": "21:30",
+   "do": "Shower + floss + skincare"
+  },
+  {
+   "t": "21:30",
+   "do": "Bedtime"
+  },
+  {
+   "t": "22:00",
+   "do": "Lights out"
+  }
  ],
  "CARE": [
   {"id": "face", "t": "Skincare",
@@ -1180,70 +1217,84 @@ window.BLOODWORK =
      "---",
      {
       "n": "Eggs",
-      "amt": "6",
+      "amt": "4",
       "info": {
-       "Per 6 (~300 g)": [
+       "Per 4 (~200 g)": [
         [
          "Energy",
-         "465 kcal",
-         "23%"
+         "310 kcal",
+         "16%"
         ],
         [
          "Protein",
-         "38 g",
-         "75%"
+         "25 g",
+         "50%"
         ],
         [
          "Fat",
-         "33 g",
-         "47%"
+         "22 g",
+         "31%"
         ],
         [
          "– saturates",
-         "10 g",
-         "49%"
+         "6.5 g",
+         "33%"
         ]
        ],
        "Micronutrients": [
         [
          "Choline",
-         "885 mg"
+         "590 mg"
         ],
         [
          "Selenium",
-         "90 mcg",
-         "164%"
+         "60 mcg",
+         "109%"
         ],
         [
          "Vit D",
-         "240 IU",
-         "120%"
+         "160 IU",
+         "80%"
         ],
         [
          "B12",
-         "3 mcg",
-         "120%"
+         "2 mcg",
+         "80%"
         ],
         [
          "Vit A",
-         "480 mcg",
-         "60%"
+         "320 mcg",
+         "40%"
         ],
         [
          "Riboflavin",
-         "1.2 mg",
-         "86%"
+         "0.8 mg",
+         "57%"
         ],
         [
          "Folate",
-         "143 mcg",
-         "71%"
+         "95 mcg",
+         "48%"
+        ]
+       ],
+       "Why 4": [
+        [
+         "Arachidonic acid",
+         "yolk is among the densest sources"
+        ],
+        [
+         "AA was",
+         "16.26% vs 12.46-15.54"
         ]
        ],
        "Changed": [
         [
          "18 Jul 2026",
          "6–10 → 6"
+        ],
+        [
+         "26 Jul 2026",
+         "6 → 4"
         ]
        ]
       }
@@ -1828,29 +1879,39 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Ground beef or chicken",
+      "n": "Lean ground beef or chicken",
       "amt": "~200 g",
       "info": {
-       "Ground beef (~200 g)": [
+       "Lean beef 5% (~200 g)": [
         [
          "Energy",
-         "500 kcal",
-         "25%"
+         "300 kcal",
+         "15%"
         ],
         [
          "Protein",
-         "40 g",
-         "80%"
+         "42 g",
+         "84%"
         ],
         [
          "Fat",
-         "35 g",
-         "50%"
+         "10 g",
+         "14%"
         ],
         [
          "– saturates",
-         "14 g",
-         "70%"
+         "4.5 g",
+         "23%"
+        ]
+       ],
+       "vs 20% beef": [
+        [
+         "Saturates",
+         "4.5 g instead of 14 g"
+        ],
+        [
+         "Energy",
+         "300 kcal instead of 500"
         ]
        ],
        "Minerals": [
@@ -1873,6 +1934,22 @@ window.BLOODWORK =
          "Selenium",
          "30 mcg",
          "55%"
+        ]
+       ],
+       "Rotation": [
+        [
+         "Beef",
+         "2-3x/week"
+        ],
+        [
+         "Otherwise",
+         "chicken, or the weekly trout"
+        ]
+       ],
+       "Changed": [
+        [
+         "26 Jul 2026",
+         "20% → 5% lean beef"
         ]
        ]
       }
@@ -2188,7 +2265,7 @@ window.BLOODWORK =
     "t": "Weekly",
     "items": [
      {
-      "n": "Trout — 300 g, once a week (weekend)",
+      "n": "Trout — 300 g, once or twice a week (weekend)",
       "info": {
        "Per 300 g cooked": [
         [
