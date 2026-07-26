@@ -4122,23 +4122,47 @@ window.BLOODWORK =
     "id": "d20240402",
     "date": "2024-04-02",
     "t": "09:56",
-    "note": "Cerballiance Provence Azur (La Rouvière, Marseille), drawn 09:56, Roche Cobas ECLIA; hormone send-outs to CERBA. Reached this file via an InsideTracker upload that RE-CONVERTED the SI values instead of transcribing the printed US ones, which is why earlier entries drifted from the report (B12 551 vs the printed 554 ng/L, total T 625.4 vs the printed 629.30 ng/dL) — values are now stored as the lab printed them, in SI. TESTOSTERONE BIODISPONIBLE by RIA: 3.6 nmol/L / 1.05 ng/mL, in range against that assay's own printed reference of 2.7-12.0 nmol/L / 0.78-3.46 ng/mL. Kept as a note rather than a marker: one measurement on an assay not being reordered, and it cannot be compared to the calculated free T this panel uses going forward. The 'free testosterone 83 pg/mL' previously stored here appears NOWHERE in the lab report — an InsideTracker artifact, now removed.",
+    "note": "Cerballiance Provence Azur (Marseille), Roche Cobas ECLIA throughout, with the hormone send-outs to CERBA. Methods and printed intervals are on the values. Reached this file via an InsideTracker upload that RE-CONVERTED the SI values instead of transcribing the printed US ones, which is why earlier entries drifted from the report (B12 551 vs the printed 554 ng/L, total T 625.4 vs the printed 629.30 ng/dL) — values are stored as the lab printed them, in SI, and all four are reconciled against the report. TESTOSTERONE BIODISPONIBLE by RIA: 3.6 nmol/L / 1.05 ng/mL, in range against that assay's own printed 2.7-12.0 nmol/L. Deliberately kept as a note rather than a marker — a single measurement, on a direct RIA the panel is not reordering, with no counterpart in any other draw to compare it against. The 'free testosterone 83 pg/mL' previously stored here appears NOWHERE in the lab report: an InsideTracker artifact, removed.",
+
     "v": {
      "b12": {
       "r": 407,
-      "u": "pmol/L"
+      "u": "pmol/L",
+      "a": "Roche Cobas / ECLIA",
+      "lr": [
+       145,
+       569
+      ],
+      "an": "Total B12 by immunoassay — it counts the inactive haptocorrin-bound fraction, which is most of it."
      },
      "tt": {
       "r": 21.7,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "Roche Cobas / ECLIA",
+      "lr": [
+       12.1,
+       29.5
+      ],
+      "an": "Immunoassay, not LC-MS/MS — does not read identically to mass spec."
      },
      "shbg": {
       "r": 49,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "ECLIA",
+      "lr": [
+       18,
+       54
+      ]
      },
      "vitd": {
       "r": 73.0,
-      "u": "nmol/L"
+      "u": "nmol/L",
+      "a": "Roche Cobas / Electrochimiluminescence",
+      "lr": [
+       75,
+       250
+      ],
+      "an": "D2 and D3 together as total 25-OH-D. The interval is the lab’s \"suffisance\" band."
      }
     }
    },
