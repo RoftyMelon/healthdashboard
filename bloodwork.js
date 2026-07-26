@@ -2879,7 +2879,8 @@ window.BLOODWORK =
     "id": "d20201210",
     "date": "2020-12-10",
     "t": "10:38",
-    "note": "Cerballiance Clairval (Marseille), Roche Cobas throughout: chemistry by spectrophotometry, electrolytes by ISE potentiometry, thyroid/testosterone/vitamin D by ECLIA. HbA1c went out to the Sebia Capillarys 3 for capillary electrophoresis, and the ESR ran on an Alifax analyser. Every method and every printed interval is now recorded on the values themselves. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — the original report has since been transcribed in full and all 43 values reconciled against it. The lab flagged calcium, creatinine and potassium against its own intervals; each carries its own annotation. ONE VALUE HERE IS NOT FROM THIS COLLECTION: zinc (13.9 umol/L, atomic absorption, CERBA) was drawn 22.12.2020 at 09h58, twelve days later, and arrived with the same report bundle. Folded in deliberately rather than given its own draw — the time axis is in years, so twelve days is invisible, and a separate draw would add a table column in which 74 of 75 rows are empty. The serology this report also carried (HIV, hepatitis B and C) is on the Record tab.",
+    "note": "Cerballiance Clairval (Marseille), Roche Cobas throughout: chemistry by spectrophotometry, electrolytes by ISE potentiometry, thyroid/testosterone/vitamin D by ECLIA. HbA1c went out to the Sebia Capillarys 3 for capillary electrophoresis, and the ESR ran on an Alifax analyser. Every method and every printed interval is now recorded on the values themselves. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — the original report has since been transcribed in full and all 43 values reconciled against it. The lab flagged calcium, creatinine and potassium against its own intervals; each carries its own annotation. The serology this report also carried (HIV, hepatitis B and C) is on the Record tab.",
+
 
     "v": {
      "wbc": {
@@ -3150,7 +3151,14 @@ window.BLOODWORK =
      },
      "zn": {
       "r": 13.9,
-      "u": "µmol/L"
+      "u": "µmol/L",
+      "a": "Absorption atomique",
+      "an": "Atomic absorption spectrometry, the reference method for trace metals — specific in a way the colorimetric alternatives are not.",
+      "lr": [
+       11,
+       24
+      ],
+      "cx": "NOT from the 10.12 collection. A separate serum draw on 22.12.2020 at 09:58, sent out to Cerba rather than run at Clairval. Folded into this draw because the time axis is in years, so twelve days is invisible — and a draw of its own would add a column in which 78 of 79 rows are empty."
      },
      "ast": {
       "r": 31,
