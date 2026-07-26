@@ -1502,7 +1502,7 @@ window.BLOODWORK =
       "info": {
        "Made with": [
         [
-         "Kefir grains",
+         "Ferments",
          "grains de kéfir + levures"
         ]
        ],
@@ -2054,7 +2054,7 @@ window.BLOODWORK =
       "info": {
        "Made with": [
         [
-         "Kefir grains",
+         "Ferments",
          "grains de kéfir + levures"
         ]
        ],
