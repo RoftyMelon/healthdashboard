@@ -614,6 +614,14 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 /* section titles uppercase like the table's group bars — doses NEVER go through this (µ -> M) */
 .pgst{font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--info);max-width:620px;
   padding:7px 0;border-bottom:.5px solid var(--line);display:flex;align-items:baseline;gap:9px}
+/* TIER heading — one step above a .pgst section label, one below the 26px page title. The Stack
+   holds two kinds of thing, what you swallow daily and what you are still deciding about, and
+   three equal .pgst titles made those read as three equal things. 19px because caps gain ~40%
+   optical size: at 16 it tied the 14px section labels it is meant to outrank. */
+.pgtier{font-size:19px;font-weight:750;letter-spacing:.05em;text-transform:uppercase;color:var(--txt);
+  margin:24px 0 4px}
+.pgtier:first-of-type{margin-top:16px}
+.care.col .ccard .srow:last-child{border-bottom:0}   /* the card edge already closes the list */
 .pgst small{font-weight:500;letter-spacing:0;font-size:13.5px;color:var(--t4);text-transform:none}
 .srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap;position:relative}
 .srow.off .sn{color:var(--t3);text-decoration:line-through;text-decoration-color:var(--t4);text-decoration-thickness:1px}
@@ -2212,12 +2220,9 @@ function renderPage(p){
        one line on the page nobody would think to check. */
     h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.filter(s=>s.status==='taking').length} daily &middot; ${STACK.items.filter(s=>s.status!=='taking').length} parked</div>`;
     if(STACK.intro)h+=`<div class="cnote lead">${esc(STACK.intro)}</div>`;
-    const renderCat=c=>{
+    const stackRows=c=>{
       const items=STACK.items.filter(s=>s.cat===c.id);
-      if(!items.length)return '';
-      return `<div class="pgsec stk${c.t?'':' nohead'}">`+
-        (c.t?`<div class="pgst">${esc(c.t)}</div>`:'')+
-        (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
+      return !items.length?'':
         items.map(s=>{
           const dead=s.status==='stopped'||s.status==='dropped';
           // the first line is its own NOWRAP container: inside a wrapping flex row nothing ever
@@ -2239,10 +2244,21 @@ function renderPage(p){
                taken it is reference, not a decision, so it moves inside the bubble and stops
                doubling every row's height. Rendered from the field either way: one source. */
             (s.judge&&s.cat==='maylater'?`<div class="sjudge"><span class="sjl">Judge by:</span> ${esc(s.judge)}</div>`:'')+
-          `</div>`;}).join('')+`</div>`;
+          `</div>`;}).join('');
     };
-    STACK.cats.forEach(c=>{if(c.id!=='maylater')h+=renderCat(c);});   // 'maylater' renders last
-    const ml=STACK.cats.find(c=>c.id==='maylater'); if(ml)h+=renderCat(ml);   // parking lot, at the very foot
+    /* DAILY is a card per group; the parking lot stays a plain list. That contrast IS the
+       hierarchy — a card is a bounded set you act on every morning, a list is one you are still
+       reading. Making both cards would have restored the three-equal-things problem in a new
+       shape, and 12 parked rows each carrying a judge line make a card nobody can take in. */
+    const daily=STACK.cats.filter(c=>c.id!=='maylater'&&STACK.items.some(s=>s.cat===c.id));
+    if(daily.length)
+      h+=`<div class="pgtier">Daily</div><div class="care col">`+
+        daily.map(c=>`<div class="ccard">${c.t?`<b>${esc(c.t)}</b>`:''}`+
+          (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+stackRows(c)+`</div>`).join('')+`</div>`;
+    const ml=STACK.cats.find(c=>c.id==='maylater');   // parking lot, at the very foot
+    if(ml&&STACK.items.some(s=>s.cat===ml.id))
+      h+=`<div class="pgtier">${esc(ml.t||'May add later')}</div><div class="pgsec stk nohead">`+
+        (ml.note?`<div class="cnote">${esc(ml.note)}</div>`:'')+stackRows(ml)+`</div>`;
   } else if(p==='grooming'&&CARE.length){
     // the face schedule renders as a day-indexed grid; the dental protocol stays a cadence card
     const grids=CARE.filter(c=>c.schedule);

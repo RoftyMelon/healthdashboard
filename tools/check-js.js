@@ -157,10 +157,16 @@ setTimeout(()=>{
     ok(`routine cuts ${rlnN} half-hour lines`, count(n.pages.innerHTML,'rln')===rlnN,
       count(n.pages.innerHTML,'rln')+' cuts'); }
   catch(e){ ok('routine ruler',false,e.message); }
-  // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back
+  // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
+  // The Stack has its own cards (one per daily group), so a bare ccard count no longer proves
+  // anything: it would pass with a grooming card sitting in the middle. Count the stack's own
+  // exactly, then look for the CARE titles by name.
   try{ setPage('stack');
-    ok('stack keeps no care cards', count(n.pages.innerHTML,'ccard')===0,
+    const daily=new Set(DATA.STACK.items.filter(s=>s.cat!=='maylater').map(s=>s.cat)).size;
+    ok(`stack shows ${daily} daily cards`, count(n.pages.innerHTML,'ccard')===daily,
       count(n.pages.innerHTML,'ccard')+' on stack');
+    ok('no care card leaked onto stack',
+      !DATA.CARE.some(c=>c.t&&n.pages.innerHTML.includes('>'+c.t+'<')));
     setPage('grooming');
     const cards=DATA.CARE.filter(c=>!c.schedule).length, grids=DATA.CARE.filter(c=>c.schedule).length;
     ok(`grooming shows ${cards} care card${cards===1?'':'s'}`, count(n.pages.innerHTML,'ccard')===cards,
