@@ -1320,8 +1320,8 @@ window.BLOODWORK =
          "20-42%"
         ],
         [
-         "Plus",
-         "broccoli, carrots, green beans, mangetout"
+         "",
+         "Broccoli, carrots, green beans, mangetout"
         ],
         [
          "Cooked in",
@@ -1523,8 +1523,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Ferments",
-         "grains de kéfir + levures"
+         "",
+         "Semi-skimmed milk 97.8%, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
        "Per 100 mL": [
@@ -2075,8 +2075,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Ferments",
-         "grains de kéfir + levures"
+         "",
+         "Semi-skimmed milk 97.8%, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
        "Per 200 mL": [
