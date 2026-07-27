@@ -147,10 +147,13 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   examined, so `audit()` refuses to render rather than let it through blank.
 - **`judge` renders in exactly ONE place, and which one depends on the tier.** On the ROW for
   `maylater`, where it is a live decision — the criterion that would unpark the item, and the
-  thing you scan down a column before a draw. INSIDE the tooltip, appended last, for everything
-  already being taken, where it is reference rather than a decision and would otherwise double
-  every row's height. It is injected at render time from the one `judge` field, never stored
-  twice, so the row and the bubble cannot drift. Both places or neither would be silent.
+  thing you scan down a column before a draw. INSIDE the tooltip — **immediately before
+  `Changes`, never last** — for everything already being taken, where it is reference rather than
+  a decision and on the row would double every row's height. Before `Changes` because everything
+  above it describes the supplement, it is the only line that asks something of you, and `Changes`
+  is an audit trail you consult rather than read. It is injected at render time from the one
+  `judge` field, never stored twice, so the row and the bubble cannot drift. Both places or
+  neither would be silent.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
   render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why
