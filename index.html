@@ -767,6 +767,7 @@ a.sbuy:hover{color:var(--info)}
    amount at all, then overflowed the card by 5px regardless. A flex item's default min-width of
    auto floors it at min-content, which is exactly the guarantee wanted: wrap, never vanish. */
 .stop .sn{flex:none;white-space:nowrap}
+.nb{white-space:nowrap}   /* one word of a name — the only places a name may break are the spaces between these */
 .sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
 .sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
@@ -2116,6 +2117,12 @@ const tipSec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${ro
    the parked tier, where the row no longer prints it. INJECTED at render time, never stored — the
    criterion lives in exactly one field, so the row and the bubble can never drift apart. It goes
    last on purpose: what it is, what to watch, when it started, then how you will know. */
+/* Break a supplement name only at SPACES. Each word is its own nowrap span, so the line can only
+   fall where I put a space — "Omega-3" and "L-threonate" keep their hyphens. white-space:normal
+   alone gave "Omega-" / "3" on every phone, and word-break:keep-all does not suppress a hyphen
+   break in any browser I tested it in. Shrinking the type instead got B-complex within 8px of
+   fitting, which is not a fix, it is a coincidence waiting to be broken by the next long name. */
+const wordSafe=n=>esc(n).split(' ').map(w=>`<span class="nb">${w}</span>`).join(' ');
 const tipSecs=s=>{
   const secs=Object.entries(s.info||{});
   if(s.judge&&s.cat!=='maylater')secs.push(['Judge by',[['',s.judge]]]);
@@ -2248,7 +2255,7 @@ function renderPage(p){
           // the first line is its own NOWRAP container: inside a wrapping flex row nothing ever
           // shrinks, it just breaks, which is how the ⓘ ended up alone on line 2
           return `<div class="srow${dead?' off':''}"><div class="stop">`+
-            `<span class="sn">${esc(s.name)}</span>`+
+            `<span class="sn">${wordSafe(s.name)}</span>`+
             (s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`:'')+   // ↗ hugs the name
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
