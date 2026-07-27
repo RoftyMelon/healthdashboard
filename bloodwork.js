@@ -146,6 +146,12 @@ window.BLOODWORK =
        "",
        "Held at 24mg rather than raised, until it has shown it does anything."
       ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
+      ]
      ]
     },
     "cat": "skin",
@@ -186,6 +192,12 @@ window.BLOODWORK =
       [
        "",
        "Small RCTs at 10-16mg for photoprotection. The tone effect is observational."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
       ]
      ]
     },
@@ -237,7 +249,7 @@ window.BLOODWORK =
      ],
      "Changes": [
       [
-       "21 Jul 2026",
+       "1 Aug 2026",
        "5000 → 10000 IU"
       ]
      ]
@@ -282,6 +294,12 @@ window.BLOODWORK =
       [
        "",
        "Multi-gram DHA raises LDL-C 5-10%, so part of your 142 is this. Fish days replace a dose rather than adding to one."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
       ]
      ]
     },
@@ -328,6 +346,12 @@ window.BLOODWORK =
        "",
        "Cosmetic endpoints only, modest effect sizes, and largely industry-funded."
       ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
+      ]
      ]
     },
     "cat": "skin",
@@ -364,6 +388,12 @@ window.BLOODWORK =
       [
        "",
        "A 2025 review of 7 trials found modest hydration, elasticity and wrinkle gains. Gut-flora-dependent, so it may simply do nothing in a given person."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
       ]
      ]
     },
@@ -490,12 +520,6 @@ window.BLOODWORK =
        "",
        "NOT 1:1 with NAC — the trial dosed by moles, which works out to 1:1.33 by weight."
       ]
-     ],
-     "Changes": [
-      [
-       "27 Jul 2026",
-       "12g → 8g, correcting the ratio"
-      ]
      ]
     },
     "cat": "maylater",
@@ -533,12 +557,6 @@ window.BLOODWORK =
       [
        "",
        "Raises homocysteine, which is already at 15.0. TMG first or alongside — never NAC on its own."
-      ]
-     ],
-     "Changes": [
-      [
-       "27 Jul 2026",
-       "12g → 11g, correcting the ratio"
       ]
      ],
      "Parked": [
@@ -916,6 +934,12 @@ window.BLOODWORK =
       [
        "",
        "Strong mechanism, decent observational data — higher plasma levels track with lower cardiovascular and all-cause mortality in Swedish cohorts — but no outcome trials and no assay to check it against. A deliberate bet at ~10 euros a month, not a correction of anything measured."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
       ]
      ]
     },
