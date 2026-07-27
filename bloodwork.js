@@ -1595,10 +1595,14 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added — one 500mL bottle a day, split across both meals"
+         "added"
         ]
        ],
        "Notes": [
+        [
+         "",
+         "One 500mL bottle a day, split across both meals"
+        ],
         [
          "",
          "Sugars are lactose only — none added"
@@ -2258,10 +2262,14 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added — one 500mL bottle a day, split across both meals"
+         "added"
         ]
        ],
        "Notes": [
+        [
+         "",
+         "One 500mL bottle a day, split across both meals"
+        ],
         [
          "",
          "Sugars are lactose only — none added"
