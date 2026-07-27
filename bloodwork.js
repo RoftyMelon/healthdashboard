@@ -1141,7 +1141,7 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Mackerel or Tofu",
+      "n": "Mackerel OR tofu",
       "amt": "80g fish / 125g tofu",
       "info": {
        "Mackerel 80g · Ingredients": [
