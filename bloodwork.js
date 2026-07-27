@@ -160,14 +160,14 @@ window.BLOODWORK =
    {
     "id": "vitd3k2",
     "name": "Vitamin D3 + K2",
-    "dose": "10000 IU",
+    "dose": "10000IU",
     "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. Doubled from 5000 IU on 2026-07-21: the July draw came back at 28 ng/mL, below the lab's own sufficiency floor of 30 ng/mL (75 nmol/L), so 5000 was not enough — likely because daily SPF 50 leaves supplementation doing all the work with almost no cutaneous synthesis. 2 tablets. Above the EFSA/IOM upper limit of 4000 IU (the Endocrine Society ceiling is 10000), so this is titration, NOT a new autopilot: retest 25-OH-D AND calcium at 3 months, and come back down if it lands above 60-70.",
     "cat": "essentials",
     "status": "taking",
     "when": [
      {
       "at": "brunch",
-      "dose": "10000 IU"
+      "dose": "10000IU"
      }
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
@@ -725,223 +725,223 @@ window.BLOODWORK =
     "items": [
      {
       "n": "Huel Black",
-      "amt": "90 g",
+      "amt": "90g",
       "info": {
        "Per 90g": [
         [
          "Energy",
-         "400 kcal",
+         "400kcal",
          "20%"
         ],
         [
          "Protein",
-         "40 g",
+         "40g",
          "80%"
         ],
         [
          "Fat",
-         "17 g",
+         "17g",
          "24%"
         ],
         [
          "– saturates",
-         "4.0 g",
+         "4.0g",
          "20%"
         ],
         [
          "– monounsat.",
-         "3.8 g"
+         "3.8g"
         ],
         [
          "– PUFA",
-         "9.4 g"
+         "9.4g"
         ],
         [
          "Carbs",
-         "19 g",
+         "19g",
          "7%"
         ],
         [
          "– sugars",
-         "1.6 g",
+         "1.6g",
          "2%"
         ],
         [
          "Fibre",
-         "8.4 g"
+         "8.4g"
         ],
         [
          "Salt",
-         "0.8 g",
+         "0.8g",
          "13%"
         ]
        ],
        "Vitamins": [
         [
          "A",
-         "180 mcg",
+         "180mcg",
          "23%"
         ],
         [
          "D",
-         "160 IU",
+         "160IU",
          "80%"
         ],
         [
          "E",
-         "4.0 mg",
+         "4.0mg",
          "33%"
         ],
         [
          "K",
-         "39 mcg",
+         "39mcg",
          "52%"
         ],
         [
          "C",
-         "60 mg",
+         "60mg",
          "75%"
         ],
         [
          "Thiamin",
-         "0.22 mg",
+         "0.22mg",
          "20%"
         ],
         [
          "Riboflavin",
-         "0.28 mg",
+         "0.28mg",
          "20%"
         ],
         [
          "Niacin",
-         "3.2 mg",
+         "3.2mg",
          "20%"
         ],
         [
          "B6",
-         "0.28 mg",
+         "0.28mg",
          "20%"
         ],
         [
          "Pantoth.",
-         "1.2 mg",
+         "1.2mg",
          "20%"
         ],
         [
          "Folate",
-         "80 mcg",
+         "80mcg",
          "40%"
         ],
         [
          "B12",
-         "0.80 mcg",
+         "0.80mcg",
          "32%"
         ],
         [
          "Biotin",
-         "12 mcg",
+         "12mcg",
          "24%"
         ]
        ],
        "Minerals": [
         [
          "Calcium",
-         "240 mg",
+         "240mg",
          "30%"
         ],
         [
          "Phosphorus",
-         "360 mg",
+         "360mg",
          "51%"
         ],
         [
          "Potassium",
-         "700 mg",
+         "700mg",
          "35%"
         ],
         [
          "Chloride",
-         "164 mg",
+         "164mg",
          "21%"
         ],
         [
          "Magnesium",
-         "88 mg",
+         "88mg",
          "23%"
         ],
         [
          "Iron",
-         "9.0 mg",
+         "9.0mg",
          "64%"
         ],
         [
          "Zinc",
-         "4.6 mg",
+         "4.6mg",
          "46%"
         ],
         [
          "Copper",
-         "0.50 mg",
+         "0.50mg",
          "50%"
         ],
         [
          "Manganese",
-         "0.90 mg",
+         "0.90mg",
          "45%"
         ],
         [
          "Selenium",
-         "33 mcg",
+         "33mcg",
          "60%"
         ],
         [
          "Iodine",
-         "30 mcg",
+         "30mcg",
          "20%"
         ],
         [
          "Chromium",
-         "12 mcg",
+         "12mcg",
          "30%"
         ],
         [
          "Molybdenum",
-         "37 mcg",
+         "37mcg",
          "74%"
         ]
        ],
        "Other": [
         [
          "Choline",
-         "120 mg"
+         "120mg"
         ],
         [
          "Omega-3 (ALA)",
-         "4.0 g"
+         "4.0g"
         ],
         [
          "Omega-6",
-         "4.2 g"
+         "4.2g"
         ],
         [
          "MCT",
-         "1.1 g"
+         "1.1g"
         ],
         [
          "Caffeine",
-         "68 mg"
+         "68mg"
         ],
         [
          "Green tea",
-         "130 mg"
+         "130mg"
         ],
         [
          "Lutein",
-         "1.6 mg"
+         "1.6mg"
         ],
         [
          "Zeaxanthin",
-         "0.1 mg"
+         "0.1mg"
         ],
         [
          "B. coagulans",
@@ -954,59 +954,59 @@ window.BLOODWORK =
       "n": "Banana",
       "amt": "1",
       "info": {
-       "Per 1 (~118 g)": [
-        [
-         "Energy",
-         "105 kcal",
-         "5%"
-        ],
-        [
-         "Carbs",
-         "27 g",
-         "10%"
-        ],
-        [
-         "– sugars",
-         "14 g",
-         "16%"
-        ],
-        [
-         "Fibre",
-         "3 g"
-        ],
-        [
-         "Protein",
-         "1.3 g",
-         "3%"
-        ]
-       ],
        "Standouts": [
         [
          "Potassium",
-         "422 mg",
+         "422mg",
          "21%"
         ],
         [
          "B6",
-         "0.45 mg",
+         "0.45mg",
          "32%"
         ],
         [
          "Vit C",
-         "10 mg",
+         "10mg",
          "12%"
         ],
         [
          "Magnesium",
-         "32 mg",
+         "32mg",
          "8%"
+        ]
+       ],
+       "Per 1 (~118g)": [
+        [
+         "Energy",
+         "105kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "27g",
+         "10%"
+        ],
+        [
+         "– sugars",
+         "14g",
+         "16%"
+        ],
+        [
+         "Fibre",
+         "3g"
+        ],
+        [
+         "Protein",
+         "1.3g",
+         "3%"
         ]
        ]
       }
      },
      {
       "n": "Berries (frozen)",
-      "amt": "75 g",
+      "amt": "75g",
       "info": {
        "Ingredients": [
         [
@@ -1014,66 +1014,66 @@ window.BLOODWORK =
          "Redcurrant, blackberry, blackcurrant, wild blueberry, raspberry — all organic"
         ]
        ],
-       "Per 75 g": [
-        [
-         "Energy",
-         "36 kcal",
-         "2%"
-        ],
-        [
-         "Carbs",
-         "5.6 g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4.6 g",
-         "5%"
-        ],
-        [
-         "Fibre",
-         "3.2 g"
-        ],
-        [
-         "Protein",
-         "0.7 g",
-         "1%"
-        ],
-        [
-         "Fat",
-         "0.4 g",
-         "1%"
-        ],
-        [
-         "Salt",
-         "0.11 g",
-         "2%"
-        ]
-       ],
        "Standouts (estimated)": [
         [
          "Anthocyanins",
-         "~100-200 mg"
+         "~100-200mg"
         ],
         [
          "Vit C",
-         "~30-45 mg"
+         "~30-45mg"
         ],
         [
          "Manganese",
-         "~0.2 mg",
+         "~0.2mg",
          "11%"
         ],
         [
          "Vit K",
-         "~9 mcg",
+         "~9mcg",
          "12%"
         ]
        ],
        "Changed": [
         [
          "1 Aug 2026",
-         "added, 75 g"
+         "added, 75g"
+        ]
+       ],
+       "Per 75g": [
+        [
+         "Energy",
+         "36kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "5.6g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "4.6g",
+         "5%"
+        ],
+        [
+         "Fibre",
+         "3.2g"
+        ],
+        [
+         "Protein",
+         "0.7g",
+         "1%"
+        ],
+        [
+         "Fat",
+         "0.4g",
+         "1%"
+        ],
+        [
+         "Salt",
+         "0.11g",
+         "2%"
         ]
        ]
       }
@@ -1087,47 +1087,25 @@ window.BLOODWORK =
     "items": [
      {
       "n": "Coffee (half-caff) + milk",
-      "amt": "230 + 100 ml",
+      "amt": "230 + 100ml",
       "info": {
-       "Per 330 ml": [
-        [
-         "Energy",
-         "~50 kcal",
-         "2%"
-        ],
-        [
-         "Protein",
-         "3.4 g",
-         "7%"
-        ],
-        [
-         "Fat",
-         "1.7 g",
-         "2%"
-        ],
-        [
-         "Carbs (lactose)",
-         "4.8 g",
-         "2%"
-        ]
-       ],
        "Standouts": [
         [
          "Caffeine",
-         "~80 mg"
+         "~80mg"
         ],
         [
          "Chlorogenic acids",
-         "~150 mg"
+         "~150mg"
         ],
         [
          "Calcium",
-         "120 mg",
+         "120mg",
          "15%"
         ],
         [
          "Potassium",
-         "~260 mg",
+         "~260mg",
          "13%"
         ]
        ],
@@ -1136,13 +1114,35 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Per 330ml": [
+        [
+         "Energy",
+         "~50kcal",
+         "2%"
+        ],
+        [
+         "Protein",
+         "3.4g",
+         "7%"
+        ],
+        [
+         "Fat",
+         "1.7g",
+         "2%"
+        ],
+        [
+         "Carbs (lactose)",
+         "4.8g",
+         "2%"
+        ]
        ]
       }
      },
      "---",
      {
       "n": "Mackerel or Tofu",
-      "amt": "80 g fish / 125 g tofu",
+      "amt": "80g fish / 125g tofu",
       "info": {
        "Ingredients": [
         [
@@ -1150,149 +1150,118 @@ window.BLOODWORK =
          "Smoked mackerel with pepper one day, calcium-set tofu the next"
         ]
        ],
-       "Mackerel 80 g": [
-        [
-         "Energy",
-         "212 kcal",
-         "11%"
-        ],
-        [
-         "Protein",
-         "14.4 g",
-         "29%"
-        ],
-        [
-         "Fat",
-         "16.8 g",
-         "24%"
-        ],
-        [
-         "– saturates",
-         "5.2 g",
-         "26%"
-        ],
-        [
-         "Salt",
-         "1.6 g",
-         "27%"
-        ],
-        [
-         "EPA + DHA",
-         "~2 g"
-        ],
-        [
-         "Half a 160 g pack",
-         "the rest keeps 48 h at 4°C"
-        ]
-       ],
-       "Tofu 125 g": [
-        [
-         "Energy",
-         "181 kcal",
-         "9%"
-        ],
-        [
-         "Protein",
-         "17.5 g",
-         "35%"
-        ],
-        [
-         "Fat",
-         "11.3 g",
-         "16%"
-        ],
-        [
-         "– saturates",
-         "1.9 g",
-         "10%"
-        ],
-        [
-         "Fibre",
-         "3.1 g"
-        ],
-        [
-         "Salt",
-         "0 g",
-         "0%"
-        ],
-        [
-         "Calcium",
-         "235 mg",
-         "29%"
-        ],
-        [
-         "Magnesium",
-         "74 mg",
-         "20%"
-        ]
-       ],
        "Changed": [
         [
          "1 Aug 2026",
          "added"
+        ]
+       ],
+       "Mackerel 80g": [
+        [
+         "Energy",
+         "212kcal",
+         "11%"
+        ],
+        [
+         "Protein",
+         "14.4g",
+         "29%"
+        ],
+        [
+         "Fat",
+         "16.8g",
+         "24%"
+        ],
+        [
+         "– saturates",
+         "5.2g",
+         "26%"
+        ],
+        [
+         "Salt",
+         "1.6g",
+         "27%"
+        ],
+        [
+         "EPA + DHA",
+         "~2g"
+        ],
+        [
+         "Half a 160g pack",
+         "the rest keeps 48 h at 4°C"
+        ]
+       ],
+       "Tofu 125g": [
+        [
+         "Energy",
+         "181kcal",
+         "9%"
+        ],
+        [
+         "Protein",
+         "17.5g",
+         "35%"
+        ],
+        [
+         "Fat",
+         "11.3g",
+         "16%"
+        ],
+        [
+         "– saturates",
+         "1.9g",
+         "10%"
+        ],
+        [
+         "Fibre",
+         "3.1g"
+        ],
+        [
+         "Salt",
+         "0g",
+         "0%"
+        ],
+        [
+         "Calcium",
+         "235mg",
+         "29%"
+        ],
+        [
+         "Magnesium",
+         "74mg",
+         "20%"
         ]
        ]
       }
      },
      {
       "n": "Avocado (half)",
-      "amt": "~70 g",
+      "amt": "~70g",
       "info": {
-       "Per ~70 g": [
-        [
-         "Energy",
-         "112 kcal",
-         "6%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "Fibre",
-         "4.7 g"
-        ],
-        [
-         "Protein",
-         "1.4 g",
-         "3%"
-        ],
-        [
-         "Fat",
-         "10 g",
-         "14%"
-        ],
-        [
-         "– saturates",
-         "1.5 g",
-         "8%"
-        ]
-       ],
        "Standouts": [
         [
          "Folate",
-         "57 mcg",
+         "57mcg",
          "14%"
         ],
         [
          "Potassium",
-         "340 mg",
+         "340mg",
          "17%"
         ],
         [
          "Vit K",
-         "15 mcg",
+         "15mcg",
          "20%"
         ],
         [
          "Vit E",
-         "1.4 mg",
+         "1.4mg",
          "12%"
         ],
         [
          "Monounsaturated",
-         "6.8 g of the 10"
+         "6.8g of the 10"
         ]
        ],
        "Changed": [
@@ -1300,63 +1269,94 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Per ~70g": [
+        [
+         "Energy",
+         "112kcal",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "6g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "4.7g"
+        ],
+        [
+         "Protein",
+         "1.4g",
+         "3%"
+        ],
+        [
+         "Fat",
+         "10g",
+         "14%"
+        ],
+        [
+         "– saturates",
+         "1.5g",
+         "8%"
+        ]
        ]
       }
      },
      {
       "n": "Cherry tomatoes",
-      "amt": "150 g",
+      "amt": "150g",
       "info": {
-       "Per 150 g": [
-        [
-         "Energy",
-         "27 kcal",
-         "1%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4 g",
-         "4%"
-        ],
-        [
-         "Fibre",
-         "1.8 g"
-        ],
-        [
-         "Protein",
-         "1.4 g",
-         "3%"
-        ]
-       ],
        "Standouts": [
         [
          "Vit C",
-         "21 mg",
+         "21mg",
          "26%"
         ],
         [
          "Potassium",
-         "355 mg",
+         "355mg",
          "18%"
         ],
         [
          "Lycopene",
-         "~4 mg"
+         "~4mg"
         ],
         [
          "Vit K",
-         "12 mcg",
+         "12mcg",
          "16%"
         ],
         [
          "Vit A",
-         "63 mcg",
+         "63mcg",
          "8%"
+        ]
+       ],
+       "Per 150g": [
+        [
+         "Energy",
+         "27kcal",
+         "1%"
+        ],
+        [
+         "Carbs",
+         "6g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "4g",
+         "4%"
+        ],
+        [
+         "Fibre",
+         "1.8g"
+        ],
+        [
+         "Protein",
+         "1.4g",
+         "3%"
         ]
        ]
       }
@@ -1366,69 +1366,69 @@ window.BLOODWORK =
       "n": "Eggs",
       "amt": "5",
       "info": {
-       "Per 5 (~250 g)": [
-        [
-         "Energy",
-         "388 kcal",
-         "19%"
-        ],
-        [
-         "Protein",
-         "31 g",
-         "62%"
-        ],
-        [
-         "Fat",
-         "27 g",
-         "39%"
-        ],
-        [
-         "– saturates",
-         "8 g",
-         "41%"
-        ]
-       ],
        "Standouts": [
         [
          "Choline",
-         "738 mg"
+         "738mg"
         ],
         [
          "Selenium",
-         "75 mcg",
+         "75mcg",
          "136%"
         ],
         [
          "Vit D",
-         "200 IU",
+         "200IU",
          "100%"
         ],
         [
          "B12",
-         "2.5 mcg",
+         "2.5mcg",
          "100%"
         ],
         [
          "Vit A",
-         "400 mcg",
+         "400mcg",
          "50%"
         ],
         [
          "Riboflavin",
-         "1 mg",
+         "1mg",
          "71%"
         ],
         [
          "Folate",
-         "119 mcg",
+         "119mcg",
          "60%"
+        ]
+       ],
+       "Per 5 (~250g)": [
+        [
+         "Energy",
+         "388kcal",
+         "19%"
+        ],
+        [
+         "Protein",
+         "31g",
+         "62%"
+        ],
+        [
+         "Fat",
+         "27g",
+         "39%"
+        ],
+        [
+         "– saturates",
+         "8g",
+         "41%"
         ]
        ]
       }
      },
      {
       "n": "Poêlée Rustique (Bonduelle)",
-      "amt": "~300 g",
+      "amt": "~300g",
       "info": {
        "Ingredients": [
         [
@@ -1444,108 +1444,87 @@ window.BLOODWORK =
          "sunflower oil + cream"
         ]
        ],
-       "Per 300 g": [
+       "Standouts": [
+        [
+         "Ergothioneine",
+         "from 66g of mushrooms"
+        ],
+        [
+         "Potassium",
+         "~900mg",
+         "45%"
+        ]
+       ],
+       "Per 300g": [
         [
          "Energy",
-         "300 kcal",
+         "300kcal",
          "15%"
         ],
         [
          "Carbs",
-         "45 g",
+         "45g",
          "17%"
         ],
         [
          "– sugars",
-         "2.7 g",
+         "2.7g",
          "3%"
         ],
         [
          "Fibre",
-         "6 g"
+         "6g"
         ],
         [
          "Protein",
-         "7.2 g",
+         "7.2g",
          "14%"
         ],
         [
          "Fat",
-         "8.7 g",
+         "8.7g",
          "12%"
         ],
         [
          "– saturates",
-         "1.8 g",
+         "1.8g",
          "9%"
         ],
         [
          "Salt",
-         "1.44 g",
+         "1.44g",
          "24%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Ergothioneine",
-         "from 66 g of mushrooms"
-        ],
-        [
-         "Potassium",
-         "~900 mg",
-         "45%"
         ]
        ]
       }
      },
      {
       "n": "Mushrooms (cooked)",
-      "amt": "~150 g",
+      "amt": "~150g",
       "info": {
-       "Per ~150 g (cooked)": [
-        [
-         "Energy",
-         "45 kcal",
-         "2%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "Fibre",
-         "3 g"
-        ],
-        [
-         "Protein",
-         "4 g",
-         "8%"
-        ]
-       ],
        "Standouts": [
         [
          "Ergothioneine",
-         "~3 mg"
+         "~3mg"
         ],
         [
          "Copper",
-         "0.5 mg",
+         "0.5mg",
          "50%"
         ],
         [
          "Pantothenic acid",
-         "2 mg",
+         "2mg",
          "33%"
         ],
         [
          "Selenium",
-         "14 mcg",
+         "14mcg",
          "25%"
         ],
         [
          "Potassium",
-         "400 mg",
+         "400mg",
          "20%"
         ]
        ],
@@ -1554,31 +1533,52 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Per ~150g (cooked)": [
+        [
+         "Energy",
+         "45kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "6g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "3g"
+        ],
+        [
+         "Protein",
+         "4g",
+         "8%"
+        ]
        ]
       }
      },
      {
       "n": "Olive oil",
-      "amt": "10 mL",
+      "amt": "10mL",
       "info": {
-       "Per 10 mL": [
+       "Per 10mL": [
         [
          "Energy",
-         "80 kcal",
+         "80kcal",
          "4%"
         ],
         [
          "Fat",
-         "9 g",
+         "9g",
          "13%"
         ],
         [
          "– monounsat.",
-         "7 g"
+         "7g"
         ],
         [
          "Vit E",
-         "1 mg",
+         "1mg",
          "10%"
         ]
        ]
@@ -1587,36 +1587,36 @@ window.BLOODWORK =
      "---",
      {
       "n": "Fruit (apple, pear, peach…)",
-      "amt": "~150 g",
+      "amt": "~150g",
       "info": {
-       "Per piece (~150 g)": [
+       "Per piece (~150g)": [
         [
          "Energy",
-         "80 kcal",
+         "80kcal",
          "4%"
         ],
         [
          "Carbs",
-         "20 g",
+         "20g",
          "8%"
         ],
         [
          "– sugars",
-         "15 g",
+         "15g",
          "17%"
         ],
         [
          "Fibre",
-         "3 g"
+         "3g"
         ],
         [
          "Vit C",
-         "7 mg",
+         "7mg",
          "9%"
         ],
         [
          "Potassium",
-         "180 mg",
+         "180mg",
          "9%"
         ]
        ]
@@ -1624,7 +1624,7 @@ window.BLOODWORK =
      },
      {
       "n": "Kefir",
-      "amt": "250 mL (half a bottle)",
+      "amt": "250mL (half a bottle)",
       "info": {
        "Ingredients": [
         [
@@ -1632,52 +1632,15 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 250 mL": [
-        [
-         "Energy",
-         "110 kcal",
-         "6%"
-        ],
-        [
-         "Carbs",
-         "9.8 g",
-         "4%"
-        ],
-        [
-         "– sugars",
-         "9.8 g",
-         "11%"
-        ],
-        [
-         "Protein",
-         "8.5 g",
-         "17%"
-        ],
-        [
-         "Fat",
-         "3.8 g",
-         "5%"
-        ],
-        [
-         "– saturates",
-         "2.3 g",
-         "12%"
-        ],
-        [
-         "Salt",
-         "0.25 g",
-         "4%"
-        ]
-       ],
        "Standouts": [
         [
          "Calcium",
-         "300 mg",
+         "300mg",
          "38%"
         ],
         [
          "Vit D",
-         "2 mcg",
+         "2mcg",
          "40%"
         ],
         [
@@ -1688,14 +1651,51 @@ window.BLOODWORK =
        "Changed": [
         [
          "1 Aug 2026",
-         "added — one 500 mL bottle a day, split across both meals"
+         "added — one 500mL bottle a day, split across both meals"
+        ]
+       ],
+       "Per 250mL": [
+        [
+         "Energy",
+         "110kcal",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "9.8g",
+         "4%"
+        ],
+        [
+         "– sugars",
+         "9.8g",
+         "11%"
+        ],
+        [
+         "Protein",
+         "8.5g",
+         "17%"
+        ],
+        [
+         "Fat",
+         "3.8g",
+         "5%"
+        ],
+        [
+         "– saturates",
+         "2.3g",
+         "12%"
+        ],
+        [
+         "Salt",
+         "0.25g",
+         "4%"
         ]
        ]
       }
      },
      {
       "n": "Nuts",
-      "amt": "~15 g",
+      "amt": "~15g",
       "info": {
        "Ingredients": [
         [
@@ -1711,40 +1711,19 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Per ~15 g": [
-        [
-         "Energy",
-         "90 kcal",
-         "5%"
-        ],
-        [
-         "Protein",
-         "3 g",
-         "6%"
-        ],
-        [
-         "Fat",
-         "8 g",
-         "11%"
-        ],
-        [
-         "Fibre",
-         "1.5 g"
-        ]
-       ],
        "Standouts": [
         [
          "Omega-3 (ALA)",
-         "0.6 g"
+         "0.6g"
         ],
         [
          "Vitamin E",
-         "1.3 mg",
+         "1.3mg",
          "11%"
         ],
         [
          "Magnesium",
-         "28 mg",
+         "28mg",
          "7%"
         ]
        ],
@@ -1753,12 +1732,33 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Per ~15g": [
+        [
+         "Energy",
+         "90kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "3g",
+         "6%"
+        ],
+        [
+         "Fat",
+         "8g",
+         "11%"
+        ],
+        [
+         "Fibre",
+         "1.5g"
+        ]
        ]
       }
      },
      {
       "n": "Dark chocolate",
-      "amt": "~10 g",
+      "amt": "~10g",
       "info": {
        "Ingredients": [
         [
@@ -1770,51 +1770,25 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Per ~10 g": [
-        [
-         "Energy",
-         "60 kcal",
-         "3%"
-        ],
-        [
-         "Fat",
-         "5 g",
-         "7%"
-        ],
-        [
-         "– saturates",
-         "3 g",
-         "14%"
-        ],
-        [
-         "Carbs",
-         "2 g",
-         "1%"
-        ],
-        [
-         "Fibre",
-         "1 g"
-        ]
-       ],
        "Standouts": [
         [
          "Magnesium",
-         "23 mg",
+         "23mg",
          "6%"
         ],
         [
          "Iron",
-         "1.1 mg",
+         "1.1mg",
          "8%"
         ],
         [
          "Copper",
-         "0.2 mg",
+         "0.2mg",
          "18%"
         ],
         [
          "Manganese",
-         "0.2 mg",
+         "0.2mg",
          "10%"
         ]
        ],
@@ -1822,6 +1796,32 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
+        ]
+       ],
+       "Per ~10g": [
+        [
+         "Energy",
+         "60kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1g"
         ]
        ]
       }
@@ -1835,58 +1835,58 @@ window.BLOODWORK =
     "items": [
      {
       "n": "Cherry tomatoes",
-      "amt": "150 g",
+      "amt": "150g",
       "info": {
-       "Per 150 g": [
-        [
-         "Energy",
-         "27 kcal",
-         "1%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4 g",
-         "4%"
-        ],
-        [
-         "Fibre",
-         "1.8 g"
-        ],
-        [
-         "Protein",
-         "1.4 g",
-         "3%"
-        ]
-       ],
        "Standouts": [
         [
          "Vit C",
-         "21 mg",
+         "21mg",
          "26%"
         ],
         [
          "Potassium",
-         "355 mg",
+         "355mg",
          "18%"
         ],
         [
          "Lycopene",
-         "~4 mg"
+         "~4mg"
         ],
         [
          "Vit K",
-         "12 mcg",
+         "12mcg",
          "16%"
         ],
         [
          "Vit A",
-         "63 mcg",
+         "63mcg",
          "8%"
+        ]
+       ],
+       "Per 150g": [
+        [
+         "Energy",
+         "27kcal",
+         "1%"
+        ],
+        [
+         "Carbs",
+         "6g",
+         "2%"
+        ],
+        [
+         "– sugars",
+         "4g",
+         "4%"
+        ],
+        [
+         "Fibre",
+         "1.8g"
+        ],
+        [
+         "Protein",
+         "1.4g",
+         "3%"
         ]
        ]
       }
@@ -1894,114 +1894,114 @@ window.BLOODWORK =
      "---",
      {
       "n": "Wild rice or whole-grain pasta",
-      "amt": "~75 g",
+      "amt": "~75g",
       "info": {
-       "Per ~75 g cooked": [
-        [
-         "Energy",
-         "90 kcal",
-         "5%"
-        ],
-        [
-         "Carbs",
-         "19 g",
-         "7%"
-        ],
-        [
-         "Protein",
-         "4 g",
-         "8%"
-        ],
-        [
-         "Fibre",
-         "2 g"
-        ]
-       ],
        "Changed": [
         [
          "1 Aug 2026",
          "refined → whole grain"
+        ]
+       ],
+       "Per ~75g cooked": [
+        [
+         "Energy",
+         "90kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "19g",
+         "7%"
+        ],
+        [
+         "Protein",
+         "4g",
+         "8%"
+        ],
+        [
+         "Fibre",
+         "2g"
         ]
        ]
       }
      },
      {
       "n": "Legumes (lentils, beans...)",
-      "amt": "~75 g",
+      "amt": "~75g",
       "info": {
-       "Per ~75 g cooked": [
-        [
-         "Energy",
-         "95 kcal",
-         "5%"
-        ],
-        [
-         "Carbs",
-         "17 g",
-         "7%"
-        ],
-        [
-         "Protein",
-         "7 g",
-         "14%"
-        ],
-        [
-         "Fibre",
-         "6 g"
-        ]
-       ],
        "Standouts": [
         [
          "Folate",
-         "120 mcg",
+         "120mcg",
          "60%"
         ],
         [
          "Iron",
-         "2 mg",
+         "2mg",
          "14%"
         ],
         [
          "Potassium",
-         "270 mg",
+         "270mg",
          "14%"
         ]
        ],
        "Changed": [
         [
          "1 Aug 2026",
-         "added, 75 g"
+         "added, 75g"
+        ]
+       ],
+       "Per ~75g cooked": [
+        [
+         "Energy",
+         "95kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "17g",
+         "7%"
+        ],
+        [
+         "Protein",
+         "7g",
+         "14%"
+        ],
+        [
+         "Fibre",
+         "6g"
         ]
        ]
       }
      },
      {
       "n": "Olive oil",
-      "amt": "50 mL",
+      "amt": "50mL",
       "info": {
-       "Per 50 mL": [
+       "Per 50mL": [
         [
          "Energy",
-         "405 kcal",
+         "405kcal",
          "20%"
         ],
         [
          "Fat",
-         "46 g",
+         "46g",
          "66%"
         ],
         [
          "– monounsat.",
-         "34 g"
+         "34g"
         ],
         [
          "– saturates",
-         "6 g",
+         "6g",
          "30%"
         ],
         [
          "Vit E",
-         "6 mg",
+         "6mg",
          "50%"
         ]
        ]
@@ -2009,49 +2009,27 @@ window.BLOODWORK =
      },
      {
       "n": "Lean ground beef or chicken",
-      "amt": "~200 g",
+      "amt": "~200g",
       "info": {
-       "Lean beef 5% (~200 g)": [
-        [
-         "Energy",
-         "300 kcal",
-         "15%"
-        ],
-        [
-         "Protein",
-         "42 g",
-         "84%"
-        ],
-        [
-         "Fat",
-         "10 g",
-         "14%"
-        ],
-        [
-         "– saturates",
-         "4.5 g",
-         "23%"
-        ]
-       ],
        "Standouts": [
         [
          "Iron",
-         "5 mg",
+         "5mg",
          "36%"
         ],
         [
          "Zinc",
-         "10 mg",
+         "10mg",
          "100%"
         ],
         [
          "B12",
-         "5 mcg",
+         "5mcg",
          "200%"
         ],
         [
          "Selenium",
-         "30 mcg",
+         "30mcg",
          "55%"
         ]
        ],
@@ -2070,68 +2048,90 @@ window.BLOODWORK =
          "1 Aug 2026",
          "15% → 5% lean beef"
         ]
+       ],
+       "Lean beef 5% (~200g)": [
+        [
+         "Energy",
+         "300kcal",
+         "15%"
+        ],
+        [
+         "Protein",
+         "42g",
+         "84%"
+        ],
+        [
+         "Fat",
+         "10g",
+         "14%"
+        ],
+        [
+         "– saturates",
+         "4.5g",
+         "23%"
+        ]
        ]
       }
      },
      {
       "n": "Frozen greens — spinach, broccoli",
-      "amt": "~150 g",
+      "amt": "~150g",
       "info": {
-       "Per ~150 g cooked": [
-        [
-         "Energy",
-         "45 kcal",
-         "2%"
-        ],
-        [
-         "Carbs",
-         "6 g",
-         "2%"
-        ],
-        [
-         "Fibre",
-         "4 g"
-        ],
-        [
-         "Protein",
-         "4 g",
-         "8%"
-        ]
-       ],
        "Folate, by green": [
         [
          "Spinach",
-         "220 mcg",
+         "220mcg",
          "55%"
         ],
         [
          "Broccoli",
-         "160 mcg",
+         "160mcg",
          "40%"
         ]
        ],
        "Standouts": [
         [
          "Vit K",
-         "210-740 mcg"
+         "210-740mcg"
         ],
         [
          "Vit C",
-         "15-100 mg"
+         "15-100mg"
         ],
         [
          "Magnesium",
-         "30-130 mg"
+         "30-130mg"
         ],
         [
          "Iron",
-         "1-2.6 mg"
+         "1-2.6mg"
         ]
        ],
        "Changed": [
         [
          "1 Aug 2026",
-         "added, ~150 g"
+         "added, ~150g"
+        ]
+       ],
+       "Per ~150g cooked": [
+        [
+         "Energy",
+         "45kcal",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "6g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "4g"
+        ],
+        [
+         "Protein",
+         "4g",
+         "8%"
         ]
        ]
       }
@@ -2141,54 +2141,54 @@ window.BLOODWORK =
       "n": "Kiwis",
       "amt": "2",
       "info": {
-       "Per 2 (~140 g)": [
-        [
-         "Energy",
-         "85 kcal",
-         "4%"
-        ],
-        [
-         "Carbs",
-         "20 g",
-         "8%"
-        ],
-        [
-         "– sugars",
-         "13 g",
-         "14%"
-        ],
-        [
-         "Fibre",
-         "4 g"
-        ]
-       ],
        "Standouts": [
         [
          "Vit C",
-         "130 mg",
+         "130mg",
          "163%"
         ],
         [
          "Vit K",
-         "55 mcg",
+         "55mcg",
          "73%"
         ],
         [
          "Potassium",
-         "430 mg",
+         "430mg",
          "22%"
         ],
         [
          "Vit E",
-         "2 mg",
+         "2mg",
          "17%"
+        ]
+       ],
+       "Per 2 (~140g)": [
+        [
+         "Energy",
+         "85kcal",
+         "4%"
+        ],
+        [
+         "Carbs",
+         "20g",
+         "8%"
+        ],
+        [
+         "– sugars",
+         "13g",
+         "14%"
+        ],
+        [
+         "Fibre",
+         "4g"
         ]
        ]
       }
      },
      {
       "n": "Kefir",
-      "amt": "250 mL (half a bottle)",
+      "amt": "250mL (half a bottle)",
       "info": {
        "Ingredients": [
         [
@@ -2196,52 +2196,15 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 250 mL": [
-        [
-         "Energy",
-         "110 kcal",
-         "6%"
-        ],
-        [
-         "Carbs",
-         "9.8 g",
-         "4%"
-        ],
-        [
-         "– sugars",
-         "9.8 g",
-         "11%"
-        ],
-        [
-         "Protein",
-         "8.5 g",
-         "17%"
-        ],
-        [
-         "Fat",
-         "3.8 g",
-         "5%"
-        ],
-        [
-         "– saturates",
-         "2.3 g",
-         "12%"
-        ],
-        [
-         "Salt",
-         "0.25 g",
-         "4%"
-        ]
-       ],
        "Standouts": [
         [
          "Calcium",
-         "300 mg",
+         "300mg",
          "38%"
         ],
         [
          "Vit D",
-         "2 mcg",
+         "2mcg",
          "40%"
         ],
         [
@@ -2252,14 +2215,51 @@ window.BLOODWORK =
        "Changed": [
         [
          "1 Aug 2026",
-         "added — one 500 mL bottle a day, split across both meals"
+         "added — one 500mL bottle a day, split across both meals"
+        ]
+       ],
+       "Per 250mL": [
+        [
+         "Energy",
+         "110kcal",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "9.8g",
+         "4%"
+        ],
+        [
+         "– sugars",
+         "9.8g",
+         "11%"
+        ],
+        [
+         "Protein",
+         "8.5g",
+         "17%"
+        ],
+        [
+         "Fat",
+         "3.8g",
+         "5%"
+        ],
+        [
+         "– saturates",
+         "2.3g",
+         "12%"
+        ],
+        [
+         "Salt",
+         "0.25g",
+         "4%"
         ]
        ]
       }
      },
      {
       "n": "Nuts",
-      "amt": "~15 g",
+      "amt": "~15g",
       "info": {
        "Ingredients": [
         [
@@ -2275,40 +2275,19 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Per ~15 g": [
-        [
-         "Energy",
-         "90 kcal",
-         "5%"
-        ],
-        [
-         "Protein",
-         "3 g",
-         "6%"
-        ],
-        [
-         "Fat",
-         "8 g",
-         "11%"
-        ],
-        [
-         "Fibre",
-         "1.5 g"
-        ]
-       ],
        "Standouts": [
         [
          "Omega-3 (ALA)",
-         "0.6 g"
+         "0.6g"
         ],
         [
          "Vitamin E",
-         "1.3 mg",
+         "1.3mg",
          "11%"
         ],
         [
          "Magnesium",
-         "28 mg",
+         "28mg",
          "7%"
         ]
        ],
@@ -2317,12 +2296,33 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Per ~15g": [
+        [
+         "Energy",
+         "90kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "3g",
+         "6%"
+        ],
+        [
+         "Fat",
+         "8g",
+         "11%"
+        ],
+        [
+         "Fibre",
+         "1.5g"
+        ]
        ]
       }
      },
      {
       "n": "Dark chocolate",
-      "amt": "~10 g",
+      "amt": "~10g",
       "info": {
        "Ingredients": [
         [
@@ -2334,51 +2334,25 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Per ~10 g": [
-        [
-         "Energy",
-         "60 kcal",
-         "3%"
-        ],
-        [
-         "Fat",
-         "5 g",
-         "7%"
-        ],
-        [
-         "– saturates",
-         "3 g",
-         "14%"
-        ],
-        [
-         "Carbs",
-         "2 g",
-         "1%"
-        ],
-        [
-         "Fibre",
-         "1 g"
-        ]
-       ],
        "Standouts": [
         [
          "Magnesium",
-         "23 mg",
+         "23mg",
          "6%"
         ],
         [
          "Iron",
-         "1.1 mg",
+         "1.1mg",
          "8%"
         ],
         [
          "Copper",
-         "0.2 mg",
+         "0.2mg",
          "18%"
         ],
         [
          "Manganese",
-         "0.2 mg",
+         "0.2mg",
          "10%"
         ]
        ],
@@ -2386,6 +2360,32 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
+        ]
+       ],
+       "Per ~10g": [
+        [
+         "Energy",
+         "60kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1g"
         ]
        ]
       }
