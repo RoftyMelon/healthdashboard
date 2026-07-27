@@ -79,6 +79,18 @@ setTimeout(()=>{
       ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
         count(n.pages.innerHTML,cls)+' rendered'); }
     catch(e){ ok(`page "${p}"`,false,e.message); } });
+  // every supplement carries an evidence tag ON THE ROW, and a sectioned tooltip behind the ⓘ.
+  // Both are silent when they break: a missing tag renders as an empty span, and an info left
+  // as a prose string renders as "[object Object]" without throwing.
+  try{ setPage('stack');
+    const H=n.pages.innerHTML, N=DATA.STACK.items.length;
+    ok(`stack shows ${N} evidence tags`, count(H,'sev ')===N, count(H,'sev ')+' tags');
+    ok('every tag is a known value',
+      (H.match(/class="sev ([a-z]+)"/g)||[]).every(m=>/strong|moderate|weak|none/.test(m)));
+    ok(`stack tooltips are sectioned`, count(H,'ntab one')===DATA.STACK.items.filter(s=>s.info).length,
+      count(H,'ntab one')+' sectioned tips');
+    ok('no tooltip stringified an object', !H.includes('[object Object]'));
+  }catch(e){ ok('stack evidence tags',false,e.message); }
   // the routine is a RULER: every hour from wake to lights-out gets a rail mark, and a
   // gym/work block renders as ONE box owning its whole span of hours
   try{ setPage('routine');
@@ -195,6 +207,16 @@ setTimeout(()=>{
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
   ok('audit rejects a bad STACK status', audit(j2).length===1);
+  const j5=JSON.parse(JSON.stringify(DATA)); j5.STACK.items[0].ev='pretty good';
+  ok('audit rejects an unknown evidence tag', audit(j5).length===1, audit(j5)[0]||'');
+  const j6=JSON.parse(JSON.stringify(DATA)); delete j6.STACK.items[0].ev;
+  ok('audit rejects a MISSING evidence tag', audit(j6).length===1, audit(j6)[0]||'');
+  // the order regressed once in DIET by rename-and-reinsert, which appends; guard it here
+  const j7=JSON.parse(JSON.stringify(DATA)); const i7=j7.STACK.items[0].info;
+  j7.STACK.items[0].info={Dose:i7.Dose,'What it does':i7['What it does'],Evidence:i7.Evidence};
+  ok('audit rejects out-of-order tooltip sections', audit(j7).length===1, audit(j7)[0]||'');
+  const j8=JSON.parse(JSON.stringify(DATA)); j8.STACK.items[0].info='back to a prose string';
+  ok('audit rejects a prose-string info', audit(j8).length>=1, audit(j8)[0]||'');
   // a per-value collection time is a claim about provenance: malformed, or unexplained, it lies
   const clone=()=>JSON.parse(JSON.stringify(DATA));
   const zn=j=>j.DATA.draws.find(d=>d.date==='2020-12-10').v.zn;

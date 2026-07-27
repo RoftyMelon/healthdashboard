@@ -133,6 +133,22 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
   `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
+- **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why
+  this number, and which form) → `Evidence` (what the tag rests on) → `Watch` (ceilings,
+  interactions, contraindications) → `Changes` (the dated log) → `Parked` (why not yet, and what
+  would unpark it). The first three are REQUIRED; the last three are omitted when they have
+  nothing to say, and a `taking` item may not carry `Parked`. `audit()` enforces the vocabulary,
+  the order and the required three — the sections were nineteen prose paragraphs saying the same
+  six things in nineteen different orders before that.
+- **Every STACK item carries `ev`: `strong` / `moderate` / `weak` / `none`**, rendered as a pill
+  beside the name. **`none` is a REAL value, not a missing one** — ergothioneine and taurine have
+  no trial base and no assay, and the tag exists to say that out loud where it can be seen rather
+  than 400 characters into a paragraph. An item with no `ev` is one whose evidence was never
+  examined, so `audit()` refuses to render rather than let it through blank.
+- **`judge` stays ON THE ROW, never in the tooltip.** Every other field describes the supplement;
+  `judge` is the commitment to falsifying it, and hiding it behind a hover turns a protocol back
+  into a shopping list. It is also the field you scan down a column before a draw ("which of these
+  does November settle?"), which is not a nineteen-hover task.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
   render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why

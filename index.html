@@ -729,6 +729,17 @@ a.sbuy:hover{color:var(--info)}
    is what actually makes it shorter — nothing is ever hidden behind a scroll. */
 .exinfo.tbl.wide{width:min(94vw,620px);max-width:min(94vw,620px)}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
+/* Stack tips are PROSE in sections, not a numbers grid: one column, and a size you can read.
+   Two columns at 355px would set each paragraph in a ~170px measure. */
+.ntab.one{columns:auto;font-size:12.5px;line-height:1.45}
+/* the evidence tag: strong / moderate / weak / none. 'none' is the honest label for a bet with
+   no trial base and no assay, so it reads as a warning, not as a missing value. */
+.sev{flex:none;margin-left:7px;align-self:center;font-size:9.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:5px;white-space:nowrap}
+.sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
+.sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
+.sev.none{color:var(--out);background:color-mix(in srgb,var(--out) 14%,transparent)}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
 .ncolh{font-weight:700;font-size:11.5px;color:var(--txt);padding:0 0 3px;border-bottom:1px solid var(--line);margin-bottom:2px}
@@ -1311,8 +1322,27 @@ function audit(j){
       if(s.when!=null){if(!Array.isArray(s.when))bad.push(`STACK "${s.name}": when must be null or an array of {at,dose}`);else s.when.forEach(w=>{if(!SL.includes(w.at))bad.push(`STACK "${s.name}": when slot "${w.at}" is not one of ${SL.join('/')}`);});}
       if(s.dec!=null&&!j.DECS.includes(s.dec))bad.push(`STACK "${s.name}": dec "${s.dec}" is not a DECS label`);
       if(s.url!=null&&!/^https:\/\//.test(s.url))bad.push(`STACK "${s.name}": url must start with https://`);
-      if(s.ev!=null&&!['strong','moderate','weak'].includes(s.ev))bad.push(`STACK "${s.name}": ev "${s.ev}" is not strong/moderate/weak`);
+      /* 'none' is a REAL value, not a missing one: ergothioneine and taurine have no trial base
+         and no assay, and saying so out loud is the point of the tag. Required on every item —
+         an untagged supplement is one whose evidence was never examined. */
+      const EV=['strong','moderate','weak','none'];
+      if(!EV.includes(s.ev))bad.push(`STACK "${s.name}": ev "${s.ev}" is not one of ${EV.join('/')}`);
       if(s.judge!=null&&typeof s.judge!=='string')bad.push(`STACK "${s.name}": judge must be a string`);
+      /* info is a SECTIONED object in a fixed order, same contract as a DIET tooltip. Prose
+         drifted for 19 items before this: the same six facts in nineteen different orders. */
+      const SEC=['What it does','Dose','Evidence','Watch','Changes','Parked'];
+      if(s.info!=null){
+        if(typeof s.info!=='object'||Array.isArray(s.info))bad.push(`STACK "${s.name}": info must be a sectioned object, not a string`);
+        else{
+          const ks=Object.keys(s.info);
+          ks.forEach(k=>{if(!SEC.includes(k))bad.push(`STACK "${s.name}": section "${k}" is not one of ${SEC.join(' / ')}`);
+            if(!Array.isArray(s.info[k])||!s.info[k].length)bad.push(`STACK "${s.name}": section "${k}" must be a non-empty array of rows`);});
+          const order=ks.map(k=>SEC.indexOf(k)).filter(i=>i>=0);
+          if(order.some((v,i)=>i&&v<order[i-1]))bad.push(`STACK "${s.name}": sections out of order — ${ks.join(' → ')}`);
+          ['What it does','Dose','Evidence'].forEach(k=>{if(!s.info[k])bad.push(`STACK "${s.name}": section "${k}" is required`);});
+          if(s.status==='taking'&&s.info.Parked)bad.push(`STACK "${s.name}": a 'taking' item cannot have a Parked section`);
+        }
+      }
     });
   }
   if(j.RECORD){
@@ -2029,6 +2059,23 @@ function movePtu(){   // slide the shared underline under the active tab
 // Permanent scrollable top row — no menu. It auto-hides on scroll on the MARKERS page only
 // (html.tabhid); _th tracks whether it's currently hidden. setPage resets it to shown.
 let _th=false;
+/* Shared tooltip-table primitives. A DIET food and a STACK supplement carry the same shape —
+   {section: [[label, value, pct?], ...]} — and must render identically; they differ only in how
+   many columns the flow gets. Declared out here because setPage's branches are separate blocks:
+   the Stack branch runs long before the Diet branch's consts exist, so it cannot borrow them. */
+const tipRow=r=>{
+  /* A value containing a SPACE is a phrase, not a measurement — units are attached ("212kcal",
+     "~2g"), so a space means prose, and prose gets its own line. The old test was length>14,
+     which let "6.8g of the 10" (exactly 14) stay inline, where the nowrap value squeezed
+     "Monounsaturated" until the two overlapped. */
+  const prose=/\s/.test(String(r[1]));
+  // an EMPTY label means the value IS the row — a section already named "Ingredients" or
+  // "Evidence" does not need every line inside it labelled a second time
+  if(!r[0])return `<div class="nrow bare"><span class="nval">${esc(r[1])}</span></div>`;
+  return `<div class="nrow${prose?' prose':''}"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`;
+};
+const tipSec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${rows.map(tipRow).join('')}</div>`;
+
 function setPage(p){
   if(!PAGES[p])return;
   if(p===page)return;
@@ -2155,10 +2202,13 @@ function renderPage(p){
           return `<div class="srow${dead?' off':''}">`+
             `<span class="sn">${esc(s.name)}</span>`+
             (s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`:'')+   // ↗ hugs the name
+            // evidence tag rides WITH the name, not with the dose: it qualifies the supplement,
+            // not the amount, and a colour beside each name is what makes the tier scannable
+            `<span class="sev ${esc(s.ev)}">${esc(s.ev)}</span>`+
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             (s.info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(s.name)} details">i</button>`+
-                    `<div class="exinfo">${esc(s.info)}</div></span>`
+                    `<div class="exinfo"><div class="ntab one">`+Object.entries(s.info).map(([k,v])=>tipSec(k,v)).join('')+`</div></div></span>`
                    :`<span class="tipw"></span>`)+   // reserved slot: tips align into a column
             (s.judge?`<div class="sjudge"><span class="sjl">Judge by:</span> ${esc(s.judge)}</div>`:'')+   // the readout — 'how I'll know it worked', always visible
           `</div>`;}).join('')+`</div>`;
@@ -2293,19 +2343,7 @@ function renderPage(p){
              OWN column carrying the full five-section template, instead of the default flow
              deciding where to break — which put one food's numbers bottom-left and the other's
              top-right. Taller bubble, but you read one food straight down. */
-          const alt=isAlt;
-          const row=r=>{
-            /* A value containing a SPACE is a phrase, not a measurement — units are attached
-               ("212kcal", "~2g"), so a space means prose. It gets its own line. The old test was
-               length>14, which let "6.8g of the 10" (exactly 14) stay inline, where the nowrap
-               value squeezed "Monounsaturated" until the two overlapped. */
-            const prose=/\s/.test(String(r[1]));
-            // an EMPTY label means the value IS the row — an ingredient list under a section
-            // already called Ingredients does not need naming a second time
-            if(!r[0])return `<div class="nrow bare"><span class="nval">${esc(r[1])}</span></div>`;
-            return `<div class="nrow${prose?' prose':''}"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`;
-          };
-          const sec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${rows.map(row).join('')}</div>`;
+          const alt=isAlt,sec=tipSec;   // shared with the Stack tooltip — see tipRow/tipSec above
           if(!alt)return `<div class="ntab">`+Object.entries(info).map(([k,v])=>sec(k,v)).join('')+`</div>`;
           const cols={};
           Object.entries(info).forEach(([k,v])=>{const [food,name]=k.split(' · ');(cols[food]=cols[food]||[]).push([name,v]);});

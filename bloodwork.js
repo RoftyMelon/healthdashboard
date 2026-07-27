@@ -120,8 +120,34 @@ window.BLOODWORK =
    {
     "id": "astax",
     "name": "Astaxanthin",
+    "ev": "moderate",
     "dose": "12mg 2x/day",
-    "info": "Photoprotection (raises the UV-burn threshold) plus moisture and elasticity. Not colour — that's beta-carotene's job. 24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg; held pending proof it helps colour.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Photoprotection — it raises the UV-burn threshold — plus moisture and elasticity. Not colour; that is beta-carotene's job."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Several small RCTs for burn threshold and skin hydration. No outcome data."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Held at 24mg rather than raised, until it has shown it does anything."
+      ]
+     ]
+    },
     "cat": "skin",
     "status": "taking",
     "when": [
@@ -135,13 +161,34 @@ window.BLOODWORK =
      }
     ],
     "url": null,
-    "dec": null
+    "dec": null,
+    "judge": "time to redness in consistent sun; skin photos for hydration"
    },
    {
     "id": "lyco",
     "name": "Lycopene",
+    "ev": "moderate",
     "dose": "15mg 2x/day",
-    "info": "Warm skin tone plus UV photoprotection (10-16mg). Absorption saturates by ~30-40mg, so 30mg (15mg twice with fat) is the ceiling — more just gets excreted. Tomato-derived (LycoBeads) beats synthetic; cooked tomato in olive oil beats raw.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Warm skin tone plus UV photoprotection."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "30mg — 15mg twice with fat. Absorption saturates by 30-40mg, so more is just excreted. Tomato-derived (LycoBeads) beats synthetic; cooked tomato in olive oil beats raw."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Small RCTs at 10-16mg for photoprotection. The tone effect is observational."
+      ]
+     ]
+    },
     "cat": "skin",
     "status": "taking",
     "when": [
@@ -155,13 +202,46 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/lycopene-capsules.html",
-    "dec": null
+    "dec": null,
+    "judge": "skin tone — photos in consistent light, the same instrument as beta-carotene"
    },
    {
     "id": "vitd3k2",
     "name": "Vitamin D3 + K2",
+    "ev": "strong",
     "dose": "10000IU",
-    "info": "Vitamin D repletion; the K2 steers calcium into bone, not arteries. Doubled from 5000 IU on 2026-07-21: the July draw came back at 28 ng/mL, below the lab's own sufficiency floor of 30 ng/mL (75 nmol/L), so 5000 was not enough — likely because daily SPF 50 leaves supplementation doing all the work with almost no cutaneous synthesis. 2 tablets. Above the EFSA/IOM upper limit of 4000 IU (the Endocrine Society ceiling is 10000), so this is titration, NOT a new autopilot: retest 25-OH-D AND calcium at 3 months, and come back down if it lands above 60-70.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Vitamin D repletion; the K2 steers calcium into bone rather than arteries. Daily SPF 50 leaves almost no cutaneous synthesis, so the supplement is doing all of the work."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "10000 IU, 2 tablets. Above the EFSA/IOM upper limit of 4000 — the Endocrine Society ceiling is 10000 — so this is titration, not a setting."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Correcting a measured deficiency rather than betting on one: the July draw read 28 ng/mL against the lab's own 30 floor."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Calcium alongside 25-OH-D at every retest. The risk of a high dose is hypercalcaemia, not the D itself."
+      ]
+     ],
+     "Changes": [
+      [
+       "21 Jul 2026",
+       "5000 → 10000 IU"
+      ]
+     ]
+    },
     "cat": "essentials",
     "status": "taking",
     "when": [
@@ -171,13 +251,40 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
-    "dec": "Vitamin D3 10000 IU + K2"
+    "dec": "Vitamin D3 10000 IU + K2",
+    "judge": "25-OH-D and calcium at 3 months — come back down if D lands above 60-70 ng/mL"
    },
    {
     "id": "omega3",
     "name": "Omega-3",
+    "ev": "strong",
     "dose": "2000mg EPA + 1125mg DHA",
-    "info": "EPA-forward dose aimed at skin and inflammation — about double the general-health dose. Algae oil (triglyceride form), cleaner than fish oil and iodine-free. 5 softgels/day = 2000mg EPA + 1125mg DHA, split 1 at the pre-workout snack + 2 at brunch + 2 at dinner, each a meal with fat for absorption. Titrate to your omega-3 index (8-12%).",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "EPA-forward dose aimed at skin and inflammation, about double the general-health dose."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "5 softgels/day = 2000mg EPA + 1125mg DHA. Algae oil in triglyceride form — cleaner than fish oil and iodine-free."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Large trial base for triglycerides and inflammation. The skin case is thinner."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Multi-gram DHA raises LDL-C 5-10%, so part of your 142 is this. Fish days replace a dose rather than adding to one."
+      ]
+     ]
+    },
     "cat": "essentials",
     "status": "taking",
     "when": [
@@ -195,13 +302,34 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html",
-    "dec": "Omega-3 (2000mg EPA, 1125mg DHA)"
+    "dec": "Omega-3 (2000mg EPA, 1125mg DHA)",
+    "judge": "omega-3 index — titrate to 8-12%"
    },
    {
     "id": "collagenc",
     "name": "Collagen peptides (low-MW)",
+    "ev": "weak",
     "dose": "2g",
-    "info": "Low-weight peptides (~500 Da) that signal skin to build its own collagen — the trigger, not the raw material (glycine covers that). 2g with vitamin C. Cosmetic, modest evidence.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Low-weight peptides (~500 Da) that signal skin to build its own collagen — the trigger, not the raw material. Glycine covers the raw material."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "2g with vitamin C."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Cosmetic endpoints only, modest effect sizes, and largely industry-funded."
+      ]
+     ]
+    },
     "cat": "skin",
     "status": "taking",
     "when": [
@@ -211,13 +339,34 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html",
-    "dec": "Glycine 8g + taurine + collagen"
+    "dec": "Glycine 8g + taurine + collagen",
+    "judge": "skin hydration and fine lines — photos in consistent light over 12 weeks"
    },
    {
     "id": "ha",
     "name": "Hyaluronic acid",
+    "ev": "weak",
     "dose": "250mg",
-    "info": "Not absorbed intact (~0.2%) — gut bacteria fragment it into signals for the skin's own HA. 2025 review (7 trials): modest hydration, elasticity and wrinkle gains. 250mg, the trial dose. Cosmetic, gut-flora-dependent.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Not absorbed intact (~0.2%) — gut bacteria fragment it into signals for the skin's own hyaluronic acid."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "250mg, the trial dose."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "A 2025 review of 7 trials found modest hydration, elasticity and wrinkle gains. Gut-flora-dependent, so it may simply do nothing in a given person."
+      ]
+     ]
+    },
     "cat": "skin",
     "status": "taking",
     "when": [
@@ -227,14 +376,41 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html",
-    "dec": null
+    "dec": null,
+    "judge": "skin hydration — photos in consistent light over 12 weeks"
    },
    {
     "id": "mglthr",
     "name": "Magnesium L-threonate",
+    "ev": "weak",
     "judge": "sleep quality — an on-vs-off test by feel or your sleep tracker",
     "dose": "2040mg",
-    "info": "Brain-penetrant magnesium (147mg elemental), sold for sleep. But the sleep case is thin — you're young and replete (~2× RDA), and its only trials are cognition in older adults. Parked pending your own on/off sleep test.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Brain-penetrant magnesium (147mg elemental), sold for sleep."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "2040mg of the threonate salt."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Thin for sleep: the only trials are cognition in older adults, and you are young and replete at roughly twice the RDA."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Pending your own on/off sleep test. No blood marker will settle this one."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": [
@@ -249,9 +425,35 @@ window.BLOODWORK =
    {
     "id": "betacar",
     "name": "Beta-carotene",
+    "ev": "moderate",
     "judge": "skin tone — photos in consistent light over a few weeks",
     "dose": "15mg",
-    "info": "The carotenoid that actually drives golden tone — astaxanthin can't. Parked so you judge astaxanthin + lycopene alone first, then add if the tint's still missing. Algae source (Dunaliella), safer than synthetic (which raised cancer risk only in smokers). 15mg with fat; more for deeper colour, but watch for orange palms.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "The carotenoid that actually drives golden tone — astaxanthin cannot."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "15mg with fat. More gives deeper colour, but watch for orange palms."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Consistent for skin tone. Algae source (Dunaliella): the synthetic form raised cancer risk in smokers, not in non-smokers."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "So astaxanthin and lycopene get judged alone first, then this gets added if the tint is still missing."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -261,9 +463,41 @@ window.BLOODWORK =
    {
     "id": "glycine",
     "name": "Glycine",
+    "ev": "moderate",
     "judge": "sleep (solo); or the GlyNAC markers, if paired with NAC",
     "dose": "8g",
-    "info": "8g is 100mg/kg — the glycine arm of the Sekhar GlyNAC protocol at your weight. Sleep studies use 3g, so this is the glutathione dose, not the sleep one. NOT 1:1 with NAC: the trial dosed by moles, which is 1:1.33 by weight.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Glutathione precursor, paired with NAC. On its own, a sleep aid."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "8g is 100mg/kg, the glycine arm of the Sekhar GlyNAC protocol at your weight. Sleep studies use 3g, so this is the glutathione dose, not the sleep one."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "GlyNAC has small RCTs in older adults. The sleep effect has its own separate small trials at 3g."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "NOT 1:1 with NAC — the trial dosed by moles, which works out to 1:1.33 by weight."
+      ]
+     ],
+     "Changes": [
+      [
+       "27 Jul 2026",
+       "12g → 8g, correcting the ratio"
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -273,9 +507,47 @@ window.BLOODWORK =
    {
     "id": "nac",
     "name": "NAC",
+    "ev": "moderate",
     "judge": "hs-CRP, HOMA-IR, homocysteine and GGT, before vs after 3 months",
     "dose": "11g",
-    "info": "Glutathione/antioxidant precursor. 11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC at your weight — heavier than the glycine arm because the trial dosed by MOLES (1.33 and 0.81 mmol/kg) and NAC is the larger molecule. Raises homocysteine, which the TMG offsets. Parked until the goal and oxidative markers are set.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Glutathione and antioxidant precursor."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC — heavier than the glycine arm because the trial dosed by moles (1.33 and 0.81 mmol/kg) and NAC is the larger molecule."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Small RCTs in older adults for oxidative stress and insulin sensitivity. Nothing at your age."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Raises homocysteine, which is already at 15.0. TMG first or alongside — never NAC on its own."
+      ]
+     ],
+     "Changes": [
+      [
+       "27 Jul 2026",
+       "12g → 11g, correcting the ratio"
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Until the goal and the oxidative markers are set."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -285,9 +557,41 @@ window.BLOODWORK =
    {
     "id": "tmg",
     "name": "TMG",
+    "ev": "moderate",
     "judge": "homocysteine — it exists only to offset NAC's rise",
     "dose": "6g",
-    "info": "Methyl donor that lowers homocysteine — 6g is the effective dose, sized to offset the homocysteine your 12g NAC raises. Catch: betaine above ~4g can nudge LDL up, so watch it. Pending homocysteine, the number that justifies the loop.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Methyl donor that lowers homocysteine."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "6g, sized to offset the homocysteine the NAC raises."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "A consistent 10-20% homocysteine reduction across trials."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Betaine above ~4g can nudge LDL up, which matters while LDL is the open question."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Pending homocysteine, the number that justifies the loop."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -297,9 +601,41 @@ window.BLOODWORK =
    {
     "id": "bcomplex",
     "name": "B-complex (methylfolate)",
+    "ev": "moderate",
     "judge": "homocysteine and serum folate on the next draw",
     "dose": "400-800mcg 5-MTHF",
-    "info": "Folate, B12 and B6 in their active forms — 5-MTHF, methylcobalamin, P5P. Aimed at homocysteine, 15.0 against an expected <15, with serum folate 6.3 sitting on the floor of its optimal band. Folic acid is not the missing input: Huel supplies it daily and folate is still low, which points at the conversion rather than the intake. Keep B6 under 25mg — sustained high doses cause a reversible neuropathy. Parked so the greens and the August creatine restart can be read first.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Folate, B12 and B6 in their active forms — 5-MTHF, methylcobalamin, P5P."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "400-800mcg 5-MTHF."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "B-vitamin lowering of homocysteine is well established. Whether it changes outcomes is not."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Keep B6 under 25mg — sustained high doses cause a reversible neuropathy."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Diet folate now clears the RDA at ~520-570mcg, yet serum folate sits at 6.3 on the floor of its band — which points at conversion rather than intake. The greens and the August creatine restart get read first."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -309,9 +645,35 @@ window.BLOODWORK =
    {
     "id": "garlic",
     "name": "AGE garlic",
+    "ev": "moderate",
     "judge": "blood pressure and LDL / ApoB",
     "dose": "2400mg",
-    "info": "Aged garlic extract — modest BP (~5-8 mmHg in hypertensives) and lipid effects, plus slowed coronary plaque. 2400mg is the plaque-trial dose (BP works at 600-1200mg). Parked: the payoff is for elevated BP or CVD risk, not a fit 31-yo — revisit if your lipids or BP give it a job.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Aged garlic extract — modest blood-pressure and lipid effects, plus slowed coronary plaque progression."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "2400mg is the plaque-trial dose. Blood pressure responds at 600-1200mg."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "RCTs showing ~5-8 mmHg, and one plaque-progression trial — all in hypertensive or high-risk groups."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "The payoff is for elevated BP or CVD risk, not a fit 31-year-old. Your blood pressure has never been measured, so nothing can justify this yet."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -321,9 +683,41 @@ window.BLOODWORK =
    {
     "id": "curcumin",
     "name": "Curcumin",
+    "ev": "weak",
     "judge": "hs-CRP",
     "dose": null,
-    "info": "Anti-inflammatory (NF-κB). No dose set on purpose — raw curcumin barely absorbs, so the form (piperine, Meriva, liposomal) matters more than the mg. Parked until an inflammatory marker (hs-CRP) runs high enough to target, then pick a bioavailable form.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Anti-inflammatory, via NF-κB."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "No dose set on purpose — raw curcumin barely absorbs, so the form (piperine, Meriva, liposomal) matters more than the milligrams."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Many small trials, heterogeneous preparations, high risk of publication bias."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Among the supplements most often implicated in drug-induced liver injury registries. Your liver panel is pristine — AST 22, ALT 17, GGT 16 — so this trades a small real risk against no measurable gain."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Until hs-CRP runs high enough to target. It is currently under 0.6, the bottom of the assay."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -333,8 +727,40 @@ window.BLOODWORK =
    {
     "id": "creatine",
     "name": "Creatine",
+    "ev": "strong",
     "dose": "5g",
-    "info": "Strength, power, likely cognition. 5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing's flexible. NOT a trial, unlike the rest of this tier — it is the best-evidenced supplement on the list and was already being taken. It sits here only because it was paused: stopped before the 2026-07-20 draw so creatinine and eGFR would read clean without it. Restarting August 2026 — which also removes the body's single largest methyl-group demand, so it may pull homocysteine down on its own.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Strength, power and likely cognition. It also removes the body's single largest methyl-group demand, so it may pull homocysteine down on its own."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing is flexible."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "The best-evidenced supplement on this list — hundreds of trials, consistent effect."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Restarting inflates serum creatinine 10-20% without touching kidney function. November must order cystatin C, or the eGFR will read falsely worse."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Not a trial, unlike the rest of this tier. It is here only because it was paused before the 2026-07-20 draw so creatinine and eGFR would read clean. Restarting August 2026."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": [
@@ -344,14 +770,41 @@ window.BLOODWORK =
      }
     ],
     "url": "https://amzn.eu/d/09MG0JOC",
-    "dec": "Creatine 5g"
+    "dec": "Creatine 5g",
+    "judge": "strength and power in training; and cystatin C, never creatinine alone, once it restarts"
    },
    {
     "id": "taurine",
     "name": "Taurine",
+    "ev": "none",
     "judge": "nothing measurable at your age — a theory bet, not a testable one",
     "dose": "5g",
-    "info": "5g is a longevity dose (exercise studies use 1-3g), extrapolated from the 2023 mouse-lifespan paper. Human evidence is observational, not trial — cheap and safe to 10g, but unproven. Parked until human data or a clear reason.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Proposed longevity agent, extrapolated from the 2023 mouse-lifespan paper."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "5g is a longevity dose. Exercise studies use 1-3g."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Human data is observational, not trial. Cheap and safe to 10g, but unproven."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Until human data, or a clear reason."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -361,9 +814,35 @@ window.BLOODWORK =
    {
     "id": "boron",
     "name": "Boron",
+    "ev": "weak",
     "judge": "free testosterone and SHBG",
     "dose": "10mg",
-    "info": "Lowers SHBG, so more testosterone stays free (and drops estradiol). 10mg is the studied dose (free-T +28% over a week). Modest, and unclear at your age with normal T — parked until T/SHBG bloods justify it.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Lowers SHBG, so more testosterone stays free, and drops estradiol."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "10mg is the studied dose — free T rose 28% over a week."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "One small study, short, in men not selected for low testosterone."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Unclear at your age with normal T and SHBG at 46. Parked until the bloods give it a job."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -373,9 +852,41 @@ window.BLOODWORK =
    {
     "id": "ashwa",
     "name": "Ashwagandha",
+    "ev": "moderate",
     "judge": "perceived stress and sleep; testosterone / cortisol on bloods",
     "dose": "600mg",
-    "info": "Adaptogen — lowers cortisol and stress, improves sleep, and small RCTs show recovery, strength and modest testosterone bumps in trained men. 600mg/day of a standardised root extract (KSM-66). Catch: it can nudge thyroid hormones, so don't start before the baseline draw — it'd confound TSH/T4; rare liver reports too, so cycle it 8-12 weeks on.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Adaptogen — lowers cortisol and stress and improves sleep; small RCTs show recovery, strength and modest testosterone bumps in trained men."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "600mg/day of a standardised root extract (KSM-66)."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Several small RCTs, mostly short and industry-linked, but consistent in direction."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "It can nudge thyroid hormones, so never start it before a baseline draw — it would confound TSH and free T4. Rare liver reports too; cycle 8-12 weeks on."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Until after the next draw, so it cannot confound the thyroid panel."
+      ]
+     ]
+    },
     "cat": "maylater",
     "status": "planned",
     "when": null,
@@ -385,9 +896,29 @@ window.BLOODWORK =
    {
     "id": "ergo",
     "name": "L-Ergothioneine",
+    "ev": "none",
     "dose": "30mg",
     "judge": "NOTHING — no routine assay exists, so this one is never judged",
-    "info": "An amino acid the body cannot make but has a DEDICATED transporter for (OCTN1), which concentrates it in mitochondria-rich tissue. Long half-life, so levels accumulate. Higher plasma ergothioneine tracks with lower cardiovascular and all-cause mortality in Swedish cohorts. 30mg is the EFSA-approved daily maximum — do not stack anything on top. THE HONEST POSITION: strong mechanism, decent observational data, NO outcome trials, and no lab test to check it against. Every other item here has a judge-by marker; this one has none and never will. Bought as a deliberate bet at ~10 euros a month, not as a correction of anything measured. Mushrooms are the only real food source, but 30mg beats 150g of oyster mushrooms and costs less.",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "An amino acid the body cannot make but has a dedicated transporter for (OCTN1), which concentrates it in mitochondria-rich tissue. Long half-life, so levels accumulate."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "30mg is the EFSA-approved daily maximum — do not stack anything on top. Mushrooms are the only real food source, and 30mg beats 150g of oyster mushrooms for less money."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Strong mechanism, decent observational data — higher plasma levels track with lower cardiovascular and all-cause mortality in Swedish cohorts — but no outcome trials and no assay to check it against. A deliberate bet at ~10 euros a month, not a correction of anything measured."
+      ]
+     ]
+    },
     "cat": "essentials",
     "status": "taking",
     "when": [
