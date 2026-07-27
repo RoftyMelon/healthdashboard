@@ -715,7 +715,11 @@ a.sbuy:hover{color:var(--info)}
   font-size:13.5px;color:var(--t2);line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .exn:hover+.exinfo,.infob:hover+.exinfo{display:block}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
-.exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
+/* A per-food tooltip is deliberately tall — but 372px fits neither above nor below a row in
+   the middle of a phone screen. Cap it and let the pinned bubble scroll its own content;
+   overscroll-behavior stops that scroll running on into the page behind it. */
+.exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px;
+  max-height:min(52vh,360px);overflow-y:auto;overscroll-behavior:contain}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
