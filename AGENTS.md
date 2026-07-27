@@ -226,6 +226,14 @@ git add -A && git commit -m "..." && git push
 ```
 
 **Never push if a validator fails.** The whole point of the harness is that it gates the commit.
-Each blood draw becomes a commit, so a bad edit is one `git revert` away — which matters, because
+**Check its EXIT CODE, not its output.** `node tools/check-js.js | grep -E "passed|❌" && git push`
+pushes a broken page every time: the grep succeeds because it *found* the failures, and `&&`
+sees 0. That shipped a blank page once. Run each validator on its own line, capture `$?`, and
+gate on both being 0.
+
+**`dec` is a JOIN KEY, not a label.** The same string appears in `DECS`, in `STACK.items[].dec`
+and in `MARK[].dec[]` — and because the dose lives inside it ("NAC 12g"), changing a dose means
+rewriting every reference in lockstep. `audit()` catches a dangling one and then refuses to
+render the whole page, so a one-site edit blanks the site rather than showing a broken link.Each blood draw becomes a commit, so a bad edit is one `git revert` away — which matters, because
 the one corruption `audit()` cannot catch is a *plausible but wrong* unit (`µmol/L` where the lab
 said `mg/L`): structurally valid, clinically nonsense, and it renders as a confident green number.
