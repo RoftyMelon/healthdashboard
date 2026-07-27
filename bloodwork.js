@@ -1192,6 +1192,10 @@ window.BLOODWORK =
        "Mackerel 80g · Notes": [
         [
          "",
+         "No omega-3 supplement with this meal"
+        ],
+        [
+         "",
          "Half a 160g pack — the rest keeps 48h at 4°C"
         ]
        ],
@@ -2480,6 +2484,10 @@ window.BLOODWORK =
         ]
        ],
        "Notes": [
+        [
+         "",
+         "No omega-3 supplement with this meal"
+        ],
         [
          "",
          "On top of the alternate-day mackerel, not instead of it"
