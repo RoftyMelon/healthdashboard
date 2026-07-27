@@ -2246,13 +2246,13 @@ function renderPage(p){
       Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')e.push(parseInt(r[1])||0);}));
       return e.length?Math.round(e.reduce((a,b)=>a+b,0)/e.length):0;};
     const kcalTag=m=>{const t=(m.items||[]).reduce((s,x)=>s+foodKcal(x),0);   // meal total, summed live from each food's Energy row
-      return t?`<span class="ckcal">~${Math.round(t/50)*50} kcal</span>`:'';};
+      return t?`<span class="ckcal">~${Math.round(t/50)*50}kcal</span>`:'';};
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
       `<div class="care col">`+DIET.meals.filter(m=>m.at).map(m=>
         `<div class="ccard"><b>${esc(m.t)}</b>${kcalTag(m)}<span class="cwhen">${esc(m.at)}</span>`+
-        `<ul>${m.items.map(x=>{if(x==='---')return '<li class="crs" aria-hidden="true"></li>';const k=foodKcal(x);return `<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>`+((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+(k?`<span class="dkcal">${k} kcal</span>`:'')+foodTip(x)+`</li>`;}).join('')}</ul>`+
+        `<ul>${m.items.map(x=>{if(x==='---')return '<li class="crs" aria-hidden="true"></li>';const k=foodKcal(x);return `<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>`+((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+(k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</li>`;}).join('')}</ul>`+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
       `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`+
