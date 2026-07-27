@@ -1235,7 +1235,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Avocado (half)",
+      "n": "Avocado half",
       "amt": "~70g",
       "info": {
        "Standouts": [
@@ -1305,7 +1305,7 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Eggs (poached)",
+      "n": "Eggs poached",
       "amt": "5",
       "info": {
        "Cooked": [
@@ -1401,7 +1401,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Poêlée Rustique (Bonduelle)",
+      "n": "Poêlée Rustique",
       "amt": "~300g",
       "info": {
        "Ingredients": [
@@ -1468,65 +1468,6 @@ window.BLOODWORK =
          "Salt",
          "1.44g",
          "24%"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Mushrooms (cooked)",
-      "amt": "~150g",
-      "info": {
-       "Standouts": [
-        [
-         "Ergothioneine",
-         "~3mg"
-        ],
-        [
-         "Copper",
-         "0.5mg",
-         "50%"
-        ],
-        [
-         "Pantothenic acid",
-         "2mg",
-         "33%"
-        ],
-        [
-         "Selenium",
-         "14mcg",
-         "25%"
-        ],
-        [
-         "Potassium",
-         "400mg",
-         "20%"
-        ]
-       ],
-       "Changed": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ],
-       "Per ~150g (cooked)": [
-        [
-         "Energy",
-         "45kcal",
-         "2%"
-        ],
-        [
-         "Carbs",
-         "6g",
-         "2%"
-        ],
-        [
-         "Fibre",
-         "3g"
-        ],
-        [
-         "Protein",
-         "4g",
-         "8%"
         ]
        ]
       }
