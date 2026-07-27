@@ -715,11 +715,10 @@ a.sbuy:hover{color:var(--info)}
   font-size:13.5px;color:var(--t2);line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .exn:hover+.exinfo,.infob:hover+.exinfo{display:block}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
-/* A per-food tooltip is deliberately tall — but 372px fits neither above nor below a row in
-   the middle of a phone screen. Cap it and let the pinned bubble scroll its own content;
-   overscroll-behavior stops that scroll running on into the page behind it. */
-.exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px;
-  max-height:min(46vh,330px);overflow-y:auto;overscroll-behavior:contain}
+.exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
+/* Two foods side by side need width, not a scrollbar. A wider bubble wraps less prose, which
+   is what actually makes it shorter — nothing is ever hidden behind a scroll. */
+.exinfo.tbl.wide{width:min(94vw,560px);max-width:min(94vw,560px)}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
@@ -2249,13 +2248,16 @@ function renderPage(p){
     };
     const foodTip=x=>{                                   // a food item's optional info: string caveat OR nutrition table
       if(typeof x!=='object'||!x.info)return '';
-      const info=x.info, body=typeof info==='string'?esc(info)
+      const info=x.info;
+      // a two-food tooltip needs a WIDER bubble, not a scrollbar: two full templates side by side
+      const isAlt=typeof info==='object'&&Object.keys(info).length>1&&Object.keys(info).every(k=>k.includes(' · '));
+      const body=typeof info==='string'?esc(info)
         :(()=>{
           /* ALTERNATING items name every section "<Food> · <Section>". Each food then gets its
              OWN column carrying the full five-section template, instead of the default flow
              deciding where to break — which put one food's numbers bottom-left and the other's
              top-right. Taller bubble, but you read one food straight down. */
-          const alt=Object.keys(info).length>1&&Object.keys(info).every(k=>k.includes(' · '));
+          const alt=isAlt;
           const row=r=>{
             /* A value containing a SPACE is a phrase, not a measurement — units are attached
                ("212kcal", "~2g"), so a space means prose. It gets its own line. The old test was
@@ -2274,7 +2276,7 @@ function renderPage(p){
           return `<div class="ntab alt">`+Object.entries(cols).map(([food,secs])=>
             `<div class="ncol"><div class="ncolh">${esc(food)}</div>`+secs.map(([n,v])=>sec(n,v)).join('')+`</div>`).join('')+`</div>`;
         })();
-      return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
+      return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}${isAlt?' wide':''}">${body}</div>`;
     };
     /* An item with TWO Energy rows is an item with alternatives — mackerel one day, tofu the
        next — so the meal's expected total is their MEAN, not their sum. Summing would add a
