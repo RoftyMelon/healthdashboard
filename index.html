@@ -717,8 +717,11 @@ a.sbuy:hover{color:var(--info)}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
 .exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
 /* Two foods side by side need width, not a scrollbar. A wider bubble wraps less prose, which
-   is what actually makes it shorter — nothing is ever hidden behind a scroll. */
-.exinfo.tbl.wide{width:min(94vw,620px);max-width:min(94vw,620px)}
+   is what actually makes it shorter — nothing is ever hidden behind a scroll.
+   It CENTRES on its row rather than left-aligning: at 94vw the bubble is wider than the row,
+   which sits inset by the card's padding, so left:0 pushed it off the right edge by that inset. */
+.exinfo.tbl.wide{width:min(94vw,620px);max-width:min(94vw,620px);
+  left:50%;right:auto;transform:translateX(-50%)}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
