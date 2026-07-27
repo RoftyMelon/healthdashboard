@@ -381,6 +381,18 @@ window.BLOODWORK =
     "when": null,
     "url": null,
     "dec": "Ashwagandha 600mg"
+   },
+   {
+    "id": "ergo",
+    "name": "L-Ergothioneine",
+    "dose": "30mg",
+    "judge": "NOTHING — no routine assay exists, so this one is never judged",
+    "info": "An amino acid the body cannot make but has a DEDICATED transporter for (OCTN1), which concentrates it in mitochondria-rich tissue. Long half-life, so levels accumulate. Higher plasma ergothioneine tracks with lower cardiovascular and all-cause mortality in Swedish cohorts. 30mg is the EFSA-approved daily maximum — do not stack anything on top. THE HONEST POSITION: strong mechanism, decent observational data, NO outcome trials, and no lab test to check it against. Every other item here has a judge-by marker; this one has none and never will. Bought as a deliberate bet at ~10 euros a month, not as a correction of anything measured. Mushrooms are the only real food source, but 30mg beats 150g of oyster mushrooms and costs less.",
+    "cat": "essentials",
+    "status": "taking",
+    "when": null,
+    "url": "https://www.amazon.fr/dp/B0GS9RWTLF",
+    "dec": null
    }
   ]
  },
