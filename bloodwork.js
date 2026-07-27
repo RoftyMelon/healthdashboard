@@ -2340,10 +2340,10 @@ window.BLOODWORK =
    },
    {
     "id": "weekly",
-    "t": "Weekly",
+    "t": "Biweekly",
     "items": [
      {
-      "n": "Trout — 300g, once or twice a week (weekend)",
+      "n": "Trout — 300g",
       "info": {
        "Ingredients": [
         [
