@@ -1395,84 +1395,73 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Frozen sautéed vegetables",
+      "n": "Poêlée Rustique (Bonduelle)",
       "amt": "~300 g",
       "info": {
        "Ingredients": [
         [
          "Potatoes",
-         "20-42%"
+         "42%"
         ],
         [
          "",
-         "Broccoli, carrots, green beans, mangetout"
+         "Green beans 18%, white and brown mushrooms 22%, fried onions"
         ],
         [
          "Cooked in",
          "sunflower oil + cream"
         ]
        ],
-       "Per ~300 g": [
+       "Per 300 g": [
         [
          "Energy",
-         "235 kcal",
-         "12%"
+         "300 kcal",
+         "15%"
         ],
         [
          "Carbs",
-         "26 g",
-         "10%"
+         "45 g",
+         "17%"
+        ],
+        [
+         "– sugars",
+         "2.7 g",
+         "3%"
         ],
         [
          "Fibre",
-         "8 g"
+         "6 g"
         ],
         [
          "Protein",
-         "6 g",
-         "12%"
+         "7.2 g",
+         "14%"
         ],
         [
          "Fat",
-         "13 g",
-         "19%"
+         "8.7 g",
+         "12%"
         ],
         [
          "– saturates",
-         "6 g",
-         "30%"
+         "1.8 g",
+         "9%"
         ],
         [
          "Salt",
-         "1.5 g",
-         "25%"
+         "1.44 g",
+         "24%"
         ]
        ],
        "Standouts": [
         [
-         "Vit A",
-         "~500 mcg",
-         "63%"
+         "Ergothioneine",
+         "from 66 g of mushrooms"
         ],
         [
          "Potassium",
-         "~750 mg",
-         "38%"
-        ],
-        [
-         "Vit C",
-         "~30 mg",
-         "38%"
-        ],
-        [
-         "Folate",
-         "~90 mcg",
-         "23%"
-        ],
-        [
-         "Vit K",
-         "~60 mcg",
-         "80%"
+         "~900 mg",
+         "45%"
         ]
        ]
       }
