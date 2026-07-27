@@ -1125,7 +1125,7 @@ window.BLOODWORK =
      "---",
      {
       "n": "Smoked fish / tofu — alternating",
-      "amt": "100 g, alternate days",
+      "amt": "100 g fish / 125 g tofu, alternate days",
       "info": {
        "Ingredients": [
         [
@@ -1133,50 +1133,61 @@ window.BLOODWORK =
          "Smoked mackerel or trout one day, calcium-set tofu the next"
         ]
        ],
-       "Per 100 g, averaged": [
+       "Per serving, averaged": [
         [
          "Energy",
-         "170 kcal",
-         "9%"
+         "169 kcal",
+         "8%"
         ],
         [
          "Protein",
-         "18 g",
-         "36%"
+         "20 g",
+         "40%"
         ],
         [
          "Fat",
-         "9 g",
-         "13%"
+         "9.5 g",
+         "14%"
         ],
         [
          "– saturates",
-         "1.2 g",
-         "6%"
+         "1.6 g",
+         "8%"
+        ],
+        [
+         "Fibre",
+         "1.6 g"
         ],
         [
          "Salt",
          "1.6 g",
-         "27%"
+         "26%"
         ]
        ],
        "Standouts": [
         [
-         "EPA + DHA",
-         "~1.25 g averaged"
-        ],
-        [
          "Calcium",
-         "~175 mg averaged",
-         "22%"
+         "~118 mg",
+         "15%"
         ],
         [
-         "Mackerel over trout",
-         "2.5 g EPA+DHA vs 1.2"
+         "EPA + DHA",
+         "~1.25 g"
         ],
         [
-         "Tofu must say",
-         "sulfate de calcium (E516)"
+         "Magnesium",
+         "~37 mg",
+         "10%"
+        ]
+       ],
+       "The two days": [
+        [
+         "Tofu 125 g",
+         "235 mg calcium, 74 mg magnesium, no salt"
+        ],
+        [
+         "Fish 100 g",
+         "2.5 g EPA+DHA if mackerel, 1.2 if trout"
         ]
        ],
        "Changed": [
