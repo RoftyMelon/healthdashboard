@@ -87,14 +87,14 @@ window.BLOODWORK =
   "Ashwagandha 600mg",
   "Omega-3 (2000mg EPA, 1125mg DHA)",
   "AGE garlic 2400mg",
-  "NAC 12g",
+  "NAC 11g",
   "TMG 6g",
   "B-complex (methylfolate)",
   "Curcumin",
   "Creatine 5g",
   "Vitamin D3 10000 IU + K2",
   "Magnesium L-threonate",
-  "Glycine 12g + taurine + collagen",
+  "Glycine 8g + taurine + collagen",
   "Huel"
  ],
  "STACK": {
@@ -211,7 +211,7 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html",
-    "dec": "Glycine 12g + taurine + collagen"
+    "dec": "Glycine 8g + taurine + collagen"
    },
    {
     "id": "ha",
@@ -262,25 +262,25 @@ window.BLOODWORK =
     "id": "glycine",
     "name": "Glycine",
     "judge": "sleep (solo); or the GlyNAC markers, if paired with NAC",
-    "dose": "12g",
-    "info": "12g is a glutathione/GlyNAC dose (sleep studies use just 3g). Now paired 1:1 with 12g NAC — near the Sekhar efficacy dose for your weight (~8g glycine). Glycine's very safe and cheap, so the slight overshoot is fine.",
+    "dose": "8g",
+    "info": "8g is 100mg/kg — the glycine arm of the Sekhar GlyNAC protocol at your weight. Sleep studies use 3g, so this is the glutathione dose, not the sleep one. NOT 1:1 with NAC: the trial dosed by moles, which is 1:1.33 by weight.",
     "cat": "maylater",
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "Glycine 12g + taurine + collagen"
+    "dec": "Glycine 8g + taurine + collagen"
    },
    {
     "id": "nac",
     "name": "NAC",
     "judge": "hs-CRP, HOMA-IR, homocysteine and GGT, before vs after 3 months",
-    "dose": "12g",
-    "info": "Glutathione/antioxidant precursor. 12g matches your glycine 1:1 — near the Sekhar GlyNAC dose for your weight (~11g NAC). Raises homocysteine, which the TMG offsets. Parked until the goal and oxidative markers are set.",
+    "dose": "11g",
+    "info": "Glutathione/antioxidant precursor. 11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC at your weight — heavier than the glycine arm because the trial dosed by MOLES (1.33 and 0.81 mmol/kg) and NAC is the larger molecule. Raises homocysteine, which the TMG offsets. Parked until the goal and oxidative markers are set.",
     "cat": "maylater",
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "NAC 12g"
+    "dec": "NAC 11g"
    },
    {
     "id": "tmg",
@@ -356,7 +356,7 @@ window.BLOODWORK =
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "Glycine 12g + taurine + collagen"
+    "dec": "Glycine 8g + taurine + collagen"
    },
    {
     "id": "boron",
@@ -2696,7 +2696,7 @@ window.BLOODWORK =
    "id": "hcy",
    "cat": "vitmin",
    "dec": [
-    "NAC 12g",
+    "NAC 11g",
     "TMG 6g",
     "B-complex (methylfolate)"
    ],
@@ -3106,7 +3106,7 @@ window.BLOODWORK =
    "cat": "renal",
    "dec": [
     "Creatine 5g",
-    "Glycine 12g + taurine + collagen"
+    "Glycine 8g + taurine + collagen"
    ],
    "en": "Urea (BUN)",
    "fr": "Urée",
@@ -3556,7 +3556,7 @@ window.BLOODWORK =
    "cat": "liver",
    "dec": [
     "Curcumin",
-    "NAC 12g"
+    "NAC 11g"
    ],
    "en": "ALT",
    "fr": "ALAT (TGP)",
@@ -3588,7 +3588,7 @@ window.BLOODWORK =
    "cat": "liver",
    "dec": [
     "Curcumin",
-    "NAC 12g"
+    "NAC 11g"
    ],
    "en": "AST",
    "fr": "ASAT (TGO)",
