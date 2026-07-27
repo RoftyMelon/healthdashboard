@@ -145,10 +145,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   no trial base and no assay, and the tag exists to say that out loud where it can be seen rather
   than 400 characters into a paragraph. An item with no `ev` is one whose evidence was never
   examined, so `audit()` refuses to render rather than let it through blank.
-- **`judge` stays ON THE ROW, never in the tooltip.** Every other field describes the supplement;
-  `judge` is the commitment to falsifying it, and hiding it behind a hover turns a protocol back
-  into a shopping list. It is also the field you scan down a column before a draw ("which of these
-  does November settle?"), which is not a nineteen-hover task.
+- **`judge` renders in exactly ONE place, and which one depends on the tier.** On the ROW for
+  `maylater`, where it is a live decision — the criterion that would unpark the item, and the
+  thing you scan down a column before a draw. INSIDE the tooltip, appended last, for everything
+  already being taken, where it is reference rather than a decision and would otherwise double
+  every row's height. It is injected at render time from the one `judge` field, never stored
+  twice, so the row and the bubble cannot drift. Both places or neither would be silent.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
   render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why

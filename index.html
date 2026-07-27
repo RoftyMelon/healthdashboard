@@ -2084,6 +2084,15 @@ const tipRow=r=>{
   return `<div class="nrow${prose?' prose':''}"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`;
 };
 const tipSec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${rows.map(tipRow).join('')}</div>`;
+/* A supplement's tooltip sections: the stored info, plus 'Judge by' appended for anything outside
+   the parked tier, where the row no longer prints it. INJECTED at render time, never stored — the
+   criterion lives in exactly one field, so the row and the bubble can never drift apart. It goes
+   last on purpose: what it is, what to watch, when it started, then how you will know. */
+const tipSecs=s=>{
+  const secs=Object.entries(s.info||{});
+  if(s.judge&&s.cat!=='maylater')secs.push(['Judge by',[['',s.judge]]]);
+  return secs.map(([k,v])=>tipSec(k,v)).join('');
+};
 
 function setPage(p){
   if(!PAGES[p])return;
@@ -2219,10 +2228,14 @@ function renderPage(p){
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             (s.info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(s.name)} details">i</button>`+
-                    `<div class="exinfo"><div class="ntab one">`+Object.entries(s.info).map(([k,v])=>tipSec(k,v)).join('')+`</div></div></span>`
+                    `<div class="exinfo"><div class="ntab one">`+tipSecs(s)+`</div></div></span>`
                    :`<span class="tipw"></span>`)+   // reserved slot: tips align into a column
             `</div>`+
-            (s.judge?`<div class="sjudge"><span class="sjl">Judge by:</span> ${esc(s.judge)}</div>`:'')+   // the readout — 'how I'll know it worked', always visible
+            /* 'Judge by' stays on the ROW only where it is a live decision — the parked tier,
+               where it is the criterion that would unpark the item. For something already being
+               taken it is reference, not a decision, so it moves inside the bubble and stops
+               doubling every row's height. Rendered from the field either way: one source. */
+            (s.judge&&s.cat==='maylater'?`<div class="sjudge"><span class="sjl">Judge by:</span> ${esc(s.judge)}</div>`:'')+
           `</div>`;}).join('')+`</div>`;
     };
     STACK.cats.forEach(c=>{if(c.id!=='maylater')h+=renderCat(c);});   // 'maylater' renders last

@@ -90,6 +90,14 @@ setTimeout(()=>{
     ok(`stack tooltips are sectioned`, count(H,'ntab one')===DATA.STACK.items.filter(s=>s.info).length,
       count(H,'ntab one')+' sectioned tips');
     ok('no tooltip stringified an object', !H.includes('[object Object]'));
+    // 'Judge by' renders in exactly ONE place per item: the row for the parked tier, the bubble
+    // for everything else. Both or neither would be silent — one is a duplicate, the other a
+    // criterion that vanished.
+    const parked=DATA.STACK.items.filter(s=>s.cat==='maylater'&&s.judge).length;
+    const live=DATA.STACK.items.filter(s=>s.cat!=='maylater'&&s.judge).length;
+    ok(`${parked} judge rows on parked items`, count(H,'sjudge')===parked, count(H,'sjudge')+' rows');
+    ok(`${live} judge sections in live tooltips`, (H.match(/>Judge by</g)||[]).length===live,
+      (H.match(/>Judge by</g)||[]).length+' sections');
   }catch(e){ ok('stack evidence tags',false,e.message); }
   // the routine is a RULER: every hour from wake to lights-out gets a rail mark, and a
   // gym/work block renders as ONE box owning its whole span of hours
