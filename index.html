@@ -701,10 +701,19 @@ a.sbuy:hover{color:var(--info)}
 .infob:hover{background:var(--btn-h)}
 /* stack rows wrap the tip in .tipw — a fixed slot on the right so the tips align
    into a column; the bubble anchors to the icon and opens to its LEFT on hover */
-.srow .tipw{flex:none;width:18px;justify-content:center;align-self:center;position:relative;display:inline-flex}
+/* position:STATIC, deliberately: the tip below must anchor to the ROW, not to this 18px slot. */
+.srow .tipw{flex:none;width:18px;justify-content:center;align-self:center;position:static;display:inline-flex}
 .tipw .infob{margin:0}
-.tipw .exinfo{top:50%;left:auto;right:calc(100% + 8px);transform:translateY(-50%);
-  width:max-content;max-width:230px}
+/* Stack tips get the Diet treatment — they drop BELOW their own row and centre on it, instead of
+   opening leftward beside the icon. The leftward bubble was capped at 230px, which turned a
+   734-character note into a 508px ribbon (63% of a phone screen) and pushed the B-complex tip
+   65px off the left edge, because a long enough name shoves the icon left of its own bubble width.
+   The row spans the card and its centre IS the viewport centre, so centring here centres on screen.
+   `top:100%` clears the whole row including the always-visible "Judge by:" line, which is a block
+   child of .srow — so the bubble sits under it rather than over it. */
+.tipw .exinfo{top:calc(100% + 4px);bottom:auto;left:50%;right:auto;transform:translateX(-50%);
+  width:min(94vw,340px);max-width:min(94vw,340px)}
+.tipw .exinfo.up{top:auto;bottom:calc(100% + 4px)}   /* aimTip() flips it when the fold is close */
 .tipw:hover .exinfo{display:block}
 /* base bubble: a compact popover tucked into the TOP-RIGHT CORNER of its anchor —
    used by the exercise/care cards (.ccard is position:relative). Stack tips
@@ -1027,6 +1036,11 @@ a.sbuy:hover{color:var(--info)}
   .drow .exinfo.tbl,.srow.lite .exinfo.tbl{
     width:min(calc(100vw - 2 * var(--gut,10px)),620px);
     max-width:min(calc(100vw - 2 * var(--gut,10px)),620px)}
+  /* Stack tips take the same card width, but cap at 430px rather than 620 — they are one
+     prose paragraph, and 620px of 13.5px text is far past a readable measure. */
+  .tipw .exinfo{
+    width:min(calc(100vw - 2 * var(--gut,10px)),430px);
+    max-width:min(calc(100vw - 2 * var(--gut,10px)),430px)}
 }
 </style>
 <script>
