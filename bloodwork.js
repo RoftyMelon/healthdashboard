@@ -1406,12 +1406,16 @@ window.BLOODWORK =
          "42%"
         ],
         [
-         "",
-         "Green beans 18%, white and brown mushrooms 22%, fried onions"
+         "Green beans",
+         "18%"
         ],
         [
-         "Cooked in",
-         "sunflower oil + cream"
+         "Mushrooms — white and brown",
+         "22%"
+        ],
+        [
+         "Fried onions",
+         "—"
         ]
        ],
        "Macronutrients — per 300g": [
@@ -1464,6 +1468,12 @@ window.BLOODWORK =
          "Potassium",
          "~900mg",
          "45%"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Cooked in sunflower oil and cream"
         ]
        ]
       }
