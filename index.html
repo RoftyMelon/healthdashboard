@@ -597,8 +597,13 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    the full page while the cards stop at 430px and the (i) lands in a different column.
    Was max-width:none, written when the cards still stretched; .care.col caps them now. */
 .pgsec.dfoods{max-width:min(430px,100%);padding:0 14px}
-.pgsec.stk{max-width:none}   /* stack sections: full width, edge to edge (dose flushes to the far right) */
-.pgsec.stk .pgst{max-width:135px;white-space:nowrap}   /* underline caps at the longest title ("MAY ADD LATER" ~130px), not full width */
+/* The parked list takes the CARD's measure, so its dose / tag / ⓘ columns land on the same
+   verticals as the two cards above it. It used to be max-width:none — correct when every stack
+   section was a plain list, wrong the moment half of them became 430px cards: above ~430px of
+   viewport the parked ⓘ drifted 168px right of the daily one, and the page read as two grids.
+   (The old `.pgsec.stk .pgst` rule went with it — the tier heading is a .pgtier now, so that
+   selector matched nothing.) */
+.pgsec.stk{max-width:min(430px,100%)}
 .ndlist .srow{align-items:flex-start}
 .ndlist .sn{flex:0 0 43%;min-width:0}
 /* the scale a section's rows are read against, set under them — a ratio of 0.99 is meaningless
