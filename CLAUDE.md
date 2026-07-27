@@ -117,6 +117,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   micronutrients) → `Changes` (the dated log) → `Notes` (preparation, rotation, storage).
   Order matters because the two-column layout fills left before right, so the first section is
   what the eye lands on.
+  **`Ingredients` is ALWAYS one prose row** — `[["", "..."]]`, sentence case, no trailing stop —
+  never label/value pairs, even when every item carries a percentage. Pairs were tried and read
+  as a second nutrition panel sitting above the real one.
   Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
   fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
   `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed

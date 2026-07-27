@@ -1600,16 +1600,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Walnut",
-         "6g"
-        ],
-        [
-         "Almond",
-         "5g"
-        ],
-        [
-         "Pistachio",
-         "4g"
+         "",
+         "Walnut 6g, almond 5g, pistachio 4g"
         ]
        ],
        "Macronutrients — per ~15g": [
@@ -1663,12 +1655,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Cocoa",
-         "85%"
-        ],
-        [
-         "Origin",
-         "Madagascar"
+         "",
+         "Cocoa 85%, Madagascar origin"
         ]
        ],
        "Macronutrients — per ~10g": [
@@ -2245,16 +2233,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Walnut",
-         "6g"
-        ],
-        [
-         "Almond",
-         "5g"
-        ],
-        [
-         "Pistachio",
-         "4g"
+         "",
+         "Walnut 6g, almond 5g, pistachio 4g"
         ]
        ],
        "Macronutrients — per ~15g": [
@@ -2308,12 +2288,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Cocoa",
-         "85%"
-        ],
-        [
-         "Origin",
-         "Madagascar"
+         "",
+         "Cocoa 85%, Madagascar origin"
         ]
        ],
        "Macronutrients — per ~10g": [
