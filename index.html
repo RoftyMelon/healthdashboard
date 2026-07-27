@@ -761,9 +761,12 @@ a.sbuy:hover{color:var(--info)}
 .stop{display:flex;align-items:baseline;gap:10px;flex:0 0 100%;min-width:0;flex-wrap:nowrap}
 /* The NAME never breaks — a supplement split as "Omega-" / "3" is unreadable, and it is the one
    thing on the row you scan by. The DOSE gives ground instead: it is the only cell whose content
-   is naturally two units ("2000mg EPA + 1125mg DHA"), so it wraps where a break makes sense. */
+   is naturally two units ("2000mg EPA + 1125mg DHA"), so it wraps where a break makes sense.
+   NO min-width:0 on the dose. That let it shrink past its own content, and "2g" has no break
+   opportunity — so on a phone the Collagen row squeezed its dose to ZERO WIDTH and displayed no
+   amount at all, then overflowed the card by 5px regardless. A flex item's default min-width of
+   auto floors it at min-content, which is exactly the guarantee wanted: wrap, never vanish. */
 .stop .sn{flex:none;white-space:nowrap}
-.stop .sd{min-width:0}
 .sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
 .sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
@@ -1080,6 +1083,12 @@ a.sbuy:hover{color:var(--info)}
   .tipw .exinfo{
     width:min(calc(100vw - 2 * var(--gut,10px)),430px);
     max-width:min(calc(100vw - 2 * var(--gut,10px)),430px)}
+  /* On a phone the name cannot always hold its full width. "Collagen peptides (low-MW)" measures
+     210px of a 327px row, leaving 117px for a dose, a tag and the ⓘ — and it does not fit, so
+     something must give. Here the NAME gives: a two-line name is legible, and the alternative was
+     the row shouldering past the card edge. Desktop keeps the nowrap rule above, where there is
+     room; this is degradation, not a change of mind. */
+  .stop .sn{flex:0 1 auto;min-width:0;white-space:normal}
 }
 </style>
 <script>
