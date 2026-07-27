@@ -1303,69 +1303,29 @@ window.BLOODWORK =
        ]
       }
      },
-     {
-      "n": "Cherry tomatoes",
-      "amt": "150g",
-      "info": {
-       "Standouts": [
-        [
-         "Vit C",
-         "21mg",
-         "26%"
-        ],
-        [
-         "Potassium",
-         "355mg",
-         "18%"
-        ],
-        [
-         "Lycopene",
-         "~4mg"
-        ],
-        [
-         "Vit K",
-         "12mcg",
-         "16%"
-        ],
-        [
-         "Vit A",
-         "63mcg",
-         "8%"
-        ]
-       ],
-       "Per 150g": [
-        [
-         "Energy",
-         "27kcal",
-         "1%"
-        ],
-        [
-         "Carbs",
-         "6g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4g",
-         "4%"
-        ],
-        [
-         "Fibre",
-         "1.8g"
-        ],
-        [
-         "Protein",
-         "1.4g",
-         "3%"
-        ]
-       ]
-      }
-     },
      "---",
      {
-      "n": "Eggs",
+      "n": "Eggs (poached)",
       "amt": "5",
       "info": {
+       "Cooked": [
+        [
+         "Poached",
+         "no added oil, ~80°C water"
+        ],
+        [
+         "Not fried",
+         "grapeseed oil is ~70% linoleic acid"
+        ],
+        [
+         "Why",
+         "LA feeds the arachidonic acid that came back high"
+        ],
+        [
+         "Also",
+         "frying oxidises yolk cholesterol into oxysterols"
+        ]
+       ],
        "Standouts": [
         [
          "Choline",
@@ -1422,6 +1382,20 @@ window.BLOODWORK =
          "– saturates",
          "8g",
          "41%"
+        ]
+       ],
+       "Changed": [
+        [
+         "18 Jul 2026",
+         "6–10 → 6"
+        ],
+        [
+         "26 Jul 2026",
+         "6 → 5"
+        ],
+        [
+         "1 Aug 2026",
+         "fried in grapeseed → poached"
         ]
        ]
       }
@@ -1833,64 +1807,6 @@ window.BLOODWORK =
     "t": "Dinner",
     "at": "16:30",
     "items": [
-     {
-      "n": "Cherry tomatoes",
-      "amt": "150g",
-      "info": {
-       "Standouts": [
-        [
-         "Vit C",
-         "21mg",
-         "26%"
-        ],
-        [
-         "Potassium",
-         "355mg",
-         "18%"
-        ],
-        [
-         "Lycopene",
-         "~4mg"
-        ],
-        [
-         "Vit K",
-         "12mcg",
-         "16%"
-        ],
-        [
-         "Vit A",
-         "63mcg",
-         "8%"
-        ]
-       ],
-       "Per 150g": [
-        [
-         "Energy",
-         "27kcal",
-         "1%"
-        ],
-        [
-         "Carbs",
-         "6g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4g",
-         "4%"
-        ],
-        [
-         "Fibre",
-         "1.8g"
-        ],
-        [
-         "Protein",
-         "1.4g",
-         "3%"
-        ]
-       ]
-      }
-     },
      "---",
      {
       "n": "Wild rice or whole-grain pasta",
