@@ -1088,8 +1088,12 @@ a.sbuy:hover{color:var(--info)}
      210px of a 327px row, leaving 117px for a dose, a tag and the ⓘ — and it does not fit, so
      something must give. Here the NAME gives: a two-line name is legible, and the alternative was
      the row shouldering past the card edge. Desktop keeps the nowrap rule above, where there is
-     room; this is degradation, not a change of mind. */
-  .stop .sn{flex:0 1 auto;min-width:0;white-space:normal}
+     room; this is degradation, not a change of mind.
+     NO min-width:0 here either. The .nb words inside are nowrap, so a zeroed floor let the box
+     shrink narrower than "Omega-3" itself and the text ran on underneath the ↗ — overlapping,
+     not clipped, so it looked like a kerning bug rather than a layout one. min-width:auto floors
+     the box at its longest word, which is exactly the guarantee the .nb spans exist to give. */
+  .stop .sn{flex:0 1 auto;white-space:normal}
 }
 </style>
 <script>
