@@ -1193,10 +1193,6 @@ window.BLOODWORK =
         [
          "",
          "No omega-3 supplement with this meal"
-        ],
-        [
-         "",
-         "Half a 160g pack — the rest keeps 48h at 4°C"
         ]
        ],
        "Tofu 125g · Ingredients": [
