@@ -2339,18 +2339,13 @@ window.BLOODWORK =
     ]
    },
    {
-    "id": "weekly",
+    "id": "biweekly",
     "t": "Biweekly",
     "items": [
      {
-      "n": "Trout — 300g",
+      "n": "Trout",
+      "amt": "300g",
       "info": {
-       "Ingredients": [
-        [
-         "",
-         "Fresh trout, cooked"
-        ]
-       ],
        "Macronutrients — per 300g cooked": [
         [
          "Energy",
