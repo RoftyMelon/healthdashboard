@@ -767,6 +767,9 @@ a.sbuy:hover{color:var(--info)}
 .drow .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ccard li.drow:last-child{border-bottom:.5px solid var(--line2)}   /* the last food in a meal keeps its line, closing the list before Supplements */
 .drow .exinfo,.srow.lite .exinfo{top:calc(100% + 4px);left:0;right:auto}   /* Diet food tips drop BELOW their own row, not the card corner */
+/* ...except the untimed section, which is the LAST thing on the Diet page. A tip dropping
+   below it opens off the bottom of the document and gets clipped, so it opens upward. */
+.dfoods .srow.lite .exinfo{top:auto;bottom:calc(100% + 4px)}
 /* Same treatment for a skincare product row carrying a caveat: position:relative makes the ROW
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
