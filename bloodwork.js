@@ -162,7 +162,7 @@ window.BLOODWORK =
     ],
     "url": null,
     "dec": null,
-    "judge": "time to redness in consistent sun; skin photos for hydration"
+    "judge": "time to redness in consistent sun, and skin photos — read at the next draw, end of 2026"
    },
    {
     "id": "lyco",
@@ -209,7 +209,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/lycopene-capsules.html",
     "dec": null,
-    "judge": "skin tone — photos in consistent light, the same instrument as beta-carotene"
+    "judge": "skin tone — photos in consistent light, read at the next draw, end of 2026"
    },
    {
     "id": "vitd3k2",
@@ -358,7 +358,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html",
     "dec": "Glycine 8g + taurine + collagen",
-    "judge": "skin hydration and fine lines — photos in consistent light over 12 weeks"
+    "judge": "skin hydration and fine lines — photos in consistent light, read at the next draw, end of 2026"
    },
    {
     "id": "ha",
@@ -401,7 +401,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/hyaluronic-acid-250mg-high-dose-vegan-from-fermentation.html",
     "dec": null,
-    "judge": "skin hydration — photos in consistent light over 12 weeks"
+    "judge": "skin hydration — photos in consistent light, read at the next draw, end of 2026"
    },
    {
     "id": "mglthr",
@@ -450,7 +450,7 @@ window.BLOODWORK =
     "id": "betacar",
     "name": "Beta-carotene",
     "ev": "moderate",
-    "judge": "skin tone — photos in consistent light over a few weeks",
+    "judge": "skin tone — photos in consistent light, read at the next draw, end of 2026",
     "dose": "15mg",
     "info": {
      "What it does": [

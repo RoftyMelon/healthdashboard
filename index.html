@@ -2207,7 +2207,10 @@ function renderPage(p){
         (sec.foot?`<div class="rfoot">${esc(sec.foot)}</div>`:'')+
         `</div>`).join('');
   } else if(p==='stack'&&STACK){
-    h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.length} listed · Daily doses</div>`;
+    /* counted, not hardcoded: "Daily doses" described 7 of the 19 and the other 12 have no daily
+       dose at all — they are parked. A subtitle that overstates what is being swallowed is the
+       one line on the page nobody would think to check. */
+    h=`<div class="pgh">Supplement stack</div><div class="pgsub">${STACK.items.filter(s=>s.status==='taking').length} daily &middot; ${STACK.items.filter(s=>s.status!=='taking').length} parked</div>`;
     if(STACK.intro)h+=`<div class="cnote lead">${esc(STACK.intro)}</div>`;
     const renderCat=c=>{
       const items=STACK.items.filter(s=>s.cat===c.id);
