@@ -1148,7 +1148,7 @@ window.BLOODWORK =
          "8%"
         ]
        ],
-       "Minerals": [
+       "Standouts": [
         [
          "Calcium",
          "350 mg",
@@ -1262,7 +1262,7 @@ window.BLOODWORK =
          "41%"
         ]
        ],
-       "Micronutrients": [
+       "Standouts": [
         [
          "Choline",
          "738 mg"
@@ -1685,7 +1685,7 @@ window.BLOODWORK =
          "1 g"
         ]
        ],
-       "Minerals": [
+       "Standouts": [
         [
          "Magnesium",
          "23 mg",
@@ -1916,7 +1916,7 @@ window.BLOODWORK =
          "23%"
         ]
        ],
-       "Minerals": [
+       "Standouts": [
         [
          "Iron",
          "5 mg",
@@ -2237,7 +2237,7 @@ window.BLOODWORK =
          "1 g"
         ]
        ],
-       "Minerals": [
+       "Standouts": [
         [
          "Magnesium",
          "23 mg",
