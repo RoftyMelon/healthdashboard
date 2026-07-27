@@ -1186,7 +1186,7 @@ window.BLOODWORK =
        "Mackerel 80g · Changes": [
         [
          "1 Aug 2026",
-         "added"
+         "replaced 100g mozzarella"
         ]
        ],
        "Mackerel 80g · Notes": [
@@ -1247,7 +1247,7 @@ window.BLOODWORK =
        "Tofu 125g · Changes": [
         [
          "1 Aug 2026",
-         "added"
+         "replaced 100g mozzarella"
         ]
        ]
       }
