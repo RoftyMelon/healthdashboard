@@ -1253,12 +1253,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
-       ],
-       "Tofu 125g · Notes": [
-        [
-         "",
-         "Half a 250g pack"
-        ]
        ]
       }
      },
@@ -1398,12 +1392,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "fried in grapeseed → poached"
-        ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Grapeseed oil is ~70% linoleic acid — don't go back to frying"
         ]
        ]
       }
