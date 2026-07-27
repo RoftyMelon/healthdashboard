@@ -1948,8 +1948,8 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
-         "20% → 5% lean beef"
+         "1 Aug 2026",
+         "15% → 5% lean beef"
         ]
        ]
       }
@@ -2330,7 +2330,7 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
+         "1 Aug 2026",
          "added"
         ]
        ]
