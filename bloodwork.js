@@ -1182,7 +1182,7 @@ window.BLOODWORK =
        "Tofu 125g": [
         [
          "",
-         "Calcium-set — 188mg calcium/100g. Full list not recorded."
+         "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
         ],
         [
          "Energy",
@@ -1231,6 +1231,10 @@ window.BLOODWORK =
         ]
        ],
        "Notes": [
+        [
+         "Tofu",
+         "half a 250g pack"
+        ],
         [
          "Half a 160g pack",
          "the rest keeps 48 h at 4°C"
