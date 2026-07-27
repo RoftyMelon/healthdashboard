@@ -1144,19 +1144,11 @@ window.BLOODWORK =
       "n": "Mackerel or Tofu",
       "amt": "80g fish / 125g tofu",
       "info": {
-       "Ingredients — mackerel": [
+       "Mackerel 80g": [
         [
          "",
          "Mackerel (Scomber scombrus) 97%, salt, pepper"
-        ]
-       ],
-       "Ingredients — tofu": [
-        [
-         "",
-         "Calcium-set — 188mg calcium/100g. Full list not recorded."
-        ]
-       ],
-       "Macros — mackerel 80g": [
+        ],
         [
          "Energy",
          "212kcal",
@@ -1187,7 +1179,11 @@ window.BLOODWORK =
          "~2g"
         ]
        ],
-       "Macros — tofu 125g": [
+       "Tofu 125g": [
+        [
+         "",
+         "Calcium-set — 188mg calcium/100g. Full list not recorded."
+        ],
         [
          "Energy",
          "181kcal",
