@@ -1898,12 +1898,6 @@ window.BLOODWORK =
          "15% → 5% fat"
         ]
        ],
-       "Lean beef 200g · Notes": [
-        [
-         "",
-         "2-3x/week"
-        ]
-       ],
        "Chicken 200g · Ingredients": [
         [
          "",
@@ -1957,12 +1951,6 @@ window.BLOODWORK =
          "Zinc",
          "1.8mg",
          "18%"
-        ]
-       ],
-       "Chicken 200g · Changes": [
-        [
-         "1 Aug 2026",
-         "added"
         ]
        ]
       }
