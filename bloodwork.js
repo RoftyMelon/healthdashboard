@@ -1370,14 +1370,6 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "18 Jul 2026",
-         "6–10 → 6"
-        ],
-        [
-         "26 Jul 2026",
-         "6 → 5"
-        ],
-        [
          "1 Aug 2026",
          "fried in grapeseed → poached"
         ]
