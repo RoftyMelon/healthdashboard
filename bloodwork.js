@@ -1376,8 +1376,8 @@ window.BLOODWORK =
        ],
        "Notes": [
         [
-         "Not fried",
-         "grapeseed oil is ~70% linoleic acid"
+         "",
+         "Grapeseed oil is ~70% linoleic acid — don't go back to frying"
         ]
        ]
       }
