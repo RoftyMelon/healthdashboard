@@ -29,7 +29,7 @@ window.BLOODWORK =
    "bodyfat": "~12%",
    "training": "resistance 1h15/day, plus one 30-min HIT run per week",
    "country": "France",
-   "diet": "See the DIET tab. Rarely fish; lots of olive oil; mozzarella 100g/meal, 4 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Rarely fish; lots of olive oil; no cheese, 5 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
    "alcohol": "none — does not drink",
    "supervision": "none"
   },
@@ -1123,56 +1123,6 @@ window.BLOODWORK =
       }
      },
      "---",
-     {
-      "n": "Mozzarella di bufala",
-      "amt": "100 g",
-      "info": {
-       "Per 100 g": [
-        [
-         "Energy",
-         "275 kcal",
-         "14%"
-        ],
-        [
-         "Protein",
-         "17 g",
-         "34%"
-        ],
-        [
-         "Fat",
-         "22 g",
-         "31%"
-        ],
-        [
-         "– saturates",
-         "15 g",
-         "75%"
-        ],
-        [
-         "Salt",
-         "0.5 g",
-         "8%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Calcium",
-         "350 mg",
-         "44%"
-        ],
-        [
-         "Phosphorus",
-         "350 mg",
-         "50%"
-        ],
-        [
-         "Zinc",
-         "2 mg",
-         "20%"
-        ]
-       ]
-      }
-     },
      {
       "n": "Cherry tomatoes",
       "amt": "150 g",
