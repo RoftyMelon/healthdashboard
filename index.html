@@ -768,6 +768,9 @@ a.sbuy:hover{color:var(--info)}
    auto floors it at min-content, which is exactly the guarantee wanted: wrap, never vanish. */
 .stop .sn{flex:none;white-space:nowrap}
 .nb{white-space:nowrap}   /* one word of a name — the only places a name may break are the spaces between these */
+/* the ↗ is inline text now, not a flex item, so it rides the name's own line box: no align-self,
+   and the 10px flex gap that used to space it is gone with it. Same nudge the card-list ↗ gets. */
+.stop .sn .sbuy{display:inline-block;margin-left:5px;position:relative;top:-1px}
 .sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
 .sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
@@ -2125,8 +2128,13 @@ const tipSec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${ro
    fall where I put a space — "Omega-3" and "L-threonate" keep their hyphens. white-space:normal
    alone gave "Omega-" / "3" on every phone, and word-break:keep-all does not suppress a hyphen
    break in any browser I tested it in. Shrinking the type instead got B-complex within 8px of
-   fitting, which is not a fix, it is a coincidence waiting to be broken by the next long name. */
-const wordSafe=n=>esc(n).split(' ').map(w=>`<span class="nb">${w}</span>`).join(' ');
+   fitting, which is not a fix, it is a coincidence waiting to be broken by the next long name.
+   The optional tail (the ↗ link) rides INSIDE the last word's span, so it can never be separated
+   from the name it belongs to. As its own flex item it was align-self:center — centred on the
+   ROW rather than the text — so it drifted lower as a row grew taller, and on a wrapped name it
+   stranded itself 125px from the last word, beside line 1 while the word sat on line 2. */
+const wordSafe=(n,tail='')=>{const w=esc(n).split(' ');
+  return w.map((x,i)=>`<span class="nb">${x}${i===w.length-1?tail:''}</span>`).join(' ');};
 const tipSecs=s=>{
   const secs=Object.entries(s.info||{});
   if(s.judge&&s.cat!=='maylater')secs.push(['Judge by',[['',s.judge]]]);
@@ -2259,8 +2267,9 @@ function renderPage(p){
           // the first line is its own NOWRAP container: inside a wrapping flex row nothing ever
           // shrinks, it just breaks, which is how the ⓘ ended up alone on line 2
           return `<div class="srow${dead?' off':''}"><div class="stop">`+
-            `<span class="sn">${wordSafe(s.name)}</span>`+
-            (s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`:'')+   // ↗ hugs the name
+            // ↗ hugs the LAST WORD, inside the name span — never a sibling of it
+            `<span class="sn">${wordSafe(s.name,
+              s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`:'')}</span>`+
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
             // the tag sits between the dose and the ⓘ, so the three trailing columns read
