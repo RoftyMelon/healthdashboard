@@ -1118,8 +1118,11 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
       <button class="pt" data-pg="nextdraw" onclick="setPage('nextdraw')">Next Draw</button>
       <button class="pt" data-pg="stack" onclick="setPage('stack')">Stack</button>
-      <button class="pt" data-pg="grooming" onclick="setPage('grooming')">Grooming</button>
+      <!-- Stack then Diet, adjacent on purpose: the Diet page builds its per-meal supplement
+           lists out of STACK.when, so the two tabs render the same data from two angles.
+           Grooming follows as the other protocol, then Routine, which is when it all happens. -->
       <button class="pt" data-pg="diet" onclick="setPage('diet')">Diet</button>
+      <button class="pt" data-pg="grooming" onclick="setPage('grooming')">Grooming</button>
       <button class="pt" data-pg="routine" onclick="setPage('routine')">Routine</button>
       <button class="pt" data-pg="training" onclick="setPage('training')">Training</button>
       <button class="pt" data-pg="record" onclick="setPage('record')">Record</button>
