@@ -1124,35 +1124,35 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Smoked fish / tofu — alternating",
-      "amt": "100 g fish / 125 g tofu, alternate days",
+      "n": "Smoked mackerel / tofu — alternating",
+      "amt": "80 g fish / 125 g tofu, alternate days",
       "info": {
        "Ingredients": [
         [
          "",
-         "Smoked mackerel or trout one day, calcium-set tofu the next"
+         "Smoked mackerel with pepper one day, calcium-set tofu the next"
         ]
        ],
        "Per serving, averaged": [
         [
          "Energy",
-         "169 kcal",
-         "8%"
+         "196 kcal",
+         "10%"
         ],
         [
          "Protein",
-         "20 g",
-         "40%"
+         "16 g",
+         "32%"
         ],
         [
          "Fat",
-         "9.5 g",
-         "14%"
+         "14 g",
+         "20%"
         ],
         [
          "– saturates",
-         "1.6 g",
-         "8%"
+         "3.6 g",
+         "18%"
         ],
         [
          "Fibre",
@@ -1160,19 +1160,19 @@ window.BLOODWORK =
         ],
         [
          "Salt",
-         "1.6 g",
-         "26%"
+         "0.8 g",
+         "13%"
         ]
        ],
        "Standouts": [
         [
+         "EPA + DHA",
+         "~1 g averaged"
+        ],
+        [
          "Calcium",
          "~118 mg",
          "15%"
-        ],
-        [
-         "EPA + DHA",
-         "~1.25 g"
         ],
         [
          "Magnesium",
@@ -1182,12 +1182,16 @@ window.BLOODWORK =
        ],
        "The two days": [
         [
+         "Mackerel 80 g",
+         "2 g EPA+DHA, 5.2 g saturated, 1.6 g salt"
+        ],
+        [
          "Tofu 125 g",
          "235 mg calcium, 74 mg magnesium, no salt"
         ],
         [
-         "Fish 100 g",
-         "2.5 g EPA+DHA if mackerel, 1.2 if trout"
+         "Half a 160 g pack",
+         "the rest keeps 48 h at 4°C, no longer"
         ]
        ],
        "Changed": [
@@ -2355,71 +2359,6 @@ window.BLOODWORK =
          "Manganese",
          "0.2 mg",
          "10%"
-        ]
-       ],
-       "Changed": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ]
-      }
-     }
-    ]
-   },
-   {
-    "id": "weekly",
-    "t": "Weekly",
-    "items": [
-     {
-      "n": "Trout — 300 g, once or twice a week (weekend)",
-      "info": {
-       "Per 300 g cooked": [
-        [
-         "Energy",
-         "500 kcal",
-         "25%"
-        ],
-        [
-         "Protein",
-         "72 g",
-         "144%"
-        ],
-        [
-         "Fat",
-         "21 g",
-         "30%"
-        ],
-        [
-         "– saturates",
-         "4.5 g",
-         "23%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "EPA + DHA",
-         "~3 g"
-        ],
-        [
-         "Vit D",
-         "~1600 IU",
-         "800%"
-        ],
-        [
-         "B12",
-         "~15 mcg",
-         "600%"
-        ],
-        [
-         "Selenium",
-         "~42 mcg",
-         "76%"
-        ],
-        [
-         "Potassium",
-         "~1200 mg",
-         "60%"
         ]
        ],
        "Changed": [
