@@ -121,7 +121,7 @@ window.BLOODWORK =
     "id": "astax",
     "name": "Astaxanthin",
     "ev": "moderate",
-    "dose": "12mg 2x/day",
+    "dose": "24mg",
     "info": {
      "What it does": [
       [
@@ -132,19 +132,13 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg."
+       "24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg — held here rather than raised until it has shown it does anything."
       ]
      ],
      "Evidence": [
       [
        "",
        "Several small RCTs for burn threshold and skin hydration. No outcome data."
-      ]
-     ],
-     "Watch": [
-      [
-       "",
-       "Held at 24mg rather than raised, until it has shown it does anything."
       ]
      ],
      "Changes": [
@@ -174,7 +168,7 @@ window.BLOODWORK =
     "id": "lyco",
     "name": "Lycopene",
     "ev": "moderate",
-    "dose": "15mg 2x/day",
+    "dose": "30mg",
     "info": {
      "What it does": [
       [
@@ -519,6 +513,12 @@ window.BLOODWORK =
       [
        "",
        "NOT 1:1 with NAC — the trial dosed by moles, which works out to 1:1.33 by weight."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Gated with NAC — the pair is one decision. On its own it would be a 3g sleep trial, which is a different question."
       ]
      ]
     },
