@@ -1124,6 +1124,139 @@ window.BLOODWORK =
      },
      "---",
      {
+      "n": "Smoked fish / tofu — alternating",
+      "amt": "100 g, alternate days",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Smoked mackerel or trout one day, calcium-set tofu the next"
+        ]
+       ],
+       "Per 100 g, averaged": [
+        [
+         "Energy",
+         "170 kcal",
+         "9%"
+        ],
+        [
+         "Protein",
+         "18 g",
+         "36%"
+        ],
+        [
+         "Fat",
+         "9 g",
+         "13%"
+        ],
+        [
+         "– saturates",
+         "1.2 g",
+         "6%"
+        ],
+        [
+         "Salt",
+         "1.6 g",
+         "27%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "EPA + DHA",
+         "~1.25 g averaged"
+        ],
+        [
+         "Calcium",
+         "~175 mg averaged",
+         "22%"
+        ],
+        [
+         "Mackerel over trout",
+         "2.5 g EPA+DHA vs 1.2"
+        ],
+        [
+         "Tofu must say",
+         "sulfate de calcium (E516)"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Avocado (half)",
+      "amt": "~70 g",
+      "info": {
+       "Per ~70 g": [
+        [
+         "Energy",
+         "112 kcal",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "6 g",
+         "2%"
+        ],
+        [
+         "Fibre",
+         "4.7 g"
+        ],
+        [
+         "Protein",
+         "1.4 g",
+         "3%"
+        ],
+        [
+         "Fat",
+         "10 g",
+         "14%"
+        ],
+        [
+         "– saturates",
+         "1.5 g",
+         "8%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Folate",
+         "57 mcg",
+         "14%"
+        ],
+        [
+         "Potassium",
+         "340 mg",
+         "17%"
+        ],
+        [
+         "Vit K",
+         "15 mcg",
+         "20%"
+        ],
+        [
+         "Vit E",
+         "1.4 mg",
+         "12%"
+        ],
+        [
+         "Monounsaturated",
+         "6.8 g of the 10"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Cherry tomatoes",
       "amt": "150 g",
       "info": {
