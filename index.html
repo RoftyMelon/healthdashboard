@@ -717,6 +717,9 @@ a.sbuy:hover{color:var(--info)}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
 .exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
+/* one track per food, so a column is a whole food rather than wherever the flow happened to break */
+.ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
+.ncolh{font-weight:700;font-size:11.5px;color:var(--txt);padding:0 0 3px;border-bottom:1px solid var(--line);margin-bottom:2px}
 .nsecw{break-inside:avoid}
 .nsec{font-weight:700;font-size:10.5px;letter-spacing:.02em;color:var(--t3);padding:6px 0 2px}
 .nsecw:first-child .nsec{padding-top:0}
@@ -2243,7 +2246,13 @@ function renderPage(p){
     const foodTip=x=>{                                   // a food item's optional info: string caveat OR nutrition table
       if(typeof x!=='object'||!x.info)return '';
       const info=x.info, body=typeof info==='string'?esc(info)
-        :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>{
+        :(()=>{
+          /* ALTERNATING items name every section "<Food> · <Section>". Each food then gets its
+             OWN column carrying the full five-section template, instead of the default flow
+             deciding where to break — which put one food's numbers bottom-left and the other's
+             top-right. Taller bubble, but you read one food straight down. */
+          const alt=Object.keys(info).length>1&&Object.keys(info).every(k=>k.includes(' · '));
+          const row=r=>{
             /* A value containing a SPACE is a phrase, not a measurement — units are attached
                ("212kcal", "~2g"), so a space means prose. It gets its own line. The old test was
                length>14, which let "6.8g of the 10" (exactly 14) stay inline, where the nowrap
@@ -2253,7 +2262,14 @@ function renderPage(p){
             // already called Ingredients does not need naming a second time
             if(!r[0])return `<div class="nrow bare"><span class="nval">${esc(r[1])}</span></div>`;
             return `<div class="nrow${prose?' prose':''}"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`;
-          }).join('')+`</div>`).join('')+`</div>`;
+          };
+          const sec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${rows.map(row).join('')}</div>`;
+          if(!alt)return `<div class="ntab">`+Object.entries(info).map(([k,v])=>sec(k,v)).join('')+`</div>`;
+          const cols={};
+          Object.entries(info).forEach(([k,v])=>{const [food,name]=k.split(' · ');(cols[food]=cols[food]||[]).push([name,v]);});
+          return `<div class="ntab alt">`+Object.entries(cols).map(([food,secs])=>
+            `<div class="ncol"><div class="ncolh">${esc(food)}</div>`+secs.map(([n,v])=>sec(n,v)).join('')+`</div>`).join('')+`</div>`;
+        })();
       return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
     };
     /* An item with TWO Energy rows is an item with alternatives — mackerel one day, tofu the

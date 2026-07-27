@@ -727,7 +727,7 @@ window.BLOODWORK =
       "n": "Huel Black",
       "amt": "90g",
       "info": {
-       "Macros — per 90g": [
+       "Macronutrients — per 90g": [
         [
          "Energy",
          "400kcal",
@@ -954,7 +954,7 @@ window.BLOODWORK =
       "n": "Banana",
       "amt": "1",
       "info": {
-       "Macros — per 1 (~118g)": [
+       "Macronutrients — per 1 (~118g)": [
         [
          "Energy",
          "105kcal",
@@ -1014,7 +1014,7 @@ window.BLOODWORK =
          "Redcurrant, blackberry, blackcurrant, wild blueberry, raspberry — all organic"
         ]
        ],
-       "Macros — per 75g": [
+       "Macronutrients — per 75g": [
         [
          "Energy",
          "36kcal",
@@ -1089,7 +1089,7 @@ window.BLOODWORK =
       "n": "Coffee half-caffeine + milk",
       "amt": "230 + 100ml",
       "info": {
-       "Macros — per 330ml": [
+       "Macronutrients — per 330ml": [
         [
          "Energy",
          "~50kcal",
@@ -1144,11 +1144,13 @@ window.BLOODWORK =
       "n": "Mackerel or Tofu",
       "amt": "80g fish / 125g tofu",
       "info": {
-       "Mackerel 80g": [
+       "Mackerel 80g · Ingredients": [
         [
          "",
          "Mackerel (Scomber scombrus) 97%, salt, pepper"
-        ],
+        ]
+       ],
+       "Mackerel 80g · Macronutrients": [
         [
          "Energy",
          "212kcal",
@@ -1173,17 +1175,33 @@ window.BLOODWORK =
          "Salt",
          "1.6g",
          "27%"
-        ],
+        ]
+       ],
+       "Mackerel 80g · Standouts": [
         [
          "EPA + DHA",
          "~2g"
         ]
        ],
-       "Tofu 125g": [
+       "Mackerel 80g · Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Mackerel 80g · Notes": [
+        [
+         "",
+         "Half a 160g pack — the rest keeps 48h at 4°C"
+        ]
+       ],
+       "Tofu 125g · Ingredients": [
         [
          "",
          "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
-        ],
+        ]
+       ],
+       "Tofu 125g · Macronutrients": [
         [
          "Energy",
          "181kcal",
@@ -1212,7 +1230,9 @@ window.BLOODWORK =
          "Salt",
          "0g",
          "0%"
-        ],
+        ]
+       ],
+       "Tofu 125g · Standouts": [
         [
          "Calcium",
          "235mg",
@@ -1224,20 +1244,16 @@ window.BLOODWORK =
          "20%"
         ]
        ],
-       "Changes": [
+       "Tofu 125g · Changes": [
         [
          "1 Aug 2026",
          "added"
         ]
        ],
-       "Notes": [
+       "Tofu 125g · Notes": [
         [
-         "Tofu",
-         "half a 250g pack"
-        ],
-        [
-         "Half a 160g pack",
-         "the rest keeps 48 h at 4°C"
+         "",
+         "Half a 250g pack"
         ]
        ]
       }
@@ -1246,7 +1262,7 @@ window.BLOODWORK =
       "n": "Avocado half",
       "amt": "~70g",
       "info": {
-       "Macros — per ~70g": [
+       "Macronutrients — per ~70g": [
         [
          "Energy",
          "112kcal",
@@ -1316,7 +1332,7 @@ window.BLOODWORK =
       "n": "Eggs poached",
       "amt": "5",
       "info": {
-       "Macros — per 5 (~250g)": [
+       "Macronutrients — per 5 (~250g)": [
         [
          "Energy",
          "388kcal",
@@ -1406,7 +1422,7 @@ window.BLOODWORK =
          "sunflower oil + cream"
         ]
        ],
-       "Macros — per 300g": [
+       "Macronutrients — per 300g": [
         [
          "Energy",
          "300kcal",
@@ -1464,7 +1480,7 @@ window.BLOODWORK =
       "n": "Olive oil",
       "amt": "10mL",
       "info": {
-       "Macros — per 10mL": [
+       "Macronutrients — per 10mL": [
         [
          "Energy",
          "80kcal",
@@ -1492,7 +1508,7 @@ window.BLOODWORK =
       "n": "Fruit (apple, pear, peach…)",
       "amt": "~150g",
       "info": {
-       "Macros — per piece (~150g)": [
+       "Macronutrients — per piece (~150g)": [
         [
          "Energy",
          "80kcal",
@@ -1535,7 +1551,7 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Macros — per 250mL": [
+       "Macronutrients — per 250mL": [
         [
          "Energy",
          "110kcal",
@@ -1616,7 +1632,7 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Macros — per ~15g": [
+       "Macronutrients — per ~15g": [
         [
          "Energy",
          "90kcal",
@@ -1675,7 +1691,7 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Macros — per ~10g": [
+       "Macronutrients — per ~10g": [
         [
          "Energy",
          "60kcal",
@@ -1743,7 +1759,7 @@ window.BLOODWORK =
       "n": "Wild rice or whole-grain pasta",
       "amt": "~75g",
       "info": {
-       "Macros — per ~75g cooked": [
+       "Macronutrients — per ~75g cooked": [
         [
          "Energy",
          "90kcal",
@@ -1776,7 +1792,7 @@ window.BLOODWORK =
       "n": "Legumes (lentils, beans...)",
       "amt": "~75g",
       "info": {
-       "Macros — per ~75g cooked": [
+       "Macronutrients — per ~75g cooked": [
         [
          "Energy",
          "95kcal",
@@ -1826,7 +1842,7 @@ window.BLOODWORK =
       "n": "Olive oil",
       "amt": "50mL",
       "info": {
-       "Macros — per 50mL": [
+       "Macronutrients — per 50mL": [
         [
          "Energy",
          "405kcal",
@@ -1858,7 +1874,7 @@ window.BLOODWORK =
       "n": "Lean ground beef or chicken",
       "amt": "~200g",
       "info": {
-       "Macros — lean beef 5% (~200g)": [
+       "Macronutrients — lean beef 5% (~200g)": [
         [
          "Energy",
          "300kcal",
@@ -1924,7 +1940,7 @@ window.BLOODWORK =
       "n": "Frozen greens — spinach, broccoli",
       "amt": "~150g",
       "info": {
-       "Macros — per ~150g cooked": [
+       "Macronutrients — per ~150g cooked": [
         [
          "Energy",
          "45kcal",
@@ -1988,7 +2004,7 @@ window.BLOODWORK =
       "n": "Kiwis",
       "amt": "2",
       "info": {
-       "Macros — per 2 (~140g)": [
+       "Macronutrients — per 2 (~140g)": [
         [
          "Energy",
          "85kcal",
@@ -2043,7 +2059,7 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Macros — per 250mL": [
+       "Macronutrients — per 250mL": [
         [
          "Energy",
          "110kcal",
@@ -2124,7 +2140,7 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Macros — per ~15g": [
+       "Macronutrients — per ~15g": [
         [
          "Energy",
          "90kcal",
@@ -2183,7 +2199,7 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Macros — per ~10g": [
+       "Macronutrients — per ~10g": [
         [
          "Energy",
          "60kcal",
