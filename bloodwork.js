@@ -2421,10 +2421,6 @@ window.BLOODWORK =
         [
          "",
          "No omega-3 supplement with this meal"
-        ],
-        [
-         "",
-         "On top of the alternate-day mackerel, not instead of it"
         ]
        ]
       }
