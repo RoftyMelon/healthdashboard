@@ -1073,7 +1073,7 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added, 75g"
+         "added"
         ]
        ]
       }
@@ -1801,7 +1801,7 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added, 75g"
+         "added"
         ]
        ]
       }
