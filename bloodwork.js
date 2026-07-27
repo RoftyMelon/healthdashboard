@@ -1087,9 +1087,9 @@ window.BLOODWORK =
     "items": [
      {
       "n": "Coffee half-caffeine + milk",
-      "amt": "230 + 100ml",
+      "amt": "230 + 100mL",
       "info": {
-       "Macronutrients — per 330ml": [
+       "Macronutrients — per 330mL": [
         [
          "Energy",
          "~50kcal",
@@ -1757,7 +1757,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Legumes (lentils, beans...)",
+      "n": "Legumes (lentils, beans…)",
       "amt": "~75g",
       "info": {
        "Macronutrients — per ~75g cooked": [
