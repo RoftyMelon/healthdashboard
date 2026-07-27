@@ -112,11 +112,14 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   calculation.
   A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
   panel names the draws where an `am` marker recorded no method.
-- **A DIET tooltip's sections have a fixed order**, because the two-column layout means whatever
-  comes first fills the left column where the eye lands: `Ingredients` (what it is) → `Cooked`
-  (how it is prepared) → the `Per Xg` panel → `Standouts` → anything item-specific → `Changed`
-  last. It regressed once already: a pass that renamed sections by pop-and-reinsert moved every
-  renamed one to the end, so `Changed` rendered above the nutrition panel.
+- **A DIET tooltip has FOUR sections, in this order**: `Ingredients` (what it is made of) →
+  `Macros` (the nutrition panel) → `Standouts` (the notable micronutrients) → `Notes` (everything
+  else: preparation, rotation, storage, and the dated change log). Order matters because the
+  two-column layout fills left before right, so the first section is what the eye lands on.
+  Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
+  fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
+  `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
+  sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
   render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why

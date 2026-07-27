@@ -727,7 +727,7 @@ window.BLOODWORK =
       "n": "Huel Black",
       "amt": "90g",
       "info": {
-       "Per 90g": [
+       "Macros": [
         [
          "Energy",
          "400kcal",
@@ -954,7 +954,7 @@ window.BLOODWORK =
       "n": "Banana",
       "amt": "1",
       "info": {
-       "Per 1 (~118g)": [
+       "Macros": [
         [
          "Energy",
          "105kcal",
@@ -1014,7 +1014,7 @@ window.BLOODWORK =
          "Redcurrant, blackberry, blackcurrant, wild blueberry, raspberry — all organic"
         ]
        ],
-       "Per 75g": [
+       "Macros": [
         [
          "Energy",
          "36kcal",
@@ -1050,7 +1050,7 @@ window.BLOODWORK =
          "2%"
         ]
        ],
-       "Standouts (estimated)": [
+       "Standouts": [
         [
          "Anthocyanins",
          "~100-200mg"
@@ -1070,7 +1070,7 @@ window.BLOODWORK =
          "12%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added, 75g"
@@ -1089,7 +1089,7 @@ window.BLOODWORK =
       "n": "Coffee half-caffeine + milk",
       "amt": "230 + 100ml",
       "info": {
-       "Per 330ml": [
+       "Macros": [
         [
          "Energy",
          "~50kcal",
@@ -1131,7 +1131,7 @@ window.BLOODWORK =
          "13%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
@@ -1179,10 +1179,6 @@ window.BLOODWORK =
         [
          "EPA + DHA",
          "~2g"
-        ],
-        [
-         "Half a 160g pack",
-         "the rest keeps 48 h at 4°C"
         ]
        ],
        "Tofu 125g": [
@@ -1226,7 +1222,11 @@ window.BLOODWORK =
          "20%"
         ]
        ],
-       "Changed": [
+       "Notes": [
+        [
+         "Half a 160g pack",
+         "the rest keeps 48 h at 4°C"
+        ],
         [
          "1 Aug 2026",
          "added"
@@ -1238,7 +1238,7 @@ window.BLOODWORK =
       "n": "Avocado half",
       "amt": "~70g",
       "info": {
-       "Per ~70g": [
+       "Macros": [
         [
          "Energy",
          "112kcal",
@@ -1295,7 +1295,7 @@ window.BLOODWORK =
          "6.8g of the 10"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
@@ -1308,25 +1308,7 @@ window.BLOODWORK =
       "n": "Eggs poached",
       "amt": "5",
       "info": {
-       "Cooked": [
-        [
-         "Poached",
-         "no added oil, ~80°C water"
-        ],
-        [
-         "Not fried",
-         "grapeseed oil is ~70% linoleic acid"
-        ],
-        [
-         "Why",
-         "LA feeds the arachidonic acid that came back high"
-        ],
-        [
-         "Also",
-         "frying oxidises yolk cholesterol into oxysterols"
-        ]
-       ],
-       "Per 5 (~250g)": [
+       "Macros": [
         [
          "Energy",
          "388kcal",
@@ -1384,7 +1366,11 @@ window.BLOODWORK =
          "60%"
         ]
        ],
-       "Changed": [
+       "Notes": [
+        [
+         "Not fried",
+         "grapeseed oil is ~70% linoleic acid"
+        ],
         [
          "18 Jul 2026",
          "6–10 → 6"
@@ -1418,7 +1404,7 @@ window.BLOODWORK =
          "sunflower oil + cream"
         ]
        ],
-       "Per 300g": [
+       "Macros": [
         [
          "Energy",
          "300kcal",
@@ -1476,7 +1462,7 @@ window.BLOODWORK =
       "n": "Olive oil",
       "amt": "10mL",
       "info": {
-       "Per 10mL": [
+       "Macros": [
         [
          "Energy",
          "80kcal",
@@ -1504,7 +1490,7 @@ window.BLOODWORK =
       "n": "Fruit (apple, pear, peach…)",
       "amt": "~150g",
       "info": {
-       "Per piece (~150g)": [
+       "Macros": [
         [
          "Energy",
          "80kcal",
@@ -1547,7 +1533,7 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 250mL": [
+       "Macros": [
         [
          "Energy",
          "110kcal",
@@ -1600,7 +1586,7 @@ window.BLOODWORK =
          "lactose only, none added"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added — one 500mL bottle a day, split across both meals"
@@ -1626,7 +1612,7 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Per ~15g": [
+       "Macros": [
         [
          "Energy",
          "90kcal",
@@ -1663,7 +1649,7 @@ window.BLOODWORK =
          "7%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
@@ -1685,7 +1671,7 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Per ~10g": [
+       "Macros": [
         [
          "Energy",
          "60kcal",
@@ -1733,7 +1719,7 @@ window.BLOODWORK =
          "10%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
@@ -1753,7 +1739,7 @@ window.BLOODWORK =
       "n": "Wild rice or whole-grain pasta",
       "amt": "~75g",
       "info": {
-       "Per ~75g cooked": [
+       "Macros": [
         [
          "Energy",
          "90kcal",
@@ -1774,7 +1760,7 @@ window.BLOODWORK =
          "2g"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "refined → whole grain"
@@ -1786,7 +1772,7 @@ window.BLOODWORK =
       "n": "Legumes (lentils, beans...)",
       "amt": "~75g",
       "info": {
-       "Per ~75g cooked": [
+       "Macros": [
         [
          "Energy",
          "95kcal",
@@ -1824,7 +1810,7 @@ window.BLOODWORK =
          "14%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added, 75g"
@@ -1836,7 +1822,7 @@ window.BLOODWORK =
       "n": "Olive oil",
       "amt": "50mL",
       "info": {
-       "Per 50mL": [
+       "Macros": [
         [
          "Energy",
          "405kcal",
@@ -1868,7 +1854,7 @@ window.BLOODWORK =
       "n": "Lean ground beef or chicken",
       "amt": "~200g",
       "info": {
-       "Lean beef 5% (~200g)": [
+       "Macros": [
         [
          "Energy",
          "300kcal",
@@ -1912,17 +1898,15 @@ window.BLOODWORK =
          "55%"
         ]
        ],
-       "Rotation": [
+       "Notes": [
         [
          "Beef",
          "2-3x/week"
         ],
         [
          "Otherwise",
-         "chicken, or the weekly trout"
-        ]
-       ],
-       "Changed": [
+         "chicken"
+        ],
         [
          "1 Aug 2026",
          "15% → 5% lean beef"
@@ -1934,7 +1918,7 @@ window.BLOODWORK =
       "n": "Frozen greens — spinach, broccoli",
       "amt": "~150g",
       "info": {
-       "Per ~150g cooked": [
+       "Macros": [
         [
          "Energy",
          "45kcal",
@@ -1973,19 +1957,17 @@ window.BLOODWORK =
          "1-2.6mg"
         ]
        ],
-       "Folate, by green": [
+       "Notes": [
         [
-         "Spinach",
+         "Folate — Spinach",
          "220mcg",
          "55%"
         ],
         [
-         "Broccoli",
+         "Folate — Broccoli",
          "160mcg",
          "40%"
-        ]
-       ],
-       "Changed": [
+        ],
         [
          "1 Aug 2026",
          "added, ~150g"
@@ -1998,7 +1980,7 @@ window.BLOODWORK =
       "n": "Kiwis",
       "amt": "2",
       "info": {
-       "Per 2 (~140g)": [
+       "Macros": [
         [
          "Energy",
          "85kcal",
@@ -2053,7 +2035,7 @@ window.BLOODWORK =
          "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 250mL": [
+       "Macros": [
         [
          "Energy",
          "110kcal",
@@ -2106,7 +2088,7 @@ window.BLOODWORK =
          "lactose only, none added"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added — one 500mL bottle a day, split across both meals"
@@ -2132,7 +2114,7 @@ window.BLOODWORK =
          "4g"
         ]
        ],
-       "Per ~15g": [
+       "Macros": [
         [
          "Energy",
          "90kcal",
@@ -2169,7 +2151,7 @@ window.BLOODWORK =
          "7%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
@@ -2191,7 +2173,7 @@ window.BLOODWORK =
          "Madagascar"
         ]
        ],
-       "Per ~10g": [
+       "Macros": [
         [
          "Energy",
          "60kcal",
@@ -2239,7 +2221,7 @@ window.BLOODWORK =
          "10%"
         ]
        ],
-       "Changed": [
+       "Notes": [
         [
          "1 Aug 2026",
          "added"
