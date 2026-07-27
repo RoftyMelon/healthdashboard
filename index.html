@@ -772,8 +772,11 @@ a.sbuy:hover{color:var(--info)}
 .ccard li.suprow{display:flex;align-items:baseline}
 .suprow .sdn{flex:1;min-width:0}
 .drow .dfn{flex:1;min-width:0}
-.drow .damt{flex:none;margin-left:8px;font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
-.drow .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* The untimed section (.srow.lite) gets the same portion and calorie columns as a meal row.
+   It is the same kind of thing — a food with a weight — and without these its amt renders
+   nowhere at all, which is silent: the row just looks like a food with no portion. */
+.drow .damt,.srow.lite .damt{flex:none;margin-left:8px;font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.drow .dkcal,.srow.lite .dkcal{flex:none;margin-left:10px;font-size:12.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ccard li.drow:last-child{border-bottom:.5px solid var(--line2)}   /* the last food in a meal keeps its line, closing the list before Supplements */
 .drow .exinfo,.srow.lite .exinfo{top:calc(100% + 4px);left:0;right:auto}   /* Diet food tips drop BELOW their own row, not the card corner */
 /* ...except the untimed section, which is the LAST thing on the Diet page. A tip dropping
@@ -2321,7 +2324,10 @@ function renderPage(p){
       `</div>`+
       DIET.meals.filter(m=>!m.at).map(m=>
         `<div class="pgsec dfoods"><div class="pgst mini">${esc(m.t)}</div>`+
-        m.items.map(x=>`<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span>${foodTip(x)}</div>`).join('')+
+        m.items.map(x=>{const k=foodKcal(x);   // same three columns as a meal row: name, portion, kcal
+          return `<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span>`+
+            ((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+
+            (k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</div>`;}).join('')+
         `</div>`).join('');
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;

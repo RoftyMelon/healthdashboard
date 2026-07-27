@@ -2346,6 +2346,12 @@ window.BLOODWORK =
       "n": "Trout",
       "amt": "300g",
       "info": {
+       "Ingredients": [
+        [
+         "",
+         "Fresh trout with skin, cooked"
+        ]
+       ],
        "Macronutrients — per 300g cooked": [
         [
          "Energy",
