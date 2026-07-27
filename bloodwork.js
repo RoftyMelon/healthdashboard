@@ -2411,6 +2411,83 @@ window.BLOODWORK =
       }
      }
     ]
+   },
+   {
+    "id": "weekly",
+    "t": "Weekly",
+    "items": [
+     {
+      "n": "Trout — 300g, once or twice a week (weekend)",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Fresh trout, cooked"
+        ]
+       ],
+       "Macronutrients — per 300g cooked": [
+        [
+         "Energy",
+         "500kcal",
+         "25%"
+        ],
+        [
+         "Protein",
+         "72g",
+         "144%"
+        ],
+        [
+         "Fat",
+         "21g",
+         "30%"
+        ],
+        [
+         "– saturates",
+         "4.5g",
+         "23%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "EPA + DHA",
+         "~3g"
+        ],
+        [
+         "Vit D",
+         "~1600IU",
+         "800%"
+        ],
+        [
+         "B12",
+         "~15mcg",
+         "600%"
+        ],
+        [
+         "Selenium",
+         "~42mcg",
+         "76%"
+        ],
+        [
+         "Potassium",
+         "~1200mg",
+         "60%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "On top of the alternate-day mackerel, not instead of it"
+        ]
+       ]
+      }
+     }
+    ]
    }
   ]
  },
