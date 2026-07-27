@@ -48,7 +48,8 @@
    26 page title (.pgh — caps card titles gain ~40% optical size, so the title
    needs real distance to LOOK biggest) · 14 card/session title (.ccard>b), 12.5 .cgrp ·
    16 body & controls (content rows, page-intro .lead notes, subtitles, tabs,
-   names, search) · 15 secondary (doses, caveat notes, links, 14.5 filter chips) · 14 caps
+   names, search) · 15 secondary (caveat notes, links, 14.5 filter chips; 13.5 stack doses,
+   which share their row with a name that must never break) · 14 caps
    section labels (.pgst/.cgrp) + hints · ~13 micro data (hour marks, kg,
    supplement pills, counts, column heads) · 11.5 absolute floor (chart
    bracket/axis micro-labels only). Mobile may step ONE notch down for density
@@ -629,7 +630,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 /* The 'on now' dot is gone on purpose. Everything outside "May add later" is being taken,
    so a marker distinguishing them marked nothing — it only invited the reader to hunt for
    a difference that no longer exists. Membership in the parked category IS the signal. */
-.sd{font-size:15px;color:var(--t2);font-variant-numeric:tabular-nums;text-align:right}
+.sd{font-size:13.5px;color:var(--t2);font-variant-numeric:tabular-nums;text-align:right}
 .sfill{flex:1}
 .sbuy{flex:none;width:14px;text-align:center;font-size:11px;color:var(--t4);text-decoration:none;align-self:center}
 a.sbuy:hover{color:var(--info)}
@@ -742,17 +743,19 @@ a.sbuy:hover{color:var(--info)}
 .ntab.one{columns:auto;font-size:12.5px;line-height:1.45}
 /* the evidence tag: strong / moderate / weak / none. 'none' is the honest label for a bet with
    no trial base and no assay, so it reads as a warning, not as a missing value. */
-.sev{flex:none;margin-left:7px;align-self:center;font-size:9px;font-weight:700;letter-spacing:.04em;
+.sev{flex:none;align-self:center;font-size:9px;font-weight:700;letter-spacing:.04em;
   text-transform:uppercase;padding:2px 5px;border-radius:5px;white-space:nowrap}
 /* A stack row is TWO lines: the controls, then the judge readout. The controls get their own
    NOWRAP flex container, because inside a wrapping flex row nothing shrinks — it breaks. That is
    why min-width:0 alone did nothing and the ⓘ still sat alone on line 2 for the four longest
-   rows. On a nowrap line the name finally gives ground (min-width:0 lets it shrink past its own
-   content) and wraps to two lines while the pill, dose and ⓘ stay put. .stop must NOT be
-   positioned: the tooltip anchors to .srow, and a relative .stop would re-anchor it to the
-   controls and break the drop-below-the-row placement. */
+   rows. .stop must NOT be positioned: the tooltip anchors to .srow, and a relative .stop would
+   re-anchor it to the controls and break the drop-below-the-row placement. */
 .stop{display:flex;align-items:baseline;gap:10px;flex:0 0 100%;min-width:0;flex-wrap:nowrap}
-.stop .sn{min-width:0}
+/* The NAME never breaks — a supplement split as "Omega-" / "3" is unreadable, and it is the one
+   thing on the row you scan by. The DOSE gives ground instead: it is the only cell whose content
+   is naturally two units ("2000mg EPA + 1125mg DHA"), so it wraps where a break makes sense. */
+.stop .sn{flex:none;white-space:nowrap}
+.stop .sd{min-width:0}
 .sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
 .sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
@@ -2230,11 +2233,11 @@ function renderPage(p){
           return `<div class="srow${dead?' off':''}"><div class="stop">`+
             `<span class="sn">${esc(s.name)}</span>`+
             (s.url?`<a class="sbuy" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Buy ${esc(s.name)}">&#8599;</a>`:'')+   // ↗ hugs the name
-            // evidence tag rides WITH the name, not with the dose: it qualifies the supplement,
-            // not the amount, and a colour beside each name is what makes the tier scannable
-            `<span class="sev ${esc(s.ev)}">${esc(s.ev)}</span>`+
             `<span class="sfill"></span>`+   // spacer: the trailing columns flush right
             (s.dose?`<span class="sd">${esc(s.dose)}</span>`:'')+   // no status badges: the sections carry it
+            // the tag sits between the dose and the ⓘ, so the three trailing columns read
+            // amount → confidence → detail, and the name keeps the whole left edge to itself
+            `<span class="sev ${esc(s.ev)}">${esc(s.ev)}</span>`+
             (s.info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(s.name)} details">i</button>`+
                     `<div class="exinfo"><div class="ntab one">`+tipSecs(s)+`</div></div></span>`
                    :`<span class="tipw"></span>`)+   // reserved slot: tips align into a column
