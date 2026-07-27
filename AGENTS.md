@@ -112,10 +112,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   calculation.
   A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
   panel names the draws where an `am` marker recorded no method.
-- **A DIET tooltip has FOUR sections, in this order**: `Ingredients` (what it is made of) →
-  `Macros` (the nutrition panel) → `Standouts` (the notable micronutrients) → `Notes` (everything
-  else: preparation, rotation, storage, and the dated change log). Order matters because the
-  two-column layout fills left before right, so the first section is what the eye lands on.
+- **A DIET tooltip has FIVE sections, in this order**: `Ingredients` (what it is made of) →
+  `Macros — per Xg` (the nutrition panel, carrying its own portion) → `Standouts` (the notable
+  micronutrients) → `Changes` (the dated log) → `Notes` (preparation, rotation, storage).
+  Order matters because the two-column layout fills left before right, so the first section is
+  what the eye lands on.
   Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
   fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
   `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
