@@ -112,6 +112,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   calculation.
   A marker's `am` (critical / useful) declares that the assay can swing its number at all; the
   panel names the draws where an `am` marker recorded no method.
+- **A DIET tooltip's sections have a fixed order**, because the two-column layout means whatever
+  comes first fills the left column where the eye lands: `Ingredients` (what it is) → `Cooked`
+  (how it is prepared) → the `Per Xg` panel → `Standouts` → anything item-specific → `Changed`
+  last. It regressed once already: a pass that renamed sections by pop-and-reinsert moved every
+  renamed one to the end, so `Changed` rendered above the nutrition panel.
 - **`an` and `cx` are CAPTIONS, not essays. One clause, ~110 characters, hard ceiling.** They
   render inside a tooltip on a datapoint, where anything longer is a wall the user scrolls past.
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why
