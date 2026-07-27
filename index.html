@@ -730,6 +730,8 @@ a.sbuy:hover{color:var(--info)}
 .nrow.prose{display:block;padding:2px 0 3px}
 .nrow.prose .nlab{display:block;white-space:normal;overflow:visible;color:var(--t3);font-weight:600}
 .nrow.prose .nval{display:block;white-space:normal}
+.nrow.bare{display:block;padding:1px 0 2px}
+.nrow.bare .nval{display:block;white-space:normal;color:var(--txt)}
 /* the gridless set table: a column per set, weight over reps, tabular and quiet */
 /* name left, spec right: the "40kg - 3x5" column aligns down the card edge */
 .exn{line-height:1.3;font-weight:520;display:flex;align-items:baseline;gap:6px}
@@ -2227,6 +2229,9 @@ function renderPage(p){
         :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>{
             // a value that is a sentence cannot share a line with its label without eating it
             const prose=String(r[1]).length>14&&/\s/.test(String(r[1]));
+            // an EMPTY label means the value IS the row — an ingredient list under a section
+            // already called Ingredients does not need naming a second time
+            if(!r[0])return `<div class="nrow bare"><span class="nval">${esc(r[1])}</span></div>`;
             return `<div class="nrow${prose?' prose':''}"><span class="nlab">${esc(r[0])}</span><span class="nval">${esc(r[1])}${r[2]?` <span class="npct">${esc(r[2])}</span>`:''}</span></div>`;
           }).join('')+`</div>`).join('')+`</div>`;
       return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;

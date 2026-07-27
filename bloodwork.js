@@ -993,12 +993,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Berries",
-         "redcurrant, blackberry, blackcurrant, wild blueberry, raspberry"
-        ],
-        [
-         "Farming",
-         "organic"
+         "",
+         "Redcurrant, blackberry, blackcurrant, wild blueberry, raspberry — all organic"
         ]
        ],
        "Per 75 g": [
