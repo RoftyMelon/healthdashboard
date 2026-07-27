@@ -728,11 +728,10 @@ a.sbuy:hover{color:var(--info)}
 /* Prose rows stack: the label becomes a heading over its own sentence. Without this the
    nowrap value claims the line and the label ellipsises to "M..". */
 .nrow.prose{display:block;padding:2px 0 3px}
-/* A prose label is still a LABEL. Giving it --t3 at weight 600 made it a near-copy of .nsec
-   (--t3, weight 700), so "Not fried" read as a section heading sitting under "Notes" and the
-   sentence below it looked orphaned. It takes the same colour as an inline label now — the only
-   difference between the two is that this one gets its own line. */
-.nrow.prose .nlab{display:block;white-space:normal;overflow:visible;color:var(--t2)}
+/* A stacked row is ONE statement across two lines, so both lines take the same colour and
+   weight as the value. Anything dimmer on the first line reads as a heading over orphaned body
+   text — which is what happened when this was --t3 at weight 600, a near-copy of .nsec. */
+.nrow.prose .nlab{display:block;white-space:normal;overflow:visible;color:var(--txt)}
 .nrow.prose .nval{display:block;white-space:normal}
 .nrow.bare{display:block;padding:1px 0 2px}
 .nrow.bare .nval{display:block;white-space:normal;color:var(--txt)}
