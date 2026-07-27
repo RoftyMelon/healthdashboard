@@ -1141,7 +1141,7 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Smoked mackerel / tofu — alternating",
+      "n": "Smoked mackerel or Tofu",
       "amt": "80 g fish / 125 g tofu, alternate days",
       "info": {
        "Ingredients": [
