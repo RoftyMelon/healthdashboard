@@ -1937,64 +1937,144 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Frozen greens — spinach, broccoli",
+      "n": "Spinach OR broccoli",
       "amt": "~150g",
       "info": {
-       "Macronutrients — per ~150g cooked": [
+       "Spinach 150g · Ingredients": [
+        [
+         "",
+         "Frozen spinach"
+        ]
+       ],
+       "Spinach 150g · Macronutrients": [
         [
          "Energy",
-         "45kcal",
+         "35kcal",
          "2%"
         ],
         [
+         "Protein",
+         "4.5g",
+         "9%"
+        ],
+        [
+         "Fat",
+         "0.6g",
+         "1%"
+        ],
+        [
          "Carbs",
-         "6g",
+         "5.7g",
          "2%"
         ],
         [
          "Fibre",
-         "4g"
-        ],
-        [
-         "Protein",
-         "4g",
-         "8%"
+         "3.6g"
         ]
        ],
-       "Standouts": [
+       "Spinach 150g · Standouts": [
         [
-         "Vit K",
-         "210-740mcg"
-        ],
-        [
-         "Vit C",
-         "15-100mg"
-        ],
-        [
-         "Magnesium",
-         "30-130mg"
-        ],
-        [
-         "Iron",
-         "1-2.6mg"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added, ~150g"
-        ]
-       ],
-       "Notes": [
-        [
-         "Folate — Spinach",
+         "Folate",
          "220mcg",
          "55%"
         ],
         [
-         "Folate — Broccoli",
+         "Vit K",
+         "740mcg",
+         "987%"
+        ],
+        [
+         "Magnesium",
+         "130mg",
+         "35%"
+        ],
+        [
+         "Iron",
+         "5.4mg",
+         "39%"
+        ],
+        [
+         "Calcium",
+         "204mg",
+         "26%"
+        ]
+       ],
+       "Spinach 150g · Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Spinach 150g · Notes": [
+        [
+         "",
+         "Its calcium is oxalate-bound — only ~5% is absorbed"
+        ]
+       ],
+       "Broccoli 150g · Ingredients": [
+        [
+         "",
+         "Frozen broccoli"
+        ]
+       ],
+       "Broccoli 150g · Macronutrients": [
+        [
+         "Energy",
+         "42kcal",
+         "2%"
+        ],
+        [
+         "Protein",
+         "4.7g",
+         "9%"
+        ],
+        [
+         "Fat",
+         "0.2g",
+         "0%"
+        ],
+        [
+         "Carbs",
+         "7.8g",
+         "3%"
+        ],
+        [
+         "Fibre",
+         "4.5g"
+        ]
+       ],
+       "Broccoli 150g · Standouts": [
+        [
+         "Folate",
          "160mcg",
          "40%"
+        ],
+        [
+         "Vit C",
+         "62mg",
+         "78%"
+        ],
+        [
+         "Vit K",
+         "210mcg",
+         "280%"
+        ],
+        [
+         "Calcium",
+         "70mg",
+         "9%"
+        ]
+       ],
+       "Broccoli 150g · Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Broccoli 150g · Notes": [
+        [
+         "",
+         "Low oxalate — ~60% of its calcium is absorbed, against spinach's 5%"
         ]
        ]
       }
