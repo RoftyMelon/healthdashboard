@@ -1055,8 +1055,8 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
-         "50 → 75 g; panel from the label"
+         "1 Aug 2026",
+         "added, 75 g"
         ]
        ]
       }
@@ -1113,6 +1113,12 @@ window.BLOODWORK =
          "~260 mg",
          "13%"
         ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
        ]
       }
      },
@@ -1163,16 +1169,6 @@ window.BLOODWORK =
          "Zinc",
          "2 mg",
          "20%"
-        ]
-       ],
-       "Changed": [
-        [
-         "18 Jul 2026",
-         "200 → 100 g/meal"
-        ],
-        [
-         "22 Jul 2026",
-         "dropped from dinner"
         ]
        ]
       }
@@ -1297,16 +1293,6 @@ window.BLOODWORK =
          "119 mcg",
          "60%"
         ]
-       ],
-       "Changed": [
-        [
-         "18 Jul 2026",
-         "6–10 → 6"
-        ],
-        [
-         "26 Jul 2026",
-         "6 → 5"
-        ]
        ]
       }
      },
@@ -1350,13 +1336,13 @@ window.BLOODWORK =
         ],
         [
          "Fat",
-         "10 g",
-         "14%"
+         "13 g",
+         "19%"
         ],
         [
          "– saturates",
-         "1.5 g",
-         "8%"
+         "6 g",
+         "30%"
         ],
         [
          "Salt",
@@ -1389,12 +1375,6 @@ window.BLOODWORK =
          "Vit K",
          "~60 mcg",
          "80%"
-        ]
-       ],
-       "Changed": [
-        [
-         "26 Jul 2026",
-         "replaced 300 g air-fried potatoes"
         ]
        ]
       }
@@ -1448,6 +1428,12 @@ window.BLOODWORK =
          "Potassium",
          "400 mg",
          "20%"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -1582,8 +1568,8 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
-         "replaced both yoghurts"
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -1641,6 +1627,12 @@ window.BLOODWORK =
          "Magnesium",
          "28 mg",
          "7%"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -1705,6 +1697,12 @@ window.BLOODWORK =
          "Manganese",
          "0.2 mg",
          "10%"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -1802,8 +1800,8 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "18 Jul 2026",
-         "150 → 75 g, refined → whole"
+         "1 Aug 2026",
+         "refined → whole grain"
         ]
        ]
       }
@@ -1852,7 +1850,7 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "18 Jul 2026",
+         "1 Aug 2026",
          "added, 75 g"
         ]
        ]
@@ -2013,7 +2011,7 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
+         "1 Aug 2026",
          "added, ~150 g"
         ]
        ]
@@ -2134,8 +2132,8 @@ window.BLOODWORK =
        ],
        "Changed": [
         [
-         "26 Jul 2026",
-         "replaced both yoghurts"
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -2193,6 +2191,12 @@ window.BLOODWORK =
          "Magnesium",
          "28 mg",
          "7%"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
@@ -2257,6 +2261,12 @@ window.BLOODWORK =
          "Manganese",
          "0.2 mg",
          "10%"
+        ]
+       ],
+       "Changed": [
+        [
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
