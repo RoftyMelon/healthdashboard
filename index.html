@@ -734,8 +734,13 @@ a.sbuy:hover{color:var(--info)}
 .ntab.one{columns:auto;font-size:12.5px;line-height:1.45}
 /* the evidence tag: strong / moderate / weak / none. 'none' is the honest label for a bet with
    no trial base and no assay, so it reads as a warning, not as a missing value. */
-.sev{flex:none;margin-left:7px;align-self:center;font-size:9.5px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;padding:2px 6px;border-radius:5px;white-space:nowrap}
+.sev{flex:none;margin-left:7px;align-self:center;font-size:9px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;padding:2px 5px;border-radius:5px;white-space:nowrap}
+/* The name is the ONLY element on the row that can give ground. Without min-width:0 a flex item
+   refuses to shrink past its content, so the four longest names (Omega-3's dose is the long part,
+   plus Collagen peptides, Magnesium L-threonate, B-complex) pushed the ⓘ onto its own line —
+   .srow wraps, so it went quietly rather than overflowing. Now the name wraps instead. */
+.pgsec.stk .srow .sn{min-width:0}
 .sev.strong{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .sev.moderate{color:var(--info);background:color-mix(in srgb,var(--info) 14%,transparent)}
 .sev.weak{color:var(--watch);background:color-mix(in srgb,var(--watch) 16%,transparent)}
