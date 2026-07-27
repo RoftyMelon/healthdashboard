@@ -1781,12 +1781,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "150g → 75g, wild rice mixed in"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Pasta dropped — rice only"
-        ]
        ]
       }
      },
@@ -1935,7 +1929,7 @@ window.BLOODWORK =
        "Lean beef 200g · Notes": [
         [
          "",
-         "2-3x/week — chicken the rest"
+         "2-3x/week"
         ]
        ],
        "Chicken 200g · Ingredients": [
@@ -1997,12 +1991,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
-        ]
-       ],
-       "Chicken 200g · Notes": [
-        [
-         "",
-         "A quarter of beef's iron and zinc, and far less B12"
         ]
        ]
       }
