@@ -1086,7 +1086,7 @@ window.BLOODWORK =
     "at": "10:00",
     "items": [
      {
-      "n": "Coffee (half-caff) + milk",
+      "n": "Coffee half-caffeine + milk",
       "amt": "230 + 100ml",
       "info": {
        "Standouts": [
