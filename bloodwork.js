@@ -945,7 +945,7 @@ window.BLOODWORK =
         ],
         [
          "B. coagulans",
-         "200 M"
+         "200M"
         ]
        ]
       }
@@ -1296,7 +1296,7 @@ window.BLOODWORK =
         ],
         [
          "Monounsaturated",
-         "6.8g of the 10"
+         "6.8g"
         ]
        ],
        "Changes": [
@@ -1445,8 +1445,8 @@ window.BLOODWORK =
        ],
        "Standouts": [
         [
-         "Ergothioneine",
-         "from 66g of mushrooms"
+         "Mushrooms",
+         "66g"
         ],
         [
          "Potassium",
@@ -1578,16 +1578,18 @@ window.BLOODWORK =
          "Vit D",
          "2mcg",
          "40%"
-        ],
-        [
-         "Sugars",
-         "lactose only, none added"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added — one 500mL bottle a day, split across both meals"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Sugars are lactose only — none added"
         ]
        ]
       }
@@ -2084,16 +2086,18 @@ window.BLOODWORK =
          "Vit D",
          "2mcg",
          "40%"
-        ],
-        [
-         "Sugars",
-         "lactose only, none added"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added — one 500mL bottle a day, split across both meals"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Sugars are lactose only — none added"
         ]
        ]
       }
