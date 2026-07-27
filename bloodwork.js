@@ -1848,38 +1848,38 @@ window.BLOODWORK =
          "Ground beef, 5% fat"
         ]
        ],
-       "Lean beef 200g · Macronutrients — per 200g raw": [
+       "Lean beef 200g · Macronutrients — per 200g cooked": [
         [
          "Energy",
-         "300kcal",
-         "15%"
+         "345kcal",
+         "17%"
         ],
         [
          "Protein",
-         "42g",
-         "84%"
+         "52g",
+         "104%"
         ],
         [
          "Fat",
-         "10g",
-         "14%"
+         "13g",
+         "19%"
         ],
         [
          "– saturates",
-         "4.5g",
-         "23%"
+         "5.8g",
+         "29%"
         ]
        ],
        "Lean beef 200g · Standouts": [
         [
          "Iron",
-         "5mg",
-         "36%"
+         "5.4mg",
+         "39%"
         ],
         [
          "Zinc",
-         "10mg",
-         "100%"
+         "12mg",
+         "120%"
         ],
         [
          "B12",
@@ -1888,8 +1888,8 @@ window.BLOODWORK =
         ],
         [
          "Selenium",
-         "30mcg",
-         "55%"
+         "42mcg",
+         "76%"
         ]
        ],
        "Lean beef 200g · Changes": [
@@ -1904,7 +1904,7 @@ window.BLOODWORK =
          "Chicken breast, skinless"
         ]
        ],
-       "Chicken 200g · Macronutrients — per 200g raw": [
+       "Chicken 200g · Macronutrients — per 200g cooked": [
         [
          "Energy",
          "330kcal",
@@ -1994,8 +1994,8 @@ window.BLOODWORK =
        "Spinach 150g · Standouts": [
         [
          "Folate",
-         "220mcg",
-         "55%"
+         "170mcg",
+         "43%"
         ],
         [
          "Vit K",
@@ -2028,6 +2028,10 @@ window.BLOODWORK =
         [
          "",
          "Its calcium is oxalate-bound — only ~5% is absorbed"
+        ],
+        [
+         "",
+         "Folate is the post-reheat figure — ~25% goes even with no water poured off"
         ]
        ],
        "Broccoli 150g · Ingredients": [
@@ -2065,13 +2069,13 @@ window.BLOODWORK =
        "Broccoli 150g · Standouts": [
         [
          "Folate",
-         "160mcg",
-         "40%"
+         "120mcg",
+         "30%"
         ],
         [
          "Vit C",
-         "62mg",
-         "78%"
+         "45mg",
+         "56%"
         ],
         [
          "Vit K",
@@ -2094,6 +2098,10 @@ window.BLOODWORK =
         [
          "",
          "Low oxalate — ~60% of its calcium is absorbed, against spinach's 5%"
+        ],
+        [
+         "",
+         "Folate and vitamin C are post-reheat figures — both lose ~25-30% in the pan"
         ]
        ]
       }
