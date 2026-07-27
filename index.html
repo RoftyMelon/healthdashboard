@@ -722,7 +722,7 @@ a.sbuy:hover{color:var(--info)}
 .nsecw:first-child .nsec{padding-top:0}
 .nrow{display:flex;gap:8px;align-items:baseline}
 /* labels WRAP rather than ellipsise — a clipped "Anthocyani…" is worse than two lines */
-.nrow .nlab{flex:1;min-width:0;color:var(--t2)}
+.nrow .nlab{flex:1;min-width:0;color:var(--t2);overflow-wrap:anywhere}
 .nrow .nval{color:var(--txt);white-space:nowrap;font-variant-numeric:tabular-nums}
 .nrow .npct{color:var(--t4);font-size:10px;margin-left:4px;font-variant-numeric:tabular-nums}
 /* Prose rows stack: the label becomes a heading over its own sentence. Without this the
@@ -2244,8 +2244,11 @@ function renderPage(p){
       if(typeof x!=='object'||!x.info)return '';
       const info=x.info, body=typeof info==='string'?esc(info)
         :`<div class="ntab">`+Object.entries(info).map(([sec,rows])=>`<div class="nsecw"><div class="nsec">${esc(sec)}</div>`+rows.map(r=>{
-            // a value that is a sentence cannot share a line with its label without eating it
-            const prose=String(r[1]).length>14&&/\s/.test(String(r[1]));
+            /* A value containing a SPACE is a phrase, not a measurement — units are attached
+               ("212kcal", "~2g"), so a space means prose. It gets its own line. The old test was
+               length>14, which let "6.8g of the 10" (exactly 14) stay inline, where the nowrap
+               value squeezed "Monounsaturated" until the two overlapped. */
+            const prose=/\s/.test(String(r[1]));
             // an EMPTY label means the value IS the row — an ingredient list under a section
             // already called Ingredients does not need naming a second time
             if(!r[0])return `<div class="nrow bare"><span class="nval">${esc(r[1])}</span></div>`;
