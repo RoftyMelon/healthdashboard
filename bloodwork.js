@@ -1756,34 +1756,40 @@ window.BLOODWORK =
     "items": [
      "---",
      {
-      "n": "Wild rice or whole-grain pasta",
+      "n": "Rice — regular + wild",
       "amt": "~75g",
       "info": {
        "Macronutrients — per ~75g cooked": [
         [
          "Energy",
-         "90kcal",
-         "5%"
+         "86kcal",
+         "4%"
         ],
         [
          "Carbs",
-         "19g",
+         "18g",
          "7%"
         ],
         [
          "Protein",
-         "4g",
-         "8%"
+         "2.5g",
+         "5%"
         ],
         [
          "Fibre",
-         "2g"
+         "0.8g"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
-         "refined → whole grain"
+         "150g → 75g, wild rice mixed in"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Pasta dropped — rice only"
         ]
        ]
       }
@@ -1871,10 +1877,16 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Lean ground beef or chicken",
+      "n": "Lean beef OR chicken",
       "amt": "~200g",
       "info": {
-       "Macronutrients — lean beef 5% (~200g)": [
+       "Lean beef 200g · Ingredients": [
+        [
+         "",
+         "Ground beef, 5% fat"
+        ]
+       ],
+       "Lean beef 200g · Macronutrients": [
         [
          "Energy",
          "300kcal",
@@ -1896,7 +1908,7 @@ window.BLOODWORK =
          "23%"
         ]
        ],
-       "Standouts": [
+       "Lean beef 200g · Standouts": [
         [
          "Iron",
          "5mg",
@@ -1918,20 +1930,83 @@ window.BLOODWORK =
          "55%"
         ]
        ],
-       "Changes": [
+       "Lean beef 200g · Changes": [
         [
          "1 Aug 2026",
-         "15% → 5% lean beef"
+         "15% → 5% fat"
         ]
        ],
-       "Notes": [
+       "Lean beef 200g · Notes": [
         [
-         "Beef",
-         "2-3x/week"
+         "",
+         "2-3x/week — chicken the rest"
+        ]
+       ],
+       "Chicken 200g · Ingredients": [
+        [
+         "",
+         "Chicken breast, skinless"
+        ]
+       ],
+       "Chicken 200g · Macronutrients": [
+        [
+         "Energy",
+         "330kcal",
+         "17%"
         ],
         [
-         "Otherwise",
-         "chicken"
+         "Protein",
+         "62g",
+         "124%"
+        ],
+        [
+         "Fat",
+         "7.2g",
+         "10%"
+        ],
+        [
+         "– saturates",
+         "2g",
+         "10%"
+        ]
+       ],
+       "Chicken 200g · Standouts": [
+        [
+         "Selenium",
+         "44mcg",
+         "80%"
+        ],
+        [
+         "Niacin",
+         "28mg",
+         "175%"
+        ],
+        [
+         "B6",
+         "1.2mg",
+         "86%"
+        ],
+        [
+         "Phosphorus",
+         "440mg",
+         "63%"
+        ],
+        [
+         "Zinc",
+         "1.8mg",
+         "18%"
+        ]
+       ],
+       "Chicken 200g · Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Chicken 200g · Notes": [
+        [
+         "",
+         "A quarter of beef's iron and zinc, and far less B12"
         ]
        ]
       }
