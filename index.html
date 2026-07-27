@@ -719,7 +719,7 @@ a.sbuy:hover{color:var(--info)}
    the middle of a phone screen. Cap it and let the pinned bubble scroll its own content;
    overscroll-behavior stops that scroll running on into the page behind it. */
 .exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px;
-  max-height:min(52vh,360px);overflow-y:auto;overscroll-behavior:contain}
+  max-height:min(46vh,330px);overflow-y:auto;overscroll-behavior:contain}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
@@ -1811,8 +1811,8 @@ window.addEventListener('scroll',closePt,{passive:true,capture:true});
    smaller than the space above. Measured off the BUTTON, not the tip: the tip is display:none
    until :hover applies, so its own height is not readable at the moment the decision is needed. */
 function aimTip(btn){const t=btn.nextElementSibling;if(!t||!t.classList.contains('exinfo'))return;
-  const r=btn.getBoundingClientRect(),below=innerHeight-r.bottom;
-  t.classList.toggle('up',below<340&&r.top>below);}
+  const r=btn.getBoundingClientRect();
+  t.classList.toggle('up',innerHeight-r.bottom<r.top);}   // simply open into whichever side is roomier
 document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('.infob');if(b)aimTip(b);},true);
 function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on){aimTip(btn);btn.classList.add('pin');}}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
