@@ -1402,20 +1402,8 @@ window.BLOODWORK =
       "info": {
        "Ingredients": [
         [
-         "Potatoes",
-         "42%"
-        ],
-        [
-         "Green beans",
-         "18%"
-        ],
-        [
-         "Mushrooms — white and brown",
-         "22%"
-        ],
-        [
-         "Fried onions",
-         "—"
+         "",
+         "Potatoes 42%, green beans 18%, white and brown button mushrooms 22%, fried onions"
         ]
        ],
        "Macronutrients — per 300g": [
