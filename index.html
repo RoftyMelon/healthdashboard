@@ -773,6 +773,9 @@ a.sbuy:hover{color:var(--info)}
 /* ...except the untimed section, which is the LAST thing on the Diet page. A tip dropping
    below it opens off the bottom of the document and gets clipped, so it opens upward. */
 .dfoods .srow.lite .exinfo{top:auto;bottom:calc(100% + 4px)}
+/* ...and ANY diet tip flips upward when there is no room below it. Set by JS, which is the
+   only thing that can measure; CSS cannot know how far the row sits from the fold. */
+.drow .exinfo.up,.srow.lite .exinfo.up{top:auto;bottom:calc(100% + 4px)}
 /* Same treatment for a skincare product row carrying a caveat: position:relative makes the ROW
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
@@ -1796,7 +1799,15 @@ if(HOVERS){
 }
 // fixed cannot follow its anchor, so any scroll closes rather than stranding it over another row
 window.addEventListener('scroll',closePt,{passive:true,capture:true});
-function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on)btn.classList.add('pin');}
+/* A tip opens DOWNWARD by default, which runs off the bottom for any row low on screen — the
+   Mackerel bubble is 307px tall and ended 43px past the fold. Flip it when the space below is
+   smaller than the space above. Measured off the BUTTON, not the tip: the tip is display:none
+   until :hover applies, so its own height is not readable at the moment the decision is needed. */
+function aimTip(btn){const t=btn.nextElementSibling;if(!t||!t.classList.contains('exinfo'))return;
+  const r=btn.getBoundingClientRect(),below=innerHeight-r.bottom;
+  t.classList.toggle('up',below<340&&r.top>below);}
+document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('.infob');if(b)aimTip(b);},true);
+function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on){aimTip(btn);btn.classList.add('pin');}}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
 function copyNd(btn){
   const t=(NEXTDRAW.items||[]).map(x=>x.en+' — '+x.fr).join('\n');
