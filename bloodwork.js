@@ -1141,8 +1141,8 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Mackerel OR tofu",
-      "amt": "80g fish / 125g tofu",
+      "n": "Mackerel OR Tofu",
+      "amt": "80g / 125g",
       "info": {
        "Mackerel 80g · Ingredients": [
         [
@@ -1150,7 +1150,7 @@ window.BLOODWORK =
          "Mackerel (Scomber scombrus) 97%, salt, pepper"
         ]
        ],
-       "Mackerel 80g · Macronutrients": [
+       "Mackerel 80g · Macronutrients — per 80g": [
         [
          "Energy",
          "212kcal",
@@ -1201,7 +1201,7 @@ window.BLOODWORK =
          "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
         ]
        ],
-       "Tofu 125g · Macronutrients": [
+       "Tofu 125g · Macronutrients — per 125g": [
         [
          "Energy",
          "181kcal",
@@ -1402,7 +1402,7 @@ window.BLOODWORK =
          "Potatoes 42%, green beans 18%, white and brown button mushrooms 22%, fried onions"
         ]
        ],
-       "Macronutrients — per 300g": [
+       "Macronutrients — per ~300g frozen": [
         [
          "Energy",
          "300kcal",
@@ -1839,7 +1839,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Lean beef OR chicken",
+      "n": "Lean beef OR Chicken",
       "amt": "~200g",
       "info": {
        "Lean beef 200g · Ingredients": [
@@ -1848,7 +1848,7 @@ window.BLOODWORK =
          "Ground beef, 5% fat"
         ]
        ],
-       "Lean beef 200g · Macronutrients": [
+       "Lean beef 200g · Macronutrients — per 200g raw": [
         [
          "Energy",
          "300kcal",
@@ -1904,7 +1904,7 @@ window.BLOODWORK =
          "Chicken breast, skinless"
         ]
        ],
-       "Chicken 200g · Macronutrients": [
+       "Chicken 200g · Macronutrients — per 200g raw": [
         [
          "Energy",
          "330kcal",
@@ -1956,7 +1956,7 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Spinach OR broccoli",
+      "n": "Spinach OR Broccoli",
       "amt": "~150g",
       "info": {
        "Spinach 150g · Ingredients": [
@@ -1965,7 +1965,7 @@ window.BLOODWORK =
          "Frozen spinach"
         ]
        ],
-       "Spinach 150g · Macronutrients": [
+       "Spinach 150g · Macronutrients — per 150g frozen": [
         [
          "Energy",
          "35kcal",
@@ -2036,7 +2036,7 @@ window.BLOODWORK =
          "Frozen broccoli"
         ]
        ],
-       "Broccoli 150g · Macronutrients": [
+       "Broccoli 150g · Macronutrients — per 150g frozen": [
         [
          "Energy",
          "42kcal",

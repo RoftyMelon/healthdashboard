@@ -120,6 +120,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   **`Ingredients` is ALWAYS one prose row** — `[["", "..."]]`, sentence case, no trailing stop —
   never label/value pairs, even when every item carries a percentage. Pairs were tried and read
   as a second nutrition panel sitting above the real one.
+  **A food with nothing to declare has NO `Ingredients` section.** Ten items carry none — a
+  banana is a banana. The section earns its place only when it adds a fact the name does not:
+  `Ground beef, 5% fat`, `Chicken breast, skinless`, `Fresh trout with skin, cooked`. Do not
+  "complete" the missing ones.
+  **The macro header states the WEIGHT BASIS whenever it changes the numbers**: `per 200g raw`,
+  `per 150g frozen`, `per ~75g cooked`, `per ~300g frozen`. It is not decoration and it is not
+  copyable between foods — beef and chicken are raw-weight figures, rice and trout are cooked,
+  the frozen greens are as-purchased. A pass that "harmonised" these to `cooked` everywhere
+  would silently understate beef by a third of its calories.
   Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
   fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
   `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
