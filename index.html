@@ -2135,9 +2135,17 @@ const tipSec=(t,rows)=>`<div class="nsecw"><div class="nsec">${esc(t)}</div>${ro
    stranded itself 125px from the last word, beside line 1 while the word sat on line 2. */
 const wordSafe=(n,tail='')=>{const w=esc(n).split(' ');
   return w.map((x,i)=>`<span class="nb">${x}${i===w.length-1?tail:''}</span>`).join(' ');};
+/* 'Judge by' lands BEFORE Changes, not last. Everything above it describes the supplement; Judge
+   by is the one line that asks something of you; Changes is an audit trail you consult rather
+   than read, so it closes. Last place also buried the only actionable line under a dated log, in
+   a bubble that runs 460px on a phone — and the parked tier shows this same field right on the
+   row, so burying it here made one field carry two very different weights. */
 const tipSecs=s=>{
   const secs=Object.entries(s.info||{});
-  if(s.judge&&s.cat!=='maylater')secs.push(['Judge by',[['',s.judge]]]);
+  if(s.judge&&s.cat!=='maylater'){
+    const row=['Judge by',[['',s.judge]]], i=secs.findIndex(([k])=>k==='Changes');
+    i<0?secs.push(row):secs.splice(i,0,row);
+  }
   return secs.map(([k,v])=>tipSec(k,v)).join('');
 };
 
