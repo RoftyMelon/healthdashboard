@@ -717,11 +717,8 @@ a.sbuy:hover{color:var(--info)}
 .infob.pin+.exinfo{display:block;pointer-events:auto}   /* click-pinned: persists past hover, and is selectable */
 .exinfo.tbl{width:min(94vw,340px);max-width:min(94vw,340px);padding:8px 11px 9px}
 /* Two foods side by side need width, not a scrollbar. A wider bubble wraps less prose, which
-   is what actually makes it shorter — nothing is ever hidden behind a scroll.
-   It CENTRES on its row rather than left-aligning: at 94vw the bubble is wider than the row,
-   which sits inset by the card's padding, so left:0 pushed it off the right edge by that inset. */
-.exinfo.tbl.wide{width:min(94vw,620px);max-width:min(94vw,620px);
-  left:50%;right:auto;transform:translateX(-50%)}
+   is what actually makes it shorter — nothing is ever hidden behind a scroll. */
+.exinfo.tbl.wide{width:min(94vw,620px);max-width:min(94vw,620px)}
 .ntab{columns:2;column-gap:15px;font-size:11px;line-height:1.38}
 /* one track per food, so a column is a whole food rather than wherever the flow happened to break */
 .ntab.alt{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 15px;align-items:start}
@@ -785,6 +782,12 @@ a.sbuy:hover{color:var(--info)}
 /* ...and ANY diet tip flips upward when there is no room below it. Set by JS, which is the
    only thing that can measure; CSS cannot know how far the row sits from the fold. */
 .drow .exinfo.up,.srow.lite .exinfo.up{top:auto;bottom:calc(100% + 4px)}
+/* Every food tooltip CENTRES on its row rather than left-aligning. The row sits inset by the
+   card's padding, so a bubble wider than the row — which all of them now are — ran off the
+   right edge by exactly that inset when anchored left:0. The row's centre IS the viewport's
+   centre (the card is symmetric in the page gutter), so centring here centres on the screen.
+   Must out-specify `.drow .exinfo` above: at equal specificity that rule sits LATER and wins. */
+.drow .exinfo.tbl,.srow.lite .exinfo.tbl{left:50%;right:auto;transform:translateX(-50%)}
 /* Same treatment for a skincare product row carrying a caveat: position:relative makes the ROW
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
@@ -1009,6 +1012,19 @@ a.sbuy:hover{color:var(--info)}
    day-indexed dot-matrix, where the footnotes sat under a wide panning grid and had to stay out of
    the way. The card is a plain list now and 8px was simply unreadable on a phone. Removed 2026-07-23
    so the 13px set in the max-width:900px block above actually reaches the phone.) */
+
+/* ONE width for every food tooltip on a phone. Two of them (340px for a single food, 620px for
+   a pair) read as two different components on a screen narrower than either cap.
+   The width is the CARD's box — the viewport less the page gutters — not 100vw, which counts
+   the scrollbar and would re-open the horizontal overflow the full-bleed rules above just closed.
+   Capped at the wide bubble's own 620px so a tablet at this breakpoint does not get an 880px
+   bubble. LAST in the stylesheet on purpose: it ties `.exinfo.tbl.wide` on specificity and only
+   wins by sitting further down the file. */
+@media(max-width:900px){
+  .drow .exinfo.tbl,.srow.lite .exinfo.tbl{
+    width:min(calc(100vw - 2 * var(--gut,10px)),620px);
+    max-width:min(calc(100vw - 2 * var(--gut,10px)),620px)}
+}
 </style>
 <script>
 /* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
