@@ -1455,61 +1455,61 @@ window.BLOODWORK =
      },
      {
       "n": "Kefir",
-      "amt": "100 mL (1 bottle)",
+      "amt": "250 mL (half a bottle)",
       "info": {
        "Ingredients": [
         [
          "",
-         "Semi-skimmed milk 97.8%, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
+         "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 100 mL": [
+       "Per 250 mL": [
         [
          "Energy",
-         "47 kcal",
-         "2%"
+         "110 kcal",
+         "6%"
         ],
         [
          "Carbs",
-         "4.8 g",
-         "2%"
-        ],
-        [
-         "– sugars",
-         "4.8 g",
-         "5%"
-        ],
-        [
-         "Protein",
-         "3.7 g",
-         "7%"
-        ],
-        [
-         "Fat",
-         "1.5 g",
-         "2%"
-        ],
-        [
-         "– saturates",
-         "0.9 g",
+         "9.8 g",
          "4%"
         ],
         [
+         "– sugars",
+         "9.8 g",
+         "11%"
+        ],
+        [
+         "Protein",
+         "8.5 g",
+         "17%"
+        ],
+        [
+         "Fat",
+         "3.8 g",
+         "5%"
+        ],
+        [
+         "– saturates",
+         "2.3 g",
+         "12%"
+        ],
+        [
          "Salt",
-         "0.17 g",
-         "3%"
+         "0.25 g",
+         "4%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "120 mg",
-         "15%"
+         "300 mg",
+         "38%"
         ],
         [
          "Vit D",
-         "0.8 mcg",
-         "16%"
+         "2 mcg",
+         "40%"
         ],
         [
          "Sugars",
@@ -1519,7 +1519,7 @@ window.BLOODWORK =
        "Changed": [
         [
          "1 Aug 2026",
-         "added"
+         "added — one 500 mL bottle a day, split across both meals"
         ]
        ]
       }
@@ -2019,61 +2019,61 @@ window.BLOODWORK =
      },
      {
       "n": "Kefir",
-      "amt": "200 mL (2 bottles)",
+      "amt": "250 mL (half a bottle)",
       "info": {
        "Ingredients": [
         [
          "",
-         "Semi-skimmed milk 97.8%, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
+         "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
         ]
        ],
-       "Per 200 mL": [
+       "Per 250 mL": [
         [
          "Energy",
-         "94 kcal",
-         "5%"
+         "110 kcal",
+         "6%"
         ],
         [
          "Carbs",
-         "9.6 g",
-         "2%"
+         "9.8 g",
+         "4%"
         ],
         [
          "– sugars",
-         "9.6 g",
-         "5%"
+         "9.8 g",
+         "11%"
         ],
         [
          "Protein",
-         "7.4 g",
-         "15%"
+         "8.5 g",
+         "17%"
         ],
         [
          "Fat",
-         "3.0 g",
-         "2%"
+         "3.8 g",
+         "5%"
         ],
         [
          "– saturates",
-         "1.8 g",
-         "9%"
+         "2.3 g",
+         "12%"
         ],
         [
          "Salt",
-         "0.34 g",
-         "3%"
+         "0.25 g",
+         "4%"
         ]
        ],
        "Standouts": [
         [
          "Calcium",
-         "240 mg",
-         "30%"
+         "300 mg",
+         "38%"
         ],
         [
          "Vit D",
-         "1.6 mcg",
-         "32%"
+         "2 mcg",
+         "40%"
         ],
         [
          "Sugars",
@@ -2083,7 +2083,7 @@ window.BLOODWORK =
        "Changed": [
         [
          "1 Aug 2026",
-         "added"
+         "added — one 500 mL bottle a day, split across both meals"
         ]
        ]
       }
