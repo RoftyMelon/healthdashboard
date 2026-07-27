@@ -1387,7 +1387,7 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "fried in grapeseed → poached"
+         "fried in grapeseed oil → poached"
         ]
        ]
       }
