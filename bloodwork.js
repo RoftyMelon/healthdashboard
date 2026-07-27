@@ -1141,8 +1141,8 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Smoked mackerel or Tofu",
-      "amt": "80 g fish / 125 g tofu, alternate days",
+      "n": "Mackerel or Tofu",
+      "amt": "80 g fish / 125 g tofu",
       "info": {
        "Ingredients": [
         [
@@ -1150,65 +1150,80 @@ window.BLOODWORK =
          "Smoked mackerel with pepper one day, calcium-set tofu the next"
         ]
        ],
-       "Per serving, averaged": [
+       "Mackerel 80 g": [
         [
          "Energy",
-         "196 kcal",
-         "10%"
+         "212 kcal",
+         "11%"
         ],
         [
          "Protein",
-         "16 g",
-         "32%"
+         "14.4 g",
+         "29%"
         ],
         [
          "Fat",
-         "14 g",
-         "20%"
+         "16.8 g",
+         "24%"
         ],
         [
          "– saturates",
-         "3.6 g",
-         "18%"
-        ],
-        [
-         "Fibre",
-         "1.6 g"
+         "5.2 g",
+         "26%"
         ],
         [
          "Salt",
-         "0.8 g",
-         "13%"
-        ]
-       ],
-       "Standouts": [
+         "1.6 g",
+         "27%"
+        ],
         [
          "EPA + DHA",
-         "~1 g averaged"
-        ],
-        [
-         "Calcium",
-         "~118 mg",
-         "15%"
-        ],
-        [
-         "Magnesium",
-         "~37 mg",
-         "10%"
-        ]
-       ],
-       "The two days": [
-        [
-         "Mackerel 80 g",
-         "2 g EPA+DHA, 5.2 g saturated, 1.6 g salt"
-        ],
-        [
-         "Tofu 125 g",
-         "235 mg calcium, 74 mg magnesium, no salt"
+         "~2 g"
         ],
         [
          "Half a 160 g pack",
-         "the rest keeps 48 h at 4°C, no longer"
+         "the rest keeps 48 h at 4°C"
+        ]
+       ],
+       "Tofu 125 g": [
+        [
+         "Energy",
+         "181 kcal",
+         "9%"
+        ],
+        [
+         "Protein",
+         "17.5 g",
+         "35%"
+        ],
+        [
+         "Fat",
+         "11.3 g",
+         "16%"
+        ],
+        [
+         "– saturates",
+         "1.9 g",
+         "10%"
+        ],
+        [
+         "Fibre",
+         "3.1 g"
+        ],
+        [
+         "Salt",
+         "0 g",
+         "0%"
+        ],
+        [
+         "Calcium",
+         "235 mg",
+         "29%"
+        ],
+        [
+         "Magnesium",
+         "74 mg",
+         "20%"
         ]
        ],
        "Changed": [

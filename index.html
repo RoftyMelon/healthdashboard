@@ -2239,7 +2239,12 @@ function renderPage(p){
           }).join('')+`</div>`).join('')+`</div>`;
       return `<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo${typeof info==='string'?'':' tbl'}">${body}</div>`;
     };
-    const foodKcal=x=>{let t=0;if(x&&typeof x==='object'&&x.info&&typeof x.info==='object')Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')t+=parseInt(r[1])||0;}));return t;};
+    /* An item with TWO Energy rows is an item with alternatives — mackerel one day, tofu the
+       next — so the meal's expected total is their MEAN, not their sum. Summing would add a
+       day of fish to a day of tofu and inflate brunch by ~200 kcal every day. */
+    const foodKcal=x=>{const e=[];if(x&&typeof x==='object'&&x.info&&typeof x.info==='object')
+      Object.values(x.info).forEach(rows=>rows.forEach(r=>{if(r[0]==='Energy')e.push(parseInt(r[1])||0);}));
+      return e.length?Math.round(e.reduce((a,b)=>a+b,0)/e.length):0;};
     const kcalTag=m=>{const t=(m.items||[]).reduce((s,x)=>s+foodKcal(x),0);   // meal total, summed live from each food's Energy row
       return t?`<span class="ckcal">~${Math.round(t/50)*50} kcal</span>`:'';};
     // timed meals are CARDS; untimed sections (Other foods) render as plain
