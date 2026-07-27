@@ -262,25 +262,25 @@ window.BLOODWORK =
     "id": "glycine",
     "name": "Glycine",
     "judge": "sleep (solo); or the GlyNAC markers, if paired with NAC",
-    "dose": "8g",
-    "info": "8g is 100mg/kg — the glycine arm of the Sekhar GlyNAC protocol at your weight. Sleep studies use 3g, so this is the glutathione dose, not the sleep one. NOT 1:1 with NAC: the trial is molar, which works out to 1:1.33 by weight.",
+    "dose": "12g",
+    "info": "12g is a glutathione/GlyNAC dose (sleep studies use just 3g). Now paired 1:1 with 12g NAC — near the Sekhar efficacy dose for your weight (~8g glycine). Glycine's very safe and cheap, so the slight overshoot is fine.",
     "cat": "maylater",
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "Glycine 8g + taurine + collagen"
+    "dec": "Glycine 12g + taurine + collagen"
    },
    {
     "id": "nac",
     "name": "NAC",
     "judge": "hs-CRP, HOMA-IR, homocysteine and GGT, before vs after 3 months",
-    "dose": "11g",
-    "info": "Glutathione/antioxidant precursor. 11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC at your weight — heavier than the glycine arm, because the trial dosed the two by MOLES (1.33 and 0.81 mmol/kg) and NAC is the larger molecule. Raises homocysteine, which the TMG offsets. Parked until the goal and oxidative markers are set.",
+    "dose": "12g",
+    "info": "Glutathione/antioxidant precursor. 12g matches your glycine 1:1 — near the Sekhar GlyNAC dose for your weight (~11g NAC). Raises homocysteine, which the TMG offsets. Parked until the goal and oxidative markers are set.",
     "cat": "maylater",
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "NAC 11g"
+    "dec": "NAC 12g"
    },
    {
     "id": "tmg",
