@@ -5601,12 +5601,7 @@ window.BLOODWORK =
     150,
     400
    ],
-   "opt": [
-    180,
-    350
-   ],
-   "oc": "moderate",
-   "note": "Cell fragments that form the first plug at a bleeding site — the beginning of a clot.\n\nTracked for bleeding and clotting risk, and as a general check on bone marrow output.\n\nOne common artefact: in some people platelets clump together inside the collection tube. The analyser counts a clump as one platelet, so the result comes back falsely low. If a low count appears out of nowhere in someone with no symptoms, this is the first thing to rule out.",
+   "note": "Cell fragments that form the first plug at a bleeding site — the beginning of a clot.\n\nTracked for bleeding and clotting risk, and as a general check on bone marrow output.\n\nOne common artefact: in some people platelets clump together inside the collection tube. The analyser counts a clump as one platelet, so the result comes back falsely low. If a low count appears out of nowhere in someone with no symptoms, this is the first thing to rule out.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 180-350, which pointed UPWARD — against the direction three items in this stack are meant to push. Omega-3, curcumin and AGE garlic all reduce platelet count or aggregation, and they are linked to this marker for that reason. Within the reference range a higher count carries more thrombotic risk, not less, so there is nothing here to raise and no benign way to raise it: the agents that work (thrombopoietin receptor agonists) treat immune thrombocytopenia and carry thrombosis and marrow-fibrosis risk.\n\nThis subject sits at 148-172 across six draws from 2020 to 2026 — a stable set point with no trend, alongside a normal red series, which is what separates a set point from a signal. The MPV explains it: 11.7-12.1, meaning fewer but larger platelets, so total platelet mass is nearer normal than the count alone suggests.\n\nWhat would change the reading: a downward TREND, several cell lines falling together, or symptoms — easy bruising, petechiae, prolonged bleeding. A single low-normal count with none of those is not a finding.",
    "axis": [
     100,
     450
