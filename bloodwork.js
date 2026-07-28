@@ -2056,7 +2056,7 @@ window.BLOODWORK =
       "n": "Fruit (apple, pear, peach…)",
       "amt": "~150g",
       "info": {
-       "Macronutrients — per piece (~150g)": [
+       "Macronutrients — per 1 (~150g)": [
         [
          "Energy",
          "80kcal",
@@ -2414,7 +2414,7 @@ window.BLOODWORK =
          "Ground beef, 5% fat"
         ]
        ],
-       "Lean beef 200g · Macronutrients — per 200g cooked": [
+       "Lean beef 200g · Macronutrients — per ~200g cooked": [
         [
          "Energy",
          "345kcal",
@@ -2470,7 +2470,7 @@ window.BLOODWORK =
          "Chicken breast, skinless"
         ]
        ],
-       "Chicken 200g · Macronutrients — per 200g cooked": [
+       "Chicken 200g · Macronutrients — per ~200g cooked": [
         [
          "Energy",
          "330kcal",
@@ -2531,7 +2531,7 @@ window.BLOODWORK =
          "Frozen spinach"
         ]
        ],
-       "Spinach 150g · Macronutrients — per 150g frozen": [
+       "Spinach 150g · Macronutrients — per ~150g frozen": [
         [
          "Energy",
          "35kcal",
@@ -2606,7 +2606,7 @@ window.BLOODWORK =
          "Frozen broccoli"
         ]
        ],
-       "Broccoli 150g · Macronutrients — per 150g frozen": [
+       "Broccoli 150g · Macronutrients — per ~150g frozen": [
         [
          "Energy",
          "42kcal",
