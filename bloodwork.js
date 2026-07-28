@@ -4590,8 +4590,8 @@ window.BLOODWORK =
     }
    ],
    "clin": [
-    75,
-    213
+    71,
+    226
    ],
    "opt": [
     100,
@@ -4599,10 +4599,10 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three. That is still the better option: direct free-testosterone immunoassays are notoriously unreliable.\n\nTHE INTERVAL IS NOW SOURCED. It was 47-244 pg/mL, which matched nothing — wider at both ends than every published Vermeulen interval. It is now 75-213 pg/mL (260-740 pmol/L), the Vermeulen interval for eugonadal young men used by Alfred Health and traceable to Ann Clin Biochem 2006; 43:389-397. Neighbouring laboratories sit close: Dynacare 196-636 pmol/L for men under 50, and 218-681 for men 20-50.\n\nMIND THE OTHER SCALE. The dialysis interval on the ftd row (Jasuja 2023, 120-368 pg/mL for men 19-39) is NOT comparable to this one. Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018), so that band maps onto this scale at roughly 495-1518 pmol/L — far above the calculated intervals above. The published ranges disagree by more than the method bias explains, because they differ in population and in the SHBG assay behind them. Judge a calculated value against a calculated interval, and a dialysed one against Jasuja.\n\nOn this row's own interval the July value sits in the lower third rather than below anything. The one-time dialysis order on the next draw exists to settle which scale applies to this person.",
+   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three. That is still the better option: direct free-testosterone immunoassays are notoriously unreliable.\n\nTHE INTERVAL IS THE PRIMARY PUBLISHED ONE. Ho et al., Ann Clin Biochem 2006;43:389-397: 245-785 pmol/L, the 2.5th to 97.5th percentile of the Vermeulen calculation in 126 healthy men aged 20-45 with normal semen analysis — the closest population match available. Laboratories quoting this paper round it slightly (Alfred Health prints 260-740); nearby intervals sit close (Dynacare 196-636 for men under 50, 218-681 for men 20-50).\n\nIt replaced 47-244 pg/mL, which had no source. That range was well CENTRED — its midpoint was within 2% of this one — but a third wider, and almost all of the slack was at the bottom: a floor of 163 pmol/L against a real 2.5th percentile of 245. Too permissive at the only end that matters, so a genuinely low value would have read normal.\n\nMIND THE OTHER SCALE. The dialysis interval on the ftd row (Jasuja 2023, 120-368 pg/mL for men 19-39) is NOT comparable. Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018), so that band maps here at roughly 495-1518 pmol/L — its floor above this interval's ceiling. The published ranges disagree by more than the method bias explains, because population and SHBG assay differ too. Judge a calculated value against a calculated interval.",
    "axis": [
     40,
-    260
+    280
    ]
   },
   {
