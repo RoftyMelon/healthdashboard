@@ -959,7 +959,7 @@ window.BLOODWORK =
  "ROUTINE": [
   {
    "t": "07:00",
-   "do": "10min run, sunlight, hot/cold shower"
+   "do": "10min walk, sunlight, shower"
   },
   {
    "t": "07:15",
@@ -993,7 +993,7 @@ window.BLOODWORK =
   {
    "t": "21:00",
    "until": "21:30",
-   "do": "Shower + floss + skincare"
+   "do": "Shower"
   },
   {
    "t": "21:30",
@@ -1005,114 +1005,703 @@ window.BLOODWORK =
   }
  ],
  "CARE": [
-  {"id": "face", "t": "Skincare",
+  {
+   "id": "face",
+   "t": "Skincare",
    "groups": [
-    {"t": "Morning", "icon": "sun", "items": [
-     {"n": "Serum - Vit C 15% + Ferulic Acid + Vit E", "url": "https://geekandgorgeous.com/products/c-glow"},
-     {"n": "Serum - Niacinamide (B3) + Green Tea", "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1119542353"},
-     {"n": "Moisturizer - Ceramides + Cholesterol", "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"},
-     {"n": "SPF 50", "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1122974582"},
-     "Serum - Finasteride 0.1% + Minoxidil 5%"
-    ]},
-    {"t": "Before sleep", "icon": "moon", "items": [
-     {"n": "Serum - Matrixyl 10% + HA", "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"},
-     {"n": "Serum - Copper Peptides 1%", "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html", "info": "Do not apply on Glycolic Acid days"},
-     {"n": "Retinal 0.2%", "url": "https://geekandgorgeous.com/products/a-game-20"},
-     {"n": "Moisturizer - Ceramides + Cholesterol", "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"},
-     "Slugging - Petrolatum",
-     "Serum - Finasteride 0.1% + Minoxidil 5%",
-     {"n": "Serum - Greyverse", "url": "https://neofollics.com/products/anti-grey-hair-serum"}
-    ]}
+    {
+     "t": "Morning",
+     "icon": "sun",
+     "items": [
+      {
+       "n": "Serum - Vit C 15% + Ferulic Acid + Vit E",
+       "url": "https://geekandgorgeous.com/products/c-glow"
+      },
+      {
+       "n": "Serum - Niacinamide (B3) + Green Tea",
+       "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1119542353"
+      },
+      {
+       "n": "Moisturizer - Ceramides + Cholesterol",
+       "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
+      },
+      {
+       "n": "SPF 50",
+       "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1122974582"
+      },
+      "Serum - Finasteride 0.1% + Minoxidil 5%"
+     ]
+    },
+    {
+     "t": "Before sleep",
+     "icon": "moon",
+     "items": [
+      {
+       "n": "Serum - Matrixyl 10% + HA",
+       "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"
+      },
+      {
+       "n": "Serum - Copper Peptides 1%",
+       "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html",
+       "info": "Do not apply on Glycolic Acid days"
+      },
+      "Emulsion",
+      {
+       "n": "Retinal 0.2%",
+       "url": "https://geekandgorgeous.com/products/a-game-20"
+      },
+      {
+       "n": "Moisturizer - Ceramides + Cholesterol",
+       "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
+      },
+      "Slugging - Petrolatum",
+      "Serum - Finasteride 0.1% + Minoxidil 5%",
+      {
+       "n": "Serum - Greyverse",
+       "url": "https://neofollics.com/products/anti-grey-hair-serum"
+      }
+     ]
+    }
    ],
    "notes": [
     "Body lotion 12% AHA while still wet after morning shower, at least once a week",
     "Glycolic 7% once a week instead of Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
     "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
-   ]},
-  {"id": "dental", "t": "Dental", "groups": [
-   {"t": "Daily", "items": [
-    "Water jet + toothbrush 2-3x/day",
-    "Alternate thread floss & interdental brushes"
-   ]},
-   {"t": "Yearly", "items": [
-    "Dental scaling 2-3x/year",
-    "Carbamide peroxide 10-15% - 2x/year, applied with custom dental tray"
-   ]}
-  ]}
+   ]
+  },
+  {
+   "id": "dental",
+   "t": "Dental",
+   "groups": [
+    {
+     "t": "Daily",
+     "items": [
+      "Water jet + toothbrush 2-3x/day",
+      "Alternate thread floss & interdental brushes"
+     ]
+    },
+    {
+     "t": "Yearly",
+     "items": [
+      "Dental scaling",
+      "Carbamide peroxide 10-15%, applied with custom dental tray"
+     ]
+    }
+   ]
+  }
  ],
  "TRAINING": {
   "cardio": "One 30min HIT per week - mostly ~5k run.\nStriving for 3 sessions when business will be automated.",
-  "note": "Weights and reps are approximations and may vary dramatically based on the machine used",
+  "note": "Six sessions a week, each card twice. Weights and reps are approximations and may vary dramatically based on the machine used",
   "cards": [
-  {"id": "pull", "t": "Pull", "groups": [
-   {"t": "Back", "items": [
-    {"n": "Chin up", "sets": [["+30",5],["+30",5],["+30",5]]},
-    {"n": "Explosive pull up", "sets": [[null,2],[null,2],[null,2]]},
-    {"n": "Face pull", "sets": [[40,10],[40,10]]},
-    {"n": "Single arm row", "sets": [[40,8],[40,8]]},
-    {"n": "Back extension", "sets": [[40,12],[40,12]]}
-   ]},
-   {"t": "Biceps", "items": [
-    {"n": "Bicep curl", "sets": [[20,8],[20,8]]},
-    {"n": "Hammer curl", "sets": [[20,6],[20,6]]},
-    {"n": "Preacher curl", "sets": [[40,12],[40,12]]}
-   ]},
-   {"t": "Traps & neck", "items": [
-    {"n": "Shrug", "sets": [[40,50],[40,50]]},
-    {"n": "Neck extension", "sets": [[20,10],[20,10]]}
-   ]},
-   {"t": "Accessory", "items": [
-    {"n": "Pull-over", "sets": [[10,10],[10,10]]},
-    {"n": "Trap-3 raise", "sets": [[10,10],[10,10]]},
-    {"n": "One arm hang", "sets": [[null,"0:30"],[null,"0:30"]]}
-   ]}
-  ]},
-  {"id": "push", "t": "Push", "groups": [
-   {"t": "Warm-up", "items": [
-    {"n": "Shoulder prep", "info": "Figure 8, push-ups, ext. rotations w/ band or dumbbell, skin the cat, dislocates, gymnast seated stretch", "sets": []}
-   ]},
-   {"t": "Shoulders", "items": [
-    {"n": "Overhead press", "sets": [[50,5],[50,5],[50,5]]},
-    {"n": "Lateral raise", "sets": [[12,10],[12,10],[12,10]]},
-    {"n": "Machine deltoid raise", "sets": [[50,5],[50,5],[50,5]]},
-    {"n": "Rear deltoid", "sets": [[20,15],[20,15],[20,15]]}
-   ]},
-   {"t": "Triceps", "items": [
-    {"n": "Tricep pushdown", "sets": [[25,20],[25,20]]},
-    {"n": "Overhead tricep ext.", "sets": [[20,10],[20,10]]}
-   ]},
-   {"t": "Chest", "items": [
-    {"n": "Incline dumbbell press", "sets": [[30,6],[30,6]]},
-    {"n": "Machine incline press", "sets": [[80,6],[80,6]]},
-    {"n": "Chest fly", "sets": [[25,15],[25,15]]}
-   ]}
-  ]},
-  {"id": "legs", "t": "Legs", "groups": [
-   {"t": "Calves", "items": [
-    {"n": "Seated calf raise", "sets": [[80,20],[80,20],[80,20]]},
-    {"n": "Standing calf raise", "sets": [[200,20],[200,20],[200,20]]}
-   ]},
-   {"t": "Quads", "items": [
-    {"n": "Shrimp squat", "sets": [[null,5],[null,5],[null,5],[null,5],[null,5],[null,5]]},
-    {"n": "Machine squat", "sets": [[80,8],[80,8],[80,8]]},
-    {"n": "Leg extension", "sets": [[80,12],[80,12]]}
-   ]},
-   {"t": "Glutes", "items": [
-    {"n": "Standing abduction", "sets": [[100,20],[100,20],[100,20]]},
-    {"n": "Hip thrust", "sets": [[160,10],[160,10],[160,10]]},
-    {"n": "Hip abduction", "sets": [[100,15],[100,15],[100,15]]}
-   ]},
-   {"t": "Hamstrings & groin", "items": [
-    {"n": "Nordic curl", "sets": [[20,8],[20,8]]},
-    {"n": "Lying leg curl", "sets": [[50,12],[50,12]]},
-    {"n": "Hip adduction", "sets": [[80,12],[80,12]]}
-   ]},
-   {"t": "Core", "items": [
-    {"n": "Psoas knee raise", "sets": [[16,10],[16,10]]},
-    {"n": "Crunch", "sets": [[20,12],[20,12]]}
-   ]}
-  ]}
+   {
+    "id": "pull",
+    "t": "Pull",
+    "groups": [
+     {
+      "t": "Back",
+      "items": [
+       {
+        "n": "Chin up",
+        "sets": [
+         [
+          "+30",
+          5
+         ],
+         [
+          "+30",
+          5
+         ],
+         [
+          "+30",
+          5
+         ]
+        ]
+       },
+       {
+        "n": "Explosive pull up",
+        "sets": [
+         [
+          null,
+          2
+         ],
+         [
+          null,
+          2
+         ],
+         [
+          null,
+          2
+         ]
+        ]
+       },
+       {
+        "n": "Face pull",
+        "sets": [
+         [
+          40,
+          10
+         ],
+         [
+          40,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Single arm row",
+        "sets": [
+         [
+          40,
+          8
+         ],
+         [
+          40,
+          8
+         ]
+        ]
+       },
+       {
+        "n": "Back extension",
+        "sets": [
+         [
+          40,
+          12
+         ],
+         [
+          40,
+          12
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Biceps",
+      "items": [
+       {
+        "n": "Bicep curl",
+        "sets": [
+         [
+          20,
+          8
+         ],
+         [
+          20,
+          8
+         ]
+        ]
+       },
+       {
+        "n": "Hammer curl",
+        "sets": [
+         [
+          20,
+          6
+         ],
+         [
+          20,
+          6
+         ]
+        ]
+       },
+       {
+        "n": "Preacher curl",
+        "sets": [
+         [
+          40,
+          12
+         ],
+         [
+          40,
+          12
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Traps & neck",
+      "items": [
+       {
+        "n": "Shrug",
+        "sets": [
+         [
+          40,
+          50
+         ],
+         [
+          40,
+          50
+         ]
+        ]
+       },
+       {
+        "n": "Neck extension",
+        "sets": [
+         [
+          20,
+          10
+         ],
+         [
+          20,
+          10
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Accessory",
+      "items": [
+       {
+        "n": "Pull-over",
+        "sets": [
+         [
+          10,
+          10
+         ],
+         [
+          10,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Trap-3 raise",
+        "sets": [
+         [
+          10,
+          10
+         ],
+         [
+          10,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "One arm hang",
+        "sets": [
+         [
+          null,
+          "0:30"
+         ],
+         [
+          null,
+          "0:30"
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "push",
+    "t": "Push",
+    "groups": [
+     {
+      "t": "Warm-up",
+      "items": [
+       {
+        "n": "Shoulder prep",
+        "info": "Figure 8, push-ups, ext. rotations w/ band or dumbbell, skin the cat, dislocates, gymnast seated stretch",
+        "sets": []
+       }
+      ]
+     },
+     {
+      "t": "Shoulders",
+      "items": [
+       {
+        "n": "Overhead press",
+        "sets": [
+         [
+          50,
+          5
+         ],
+         [
+          50,
+          5
+         ],
+         [
+          50,
+          5
+         ]
+        ]
+       },
+       {
+        "n": "Lateral raise",
+        "sets": [
+         [
+          12,
+          10
+         ],
+         [
+          12,
+          10
+         ],
+         [
+          12,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Machine deltoid raise",
+        "sets": [
+         [
+          50,
+          5
+         ],
+         [
+          50,
+          5
+         ],
+         [
+          50,
+          5
+         ]
+        ]
+       },
+       {
+        "n": "Rear deltoid",
+        "sets": [
+         [
+          20,
+          15
+         ],
+         [
+          20,
+          15
+         ],
+         [
+          20,
+          15
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Triceps",
+      "items": [
+       {
+        "n": "Tricep pushdown",
+        "sets": [
+         [
+          25,
+          20
+         ],
+         [
+          25,
+          20
+         ]
+        ]
+       },
+       {
+        "n": "Overhead tricep ext.",
+        "sets": [
+         [
+          20,
+          10
+         ],
+         [
+          20,
+          10
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Chest",
+      "items": [
+       {
+        "n": "Incline dumbbell press",
+        "sets": [
+         [
+          30,
+          6
+         ],
+         [
+          30,
+          6
+         ]
+        ]
+       },
+       {
+        "n": "Machine incline press",
+        "sets": [
+         [
+          80,
+          6
+         ],
+         [
+          80,
+          6
+         ]
+        ]
+       },
+       {
+        "n": "Chest fly",
+        "sets": [
+         [
+          25,
+          15
+         ],
+         [
+          25,
+          15
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "legs",
+    "t": "Legs",
+    "groups": [
+     {
+      "t": "Calves",
+      "items": [
+       {
+        "n": "Seated calf raise",
+        "sets": [
+         [
+          80,
+          20
+         ],
+         [
+          80,
+          20
+         ],
+         [
+          80,
+          20
+         ]
+        ]
+       },
+       {
+        "n": "Standing calf raise",
+        "sets": [
+         [
+          200,
+          20
+         ],
+         [
+          200,
+          20
+         ],
+         [
+          200,
+          20
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Quads",
+      "items": [
+       {
+        "n": "Shrimp squat",
+        "sets": [
+         [
+          null,
+          5
+         ],
+         [
+          null,
+          5
+         ],
+         [
+          null,
+          5
+         ],
+         [
+          null,
+          5
+         ],
+         [
+          null,
+          5
+         ],
+         [
+          null,
+          5
+         ]
+        ]
+       },
+       {
+        "n": "Machine squat",
+        "sets": [
+         [
+          80,
+          8
+         ],
+         [
+          80,
+          8
+         ],
+         [
+          80,
+          8
+         ]
+        ]
+       },
+       {
+        "n": "Leg extension",
+        "sets": [
+         [
+          80,
+          12
+         ],
+         [
+          80,
+          12
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Glutes",
+      "items": [
+       {
+        "n": "Standing abduction",
+        "sets": [
+         [
+          100,
+          20
+         ],
+         [
+          100,
+          20
+         ],
+         [
+          100,
+          20
+         ]
+        ]
+       },
+       {
+        "n": "Hip thrust",
+        "sets": [
+         [
+          160,
+          10
+         ],
+         [
+          160,
+          10
+         ],
+         [
+          160,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Hip abduction",
+        "sets": [
+         [
+          100,
+          15
+         ],
+         [
+          100,
+          15
+         ],
+         [
+          100,
+          15
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Hamstrings & groin",
+      "items": [
+       {
+        "n": "Nordic curl",
+        "sets": [
+         [
+          20,
+          8
+         ],
+         [
+          20,
+          8
+         ]
+        ]
+       },
+       {
+        "n": "Lying leg curl",
+        "sets": [
+         [
+          50,
+          12
+         ],
+         [
+          50,
+          12
+         ]
+        ]
+       },
+       {
+        "n": "Hip adduction",
+        "sets": [
+         [
+          80,
+          12
+         ],
+         [
+          80,
+          12
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Core",
+      "items": [
+       {
+        "n": "Psoas knee raise",
+        "sets": [
+         [
+          16,
+          10
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Crunch",
+        "sets": [
+         [
+          20,
+          12
+         ],
+         [
+          20,
+          12
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
   ]
  },
  "RECORD": {
