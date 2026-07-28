@@ -1279,6 +1279,10 @@ window.BLOODWORK =
     "fr": "Testostérone totale — avec SHBG et albumine sur le MÊME prélèvement ; la testostérone libre en est calculée"
    },
    {
+    "en": "Free testosterone by EQUILIBRIUM DIALYSIS — ONCE only, to calibrate the calculation against your own blood (ask B2A first; fallback: bioavailable T by ammonium sulphate precipitation, never a direct immunoassay)",
+    "fr": "Testostérone libre par DIALYSE À L'ÉQUILIBRE — UNE SEULE FOIS, pour calibrer le calcul sur votre propre sang (demander à B2A ; à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium, jamais un immunodosage direct)"
+   },
+   {
     "en": "DHT (dihydrotestosterone)",
     "fr": "DHT (dihydrotestostérone)"
    },
