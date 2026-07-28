@@ -1518,8 +1518,7 @@ function derive(j){
     if(TF&&TB&&tf&&!d.v.tibc)put(d,'tibc',canon(TF,tf)*1.4023,'µg/dL');
 
     // Calculated free testosterone (Vermeulen 1999) — the clinical standard when
-    // equilibrium dialysis is unavailable, and far more reliable than a direct free-T
-    // immunoassay (this dataset already had one such value thrown out as a 10x error).
+    // equilibrium dialysis is unavailable, and far more reliable than a direct free-T immunoassay.
     // Solves N·Kt·FT² + FT·(N + Kt·(S−T)) − T = 0 for the free fraction.
     const tt=ok(d.v.tt)?d.v.tt:null,sh=ok(d.v.shbg)?d.v.shbg:null;
     if(TT&&SH&&FT&&tt&&sh&&al&&!d.v.ft){         // never overwrite a measured free T
