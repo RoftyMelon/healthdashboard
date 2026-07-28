@@ -1820,6 +1820,12 @@ window.BLOODWORK =
     "why": "Ordered WITH cystatin C, never alone: creatine inflates serum creatinine 10-20% without touching the kidney."
    },
    {
+    "en": "Urine albumin/creatinine ratio (ACR) — FIRST-MORNING void",
+    "fr": "Rapport albumine/créatinine urinaire (RAC) — sur les URINES DU MATIN",
+    "g": "judge",
+    "why": "Supersedes the dipstick and the July PCR, which could not do the job: that result was censored at <25 mg/mmol, which converts to <221 mg/g against a reference ceiling of 150 — the assay limit was coarser than the range it was judged against, so it could not confirm normality. KDIGO prefers ACR on a first-morning sample, and a positive needs confirming on a second."
+   },
+   {
     "en": "ApoB",
     "fr": "Apolipoprotéine B (ApoB)",
     "g": "judge",
@@ -1934,6 +1940,12 @@ window.BLOODWORK =
     "why": "Same trio. Abundant in the diet, so a low value would mean absorption."
    },
    {
+    "en": "MMA (methylmalonic acid) — ONLY if homocysteine is still 15 or above",
+    "fr": "Acide méthylmalonique (MMA) — UNIQUEMENT si l'homocystéine reste ≥ 15",
+    "g": "gate",
+    "why": "Rises in tissue-level B12 deficiency even when serum B12 reads normal, so it separates a B12 problem from a folate or methylation one. Conditional on purpose: with homocysteine back under 15 it answers nothing."
+   },
+   {
     "en": "Folate",
     "fr": "Folates (B9)",
     "g": "gate",
@@ -1956,6 +1968,12 @@ window.BLOODWORK =
     "fr": "Cuivre",
     "g": "gate",
     "why": "Sits on its floor, 69.9 against 70, and nothing in the stack or diet is pointed at it."
+   },
+   {
+    "en": "Ceruloplasmin",
+    "fr": "Céruloplasmine",
+    "g": "gate",
+    "why": "Ordered WITH copper. Around 90% of serum copper rides on ceruloplasmin, so a low copper with normal ceruloplasmin is a different finding from both being low — and 69.9 against a floor of 70 is too close to call on one number."
    },
    {
     "en": "Liver panel (ALT, AST, GGT)",
