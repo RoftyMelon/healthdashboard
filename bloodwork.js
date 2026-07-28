@@ -770,18 +770,18 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Restarting inflates serum creatinine 10-20% without touching kidney function. The next draw must order cystatin C, or the eGFR will read falsely worse."
+       "Restarting inflates serum creatinine 10-20% without touching kidney function, so the next draw must order cystatin C or the eGFR will read falsely worse. It was paused before the 2026-07-20 draw precisely so that one would read clean — which is what makes that draw the kidney baseline."
       ]
      ],
-     "Parked": [
+     "Changes": [
       [
-       "",
-       "Not a trial, unlike the rest of this tier. It is here only because it was paused before the 2026-07-20 draw so creatinine and eGFR would read clean. Restarting August 2026."
+       "1 Aug 2026",
+       "restarted"
       ]
      ]
     },
-    "cat": "maylater",
-    "status": "planned",
+    "cat": "sport",
+    "status": "taking",
     "when": [
      {
       "at": "presnack",
@@ -790,7 +790,7 @@ window.BLOODWORK =
     ],
     "url": "https://amzn.eu/d/09MG0JOC",
     "dec": "Creatine 5g",
-    "judge": "strength and power in training; and cystatin C, never creatinine alone, once it restarts"
+    "judge": "strength and power in training; and cystatin C, never creatinine alone"
    },
    {
     "id": "taurine",
