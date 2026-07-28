@@ -1796,7 +1796,12 @@ window.BLOODWORK =
    },
    {
     "t": "Family history",
-    "rows": [],
+    "rows": [
+     [
+      "Cardiac events",
+      "None on either side"
+     ]
+    ],
     "empty": "Nothing recorded yet. Age at a parent's first cardiac event is the single most useful entry."
    },
    {
