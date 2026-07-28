@@ -769,7 +769,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Restarting inflates serum creatinine 10-20% without touching kidney function. November must order cystatin C, or the eGFR will read falsely worse."
+       "Restarting inflates serum creatinine 10-20% without touching kidney function. The next draw must order cystatin C, or the eGFR will read falsely worse."
       ]
      ],
      "Parked": [
