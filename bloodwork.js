@@ -29,7 +29,7 @@ window.BLOODWORK =
    "bodyfat": "~12%",
    "training": "resistance 1h15/day, plus one 30-min HIT run per week",
    "country": "France",
-   "diet": "See the DIET tab. Rarely fish; lots of olive oil; no cheese, 5 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Rarely fish; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
    "alcohol": "none — does not drink",
    "supervision": "none"
   },
@@ -2706,70 +2706,70 @@ window.BLOODWORK =
      "---",
      {
       "n": "Eggs poached",
-      "amt": "5",
+      "amt": "3",
       "info": {
-       "Macronutrients — per 5 (~250g)": [
+       "Macronutrients — per 3 (~150g)": [
         [
          "Energy",
-         "388kcal",
-         "19%"
+         "233kcal",
+         "11%"
         ],
         [
          "Protein",
-         "31g",
-         "62%"
+         "19g",
+         "37%"
         ],
         [
          "Fat",
-         "27g",
-         "39%"
+         "16g",
+         "23%"
         ],
         [
          "– saturates",
-         "8g",
-         "41%"
+         "4.8g",
+         "25%"
         ]
        ],
        "Standouts": [
         [
          "Choline",
-         "738mg"
+         "443mg"
         ],
         [
          "Selenium",
-         "75mcg",
-         "136%"
+         "45mcg",
+         "82%"
         ],
         [
          "Vit D",
-         "200IU",
-         "100%"
+         "120IU",
+         "60%"
         ],
         [
          "B12",
-         "2.5mcg",
-         "100%"
+         "1.5mcg",
+         "60%"
         ],
         [
          "Vit A",
-         "400mcg",
-         "50%"
+         "240mcg",
+         "30%"
         ],
         [
          "Riboflavin",
-         "1mg",
-         "71%"
+         "0.6mg",
+         "43%"
         ],
         [
          "Folate",
-         "119mcg",
-         "60%"
+         "71mcg",
+         "36%"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
-         "fried in grapeseed oil → poached"
+         "6 fried in grapeseed oil → 3 poached"
         ]
        ]
       }
