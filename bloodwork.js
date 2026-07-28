@@ -1808,211 +1808,279 @@ window.BLOODWORK =
   "items": [
    {
     "en": "Cystatin C",
-    "fr": "Cystatine C"
+    "fr": "Cystatine C",
+    "g": "judge",
+    "why": "Creatine restarts in August. This is the eGFR muscle mass does not distort — 116 against creatinine's 83.4."
    },
    {
     "en": "Creatinine + eGFR",
-    "fr": "Créatinine + DFG"
-   },
-   {
-    "en": "Urea (BUN)",
-    "fr": "Urée"
-   },
-   {
-    "en": "Urinalysis (dipstick)",
-    "fr": "Bandelette urinaire"
+    "fr": "Créatinine + DFG",
+    "g": "judge",
+    "why": "Ordered WITH cystatin C, never alone: creatine inflates serum creatinine 10-20% without touching the kidney."
    },
    {
     "en": "ApoB",
-    "fr": "Apolipoprotéine B (ApoB)"
-   },
-   {
-    "en": "Lp(a)",
-    "fr": "Lipoprotéine (a) [Lp(a)]"
+    "fr": "Apolipoprotéine B (ApoB)",
+    "g": "judge",
+    "why": "The particle count. 0.94 g/L against an LDL-C of 142 is discordant, and ApoB is the one that predicts."
    },
    {
     "en": "Lipid panel (total, LDL, HDL, triglycerides)",
-    "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)"
+    "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
+    "g": "judge",
+    "why": "The diet cut's whole purpose — saturates 60g to 40g on 1 Aug. LDL was 142, total 205."
    },
    {
     "en": "hs-CRP",
-    "fr": "CRP ultrasensible"
+    "fr": "CRP ultrasensible",
+    "g": "judge",
+    "why": "Omega-3 and the diet change. Already under 0.6, so expect no room to fall — a null here is not a failure."
    },
    {
     "en": "Homocysteine",
-    "fr": "Homocystéine"
-   },
-   {
-    "en": "TSH",
-    "fr": "TSH"
-   },
-   {
-    "en": "Free T4",
-    "fr": "T4 libre (FT4)"
-   },
-   {
-    "en": "Free T3",
-    "fr": "T3 libre (FT3)"
-   },
-   {
-    "en": "Anti-TPO antibodies",
-    "fr": "Anticorps anti-TPO"
-   },
-   {
-    "en": "Thyroglobulin antibodies (anti-Tg)",
-    "fr": "Anticorps anti-thyroglobuline (anti-Tg)"
+    "fr": "Homocystéine",
+    "g": "judge",
+    "why": "Sat exactly on its ceiling at 15.0. The August creatine restart removes the body's largest methyl demand and should pull it down on its own."
    },
    {
     "en": "Testosterone (total) — with SHBG and albumin on the SAME draw; free T is calculated from all three",
-    "fr": "Testostérone totale — avec SHBG et albumine sur le MÊME prélèvement ; la testostérone libre en est calculée"
-   },
-   {
-    "en": "Free testosterone by EQUILIBRIUM DIALYSIS — whenever a lab actually offers it, on the same draw as total T, SHBG and albumin (ask B2A first; fallback: bioavailable T by ammonium sulphate precipitation, never a direct immunoassay)",
-    "fr": "Testostérone libre par DIALYSE À L'ÉQUILIBRE — UNE SEULE FOIS, pour calibrer le calcul sur votre propre sang (demander à B2A ; à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium, jamais un immunodosage direct)"
+    "fr": "Testostérone totale — avec SHBG et albumine sur le MÊME prélèvement ; la testostérone libre en est calculée",
+    "g": "judge",
+    "why": "With SHBG and albumin on the SAME draw — free T is calculated from all three, and 6 of 7 past draws could not compute one."
    },
    {
     "en": "DHT (dihydrotestosterone)",
-    "fr": "DHT (dihydrotestostérone)"
+    "fr": "DHT (dihydrotestostérone)",
+    "g": "judge",
+    "why": "Topical finasteride is daily and active. This is what says whether it stays local or acts systemically."
    },
    {
     "en": "SHBG",
-    "fr": "SHBG"
+    "fr": "SHBG",
+    "g": "judge",
+    "why": "The number actually carrying free T: 46 against 18-54 is what puts free T in the lower third of its band."
    },
    {
     "en": "Estradiol",
-    "fr": "Œstradiol (E2)"
-   },
-   {
-    "en": "LH",
-    "fr": "LH (hormone lutéinisante)"
-   },
-   {
-    "en": "FSH",
-    "fr": "FSH (hormone folliculo-stimulante)"
+    "fr": "Œstradiol (E2)",
+    "g": "judge",
+    "why": "Finasteride shifts it, and it is the marker boron would move if that ever starts."
    },
    {
     "en": "Prolactin",
-    "fr": "Prolactine"
-   },
-   {
-    "en": "DHEA-S",
-    "fr": "SDHEA (sulfate de DHEA)"
-   },
-   {
-    "en": "IGF-1",
-    "fr": "IGF-1 (somatomédine C)"
-   },
-   {
-    "en": "Cortisol (morning)",
-    "fr": "Cortisol (matinal, 8h)"
+    "fr": "Prolactine",
+    "g": "judge",
+    "why": "Finasteride can raise it."
    },
    {
     "en": "25-OH vitamin D",
-    "fr": "Vitamine D (25-OH)"
+    "fr": "Vitamine D (25-OH)",
+    "g": "judge",
+    "why": "The D3 judge. 28 ng/mL drove the jump to 10000 IU on 1 Aug — come back down if it lands above 60-70."
    },
    {
     "en": "Omega-3 index",
-    "fr": "Index oméga-3"
-   },
-   {
-    "en": "Vitamin B12",
-    "fr": "Vitamine B12"
-   },
-   {
-    "en": "Folate",
-    "fr": "Folates (B9)"
-   },
-   {
-    "en": "Vitamin B6 (PLP)",
-    "fr": "Vitamine B6 (phosphate de pyridoxal, PLP)"
-   },
-   {
-    "en": "Selenium",
-    "fr": "Sélénium"
-   },
-   {
-    "en": "Zinc",
-    "fr": "Zinc"
-   },
-   {
-    "en": "Copper",
-    "fr": "Cuivre"
+    "fr": "Index oméga-3",
+    "g": "judge",
+    "why": "The omega-3 judge. 6.12% at baseline against a target of 8-12%; the ~3.9g/day started 1 Aug postdates that reading entirely."
    },
    {
     "en": "Calcium",
-    "fr": "Calcium"
+    "fr": "Calcium",
+    "g": "judge",
+    "why": "The other half of the D3 judge. The risk of 10000 IU is hypercalcaemia, not the vitamin."
    },
    {
     "en": "PTH (parathyroid hormone)",
-    "fr": "Parathormone (PTH)"
-   },
-   {
-    "en": "Magnesium (serum)",
-    "fr": "Magnésium sérique"
-   },
-   {
-    "en": "Ferritin",
-    "fr": "Ferritine"
-   },
-   {
-    "en": "Serum iron",
-    "fr": "Fer sérique"
-   },
-   {
-    "en": "TIBC (total iron-binding capacity)",
-    "fr": "Capacité totale de fixation du fer (CTF)"
-   },
-   {
-    "en": "Transferrin saturation (TSAT)",
-    "fr": "Coefficient de saturation de la transferrine (CST)"
-   },
-   {
-    "en": "Fasting glucose",
-    "fr": "Glycémie à jeun"
-   },
-   {
-    "en": "HbA1c",
-    "fr": "Hémoglobine glyquée (HbA1c)"
-   },
-   {
-    "en": "Fasting insulin",
-    "fr": "Insuline à jeun"
-   },
-   {
-    "en": "Uric acid",
-    "fr": "Acide urique"
-   },
-   {
-    "en": "Ionogram (Na, K, Cl, bicarbonate)",
-    "fr": "Ionogramme sanguin (Na, K, Cl, bicarbonates)"
-   },
-   {
-    "en": "CBC",
-    "fr": "NFS (numération formule sanguine)"
-   },
-   {
-    "en": "Liver panel (ALT, AST, GGT)",
-    "fr": "Bilan hépatique (ASAT, ALAT, GGT)"
-   },
-   {
-    "en": "Alkaline phosphatase (ALP)",
-    "fr": "Phosphatases alcalines (PAL)"
-   },
-   {
-    "en": "Total bilirubin",
-    "fr": "Bilirubine totale"
+    "fr": "Parathormone (PTH)",
+    "g": "judge",
+    "why": "Catches a vitamin D overshoot alongside calcium; 17.9 is low-normal, which is what adequate D looks like."
    },
    {
     "en": "Albumin",
-    "fr": "Albumine"
+    "fr": "Albumine",
+    "g": "judge",
+    "why": "Third input to the free T calculation. Its absence alone is why the Jan 2023 and Apr 2024 draws have no free T."
+   },
+   {
+    "en": "TSH",
+    "fr": "TSH",
+    "g": "gate",
+    "why": "Ashwagandha nudges thyroid hormones — its own note says never start without this baseline."
+   },
+   {
+    "en": "Free T4",
+    "fr": "T4 libre (FT4)",
+    "g": "gate",
+    "why": "Same gate as TSH."
+   },
+   {
+    "en": "Anti-TPO antibodies",
+    "fr": "Anticorps anti-TPO",
+    "g": "gate",
+    "why": "Autoimmunity screen before an adaptogen. Negative so far; the July lab changed technique on 26/05/2026, so old values do not compare."
+   },
+   {
+    "en": "Free testosterone by EQUILIBRIUM DIALYSIS — whenever a lab actually offers it, on the same draw as total T, SHBG and albumin (ask B2A first; fallback: bioavailable T by ammonium sulphate precipitation, never a direct immunoassay)",
+    "fr": "Testostérone libre par DIALYSE À L'ÉQUILIBRE — UNE SEULE FOIS, pour calibrer le calcul sur votre propre sang (demander à B2A ; à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium, jamais un immunodosage direct)",
+    "g": "gate",
+    "why": "Settles which scale describes you: the calculated interval says in-range, the dialysis one says low. Only if a lab offers it."
+   },
+   {
+    "en": "Vitamin B12",
+    "fr": "Vitamine B12",
+    "g": "gate",
+    "why": "Same trio. Abundant in the diet, so a low value would mean absorption."
+   },
+   {
+    "en": "Folate",
+    "fr": "Folates (B9)",
+    "g": "gate",
+    "why": "The B-complex judge with homocysteine. Diet now clears the RDA, yet serum folate sat at 6.3 — which points at conversion, not intake."
+   },
+   {
+    "en": "Vitamin B6 (PLP)",
+    "fr": "Vitamine B6 (phosphate de pyridoxal, PLP)",
+    "g": "gate",
+    "why": "BEFORE the B-complex starts, not after. It is the assay for the 25mg B6 ceiling that supplement's own note warns about."
+   },
+   {
+    "en": "Zinc",
+    "fr": "Zinc",
+    "g": "gate",
+    "why": "Swings 6.4 to 16.6mg on the beef/chicken alternation, which is the mechanism suppressing copper."
+   },
+   {
+    "en": "Copper",
+    "fr": "Cuivre",
+    "g": "gate",
+    "why": "Sits on its floor, 69.9 against 70, and nothing in the stack or diet is pointed at it."
+   },
+   {
+    "en": "Liver panel (ALT, AST, GGT)",
+    "fr": "Bilan hépatique (ASAT, ALAT, GGT)",
+    "g": "gate",
+    "why": "The clean baseline that gates curcumin and NAC — curcumin is among the supplements most implicated in drug-induced liver injury."
+   },
+   {
+    "en": "Urea (BUN)",
+    "fr": "Urée",
+    "g": "trend",
+    "why": "Only useful as a ratio to creatinine — it separates dehydration from real impairment, and high protein raises it independently."
+   },
+   {
+    "en": "Urinalysis (dipstick)",
+    "fr": "Bandelette urinaire",
+    "g": "trend",
+    "why": "Cheap check for protein and blood."
+   },
+   {
+    "en": "IGF-1",
+    "fr": "IGF-1 (somatomédine C)",
+    "g": "trend",
+    "why": "New technique from 23/09/2025 — IGF-1 assays differ more between platforms than almost any other."
+   },
+   {
+    "en": "Cortisol (morning)",
+    "fr": "Cortisol (matinal, 8h)",
+    "g": "trend",
+    "why": "Morning, and it would be the ashwagandha readout if that ever starts."
+   },
+   {
+    "en": "Selenium",
+    "fr": "Sélénium",
+    "g": "trend",
+    "why": "93.5 mid-range on ~150mcg/day from food. No reason to ever supplement it."
+   },
+   {
+    "en": "Magnesium (serum)",
+    "fr": "Magnésium sérique",
+    "g": "trend",
+    "why": "Poor proxy for stores, but it is what the lab offers."
+   },
+   {
+    "en": "Ferritin",
+    "fr": "Ferritine",
+    "g": "trend",
+    "why": "58 with TSAT 22% — low-normal stores against ~18.6mg dietary iron, most of it non-haem and eaten beside calcium and coffee."
+   },
+   {
+    "en": "Serum iron",
+    "fr": "Fer sérique",
+    "g": "trend",
+    "why": "Part of the iron four."
+   },
+   {
+    "en": "TIBC (total iron-binding capacity)",
+    "fr": "Capacité totale de fixation du fer (CTF)",
+    "g": "trend",
+    "why": "Derived from transferrin when not printed."
+   },
+   {
+    "en": "Transferrin saturation (TSAT)",
+    "fr": "Coefficient de saturation de la transferrine (CST)",
+    "g": "trend",
+    "why": "22%, just above its floor."
+   },
+   {
+    "en": "Fasting glucose",
+    "fr": "Glycémie à jeun",
+    "g": "trend",
+    "why": "88 mg/dL. Part of HOMA-IR."
+   },
+   {
+    "en": "HbA1c",
+    "fr": "Hémoglobine glyquée (HbA1c)",
+    "g": "trend",
+    "why": "5.1% and unmoved since 2020."
+   },
+   {
+    "en": "Fasting insulin",
+    "fr": "Insuline à jeun",
+    "g": "trend",
+    "why": "4.2 mUI/L. With glucose it gives HOMA-IR 0.91 — as good as that gets."
+   },
+   {
+    "en": "Uric acid",
+    "fr": "Acide urique",
+    "g": "trend",
+    "why": "4.2 mg/dL, low."
+   },
+   {
+    "en": "Ionogram (Na, K, Cl, bicarbonate)",
+    "fr": "Ionogramme sanguin (Na, K, Cl, bicarbonates)",
+    "g": "trend",
+    "why": "Carries bicarbonate, which reads the acid load of a high-protein diet — it shows up as a low-normal, never as anything dramatic."
+   },
+   {
+    "en": "CBC",
+    "fr": "NFS (numération formule sanguine)",
+    "g": "trend",
+    "why": "Platelets have sat 148-172 across six draws with no trend."
+   },
+   {
+    "en": "Alkaline phosphatase (ALP)",
+    "fr": "Phosphatases alcalines (PAL)",
+    "g": "trend",
+    "why": "Bone and liver both."
+   },
+   {
+    "en": "Total bilirubin",
+    "fr": "Bilirubine totale",
+    "g": "trend",
+    "why": "Part of the liver picture."
    },
    {
     "en": "Total protein",
-    "fr": "Protéines totales"
+    "fr": "Protéines totales",
+    "g": "trend",
+    "why": "With albumin, the globulin gap."
    },
    {
     "en": "Creatine kinase (CK)",
-    "fr": "Créatine kinase (CPK)"
+    "fr": "Créatine kinase (CPK)",
+    "g": "trend",
+    "why": "Training raises it; read it as a training marker, not a muscle one."
    }
   ]
  },

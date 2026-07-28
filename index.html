@@ -643,6 +643,8 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .sbuy{flex:none;width:14px;text-align:center;font-size:11px;color:var(--t4);text-decoration:none;align-self:center}
 a.sbuy:hover{color:var(--info)}
 .sjudge{flex-basis:100%;margin-top:2px;font-size:12.5px;line-height:1.5;color:var(--t3)}   /* per-item readout: how you'll judge a trial */
+/* why a test is on the draw list — full-width under its own row, same shape as .sjudge */
+.ndwhy{flex-basis:100%;margin-top:3px;font-size:12.5px;line-height:1.5;color:var(--t3)}
 .sjudge .sjl{color:var(--t2);font-weight:600}
 /* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
 .rhr{display:flex;gap:14px;position:relative}   /* anchors the full-width boundary lines */
@@ -1423,7 +1425,13 @@ function audit(j){
   }
   if(j.NEXTDRAW){
     if(!Array.isArray(j.NEXTDRAW.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
-    else j.NEXTDRAW.items.forEach(x=>{if(typeof x!=='object'||!x.en||!x.fr)bad.push('NEXTDRAW items must be {en, fr}');});
+    /* Every item declares WHY it is ordered. A draw list with no reasons drifts back into a
+       shopping list — it grows and never shrinks, because nothing on it can be argued with. */
+    else{const G=['judge','gate','trend'];
+      j.NEXTDRAW.items.forEach(x=>{
+        if(typeof x!=='object'||!x.en||!x.fr)return bad.push('NEXTDRAW items must be {en, fr, g, why}');
+        if(!G.includes(x.g))bad.push(`NEXTDRAW "${x.en}": g "${x.g}" is not one of ${G.join('/')}`);
+        if(typeof x.why!=='string'||!x.why)bad.push(`NEXTDRAW "${x.en}": why must say what this test is for`);});}
     if(j.NEXTDRAW.blood){const b=j.NEXTDRAW.blood;
       if(!Array.isArray(b.rows)||!b.rows.length)bad.push('NEXTDRAW.blood.rows must be a non-empty array');
       else b.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])bad.push('NEXTDRAW.blood rows must be [label, value]');});}
@@ -2256,9 +2264,22 @@ function renderPage(p){
   let h='';
   if(p==='nextdraw'&&NEXTDRAW){
     const it=NEXTDRAW.items;
+    /* Grouped by WHY, not by organ system. A test earns its place by judging something you are
+       doing, gating something you have not started, or being worth a second point — and an item
+       that fits none of those is one you can drop without arguing about it. One group each,
+       the strongest reason: overlaps live in the why line rather than listing a test twice,
+       because this list gets handed to a laboratory and every line is one order. */
+    const ND=[['judge','Judges something you are doing','What the 1 Aug protocol change, and the daily topical finasteride, commit you to measuring'],
+              ['gate','Gates a decision not yet taken','Baselines that decide whether a parked supplement can start — several must be drawn BEFORE it does'],
+              ['trend','Worth a second point','No active intervention attached; ordered because a series is worth more than a reading']];
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
       (it.length
-        ?`<div class="pgsec ndlist"><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+it.map(x=>`<div class="srow"><span class="sn">${esc(x.en)}</span><span class="frn">${esc(x.fr)}</span></div>`).join('')+`</div>`
+        ?ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length)return '';
+          return `<div class="pgsec ndlist"><div class="pgst">${esc(title)}<span class="cn">${rows.length}</span></div>`+
+            `<div class="cnote">${esc(blurb)}</div>`+
+            `<div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
+            rows.map(x=>`<div class="srow"><span class="sn">${esc(x.en)}</span><span class="frn">${esc(x.fr)}</span>`+
+              `<div class="ndwhy">${esc(x.why)}</div></div>`).join('')+`</div>`;}).join('')
          +`<button class="frcopy" onclick="copyNd(this)">Copy (EN + FR)</button>`
         :`<div class="cempty">&mdash;</div>`);
   } else if(p==='record'&&RECORD){

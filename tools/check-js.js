@@ -234,6 +234,18 @@ setTimeout(()=>{
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
   ok('audit rejects a bad STACK status', audit(j2).length===1);
+  // the draw list groups by WHY. A bad group renders nothing (the filter finds no rows) and a
+  // missing why renders an empty line — both silent, so audit has to be the one that catches them.
+  const j9=JSON.parse(JSON.stringify(DATA)); j9.NEXTDRAW.items[0].g='someday';
+  ok('audit rejects an unknown draw-list group', audit(j9).length===1, audit(j9)[0]||'');
+  const j10=JSON.parse(JSON.stringify(DATA)); delete j10.NEXTDRAW.items[0].why;
+  ok('audit rejects a draw-list item with no reason', audit(j10).length===1, audit(j10)[0]||'');
+  try{ setPage('nextdraw');
+    const H=n.pages.innerHTML, G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
+    ok(`draw list renders ${G} why-groups`, count(H,'pgst')===G, count(H,'pgst')+' groups');
+    ok(`${DATA.NEXTDRAW.items.length} reasons shown`, count(H,'ndwhy')===DATA.NEXTDRAW.items.length,
+      count(H,'ndwhy')+' reasons');
+  }catch(e){ ok('draw list groups',false,e.message); }
   const j5=JSON.parse(JSON.stringify(DATA)); j5.STACK.items[0].ev='pretty good';
   ok('audit rejects an unknown evidence tag', audit(j5).length===1, audit(j5)[0]||'');
   const j6=JSON.parse(JSON.stringify(DATA)); delete j6.STACK.items[0].ev;
