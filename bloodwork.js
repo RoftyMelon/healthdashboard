@@ -1275,8 +1275,8 @@ window.BLOODWORK =
     "fr": "Anticorps anti-thyroglobuline (anti-Tg)"
    },
    {
-    "en": "Testosterone — total, and free by EQUILIBRIUM DIALYSIS (not a direct immunoassay)",
-    "fr": "Testostérone totale, et testostérone libre par DIALYSE À L'ÉQUILIBRE (pas d'immunodosage direct)"
+    "en": "Testosterone (total) — with SHBG and albumin on the SAME draw; free T is calculated from all three",
+    "fr": "Testostérone totale — avec SHBG et albumine sur le MÊME prélèvement ; la testostérone libre en est calculée"
    },
    {
     "en": "DHT (dihydrotestosterone)",
