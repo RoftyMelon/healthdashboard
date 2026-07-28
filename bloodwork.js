@@ -4284,6 +4284,37 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "ceru",
+   "cat": "vitmin",
+   "en": "Ceruloplasmin",
+   "fr": "Céruloplasmine",
+   "us": "mg/dL",
+   "units": [
+    {
+     "l": "g/L",
+     "m": 100
+    },
+    {
+     "l": "mg/L",
+     "m": 0.1
+    },
+    {
+     "l": "mg/dL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    14,
+    26
+   ],
+   "am": "critical",
+   "note": "The protein that carries copper. Around 90% of the copper in serum is bound to it, so the two are read together or not at all.\n\nThat is the whole point of ordering it beside copper: a low copper has two different explanations — too little copper, or too little of the protein carrying it — and the copper number alone cannot separate them.\n\nCAVEAT: it is an ACUTE-PHASE PROTEIN. Inflammation, infection, pregnancy and oestrogen all raise it, and a rise can hide a real copper deficiency underneath. Read it against CRP; with an hs-CRP under 0.6 that confounder is effectively off the table here.\n\nThe interval is Cavalli et al., J Appl Lab Med 2024 — 1,706 healthy Italian donors on a Roche Cobas immunoturbidimetric assay, the same platform family this panel's chemistry comes from. It is SEX-SPECIFIC and narrower than the 20-60 mg/dL textbook figure: males 25-65 run 14-26 mg/dL, females almost double at the top. Beware an enzymatic (oxidase-activity) assay, which does not read the same as an immunoassay.",
+   "axis": [
+    8,
+    45
+   ]
+  },
+  {
    "id": "b12",
    "cat": "vitmin",
    "dec": [
@@ -4318,6 +4349,37 @@ window.BLOODWORK =
    "axis": [
     100,
     1000
+   ]
+  },
+  {
+   "id": "mma",
+   "cat": "vitmin",
+   "dec": [
+    "B-complex (methylfolate)",
+    "Huel"
+   ],
+   "en": "MMA (methylmalonic acid)",
+   "fr": "Acide méthylmalonique (MMA)",
+   "us": "nmol/L",
+   "units": [
+    {
+     "l": "µmol/L",
+     "m": 1000
+    },
+    {
+     "l": "nmol/L",
+     "m": 1
+    }
+   ],
+   "clin": [
+    0,
+    370
+   ],
+   "am": "critical",
+   "note": "A B12 checkpoint one step downstream of B12 itself. Converting methylmalonyl-CoA needs B12; without enough, methylmalonic acid backs up and spills into blood.\n\nIt answers what serum B12 cannot. B12 measures how much is in the blood, not how much is working inside cells, and it can read normal in real deficiency. MMA is the functional readout.\n\nIt also breaks a tie homocysteine cannot: folate, B12 and B6 ALL raise homocysteine, but only B12 raises MMA. High both means B12; high homocysteine with a normal MMA means folate or methylation, and B12 would do nothing for it.\n\nCAVEAT: the kidney clears it. NHANES found the highest creatinine quartile running about 43% above the lowest, and that is most of why MMA drifts up with age — so read it beside eGFR, and prefer cystatin C here for the same reason the kidney rows do.\n\nThe ceiling is the widely used B12-deficiency threshold of 370 nmol/L; there is no clinical concern at the low end, which is why the floor is zero. For placement, NHANES adults aged 18-40 (n=6,103, GC/MS) run a median of 119 nmol/L, with the 5th at 69 and the 95th at 249.",
+   "axis": [
+    0,
+    500
    ]
   },
   {
