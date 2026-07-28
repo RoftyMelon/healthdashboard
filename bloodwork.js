@@ -4057,8 +4057,8 @@ window.BLOODWORK =
     1.8
    ],
    "opt": [
-    1,
-    1.5
+    1.0,
+    1.6
    ],
    "oc": "moderate",
    "am": "critical",
@@ -5384,13 +5384,8 @@ window.BLOODWORK =
     18,
     54
    ],
-   "opt": [
-    20,
-    45
-   ],
-   "oc": "moderate",
    "am": "critical",
-   "note": "A liver-made protein that grips testosterone and carries it through the blood. Bound testosterone cannot enter cells, so SHBG effectively decides how much of your total is usable.\n\nThat makes it necessary rather than optional: the same total testosterone means different things at high and low SHBG.\n\nIt also reports on metabolic health — it rises with thyroid hormone and falls with insulin resistance and higher body fat.",
+   "note": "A liver-made protein that grips testosterone and carries it through the blood. Bound testosterone cannot enter cells, so SHBG effectively decides how much of your total is usable.\n\nThat makes it necessary rather than optional: the same total testosterone means different things at high and low SHBG.\n\nIt also reports on metabolic health — it rises with thyroid hormone and falls with insulin resistance and higher body fat.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 20-45, which read 46 as too high. SHBG is not a lever, it is a CONSEQUENCE: low body fat, insulin sensitivity, high fibre and thyroid status all raise it. This subject's HOMA-IR is 0.91 and body fat about 12%, so a high-normal SHBG is what those look like from another angle — targeting it downward means asking for the metabolic state to be worse. It still matters as a READING, because it is what puts calculated free testosterone in the lower third of its band; it is just not something to move on its own.",
    "axis": [
     10,
     70
@@ -5847,12 +5842,7 @@ window.BLOODWORK =
     4,
     10
    ],
-   "opt": [
-    4.5,
-    8.5
-   ],
-   "oc": "weak",
-   "note": "The total number of immune cells in circulation. A broad screen for infection, inflammation and bone-marrow function.\n\nThe total by itself is fairly blunt — nearly all the information is in the breakdown below it, since a high count from neutrophils means something very different from a high count from lymphocytes.\n\nRises briefly with acute stress, adrenaline, and recent hard exercise, none of which involve illness.",
+   "note": "The total number of immune cells in circulation. A broad screen for infection, inflammation and bone-marrow function.\n\nThe total by itself is fairly blunt — nearly all the information is in the breakdown below it, since a high count from neutrophils means something very different from a high count from lymphocytes.\n\nRises briefly with acute stress, adrenaline, and recent hard exercise, none of which involve illness.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 4.5-8.5, pointing upward. A white count in the lower half of normal is unremarkable in lean, heavily trained people, and WBC doubles as an inflammation marker — within the reference range the lower end tends to track with LOWER risk, not higher. So the band was asking for a number to rise that there is no reason to raise and no benign way to raise. What matters is a TREND, or a fall alongside the other cell lines; a single low-normal count with a normal red series is not a finding.",
    "axis": [
     2,
     13
