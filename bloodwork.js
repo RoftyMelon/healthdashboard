@@ -288,7 +288,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Multi-gram DHA raises LDL-C 5-10%, so part of your 142 is this. Fish days replace a dose rather than adding to one."
+       "Multi-gram DHA raises LDL-C 5-10%. This started 1 Aug, twelve days AFTER the 142 was drawn, so it explains nothing about that number — it is a warning about the NEXT one. A flat or slightly higher LDL at the next draw would not mean the diet cut failed; part of it would be this. Fish days replace a dose rather than adding to one."
       ]
      ],
      "Changes": [
