@@ -217,6 +217,19 @@ setTimeout(()=>{
     ok(`evening card derives ${evn} item(s) from STACK.when`,
       evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived'); }
   catch(e){ ok('diet supps',false,e.message); }
+  /* Kefir, nuts and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
+     in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:
+     the tooltip payload is stored twice, so an edit that lands on one copy leaves the other
+     stale and nothing on the page says so. Same name AND same portion must therefore mean the
+     same data. Olive oil is deliberately exempt: same name, 10mL vs 50mL, genuinely different. */
+  {
+    const seen={},drift=[];
+    DATA.DIET.meals.forEach(m=>(m.items||[]).forEach(x=>{
+      if(typeof x!=='object'||!x.info)return;
+      const k=x.n+'@'+x.amt, j=JSON.stringify(x.info);
+      if(seen[k]&&seen[k]!==j)drift.push(k); else seen[k]=j;}));
+    ok('repeated foods carry identical data', drift.length===0, drift.join(', ')||'no drift');
+  }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
