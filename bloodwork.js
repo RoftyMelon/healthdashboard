@@ -8578,6 +8578,7 @@ window.BLOODWORK =
      "apob": {
       "r": 0.94,
       "u": "g/L",
+      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Immunoturbidimétrie",
       "lr": [
        0.66,
