@@ -1829,7 +1829,7 @@ window.BLOODWORK =
     "en": "Lipid panel (total, LDL, HDL, triglycerides)",
     "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
     "g": "judge",
-    "why": "The diet cut's whole purpose — saturates 60g to 40g on 1 Aug. LDL was 142, total 205."
+    "why": "The whole purpose of the 1 Aug diet change — saturated fat 60g down to 40g. LDL was 142 and total 205 beforehand, on a steady diet."
    },
    {
     "en": "hs-CRP",
@@ -7960,7 +7960,7 @@ window.BLOODWORK =
     "id": "d2026jul",
     "date": "2026-07-20",
     "t": "08:37",
-    "note": "B2A Canal / Brumath (Vendenheim), Cobas Roche chemistry on an XN Sysmex haematology analyser, with Diasorin CLIA for insulin, vitamin D, PTH and IGF-1; send-outs to CERBA (trace elements, ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG) and to Laboratoire Barbier for the erythrocyte fatty-acid profile. 10h fast, drawn 08:37, serum limpide and non-haemolysed. All 71 values are reconciled against the printed report. THE LAB CHANGED TECHNIQUE ON 27/05/2026 across much of its chemistry, immunology and serology, and says so on page one: 'entrainant une rupture des anteriorites'. That break lands between this draw and the March one — the thyroid antibodies moved on 26/05, homocysteine on 22/06, IGF-1 back on 23/09/2025, and the CRP became genuinely ultra-sensitive, which is why the March '<1' and this '<0.6' are not two points on one line. OFF creatine — the clean kidney read the March draw could not give. The lab refused erythrocyte magnesium (discontinued for limited clinical benefit) and substituted serum; it also discontinued the ESR outright, per HAS 2025, replacing it with CRP. The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. THE LAB PRINTED A CORRECTED CALCIUM OF 83 mg/L (2.1 mmol/L) AND FLAGGED IT LOW. It is not stored, and that is deliberate: albumin was 51 g/L, and above 40 the correction subtracts a large (albumin - 4) from a calcium that needed no correcting, manufacturing a low reading out of a normal one. The measured calcium, 94 mg/L, is mid-range. This is the artefact the empty corrected-calcium row exists to avoid, printed in black and white by a laboratory that ran the formula anyway.",
+    "note": "B2A Canal / Brumath (Vendenheim), Cobas Roche chemistry on an XN Sysmex haematology analyser, with Diasorin CLIA for insulin, vitamin D, PTH and IGF-1; send-outs to CERBA (trace elements, ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG) and to Laboratoire Barbier for the erythrocyte fatty-acid profile. 10h fast, drawn 08:37, serum limpide and non-haemolysed. All 71 values are reconciled against the printed report. THE LAB CHANGED TECHNIQUE ON 27/05/2026 across much of its chemistry, immunology and serology, and says so on page one: 'entrainant une rupture des anteriorites'. That break lands between this draw and the March one — the thyroid antibodies moved on 26/05, homocysteine on 22/06, IGF-1 back on 23/09/2025, and the CRP became genuinely ultra-sensitive, which is why the March '<1' and this '<0.6' are not two points on one line. OFF creatine — the clean kidney read the March draw could not give. The lab refused erythrocyte magnesium (discontinued for limited clinical benefit) and substituted serum; it also discontinued the ESR outright, per HAS 2025, replacing it with CRP. THE LAB PRINTED A CORRECTED CALCIUM OF 83 mg/L (2.1 mmol/L) AND FLAGGED IT LOW. It is not stored, and that is deliberate: albumin was 51 g/L, and above 40 the correction subtracts a large (albumin - 4) from a calcium that needed no correcting, manufacturing a low reading out of a normal one. The measured calcium, 94 mg/L, is mid-range. This is the artefact the empty corrected-calcium row exists to avoid, printed in black and white by a laboratory that ran the formula anyway.",
     "v": {
      "rbc": {
       "r": 4.94,
@@ -8117,7 +8117,6 @@ window.BLOODWORK =
      "tg": {
       "r": 0.65,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche",
       "lr": [
        null,
@@ -8127,13 +8126,11 @@ window.BLOODWORK =
      "chol": {
       "r": 2.05,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche"
      },
      "hdl": {
       "r": 0.5,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Technique enzymatique Cobas Roche",
       "lr": [
        0.4,
@@ -8143,14 +8140,12 @@ window.BLOODWORK =
      "nonhdl": {
       "r": 1.55,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Calcul",
       "an": "Total cholesterol minus HDL. Arithmetic, not an assay."
      },
      "ldl": {
       "r": 1.42,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Calculé selon la formule de Friedewald",
       "ak": "Friedewald",
       "an": "Calculated by Friedewald, not measured."
@@ -8578,7 +8573,6 @@ window.BLOODWORK =
      "apob": {
       "r": 0.94,
       "u": "g/L",
-      "cx": "Diet cut 2 days before: mozzarella 400→200 g/day, eggs to 6, legumes and whole grains in.",
       "a": "Immunoturbidimétrie",
       "lr": [
        0.66,
