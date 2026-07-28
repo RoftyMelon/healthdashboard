@@ -1820,12 +1820,6 @@ window.BLOODWORK =
     "why": "Ordered WITH cystatin C, never alone: creatine inflates serum creatinine 10-20% without touching the kidney."
    },
    {
-    "en": "Urine albumin/creatinine ratio (ACR) — FIRST-MORNING void",
-    "fr": "Rapport albumine/créatinine urinaire (RAC) — sur les URINES DU MATIN",
-    "g": "judge",
-    "why": "Supersedes the dipstick and the July PCR, which could not do the job: that result was censored at <25 mg/mmol, which converts to <221 mg/g against a reference ceiling of 150 — the assay limit was coarser than the range it was judged against, so it could not confirm normality. KDIGO prefers ACR on a first-morning sample, and a positive needs confirming on a second."
-   },
-   {
     "en": "ApoB",
     "fr": "Apolipoprotéine B (ApoB)",
     "g": "judge",
@@ -1991,7 +1985,7 @@ window.BLOODWORK =
     "en": "Urinalysis (dipstick)",
     "fr": "Bandelette urinaire",
     "g": "trend",
-    "why": "Cheap check for protein and blood."
+    "why": "Cheap screen for protein and blood, and the proportionate one: albuminuria screening is aimed at diabetes, hypertension and established CVD, none of which apply here. If the dipstick ever shows protein, THAT is when a first-morning ACR is worth ordering — not before. The July PCR came back censored at <25 mg/mmol, a limit coarser than its own reference ceiling, so read it as uninformative rather than as reassurance."
    },
    {
     "en": "IGF-1",
