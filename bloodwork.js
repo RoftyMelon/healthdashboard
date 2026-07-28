@@ -1045,9 +1045,8 @@ window.BLOODWORK =
        "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html",
        "info": "Do not apply on Glycolic Acid days"
       },
-      "Emulsion",
       {
-       "n": "Retinal 0.2%",
+       "n": "Emulsion - Retinal 0.2%",
        "url": "https://geekandgorgeous.com/products/a-game-20"
       },
       {
