@@ -1063,11 +1063,11 @@ window.BLOODWORK =
     }
    ],
    "notes": [
-    "Finasteride 0.1% + Minoxidil 5% started 1 Aug 2026. The 2026-07-20 draw is therefore the clean PRE-treatment baseline for DHT, estradiol, prolactin, total testosterone and SHBG.",
     "Body lotion 12% AHA while still wet after morning shower, at least once a week",
     "Glycolic 7% once a week instead of Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
-    "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
+    "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum",
+    "Finasteride 0.1% + Minoxidil 5% started 1 Aug 2026."
    ]
   },
   {
