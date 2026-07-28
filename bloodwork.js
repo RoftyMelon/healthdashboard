@@ -688,7 +688,7 @@ window.BLOODWORK =
      "Parked": [
       [
        "",
-       "The payoff is for elevated BP or CVD risk, not a fit 31-year-old. Your blood pressure has never been measured, so nothing can justify this yet."
+       "The payoff is for elevated blood pressure or established CVD risk. BP measures normal at check-ups, so that half of the case is closed; only a lipid or plaque reason could revive it."
       ]
      ]
     },
@@ -1218,56 +1218,210 @@ window.BLOODWORK =
  },
  "NEXTDRAW": {
   "items": [
-   {"en": "Cystatin C", "fr": "Cystatine C"},
-   {"en": "Creatinine + eGFR", "fr": "Créatinine + DFG"},
-   {"en": "Urea (BUN)", "fr": "Urée"},
-   {"en": "Urinalysis (dipstick)", "fr": "Bandelette urinaire"},
-   {"en": "ApoB", "fr": "Apolipoprotéine B (ApoB)"},
-   {"en": "Lp(a)", "fr": "Lipoprotéine (a) [Lp(a)]"},
-   {"en": "Lipid panel (total, LDL, HDL, triglycerides)", "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)"},
-   {"en": "hs-CRP", "fr": "CRP ultrasensible"},
-   {"en": "Homocysteine", "fr": "Homocystéine"},
-   {"en": "TSH", "fr": "TSH"},
-   {"en": "Free T4", "fr": "T4 libre (FT4)"},
-   {"en": "Free T3", "fr": "T3 libre (FT3)"},
-   {"en": "Anti-TPO antibodies", "fr": "Anticorps anti-TPO"},
-   {"en": "Thyroglobulin antibodies (anti-Tg)", "fr": "Anticorps anti-thyroglobuline (anti-Tg)"},
-   {"en": "Testosterone (total + free)", "fr": "Testostérone totale et libre"},
-   {"en": "DHT (dihydrotestosterone)", "fr": "DHT (dihydrotestostérone)"},
-   {"en": "SHBG", "fr": "SHBG"},
-   {"en": "Estradiol", "fr": "Œstradiol (E2)"},
-   {"en": "LH", "fr": "LH (hormone lutéinisante)"},
-   {"en": "FSH", "fr": "FSH (hormone folliculo-stimulante)"},
-   {"en": "Prolactin", "fr": "Prolactine"},
-   {"en": "DHEA-S", "fr": "SDHEA (sulfate de DHEA)"},
-   {"en": "IGF-1", "fr": "IGF-1 (somatomédine C)"},
-   {"en": "Cortisol (morning)", "fr": "Cortisol (matinal, 8h)"},
-   {"en": "25-OH vitamin D", "fr": "Vitamine D (25-OH)"},
-   {"en": "Omega-3 index", "fr": "Index oméga-3"},
-   {"en": "Vitamin B12", "fr": "Vitamine B12"},
-   {"en": "Folate", "fr": "Folates (B9)"},
-   {"en": "Selenium", "fr": "Sélénium"},
-   {"en": "Zinc", "fr": "Zinc"},
-   {"en": "Copper", "fr": "Cuivre"},
-   {"en": "Calcium", "fr": "Calcium"},
-   {"en": "PTH (parathyroid hormone)", "fr": "Parathormone (PTH)"},
-   {"en": "Magnesium (serum)", "fr": "Magnésium sérique"},
-   {"en": "Ferritin", "fr": "Ferritine"},
-   {"en": "Serum iron", "fr": "Fer sérique"},
-   {"en": "TIBC (total iron-binding capacity)", "fr": "Capacité totale de fixation du fer (CTF)"},
-   {"en": "Transferrin saturation (TSAT)", "fr": "Coefficient de saturation de la transferrine (CST)"},
-   {"en": "Fasting glucose", "fr": "Glycémie à jeun"},
-   {"en": "HbA1c", "fr": "Hémoglobine glyquée (HbA1c)"},
-   {"en": "Fasting insulin", "fr": "Insuline à jeun"},
-   {"en": "Uric acid", "fr": "Acide urique"},
-   {"en": "Ionogram (Na, K, Cl, bicarbonate)", "fr": "Ionogramme sanguin (Na, K, Cl, bicarbonates)"},
-   {"en": "CBC", "fr": "NFS (numération formule sanguine)"},
-   {"en": "Liver panel (ALT, AST, GGT)", "fr": "Bilan hépatique (ASAT, ALAT, GGT)"},
-   {"en": "Alkaline phosphatase (ALP)", "fr": "Phosphatases alcalines (PAL)"},
-   {"en": "Total bilirubin", "fr": "Bilirubine totale"},
-   {"en": "Albumin", "fr": "Albumine"},
-   {"en": "Total protein", "fr": "Protéines totales"},
-   {"en": "Creatine kinase (CK)", "fr": "Créatine kinase (CPK)"}
+   {
+    "en": "Cystatin C",
+    "fr": "Cystatine C"
+   },
+   {
+    "en": "Creatinine + eGFR",
+    "fr": "Créatinine + DFG"
+   },
+   {
+    "en": "Urea (BUN)",
+    "fr": "Urée"
+   },
+   {
+    "en": "Urinalysis (dipstick)",
+    "fr": "Bandelette urinaire"
+   },
+   {
+    "en": "ApoB",
+    "fr": "Apolipoprotéine B (ApoB)"
+   },
+   {
+    "en": "Lp(a)",
+    "fr": "Lipoprotéine (a) [Lp(a)]"
+   },
+   {
+    "en": "Lipid panel (total, LDL, HDL, triglycerides)",
+    "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)"
+   },
+   {
+    "en": "hs-CRP",
+    "fr": "CRP ultrasensible"
+   },
+   {
+    "en": "Homocysteine",
+    "fr": "Homocystéine"
+   },
+   {
+    "en": "TSH",
+    "fr": "TSH"
+   },
+   {
+    "en": "Free T4",
+    "fr": "T4 libre (FT4)"
+   },
+   {
+    "en": "Free T3",
+    "fr": "T3 libre (FT3)"
+   },
+   {
+    "en": "Anti-TPO antibodies",
+    "fr": "Anticorps anti-TPO"
+   },
+   {
+    "en": "Thyroglobulin antibodies (anti-Tg)",
+    "fr": "Anticorps anti-thyroglobuline (anti-Tg)"
+   },
+   {
+    "en": "Testosterone (total + free)",
+    "fr": "Testostérone totale et libre"
+   },
+   {
+    "en": "DHT (dihydrotestosterone)",
+    "fr": "DHT (dihydrotestostérone)"
+   },
+   {
+    "en": "SHBG",
+    "fr": "SHBG"
+   },
+   {
+    "en": "Estradiol",
+    "fr": "Œstradiol (E2)"
+   },
+   {
+    "en": "LH",
+    "fr": "LH (hormone lutéinisante)"
+   },
+   {
+    "en": "FSH",
+    "fr": "FSH (hormone folliculo-stimulante)"
+   },
+   {
+    "en": "Prolactin",
+    "fr": "Prolactine"
+   },
+   {
+    "en": "DHEA-S",
+    "fr": "SDHEA (sulfate de DHEA)"
+   },
+   {
+    "en": "IGF-1",
+    "fr": "IGF-1 (somatomédine C)"
+   },
+   {
+    "en": "Cortisol (morning)",
+    "fr": "Cortisol (matinal, 8h)"
+   },
+   {
+    "en": "25-OH vitamin D",
+    "fr": "Vitamine D (25-OH)"
+   },
+   {
+    "en": "Omega-3 index",
+    "fr": "Index oméga-3"
+   },
+   {
+    "en": "Vitamin B12",
+    "fr": "Vitamine B12"
+   },
+   {
+    "en": "Folate",
+    "fr": "Folates (B9)"
+   },
+   {
+    "en": "Vitamin B6 (PLP)",
+    "fr": "Vitamine B6 (phosphate de pyridoxal, PLP)"
+   },
+   {
+    "en": "Selenium",
+    "fr": "Sélénium"
+   },
+   {
+    "en": "Zinc",
+    "fr": "Zinc"
+   },
+   {
+    "en": "Copper",
+    "fr": "Cuivre"
+   },
+   {
+    "en": "Calcium",
+    "fr": "Calcium"
+   },
+   {
+    "en": "PTH (parathyroid hormone)",
+    "fr": "Parathormone (PTH)"
+   },
+   {
+    "en": "Magnesium (serum)",
+    "fr": "Magnésium sérique"
+   },
+   {
+    "en": "Ferritin",
+    "fr": "Ferritine"
+   },
+   {
+    "en": "Serum iron",
+    "fr": "Fer sérique"
+   },
+   {
+    "en": "TIBC (total iron-binding capacity)",
+    "fr": "Capacité totale de fixation du fer (CTF)"
+   },
+   {
+    "en": "Transferrin saturation (TSAT)",
+    "fr": "Coefficient de saturation de la transferrine (CST)"
+   },
+   {
+    "en": "Fasting glucose",
+    "fr": "Glycémie à jeun"
+   },
+   {
+    "en": "HbA1c",
+    "fr": "Hémoglobine glyquée (HbA1c)"
+   },
+   {
+    "en": "Fasting insulin",
+    "fr": "Insuline à jeun"
+   },
+   {
+    "en": "Uric acid",
+    "fr": "Acide urique"
+   },
+   {
+    "en": "Ionogram (Na, K, Cl, bicarbonate)",
+    "fr": "Ionogramme sanguin (Na, K, Cl, bicarbonates)"
+   },
+   {
+    "en": "CBC",
+    "fr": "NFS (numération formule sanguine)"
+   },
+   {
+    "en": "Liver panel (ALT, AST, GGT)",
+    "fr": "Bilan hépatique (ASAT, ALAT, GGT)"
+   },
+   {
+    "en": "Alkaline phosphatase (ALP)",
+    "fr": "Phosphatases alcalines (PAL)"
+   },
+   {
+    "en": "Total bilirubin",
+    "fr": "Bilirubine totale"
+   },
+   {
+    "en": "Albumin",
+    "fr": "Albumine"
+   },
+   {
+    "en": "Total protein",
+    "fr": "Protéines totales"
+   },
+   {
+    "en": "Creatine kinase (CK)",
+    "fr": "Créatine kinase (CPK)"
+   }
   ]
  },
  "DIET": {
