@@ -651,7 +651,7 @@ window.BLOODWORK =
      "Parked": [
       [
        "",
-       "Diet folate now clears the RDA at ~520-570mcg, yet serum folate sits at 6.3 on the floor of its band — which points at conversion rather than intake. The greens and the August creatine restart get read first."
+       "Diet folate clears the RDA at ~450-500mcg — down from ~520-570 since the eggs went 5 to 3 — yet serum folate sits at 6.3 on the floor of its band — which points at conversion rather than intake. The greens and the August creatine restart get read first."
       ]
      ]
     },
@@ -1889,7 +1889,7 @@ window.BLOODWORK =
     "en": "Omega-3 index",
     "fr": "Index oméga-3",
     "g": "judge",
-    "why": "The omega-3 judge. 6.12% at baseline against a target of 8-12%; the ~3.9g/day started 1 Aug postdates that reading entirely."
+    "why": "The omega-3 judge. 6.12% at baseline against a target of 8-12%; the ~3.9g/day including food started 1 Aug postdates that reading entirely."
    },
    {
     "en": "Calcium",
