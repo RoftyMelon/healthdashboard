@@ -1275,8 +1275,8 @@ window.BLOODWORK =
     "fr": "Anticorps anti-thyroglobuline (anti-Tg)"
    },
    {
-    "en": "Testosterone (total + free)",
-    "fr": "Testostérone totale et libre"
+    "en": "Testosterone — total, and free by EQUILIBRIUM DIALYSIS (not a direct immunoassay)",
+    "fr": "Testostérone totale, et testostérone libre par DIALYSE À L'ÉQUILIBRE (pas d'immunodosage direct)"
    },
    {
     "en": "DHT (dihydrotestosterone)",
@@ -4595,7 +4595,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three.\n\nThat is still the better option: direct free-testosterone immunoassays are notoriously unreliable, and this panel already discarded one implausible value from that kind of assay.",
+   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three.\n\nThat is still the better option: direct free-testosterone immunoassays are notoriously unreliable, and this panel already discarded one implausible value from that kind of assay.\n\nTHE REFERENCE INTERVAL HERE IS UNSOURCED. 47-244 pg/mL matches no current laboratory interval, no published Vermeulen range and no harmonised standard — the nearest neighbour is an equilibrium-dialysis interval Quest retired in 2025. Every other guideline-derived range in this file names its source; this one cannot.\n\nThe best-evidence intervals are Jasuja 2023 (Andrology), by standardised equilibrium dialysis with CDC-certified LC-MS/MS: 66-309 pg/mL across healthy non-obese men, and 120-368 pg/mL for men aged 19-39.\n\nThey are NOT swapped in, because that would judge a Vermeulen calculation against a dialysis measurement. Calculated free testosterone runs below dialysis, so borrowing the interval would push this marker toward a false low. The fix is a measured free testosterone by equilibrium dialysis, which would make those intervals apply directly.",
    "axis": [
     20,
     280
@@ -5783,8 +5783,6 @@ window.BLOODWORK =
     "date": "2020-12-10",
     "t": "10:38",
     "note": "Cerballiance Clairval (Marseille), Roche Cobas throughout: chemistry by spectrophotometry, electrolytes by ISE potentiometry, thyroid/testosterone/vitamin D by ECLIA. HbA1c went out to the Sebia Capillarys 3 for capillary electrophoresis, and the ESR ran on an Alifax analyser. Every method and every printed interval is now recorded on the values themselves. Reached this file via an InsideTracker upload that re-converted the lab's SI values instead of transcribing them, so eight results were dropped entirely and six arrived rounded — the original report has since been transcribed in full and all 43 values reconciled against it. The lab flagged calcium, creatinine and potassium against its own intervals; each carries its own annotation. The serology this report also carried (HIV, hepatitis B and C) is on the Record tab.",
-
-
     "v": {
      "wbc": {
       "r": 6.2,
@@ -6188,7 +6186,6 @@ window.BLOODWORK =
     "date": "2022-05-14",
     "t": "10:15",
     "note": "Collected at Cerballiance La Rouvière (Marseille) on a Hôpital La Conception prescription, but RUN AT A DIFFERENT SITE than the 2020 panel — BD here, CL then — which is why several printed intervals moved without any technique changing. Roche Cobas throughout, TSH and vitamin D by ECLIA, prothrombin time on a Stago Sta. Every method and printed interval is recorded on the values. Arrived via an InsideTracker upload: four results were dropped (creatinine, eGFR, alkaline phosphatase, TSH) and three were rounded (RBC 5.28 stored as 5.3, MCHC 34.8 as 35, albumin 52.9 g/L as 5.3 g/dL) — all restored from the report, and all 33 values reconciled against it. The lab flagged albumin, creatinine and MPV; each carries its own annotation. CRITICAL FOR THE CORRECTED-CALCIUM MARKER: this report prints, verbatim, 'Calcium corrige non indique car albumine >40 g/L' — the laboratory REFUSED to compute it because albumin exceeds 40 g/L, which it does in every draw where albumin was measured. Urea was deliberately not performed: the report states it is only reimbursed for dialysis, acute renal failure, or nutritional assessment in chronic renal failure, so the empty urea marker is a French reimbursement rule and not a dropped value. Serology (HIV, hepatitis B and C, syphilis) is on the Record tab.",
-
     "v": {
      "wbc": {
       "r": 5.3,
@@ -6316,7 +6313,7 @@ window.BLOODWORK =
        7,
        11
       ],
-      "cx": "Flagged high against the lab’s 7.0–11.0."
+      "cx": "La Rouvière. The same subject read 9.2 at Clairval in 2020 and 9.4 in Jan 2023."
      },
      "glu": {
       "r": 0.85,
@@ -6496,7 +6493,6 @@ window.BLOODWORK =
     "date": "2023-01-30",
     "t": "14:53",
     "note": "Cerballiance Clairval (Marseille) — an AFTERNOON draw at 14:53, the only one in this file, which is why the total testosterone here is not comparable with the morning draws either side of it. Hormones sent out to CERBA and run by ECLIA. Every method and printed interval is recorded on the values. TESTOSTERONE LIBRE was also measured, by direct RIA: 32.3 pmol/L / 9.3 pg/mL, and in range against that assay's own printed 30.0-87.0 pmol/L. It is deliberately NOT stored as a value. This is the number once held as '0.9 ng/dL' and dismissed as a 10x transcription error — it was neither an error nor mislabelled, since 9.3 pg/mL IS 0.93 ng/dL. What was wrong was judging it against the marker's 47-244 pg/mL, which belongs to the Vermeulen calculation and not to a direct assay. Storing it would put two incompatible scales on one line: direct analog RIA is the method the Endocrine Society says not to use, and it would plot at roughly a tenth of the calculated values around it. The report also notes 'serum legerement lactescent' — mild lipaemia, which can disturb spectrophotometric assays.",
-
     "v": {
      "wbc": {
       "r": 4.9,
@@ -6725,8 +6721,6 @@ window.BLOODWORK =
     "date": "2023-03-13",
     "t": "09:45",
     "note": "Cerballiance Barral (Marseille) — a different site and analyser from the January draw six weeks earlier, which matters below. This was an ALLERGY workup: total IgE 122 UI/mL against a printed <100, flagged, with Phadiatop and Trophatop sent out to CERBA; those send-outs are on the Record tab, where both mixed-food panels landed just under the positivity threshold and the aeroallergen screen came back clean. Both halves of the report have now been transcribed and all 18 values reconciled. The InsideTracker upload this draw originally arrived through had rounded three values — RBC 5.04 stored as 5, MCHC 335 g/L as 34 g/dL, WBC 4.18 as 4.2 — and dropped MPV; all restored. THE LAB FLAGGED lymphocytes 1.06 G/L against 1.34-3.92 and platelets 157 against 172-398; each carries its own annotation. READ THE MPV SERIES WITH CARE: across five reports it splits perfectly by laboratory rather than by date — Clairval 9.2 and 9.4, La Rouviere 11.7, Barral 12.1. MPV rises as platelets swell in EDTA, so it tracks the delay to analysis and the analyser, not the patient. The line will look like a trend and is not one.",
-
-
     "v": {
      "wbc": {
       "r": 4.18,
@@ -6856,7 +6850,7 @@ window.BLOODWORK =
        10.8
       ],
       "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
-      "cx": "High against the lab’s 7.4–10.8. This site’s MPVs run high across the board."
+      "cx": "Barral. The same subject read 9.2 at Clairval in 2020 and 9.4 six weeks earlier."
      },
      "hscrp": {
       "r": 1.4,
@@ -6907,7 +6901,6 @@ window.BLOODWORK =
     "date": "2024-04-02",
     "t": "09:56",
     "note": "Cerballiance Provence Azur (Marseille), Roche Cobas ECLIA throughout, with the hormone send-outs to CERBA. Methods and printed intervals are on the values. Reached this file via an InsideTracker upload that RE-CONVERTED the SI values instead of transcribing the printed US ones, which is why earlier entries drifted from the report (B12 551 vs the printed 554 ng/L, total T 625.4 vs the printed 629.30 ng/dL) — values are stored as the lab printed them, in SI, and all four are reconciled against the report. TESTOSTERONE BIODISPONIBLE by RIA: 3.6 nmol/L / 1.05 ng/mL, in range against that assay's own printed 2.7-12.0 nmol/L. Deliberately kept as a note rather than a marker — a single measurement, on a direct RIA the panel is not reordering, with no counterpart in any other draw to compare it against. The 'free testosterone 83 pg/mL' previously stored here appears NOWHERE in the lab report: an InsideTracker artifact, removed.",
-
     "v": {
      "b12": {
       "r": 407,
@@ -6957,7 +6950,6 @@ window.BLOODWORK =
     "date": "2026-03-07",
     "t": "08:51",
     "note": "Laboratoire B2A Biolac (Schiltigheim) — Beckman chemistry on an XN Sysmex haematology analyser, 10h fast, serum limpide. Drawn 08:51, off the report, which also shows everything run and validated on 07/03/2026. This file previously dated the draw 01/03 and has been corrected. Every method and printed interval is on the values, and all 26 reconcile to the digit — this draw came from the lab directly rather than through an InsideTracker re-conversion. ON CREATINE at the time, which is why the eGFR of 61 is the outlier in an otherwise flat renal series (80, 82, 82, 61, 83.4) and should not be read as a decline. Platelets 148 sit just below the 150-400 reference. THE CRP HERE IS A STANDARD ASSAY, NOT HIGH-SENSITIVITY: immuno-turbidimetry with a reference of <5 mg/L, printed '<1 mg/L' and stored AT that limit, so it is an upper bound from an assay that cannot resolve the hs-CRP range at all. The 2022 and July 2026 values ('Inf a 0,5' and '<0.6') come from genuine high-sensitivity assays and are the ones worth comparing.",
-
     "v": {
      "rbc": {
       "r": 5.17,
@@ -7203,7 +7195,6 @@ window.BLOODWORK =
     "date": "2026-07-20",
     "t": "08:37",
     "note": "B2A Canal / Brumath (Vendenheim), Cobas Roche chemistry on an XN Sysmex haematology analyser, with Diasorin CLIA for insulin, vitamin D, PTH and IGF-1; send-outs to CERBA (trace elements, ApoB, Lp(a), cystatin C, homocysteine, DHT, SHBG) and to Laboratoire Barbier for the erythrocyte fatty-acid profile. 10h fast, drawn 08:37, serum limpide and non-haemolysed. All 71 values are reconciled against the printed report. THE LAB CHANGED TECHNIQUE ON 27/05/2026 across much of its chemistry, immunology and serology, and says so on page one: 'entrainant une rupture des anteriorites'. That break lands between this draw and the March one — the thyroid antibodies moved on 26/05, homocysteine on 22/06, IGF-1 back on 23/09/2025, and the CRP became genuinely ultra-sensitive, which is why the March '<1' and this '<0.6' are not two points on one line. OFF creatine — the clean kidney read the March draw could not give. The lab refused erythrocyte magnesium (discontinued for limited clinical benefit) and substituted serum; it also discontinued the ESR outright, per HAS 2025, replacing it with CRP. The diet cut — mozzarella 400 to 200 g/day, eggs 10 to 6 — landed only 2 days before the draw, so the lipids still reflect the prior intake. THE LAB PRINTED A CORRECTED CALCIUM OF 83 mg/L (2.1 mmol/L) AND FLAGGED IT LOW. It is not stored, and that is deliberate: albumin was 51 g/L, and above 40 the correction subtracts a large (albumin - 4) from a calcium that needed no correcting, manufacturing a low reading out of a normal one. The measured calcium, 94 mg/L, is mid-range. This is the artefact the empty corrected-calcium row exists to avoid, printed in black and white by a laboratory that ran the formula anyway.",
-
     "v": {
      "rbc": {
       "r": 4.94,
