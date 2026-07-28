@@ -4677,10 +4677,6 @@ window.BLOODWORK =
     {
      "l": "nmol/L",
      "m": 1
-    },
-    {
-     "l": "mg/dL",
-     "m": 2.15
     }
    ],
    "clin": [
@@ -4693,7 +4689,7 @@ window.BLOODWORK =
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "An LDL particle with an extra protein wrapped around it, which makes it stickier in artery walls and resistant to clearing. An independent cardiovascular risk factor.\n\nAlmost entirely inherited, and essentially fixed for life — so unlike LDL it is not something you move. One good measurement settles it, which is why it is usually checked once.\n\nWatch the units: it is reported either as mass (mg/dL) or particle count (nmol/L), and the two are not interchangeable.",
+   "note": "An LDL particle with an extra protein wrapped around it, which makes it stickier in artery walls and resistant to clearing. An independent cardiovascular risk factor.\n\nAlmost entirely inherited, and essentially fixed for life — so unlike LDL it is not something you move. One good measurement settles it, which is why it is usually checked once.\n\nUNITS: THIS MARKER ACCEPTS nmol/L ONLY, AND THE OMISSION IS DELIBERATE. Laboratories also report Lp(a) as mass in mg/dL, and the two do NOT convert. The apo(a) protein carries a variable number of kringle repeats, so particles differ in size between people: the same mass can be a very different particle count, and the commonly quoted 2.0-2.5 factor is a population average that can be wrong by 40% in one person. ESC/EAS say not to convert, which is why no mg/dL entry exists here — the file used to carry a fixed 2.15 multiplier that would have silently manufactured a confident number.\n\nIf a report ever prints mg/dL, audit() will refuse it because the unit is not in units[]. That is the correct outcome: STOP, and either re-order in nmol/L or give mass its own marker, the way calculated and dialysed free testosterone are split.",
    "axis": [
     0,
     150
