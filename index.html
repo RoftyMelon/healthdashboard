@@ -1087,9 +1087,15 @@ a.sbuy:hover{color:var(--info)}
    bubble. LAST in the stylesheet on purpose: it ties `.exinfo.tbl.wide` on specificity and only
    wins by sitting further down the file. */
 @media(max-width:900px){
+  /* Capped at 430, the CARD's width — not 620. Below 901px the card is min(430px,100%) and stops
+     growing, while 100vw keeps going, so a 620 cap made the bubble wider than the card it centres
+     on. And the card is NOT centred in the viewport at those widths — it sits at the left gutter —
+     so the whole overflow went off the LEFT edge: at a 671px window 20 of 23 tooltips started at
+     -85px with their labels cut off. On a phone this cap never binds (355 < 430), so the uniform
+     full-card width there is unchanged. */
   .drow .exinfo.tbl,.srow.lite .exinfo.tbl{
-    width:min(calc(100vw - 2 * var(--gut,10px)),620px);
-    max-width:min(calc(100vw - 2 * var(--gut,10px)),620px)}
+    width:min(calc(100vw - 2 * var(--gut,10px)),430px);
+    max-width:min(calc(100vw - 2 * var(--gut,10px)),430px)}
   /* Stack tips take the same card width, but cap at 430px rather than 620 — they are one
      prose paragraph, and 620px of 13.5px text is far past a readable measure. */
   .tipw .exinfo{
