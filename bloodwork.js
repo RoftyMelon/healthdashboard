@@ -2037,6 +2037,13 @@ window.BLOODWORK =
          "7g"
         ],
         [
+         "– saturates",
+         "1.2g",
+         "6%"
+        ]
+       ],
+       "Standouts": [
+        [
          "Vit E",
          "1mg",
          "10%"
@@ -2068,7 +2075,9 @@ window.BLOODWORK =
         [
          "Fibre",
          "3g"
-        ],
+        ]
+       ],
+       "Standouts": [
         [
          "Vit C",
          "7mg",
@@ -2384,7 +2393,9 @@ window.BLOODWORK =
          "– saturates",
          "6g",
          "30%"
-        ],
+        ]
+       ],
+       "Standouts": [
         [
          "Vit E",
          "6mg",
