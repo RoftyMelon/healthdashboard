@@ -3961,12 +3961,12 @@ window.BLOODWORK =
     65
    ],
    "opt": [
-    20,
-    50
+    15,
+    40
    ],
    "oc": "moderate",
    "am": "critical",
-   "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.",
+   "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.\n\nWhy the optimal band has no floor to speak of: a LOW PTH alongside adequate vitamin D and normal calcium is the desired direction, not a deficit — it means the parathyroid is not being asked to defend calcium. The band was 20-50, which read 17.9 as a shortfall while the vitamin D protocol was deliberately driving it down; 10000 IU will push it lower still. The concern here is a RISING PTH, which is what secondary hyperparathyroidism from vitamin D deficiency looks like. A genuinely low PTH would show itself as a low calcium, and calcium is measured on the same draw.",
    "axis": [
     0,
     90
@@ -4550,13 +4550,8 @@ window.BLOODWORK =
     60,
     140
    ],
-   "opt": [
-    90,
-    140
-   ],
-   "oc": "moderate",
    "am": "critical",
-   "note": "An estimate of how fast the kidneys are filtering blood, in millilitres per minute.\n\nIt is not measured. It is calculated from creatinine, age and sex — so every creatinine confound flows straight into it, including muscle mass and creatine use. A creatinine artificially raised by supplements produces an eGFR artificially low, with no kidney problem anywhere.\n\nWhich equation the lab used also changes the number, so the method matters as much as the value.",
+   "note": "An estimate of how fast the kidneys are filtering blood, in millilitres per minute.\n\nIt is not measured. It is calculated from creatinine, age and sex — so every creatinine confound flows straight into it, including muscle mass and creatine use. A creatinine artificially raised by supplements produces an eGFR artificially low, with no kidney problem anywhere.\n\nWhich equation the lab used also changes the number, so the method matters as much as the value.\n\nNO OPTIMAL BAND, DELIBERATELY. This is the CREATININE equation, and creatinine is a muscle breakdown product: muscle mass raises it and creatine supplementation raises it further, without either touching the kidney. An opt floor of 90 therefore manufactured a deficit here — 83.4 read as a gap while the same draw's cystatin C gave 116. Judging that number against a target chased the confounder. clin still flags real impairment at 60. Read this row beside the cystatin one and treat a DIVERGENCE between them as the finding, not the lower of the two.",
    "axis": [
     40,
     140
