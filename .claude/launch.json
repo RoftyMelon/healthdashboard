@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "bloodwork",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["--yes", "live-server", ".", "--port=5173", "--no-browser"],
-      "port": 5173
+      "name": "healthdashboard",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8000"],
+      "port": 8000
     }
   ]
 }
