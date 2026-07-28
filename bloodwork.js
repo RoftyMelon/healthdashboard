@@ -5579,7 +5579,7 @@ window.BLOODWORK =
    ],
    "oc": "weak",
    "am": "critical",
-   "note": "A pituitary hormone best known for lactation, but relevant here because when it is persistently high it suppresses testosterone.\n\nWorth checking once in anyone with unexplained low testosterone, since a small prolactin-secreting pituitary tumour is both a real cause and a treatable one.\n\nTwo things inflate it harmlessly: stress and sleep, and macroprolactin — a bulky bound form the body cannot use, which some labs count in the total unless they screen for it.",
+   "note": "A pituitary hormone best known for lactation, but relevant here because when it is persistently high it suppresses testosterone.\n\nWorth checking once in anyone with unexplained low testosterone, since a small prolactin-secreting pituitary tumour is both a real cause and a treatable one.\n\nTwo things inflate it harmlessly: stress and sleep, and macroprolactin — a bulky bound form the body cannot use, which some labs count in the total unless they screen for it.\n\nUNITS: the mUI/L conversion (x0.0472, i.e. 1 ng/mL = 21.2 mIU/L) is tied to WHO IS 84/500, not to physics. A laboratory calibrated to a different standard will not match it — check the report before trusting a converted value.",
    "axis": [
     0,
     30
@@ -6017,7 +6017,7 @@ window.BLOODWORK =
     100
    ],
    "am": "useful",
-   "note": "The antibody class evolved to fight parasites, which in wealthy countries mostly ends up doing allergy instead. It sits on the surface of mast cells, and when its target binds, the cell dumps histamine.\n\nTotal IgE adds every specificity together, so it says you react to something without saying what. It rises with hay fever, asthma, eczema and food allergy — and much further with parasites, or with an allergic reaction to a mould growing in the airways.\n\nA normal total does not rule allergy out: one strong sensitivity can hide inside a normal sum. Specific IgE against named allergens is what actually answers the question.",
+   "note": "The antibody class evolved to fight parasites, which in wealthy countries mostly ends up doing allergy instead. It sits on the surface of mast cells, and when its target binds, the cell dumps histamine.\n\nTotal IgE adds every specificity together, so it says you react to something without saying what. It rises with hay fever, asthma, eczema and food allergy — and much further with parasites, or with an allergic reaction to a mould growing in the airways.\n\nA normal total does not rule allergy out: one strong sensitivity can hide inside a normal sum. Specific IgE against named allergens is what actually answers the question.\n\nUNITS: the ng/mL conversion (x0.4167, i.e. 1 IU/mL = 2.4 ng/mL) is a WHO convention, not physics. kUI/L and UI/mL are the same quantity. Both values in this file were printed in UI/mL, so the conversion has never been exercised.",
    "axis": [
     0,
     300
