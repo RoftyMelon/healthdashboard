@@ -4606,6 +4606,42 @@ window.BLOODWORK =
    ]
   },
   {
+   "id": "ftd",
+   "cat": "horm",
+   "dec": [
+    "Boron 10mg",
+    "Finasteride (topical) 0.1% - 1mL"
+   ],
+   "en": "Free testosterone (dialysis)",
+   "fr": "Testostérone libre (dialyse à l'équilibre)",
+   "us": "pg/mL",
+   "units": [
+    {
+     "l": "pmol/L",
+     "m": 0.2884
+    },
+    {
+     "l": "pg/mL",
+     "m": 1
+    }
+   ],
+   "clin": [
+    120,
+    368
+   ],
+   "opt": [
+    128,
+    274
+   ],
+   "oc": "moderate",
+   "am": "critical",
+   "note": "Free testosterone MEASURED, not calculated — the reference method.\n\nSerum sits against a membrane that holds back albumin and SHBG but not testosterone. After 16 hours at 37 degrees the hormone that crossed IS the free fraction, by definition rather than by inference, and the dialysate is read by mass spectrometry.\n\nIT IS A SEPARATE ROW FROM CALCULATED FREE TESTOSTERONE ON PURPOSE. The two are different scales: Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018). Sharing one row would put a measurement and an estimate on one line and judge both against one interval, which is the same error that keeps the 2023 direct-RIA value out of this file. Creatinine-eGFR and cystatin-C-eGFR are split for the identical reason.\n\nThe interval here is Jasuja 2023 (Andrology), standardised equilibrium dialysis with CDC-certified LC-MS/MS: 120-368 pg/mL for men aged 19-39, against 66-309 across all healthy non-obese men. The age band is used because it is the one that applies. Median for 19-39 is 190; opt[] holds that band's 10th to 90th percentile.\n\nWorth ordering ONCE. The offset against the calculation is a property of the assays, not of a given morning, so one paired sample anchors every calculated value thereafter and this row never needs filling again.",
+   "axis": [
+    40,
+    400
+   ]
+  },
+  {
    "id": "shbg",
    "cat": "horm",
    "dec": [
