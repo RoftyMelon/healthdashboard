@@ -1063,6 +1063,7 @@ window.BLOODWORK =
     }
    ],
    "notes": [
+    "Finasteride 0.1% + Minoxidil 5% started 1 Aug 2026. The 2026-07-20 draw is therefore the clean PRE-treatment baseline for DHT, estradiol, prolactin, total testosterone and SHBG.",
     "Body lotion 12% AHA while still wet after morning shower, at least once a week",
     "Glycolic 7% once a week instead of Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
@@ -1852,7 +1853,7 @@ window.BLOODWORK =
     "en": "DHT (dihydrotestosterone)",
     "fr": "DHT (dihydrotestostérone)",
     "g": "judge",
-    "why": "Topical finasteride is daily and active. This is what says whether it stays local or acts systemically."
+    "why": "Finasteride starts 1 Aug, and NOTHING else in the diet or stack touches DHT — so this is the one clean single-variable read in the whole draw. July's 1.8 nmol/L is the pre-treatment baseline."
    },
    {
     "en": "SHBG",
@@ -1864,13 +1865,13 @@ window.BLOODWORK =
     "en": "Estradiol",
     "fr": "Œstradiol (E2)",
     "g": "judge",
-    "why": "Finasteride shifts it, and it is the marker boron would move if that ever starts."
+    "why": "Finasteride shifts it, and it is the marker boron would move if that ever starts. July's 58.7 pmol/L is pre-treatment."
    },
    {
     "en": "Prolactin",
     "fr": "Prolactine",
     "g": "judge",
-    "why": "Finasteride can raise it."
+    "why": "Finasteride can raise it. July's 7.76 ng/mL is pre-treatment."
    },
    {
     "en": "25-OH vitamin D",
