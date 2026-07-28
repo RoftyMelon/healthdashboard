@@ -201,7 +201,7 @@ open index.html          # or just double-click it
 # Cmd+R
 ```
 
-**In Claude Code Desktop, use the Preview pane** so you can SEE the rendered page and iterate on it:
+**In Claude Code or Codex Desktop, use the Preview pane** so you can SEE the rendered page and iterate on it:
 
 ```
 npx --yes live-server . --port=5173 --no-browser
