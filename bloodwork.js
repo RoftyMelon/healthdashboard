@@ -1038,13 +1038,9 @@ window.BLOODWORK =
      "icon": "moon",
      "items": [
       {
-       "n": "Serum - Matrixyl 10% + HA",
-       "url": "https://theordinary.com/fr-fr/matrixyl-10-ha-serum-100431.html"
-      },
-      {
-       "n": "Serum - Copper Peptides 1%",
+       "n": "Serum - Multi-Peptide",
        "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html",
-       "info": "Do not apply on Glycolic Acid days"
+       "info": "do not use after Glycolic Acid"
       },
       {
        "n": "Emulsion - Retinal 0.2%",
