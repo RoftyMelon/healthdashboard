@@ -1855,13 +1855,13 @@ window.BLOODWORK =
    {
     "id": "vitd",
     "t": "Vitamin-D safety check",
-    "date": "1–9 October 2026",
+    "date": "October",
     "note": "After 8–10 weeks at 10000 IU/day. If the dose changes, keep the new dose stable for at least 8 weeks before its next interpretation."
    },
    {
     "id": "main",
     "t": "Main optimization draw",
-    "date": "14–18 December 2026",
+    "date": "December",
     "note": "After about 4½ months of stable diet, creatine, omega-3 including food, and topical finasteride. Postpone rather than draw through illness or a broken preparation window."
    }
   ],

@@ -252,8 +252,6 @@ setTimeout(()=>{
       count(H,'ndmeta')+' panels');
     ok(`${DATA.NEXTDRAW.deferred.length} exclusions shown`, count(H,'srow ndxrow')===DATA.NEXTDRAW.deferred.length,
       count(H,'srow ndxrow')+' exclusions');
-    ok(`${DATA.NEXTDRAW.protocol.length} protocol rows shown`, count(H,'ndrule')===DATA.NEXTDRAW.protocol.length,
-      count(H,'ndrule')+' protocol rows');
     const main=ndOrder('main',false),all=ndOrder('main',true),mini=ndOrder('vitd',false);
     ok('recommended copy excludes optional rows',main.every(x=>x.g!=='optional')&&all.length>main.length);
     ok('optional copy adds every optional main row',all.length-main.length===DATA.NEXTDRAW.items.filter(x=>x.g==='optional'&&x.draws.includes('main')).length);

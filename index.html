@@ -616,7 +616,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    (The old `.pgsec.stk .pgst` rule went too — the tier heading is a .pgtier now, so that
    selector matched nothing.) */
 .pgsec.stk{max-width:min(430px,100%);padding:0 14px}
-.pgsec.ndlist,.ndintro,.ndcollections,.ndprotocol{max-width:760px}
+.pgsec.ndlist,.ndintro,.ndcollections{max-width:760px}
 .ndintro{margin-top:14px;color:var(--t2);font-size:15px;line-height:1.6}
 .ndcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
 .ndcard{border:.5px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
@@ -625,10 +625,6 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .ndcard .ndcn{font-size:13px;color:var(--t3);margin-top:7px;line-height:1.45}
 .ndcard .ndactions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .ndcard .frcopy{margin-top:0}
-.ndprotocol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}
-.ndrule{padding:9px 0;border-bottom:.5px solid var(--line2)}
-.ndrule b{display:block;font-size:12px;color:var(--t2);margin-bottom:2px}
-.ndrule span{font-size:13px;line-height:1.5;color:var(--t3)}
 .ndrow{border-bottom:.5px solid var(--line2)}
 .ndrow>summary{list-style:none;cursor:pointer;padding-right:24px;border-bottom:0}
 .ndrow>summary::-webkit-details-marker{display:none}
@@ -1174,7 +1170,7 @@ a.sbuy:hover{color:var(--info)}
   .stop .sn{flex:0 1 auto;white-space:normal}
 }
 @media(max-width:700px){
-  .ndcards,.ndprotocol,.ndmeta{grid-template-columns:1fr}
+  .ndcards,.ndmeta{grid-template-columns:1fr}
   .ndrow .ndtop{display:block}
   .ndrow .sn,.ndrow .frn,.ndxrow .sn,.ndxrow .frn{display:block;flex:none;width:100%}
   .ndrow .frn,.ndxrow .frn{margin-top:3px}
@@ -2373,8 +2369,6 @@ function renderPage(p){
         `</div></div>`;}).join('');
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional · ${df.length} deferred</div>`+
       `<div class="ndintro">${esc(NEXTDRAW.intro||'')}</div><div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
-      `<div class="pgsec ndlist"><div class="pgst">Standardized collection protocol</div>`+
-      `<div class="ndprotocol">${(NEXTDRAW.protocol||[]).map(p=>`<div class="ndrule"><b>${esc(p.t)}</b><span>${esc(p.v)}</span></div>`).join('')}</div></div>`+
       ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length)return '';
         return `<div class="pgsec ndlist"><div class="pgst ndgtitle">${esc(title)}<span class="cn">${rows.length}</span></div>`+
           `<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
