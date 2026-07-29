@@ -30,7 +30,7 @@ window.BLOODWORK =
    "training": "resistance 1h15/day, plus one 30-min HIT run per week",
    "country": "France",
    "purpose": "Bryan Johnson-style quantified-self biohacking: longitudinal blood draws judge diet, supplement and lifestyle interventions, with AI used as the analytical medical team.",
-   "diet": "See the DIET tab. Rarely fish; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
    "alcohol": "none — does not drink",
    "supervision": "none"
   },
@@ -303,7 +303,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
     "dec": "Vitamin D3 10000 IU + K2",
-    "judge": "25-OH-D and calcium at 3 months — come back down if D lands above 60-70 ng/mL"
+    "judge": "25-OH-D, calcium and albumin after 8-10 weeks — aim for 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
    },
    {
     "id": "omega3",
@@ -689,7 +689,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Keep B6 under 25mg — sustained high doses cause a reversible neuropathy."
+       "Keep supplemental B6 at or below the EFSA adult upper limit of 12mg/day — sustained high doses can cause neuropathy."
       ]
      ],
      "Parked": [
@@ -1850,294 +1850,366 @@ window.BLOODWORK =
   ]
  },
  "NEXTDRAW": {
+  "intro": "Two standardized collections judge the interventions started 1 Aug 2026. The October mini-check safely titrates vitamin D; the December draw reads the stable diet, creatine, omega-3 intake including food, and topical finasteride. Do not begin a parked supplement experiment before the main draw.",
+  "collections": [
+   {
+    "id": "vitd",
+    "t": "Vitamin-D safety check",
+    "date": "1–9 October 2026",
+    "note": "After 8–10 weeks at 10000 IU/day. If the dose changes, keep the new dose stable for at least 8 weeks before its next interpretation."
+   },
+   {
+    "id": "main",
+    "t": "Main optimization draw",
+    "date": "14–18 December 2026",
+    "note": "After about 4½ months of stable diet, creatine, omega-3 including food, and topical finasteride. Postpone rather than draw through illness or a broken preparation window."
+   }
+  ],
+  "protocol": [
+   {
+    "t": "Fast and time",
+    "v": "Water only for 8–12 hours; collect between 08:00 and 09:00."
+   },
+   {
+    "t": "Training",
+    "v": "No resistance training or HIT for 48 hours."
+   },
+   {
+    "t": "Illness",
+    "v": "Wait until at least 1–2 symptom-free weeks after fever, respiratory infection, significant inflammation or injury."
+   },
+   {
+    "t": "Diet and hydration",
+    "v": "Keep the preceding 2 days ordinary: normal water, sodium, carbohydrate and protein; no last-minute clean-up."
+   },
+   {
+    "t": "Interventions",
+    "v": "Keep creatine, vitamin D, fish plus supplemental omega-3 and topical finasteride stable. Take morning oral supplements after collection."
+   },
+   {
+    "t": "Finasteride timing",
+    "v": "Draw before the morning topical application, after the normal previous-evening application."
+   },
+   {
+    "t": "Stable window",
+    "v": "No B-complex, TMG, NAC, ashwagandha, curcumin or other parked experiment before the main draw; restart the clock after a major diet, dose or weight change."
+   },
+   {
+    "t": "Record",
+    "v": "Log fasting duration, collection time, sleep, illness, body weight, hydration, last workout, last topical application, creatine and vitamin-D doses, and average fish plus EPA/DHA intake."
+   }
+  ],
   "items": [
    {
-    "en": "Cystatin C",
-    "fr": "Cystatine C",
-    "g": "judge",
-    "why": "Creatine restarts in August. This is the eGFR muscle mass does not distort — 116 against creatinine's 83.4."
+    "en": "Kidney filtration — creatinine, eGFRcr, cystatin C, eGFRcys + combined eGFR",
+    "fr": "Fonction rénale — créatinine, DFG créatinine, cystatine C, DFG cystatine C + DFG combiné",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Does the creatinine rise reflect creatine and muscle mass, or a real filtration change?",
+    "decision": "Keep interpreting creatinine alongside cystatin C rather than stopping creatine for the draw.",
+    "trigger": "A confirmed combined-eGFR decline over 20% exceeds expected variability; an isolated creatinine change with stable cystatin C supports confounding.",
+    "method": "Same creatinine and cystatin C methods as July; request eGFRcr, eGFRcys and combined eGFR.",
+    "prep": "Stable creatine 5g/day, normal hydration, fasting morning draw and no hard training for 48 hours.",
+    "timing": "Main draw after at least 12–16 stable weeks."
    },
    {
-    "en": "Creatinine + eGFR",
-    "fr": "Créatinine + DFG",
-    "g": "judge",
-    "why": "Ordered WITH cystatin C, never alone: creatine inflates serum creatinine 10-20% without touching the kidney."
-   },
-   {
-    "en": "ApoB",
-    "fr": "Apolipoprotéine B (ApoB)",
-    "g": "judge",
-    "why": "The particle count. 0.94 g/L against an LDL-C of 142 is discordant, and ApoB is the one that predicts."
-   },
-   {
-    "en": "Lipid panel (total, LDL, HDL, triglycerides)",
-    "fr": "Bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
-    "g": "judge",
-    "why": "The whole purpose of the 1 Aug diet change — saturated fat 60g down to 40g. LDL was 142 and total 205 beforehand, on a steady diet."
-   },
-   {
-    "en": "hs-CRP",
-    "fr": "CRP ultrasensible",
-    "g": "judge",
-    "why": "Omega-3 and the diet change. Already under 0.6, so expect no room to fall — a null here is not a failure."
+    "en": "ApoB + lipid panel (total, LDL, HDL, triglycerides)",
+    "fr": "Apolipoprotéine B (ApoB) + bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Did the August saturated-fat reduction and broader diet change lower atherogenic particle burden?",
+    "decision": "If ApoB and non-HDL-C do not materially improve, revisit saturated fat, soluble fibre, energy balance and weight stability.",
+    "trigger": "Predeclared personal threshold: at least a 10% ApoB reduction from 0.94g/L, approximately 0.85g/L or lower.",
+    "method": "Same laboratory and ApoB immunoturbidimetric method as July.",
+    "prep": "8–12-hour fast, morning draw, stable diet and body weight.",
+    "timing": "Main draw after at least 12–16 stable weeks."
    },
    {
     "en": "Homocysteine",
     "fr": "Homocystéine",
-    "g": "judge",
-    "why": "Sat exactly on its ceiling at 15.0. The August creatine restart removes the body's largest methyl demand and should pull it down on its own."
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Does stable creatine lower methyl demand enough to move homocysteine before adding methyl donors?",
+    "decision": "Observe if it falls meaningfully; if it remains high, interpret folate, PLP and B12 before designing a targeted B-complex or TMG trial.",
+    "trigger": "A fall of at least 2µmol/L and below 15 supports observation; a standardized repeat at or above 15 triggers cofactor review.",
+    "method": "Same enzymatic method as July.",
+    "prep": "Stable creatine, no B-complex or TMG, fasting morning draw.",
+    "timing": "Main draw. Creatine lowering is a testable hypothesis with mixed controlled-trial results, not a guaranteed outcome."
    },
    {
-    "en": "Testosterone (total) — with SHBG and albumin on the SAME draw; free T is calculated from all three",
-    "fr": "Testostérone totale — avec SHBG et albumine sur le MÊME prélèvement ; la testostérone libre en est calculée",
-    "g": "judge",
-    "why": "With SHBG and albumin on the SAME draw — free T is calculated from all three, and 6 of 7 past draws could not compute one."
+    "en": "Total testosterone + SHBG + albumin (calculated free testosterone)",
+    "fr": "Testostérone totale + SHBG + albumine sur le même prélèvement (testostérone libre calculée)",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Did topical finasteride materially shift the androgen profile, and what is free testosterone when all calculation inputs are present?",
+    "decision": "Do not act on a small isolated movement; reassess only a confirmed change with relevant symptoms.",
+    "trigger": "A confirmed change of at least 20% plus compatible symptoms prompts review.",
+    "method": "Same Roche/ECLIA pathway; calculate free T from the three measurements. Never use a direct free-T immunoassay.",
+    "prep": "Fasting collection between 08:00 and 09:00 after normal sleep and 48 hours without hard training.",
+    "timing": "Main draw, on the same sample as DHT."
    },
    {
     "en": "DHT (dihydrotestosterone)",
-    "fr": "DHT (dihydrotestostérone)",
-    "g": "judge",
-    "why": "Finasteride starts 1 Aug, and NOTHING else in the diet or stack touches DHT — so this is the one clean single-variable read in the whole draw. July's 1.8 nmol/L is the pre-treatment baseline."
+    "fr": "DHT (dihydrotestostérone) — LC-MS/MS",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "How much systemic DHT suppression is produced by the topical finasteride regimen?",
+    "decision": "Hair photographs judge efficacy; review topical exposure if systemic suppression is large or side effects appear.",
+    "trigger": "Balanced personal threshold: a fall of at least 50% from 1.8nmol/L, to about 0.9nmol/L or lower, or relevant side effects.",
+    "method": "Same LC-MS/MS assay as July.",
+    "prep": "Draw before the morning topical application after the normal previous-evening application.",
+    "timing": "Main draw after about 4½ months of use.",
+    "cost": "Expensive — justified"
    },
    {
-    "en": "SHBG",
-    "fr": "SHBG",
-    "g": "judge",
-    "why": "The number actually carrying free T: 46 against 18-54 is what puts free T in the lower third of its band."
-   },
-   {
-    "en": "Estradiol",
-    "fr": "Œstradiol (E2)",
-    "g": "judge",
-    "why": "Finasteride shifts it, and it is the marker boron would move if that ever starts. July's 58.7 pmol/L is pre-treatment."
-   },
-   {
-    "en": "Prolactin",
-    "fr": "Prolactine",
-    "g": "judge",
-    "why": "Finasteride can raise it. July's 7.76 ng/mL is pre-treatment."
-   },
-   {
-    "en": "25-OH vitamin D",
-    "fr": "Vitamine D (25-OH)",
-    "g": "judge",
-    "why": "The D3 judge. 28 ng/mL drove the jump to 10000 IU on 1 Aug — come back down if it lands above 60-70."
+    "en": "25-OH vitamin D + calcium + albumin",
+    "fr": "Vitamine D (25-OH) + calcium total + albumine",
+    "g": "decision",
+    "draws": ["vitd", "main"],
+    "why": "Where does 10000 IU/day place vitamin D, and is calcium remaining safe?",
+    "decision": "Titrate rather than leave the high dose unmeasured; albumin is also reused for calculated free T at the main draw.",
+    "trigger": "Aim for 30–50ng/mL; reduce above 50, and reassess promptly above 60 or if calcium exceeds the laboratory range.",
+    "method": "Same DiaSorin Liaison XL 25-OH-D method and same laboratory calcium and albumin methods.",
+    "prep": "Keep the current dose stable and take the morning dose after collection.",
+    "timing": "October after 8–10 weeks, then December after the adjusted dose has been stable for at least 8 weeks."
    },
    {
     "en": "Omega-3 index",
-    "fr": "Index oméga-3",
-    "g": "judge",
-    "why": "The omega-3 judge. 6.12% at baseline against a target of 8-12%; the ~3.9g/day including food started 1 Aug postdates that reading entirely."
-   },
-   {
-    "en": "Calcium",
-    "fr": "Calcium",
-    "g": "judge",
-    "why": "The other half of the D3 judge. The risk of 10000 IU is hypercalcaemia, not the vitamin."
-   },
-   {
-    "en": "PTH (parathyroid hormone)",
-    "fr": "Parathormone (PTH)",
-    "g": "judge",
-    "why": "Catches a vitamin D overshoot alongside calcium; 17.9 is low-normal, which is what adequate D looks like."
-   },
-   {
-    "en": "Albumin",
-    "fr": "Albumine",
-    "g": "judge",
-    "why": "Third input to the free T calculation. Its absence alone is why the Jan 2023 and Apr 2024 draws have no free T."
-   },
-   {
-    "en": "TSH",
-    "fr": "TSH",
-    "g": "gate",
-    "why": "Ashwagandha nudges thyroid hormones — its own note says never start without this baseline."
-   },
-   {
-    "en": "Free T4",
-    "fr": "T4 libre (FT4)",
-    "g": "gate",
-    "why": "Same gate as TSH."
-   },
-   {
-    "en": "Anti-TPO antibodies",
-    "fr": "Anticorps anti-TPO",
-    "g": "gate",
-    "why": "Autoimmunity screen before an adaptogen. Negative so far; the July lab changed technique on 26/05/2026, so old values do not compare."
-   },
-   {
-    "en": "Free testosterone by EQUILIBRIUM DIALYSIS — whenever a lab actually offers it, on the same draw as total T, SHBG and albumin (ask B2A first; fallback: bioavailable T by ammonium sulphate precipitation, never a direct immunoassay)",
-    "fr": "Testostérone libre par DIALYSE À L'ÉQUILIBRE — UNE SEULE FOIS, pour calibrer le calcul sur votre propre sang (demander à B2A ; à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium, jamais un immunodosage direct)",
-    "g": "gate",
-    "why": "Settles which scale describes you: the calculated interval says in-range, the dialysis one says low. Only if a lab offers it."
+    "fr": "Index oméga-3 érythrocytaire (membrane des globules rouges, AGRAS)",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Does approximately 3.9g/day EPA+DHA including mackerel, trout and supplements reach the intended red-cell range?",
+    "decision": "Maintain in-range intake; if low, verify intake and method before increasing an already-high dose; if above range, reduce the supplement.",
+    "trigger": "Current moderate-evidence personal target: 8–12%.",
+    "method": "Exact erythrocyte-membrane AGRAS measurement by GC-FID through Bioavenir Metz.",
+    "prep": "Keep average food plus supplement intake stable; record fish frequency and supplemental EPA/DHA.",
+    "timing": "Main draw after at least 4 months of stable average intake.",
+    "cost": "Expensive — justified"
    },
    {
     "en": "Vitamin B12",
     "fr": "Vitamine B12",
-    "g": "gate",
-    "why": "Same trio. Abundant in the diet, so a low value would mean absorption."
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Does B12 help explain persistent homocysteine, rather than becoming an intervention by itself?",
+    "decision": "Use it to decide whether MMA adds value and whether any B-vitamin intervention should be targeted.",
+    "trigger": "A result in the 150–399pg/mL range makes MMA useful; July's 522pg/mL does not.",
+    "method": "Same assay as July.",
+    "prep": "Fasting morning draw before supplements.",
+    "timing": "Main draw with homocysteine, folate and PLP."
    },
    {
-    "en": "MMA (methylmalonic acid) — ONLY if homocysteine is still 15 or above",
-    "fr": "Acide méthylmalonique (MMA) — UNIQUEMENT si l'homocystéine reste ≥ 15",
-    "g": "gate",
-    "why": "Rises in tissue-level B12 deficiency even when serum B12 reads normal, so it separates a B12 problem from a folate or methylation one. Conditional on purpose: with homocysteine back under 15 it answers nothing."
+    "en": "Folate + vitamin B6 (PLP)",
+    "fr": "Folates (B9) + vitamine B6 (phosphate de pyridoxal, PLP)",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Is either cofactor contributing to homocysteine before a B-complex is introduced?",
+    "decision": "Use targeted replacement only if the assay supports it; adequate values argue against an indiscriminate high-dose complex.",
+    "trigger": "A result below the assay range changes the intervention; there is no reason to chase an above-range optimization target.",
+    "method": "Same folate assay; PLP specifically for B6.",
+    "prep": "No B-complex before the draw; morning supplements after collection.",
+    "timing": "Main draw with homocysteine and B12."
    },
    {
-    "en": "Folate",
-    "fr": "Folates (B9)",
-    "g": "gate",
-    "why": "The B-complex judge with homocysteine. Diet now clears the RDA, yet serum folate sat at 6.3 — which points at conversion, not intake."
+    "en": "Zinc + copper + ceruloplasmin",
+    "fr": "Zinc + cuivre + céruloplasmine",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Is borderline copper reproducible, and does it track ceruloplasmin or the zinc and diet balance?",
+    "decision": "Do not supplement from copper 69.9 alone; use the repeated pattern to decide on dietary review or appropriate evaluation.",
+    "trigger": "Repeated below-range copper, especially with low ceruloplasmin, changes the decision.",
+    "method": "Same trace-element methods as July; ceruloplasmin on the same sample.",
+    "prep": "Fasting morning sample before mineral-containing supplements.",
+    "timing": "Main draw on the stable August diet."
    },
    {
-    "en": "Vitamin B6 (PLP)",
-    "fr": "Vitamine B6 (phosphate de pyridoxal, PLP)",
-    "g": "gate",
-    "why": "BEFORE the B-complex starts, not after. It is the assay for the 25mg B6 ceiling that supplement's own note warns about."
+    "en": "Fasting glucose + fasting insulin (HOMA-IR)",
+    "fr": "Glycémie à jeun + insuline à jeun (calcul HOMA-IR)",
+    "g": "decision",
+    "draws": ["main"],
+    "why": "Did the August diet materially change fasting insulin sensitivity?",
+    "decision": "Confirm a meaningful deterioration before changing an otherwise successful diet.",
+    "trigger": "A rise of at least 25% from HOMA-IR 0.91 or fasting insulin 4.2mUI/L merits confirmation.",
+    "method": "Same insulin assay as July; calculate HOMA-IR from the paired fasting sample.",
+    "prep": "8–12-hour fast, morning draw, no caffeine and no hard exercise for 48 hours.",
+    "timing": "Main draw after at least 12–16 stable weeks."
    },
    {
-    "en": "Zinc",
-    "fr": "Zinc",
-    "g": "gate",
-    "why": "Swings 6.4 to 16.6mg on the beef/chicken alternation, which is the mechanism suppressing copper."
-   },
-   {
-    "en": "Copper",
-    "fr": "Cuivre",
-    "g": "gate",
-    "why": "Sits on its floor, 69.9 against 70, and nothing in the stack or diet is pointed at it."
-   },
-   {
-    "en": "Ceruloplasmin",
-    "fr": "Céruloplasmine",
-    "g": "gate",
-    "why": "Ordered WITH copper. Around 90% of serum copper rides on ceruloplasmin, so a low copper with normal ceruloplasmin is a different finding from both being low — and 69.9 against a floor of 70 is too close to call on one number."
-   },
-   {
-    "en": "Liver panel (ALT, AST, GGT)",
-    "fr": "Bilan hépatique (ASAT, ALAT, GGT)",
-    "g": "gate",
-    "why": "The clean baseline that gates curcumin and NAC — curcumin is among the supplements most implicated in drug-induced liver injury."
-   },
-   {
-    "en": "Urea (BUN)",
-    "fr": "Urée",
+    "en": "hs-CRP",
+    "fr": "CRP ultrasensible",
     "g": "trend",
-    "why": "Only useful as a ratio to creatinine — it separates dehydration from real impairment, and high protein raises it independently."
+    "draws": ["main"],
+    "why": "Is the draw free of material inflammatory, illness or training noise?",
+    "decision": "Use it as draw context, not as proof that omega-3 succeeded or failed.",
+    "trigger": "Remaining below 1mg/L is compatible with July; at or above 2mg/L first review illness, injury and training.",
+    "method": "Explicit ultra-sensitive CRP only, not standard CRP; same assay if possible.",
+    "prep": "No acute illness or injury and no hard training for 48 hours.",
+    "timing": "Main draw; postpone if the protocol is not clean."
    },
    {
-    "en": "Urinalysis (dipstick)",
-    "fr": "Bandelette urinaire",
+    "en": "Chemistry + liver bundle",
+    "fr": "Urée, sodium, potassium, chlore, bicarbonates, ASAT, ALAT, GGT, PAL, bilirubine totale, protéines totales",
     "g": "trend",
-    "why": "Cheap screen for protein and blood, and the proportionate one: albuminuria screening is aimed at diabetes, hypertension and established CVD, none of which apply here. If the dipstick ever shows protein, THAT is when a first-morning ACR is worth ordering — not before. The July PCR came back censored at <25 mg/mmol, a limit coarser than its own reference ceiling, so read it as uninformative rather than as reassurance."
+    "draws": ["main"],
+    "why": "Is the inexpensive chemistry and liver baseline still stable before any future NAC or curcumin experiment?",
+    "decision": "No action when stable; confirm and investigate a new abnormality before adding another intervention.",
+    "trigger": "Any new out-of-range result or confirmed doubling from the personal baseline changes the decision.",
+    "method": "Same laboratory. Calcium and albumin are already ordered with vitamin D and are not duplicated here.",
+    "prep": "Normal hydration and stable protein intake; fasting morning collection.",
+    "timing": "Main draw."
    },
    {
-    "en": "IGF-1",
-    "fr": "IGF-1 (somatomédine C)",
+    "en": "Iron studies — ferritin, iron, transferrin/TIBC + TSAT",
+    "fr": "Bilan martial — ferritine, fer, transferrine/CTF + coefficient de saturation",
     "g": "trend",
-    "why": "New technique from 23/09/2025 — IGF-1 assays differ more between platforms than almost any other."
-   },
-   {
-    "en": "Cortisol (morning)",
-    "fr": "Cortisol (matinal, 8h)",
-    "g": "trend",
-    "why": "Morning, and it would be the ashwagandha readout if that ever starts."
-   },
-   {
-    "en": "Selenium",
-    "fr": "Sélénium",
-    "g": "trend",
-    "why": "93.5 mid-range on ~150mcg/day from food. No reason to ever supplement it."
-   },
-   {
-    "en": "Magnesium (serum)",
-    "fr": "Magnésium sérique",
-    "g": "trend",
-    "why": "Poor proxy for stores, but it is what the lab offers."
-   },
-   {
-    "en": "Ferritin",
-    "fr": "Ferritine",
-    "g": "trend",
-    "why": "58 with TSAT 22% — low-normal stores against ~18.6mg dietary iron, most of it non-haem and eaten beside calcium and coffee."
-   },
-   {
-    "en": "Serum iron",
-    "fr": "Fer sérique",
-    "g": "trend",
-    "why": "Part of the iron four."
-   },
-   {
-    "en": "TIBC (total iron-binding capacity)",
-    "fr": "Capacité totale de fixation du fer (CTF)",
-    "g": "trend",
-    "why": "Derived from transferrin when not printed."
-   },
-   {
-    "en": "Transferrin saturation (TSAT)",
-    "fr": "Coefficient de saturation de la transferrine (CST)",
-    "g": "trend",
-    "why": "22%, just above its floor."
-   },
-   {
-    "en": "Fasting glucose",
-    "fr": "Glycémie à jeun",
-    "g": "trend",
-    "why": "88 mg/dL. Part of HOMA-IR."
+    "draws": ["main"],
+    "why": "Are iron availability and stores stable on a diet whose iron is largely non-haem?",
+    "decision": "Use the panel, never serum iron alone, to decide whether diet or further evaluation needs attention.",
+    "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% changes the decision.",
+    "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
+    "prep": "Fasting morning draw under ordinary dietary conditions.",
+    "timing": "Main draw."
    },
    {
     "en": "HbA1c",
     "fr": "Hémoglobine glyquée (HbA1c)",
     "g": "trend",
-    "why": "5.1% and unmoved since 2020."
-   },
-   {
-    "en": "Fasting insulin",
-    "fr": "Insuline à jeun",
-    "g": "trend",
-    "why": "4.2 mUI/L. With glucose it gives HOMA-IR 0.91 — as good as that gets."
-   },
-   {
-    "en": "Uric acid",
-    "fr": "Acide urique",
-    "g": "trend",
-    "why": "4.2 mg/dL, low."
-   },
-   {
-    "en": "Ionogram (Na, K, Cl, bicarbonate)",
-    "fr": "Ionogramme sanguin (Na, K, Cl, bicarbonates)",
-    "g": "trend",
-    "why": "Carries bicarbonate, which reads the acid load of a high-protein diet — it shows up as a low-normal, never as anything dramatic."
+    "draws": ["main"],
+    "why": "What is the longer glucose-exposure response to the August diet?",
+    "decision": "Confirm a meaningful rise before changing the intervention.",
+    "trigger": "A confirmed increase of at least 0.3 percentage points is more meaningful than a small movement.",
+    "method": "Same standardized HbA1c method where possible.",
+    "prep": "No special preparation beyond the shared draw protocol.",
+    "timing": "Main draw, after more than one full red-cell exposure window."
    },
    {
     "en": "CBC",
     "fr": "NFS (numération formule sanguine)",
     "g": "trend",
-    "why": "Platelets have sat 148-172 across six draws with no trend."
+    "draws": ["main"],
+    "why": "Is the established hematology series, including platelets, still stable?",
+    "decision": "Repeat and investigate a meaningful change rather than reacting to a single small fluctuation.",
+    "trigger": "Platelets below range or a decline over 15% from the established 148–172 series changes the decision; apply the same principle to new CBC abnormalities.",
+    "method": "Same laboratory analyser where possible.",
+    "prep": "Normal hydration, no illness and 48 hours without hard training.",
+    "timing": "Main draw."
    },
    {
-    "en": "Alkaline phosphatase (ALP)",
-    "fr": "Phosphatases alcalines (PAL)",
-    "g": "trend",
-    "why": "Bone and liver both."
+    "en": "Estradiol",
+    "fr": "Œstradiol (E2)",
+    "g": "optional",
+    "draws": ["main"],
+    "why": "Did estradiol move descriptively after topical finasteride?",
+    "decision": "It changes a decision only with compatible symptoms or a large confirmed change.",
+    "trigger": "No defensible symptom-free optimization cutoff.",
+    "method": "Same ECLIA assay as July.",
+    "prep": "Same fasting morning sample as testosterone.",
+    "timing": "Optional at the main draw."
    },
    {
-    "en": "Total bilirubin",
-    "fr": "Bilirubine totale",
-    "g": "trend",
-    "why": "Part of the liver picture."
+    "en": "Free testosterone by equilibrium dialysis",
+    "fr": "Testostérone libre par dialyse à l'équilibre — une seule fois (à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium ; jamais immunodosage direct)",
+    "g": "optional",
+    "draws": ["main"],
+    "why": "Would a one-time reference measurement usefully calibrate calculated free testosterone?",
+    "decision": "Treat it as descriptive unless symptoms and repeat total-testosterone data support an endocrine decision.",
+    "trigger": "No standalone action threshold.",
+    "method": "Equilibrium dialysis or validated bioavailable testosterone only, on the same sample as total T, SHBG and albumin.",
+    "prep": "Fasting collection between 08:00 and 09:00.",
+    "timing": "Optional at the main draw, only if genuinely offered.",
+    "cost": "Expensive — weak decision value"
    },
    {
-    "en": "Total protein",
-    "fr": "Protéines totales",
-    "g": "trend",
-    "why": "With albumin, the globulin gap."
+    "en": "IGF-1",
+    "fr": "IGF-1 (somatomédine C)",
+    "g": "optional",
+    "draws": ["main"],
+    "why": "Is another longitudinal point worth collecting when no current intervention depends on it?",
+    "decision": "Use only for exploratory longevity tracking; do not change the stack from this result alone.",
+    "trigger": "No defensible personal action threshold.",
+    "method": "Same post-23/09/2025 assay; otherwise the point is not comparable.",
+    "prep": "Shared fasting morning protocol.",
+    "timing": "Optional at the main draw.",
+    "cost": "Expensive — weak decision value"
+   }
+  ],
+  "deferred": [
+   {
+    "en": "PTH",
+    "fr": "Parathormone (PTH)",
+    "s": "defer",
+    "why": "Not the primary detector of vitamin-D excess.",
+    "reconsider": "Add if calcium is abnormal, vitamin-D behavior is unexpected, or the high dose continues despite uncertainty."
+   },
+   {
+    "en": "TSH + free T4",
+    "fr": "TSH + T4 libre (FT4)",
+    "s": "defer",
+    "why": "July already provides the baseline and no thyroid intervention is starting.",
+    "reconsider": "Repeat immediately before a defined ashwagandha trial, using the same Roche platform."
+   },
+   {
+    "en": "MMA",
+    "fr": "Acide méthylmalonique (MMA)",
+    "s": "defer",
+    "why": "July B12 was 522pg/mL, so homocysteine at or above 15 alone does not justify it.",
+    "reconsider": "Add if B12 is 150–399pg/mL, neurological symptoms arise, or persistent homocysteine remains unexplained."
+   },
+   {
+    "en": "Urinalysis / dipstick / ACR",
+    "fr": "Bandelette urinaire / rapport albumine-créatinine urinaire",
+    "s": "remove",
+    "why": "Low decision value without diabetes, hypertension, known kidney disease, symptoms or an abnormal renal result.",
+    "reconsider": "Add a first-morning ACR or appropriate urinalysis only when a kidney-risk question exists."
+   },
+   {
+    "en": "Prolactin",
+    "fr": "Prolactine",
+    "s": "remove",
+    "why": "No intervention currently depends on it.",
+    "reconsider": "Add for relevant symptoms or a clinician-directed endocrine evaluation."
+   },
+   {
+    "en": "Anti-TPO antibodies",
+    "fr": "Anticorps anti-TPO",
+    "s": "remove",
+    "why": "Negative in July with no current thyroid-autoimmunity question.",
+    "reconsider": "Add if TSH or FT4 changes or symptoms create a new question."
+   },
+   {
+    "en": "Morning cortisol",
+    "fr": "Cortisol matinal",
+    "s": "remove",
+    "why": "A single morning result has weak actionability without symptoms or a defined experiment.",
+    "reconsider": "Add for a specific clinical question or a deliberately designed ashwagandha experiment."
+   },
+   {
+    "en": "Selenium",
+    "fr": "Sélénium",
+    "s": "remove",
+    "why": "July was mid-range and food intake is adequate; no supplement decision depends on it.",
+    "reconsider": "Add after a meaningful diet change or if thyroid findings create a reason."
+   },
+   {
+    "en": "Serum magnesium",
+    "fr": "Magnésium sérique",
+    "s": "remove",
+    "why": "It is a weak proxy for stores and no active magnesium experiment exists.",
+    "reconsider": "Add before and after a specifically designed magnesium trial."
+   },
+   {
+    "en": "Uric acid",
+    "fr": "Acide urique",
+    "s": "remove",
+    "why": "Current 4.2mg/dL is low and no intervention depends on it.",
+    "reconsider": "Add for symptoms, medication changes or a defined purine or fructose experiment."
    },
    {
     "en": "Creatine kinase (CK)",
     "fr": "Créatine kinase (CPK)",
-    "g": "trend",
-    "why": "Training raises it; read it as a training marker, not a muscle one."
+    "s": "remove",
+    "why": "Six weekly resistance sessions make it highly training-sensitive and it currently changes no decision.",
+    "reconsider": "Add for muscle symptoms, medication safety or a defined training-recovery experiment, with at least 72 hours without strenuous exercise."
    }
   ]
  },

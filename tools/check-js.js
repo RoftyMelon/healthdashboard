@@ -67,8 +67,7 @@ setTimeout(()=>{
     if(cEnd){tallN++;_hr=cEnd;continue;}
     _hr++;
   }
-  const want={nextdraw:['srow',DATA.NEXTDRAW.items.length
-      +((DATA.NEXTDRAW.blood&&DATA.NEXTDRAW.blood.rows.length)||0)],   // blood group rows share the .srow shape
+  const want={nextdraw:['ndrow',DATA.NEXTDRAW.items.length],
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
@@ -234,17 +233,33 @@ setTimeout(()=>{
   catch(e){ ok('back to markers',false,e.message); }
   const j2=JSON.parse(JSON.stringify(DATA)); j2.STACK.items[0].status='yolo';
   ok('audit rejects a bad STACK status', audit(j2).length===1);
-  // the draw list groups by WHY. A bad group renders nothing (the filter finds no rows) and a
-  // missing why renders an empty line — both silent, so audit has to be the one that catches them.
+  // The draw list is an order generator, not a wish list. Every row must declare a complete
+  // decision contract, and only active rows may reach the clipboard.
   const j9=JSON.parse(JSON.stringify(DATA)); j9.NEXTDRAW.items[0].g='someday';
   ok('audit rejects an unknown draw-list group', audit(j9).length===1, audit(j9)[0]||'');
-  const j10=JSON.parse(JSON.stringify(DATA)); delete j10.NEXTDRAW.items[0].why;
-  ok('audit rejects a draw-list item with no reason', audit(j10).length===1, audit(j10)[0]||'');
+  const j10=JSON.parse(JSON.stringify(DATA)); delete j10.NEXTDRAW.items[0].decision;
+  ok('audit rejects a draw-list item with no decision', audit(j10).length===1, audit(j10)[0]||'');
+  const j11=JSON.parse(JSON.stringify(DATA)); j11.NEXTDRAW.items[0].draws=['ghost'];
+  ok('audit rejects an unknown draw collection', audit(j11).length===1, audit(j11)[0]||'');
+  const j12=JSON.parse(JSON.stringify(DATA)); j12.NEXTDRAW.deferred[0].en=j12.NEXTDRAW.items[0].en;
+  ok('audit rejects an active/deferred duplicate', audit(j12).length===1, audit(j12)[0]||'');
   try{ setPage('nextdraw');
-    const H=n.pages.innerHTML, G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
-    ok(`draw list renders ${G} why-groups`, count(H,'pgst')===G, count(H,'pgst')+' groups');
-    ok(`${DATA.NEXTDRAW.items.length} reasons shown`, count(H,'ndwhy')===DATA.NEXTDRAW.items.length,
-      count(H,'ndwhy')+' reasons');
+    const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
+    ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');
+    ok(`${DATA.NEXTDRAW.items.length} active decisions shown`, count(H,'nddecision')===DATA.NEXTDRAW.items.length,
+      count(H,'nddecision')+' decisions');
+    ok(`${DATA.NEXTDRAW.items.length} inline detail panels`, count(H,'ndmeta')===DATA.NEXTDRAW.items.length,
+      count(H,'ndmeta')+' panels');
+    ok(`${DATA.NEXTDRAW.deferred.length} exclusions shown`, count(H,'srow ndxrow')===DATA.NEXTDRAW.deferred.length,
+      count(H,'srow ndxrow')+' exclusions');
+    ok(`${DATA.NEXTDRAW.protocol.length} protocol rows shown`, count(H,'ndrule')===DATA.NEXTDRAW.protocol.length,
+      count(H,'ndrule')+' protocol rows');
+    const main=ndOrder('main',false),all=ndOrder('main',true),mini=ndOrder('vitd',false);
+    ok('recommended copy excludes optional rows',main.every(x=>x.g!=='optional')&&all.length>main.length);
+    ok('optional copy adds every optional main row',all.length-main.length===DATA.NEXTDRAW.items.filter(x=>x.g==='optional'&&x.draws.includes('main')).length);
+    ok('mini-check copy contains only its collection',mini.length===1&&mini[0].draws.includes('vitd'));
+    ok('deferred rows never enter copies',DATA.NEXTDRAW.deferred.every(x=>!all.some(y=>y.en===x.en)));
+    ok('recommended main copy has no duplicate orders',new Set(main.map(x=>x.en)).size===main.length);
   }catch(e){ ok('draw list groups',false,e.message); }
   const j5=JSON.parse(JSON.stringify(DATA)); j5.STACK.items[0].ev='pretty good';
   ok('audit rejects an unknown evidence tag', audit(j5).length===1, audit(j5)[0]||'');

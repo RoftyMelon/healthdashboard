@@ -190,6 +190,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   page derives its supplement lists from `STACK.when` at render time: timing is written in ONE
   place or nowhere. (The Routine page deliberately shows NO supplements — meals are named only;
   supplements belong to Diet.) `audit()` gates these blocks too.
+- **`NEXTDRAW` is a decision contract, not a shopping list.** `collections[]` names each draw
+  window; `protocol[]` holds the shared preparation rules. Every active `items[]` row is
+  `{en, fr, g, draws[], why, decision, trigger, method, prep, timing, cost?}` where `g` is
+  `decision` / `trend` / `optional` and every `draws[]` id must exist in `collections[]`.
+  `deferred[]` rows are `{en, fr, s, why, reconsider}` with `s` `defer` / `remove`; they render
+  visibly but **never enter a lab copy**. The default copy includes decision + trend rows for
+  one collection; the separate optional copy adds only that collection's optional rows. Keep
+  essential reasoning visible on the row and the remaining detail in its inline expansion —
+  never hide this page's decision logic in hover tooltips.
 
 ---
 

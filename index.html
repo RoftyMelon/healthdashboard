@@ -131,8 +131,17 @@ td.boot span{color:var(--t3);font-size:15px}
 .topline{display:flex;align-items:flex-start;gap:10px}
 /* The ROW scrolls, not the category strip inside it — search, filters, hairline and
    categories move together as one unit. */
+/* padding-block is NOT spacing — it is clip clearance, and removing it shaves the search pill.
+   overflow-x:auto cannot coexist with overflow-y:visible: CSS computes a `visible` axis to
+   `auto` whenever the other axis is not visible/clip, so asking for a horizontal scroller
+   silently bought a VERTICAL clip as well. This row is exactly as tall as its tallest child,
+   so that clip edge lands on the search pill's own border: the 99px radius met the scroller's
+   bottom at slack 0 and the pill rendered with a flat, sliced bottom on every laptop. 3px puts
+   the clip edge off the border. Measured after: thead top and first-row top both unmoved, so
+   nothing below shifts; the row still scrolls horizontally. Same family as the position:static
+   bug — one axis was wanted, both were changed. */
 .bar{flex:1;min-width:0;display:flex;gap:6px;align-items:center;flex-wrap:nowrap;
-  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-block:3px;
   touch-action:pan-x pan-y;overscroll-behavior-x:contain;margin-bottom:2px}
 .bar::-webkit-scrollbar{display:none}
 /* Segmented control: a RECESSED TRACK holding a RAISED THUMB, which is the idiom every
@@ -607,8 +616,44 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    (The old `.pgsec.stk .pgst` rule went too — the tier heading is a .pgtier now, so that
    selector matched nothing.) */
 .pgsec.stk{max-width:min(430px,100%);padding:0 14px}
-.ndlist .srow{align-items:flex-start}
-.ndlist .sn{flex:0 0 43%;min-width:0}
+.pgsec.ndlist,.ndintro,.ndcollections,.ndprotocol{max-width:760px}
+.ndintro{margin-top:14px;color:var(--t2);font-size:15px;line-height:1.6}
+.ndcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.ndcard{border:.5px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
+.ndcard .nddate{font-size:17px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.ndcard .ndct{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--info)}
+.ndcard .ndcn{font-size:13px;color:var(--t3);margin-top:7px;line-height:1.45}
+.ndcard .ndactions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ndcard .frcopy{margin-top:0}
+.ndprotocol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}
+.ndrule{padding:9px 0;border-bottom:.5px solid var(--line2)}
+.ndrule b{display:block;font-size:12px;color:var(--t2);margin-bottom:2px}
+.ndrule span{font-size:13px;line-height:1.5;color:var(--t3)}
+.ndrow{border-bottom:.5px solid var(--line2)}
+.ndrow>summary{list-style:none;cursor:pointer;padding-right:24px;border-bottom:0}
+.ndrow>summary::-webkit-details-marker{display:none}
+.ndrow>summary::after{content:"";position:absolute;right:2px;top:18px;width:8px;height:8px;
+  border-right:1.5px solid var(--t4);border-bottom:1.5px solid var(--t4);transform:rotate(45deg);
+  transition:transform .18s,top .18s}
+.ndrow[open]>summary::after{top:22px;transform:rotate(225deg)}
+.ndrow .ndtop{display:flex;align-items:flex-start;gap:10px;flex-basis:100%;min-width:0}
+.ndrow .sn{flex:0 0 43%;min-width:0}
+.ndrow .frn{flex:1;min-width:0}
+.ndwhy,.nddecision{display:block;flex-basis:100%;margin-top:4px;font-size:12.5px;line-height:1.5;color:var(--t3)}
+.nddecision{color:var(--t2)}
+.ndlbl{font-weight:700;color:var(--t2);margin-right:5px}
+.ndmeta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;
+  padding:2px 24px 14px 0}
+.ndmeta div{font-size:12.5px;line-height:1.5;color:var(--t3)}
+.ndmeta b{display:block;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--t4);margin-bottom:2px}
+.ndcost{display:inline-block;margin-left:7px;border:.5px solid var(--line);border-radius:99px;
+  padding:2px 7px;font-size:10.5px;font-weight:650;color:var(--t3);vertical-align:2px}
+.ndxrow{align-items:flex-start}
+.ndxrow .sn{flex:0 0 43%;min-width:0}
+.ndxrow .frn{flex:1;min-width:0}
+.ndstatus{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--t3);border:.5px solid var(--line);border-radius:99px;padding:2px 7px}
+.ndreconsider{flex-basis:100%;font-size:12.5px;line-height:1.5;color:var(--t3)}
 /* the scale a section's rows are read against, set under them — a ratio of 0.99 is meaningless
    until you know 1.17 is the positive threshold */
 .ndlist .rfoot{padding:9px 0 2px;font-size:13px;line-height:1.5;color:var(--t4);user-select:text}
@@ -644,7 +689,6 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 a.sbuy:hover{color:var(--info)}
 .sjudge{flex-basis:100%;margin-top:2px;font-size:12.5px;line-height:1.5;color:var(--t3)}   /* per-item readout: how you'll judge a trial */
 /* why a test is on the draw list — full-width under its own row, same shape as .sjudge */
-.ndwhy{flex-basis:100%;margin-top:3px;font-size:12.5px;line-height:1.5;color:var(--t3)}
 .sjudge .sjl{color:var(--t2);font-weight:600}
 /* routine: an hour ruler — empty hours stay visible so the day reads as TIME */
 .rhr{display:flex;gap:14px;position:relative}   /* anchors the full-width boundary lines */
@@ -1129,6 +1173,14 @@ a.sbuy:hover{color:var(--info)}
      the box at its longest word, which is exactly the guarantee the .nb spans exist to give. */
   .stop .sn{flex:0 1 auto;white-space:normal}
 }
+@media(max-width:700px){
+  .ndcards,.ndprotocol,.ndmeta{grid-template-columns:1fr}
+  .ndrow .ndtop{display:block}
+  .ndrow .sn,.ndrow .frn,.ndxrow .sn,.ndxrow .frn{display:block;flex:none;width:100%}
+  .ndrow .frn,.ndxrow .frn{margin-top:3px}
+  .ndmeta{padding-right:22px}
+  .ndcard .frcopy{width:100%}
+}
 </style>
 <script>
 /* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
@@ -1439,17 +1491,35 @@ function audit(j){
     });
   }
   if(j.NEXTDRAW){
-    if(!Array.isArray(j.NEXTDRAW.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
-    /* Every item declares WHY it is ordered. A draw list with no reasons drifts back into a
-       shopping list — it grows and never shrinks, because nothing on it can be argued with. */
-    else{const G=['judge','gate','trend'];
-      j.NEXTDRAW.items.forEach(x=>{
-        if(typeof x!=='object'||!x.en||!x.fr)return bad.push('NEXTDRAW items must be {en, fr, g, why}');
+    const nd=j.NEXTDRAW, ids=new Set(), active=new Set();
+    if(typeof nd.intro!=='string'||!nd.intro.trim())bad.push('NEXTDRAW.intro must be a non-empty string');
+    if(!Array.isArray(nd.collections)||!nd.collections.length)bad.push('NEXTDRAW.collections must be a non-empty array');
+    else nd.collections.forEach(c=>{
+      if(!c||!c.id||!c.t||!c.date||!c.note)bad.push('NEXTDRAW collections must be {id, t, date, note}');
+      else if(ids.has(c.id))bad.push(`NEXTDRAW collection id "${c.id}" is duplicated`);
+      else ids.add(c.id);});
+    if(!Array.isArray(nd.protocol)||!nd.protocol.length)bad.push('NEXTDRAW.protocol must be a non-empty array');
+    else nd.protocol.forEach(p=>{if(!p||!p.t||!p.v)bad.push('NEXTDRAW protocol rows must be {t, v}');});
+    if(!Array.isArray(nd.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
+    /* Every active order declares its question, decision, trigger, continuity, preparation and
+       timing. The lab-copy function derives from .draws, so an unknown collection is dangerous:
+       it silently drops the row rather than merely mislabelling it. */
+    else{const G=['decision','trend','optional'],F=['en','fr','why','decision','trigger','method','prep','timing'];
+      nd.items.forEach(x=>{
+        if(typeof x!=='object')return bad.push('NEXTDRAW items must be objects');
+        const miss=F.find(k=>typeof x[k]!=='string'||!x[k].trim());
+        if(miss)bad.push(`NEXTDRAW "${x.en||'?'}": ${miss} must be a non-empty string`);
         if(!G.includes(x.g))bad.push(`NEXTDRAW "${x.en}": g "${x.g}" is not one of ${G.join('/')}`);
-        if(typeof x.why!=='string'||!x.why)bad.push(`NEXTDRAW "${x.en}": why must say what this test is for`);});}
-    if(j.NEXTDRAW.blood){const b=j.NEXTDRAW.blood;
-      if(!Array.isArray(b.rows)||!b.rows.length)bad.push('NEXTDRAW.blood.rows must be a non-empty array');
-      else b.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])bad.push('NEXTDRAW.blood rows must be [label, value]');});}
+        if(!Array.isArray(x.draws)||!x.draws.length||x.draws.some(d=>!ids.has(d)))
+          bad.push(`NEXTDRAW "${x.en}": draws must name existing collections`);
+        if(x.cost!==undefined&&!['Expensive — justified','Expensive — weak decision value'].includes(x.cost))
+          bad.push(`NEXTDRAW "${x.en}": unknown cost flag "${x.cost}"`);
+        if(active.has(x.en))bad.push(`NEXTDRAW active order "${x.en}" is duplicated`);else active.add(x.en);});}
+    if(!Array.isArray(nd.deferred))bad.push('NEXTDRAW.deferred must be an array (empty is fine)');
+    else nd.deferred.forEach(x=>{
+      if(!x||!x.en||!x.fr||!x.why||!x.reconsider||!['defer','remove'].includes(x.s))
+        bad.push('NEXTDRAW deferred rows must be {en, fr, s, why, reconsider}');
+      else if(active.has(x.en))bad.push(`NEXTDRAW "${x.en}" cannot be both active and deferred`);});
   }
   if(j.ROUTINE){
     let prev='';
@@ -1965,9 +2035,13 @@ function aimTip(btn){const t=btn.nextElementSibling;if(!t||!t.classList.contains
 document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('.infob');if(b)aimTip(b);},true);
 function pinTip(btn,e){e.stopPropagation();const on=btn.classList.contains('pin');document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));if(!on){aimTip(btn);btn.classList.add('pin');}}
 document.addEventListener('click',e=>{if(!e.target.closest('.exinfo'))document.querySelectorAll('.infob.pin').forEach(b=>b.classList.remove('pin'));});
-function copyNd(btn){
-  const t=(NEXTDRAW.items||[]).map(x=>x.en+' — '+x.fr).join('\n');
-  const flash=m=>{btn.textContent=m;clearTimeout(btn._t);btn._t=setTimeout(()=>{btn.textContent='Copy (EN + FR)';},1500);};
+function ndOrder(draw,includeOptional){
+  return (NEXTDRAW.items||[]).filter(x=>(x.draws||[]).includes(draw)&&(includeOptional||x.g!=='optional'));
+}
+function copyNd(btn,draw,includeOptional){
+  const t=ndOrder(draw,includeOptional).map(x=>x.en+' — '+x.fr).join('\n');
+  const base=btn.dataset.copyLabel||btn.textContent;
+  const flash=m=>{btn.textContent=m;clearTimeout(btn._t);btn._t=setTimeout(()=>{btn.textContent=base;},1500);};
   const legacy=()=>{try{                                   // iOS / non-secure / rejected-promise fallback
     const ta=document.createElement('textarea');ta.value=t;ta.readOnly=true;
     ta.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';
@@ -2278,25 +2352,38 @@ function renderPage(p){
   // no outside-click handler, no '.open' toggling to leak or clash with search.
   let h='';
   if(p==='nextdraw'&&NEXTDRAW){
-    const it=NEXTDRAW.items;
-    /* Grouped by WHY, not by organ system. A test earns its place by judging something you are
-       doing, gating something you have not started, or being worth a second point — and an item
-       that fits none of those is one you can drop without arguing about it. One group each,
-       the strongest reason: overlaps live in the why line rather than listing a test twice,
-       because this list gets handed to a laboratory and every line is one order. */
-    const ND=[['judge','Judges something you are doing','Diet, supplements and topical finasteride all changed together on 1 Aug 2026 — these are the markers that would register it'],
-              ['gate','Gates a decision not yet taken','Baselines that decide whether a parked supplement can start — several must be drawn BEFORE it does'],
-              ['trend','Worth a second point','No active intervention attached; ordered because a series is worth more than a reading']];
-    h=`<div class="pgh">Next draw</div><div class="pgsub">${it.length} biomarker${it.length===1?'':'s'} to collect</div>`+
-      (it.length
-        ?ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length)return '';
-          return `<div class="pgsec ndlist"><div class="pgst">${esc(title)}<span class="cn">${rows.length}</span></div>`+
-            `<div class="cnote">${esc(blurb)}</div>`+
-            `<div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
-            rows.map(x=>`<div class="srow"><span class="sn">${esc(x.en)}</span><span class="frn">${esc(x.fr)}</span>`+
-              `<div class="ndwhy">${esc(x.why)}</div></div>`).join('')+`</div>`;}).join('')
-         +`<button class="frcopy" onclick="copyNd(this)">Copy (EN + FR)</button>`
-        :`<div class="cempty">&mdash;</div>`);
+    const it=NEXTDRAW.items||[],df=NEXTDRAW.deferred||[];
+    const ND=[['decision','Decision markers','Each result can change a current intervention or decide the next one'],
+              ['trend','Longitudinal trends','Inexpensive context whose value comes from a comparable series'],
+              ['optional','Optional exploratory','Excluded from the default order: descriptive or expensive with weak decision value']];
+    const row=x=>`<details class="ndrow"><summary class="srow"><span class="ndtop">`+
+      `<span class="sn">${esc(x.en)}${x.cost?`<span class="ndcost">${esc(x.cost)}</span>`:''}</span>`+
+      `<span class="frn">${esc(x.fr)}</span></span>`+
+      `<span class="ndwhy"><span class="ndlbl">Question</span>${esc(x.why)}</span>`+
+      `<span class="nddecision"><span class="ndlbl">Decision</span>${esc(x.decision)}</span></summary>`+
+      `<div class="ndmeta"><div><b>Meaningful result</b>${esc(x.trigger)}</div>`+
+      `<div><b>Assay continuity</b>${esc(x.method)}</div><div><b>Preparation</b>${esc(x.prep)}</div>`+
+      `<div><b>Timing</b>${esc(x.timing)}</div></div></details>`;
+    const cards=(NEXTDRAW.collections||[]).map(c=>{
+      const rec=ndOrder(c.id,false).length,opt=ndOrder(c.id,true).length-rec;
+      return `<div class="ndcard"><div class="ndct">${esc(c.t)}</div><div class="nddate">${esc(c.date)}</div>`+
+        `<div class="ndcn">${esc(c.note)}</div><div class="ndactions">`+
+        `<button class="frcopy" data-copy-label="Copy recommended" onclick="copyNd(this,'${esc(c.id)}',false)">Copy recommended · ${rec}</button>`+
+        (opt?`<button class="frcopy" data-copy-label="Copy + optional" onclick="copyNd(this,'${esc(c.id)}',true)">Copy + optional · ${rec+opt}</button>`:'')+
+        `</div></div>`;}).join('');
+    h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional · ${df.length} deferred</div>`+
+      `<div class="ndintro">${esc(NEXTDRAW.intro||'')}</div><div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
+      `<div class="pgsec ndlist"><div class="pgst">Standardized collection protocol</div>`+
+      `<div class="ndprotocol">${(NEXTDRAW.protocol||[]).map(p=>`<div class="ndrule"><b>${esc(p.t)}</b><span>${esc(p.v)}</span></div>`).join('')}</div></div>`+
+      ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length)return '';
+        return `<div class="pgsec ndlist"><div class="pgst ndgtitle">${esc(title)}<span class="cn">${rows.length}</span></div>`+
+          `<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
+          rows.map(row).join('')+`</div>`;}).join('')+
+      `<div class="pgsec ndlist"><div class="pgst">Deferred / not this draw<span class="cn">${df.length}</span></div>`+
+      `<div class="cnote">Visible so the exclusions stay reasoned. These rows are never copied into a laboratory order.</div>`+
+      df.map(x=>`<div class="srow ndxrow"><span class="sn">${esc(x.en)} <span class="ndstatus">${esc(x.s)}</span></span>`+
+        `<span class="frn">${esc(x.fr)}</span><div class="ndwhy"><span class="ndlbl">Why not now</span>${esc(x.why)}</div>`+
+        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span>${esc(x.reconsider)}</div></div>`).join('')+`</div>`;
   } else if(p==='record'&&RECORD){
     /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
        two-column list rather than anything from the marker table. A section with no rows still
