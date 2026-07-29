@@ -37,6 +37,12 @@ setTimeout(()=>{
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
+  ok('only rigorously sourced evidence references render marker-wide',
+    DATA.MARK.filter(m=>m.reference).length===1&&DATA.MARK.find(m=>m.id==='tt').reference,
+    DATA.MARK.filter(m=>m.reference).length+' references');
+  ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
+    .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
+      m.reference.population&&m.reference.method&&/^\d{4}-\d{2}-\d{2}$/.test(m.reference.reviewed)));
   ok('9 evidence targets remain',DATA.MARK.filter(m=>m.target).length===9,
     DATA.MARK.filter(m=>m.target).length+' targets');
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
@@ -45,8 +51,19 @@ setTimeout(()=>{
     DATA.MARK.filter(m=>m.goal).every(m=>m.goal.why),DATA.MARK.filter(m=>m.goal).length+' goals');
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
   const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
-  ok('copper at the exact lab floor is not falsely low',state('cu')==='ok',state('cu'));
-  ok('omega-3 uses the printed 8–11 lab interval',state('o3')==='out',state('o3'));
+  ok('a lab-only copper interval is provenance, not a dashboard judgement',state('cu')==='none',state('cu'));
+  ok('omega-3 follows the evidence cut, not the printed 8–11 lab interval',
+    state('o3')==='watch'&&claim(DATA.MARK.find(m=>m.id==='o3'),latestFor('o3').v,latestFor('o3').raw).kind==='cut',
+    state('o3'));
+  ok('total testosterone uses the harmonized evidence reference',
+    state('tt')==='ok'&&claim(DATA.MARK.find(m=>m.id==='tt'),latestFor('tt').v,latestFor('tt').raw).kind==='reference',
+    state('tt'));
+  {const m=DATA.MARK.find(x=>x.id==='tt'),d=DATA.DATA.draws.find(x=>x.date==='2026-07-20');
+   const h=ptHTML(m,d);
+   ok('printed lab reference remains in the datapoint bubble',
+     h.includes('Lab reference')&&h.includes('8.63')&&h.includes('28.98 nmol/L'));}
+  ok('primary gauge no longer promotes the latest lab interval',
+    !mini(DATA.MARK.find(m=>m.id==='tt')).includes('Latest lab reference'));
   ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
   ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
@@ -266,6 +283,10 @@ setTimeout(()=>{
   ok('audit rejects a legacy optimal band',audit(j13).length===1,audit(j13)[0]||'');
   const j14=JSON.parse(JSON.stringify(DATA)); delete j14.MARK.find(m=>m.id==='sel').target.source;
   ok('audit rejects an unsourced evidence target',audit(j14).length===1,audit(j14)[0]||'');
+  const j18=JSON.parse(JSON.stringify(DATA)); delete j18.MARK.find(m=>m.id==='tt').reference.method;
+  ok('audit rejects an evidence reference with no assay requirement',audit(j18).length===1,audit(j18)[0]||'');
+  const j19=JSON.parse(JSON.stringify(DATA)); j19.MARK.find(m=>m.id==='tt').reference.reviewed='July 2026';
+  ok('audit rejects a malformed evidence-reference review date',audit(j19).length===1,audit(j19)[0]||'');
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;

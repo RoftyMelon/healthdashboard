@@ -86,12 +86,17 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `µUI/mL` ↔ `mUI/L`, or case-only differences); **never rescale the raw number**.
   `toUS()` handles real conversions.
 - `u` is a **unit label string** ("mg/L"), not an index. Indices are fat-fingerable; strings are not.
-- Interpretation has **four separate claim types**, and `audit()` rejects the old `clin[]`,
+- Interpretation has **five separate claim types**, and `audit()` rejects the old `clin[]`,
   `opt[]` and `oc` fields rather than allowing them to blur together:
   - `v.lr: [lo, hi]` is the exact interval **that laboratory printed for that result**, in
     `v.u`, with `null` for an unprinted side. Store it wherever the report prints one. A changed
     `lr` is evidence of changed cut-offs or method; a matching interval alone does not prove the
-    assay stayed the same.
+    assay stayed the same. It is provenance: the viewer shows it inside that datapoint’s
+    hover/tap bubble and in cross-draw change warnings, never as a marker-wide judgement band.
+  - `marker.reference` is a rigorously sourced healthy-population interval that can legitimately
+    apply across draws. It needs numeric bounds, a label, `evidence: strong | moderate | weak`,
+    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. Only total
+    testosterone currently has one. Do not create one merely to give a marker a grey band.
   - `marker.cut` holds guideline, diagnostic or risk **zones**. Every zone has numeric `min`
     and/or `max`, a plain-language label and `level: ok | watch | out`; the cut carries a source.
     A cut is never described as a lab reference.
@@ -102,8 +107,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   - `marker.goal` is this person's intervention criterion. It needs numeric bounds, a label and
     `why`; 2 markers currently carry one. It is rendered as a personal goal, never as a
     universal health claim.
-  The latest value is flagged outside its own `lr` first, then by a risk cut, then by a target,
-  then by a goal. The viewer labels all four layers separately in the gauge and expanded chart.
+  Marker-wide evidence drives status: reference first, then risk cut, target and goal. A printed
+  `lr` never changes the row colour or flagged filter. The viewer labels the four marker-wide
+  layers separately in the gauge and expanded chart; lab provenance remains on the datapoint.
 - A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on

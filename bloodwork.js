@@ -40,7 +40,7 @@ window.BLOODWORK =
    "No existing draw was modified, reordered or dropped. Count them: there are 7.",
    "The file still parses: it is window.BLOODWORK = {...}; with the wrapper intact."
   ],
-  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval. target is an evidence-backed health-optimization band and must carry strong/moderate/weak evidence plus its basis; 9 of 88 markers currently have one. goal is a personal intervention criterion and must say why it exists; 2 markers currently carry one. Missing fields are deliberate: most biomarkers have no defensible longevity target. Legacy clin[], opt[] and oc are rejected by audit(). The viewer labels every claim type and never silently substitutes one for another."
+  "interpretation_model": "Five claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide, rigorously sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; only total testosterone currently has one. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval. target is an evidence-backed health-optimization band and must carry strong/moderate/weak evidence plus its basis; 9 of 88 markers currently have one. goal is a personal intervention criterion and must say why it exists; 2 markers currently carry one. Missing fields are deliberate: most biomarkers have no defensible universal interval or longevity target. Legacy clin[], opt[] and oc are rejected by audit(). The viewer labels every marker-wide claim type and never silently substitutes a laboratory interval for one."
  },
  "CATS": [
   {
@@ -5575,6 +5575,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 264,
+    "max": 916,
+    "evidence": "strong",
+    "label": "Harmonized healthy-population interval",
+    "source": "Travison et al. / Endocrine Society harmonized testosterone reference",
+    "population": "Non-obese European and American men aged 19–39",
+    "method": "Apply only to assays appropriately calibrated to the CDC reference method; this is population context, not a longevity target",
+    "reviewed": "2026-07-29"
+   },
    "am": "critical",
    "note": "All the testosterone in your blood — the roughly 98% bound to carrier proteins plus the small free fraction.\n\nThe headline androgen number, but it needs context to read:\n\n• It peaks a few hours after waking and declines through the day, so a morning and an afternoon draw are not comparable\n• Immunoassays and mass spectrometry disagree, especially at lower concentrations\n\nMost of it is bound to SHBG and unavailable, which is why total alone can mislead when SHBG is unusual.",
    "axis": [
