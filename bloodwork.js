@@ -119,6 +119,50 @@ window.BLOODWORK =
   ],
   "items": [
    {
+    "id": "finmin",
+    "name": "Finasteride + Minoxidil (topical)",
+    "ev": "strong",
+    "dose": "0.1% + 5%, 1mL",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Two mechanisms in one bottle. Finasteride blocks 5α-reductase, cutting the DHT that miniaturises scalp follicles; minoxidil opens K-ATP channels, holding follicles in anagen longer and thickening the shaft. One removes the cause, the other pushes growth."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "1mL of the combined serum, morning and evening. Topical buys scalp suppression at a fraction of oral's systemic exposure — but it is absorbed, not sealed off, which is precisely why the next draw can read it."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "The only prescription drug on this list, and strong on both halves. Oral finasteride 1mg and topical minoxidil 5% each carry large RCTs; topical finasteride's own Phase III showed non-inferiority to oral on hair count with less serum DHT suppression. The combination beats either alone."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Minoxidil sheds in weeks 2-8 — expected, not failure. Blocking 5α-reductase shunts substrate, so DHT 1.8 should fall while total T 22.12 and estradiol 58.7 can both drift up; all three are July pre-treatment baselines. Both drugs are indefinite — stopping hands the gains back within 6-12 months."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
+      ]
+     ]
+    },
+    "cat": "skin",
+    "status": "taking",
+    "when": null,
+    "url": null,
+    "dec": "Finasteride (topical) 0.1% - 1mL",
+    "judge": "hairline and part-width photos on a fixed setup; and DHT at the year-end draw — nothing else in the stack or diet touches DHT, so that read is clean"
+   },
+   {
     "id": "astax",
     "name": "Astaxanthin",
     "ev": "moderate",
@@ -211,50 +255,6 @@ window.BLOODWORK =
     "url": "https://www.sunday.de/en/lycopene-capsules.html",
     "dec": null,
     "judge": "skin tone — photos in consistent light, read at the next draw, end of 2026"
-   },
-   {
-    "id": "finmin",
-    "name": "Finasteride + Minoxidil (topical)",
-    "ev": "strong",
-    "dose": "0.1% + 5%, 1mL",
-    "info": {
-     "What it does": [
-      [
-       "",
-       "Two mechanisms in one bottle. Finasteride blocks 5α-reductase, cutting the DHT that miniaturises scalp follicles; minoxidil opens K-ATP channels, holding follicles in anagen longer and thickening the shaft. One removes the cause, the other pushes growth."
-      ]
-     ],
-     "Dose": [
-      [
-       "",
-       "1mL of the combined serum, morning and evening. Topical buys scalp suppression at a fraction of oral's systemic exposure — but it is absorbed, not sealed off, which is precisely why the next draw can read it."
-      ]
-     ],
-     "Evidence": [
-      [
-       "",
-       "The only prescription drug on this list, and strong on both halves. Oral finasteride 1mg and topical minoxidil 5% each carry large RCTs; topical finasteride's own Phase III showed non-inferiority to oral on hair count with less serum DHT suppression. The combination beats either alone."
-      ]
-     ],
-     "Watch": [
-      [
-       "",
-       "Minoxidil sheds in weeks 2-8 — expected, not failure. Blocking 5α-reductase shunts substrate, so DHT 1.8 should fall while total T 22.12 and estradiol 58.7 can both drift up; all three are July pre-treatment baselines. Both drugs are indefinite — stopping hands the gains back within 6-12 months."
-      ]
-     ],
-     "Changes": [
-      [
-       "1 Aug 2026",
-       "started"
-      ]
-     ]
-    },
-    "cat": "skin",
-    "status": "taking",
-    "when": null,
-    "url": null,
-    "dec": "Finasteride (topical) 0.1% - 1mL",
-    "judge": "hairline and part-width photos on a fixed setup; and DHT at the year-end draw — nothing else in the stack or diet touches DHT, so that read is clean"
    },
    {
     "id": "vitd3k2",
@@ -7245,7 +7245,7 @@ window.BLOODWORK =
       "u": "mg/L",
       "lt": true,
       "a": "Roche Cobas / Spectrophotométrie",
-      "an": "Standard CRP, not high-sensitivity — the lab’s <5.0 range gives it away.",
+      "an": "Report does not identify whether standard or high-sensitivity CRP was used.",
       "lr": [
        null,
        5
@@ -7642,7 +7642,7 @@ window.BLOODWORK =
       "r": 1.4,
       "u": "mg/L",
       "a": "Roche Cobas / Spectrophotométrie",
-      "an": "Standard CRP, not high-sensitivity — the lab’s <5.0 range gives it away.",
+      "an": "Report does not identify whether standard or high-sensitivity CRP was used.",
       "lr": [
        null,
        5
@@ -7735,7 +7735,7 @@ window.BLOODWORK =
     "id": "d20260307",
     "date": "2026-03-07",
     "t": "08:51",
-    "note": "Laboratoire B2A Biolac (Schiltigheim) — Beckman chemistry on an XN Sysmex haematology analyser, 10h fast, serum limpide. Drawn 08:51, off the report, which also shows everything run and validated on 07/03/2026. This file previously dated the draw 01/03 and has been corrected. Every method and printed interval is on the values, and all 26 reconcile to the digit — this draw came from the lab directly rather than through an InsideTracker re-conversion. ON CREATINE at the time, which is why the eGFR of 61 is the outlier in an otherwise flat renal series (80, 82, 82, 61, 83.4) and should not be read as a decline. Platelets 148 sit just below the 150-400 reference. THE CRP HERE IS A STANDARD ASSAY, NOT HIGH-SENSITIVITY: immuno-turbidimetry with a reference of <5 mg/L, printed '<1 mg/L' and stored AT that limit, so it is an upper bound from an assay that cannot resolve the hs-CRP range at all. The 2022 and July 2026 values ('Inf a 0,5' and '<0.6') come from genuine high-sensitivity assays and are the ones worth comparing.",
+    "note": "Laboratoire B2A Biolac (Schiltigheim) — Beckman chemistry on an XN Sysmex haematology analyser, 10h fast, serum limpide. Drawn 08:51, off the report, which also shows everything run and validated on 07/03/2026. This file previously dated the draw 01/03 and has been corrected. Every method and printed interval is on the values, and all 26 reconcile to the digit — this draw came from the lab directly rather than through an InsideTracker re-conversion. ON CREATINE at the time, which is why the eGFR of 61 is the outlier in an otherwise flat renal series (80, 82, 82, 61, 83.4) and should not be read as a decline. Platelets 148 sit just below the 150-400 reference. THE CRP HERE CANNOT BE USED AS A HIGH-SENSITIVITY RESULT: it was printed '<1 mg/L' and stored AT that limit, so the bound does not resolve the cardiovascular range below 1 mg/L. The 2022 report also leaves assay sensitivity unidentified; only the July 2026 value is explicitly high-sensitivity.",
     "v": {
      "rbc": {
       "r": 5.17,
@@ -7962,7 +7962,7 @@ window.BLOODWORK =
       ],
       "lt": true,
       "a": "Immuno-Turbidimétrie Beckman",
-      "an": "Standard CRP, not high-sensitivity — the lab range gives it away."
+      "an": "Reported only as <1 mg/L, so it cannot resolve the cardiovascular hs-CRP range below 1."
      },
      "tsh": {
       "r": 0.783,
