@@ -890,8 +890,13 @@ a.sbuy:hover{color:var(--info)}
 .care.wide .ccard{flex:0 1 auto;width:min(356px,100%)}
 /* Skincare sizes to its OWN longest product line rather than a fixed 356px, so a name like
    "Serum - Niacinamide 10% (B3) + Zinc PCA + Sarcosine" stops wrapping. fit-content = the
-   content's width, capped at what's available, so a phone still gets 100%. */
-.care.wide .ccard[data-care="face"]{width:fit-content;max-width:100%}
+   content's width, capped at what's available, so a phone still gets 100%.
+   The min-width is the FLOOR: fit-content can only ever make this card NARROWER than the
+   dental card below it, and today's longest line is 306px of content — 334px of card against
+   dental's 356px, a 22px ragged right edge at every width. Growing past 356px for a long name
+   is the point; shrinking below it buys nothing. min() so a phone, where 356px exceeds the
+   column, floors at 100% and the two cards land flush instead. */
+.care.wide .ccard[data-care="face"]{width:fit-content;min-width:min(356px,100%);max-width:100%}
 /* ...but the footnotes are long sentences and would otherwise BE the widest content and set
    the card width. width:0 removes them from that intrinsic measurement; min-width:100% then
    refills them to the width the product list settled on, so they wrap inside it. */
