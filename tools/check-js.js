@@ -38,11 +38,17 @@ setTimeout(()=>{
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
   ok('only rigorously sourced evidence references render marker-wide',
-    DATA.MARK.filter(m=>m.reference).length===1&&DATA.MARK.find(m=>m.id==='tt').reference,
+    DATA.MARK.filter(m=>m.reference).length===15&&DATA.MARK.find(m=>m.id==='tt').reference,
     DATA.MARK.filter(m=>m.reference).length+' references');
   ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
     .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
       m.reference.population&&m.reference.method&&/^\d{4}-\d{2}-\d{2}$/.test(m.reference.reviewed)));
+  {const cbc=DATA.MARK.filter(m=>m.cat==='cbc'),withRef=cbc.filter(m=>m.reference),
+    excluded=cbc.filter(m=>!m.reference).map(m=>m.id).sort().join(',');
+   ok('14 Blood Count markers have transferable evidence references',
+     cbc.length===17&&withRef.length===14,`${withRef.length}/${cbc.length}`);
+   ok('method-sensitive Blood Count exclusions stay explicit',
+     excluded==='esr,ige,mpv',excluded);}
   ok('9 evidence targets remain',DATA.MARK.filter(m=>m.target).length===9,
     DATA.MARK.filter(m=>m.target).length+' targets');
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
@@ -58,6 +64,14 @@ setTimeout(()=>{
   ok('total testosterone uses the harmonized evidence reference',
     state('tt')==='ok'&&claim(DATA.MARK.find(m=>m.id==='tt'),latestFor('tt').v,latestFor('tt').raw).kind==='reference',
     state('tt'));
+  ok('platelets use the healthy-male evidence reference rather than a lab interval',
+    state('plt')==='ok'&&claim(DATA.MARK.find(m=>m.id==='plt'),latestFor('plt').v,latestFor('plt').raw).kind==='reference',
+    state('plt'));
+  ok('white blood cells use a sourced population interval',
+    state('wbc')==='ok'&&claim(DATA.MARK.find(m=>m.id==='wbc'),latestFor('wbc').v,latestFor('wbc').raw).kind==='reference',
+    state('wbc'));
+  ok('MPV lab provenance does not become a universal judgement band',
+    state('mpv')==='none',state('mpv'));
   {const m=DATA.MARK.find(x=>x.id==='tt'),d=DATA.DATA.draws.find(x=>x.date==='2026-07-20');
    const h=ptHTML(m,d);
    ok('printed lab reference remains in the datapoint bubble',

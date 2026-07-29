@@ -40,7 +40,7 @@ window.BLOODWORK =
    "No existing draw was modified, reordered or dropped. Count them: there are 7.",
    "The file still parses: it is window.BLOODWORK = {...}; with the wrapper intact."
   ],
-  "interpretation_model": "Five claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide, rigorously sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; only total testosterone currently has one. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval. target is an evidence-backed health-optimization band and must carry strong/moderate/weak evidence plus its basis; 9 of 88 markers currently have one. goal is a personal intervention criterion and must say why it exists; 2 markers currently carry one. Missing fields are deliberate: most biomarkers have no defensible universal interval or longevity target. Legacy clin[], opt[] and oc are rejected by audit(). The viewer labels every marker-wide claim type and never silently substitutes a laboratory interval for one."
+  "interpretation_model": "Five claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide, rigorously sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; 15 of 88 markers currently have one: total testosterone plus 14 Blood Count markers. MPV, total IgE and ESR remain deliberately unassigned because a universal band would overstate analyzer, method or population comparability. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval. target is an evidence-backed health-optimization band and must carry strong/moderate/weak evidence plus its basis; 9 of 88 markers currently have one. goal is a personal intervention criterion and must say why it exists; 2 markers currently carry one. Missing fields are deliberate: most biomarkers have no defensible universal interval or longevity target. Legacy clin[], opt[] and oc are rejected by audit(). The viewer labels every marker-wide claim type and never silently substitutes a laboratory interval for one."
  },
  "CATS": [
   {
@@ -5826,11 +5826,21 @@ window.BLOODWORK =
    "fr": "Plaquettes",
    "us": "10³/µL",
    "units": [
-    {
+   {
      "l": "G/L",
      "m": 1
     }
    ],
+   "reference": {
+    "min": 145,
+    "max": 348,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic men aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "Cell fragments that form the first plug at a bleeding site — the beginning of a clot.\n\nTracked for bleeding and clotting risk, and as a general check on bone marrow output.\n\nOne common artefact: in some people platelets clump together inside the collection tube. The analyser counts a clump as one platelet, so the result comes back falsely low. If a low count appears out of nowhere in someone with no symptoms, this is the first thing to rule out.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 180-350, which pointed UPWARD — against the direction three items in this stack are meant to push. Omega-3, curcumin and AGE garlic all reduce platelet count or aggregation, and they are linked to this marker for that reason. Within the reference range a higher count carries more thrombotic risk, not less, so there is nothing here to raise and no benign way to raise it: the agents that work (thrombopoietin receptor agonists) treat immune thrombocytopenia and carry thrombosis and marrow-fibrosis risk.\n\nThis subject sits at 148-172 across six draws from 2020 to 2026 — a stable set point with no trend, alongside a normal red series, which is what separates a set point from a signal. The MPV explains it: 11.7-12.1, meaning fewer but larger platelets, so total platelet mass is nearer normal than the count alone suggests.\n\nWhat would change the reading: a downward TREND, several cell lines falling together, or symptoms — easy bruising, petechiae, prolonged bleeding. A single low-normal count with none of those is not a finding.",
    "axis": [
     100,
@@ -5872,6 +5882,16 @@ window.BLOODWORK =
      "m": 0.1
     }
    ],
+   "reference": {
+    "min": 13.4,
+    "max": 17,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic men aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "The protein inside red blood cells that actually carries oxygen. Low haemoglobin IS anaemia — the two mean the same thing.\n\nIt is a concentration: grams of haemoglobin per volume of blood. So the number moves when the amount of fluid changes, even if your red cells do not:\n\n• Dehydrated — less plasma, same cells, so it reads higher\n• Endurance-trained — the body carries extra plasma, diluting it, so it reads lower\n\nThat second one is why fit endurance athletes often look mildly anaemic on paper and are not.",
    "axis": [
     11,
@@ -5890,6 +5910,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 39.5,
+    "max": 50,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic men aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "The share of your blood that is red cells rather than liquid, as a percentage. Roughly 45% cells, 55% plasma.\n\nIt says much the same thing as haemoglobin and rarely adds to it. Because it is a ratio, it is even more sensitive to hydration: the same red cells suspended in less fluid make a bigger share of the total, so the percentage climbs without a single new cell being made.",
    "axis": [
     35,
@@ -5912,6 +5942,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 4.25,
+    "max": 5.71,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic men aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "A straight count of how many red cells are in a given volume of blood.\n\nOn its own it says surprisingly little, because it counts cells without asking how much haemoglobin each one carries — you can have plenty of cells that are each under-filled. Its real job is as the denominator for MCV, MCH and MCHC, which is where the useful detail lives.\n\nBeing a per-volume count, hydration shifts it exactly as it shifts haemoglobin.",
    "axis": [
     3.5,
@@ -5930,6 +5970,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 82,
+    "max": 98,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic adults aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "The average size of your red blood cells.\n\nSize is the single most useful clue to why someone is anaemic, because the common causes push it in opposite directions:\n\n• Small cells — iron deficiency, or thalassaemia trait\n• Large cells — B12 or folate deficiency, alcohol, or an underactive thyroid\n\nThe catch: if two causes are present at once they cancel out and the average lands normal. A normal MCV does not rule out either problem.",
    "axis": [
     70,
@@ -5948,6 +5998,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 27.1,
+    "max": 33.3,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic adults aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "The average amount of haemoglobin packed into each red cell, by weight.\n\nIt moves almost in lockstep with cell size, so in practice it rarely tells you anything MCV has not already. Mostly it serves as a consistency check that the analyser's sizing and its haemoglobin measurement agree with each other.",
    "axis": [
     22,
@@ -5970,6 +6030,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 31.7,
+    "max": 35.7,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic adults aged 18–90",
+    "method": "Automated haematology analyzers across 60 laboratories using dry dipotassium-EDTA samples; population context, not a treatment target",
+    "reviewed": "2026-07-29"
+   },
    "note": "How concentrated the haemoglobin is inside each cell — not how much per cell, but how tightly packed.\n\nUnusual among the red cell indices in being largely independent of the instrument used. That makes a high value informative in an unexpected way: it is usually a sign of a measurement problem rather than a real finding — fat in the sample, ruptured cells, or cold-clumping antibodies confusing the analyser.",
    "axis": [
     29,
@@ -5988,6 +6058,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 11,
+    "max": 14,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older",
+    "method": "Automated full blood count; RDW remains analyzer-dependent, so preserve method continuity and inspect each draw's printed lab interval",
+    "reviewed": "2026-07-29"
+   },
    "note": "How much your red cells vary in size — a high value means a mixed population rather than a uniform one.\n\nUseful because it often moves before the average size does. When a deficiency is developing, new cells come out the wrong size while the old normal ones are still circulating, so the spread widens while MCV still reads normal.\n\nIt also rises when two causes overlap, which is exactly the case where MCV is misleadingly normal.",
    "axis": [
     9,
@@ -6006,6 +6086,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 3.5,
+    "max": 8.8,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval",
+    "source": "NORIP multicentre Nordic adult haematology study (Nordin et al., 2004)",
+    "population": "Healthy Nordic adults aged 18–90",
+    "method": "Automated haematology analyzers using dry dipotassium-EDTA; fasting, smoking, recent exertion and ancestry can shift the count",
+    "reviewed": "2026-07-29"
+   },
    "note": "The total number of immune cells in circulation. A broad screen for infection, inflammation and bone-marrow function.\n\nThe total by itself is fairly blunt — nearly all the information is in the breakdown below it, since a high count from neutrophils means something very different from a high count from lymphocytes.\n\nRises briefly with acute stress, adrenaline, and recent hard exercise, none of which involve illness.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 4.5-8.5, pointing upward. A white count in the lower half of normal is unremarkable in lean, heavily trained people, and WBC doubles as an inflammation marker — within the reference range the lower end tends to track with LOWER risk, not higher. So the band was asking for a number to rise that there is no reason to raise and no benign way to raise. What matters is a TREND, or a fall alongside the other cell lines; a single low-normal count with a normal red series is not a finding.",
    "axis": [
     2,
@@ -6028,6 +6118,16 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
+   "reference": {
+    "min": 1800,
+    "max": 7500,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older; absolute neutrophil count",
+    "method": "Automated full blood count; infection, exertion, smoking and ancestry—including Duffy-null status—can shift the count",
+    "reviewed": "2026-07-29"
+   },
    "note": "The immune system's first responders, and usually the largest white cell group. They arrive first at bacterial infections.\n\nThey are also the main reason a white count swings either way.\n\nWorth knowing: they climb within hours of physical stress — a hard training session, a bad night's sleep, or simply the adrenaline of the blood draw itself. A mild elevation very often has nothing to do with infection.",
    "axis": [
     1000,
@@ -6050,6 +6150,16 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
+   "reference": {
+    "min": 1000,
+    "max": 4000,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older; absolute lymphocyte count",
+    "method": "Automated full blood count; acute illness, collection time, stress and corticosteroid exposure can shift the count",
+    "reviewed": "2026-07-29"
+   },
    "note": "T cells and B cells — the part of the immune system that handles viruses and remembers past infections.\n\nTracked for immune competence, and because a persistently high or low count can point at something more.\n\nThey drop sharply when cortisol is high, so stress or an early-morning draw both push them down temporarily. A single low reading is usually the clock or the day, not the immune system.",
    "axis": [
     500,
@@ -6072,6 +6182,16 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
+   "reference": {
+    "min": 200,
+    "max": 1000,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older; absolute monocyte count",
+    "method": "Automated full blood count; interpret persistent changes with the rest of the differential and each draw's printed lab interval",
+    "reviewed": "2026-07-29"
+   },
    "note": "Cells that clean up debris and mature into the macrophages that live in tissue.\n\nThey rise during chronic inflammation and during recovery from infection — often climbing just as neutrophils fall, which is a useful sign that something is resolving rather than starting.\n\nRarely informative on its own; the ratio to lymphocytes carries more than the raw count.",
    "axis": [
     0,
@@ -6094,6 +6214,16 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
+   "reference": {
+    "min": 0,
+    "max": 400,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older; absolute eosinophil count",
+    "method": "Automated full blood count; allergy, parasites, medicines and collection timing can shift the count",
+    "reviewed": "2026-07-29"
+   },
    "note": "White cells that deal with allergy and parasites, and the clearest blood signal that an allergic process is active.\n\nThey normally make up a very small fraction of white cells, which creates a trap: a tiny absolute change looks dramatic when expressed as a percentage. Read the absolute count, not the percent.",
    "axis": [
     0,
@@ -6143,6 +6273,16 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
+   "reference": {
+    "min": 0,
+    "max": 100,
+    "evidence": "moderate",
+    "label": "Pathology Harmony adult interval",
+    "source": "UK Pathology Harmony Phase II interval, locally verified by Manchester University NHS Foundation Trust (2024)",
+    "population": "Adults aged 18 years and older; absolute basophil count",
+    "method": "Automated full blood count; very low event counts make isolated movements imprecise",
+    "reviewed": "2026-07-29"
+   },
    "note": "The rarest white cell, involved in histamine release and allergic reactions.\n\nThey are present in such small numbers that the count is imprecise by nature — a single high or low value is usually just the statistics of counting very few things. A persistent pattern across several draws means something; one reading does not.",
    "axis": [
     0,

@@ -97,8 +97,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     because turning a printed `28.98` into `29` weakens the assay fingerprint.
   - `marker.reference` is a rigorously sourced healthy-population interval that can legitimately
     apply across draws. It needs numeric bounds, a label, `evidence: strong | moderate | weak`,
-    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. Only total
-    testosterone currently has one. Do not create one merely to give a marker a grey band.
+    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. Fifteen
+    markers currently have one: total testosterone plus 14 Blood Count markers. MPV, total IgE
+    and ESR are deliberately excluded because a universal interval would overstate analyzer,
+    method or population comparability. Do not create one merely to give a marker a grey band.
   - `marker.cut` holds guideline, diagnostic or risk **zones**. Every zone has numeric `min`
     and/or `max`, a plain-language label and `level: ok | watch | out`; the cut carries a source.
     A cut is never described as a lab reference.
