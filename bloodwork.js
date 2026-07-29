@@ -1040,7 +1040,7 @@ window.BLOODWORK =
       {
        "n": "Serum - Multi-Peptide",
        "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html",
-       "info": "do not use after Glycolic Acid"
+       "info": "Do not use after Glycolic Acid"
       },
       {
        "n": "Emulsion - Retinal 0.2%",
