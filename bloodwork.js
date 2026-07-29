@@ -106,7 +106,7 @@ window.BLOODWORK =
    },
    {
     "id": "skin",
-    "t": "Skin"
+    "t": "Skin & Hair"
    },
    {
     "id": "sport",
@@ -211,6 +211,50 @@ window.BLOODWORK =
     "url": "https://www.sunday.de/en/lycopene-capsules.html",
     "dec": null,
     "judge": "skin tone — photos in consistent light, read at the next draw, end of 2026"
+   },
+   {
+    "id": "finmin",
+    "name": "Finasteride + Minoxidil (topical)",
+    "ev": "strong",
+    "dose": "0.1% + 5%, 1mL",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Two mechanisms in one bottle. Finasteride blocks 5α-reductase, cutting the DHT that miniaturises scalp follicles; minoxidil opens K-ATP channels, holding follicles in anagen longer and thickening the shaft. One removes the cause, the other pushes growth."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "1mL of the combined serum, morning and evening. Topical buys scalp suppression at a fraction of oral's systemic exposure — but it is absorbed, not sealed off, which is precisely why the next draw can read it."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "The only prescription drug on this list, and strong on both halves. Oral finasteride 1mg and topical minoxidil 5% each carry large RCTs; topical finasteride's own Phase III showed non-inferiority to oral on hair count with less serum DHT suppression. The combination beats either alone."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Minoxidil sheds in weeks 2-8 — expected, not failure. Blocking 5α-reductase shunts substrate, so DHT 1.8 should fall while total T 22.12 and estradiol 58.7 can both drift up; all three are July pre-treatment baselines. Both drugs are indefinite — stopping hands the gains back within 6-12 months."
+      ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started"
+      ]
+     ]
+    },
+    "cat": "skin",
+    "status": "taking",
+    "when": null,
+    "url": null,
+    "dec": "Finasteride (topical) 0.1% - 1mL",
+    "judge": "hairline and part-width photos on a fixed setup; and DHT at the year-end draw — nothing else in the stack or diet touches DHT, so that read is clean"
    },
    {
     "id": "vitd3k2",
