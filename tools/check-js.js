@@ -252,10 +252,9 @@ setTimeout(()=>{
       count(H,'ndmeta')+' panels');
     ok(`${DATA.NEXTDRAW.deferred.length} exclusions shown`, count(H,'srow ndxrow')===DATA.NEXTDRAW.deferred.length,
       count(H,'srow ndxrow')+' exclusions');
-    const main=ndOrder('main',false),all=ndOrder('main',true),mini=ndOrder('vitd',false);
+    const main=ndOrder('main',false),all=ndOrder('main',true);
     ok('recommended copy excludes optional rows',main.every(x=>x.g!=='optional')&&all.length>main.length);
     ok('optional copy adds every optional main row',all.length-main.length===DATA.NEXTDRAW.items.filter(x=>x.g==='optional'&&x.draws.includes('main')).length);
-    ok('mini-check copy contains only its collection',mini.length===1&&mini[0].draws.includes('vitd'));
     ok('deferred rows never enter copies',DATA.NEXTDRAW.deferred.every(x=>!all.some(y=>y.en===x.en)));
     ok('recommended main copy has no duplicate orders',new Set(main.map(x=>x.en)).size===main.length);
   }catch(e){ ok('draw list groups',false,e.message); }

@@ -303,7 +303,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
     "dec": "Vitamin D3 10000 IU + K2",
-    "judge": "25-OH-D, calcium and albumin after 8-10 weeks — aim for 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
+    "judge": "25-OH-D, calcium and albumin at the year-end draw — aim for 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
    },
    {
     "id": "omega3",
@@ -1850,14 +1850,8 @@ window.BLOODWORK =
   ]
  },
  "NEXTDRAW": {
-  "intro": "Two standardized collections judge the interventions started 1 Aug 2026. The October mini-check safely titrates vitamin D; the December draw reads the stable diet, creatine, omega-3 intake including food, and topical finasteride. Do not begin a parked supplement experiment before the main draw.",
+  "intro": "The December draw judges the interventions started 1 Aug 2026: the stable diet, creatine, omega-3 intake including food, vitamin D and topical finasteride. Do not begin a parked supplement experiment before the draw.",
   "collections": [
-   {
-    "id": "vitd",
-    "t": "Vitamin-D safety check",
-    "date": "October",
-    "note": "After 8–10 weeks at 10000 IU/day. If the dose changes, keep the new dose stable for at least 8 weeks before its next interpretation."
-   },
    {
     "id": "main",
     "t": "Main optimization draw",
@@ -1965,13 +1959,13 @@ window.BLOODWORK =
     "en": "25-OH vitamin D + calcium + albumin",
     "fr": "Vitamine D (25-OH) + calcium total + albumine",
     "g": "decision",
-    "draws": ["vitd", "main"],
+    "draws": ["main"],
     "why": "Where does 10000 IU/day place vitamin D, and is calcium remaining safe?",
-    "decision": "Titrate rather than leave the high dose unmeasured; albumin is also reused for calculated free T at the main draw.",
+    "decision": "Use the year-end result to titrate the vitamin-D dose; albumin is also reused for calculated free T.",
     "trigger": "Aim for 30–50ng/mL; reduce above 50, and reassess promptly above 60 or if calcium exceeds the laboratory range.",
     "method": "Same DiaSorin Liaison XL 25-OH-D method and same laboratory calcium and albumin methods.",
     "prep": "Keep the current dose stable and take the morning dose after collection.",
-    "timing": "October after 8–10 weeks, then December after the adjusted dose has been stable for at least 8 weeks."
+    "timing": "Main draw in December, after the current dose has been stable since 1 Aug."
    },
    {
     "en": "Omega-3 index",
