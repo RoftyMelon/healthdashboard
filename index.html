@@ -2359,8 +2359,8 @@ function renderPage(p){
     const row=x=>`<details class="ndrow"><summary class="srow"><span class="ndtop">`+
       `<span class="sn">${esc(x.en)}${x.cost?`<span class="ndcost">${esc(x.cost)}</span>`:''}</span>`+
       `<span class="frn">${esc(x.fr)}</span></span>`+
-      `<span class="ndwhy"><span class="ndlbl">Question</span>${esc(x.why)}</span>`+
-      `<span class="nddecision"><span class="ndlbl">Decision</span>${esc(x.decision)}</span></summary>`+
+      `<span class="ndwhy"><span class="ndlbl">Question</span> ${esc(x.why)}</span>`+
+      `<span class="nddecision"><span class="ndlbl">Decision</span> ${esc(x.decision)}</span></summary>`+
       `<div class="ndmeta"><div><b>Meaningful result</b>${esc(x.trigger)}</div>`+
       `<div><b>Assay continuity</b>${esc(x.method)}</div><div><b>Preparation</b>${esc(x.prep)}</div>`+
       `<div><b>Timing</b>${esc(x.timing)}</div></div></details>`;
@@ -2368,8 +2368,8 @@ function renderPage(p){
       const rec=ndOrder(c.id,false).length,opt=ndOrder(c.id,true).length-rec;
       return `<div class="ndcard"><div class="ndct">${esc(c.t)}</div><div class="nddate">${esc(c.date)}</div>`+
         `<div class="ndcn">${esc(c.note)}</div><div class="ndactions">`+
-        `<button class="frcopy" data-copy-label="Copy recommended" onclick="copyNd(this,'${esc(c.id)}',false)">Copy recommended · ${rec}</button>`+
-        (opt?`<button class="frcopy" data-copy-label="Copy + optional" onclick="copyNd(this,'${esc(c.id)}',true)">Copy + optional · ${rec+opt}</button>`:'')+
+        `<button class="frcopy" data-copy-label="Copy recommended · ${rec}" onclick="copyNd(this,'${esc(c.id)}',false)">Copy recommended · ${rec}</button>`+
+        (opt?`<button class="frcopy" data-copy-label="Copy + optional · ${rec+opt}" onclick="copyNd(this,'${esc(c.id)}',true)">Copy + optional · ${rec+opt}</button>`:'')+
         `</div></div>`;}).join('');
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional · ${df.length} deferred</div>`+
       `<div class="ndintro">${esc(NEXTDRAW.intro||'')}</div><div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
@@ -2382,8 +2382,8 @@ function renderPage(p){
       `<div class="pgsec ndlist"><div class="pgst">Deferred / not this draw<span class="cn">${df.length}</span></div>`+
       `<div class="cnote">Visible so the exclusions stay reasoned. These rows are never copied into a laboratory order.</div>`+
       df.map(x=>`<div class="srow ndxrow"><span class="sn">${esc(x.en)} <span class="ndstatus">${esc(x.s)}</span></span>`+
-        `<span class="frn">${esc(x.fr)}</span><div class="ndwhy"><span class="ndlbl">Why not now</span>${esc(x.why)}</div>`+
-        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span>${esc(x.reconsider)}</div></div>`).join('')+`</div>`;
+        `<span class="frn">${esc(x.fr)}</span><div class="ndwhy"><span class="ndlbl">Why not now</span> ${esc(x.why)}</div>`+
+        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span> ${esc(x.reconsider)}</div></div>`).join('')+`</div>`;
   } else if(p==='record'&&RECORD){
     /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
        two-column list rather than anything from the marker table. A section with no rows still
