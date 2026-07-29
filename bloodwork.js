@@ -1039,8 +1039,7 @@ window.BLOODWORK =
      "items": [
       {
        "n": "Serum - Multi-Peptide",
-       "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html",
-       "info": "Do not use after Glycolic Acid"
+       "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html"
       },
       {
        "n": "Emulsion - Retinal 0.2%",
@@ -1061,7 +1060,7 @@ window.BLOODWORK =
    ],
    "notes": [
     "Body lotion 12% AHA while still wet after morning shower, at least once a week",
-    "Glycolic 7% once a week instead of Retinal",
+    "Glycolic 7% once a week instead of Peptides and Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
     "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum",
     "Finasteride 0.1% + Minoxidil 5% started 1 Aug 2026."
