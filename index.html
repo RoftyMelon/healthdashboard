@@ -830,6 +830,16 @@ a.sbuy:hover{color:var(--info)}
 .ccard ul{margin:4px 0 8px;padding:0;list-style:none}
 .ccard ul:last-child{margin-bottom:0}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2)}
+/* Greedy wrapping fills line one to the brim and leaves a stub: "Carbamide peroxide 10-15%,
+   applied with" / "custom dental tray" breaks mid-clause and orphans three words. balance
+   evens the two lines, which on any item written as "<thing>, <qualifier>" lands the break on
+   the comma — the clause boundary — because that is also where the halves are most equal.
+   Preferred over white-space:nowrap on the segments: nowrap OVERFLOWS the card when a segment
+   is wider than the content box, whereas balance is a heuristic that can only ever re-wrap.
+   Measured on this card: widths, heights and scrollWidth are byte-identical with and without,
+   so it moves the break and nothing else. Not on .cgnote — those run 3-4 lines and Chrome
+   caps balancing anyway. */
+.ccard li{text-wrap:balance}
 .ccard li.drow{display:flex;align-items:baseline;position:relative}
 /* Supplement rows push their dose flush right, matching the food rows above them: the
    name takes the slack. NOT .drow — that carries a :last-child border rule which outranks
