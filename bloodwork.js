@@ -2,17 +2,17 @@
    YOUR BLOODWORK. The single source of truth. index.html holds NO data.
 
    AI: to add a draw, read _readme.how_to_add_a_draw and follow it exactly.
-   The two ways to ruin this file silently are (a) converting a value yourself
-   and (b) guessing a unit. Do neither. Write what the lab printed, name its
-   unit exactly as it appears in that marker units[] array, and return the
-   whole file. The dashboard validates on load and will tell the user if you
-   got it wrong — but a wrong-but-plausible number may not be caught.
+   The two ways to ruin this file silently are (a) rescaling a value yourself
+   and (b) guessing a unit. Keep the lab's printed number and use a recognised
+   same-scale label from that marker's units[] array; equivalent notation may
+   be normalised, but the raw number must never be rescaled. The dashboard
+   validates on load, but a wrong-yet-plausible number may not be caught.
    ============================================================================ */
 window.BLOODWORK =
 {
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
-  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<the unit the lab used>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER convert a value. Write what the lab printed and name its unit. The dashboard converts.\n 2. \"u\" must be a unit LABEL copied EXACTLY from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    If the lab used a unit not in that list, STOP and say so. Do not improvise a conversion.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"CRP STANDARD, réf <5 mg/L — pas ultra-sensible\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end and never let it touch clin[] — clin[] is what the panel judges against, lr is what the lab claimed. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (ref <5 mg/L is how the March CRP was known to be standard rather than ultra-sensitive; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
+  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<a same-scale label from marker units[]>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER rescale a value. Keep the exact number the lab printed; the dashboard handles real conversions.\n 2. \"u\" must be a same-scale unit LABEL from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    Equivalent zero-rescaling notation may be normalized (case, U/L vs UI/L, µUI/mL vs mUI/L). If the numeric scale is not listed, STOP; an obvious report typo may use the correct label only with a cx that records it.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"Explicitly ultra-sensitive per report; older report does not identify sensitivity\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end and never let it touch clin[] — clin[] is what the panel judges against, lr is what the lab claimed. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (a distinctive interval can support assay identification, but March’s <5 mg/L alone could not distinguish standard from ultra-sensitive CRP; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
 
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
   "optimal_ranges": "opt[] and oc are INFERENCES, not lab data. oc is the evidence behind the target: strong = outcome data (RCTs, dose-response vs hard endpoints); moderate = association studies or physiology; weak = convention or industry framing, no outcome data. 3 strong, 29 moderate, 26 weak, 18 with no target at all. A value outside a WEAK band is an opinion, not a finding. A marker with NO opt is deliberate: it means no defensible target exists, and adding one back is a regression, not an improvement.",
@@ -6573,7 +6573,7 @@ window.BLOODWORK =
      "wbc": {
       "r": 6.2,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        4,
        11
@@ -6582,7 +6582,7 @@ window.BLOODWORK =
      "neut": {
       "r": 4.56,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        1.7,
        7
@@ -6591,7 +6591,7 @@ window.BLOODWORK =
      "lymph": {
       "r": 1.05,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        1,
        4.8
@@ -6600,7 +6600,7 @@ window.BLOODWORK =
      "mono": {
       "r": 0.47,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0.18,
        1
@@ -6609,7 +6609,7 @@ window.BLOODWORK =
      "eos": {
       "r": 0.05,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0.02,
        0.63
@@ -6618,7 +6618,7 @@ window.BLOODWORK =
      "baso": {
       "r": 0.07,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0,
        0.11
@@ -6627,7 +6627,7 @@ window.BLOODWORK =
      "hb": {
       "r": 16.4,
       "u": "g/dL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        13.4,
        16.7
@@ -6636,7 +6636,7 @@ window.BLOODWORK =
      "rbc": {
       "r": 5.33,
       "u": "T/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        4.28,
        6
@@ -6645,7 +6645,7 @@ window.BLOODWORK =
      "hct": {
       "r": 48.3,
       "u": "%",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        39,
        49
@@ -6654,7 +6654,7 @@ window.BLOODWORK =
      "mcv": {
       "r": 90.6,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        78,
        98
@@ -6663,7 +6663,8 @@ window.BLOODWORK =
      "mch": {
       "r": 30.7,
       "u": "pg",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
+      "cx": "Report prints pg/L, an obvious unit-label typo for MCH; stored as pg.",
       "lr": [
        26,
        34
@@ -6672,7 +6673,7 @@ window.BLOODWORK =
      "mchc": {
       "r": 33.9,
       "u": "g/dL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        31,
        36.5
@@ -6681,7 +6682,7 @@ window.BLOODWORK =
      "plt": {
       "r": 166,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        150,
        400
@@ -6690,7 +6691,7 @@ window.BLOODWORK =
      "mpv": {
       "r": 9.2,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        7,
        11
@@ -6699,7 +6700,7 @@ window.BLOODWORK =
      "glu": {
       "r": 1.05,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        0.74,
        1.09
@@ -6708,14 +6709,14 @@ window.BLOODWORK =
      "a1c": {
       "r": 5.1,
       "u": "%",
-      "a": "Electrophorèse capillaire sur sang total / Capillarys 3 Sebia",
+      "a": "Electrophorèse capillaire sur sang total / Capillarys 3 sebia (BD)",
       "an": "Capillary electrophoresis — a haemoglobin variant shows as its own peak instead of skewing the number.",
       "ak": "Capillarys — électrophorèse capillaire"
      },
      "crea": {
       "r": 12.5,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
       "lr": [
        6.7,
@@ -6736,7 +6737,7 @@ window.BLOODWORK =
      "ua": {
       "r": 305,
       "u": "µmol/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        202,
        417
@@ -6745,12 +6746,12 @@ window.BLOODWORK =
      "chol": {
       "r": 1.56,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie"
+      "a": "Roche Cobas / Spectrophotométrie (CL)"
      },
      "hdl": {
       "r": 0.71,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        0.54,
        null
@@ -6759,14 +6760,14 @@ window.BLOODWORK =
      "ldl": {
       "r": 0.75,
       "u": "g/L",
-      "a": "Formule de Friedewald",
+      "a": "Formule de FRIEDEWALD (CL)",
       "ak": "Friedewald",
       "an": "Calculated by Friedewald, not measured."
      },
      "tg": {
       "r": 0.55,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        null,
        1.5
@@ -6775,7 +6776,7 @@ window.BLOODWORK =
      "na": {
       "r": 139,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        136,
        145
@@ -6784,7 +6785,7 @@ window.BLOODWORK =
      "k": {
       "r": 4.7,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        3.4,
        4.5
@@ -6794,7 +6795,7 @@ window.BLOODWORK =
      "tp": {
       "r": 81,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        66,
        87
@@ -6803,7 +6804,7 @@ window.BLOODWORK =
      "ca": {
       "r": 103,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        86,
        100
@@ -6813,7 +6814,7 @@ window.BLOODWORK =
      "mg": {
       "r": 0.86,
       "u": "mmol/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        0.65,
        1.05
@@ -6822,7 +6823,7 @@ window.BLOODWORK =
      "iron": {
       "r": 14.62,
       "u": "µmol/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        5.83,
        34.5
@@ -6831,7 +6832,7 @@ window.BLOODWORK =
      "ferr": {
       "r": 72,
       "u": "µg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "an": "Immunoturbidimetric, not the ECLIA used for the hormones. Biotin-sensitive.",
       "lr": [
        30,
@@ -6853,7 +6854,7 @@ window.BLOODWORK =
      "ast": {
       "r": 31,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        10,
        40
@@ -6862,7 +6863,7 @@ window.BLOODWORK =
      "alt": {
       "r": 25,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        10,
        40
@@ -6871,7 +6872,7 @@ window.BLOODWORK =
      "alp": {
       "r": 62,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        40,
        129
@@ -6880,7 +6881,7 @@ window.BLOODWORK =
      "ggt": {
       "r": 27,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        10,
        45
@@ -6889,13 +6890,13 @@ window.BLOODWORK =
      "vitd": {
       "r": 117.5,
       "u": "nmol/L",
-      "a": "Roche Cobas / Electrochimiluminescence",
+      "a": "Roche Cobas / Electrochimiluminescence (BD)",
       "an": "D2 and D3 together as total 25-OH-D. Biotin-sensitive."
      },
      "ft3": {
       "r": 3.12,
       "u": "pg/mL",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (CL)",
       "an": "Analogue immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
       "lr": [
        2,
@@ -6906,7 +6907,7 @@ window.BLOODWORK =
      "ft4": {
       "r": 17.28,
       "u": "pmol/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (CL)",
       "an": "Analogue immunoassay, not equilibrium dialysis. The interval belongs to this platform.",
       "lr": [
        12,
@@ -6917,7 +6918,7 @@ window.BLOODWORK =
      "tsh": {
       "r": 0.99,
       "u": "mUI/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (CL)",
       "lr": [
        0.27,
        4.2
@@ -6927,7 +6928,7 @@ window.BLOODWORK =
      "tt": {
       "r": 25.9,
       "u": "nmol/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (BD)",
       "ak": "ECLIA",
       "an": "Immunoassay, not LC-MS/MS — does not read identically to mass spec.",
       "lr": [
@@ -6938,7 +6939,7 @@ window.BLOODWORK =
      "phos": {
       "r": 1.19,
       "u": "mmol/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "lr": [
        0.81,
        1.45
@@ -6948,7 +6949,7 @@ window.BLOODWORK =
      "cl": {
       "r": 102,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        98,
        107
@@ -6957,7 +6958,7 @@ window.BLOODWORK =
      "esr": {
       "r": 2,
       "u": "mm/h",
-      "a": "Beckman Coulter Alifax Test 1 THL",
+      "a": "Beckman Coulter Alifax Test 1 THL (CL)",
       "lr": [
        null,
        15
@@ -6976,7 +6977,7 @@ window.BLOODWORK =
      "wbc": {
       "r": 5.3,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        4,
        11
@@ -6985,7 +6986,7 @@ window.BLOODWORK =
      "neut": {
       "r": 3.32,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        1.7,
        7
@@ -6994,7 +6995,7 @@ window.BLOODWORK =
      "lymph": {
       "r": 1.46,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        1,
        4.8
@@ -7003,7 +7004,7 @@ window.BLOODWORK =
      "mono": {
       "r": 0.41,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0.18,
        1
@@ -7012,7 +7013,7 @@ window.BLOODWORK =
      "eos": {
       "r": 0.07,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0.02,
        0.63
@@ -7021,7 +7022,7 @@ window.BLOODWORK =
      "baso": {
       "r": 0.05,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0,
        0.11
@@ -7030,7 +7031,7 @@ window.BLOODWORK =
      "hb": {
       "r": 16.3,
       "u": "g/dL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        13.4,
        16.7
@@ -7039,7 +7040,7 @@ window.BLOODWORK =
      "rbc": {
       "r": 5.28,
       "u": "T/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        4.28,
        6
@@ -7048,7 +7049,7 @@ window.BLOODWORK =
      "hct": {
       "r": 46.8,
       "u": "%",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        39,
        49
@@ -7057,7 +7058,7 @@ window.BLOODWORK =
      "mcv": {
       "r": 88.6,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        78,
        98
@@ -7066,7 +7067,7 @@ window.BLOODWORK =
      "mch": {
       "r": 30.9,
       "u": "pg",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        26,
        34
@@ -7075,7 +7076,7 @@ window.BLOODWORK =
      "mchc": {
       "r": 34.8,
       "u": "g/dL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        31,
        36.5
@@ -7084,7 +7085,7 @@ window.BLOODWORK =
      "plt": {
       "r": 172,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        150,
        400
@@ -7093,7 +7094,7 @@ window.BLOODWORK =
      "mpv": {
       "r": 11.7,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
       "lr": [
        7,
@@ -7104,7 +7105,7 @@ window.BLOODWORK =
      "glu": {
       "r": 0.85,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        0.74,
        1.09
@@ -7113,7 +7114,7 @@ window.BLOODWORK =
      "crea": {
       "r": 12.0,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
       "lr": [
        6.7,
@@ -7134,12 +7135,12 @@ window.BLOODWORK =
      "chol": {
       "r": 1.49,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie"
+      "a": "Roche Cobas / Spectrophotométrie (BD)"
      },
      "hdl": {
       "r": 0.53,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        0.54,
        null
@@ -7148,14 +7149,14 @@ window.BLOODWORK =
      "ldl": {
       "r": 0.81,
       "u": "g/L",
-      "a": "Formule de Friedewald",
+      "a": "Formule de FRIEDEWALD (BD)",
       "ak": "Friedewald",
       "an": "Calculated by Friedewald, not measured."
      },
      "tg": {
       "r": 0.73,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        null,
        1.5
@@ -7164,7 +7165,7 @@ window.BLOODWORK =
      "na": {
       "r": 140,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (BD)",
       "lr": [
        136,
        145
@@ -7173,7 +7174,7 @@ window.BLOODWORK =
      "k": {
       "r": 4.4,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (BD)",
       "lr": [
        3.5,
        5.1
@@ -7182,7 +7183,7 @@ window.BLOODWORK =
      "alb": {
       "r": 52.9,
       "u": "g/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        35,
        52
@@ -7192,7 +7193,7 @@ window.BLOODWORK =
      "ca": {
       "r": 100,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        86,
        100
@@ -7201,7 +7202,7 @@ window.BLOODWORK =
      "ast": {
       "r": 28,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        10,
        40
@@ -7210,7 +7211,7 @@ window.BLOODWORK =
      "alt": {
       "r": 20,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        10,
        40
@@ -7219,7 +7220,7 @@ window.BLOODWORK =
      "alp": {
       "r": 61,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        40,
        129
@@ -7228,7 +7229,7 @@ window.BLOODWORK =
      "ggt": {
       "r": 21,
       "u": "UI/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "lr": [
        10,
        45
@@ -7237,14 +7238,14 @@ window.BLOODWORK =
      "vitd": {
       "r": 80.0,
       "u": "nmol/L",
-      "a": "Roche Cobas / Electrochimiluminescence",
+      "a": "Roche Cobas / Electrochimiluminescence (BD)",
       "an": "D2 and D3 together as total 25-OH-D. Biotin-sensitive."
      },
      "hscrp": {
       "r": 0.5,
       "u": "mg/L",
       "lt": true,
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "an": "Report does not identify whether standard or high-sensitivity CRP was used.",
       "lr": [
        null,
@@ -7254,7 +7255,7 @@ window.BLOODWORK =
      "tsh": {
       "r": 0.87,
       "u": "mUI/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (BD)",
       "lr": [
        0.27,
        4.2
@@ -7264,7 +7265,7 @@ window.BLOODWORK =
      "ptime": {
       "r": 82,
       "u": "%",
-      "a": "Chronométrie / NéoPTimal",
+      "a": "Chronométrie / NéoPTimal (BD)",
       "lr": [
        70,
        100
@@ -7283,7 +7284,7 @@ window.BLOODWORK =
      "wbc": {
       "r": 4.9,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        4.09,
        11
@@ -7292,7 +7293,7 @@ window.BLOODWORK =
      "neut": {
       "r": 2.9,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        1.78,
        6.95
@@ -7301,7 +7302,7 @@ window.BLOODWORK =
      "lymph": {
       "r": 1.47,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        1.34,
        3.92
@@ -7310,7 +7311,7 @@ window.BLOODWORK =
      "mono": {
       "r": 0.39,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0.23,
        0.77
@@ -7319,7 +7320,7 @@ window.BLOODWORK =
      "eos": {
       "r": 0.1,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0.05,
        0.59
@@ -7328,7 +7329,7 @@ window.BLOODWORK =
      "baso": {
       "r": 0.03,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        0,
        0.1
@@ -7358,7 +7359,7 @@ window.BLOODWORK =
      "hb": {
       "r": 164,
       "u": "g/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        134,
        167
@@ -7367,7 +7368,7 @@ window.BLOODWORK =
      "rbc": {
       "r": 5.26,
       "u": "T/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        4.53,
        5.79
@@ -7376,7 +7377,7 @@ window.BLOODWORK =
      "hct": {
       "r": 47.3,
       "u": "%",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        39.2,
        48.6
@@ -7385,7 +7386,7 @@ window.BLOODWORK =
      "mcv": {
       "r": 89.9,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        79.6,
        94
@@ -7394,7 +7395,7 @@ window.BLOODWORK =
      "mch": {
       "r": 31.2,
       "u": "pg",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        27.3,
        32.8
@@ -7403,7 +7404,7 @@ window.BLOODWORK =
      "mchc": {
       "r": 347,
       "u": "g/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        324,
        363
@@ -7412,7 +7413,7 @@ window.BLOODWORK =
      "plt": {
       "r": 153,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "lr": [
        172,
        398
@@ -7422,7 +7423,7 @@ window.BLOODWORK =
      "mpv": {
       "r": 9.4,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (CL)",
       "an": "EDTA makes platelets swell as the tube waits, so MPV drifts up with time to analysis.",
       "lr": [
        7.4,
@@ -7432,7 +7433,7 @@ window.BLOODWORK =
      "crea": {
       "r": 12.0,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (CL)",
       "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
       "lr": [
        6.7,
@@ -7453,7 +7454,7 @@ window.BLOODWORK =
      "k": {
       "r": 4.6,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        3.4,
        4.5
@@ -7463,7 +7464,7 @@ window.BLOODWORK =
      "na": {
       "r": 141,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        136,
        145
@@ -7472,7 +7473,7 @@ window.BLOODWORK =
      "cl": {
       "r": 103,
       "u": "mmol/L",
-      "a": "Roche Cobas / Potentiométrie",
+      "a": "Roche Cobas / Potentiométrie (CL)",
       "lr": [
        98,
        107
@@ -7481,7 +7482,7 @@ window.BLOODWORK =
      "ptime": {
       "r": 81,
       "u": "%",
-      "a": "Chronométrie / Néoplastine CI+",
+      "a": "Chronométrie / Néoplastine CI+ (CL)",
       "lr": [
        70,
        100
@@ -7492,7 +7493,7 @@ window.BLOODWORK =
      "aptt": {
       "r": 1.18,
       "u": "ratio",
-      "a": "Chronométrie / Céphascreen",
+      "a": "Chronométrie / Céphascreen (sensible aux déficits de la voie endogène) (CL)",
       "lr": [
        null,
        1.2
@@ -7511,7 +7512,7 @@ window.BLOODWORK =
      "wbc": {
       "r": 4.18,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        4.09,
        11
@@ -7520,7 +7521,7 @@ window.BLOODWORK =
      "neut": {
       "r": 2.52,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        1.78,
        6.95
@@ -7529,7 +7530,7 @@ window.BLOODWORK =
      "lymph": {
       "r": 1.06,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        1.34,
        3.92
@@ -7539,7 +7540,7 @@ window.BLOODWORK =
      "mono": {
       "r": 0.46,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0.23,
        0.77
@@ -7548,7 +7549,7 @@ window.BLOODWORK =
      "eos": {
       "r": 0.09,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0.05,
        0.59
@@ -7557,7 +7558,7 @@ window.BLOODWORK =
      "baso": {
       "r": 0.05,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        0,
        0.1
@@ -7566,7 +7567,7 @@ window.BLOODWORK =
      "hb": {
       "r": 152,
       "u": "g/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        134,
        167
@@ -7575,7 +7576,7 @@ window.BLOODWORK =
      "rbc": {
       "r": 5.04,
       "u": "T/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        4.53,
        5.79
@@ -7584,7 +7585,7 @@ window.BLOODWORK =
      "hct": {
       "r": 45.4,
       "u": "%",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        39.2,
        48.6
@@ -7593,7 +7594,7 @@ window.BLOODWORK =
      "mcv": {
       "r": 90.1,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        79.6,
        94
@@ -7602,7 +7603,7 @@ window.BLOODWORK =
      "mch": {
       "r": 30.2,
       "u": "pg",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        27.3,
        32.8
@@ -7611,7 +7612,7 @@ window.BLOODWORK =
      "mchc": {
       "r": 335,
       "u": "g/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        324,
        363
@@ -7620,7 +7621,7 @@ window.BLOODWORK =
      "plt": {
       "r": 157,
       "u": "G/L",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        172,
        398
@@ -7630,7 +7631,7 @@ window.BLOODWORK =
      "mpv": {
       "r": 12.1,
       "u": "fL",
-      "a": "Sang total EDTA / Cytométrie en flux",
+      "a": "Sang total EDTA / Cytométrie en flux (BD)",
       "lr": [
        7.4,
        10.8
@@ -7641,7 +7642,7 @@ window.BLOODWORK =
      "hscrp": {
       "r": 1.4,
       "u": "mg/L",
-      "a": "Roche Cobas / Spectrophotométrie",
+      "a": "Roche Cobas / Spectrophotométrie (BD)",
       "an": "Report does not identify whether standard or high-sensitivity CRP was used.",
       "lr": [
        null,
@@ -7651,7 +7652,7 @@ window.BLOODWORK =
      "esr": {
       "r": 2,
       "u": "mm/h",
-      "a": "Beckman Coulter Alifax Test 1 THL",
+      "a": "Beckman Coulter Alifax Test 1 THL (BD)",
       "lr": [
        null,
        15
@@ -7662,7 +7663,7 @@ window.BLOODWORK =
      "fib": {
       "r": 2.0,
       "u": "g/L",
-      "a": "Chronométrie",
+      "a": "Chronométrie (BD)",
       "lr": [
        2,
        4
@@ -7672,7 +7673,7 @@ window.BLOODWORK =
      "ige": {
       "r": 122,
       "u": "UI/mL",
-      "a": "Roche Cobas / Immunoturbidimétrie",
+      "a": "Roche Cobas / Immunoturbidimétrie (BD)",
       "lr": [
        null,
        100
@@ -7691,7 +7692,7 @@ window.BLOODWORK =
      "b12": {
       "r": 407,
       "u": "pmol/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (BD)",
       "lr": [
        145,
        569
@@ -7702,7 +7703,7 @@ window.BLOODWORK =
      "tt": {
       "r": 21.7,
       "u": "nmol/L",
-      "a": "Roche Cobas / ECLIA",
+      "a": "Roche Cobas / ECLIA (BD)",
       "ak": "ECLIA",
       "lr": [
        12.1,
@@ -7722,7 +7723,7 @@ window.BLOODWORK =
      "vitd": {
       "r": 73.0,
       "u": "nmol/L",
-      "a": "Roche Cobas / Electrochimiluminescence",
+      "a": "Roche Cobas / Electrochimiluminescence (BD)",
       "lr": [
        75,
        250
@@ -8322,7 +8323,7 @@ window.BLOODWORK =
       "u": "mg/L",
       "lt": true,
       "a": "Immunoturbidimétrie Cobas Roche",
-      "an": "ULTRA-SENSITIVE from 27/05/2026 — a different technique from March, which was standard CRP.",
+      "an": "Explicitly ultra-sensitive per the lab; the March report does not identify assay sensitivity.",
       "lr": [
        null,
        5
@@ -8628,7 +8629,8 @@ window.BLOODWORK =
        8,
        11
       ],
-      "cx": "Erythrocyte membrane fatty-acid profile (AGRAS), run at Laboratoire Barbier."
+      "a": "GC-FID – Bioavenir Metz",
+      "cx": "Erythrocyte membrane fatty-acid profile (AGRAS), sent via Barbier and performed by Bioavenir Metz."
      },
      "upcr": {
       "r": 25,

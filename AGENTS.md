@@ -81,8 +81,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
 
 ## Data rules
 
-- `v: {"r": <exactly what the lab printed>, "u": "<the unit label they used>"}`.
-  **Never pre-convert.** `toUS()` does that.
+- `v.r` is **exactly the number the lab printed**. `v.u` is a recognised label on that same
+  numeric scale. Equivalent zero-rescaling notation may be normalised (`U/L` ↔ `UI/L`,
+  `µUI/mL` ↔ `mUI/L`, or case-only differences); **never rescale the raw number**.
+  `toUS()` handles real conversions.
 - `u` is a **unit label string** ("mg/L"), not an index. Indices are fat-fingerable; strings are not.
 - `clin[]` is the **reference interval**, and it is best-evidence, not provenance. Usually it is
   the lab's printed range transcribed — but where the evidence has moved past what a lab prints,
@@ -90,9 +92,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   KDIGO A1). The chart therefore says "Reference range", **not** "Lab reference range": four
   markers would have been lying. The lab's own printed interval is recorded **separately**, per
   value, as `lr: [lo, hi]` — never over `clin[]`. `clin[]` is what the panel judges against; `lr`
-  is what that lab claimed on that day. Store it wherever a report prints one: it fingerprints the
-  assay ("réf <5 mg/L" is how the March CRP was known to be standard rather than ultra-sensitive),
-  and **an `lr` that changes between draws is a method change even when no technique was printed**.
+  is what that lab claimed on that day. Store it wherever a report prints one: a distinctive interval
+  can fingerprint an assay, and **an `lr` that changes between draws is evidence of a method change even
+  when no technique was printed**. A matching interval is not enough on its own: March's `<5 mg/L`
+  could not distinguish standard from ultra-sensitive CRP.
   `opt[]` and `oc` are **inferences** with an evidence tag
   (strong / moderate / weak). Do not present a weak target as a finding.
 - A value is `{r, u}` plus six optional keys, each a DIFFERENT kind of claim, and they must not
