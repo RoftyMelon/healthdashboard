@@ -86,24 +86,32 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `µUI/mL` ↔ `mUI/L`, or case-only differences); **never rescale the raw number**.
   `toUS()` handles real conversions.
 - `u` is a **unit label string** ("mg/L"), not an index. Indices are fat-fingerable; strings are not.
-- `clin[]` is the **reference interval**, and it is best-evidence, not provenance. Usually it is
-  the lab's printed range transcribed — but where the evidence has moved past what a lab prints,
-  the harmonised interval wins (total T on Travison, eGFR on KDIGO, Lp(a) on ESC/EAS, uPCR on
-  KDIGO A1). The chart therefore says "Reference range", **not** "Lab reference range": four
-  markers would have been lying. The lab's own printed interval is recorded **separately**, per
-  value, as `lr: [lo, hi]` — never over `clin[]`. `clin[]` is what the panel judges against; `lr`
-  is what that lab claimed on that day. Store it wherever a report prints one: a distinctive interval
-  can fingerprint an assay, and **an `lr` that changes between draws is evidence of a method change even
-  when no technique was printed**. A matching interval is not enough on its own: March's `<5 mg/L`
-  could not distinguish standard from ultra-sensitive CRP.
-  `opt[]` and `oc` are **inferences** with an evidence tag
-  (strong / moderate / weak). Do not present a weak target as a finding.
-- A value is `{r, u}` plus six optional keys, each a DIFFERENT kind of claim, and they must not
+- Interpretation has **four separate claim types**, and `audit()` rejects the old `clin[]`,
+  `opt[]` and `oc` fields rather than allowing them to blur together:
+  - `v.lr: [lo, hi]` is the exact interval **that laboratory printed for that result**, in
+    `v.u`, with `null` for an unprinted side. Store it wherever the report prints one. A changed
+    `lr` is evidence of changed cut-offs or method; a matching interval alone does not prove the
+    assay stayed the same.
+  - `marker.cut` holds guideline, diagnostic or risk **zones**. Every zone has numeric `min`
+    and/or `max`, a plain-language label and `level: ok | watch | out`; the cut carries a source.
+    A cut is never described as a lab reference.
+  - `marker.target` is an evidence-backed health-optimization target. It needs `min` and/or
+    `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
+    have no target: 9 of 88 currently do. A weak target is an opinion-weighted watch signal,
+    never a lab abnormality.
+  - `marker.goal` is this person's intervention criterion. It needs numeric bounds, a label and
+    `why`; 2 markers currently carry one. It is rendered as a personal goal, never as a
+    universal health claim.
+  The latest value is flagged outside its own `lr` first, then by a risk cut, then by a target,
+  then by a goal. The viewer labels all four layers separately in the gauge and expanded chart.
+- A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on
   creatine, 2 days into a diet change) — state, not method; `lr` = the lab's printed interval,
   `[lo, hi]` with either end `null` for a one-sided range; `lt: true` = the result was CENSORED,
-  the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement;
+  the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement.
+  If that upper bound crosses a high cutoff, the claim is unresolved/watch — never confirmed
+  abnormal, because the true value may still sit below the cutoff;
   `t` = a collection time that OVERRIDES the draw's, for a result folded in from a different
   day (the Dec 2020 zinc) — `audit()` requires a `cx` beside it, since a bare override is a typo;
   `ak` = what the printed `a` actually IS, a canonical key used ONLY to compare draws and never

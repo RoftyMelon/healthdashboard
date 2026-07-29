@@ -35,6 +35,25 @@ setTimeout(()=>{
   ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
     rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
+  ok('legacy clin/opt fields are gone',
+    DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
+  ok('9 evidence targets remain',DATA.MARK.filter(m=>m.target).length===9,
+    DATA.MARK.filter(m=>m.target).length+' targets');
+  ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
+    .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source));
+  ok('personal goals stay sparse and explicit',DATA.MARK.filter(m=>m.goal).length===2&&
+    DATA.MARK.filter(m=>m.goal).every(m=>m.goal.why),DATA.MARK.filter(m=>m.goal).length+' goals');
+  const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
+  const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
+  ok('copper at the exact lab floor is not falsely low',state('cu')==='ok',state('cu'));
+  ok('omega-3 uses the printed 8–11 lab interval',state('o3')==='out',state('o3'));
+  ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
+  ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
+    claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
+  ok('vitamin D personal dosing goal is distinct from its adequacy cut',state('vitd')==='watch'&&
+    claim(DATA.MARK.find(m=>m.id==='vitd'),latestFor('vitd').v,latestFor('vitd').raw).kind==='goal');
+  ok('a censored uPCR above the cut is unresolved, not diagnosed high',state('upcr')==='watch'&&
+    claim(DATA.MARK.find(m=>m.id==='upcr'),latestFor('upcr').v,latestFor('upcr').raw).label.includes('does not resolve'));
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
   ['all','flag','crit'].forEach(f=>{ setF(f);
     const [th,td]=cols(n.tbl.innerHTML);
@@ -243,6 +262,16 @@ setTimeout(()=>{
   ok('audit rejects an unknown draw collection', audit(j11).length===1, audit(j11)[0]||'');
   const j12=JSON.parse(JSON.stringify(DATA)); j12.NEXTDRAW.deferred[0].en=j12.NEXTDRAW.items[0].en;
   ok('audit rejects an active/deferred duplicate', audit(j12).length===1, audit(j12)[0]||'');
+  const j13=JSON.parse(JSON.stringify(DATA)); j13.MARK[0].opt=[30,50];
+  ok('audit rejects a legacy optimal band',audit(j13).length===1,audit(j13)[0]||'');
+  const j14=JSON.parse(JSON.stringify(DATA)); delete j14.MARK.find(m=>m.id==='sel').target.source;
+  ok('audit rejects an unsourced evidence target',audit(j14).length===1,audit(j14)[0]||'');
+  const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
+  ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
+  const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;
+  ok('audit rejects overlapping decision zones',audit(j16).length===1,audit(j16)[0]||'');
+  const j17=JSON.parse(JSON.stringify(DATA)); delete j17.MARK.find(m=>m.id==='apob').goal.why;
+  ok('audit rejects a personal goal with no rationale',audit(j17).length===1,audit(j17)[0]||'');
   try{ setPage('nextdraw');
     const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
     ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');

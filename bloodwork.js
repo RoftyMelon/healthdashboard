@@ -12,14 +12,11 @@ window.BLOODWORK =
 {
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
-  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<a same-scale label from marker units[]>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER rescale a value. Keep the exact number the lab printed; the dashboard handles real conversions.\n 2. \"u\" must be a same-scale unit LABEL from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    Equivalent zero-rescaling notation may be normalized (case, U/L vs UI/L, µUI/mL vs mUI/L). If the numeric scale is not listed, STOP; an obvious report typo may use the correct label only with a cx that records it.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"Explicitly ultra-sensitive per report; older report does not identify sensitivity\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as clin[] vs opt[]: transcription\n    and inference stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). Judging still happens AT\n    the limit, which is the worst case the assay permits. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end and never let it touch clin[] — clin[] is what the panel judges against, lr is what the lab claimed. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (a distinctive interval can support assay identification, but March’s <5 mg/L alone could not distinguish standard from ultra-sensitive CRP; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
-
+  "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<a same-scale label from marker units[]>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER rescale a value. Keep the exact number the lab printed; the dashboard handles real conversions.\n 2. \"u\" must be a same-scale unit LABEL from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    Equivalent zero-rescaling notation may be normalized (case, U/L vs UI/L, µUI/mL vs mUI/L). If the numeric scale is not listed, STOP; an obvious report typo may use the correct label only with a cx that records it.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"Explicitly ultra-sensitive per report; older report does not identify sensitivity\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as lr versus cut / target / goal: transcription\n    and interpretation stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). If an upper bound crosses a high cutoff, the claim is unresolved and renders watch — never\n    confirmed abnormal — because the true value may still sit below it. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end. It is provenance, distinct from marker-level cut, target and goal claims. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (a distinctive interval can support assay identification, but March’s <5 mg/L alone could not distinguish standard from ultra-sensitive CRP; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
-  "optimal_ranges": "opt[] and oc are INFERENCES, not lab data. oc is the evidence behind the target: strong = outcome data (RCTs, dose-response vs hard endpoints); moderate = association studies or physiology; weak = convention or industry framing, no outcome data. 3 strong, 29 moderate, 26 weak, 18 with no target at all. A value outside a WEAK band is an opinion, not a finding. A marker with NO opt is deliberate: it means no defensible target exists, and adding one back is a regression, not an improvement.",
-  "clin_ranges": "clin[] is the REFERENCE INTERVAL this panel judges against, and it is best-evidence rather than provenance. Usually it IS the lab's own printed range, transcribed. Not always: where a lab prints an interval the current evidence has moved past, the harmonised or guideline one wins and clin[] carries that instead — total testosterone on the Travison/Endocrine Society interval rather than a lab's 300-1000, eGFR on KDIGO, Lp(a) on ESC/EAS, urine protein/creatinine on KDIGO A1. That is why the panel labels it Reference range and NOT Lab reference range, and why a lab's own printed interval belongs in an (rule 8) when it differs. Still distinct from opt[]: clin[] is the range outside which a result is abnormal, opt[] is a target to aim at.",
   "dec": "Which supplements a marker bears on. Many-to-many. Membership does NOT mean the supplement moves it: cystatin C is under Creatine precisely because creatine CANNOT distort it, albumin is under Vitamin D because calcium cannot be corrected without it, selenium is iodine's cofactor, B12/folate are TMG's pathway. The DECS order is deliberate — grouped by primary biomarker domain (hormones/thyroid → lipids/cardio → liver/methylation → kidney/muscle → bone/minerals → aminos → foundational), NOT alphabetical; do not re-sort.",
   "confounds": [
-   "Creatine was active at the March 2026 draw. It raises serum creatinine as substrate, not by damaging kidneys, and eGFR is CALCULATED from creatinine so it inherits the error. The eGFR of 61 is not readable as kidney disease. Cystatin C is immune and has never been drawn.",
+   "Creatine was active at the March and July 2026 draws. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. July cystatin C and its eGFR now provide the creatine-independent comparison.",
    "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them."
   ],
   "subject": {
@@ -36,13 +33,14 @@ window.BLOODWORK =
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
   "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in functional categories; most items are status 'planned' — queued for the new protocol, not yet started. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is null (not yet assigned — never guess) OR an array of {at, dose}: one entry per meal slot it's taken at (presnack/brunch/dinner/evening), each carrying the PER-SLOT dose (astaxanthin = [{at:brunch,dose:12mg},{at:dinner,dose:12mg}]; the item's own .dose stays the daily total). Timing lives on the item (.when), not in the categories: cats are functional groups. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). An optional .judge string is the readout — the marker or felt endpoint that decides whether a trial-tier (maylater) supplement is working — shown as a 'Judge by:' line under the item. A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot. A meal item is a string, or {n, info} — in a timed meal card, .info opens behind a hover info-tip on the name: .info is a string (plain caveat) OR a {section: [[label,value],…]} object rendered as a compact nutrition table (Huel Black uses this). ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; supplements are NOT shown in ROUTINE — they live only on the Diet tab (derived from STACK.when), so the routine just names the meal or event. CARE holds the dental / face protocols, rendered as cards on their own Grooming tab — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with a when entry {at:'brunch'} belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. DIET.eveningAt stamps the Evening supplements card's time. NEXTDRAW is a decision contract: collections[] names the draw windows, protocol[] stores the shared preparation, active items[] carry en/fr plus group, draw ids, question, decision, trigger, method, preparation and timing, and deferred[] records exclusions that never enter a lab copy. The default copy includes decision and trend rows for one collection; the separate optional copy adds that collection's optional rows. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups, OR carry a .schedule instead — a day-indexed weekly grid (days[] with an optional tag + hi chip, sections[] (each an optional .icon: sun/sunset/moon) of rows {n, on:[day names], hi?}, plus notes[]) rendered as a dot-matrix (solid = applied, faint = skipped); the Skincare card (id 'face') uses this and every on-day name must appear in days[]. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note is the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
-  "never_measured": "26 markers have no value in any draw. Highest value first: cystatin C (settles eGFR outright), ApoB and Lp(a), homocysteine (NAC raises it, TMG lowers it, net never seen), anti-TPO + free T4 (iodine now from iodized salt + fortified Huel, no supplement; Huel spans the historical draws at 90g/day), selenium, copper and zinc (BEFORE starting zinc), omega-3 index.",
+  "never_measured": "9 markers have no stored result: corrected calcium is deliberately blank because every albumin exceeds the source lab’s correction ceiling; TIBC and calculated free testosterone are derived at load when their inputs exist; ceruloplasmin, MMA, PLP, urea, dialysis free testosterone and bicarbonate have not been measured.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
    "Every \"u\" string appears verbatim in that marker units[] array.",
-   "No existing draw was modified, reordered or dropped. Count them: there were 6.",
+   "No existing draw was modified, reordered or dropped. Count them: there are 7.",
    "The file still parses: it is window.BLOODWORK = {...}; with the wrapper intact."
-  ]
+  ],
+  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval. target is an evidence-backed health-optimization band and must carry strong/moderate/weak evidence plus its basis; 9 of 88 markers currently have one. goal is a personal intervention criterion and must say why it exists; 2 markers currently carry one. Missing fields are deliberate: most biomarkers have no defensible longevity target. Legacy clin[], opt[] and oc are rejected by audit(). The viewer labels every claim type and never silently substitutes one for another."
  },
  "CATS": [
   {
@@ -1898,7 +1896,9 @@ window.BLOODWORK =
     "en": "Kidney filtration — creatinine, eGFRcr, cystatin C, eGFRcys + combined eGFR",
     "fr": "Fonction rénale — créatinine, DFG créatinine, cystatine C, DFG cystatine C + DFG combiné",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Does the creatinine rise reflect creatine and muscle mass, or a real filtration change?",
     "decision": "Keep interpreting creatinine alongside cystatin C rather than stopping creatine for the draw.",
     "trigger": "A confirmed combined-eGFR decline over 20% exceeds expected variability; an isolated creatinine change with stable cystatin C supports confounding.",
@@ -1910,7 +1910,9 @@ window.BLOODWORK =
     "en": "ApoB + lipid panel (total, LDL, HDL, triglycerides)",
     "fr": "Apolipoprotéine B (ApoB) + bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Did the August saturated-fat reduction and broader diet change lower atherogenic particle burden?",
     "decision": "If ApoB and non-HDL-C do not materially improve, revisit saturated fat, soluble fibre, energy balance and weight stability.",
     "trigger": "Predeclared personal threshold: at least a 10% ApoB reduction from 0.94g/L, approximately 0.85g/L or lower.",
@@ -1922,7 +1924,9 @@ window.BLOODWORK =
     "en": "Homocysteine",
     "fr": "Homocystéine",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Does stable creatine lower methyl demand enough to move homocysteine before adding methyl donors?",
     "decision": "Observe if it falls meaningfully; if it remains high, interpret folate, PLP and B12 before designing a targeted B-complex or TMG trial.",
     "trigger": "A fall of at least 2µmol/L and below 15 supports observation; a standardized repeat at or above 15 triggers cofactor review.",
@@ -1934,7 +1938,9 @@ window.BLOODWORK =
     "en": "Total testosterone + SHBG + albumin (calculated free testosterone)",
     "fr": "Testostérone totale + SHBG + albumine sur le même prélèvement (testostérone libre calculée)",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Did topical finasteride materially shift the androgen profile, and what is free testosterone when all calculation inputs are present?",
     "decision": "Do not act on a small isolated movement; reassess only a confirmed change with relevant symptoms.",
     "trigger": "A confirmed change of at least 20% plus compatible symptoms prompts review.",
@@ -1946,7 +1952,9 @@ window.BLOODWORK =
     "en": "DHT (dihydrotestosterone)",
     "fr": "DHT (dihydrotestostérone) — LC-MS/MS",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "How much systemic DHT suppression is produced by the topical finasteride regimen?",
     "decision": "Hair photographs judge efficacy; review topical exposure if systemic suppression is large or side effects appear.",
     "trigger": "Balanced personal threshold: a fall of at least 50% from 1.8nmol/L, to about 0.9nmol/L or lower, or relevant side effects.",
@@ -1959,7 +1967,9 @@ window.BLOODWORK =
     "en": "25-OH vitamin D + calcium + albumin",
     "fr": "Vitamine D (25-OH) + calcium total + albumine",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Where does 10000 IU/day place vitamin D, and is calcium remaining safe?",
     "decision": "Use the year-end result to titrate the vitamin-D dose; albumin is also reused for calculated free T.",
     "trigger": "Aim for 30–50ng/mL; reduce above 50, and reassess promptly above 60 or if calcium exceeds the laboratory range.",
@@ -1971,10 +1981,12 @@ window.BLOODWORK =
     "en": "Omega-3 index",
     "fr": "Index oméga-3 érythrocytaire (membrane des globules rouges, AGRAS)",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Does approximately 3.9g/day EPA+DHA including mackerel, trout and supplements reach the intended red-cell range?",
     "decision": "Maintain in-range intake; if low, verify intake and method before increasing an already-high dose; if above range, reduce the supplement.",
-    "trigger": "Current moderate-evidence personal target: 8–12%.",
+    "trigger": "Proposed personal band: 8–12%. This is a weak-evidence observational framework, not an outcome-defined optimum.",
     "method": "Exact erythrocyte-membrane AGRAS measurement by GC-FID through Bioavenir Metz.",
     "prep": "Keep average food plus supplement intake stable; record fish frequency and supplemental EPA/DHA.",
     "timing": "Main draw after at least 4 months of stable average intake.",
@@ -1984,7 +1996,9 @@ window.BLOODWORK =
     "en": "Vitamin B12",
     "fr": "Vitamine B12",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Does B12 help explain persistent homocysteine, rather than becoming an intervention by itself?",
     "decision": "Use it to decide whether MMA adds value and whether any B-vitamin intervention should be targeted.",
     "trigger": "A result in the 150–399pg/mL range makes MMA useful; July's 522pg/mL does not.",
@@ -1996,7 +2010,9 @@ window.BLOODWORK =
     "en": "Folate + vitamin B6 (PLP)",
     "fr": "Folates (B9) + vitamine B6 (phosphate de pyridoxal, PLP)",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is either cofactor contributing to homocysteine before a B-complex is introduced?",
     "decision": "Use targeted replacement only if the assay supports it; adequate values argue against an indiscriminate high-dose complex.",
     "trigger": "A result below the assay range changes the intervention; there is no reason to chase an above-range optimization target.",
@@ -2008,7 +2024,9 @@ window.BLOODWORK =
     "en": "Zinc + copper + ceruloplasmin",
     "fr": "Zinc + cuivre + céruloplasmine",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is borderline copper reproducible, and does it track ceruloplasmin or the zinc and diet balance?",
     "decision": "Do not supplement from copper 69.9 alone; use the repeated pattern to decide on dietary review or appropriate evaluation.",
     "trigger": "Repeated below-range copper, especially with low ceruloplasmin, changes the decision.",
@@ -2020,7 +2038,9 @@ window.BLOODWORK =
     "en": "Fasting glucose + fasting insulin (HOMA-IR)",
     "fr": "Glycémie à jeun + insuline à jeun (calcul HOMA-IR)",
     "g": "decision",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Did the August diet materially change fasting insulin sensitivity?",
     "decision": "Confirm a meaningful deterioration before changing an otherwise successful diet.",
     "trigger": "A rise of at least 25% from HOMA-IR 0.91 or fasting insulin 4.2mUI/L merits confirmation.",
@@ -2032,7 +2052,9 @@ window.BLOODWORK =
     "en": "hs-CRP",
     "fr": "CRP ultrasensible",
     "g": "trend",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is the draw free of material inflammatory, illness or training noise?",
     "decision": "Use it as draw context, not as proof that omega-3 succeeded or failed.",
     "trigger": "Remaining below 1mg/L is compatible with July; at or above 2mg/L first review illness, injury and training.",
@@ -2044,7 +2066,9 @@ window.BLOODWORK =
     "en": "Chemistry + liver bundle",
     "fr": "Urée, sodium, potassium, chlore, bicarbonates, ASAT, ALAT, GGT, PAL, bilirubine totale, protéines totales",
     "g": "trend",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is the inexpensive chemistry and liver baseline still stable before any future NAC or curcumin experiment?",
     "decision": "No action when stable; confirm and investigate a new abnormality before adding another intervention.",
     "trigger": "Any new out-of-range result or confirmed doubling from the personal baseline changes the decision.",
@@ -2056,7 +2080,9 @@ window.BLOODWORK =
     "en": "Iron studies — ferritin, iron, transferrin/TIBC + TSAT",
     "fr": "Bilan martial — ferritine, fer, transferrine/CTF + coefficient de saturation",
     "g": "trend",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Are iron availability and stores stable on a diet whose iron is largely non-haem?",
     "decision": "Use the panel, never serum iron alone, to decide whether diet or further evaluation needs attention.",
     "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% changes the decision.",
@@ -2068,7 +2094,9 @@ window.BLOODWORK =
     "en": "HbA1c",
     "fr": "Hémoglobine glyquée (HbA1c)",
     "g": "trend",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "What is the longer glucose-exposure response to the August diet?",
     "decision": "Confirm a meaningful rise before changing the intervention.",
     "trigger": "A confirmed increase of at least 0.3 percentage points is more meaningful than a small movement.",
@@ -2080,7 +2108,9 @@ window.BLOODWORK =
     "en": "CBC",
     "fr": "NFS (numération formule sanguine)",
     "g": "trend",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is the established hematology series, including platelets, still stable?",
     "decision": "Repeat and investigate a meaningful change rather than reacting to a single small fluctuation.",
     "trigger": "Platelets below range or a decline over 15% from the established 148–172 series changes the decision; apply the same principle to new CBC abnormalities.",
@@ -2092,7 +2122,9 @@ window.BLOODWORK =
     "en": "Estradiol",
     "fr": "Œstradiol (E2)",
     "g": "optional",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Did estradiol move descriptively after topical finasteride?",
     "decision": "It changes a decision only with compatible symptoms or a large confirmed change.",
     "trigger": "No defensible symptom-free optimization cutoff.",
@@ -2104,7 +2136,9 @@ window.BLOODWORK =
     "en": "Free testosterone by equilibrium dialysis",
     "fr": "Testostérone libre par dialyse à l'équilibre — une seule fois (à défaut : testostérone biodisponible par précipitation au sulfate d'ammonium ; jamais immunodosage direct)",
     "g": "optional",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Would a one-time reference measurement usefully calibrate calculated free testosterone?",
     "decision": "Treat it as descriptive unless symptoms and repeat total-testosterone data support an endocrine decision.",
     "trigger": "No standalone action threshold.",
@@ -2117,7 +2151,9 @@ window.BLOODWORK =
     "en": "IGF-1",
     "fr": "IGF-1 (somatomédine C)",
     "g": "optional",
-    "draws": ["main"],
+    "draws": [
+     "main"
+    ],
     "why": "Is another longitudinal point worth collecting when no current intervention depends on it?",
     "decision": "Use only for exploratory longevity tracking; do not change the stack from this result alone.",
     "trigger": "No defensible personal action threshold.",
@@ -3951,21 +3987,52 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    30,
-    100
-   ],
-   "opt": [
-    30,
-    50
-   ],
-   "oc": "weak",
    "am": "critical",
    "note": "Technically a hormone rather than a vitamin. Skin makes it from UVB light, the liver converts it to the 25-OH form measured here, and the kidney activates it.\n\n25-OH is the right thing to measure because it is the storage form with a long half-life — the active form fluctuates far too quickly to be informative.\n\nIt moves over months rather than days. And daily sunscreen removes most skin synthesis, which leaves diet and supplements doing nearly all the work.",
    "axis": [
     0,
     120
-   ]
+   ],
+   "cut": {
+    "label": "Vitamin-D status and safety zones",
+    "source": "NIH/NASEM vitamin D guidance",
+    "zones": [
+     {
+      "max": 12,
+      "label": "Deficient",
+      "level": "out"
+     },
+     {
+      "min": 12,
+      "max": 20,
+      "label": "Potentially inadequate",
+      "level": "watch"
+     },
+     {
+      "min": 20,
+      "max": 50,
+      "label": "Generally adequate",
+      "level": "ok"
+     },
+     {
+      "min": 50,
+      "max": 60,
+      "label": "Above the conservative adequacy range",
+      "level": "watch"
+     },
+     {
+      "min": 60,
+      "label": "High enough to reassess dose and calcium promptly",
+      "level": "out"
+     }
+    ]
+   },
+   "goal": {
+    "min": 30,
+    "max": 50,
+    "label": "Personal vitamin-D dosing window",
+    "why": "Dose-management goal while using high-dose vitamin D; not a universal longevity optimum"
+   }
   },
   {
    "id": "cacorr",
@@ -3987,10 +4054,6 @@ window.BLOODWORK =
      "l": "mg/dL",
      "m": 1
     }
-   ],
-   "clin": [
-    8.6,
-    10.2
    ],
    "note": "Calcium adjusted for how much albumin is available to bind it, so that low albumin is not mistaken for genuinely low calcium.\n\nIt is calculated, not measured — and only when it is valid to do so.\n\nDeliberately left empty here: the source lab's own printed rule is not to correct above 40 g/L albumin, and every albumin in this file is above that. Above that threshold the formula subtracts from a calcium that needed no correction, manufacturing a low result out of a normal one.\n\nSo an empty row is the correct answer, not a missing value.",
    "axis": [
@@ -4022,15 +4085,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    8.6,
-    10.2
-   ],
-   "opt": [
-    8.8,
-    10
-   ],
-   "oc": "strong",
    "note": "Total calcium in blood, held in an extremely narrow range by PTH and vitamin D — because both muscle contraction and nerve signalling depend on it.\n\nOnly about half is free and active; the rest travels bound to albumin.\n\nThat is the catch with the total: when albumin is low, the total drops while the active half is untouched. Which is exactly what corrected calcium is for.",
    "axis": [
     8,
@@ -4060,17 +4114,8 @@ window.BLOODWORK =
      "m": 9.43
     }
    ],
-   "clin": [
-    15,
-    65
-   ],
-   "opt": [
-    15,
-    40
-   ],
-   "oc": "moderate",
    "am": "critical",
-   "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.\n\nWhy the optimal band has no floor to speak of: a LOW PTH alongside adequate vitamin D and normal calcium is the desired direction, not a deficit — it means the parathyroid is not being asked to defend calcium. The band was 20-50, which read 17.9 as a shortfall while the vitamin D protocol was deliberately driving it down; 10000 IU will push it lower still. The concern here is a RISING PTH, which is what secondary hyperparathyroidism from vitamin D deficiency looks like. A genuinely low PTH would show itself as a low calcium, and calcium is measured on the same draw.",
+   "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.\n\nThere is no universal optimization band: PTH is assay-specific and is interpreted with calcium and vitamin D. A low result beside normal calcium is not automatically a deficit; the relevant pattern is an unexpected rise, or suppression paired with abnormal calcium.",
    "axis": [
     0,
     90
@@ -4096,10 +4141,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    2.5,
-    4.5
-   ],
    "note": "An anion that pairs with calcium in bone, carries every cell's energy as the phosphate groups of ATP, and forms the backbone of DNA.\n\nIt is governed by PTH and vitamin D — the same two hormones that run calcium — but pushed the opposite way: PTH raises calcium while lowering phosphate.\n\nSo it is read next to calcium and PTH, never alone.\n\nTwo things move it independently of any disease: a meal raises it, and falling kidney function raises it early, because excreting the excess is the kidney's job.",
    "axis": [
     1.5,
@@ -4122,15 +4163,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0.4,
-    4
-   ],
-   "opt": [
-    0.5,
-    2.5
-   ],
-   "oc": "moderate",
    "note": "Not a thyroid hormone at all — it is the pituitary's instruction TO the thyroid. When thyroid hormone runs low the pituitary shouts louder, so TSH rises.\n\nThat inversion is why it reads backwards: high TSH means an underactive thyroid.\n\nIt is also the most sensitive early signal, moving before T4 does. But it drifts with time of day and drops during any acute illness, so a single odd value is a recheck rather than a diagnosis.",
    "axis": [
     0,
@@ -4156,15 +4188,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0.8,
-    1.8
-   ],
-   "opt": [
-    1.0,
-    1.6
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "The unbound fraction of thyroxine, the thyroid's main output. Think of it as the reservoir — most of it is converted into the more active T3 inside tissues.\n\nRead together with TSH, because the combination locates the problem: low T4 with high TSH is the thyroid failing, low T4 with low TSH points instead at the pituitary.\n\nMost labs measure it by an indirect method that becomes unreliable when binding proteins are abnormal.",
    "axis": [
@@ -4183,10 +4206,6 @@ window.BLOODWORK =
      "l": "UI/mL",
      "m": 1
     }
-   ],
-   "clin": [
-    0,
-    35
    ],
    "am": "critical",
    "note": "Antibodies your immune system has made against the enzyme the thyroid uses to build its hormones. Their presence means the thyroid is under autoimmune attack.\n\nThe reason to measure it once: it tells you WHY a TSH is abnormal, which changes what happens next.\n\nThe number itself means little — these assays are poorly standardised and values do not compare between labs. Positive or negative is the finding.",
@@ -4212,21 +4231,28 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    15
-   ],
-   "opt": [
-    0,
-    9
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "An amino acid produced as an intermediate in normal metabolism, then cleared using B12, folate and B6.\n\nSo it works as a functional test of those three: when any of them is short, homocysteine backs up. That makes it more informative than measuring the vitamins directly, since it shows whether the pathway is actually working.\n\nExceptionally sensitive to handling — it keeps rising in the tube if plasma is not separated promptly, which produces falsely high results.",
    "axis": [
     0,
     20
-   ]
+   ],
+   "cut": {
+    "label": "Conventional upper threshold",
+    "source": "Laboratory and cardiovascular literature",
+    "zones": [
+     {
+      "max": 15,
+      "label": "Below the conventional upper threshold",
+      "level": "ok"
+     },
+     {
+      "min": 15,
+      "label": "Elevated; confirm under standardized conditions",
+      "level": "out"
+     }
+    ]
+   }
   },
   {
    "id": "sel",
@@ -4247,21 +4273,41 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    70,
-    150
-   ],
-   "opt": [
-    100,
-    130
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "A trace mineral built into the enzymes that regenerate the body's antioxidants, and into the enzyme that converts T4 into active T3.\n\nUnusual in having a narrow safe window — both deficiency and excess cause real harm, so more is not better here.\n\nBlood levels vary widely by region, because the amount in food depends on how much selenium is in the soil where it grew. Serum reflects recent intake more than long-term stores.",
    "axis": [
     40,
     200
-   ]
+   ],
+   "cut": {
+    "label": "Selenium status zones",
+    "source": "Population status and toxicity literature",
+    "zones": [
+     {
+      "max": 80,
+      "label": "Potentially low status",
+      "level": "watch"
+     },
+     {
+      "min": 80,
+      "max": 150,
+      "label": "Generally sufficient",
+      "level": "ok"
+     },
+     {
+      "min": 150,
+      "label": "High; review intake and assay context",
+      "level": "watch"
+     }
+    ]
+   },
+   "target": {
+    "min": 100,
+    "max": 130,
+    "evidence": "weak",
+    "label": "Proposed selenium status band",
+    "source": "Status associations; no outcome-defined longevity optimum"
+   }
   },
   {
    "id": "o3",
@@ -4278,21 +4324,41 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    4,
-    12
-   ],
-   "opt": [
-    8,
-    12
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "EPA and DHA expressed as a percentage of all the fatty acids in your red cell membranes.\n\nMembranes turn over slowly, so unlike a blood fatty acid level this reflects months of intake rather than the last meal — closer to an HbA1c for omega-3 status.\n\nMethod matters: the published targets belong specifically to the red-cell measurement. Plasma and whole-blood versions produce different numbers that those targets do not apply to.",
    "axis": [
     0,
     14
-   ]
+   ],
+   "cut": {
+    "label": "Omega-3 Index risk proposal",
+    "source": "Harris–von Schacky Omega-3 Index framework",
+    "zones": [
+     {
+      "max": 4,
+      "label": "Proposed high-risk zone",
+      "level": "out"
+     },
+     {
+      "min": 4,
+      "max": 8,
+      "label": "Proposed intermediate zone",
+      "level": "watch"
+     },
+     {
+      "min": 8,
+      "label": "Proposed lower-risk zone",
+      "level": "ok"
+     }
+    ]
+   },
+   "target": {
+    "min": 8,
+    "max": 12,
+    "evidence": "weak",
+    "label": "Proposed lower-risk Omega-3 Index band",
+    "source": "Observational Omega-3 Index framework, not an RCT-defined optimum"
+   }
   },
   {
    "id": "ferr",
@@ -4310,21 +4376,28 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    30,
-    400
-   ],
-   "opt": [
-    50,
-    150
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "The protein that stores iron inside cells, and the best single estimate of total body iron stores.\n\nWith one large caveat: ferritin is also an acute-phase protein, meaning inflammation raises it regardless of iron. So a high ferritin has two very different explanations.\n\nThe way to tell them apart is the rest of the panel — genuine iron loading raises transferrin saturation too, while inflammation leaves saturation normal or low.",
    "axis": [
     0,
     300
-   ]
+   ],
+   "cut": {
+    "label": "Iron-deficiency threshold",
+    "source": "Clinical iron-deficiency guidance",
+    "zones": [
+     {
+      "max": 30,
+      "label": "Consistent with depleted iron stores in this context",
+      "level": "out"
+     },
+     {
+      "min": 30,
+      "label": "Above the deficiency threshold; interpret higher values with inflammation",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "zn",
@@ -4345,15 +4418,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    70,
-    120
-   ],
-   "opt": [
-    80,
-    110
-   ],
-   "oc": "weak",
    "am": "critical",
    "note": "An essential trace mineral used by hundreds of enzymes, and required for immune function, wound healing, taste, and testosterone synthesis.\n\nSerum zinc is a weak proxy: it holds a tiny fraction of body zinc, and during inflammation zinc actively redistributes out of the blood into tissue as part of the immune response.\n\nSo a low value taken during any illness understates real stores, and can look like deficiency when it is simply the immune system relocating it.",
    "axis": [
@@ -4377,15 +4441,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    70,
-    140
-   ],
-   "opt": [
-    80,
-    120
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "An essential trace mineral used in iron transport, connective tissue formation and antioxidant enzymes.\n\nRead against zinc rather than alone, because the two compete for the same intestinal transporter — sustained zinc supplementation is a well-recognised cause of copper deficiency.\n\nCopper also rises with inflammation and with oestrogen, which complicates a high result.",
    "axis": [
@@ -4412,10 +4467,6 @@ window.BLOODWORK =
      "l": "mg/dL",
      "m": 1
     }
-   ],
-   "clin": [
-    14,
-    26
    ],
    "am": "critical",
    "note": "The protein that carries copper. Around 90% of the copper in serum is bound to it, so the two are read together or not at all.\n\nThat is the whole point of ordering it beside copper: a low copper has two different explanations — too little copper, or too little of the protein carrying it — and the copper number alone cannot separate them.\n\nCAVEAT: it is an ACUTE-PHASE PROTEIN. Inflammation, infection, pregnancy and oestrogen all raise it, and a rise can hide a real copper deficiency underneath. Read it against CRP; with an hs-CRP under 0.6 that confounder is effectively off the table here.\n\nThe interval is Cavalli et al., J Appl Lab Med 2024 — 1,706 healthy Italian donors on a Roche Cobas immunoturbidimetric assay, the same platform family this panel's chemistry comes from. It is SEX-SPECIFIC and narrower than the 20-60 mg/dL textbook figure: males 25-65 run 14-26 mg/dL, females almost double at the top. Beware an enzymatic (oxidase-activity) assay, which does not read the same as an immunoassay.",
@@ -4445,21 +4496,34 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    200,
-    900
-   ],
-   "opt": [
-    400,
-    900
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "A vitamin needed to build red blood cells and to maintain the myelin sheath around nerves. Only bacteria make it, so dietary sources are animal foods.\n\nThe liver stores years' worth, which is why deficiency develops slowly and silently.\n\nMeasurement caveat: serum B12 counts total B12, but most of it is bound to a protein that cannot deliver it to cells. So the result can read normal in genuine deficiency — methylmalonic acid settles the ambiguous cases.",
    "axis": [
     100,
     1000
-   ]
+   ],
+   "cut": {
+    "label": "B12 interpretation zones",
+    "source": "NIH vitamin B12 guidance",
+    "zones": [
+     {
+      "max": 200,
+      "label": "Deficient range",
+      "level": "out"
+     },
+     {
+      "min": 200,
+      "max": 400,
+      "label": "Indeterminate; MMA may add value",
+      "level": "watch"
+     },
+     {
+      "min": 400,
+      "label": "Deficiency less likely",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "mma",
@@ -4481,16 +4545,28 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    370
-   ],
    "am": "critical",
-   "note": "A B12 checkpoint one step downstream of B12 itself. Converting methylmalonyl-CoA needs B12; without enough, methylmalonic acid backs up and spills into blood.\n\nIt answers what serum B12 cannot. B12 measures how much is in the blood, not how much is working inside cells, and it can read normal in real deficiency. MMA is the functional readout.\n\nIt also breaks a tie homocysteine cannot: folate, B12 and B6 ALL raise homocysteine, but only B12 raises MMA. High both means B12; high homocysteine with a normal MMA means folate or methylation, and B12 would do nothing for it.\n\nCAVEAT: the kidney clears it. NHANES found the highest creatinine quartile running about 43% above the lowest, and that is most of why MMA drifts up with age — so read it beside eGFR, and prefer cystatin C here for the same reason the kidney rows do.\n\nThe ceiling is the widely used B12-deficiency threshold of 370 nmol/L; there is no clinical concern at the low end, which is why the floor is zero. For placement, NHANES adults aged 18-40 (n=6,103, GC/MS) run a median of 119 nmol/L, with the 5th at 69 and the 95th at 249.",
+   "note": "A B12 checkpoint one step downstream of B12 itself. Converting methylmalonyl-CoA needs B12; without enough, methylmalonic acid backs up and spills into blood.\n\nIt answers what serum B12 cannot. B12 measures how much is in the blood, not how much is working inside cells, and it can read normal in real deficiency. MMA is the functional readout.\n\nIt also breaks a tie homocysteine cannot: folate, B12 and B6 ALL raise homocysteine, but only B12 raises MMA. High both means B12; high homocysteine with a normal MMA means folate or methylation, and B12 would do nothing for it.\n\nCAVEAT: the kidney clears it. NHANES found the highest creatinine quartile running about 43% above the lowest, and that is most of why MMA drifts up with age — so read it beside eGFR, and prefer cystatin C here for the same reason the kidney rows do.\n\nThe decision cut uses 271 nmol/L, the NIH fact sheet’s commonly used functional threshold; laboratories use method-specific upper limits, so a result near it is interpreted with B12 and kidney filtration rather than as a stand-alone diagnosis. There is no clinical concern at the low end. For placement, NHANES adults aged 18-40 (n=6,103, GC/MS) run a median of 119 nmol/L, with the 5th at 69 and the 95th at 249.",
    "axis": [
     0,
     500
-   ]
+   ],
+   "cut": {
+    "label": "Functional B12 threshold",
+    "source": "NIH vitamin B12 guidance",
+    "zones": [
+     {
+      "max": 271,
+      "label": "Below the commonly used functional threshold",
+      "level": "ok"
+     },
+     {
+      "min": 271,
+      "label": "Elevated; interpret with kidney filtration",
+      "level": "watch"
+     }
+    ]
+   }
   },
   {
    "id": "fol",
@@ -4513,21 +4589,28 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    3,
-    17
-   ],
-   "opt": [
-    6,
-    17
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "A B vitamin required for DNA synthesis and red cell production, working in the same pathway as B12.\n\nThe reason they are read together is a specific trap: folate can correct the anaemia of B12 deficiency while doing nothing for the nerve damage, which then progresses unnoticed and can become permanent.\n\nSerum folate reflects the last few days of intake; red cell folate reflects months of stores.",
    "axis": [
     0,
     20
-   ]
+   ],
+   "cut": {
+    "label": "Folate deficiency threshold",
+    "source": "Clinical folate guidance",
+    "zones": [
+     {
+      "max": 3,
+      "label": "Deficient range",
+      "level": "out"
+     },
+     {
+      "min": 3,
+      "label": "Above the deficiency threshold",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "plp",
@@ -4549,21 +4632,28 @@ window.BLOODWORK =
      "m": 4.046
     }
    ],
-   "clin": [
-    20,
-    125
-   ],
-   "opt": [
-    40,
-    110
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "Pyridoxal-5-phosphate, the active form of vitamin B6 — the coenzyme for well over a hundred enzymes, most of them handling amino acids.\n\nIt is the third input to homocysteine clearance, and the one that works differently from the other two. Folate and B12 recycle homocysteine back into methionine; B6 runs the other exit, breaking it down to cysteine for good.\n\nSo a homocysteine that will not fall on folate alone often needs this one looked at.\n\nMeasure PLP, not \"vitamin B6\": the plain assay counts inactive forms as well and can read normal on a genuine deficiency. It also falls with inflammation independently of intake.",
    "axis": [
     0,
     180
-   ]
+   ],
+   "cut": {
+    "label": "PLP sufficiency threshold",
+    "source": "NIH vitamin B6 guidance",
+    "zones": [
+     {
+      "max": 20,
+      "label": "Low PLP status",
+      "level": "out"
+     },
+     {
+      "min": 20,
+      "label": "Sufficient by the conventional threshold",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "crea",
@@ -4588,15 +4678,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0.7,
-    1.3
-   ],
-   "opt": [
-    0.7,
-    1.2
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "A waste product of normal muscle metabolism, produced at a steady rate and cleared by the kidneys. If the kidneys filter less, it accumulates — which is what makes it the standard kidney marker.\n\nThe problem is that production varies as much as clearance:\n\n• More muscle mass produces more of it\n• Meat raises it for a day or so\n• Creatine supplements raise it directly\n\nAll three read as worse kidney function when nothing about the kidney has changed.",
    "axis": [
@@ -4619,15 +4700,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0.5,
-    1
-   ],
-   "opt": [
-    0.5,
-    0.9
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "A small protein produced at a constant rate by every nucleated cell in the body, and filtered out by the kidneys.\n\nIts advantage over creatinine is what it does NOT depend on: muscle mass, meat intake and creatine supplements leave it alone. That makes it the more trustworthy filtration estimate in anyone who lifts, eats a lot of protein, or supplements creatine — where creatinine systematically reads worse than the kidney actually is.",
    "axis": [
@@ -4650,16 +4722,34 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    60,
-    140
-   ],
    "am": "critical",
-   "note": "An estimate of how fast the kidneys are filtering blood, in millilitres per minute.\n\nIt is not measured. It is calculated from creatinine, age and sex — so every creatinine confound flows straight into it, including muscle mass and creatine use. A creatinine artificially raised by supplements produces an eGFR artificially low, with no kidney problem anywhere.\n\nWhich equation the lab used also changes the number, so the method matters as much as the value.\n\nNO OPTIMAL BAND, DELIBERATELY. This is the CREATININE equation, and creatinine is a muscle breakdown product: muscle mass raises it and creatine supplementation raises it further, without either touching the kidney. An opt floor of 90 therefore manufactured a deficit here — 83.4 read as a gap while the same draw's cystatin C gave 116. Judging that number against a target chased the confounder. clin still flags real impairment at 60. Read this row beside the cystatin one and treat a DIVERGENCE between them as the finding, not the lower of the two.",
+   "note": "An estimate of how fast the kidneys are filtering blood, in millilitres per minute.\n\nIt is not measured. It is calculated from creatinine, age and sex — so every creatinine confound flows straight into it, including muscle mass and creatine use. A creatinine artificially raised by supplements produces an eGFR artificially low, with no kidney problem anywhere.\n\nWhich equation the lab used also changes the number, so the method matters as much as the value.\n\nNO OPTIMIZATION TARGET, DELIBERATELY. This is the CREATININE equation, and creatinine is a muscle breakdown product: muscle mass raises it and creatine supplementation raises it further, without either touching the kidney. A floor of 90 previously manufactured a deficit here — 83.4 read as a gap while the same draw's cystatin C gave 116. KDIGO categories are shown as decision zones, but 60–89 is not CKD without other evidence of kidney damage. Read this row beside cystatin C and treat a DIVERGENCE as the finding, not the lower number.",
    "axis": [
     40,
     140
-   ]
+   ],
+   "cut": {
+    "label": "KDIGO GFR categories",
+    "source": "KDIGO 2024 CKD guideline",
+    "zones": [
+     {
+      "max": 60,
+      "label": "G3 or lower if persistent; confirm and interpret with kidney-damage markers",
+      "level": "out"
+     },
+     {
+      "min": 60,
+      "max": 90,
+      "label": "G2; not CKD without other evidence of kidney damage",
+      "level": "ok"
+     },
+     {
+      "min": 90,
+      "label": "G1 filtration category",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "urea",
@@ -4681,15 +4771,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    7,
-    20
-   ],
-   "opt": [
-    7,
-    18
-   ],
-   "oc": "weak",
    "note": "A nitrogen waste product from breaking down protein, cleared by the kidneys.\n\nRarely useful alone — its value is in the ratio to creatinine, which separates two situations that look similar: dehydration raises urea disproportionately, while true kidney impairment raises both together.\n\nA high-protein diet also raises it independently of kidney function.",
    "axis": [
     0,
@@ -4719,20 +4800,39 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    150
-   ],
-   "opt": [
-    0,
-    90
-   ],
-   "oc": "strong",
    "note": "Fat circulating in the blood, carried mainly on VLDL particles.\n\nLess a direct cardiovascular target than a window onto metabolic health — high triglycerides usually travel with insulin resistance, and that is the thing worth acting on.\n\nExtremely responsive to what you did recently: the last meal, and alcohol in particular, move it a lot. A non-fasted sample is close to uninterpretable, and even a fasted one reflects the previous evening.",
    "axis": [
     0,
     200
-   ]
+   ],
+   "cut": {
+    "label": "Fasting triglyceride thresholds",
+    "source": "Cardiovascular prevention guidance",
+    "zones": [
+     {
+      "max": 150,
+      "label": "Below the conventional high threshold",
+      "level": "ok"
+     },
+     {
+      "min": 150,
+      "max": 500,
+      "label": "High; confirm fasting context and metabolic drivers",
+      "level": "watch"
+     },
+     {
+      "min": 500,
+      "label": "Very high; pancreatitis-relevant range",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "max": 100,
+    "evidence": "moderate",
+    "label": "Favourable fasting triglycerides",
+    "source": "Cardiometabolic risk associations and prevention guidance"
+   }
   },
   {
    "id": "apob",
@@ -4750,21 +4850,39 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    130
-   ],
-   "opt": [
-    0,
-    80
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "A protein that sits on every particle capable of lodging in an artery wall — LDL, VLDL and Lp(a) — exactly one copy each.\n\nSo ApoB counts the particles directly, rather than measuring the cholesterol they happen to be carrying. That matters when the two disagree: two people with identical LDL can carry very different particle numbers, and the particle count is what tracks risk.\n\nIt is also immune to the triglyceride level that distorts calculated LDL.",
    "axis": [
     0,
     160
-   ]
+   ],
+   "cut": {
+    "label": "ApoB risk threshold",
+    "source": "ESC/EAS prevention guidance",
+    "zones": [
+     {
+      "max": 130,
+      "label": "Below the risk-enhancer threshold",
+      "level": "ok"
+     },
+     {
+      "min": 130,
+      "label": "Risk-enhancing concentration",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "max": 90,
+    "evidence": "moderate",
+    "label": "Favourable primary-prevention particle burden",
+    "source": "ApoB risk gradients and prevention guidance"
+   },
+   "goal": {
+    "max": 85,
+    "label": "Next-draw diet-response criterion",
+    "why": "A reduction of at least 10% from the July 94 mg/dL baseline would support the August diet change"
+   }
   },
   {
    "id": "lpa",
@@ -4778,21 +4896,34 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    105
-   ],
-   "opt": [
-    0,
-    62
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "An LDL particle with an extra protein wrapped around it, which makes it stickier in artery walls and resistant to clearing. An independent cardiovascular risk factor.\n\nAlmost entirely inherited, and essentially fixed for life — so unlike LDL it is not something you move. One good measurement settles it, which is why it is usually checked once.\n\nUNITS: THIS MARKER ACCEPTS nmol/L ONLY, AND THE OMISSION IS DELIBERATE. Laboratories also report Lp(a) as mass in mg/dL, and the two do NOT convert. The apo(a) protein carries a variable number of kringle repeats, so particles differ in size between people: the same mass can be a very different particle count, and the commonly quoted 2.0-2.5 factor is a population average that can be wrong by 40% in one person. ESC/EAS say not to convert, which is why no mg/dL entry exists here — the file used to carry a fixed 2.15 multiplier that would have silently manufactured a confident number.\n\nIf a report ever prints mg/dL, audit() will refuse it because the unit is not in units[]. That is the correct outcome: STOP, and either re-order in nmol/L or give mass its own marker, the way calculated and dialysed free testosterone are split.",
    "axis": [
     0,
     150
-   ]
+   ],
+   "cut": {
+    "label": "Lp(a) risk zones",
+    "source": "ESC/EAS prevention guidance",
+    "zones": [
+     {
+      "max": 75,
+      "label": "Low concentration",
+      "level": "ok"
+     },
+     {
+      "min": 75,
+      "max": 105,
+      "label": "Intermediate concentration",
+      "level": "watch"
+     },
+     {
+      "min": 105,
+      "label": "Risk-enhancing concentration",
+      "level": "out"
+     }
+    ]
+   }
   },
   {
    "id": "nonhdl",
@@ -4817,20 +4948,33 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    160
-   ],
-   "opt": [
-    0,
-    130
-   ],
-   "oc": "moderate",
    "note": "Total cholesterol minus HDL — in other words, all the cholesterol on particles that can lodge in an artery wall, in one number.\n\nTwo practical advantages over LDL: it needs no calculation beyond a subtraction, so it avoids the formula that makes calculated LDL unreliable, and it stays valid when you have not fasted.\n\nIt also captures remnant particles that LDL alone misses.",
    "axis": [
     0,
     200
-   ]
+   ],
+   "cut": {
+    "label": "Non-HDL risk threshold",
+    "source": "Cardiovascular prevention guidance",
+    "zones": [
+     {
+      "max": 160,
+      "label": "Below the conventional high threshold",
+      "level": "ok"
+     },
+     {
+      "min": 160,
+      "label": "High concentration",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "max": 130,
+    "evidence": "moderate",
+    "label": "Favourable atherogenic cholesterol burden",
+    "source": "Cardiovascular prevention guidance"
+   }
   },
   {
    "id": "hscrp",
@@ -4848,21 +4992,40 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    3
-   ],
-   "opt": [
-    0,
-    1
-   ],
-   "oc": "strong",
    "am": "critical",
    "note": "A protein the liver releases whenever there is inflammation anywhere in the body. The high-sensitivity version resolves the low range where cardiovascular risk sits, rather than the high range used to detect infection.\n\nCompletely non-specific. A cold, a cut, a dental problem, or a hard training session in the days before the draw all raise it.\n\nSo a single high value means repeat it, not conclude something. Only a persistently raised hs-CRP with no obvious cause is a finding.",
    "axis": [
     0,
     6
-   ]
+   ],
+   "cut": {
+    "label": "hs-CRP cardiovascular risk categories",
+    "source": "CDC/AHA risk categories and prevention guidance",
+    "zones": [
+     {
+      "max": 1,
+      "label": "Low-risk category",
+      "level": "ok"
+     },
+     {
+      "min": 1,
+      "max": 3,
+      "label": "Average-risk category; interpret illness and training first",
+      "level": "watch"
+     },
+     {
+      "min": 3,
+      "label": "High category; repeat when well before interpretation",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "max": 1,
+    "evidence": "moderate",
+    "label": "Low inflammatory-risk category",
+    "source": "Prospective cardiovascular cohorts; non-specific marker"
+   }
   },
   {
    "id": "ldl",
@@ -4888,21 +5051,40 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    130
-   ],
-   "opt": [
-    0,
-    100
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "The cholesterol carried on LDL particles, and the main target of lipid treatment.\n\nUsually not measured. Most labs calculate it from total cholesterol, HDL and triglycerides using a formula that assumes a fixed relationship between them. That assumption breaks down in the two places it matters most:\n\n• When LDL is low, the estimate drifts\n• When triglycerides are high, it under-reports\n\nWorth knowing whether a given result was measured directly or calculated.",
    "axis": [
     0,
     190
-   ]
+   ],
+   "cut": {
+    "label": "LDL-C risk thresholds",
+    "source": "Cardiovascular prevention guidance",
+    "zones": [
+     {
+      "max": 130,
+      "label": "Below the conventional high threshold",
+      "level": "ok"
+     },
+     {
+      "min": 130,
+      "max": 190,
+      "label": "High; interpret against total risk and ApoB",
+      "level": "watch"
+     },
+     {
+      "min": 190,
+      "label": "Severely elevated concentration",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "max": 100,
+    "evidence": "moderate",
+    "label": "Favourable primary-prevention LDL-C",
+    "source": "LDL causal evidence interpreted in a low-risk primary-prevention context"
+   }
   },
   {
    "id": "hdl",
@@ -4928,15 +5110,27 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    40,
-    100
-   ],
    "note": "Cholesterol on HDL particles, long described as the 'good' cholesterol because higher levels track with lower risk in population studies.\n\nThat description has not survived testing. Drugs that raise HDL do not reduce heart attacks, and genetic variants that raise it lifelong do not protect — so the association appears to be a marker of something else, not a cause.\n\nVery high values are also associated with higher mortality, not lower. Which is why there is deliberately no target here.",
    "axis": [
     20,
     110
-   ]
+   ],
+   "cut": {
+    "label": "Low HDL-C threshold",
+    "source": "Cardiovascular risk definitions",
+    "zones": [
+     {
+      "max": 40,
+      "label": "Low HDL-C",
+      "level": "out"
+     },
+     {
+      "min": 40,
+      "label": "Not low; higher is not treated as an intervention target",
+      "level": "ok"
+     }
+    ]
+   }
   },
   {
    "id": "chol",
@@ -4961,20 +5155,33 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    200
-   ],
-   "opt": [
-    0,
-    180
-   ],
-   "oc": "weak",
    "note": "Every cholesterol molecule in the blood, across all particle types.\n\nKept mostly out of convention and as the input to non-HDL. On its own it is close to uninformative, because it adds together particles that raise risk and particles that do not.\n\nA perfectly normal total can conceal a high LDL that happens to be offset by a high HDL.",
    "axis": [
     100,
     280
-   ]
+   ],
+   "cut": {
+    "label": "Total-cholesterol categories",
+    "source": "Conventional cardiovascular risk categories",
+    "zones": [
+     {
+      "max": 200,
+      "label": "Desirable category",
+      "level": "ok"
+     },
+     {
+      "min": 200,
+      "max": 240,
+      "label": "Borderline-high category",
+      "level": "watch"
+     },
+     {
+      "min": 240,
+      "label": "High category",
+      "level": "out"
+     }
+    ]
+   }
   },
   {
    "id": "glu",
@@ -4996,20 +5203,46 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    70,
-    99
-   ],
-   "opt": [
-    75,
-    90
-   ],
-   "oc": "moderate",
    "note": "Blood sugar after an overnight fast — the simplest screen for how well glucose is regulated.\n\nIts weakness is timing: fasting glucose is the last thing to move as regulation deteriorates. The body will hold it normal for years by producing more insulin, so it can look fine well after the underlying problem has started.\n\nAlso a single snapshot, shifted by the previous evening's meal, poor sleep and stress. HbA1c answers the same question with far less noise.",
    "axis": [
     60,
     130
-   ]
+   ],
+   "cut": {
+    "label": "Fasting-glucose diagnostic zones",
+    "source": "ADA diagnostic criteria",
+    "zones": [
+     {
+      "max": 70,
+      "label": "Low fasting glucose",
+      "level": "out"
+     },
+     {
+      "min": 70,
+      "max": 100,
+      "label": "Normal fasting glucose",
+      "level": "ok"
+     },
+     {
+      "min": 100,
+      "max": 126,
+      "label": "Impaired fasting glucose; confirm",
+      "level": "watch"
+     },
+     {
+      "min": 126,
+      "label": "Diabetes-range result; requires confirmation",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "min": 80,
+    "max": 94,
+    "evidence": "moderate",
+    "label": "Favourable fasting-glucose band",
+    "source": "Observational glycaemic-risk data; not an RCT-defined longevity optimum"
+   }
   },
   {
    "id": "a1c",
@@ -5028,21 +5261,41 @@ window.BLOODWORK =
      "b": 2.152
     }
    ],
-   "clin": [
-    4,
-    5.6
-   ],
-   "opt": [
-    4.6,
-    5.4
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "A snapshot of the past three months rather than this morning. Glucose slowly sticks to haemoglobin inside red cells, and since a red cell lives about 120 days, the fraction that is coated reflects average blood sugar over that window — weighted toward the most recent weeks.\n\nThe main trap: anything that shortens red cell lifespan gives glucose less time to attach, so the result understates true average sugar. It is only as reliable as the blood count sitting next to it.",
    "axis": [
     4,
     7
-   ]
+   ],
+   "cut": {
+    "label": "HbA1c diagnostic zones",
+    "source": "ADA diagnostic criteria",
+    "zones": [
+     {
+      "max": 5.7,
+      "label": "Below the prediabetes threshold",
+      "level": "ok"
+     },
+     {
+      "min": 5.7,
+      "max": 6.5,
+      "label": "Prediabetes range; confirm context",
+      "level": "watch"
+     },
+     {
+      "min": 6.5,
+      "label": "Diabetes-range result; requires confirmation",
+      "level": "out"
+     }
+    ]
+   },
+   "target": {
+    "min": 5,
+    "max": 5.4,
+    "evidence": "moderate",
+    "label": "Favourable HbA1c band",
+    "source": "Observational glycaemic-risk data; interpret with red-cell turnover"
+   }
   },
   {
    "id": "ins",
@@ -5060,15 +5313,6 @@ window.BLOODWORK =
      "m": 0.144
     }
    ],
-   "clin": [
-    2,
-    20
-   ],
-   "opt": [
-    2,
-    7
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "The hormone that moves glucose out of the blood and into cells, measured fasting.\n\nThe reason to track it is timing. As cells become resistant, the pancreas compensates by producing more insulin — and it succeeds for years. Glucose stays normal the whole time. Insulin is what rises first, which makes it the early warning that fasting glucose cannot give.\n\nCaveat: insulin assays are not standardised, so absolute values do not transfer between labs.",
    "axis": [
@@ -5092,15 +5336,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    3.5,
-    7.2
-   ],
-   "opt": [
-    3.5,
-    5.5
-   ],
-   "oc": "moderate",
    "note": "The waste product left when the body breaks down purines, cleared by the kidneys.\n\nTwo reasons to watch it: above a certain concentration it crystallises in joints, which is gout, and it rises alongside insulin resistance and high fructose intake, making it a rough metabolic marker.\n\nAlso rises temporarily with fasting, dehydration and intense exercise — all three raise it without anything changing underneath.",
    "axis": [
     2,
@@ -5123,21 +5358,28 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    40
-   ],
-   "opt": [
-    0,
-    30
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "An enzyme that lives inside liver cells. When those cells are damaged it leaks into the blood, so a rise means liver injury.\n\nIt is the more liver-specific of the two transaminases — which is precisely what makes the pair useful together. AST is also abundant in muscle; ALT largely is not. So if AST climbs and ALT stays put, the source is muscle rather than liver.",
    "axis": [
     0,
     70
-   ]
+   ],
+   "cut": {
+    "label": "Healthy-population ALT threshold",
+    "source": "Outcome-based healthy male upper-limit literature",
+    "zones": [
+     {
+      "max": 33,
+      "label": "Below the healthy-population upper threshold",
+      "level": "ok"
+     },
+     {
+      "min": 33,
+      "label": "Above the healthy-population threshold; training and assay context matter",
+      "level": "watch"
+     }
+    ]
+   }
   },
   {
    "id": "ast",
@@ -5155,15 +5397,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    40
-   ],
-   "opt": [
-    0,
-    30
-   ],
-   "oc": "moderate",
    "am": "useful",
    "note": "An enzyme found in liver cells, but also in skeletal muscle and heart. It leaks into the blood whenever any of those are damaged.\n\nThat breadth is its weakness. Hard training damages muscle fibres as a normal part of adaptation, which raises AST with the liver entirely untouched.\n\nSo AST is read alongside ALT rather than alone: both rising points at liver, AST rising by itself points at muscle.",
    "axis": [
@@ -5186,15 +5419,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    55
-   ],
-   "opt": [
-    0,
-    25
-   ],
-   "oc": "moderate",
    "note": "An enzyme concentrated in the small bile ducts inside the liver.\n\nTwo jobs. First, it disambiguates a high alkaline phosphatase — ALP comes from both liver and bone, and a raised GGT alongside it says the source is liver. Second, it is the most sensitive routine marker of alcohol intake.\n\nCaveat: many ordinary medications induce it, raising the number with no liver injury at all.",
    "axis": [
     0,
@@ -5216,15 +5440,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    40,
-    130
-   ],
-   "opt": [
-    40,
-    110
-   ],
-   "oc": "weak",
    "note": "An enzyme that comes from two unrelated places — bile ducts and bone — which is what makes it ambiguous on its own.\n\nRaised ALP means the liver or the skeleton, and you cannot tell which from this number. GGT settles it: raised alongside points at liver, normal alongside points at bone.\n\nPhysiologically high during adolescent growth and while a fracture heals, neither of which is a problem.",
    "axis": [
     20,
@@ -5249,10 +5464,6 @@ window.BLOODWORK =
      "l": "mg/dL",
      "m": 1
     }
-   ],
-   "clin": [
-    0.2,
-    1.2
    ],
    "note": "The yellow pigment left over when old red blood cells are broken down. The liver picks it up, processes it, and excretes it in bile.\n\nSo it rises either when the liver cannot process it or when red cells are being destroyed faster than usual.\n\nThe common finding by far is neither: a mildly raised unprocessed bilirubin is usually Gilbert's syndrome, a harmless inherited quirk in about 1 in 20 people. It becomes more obvious with fasting, illness or stress.",
    "axis": [
@@ -5279,15 +5490,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    3.5,
-    5.2
-   ],
-   "opt": [
-    4.5,
-    5.2
-   ],
-   "oc": "moderate",
    "am": "critical",
    "note": "The most abundant protein in blood, made by the liver. It carries hormones, drugs and calcium, and holds fluid inside blood vessels by osmotic pull.\n\nTracked for liver output and nutritional status.\n\nIt matters here for a second reason: it is an input to both corrected calcium and calculated free testosterone. So however albumin was measured propagates into both of those numbers.",
    "axis": [
@@ -5306,10 +5508,6 @@ window.BLOODWORK =
      "l": "%",
      "m": 1
     }
-   ],
-   "clin": [
-    70,
-    100
    ],
    "am": "useful",
    "note": "How fast plasma clots once the cascade is triggered from outside the vessel — a pathway that runs on clotting factors the liver makes, most of them vitamin K–dependent.\n\nFrance reports it as a percentage of normal, so a higher number is faster clotting and a lower one is slower.\n\nTwo things pull it down: liver disease, because the factors stop being made, and warfarin, because it blocks the vitamin K they need.\n\nIt is also why INR exists. Labs use reagents of differing strength, and INR is the arithmetic that makes one lab's result comparable with another's.",
@@ -5330,10 +5528,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    1.2
-   ],
    "am": "useful",
    "note": "How long plasma takes to clot when the cascade is triggered from inside the vessel — the contact pathway, which runs on a different set of factors from the prothrombin time.\n\nReported as a ratio against the lab's own control, because reagents vary so much that raw seconds mean nothing between laboratories.\n\nA long result means a factor is missing or something is blocking the reaction. Haemophilia shows here, and so does lupus anticoagulant — which, confusingly, causes clotting rather than bleeding.\n\nIt is also the test used to follow unfractionated heparin.",
    "axis": [
@@ -5352,10 +5546,6 @@ window.BLOODWORK =
      "l": "g/L",
      "m": 1
     }
-   ],
-   "clin": [
-    2,
-    4
    ],
    "am": "useful",
    "note": "The protein that clotting converts into fibrin — the mesh a clot is actually built from. Made by the liver, and the most abundant clotting factor in blood.\n\nIt is also an acute-phase reactant, so it climbs with any inflammation, infection or injury, alongside CRP but more slowly and for longer.\n\nThat double role is the difficulty: low means the liver is struggling or the fibrinogen is being consumed, while high usually means inflammation rather than any clotting problem at all.\n\nIt is measured by timing a clot, so heparin in the sample distorts it.",
@@ -5385,15 +5575,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    264,
-    916
-   ],
-   "opt": [
-    550,
-    900
-   ],
-   "oc": "weak",
    "am": "critical",
    "note": "All the testosterone in your blood — the roughly 98% bound to carrier proteins plus the small free fraction.\n\nThe headline androgen number, but it needs context to read:\n\n• It peaks a few hours after waking and declines through the day, so a morning and an afternoon draw are not comparable\n• Immunoassays and mass spectrometry disagree, especially at lower concentrations\n\nMost of it is bound to SHBG and unavailable, which is why total alone can mislead when SHBG is unusual.",
    "axis": [
@@ -5421,12 +5602,8 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    71,
-    226
-   ],
    "am": "critical",
-   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three. That is still the better option: direct free-testosterone immunoassays are notoriously unreliable.\n\nTHE INTERVAL IS THE PRIMARY PUBLISHED ONE. Ho et al., Ann Clin Biochem 2006;43:389-397: 245-785 pmol/L, the 2.5th to 97.5th percentile of the Vermeulen calculation in 126 healthy men aged 20-45 with normal semen analysis — the closest population match available. Laboratories quoting this paper round it slightly (Alfred Health prints 260-740); nearby intervals sit close (Dynacare 196-636 for men under 50, 218-681 for men 20-50).\n\nIt replaced 47-244 pg/mL, which had no source. That range was well CENTRED — its midpoint was within 2% of this one — but a third wider, and almost all of the slack was at the bottom: a floor of 163 pmol/L against a real 2.5th percentile of 245. Too permissive at the only end that matters, so a genuinely low value would have read normal.\n\nMIND THE OTHER SCALE. The dialysis interval on the ftd row (Jasuja 2023, 120-368 pg/mL for men 19-39) is NOT comparable. Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018), so that band maps onto this scale at roughly 495-1518 pmol/L: OFFSET UPWARD, but overlapping — 495-785 pmol/L is common to both, a little over half this interval's width. The two disagree about the bottom of the range, not about everything, and they disagree by more than the 1.19 bias explains because population and SHBG assay differ too. Judge a calculated value against a calculated interval. The July value, 354 pmol/L, falls exactly in the disputed zone: inside this interval, under the mapped dialysis floor.\n\nNO OPTIMAL BAND. There was one, 100-200 pg/mL, tagged weak — round numbers with no source, sitting inside a reference interval that now has one. It was not harmless: this row holds a single value, 102, which landed 2% above that invented floor, so an unsourced number was deciding how the only datapoint read. The dialysis row keeps its opt because that one is Jasuja's 10th-90th percentile, an empirical band from the same study as its reference interval. Restore one here only from published percentiles of the Vermeulen distribution, not by eye.",
+   "note": "The small slice of testosterone not bound to SHBG or albumin — the portion actually free to enter cells and act.\n\nThis is not measured here. It is calculated from total testosterone, SHBG and albumin using the Vermeulen equation, so it inherits the measurement quirks of all three. That is still the better option: direct free-testosterone immunoassays are notoriously unreliable.\n\nTHE INTERVAL IS THE PRIMARY PUBLISHED ONE. Ho et al., Ann Clin Biochem 2006;43:389-397: 245-785 pmol/L, the 2.5th to 97.5th percentile of the Vermeulen calculation in 126 healthy men aged 20-45 with normal semen analysis — the closest population match available. Laboratories quoting this paper round it slightly (Alfred Health prints 260-740); nearby intervals sit close (Dynacare 196-636 for men under 50, 218-681 for men 20-50).\n\nIt replaced 47-244 pg/mL, which had no source. That range was well CENTRED — its midpoint was within 2% of this one — but a third wider, and almost all of the slack was at the bottom: a floor of 163 pmol/L against a real 2.5th percentile of 245. Too permissive at the only end that matters, so a genuinely low value would have read normal.\n\nMIND THE OTHER SCALE. The dialysis interval on the ftd row (Jasuja 2023, 120-368 pg/mL for men 19-39) is NOT comparable. Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018), so that band maps onto this scale at roughly 495-1518 pmol/L: OFFSET UPWARD, but overlapping — 495-785 pmol/L is common to both, a little over half this interval's width. The two disagree about the bottom of the range, not about everything, and they disagree by more than the 1.19 bias explains because population and SHBG assay differ too. Judge a calculated value against a calculated interval. The July value, 354 pmol/L, falls exactly in the disputed zone: inside this interval, under the mapped dialysis floor.\n\nNO OPTIMIZATION TARGET. A previous 100–200 pg/mL band was unsourced and was deciding how the only datapoint read. Calculated free testosterone should be interpreted against a method-matched reference and symptoms, not a longevity target.",
    "axis": [
     40,
     280
@@ -5452,17 +5629,8 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    120,
-    368
-   ],
-   "opt": [
-    128,
-    274
-   ],
-   "oc": "moderate",
    "am": "critical",
-   "note": "Free testosterone MEASURED, not calculated — the reference method.\n\nSerum sits against a membrane that holds back albumin and SHBG but not testosterone. After 16 hours at 37 degrees the hormone that crossed IS the free fraction, by definition rather than by inference, and the dialysate is read by mass spectrometry.\n\nIT IS A SEPARATE ROW FROM CALCULATED FREE TESTOSTERONE ON PURPOSE. The two are different scales: Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018). Sharing one row would put a measurement and an estimate on one line and judge both against one interval, which is the same error that keeps the 2023 direct-RIA value out of this file. Creatinine-eGFR and cystatin-C-eGFR are split for the identical reason.\n\nThe interval here is Jasuja 2023 (Andrology), standardised equilibrium dialysis with CDC-certified LC-MS/MS: 120-368 pg/mL for men aged 19-39, against 66-309 across all healthy non-obese men. The age band is used because it is the one that applies. Median for 19-39 is 190; opt[] holds that band's 10th to 90th percentile.\n\nOrder it whenever a laboratory actually offers it — availability is the constraint, not a quota. A single paired draw gives the DIRECTION and rough size of the gap between measurement and calculation in this person, on those assays, on that day. It is not a calibration constant: one point carries the error of both methods, the offset depends on the total-testosterone and SHBG assays behind it, and this file has already watched a laboratory change technique mid-series and print 'rupture des anteriorites' over it. REPEATS ARE THE POINT, not redundancy: one pairing is an anecdote, several are a spread, and the spread is what says whether an offset can be trusted at all. Always draw it beside the same sample's total testosterone, SHBG and albumin — a dialysis value with no calculation next to it teaches nothing about the calculation.",
+   "note": "Free testosterone MEASURED, not calculated — the reference method.\n\nSerum sits against a membrane that holds back albumin and SHBG but not testosterone. After 16 hours at 37 degrees the hormone that crossed IS the free fraction, by definition rather than by inference, and the dialysate is read by mass spectrometry.\n\nIT IS A SEPARATE ROW FROM CALCULATED FREE TESTOSTERONE ON PURPOSE. The two are different scales: Vermeulen overestimates dialysis by 20-30%, median ratio 1.19 (Fiers, JCEM 2018). Sharing one row would put a measurement and an estimate on one line and judge both against one interval, which is the same error that keeps the 2023 direct-RIA value out of this file. Creatinine-eGFR and cystatin-C-eGFR are split for the identical reason.\n\nThe interval here is Jasuja 2023 (Andrology), standardised equilibrium dialysis with CDC-certified LC-MS/MS: 120-368 pg/mL for men aged 19-39, against 66-309 across all healthy non-obese men. The age band is used because it is the one that applies. Median for ages 19–39 is 190 pg/mL. The study’s 10th–90th percentile is descriptive, not an outcome-backed optimization target, so it is no longer rendered as one.\n\nOrder it whenever a laboratory actually offers it — availability is the constraint, not a quota. A single paired draw gives the DIRECTION and rough size of the gap between measurement and calculation in this person, on those assays, on that day. It is not a calibration constant: one point carries the error of both methods, the offset depends on the total-testosterone and SHBG assays behind it, and this file has already watched a laboratory change technique mid-series and print 'rupture des anteriorites' over it. REPEATS ARE THE POINT, not redundancy: one pairing is an anecdote, several are a spread, and the spread is what says whether an offset can be trusted at all. Always draw it beside the same sample's total testosterone, SHBG and albumin — a dialysis value with no calculation next to it teaches nothing about the calculation.",
    "axis": [
     40,
     400
@@ -5483,10 +5651,6 @@ window.BLOODWORK =
      "l": "nmol/L",
      "m": 1
     }
-   ],
-   "clin": [
-    18,
-    54
    ],
    "am": "critical",
    "note": "A liver-made protein that grips testosterone and carries it through the blood. Bound testosterone cannot enter cells, so SHBG effectively decides how much of your total is usable.\n\nThat makes it necessary rather than optional: the same total testosterone means different things at high and low SHBG.\n\nIt also reports on metabolic health — it rises with thyroid hormone and falls with insulin resistance and higher body fat.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 20-45, which read 46 as too high. SHBG is not a lever, it is a CONSEQUENCE: low body fat, insulin sensitivity, high fibre and thyroid status all raise it. This subject's HOMA-IR is 0.91 and body fat about 12%, so a high-normal SHBG is what those look like from another angle — targeting it downward means asking for the metabolic state to be worse. It still matters as a READING, because it is what puts calculated free testosterone in the lower third of its band; it is just not something to move on its own.",
@@ -5515,10 +5679,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    10,
-    40
-   ],
    "am": "critical",
    "note": "The main oestrogen. In men it is not produced directly in any quantity — it is converted from testosterone by the aromatase enzyme, mostly in fat tissue.\n\nWorth tracking because both directions cause problems, and because it moves with testosterone rather than independently of it. More fat mass means more conversion.\n\nMeasurement is the difficulty: standard immunoassays are unreliable at the low concentrations found in men, and mass spectrometry is the reference method.",
    "axis": [
@@ -5545,10 +5705,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    23,
-    102
-   ],
    "am": "critical",
    "note": "The strongest androgen in the body, converted from testosterone by 5-alpha-reductase in skin, hair follicles and prostate.\n\nIt binds the androgen receptor several times more tightly than testosterone, which is why it — not testosterone — drives male-pattern hair loss and prostate growth.\n\nAlso the direct target of finasteride, which blocks that conversion.\n\nMeasurement caveat: immunoassays cross-react heavily with testosterone. Mass spectrometry is effectively required.",
    "axis": [
@@ -5568,10 +5724,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    1.7,
-    8.6
-   ],
    "note": "The pituitary's signal telling the testes to produce testosterone.\n\nIts value is in localising a problem rather than in the number itself:\n\n• Low testosterone with HIGH LH — the testes are being asked and not delivering\n• Low testosterone with LOW LH — the signal itself is missing, so the problem is upstream in the pituitary\n\nReleased in pulses through the day, so a single draw catches an arbitrary point in that rhythm.",
    "axis": [
     0,
@@ -5590,15 +5742,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    1.5,
-    12.4
-   ],
-   "opt": [
-    2,
-    10
-   ],
-   "oc": "weak",
    "note": "The pituitary's other gonadal signal, driving sperm production in the testes.\n\nRead alongside LH for the same localising logic, and it is the more sensitive of the two to testicular damage — FSH often rises first when the testes are struggling.\n\nAlso pulsatile, though its swings are gentler than LH's.",
    "axis": [
     0,
@@ -5624,15 +5767,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    6,
-    23
-   ],
-   "opt": [
-    8,
-    18
-   ],
-   "oc": "weak",
    "am": "useful",
    "note": "The main stress hormone, and one of the most strongly rhythmic things in the body. It surges in the first hour after waking, then falls steadily all day.\n\nThat rhythm dominates the measurement. The reference range assumes a morning draw — the same person sampled in the afternoon can look adrenally deficient with nothing wrong at all.\n\nSo the collection time is not a detail here; without it the number cannot be interpreted.",
    "axis": [
@@ -5663,15 +5797,6 @@ window.BLOODWORK =
      "m": 0.0472
     }
    ],
-   "clin": [
-    2,
-    18
-   ],
-   "opt": [
-    2,
-    15
-   ],
-   "oc": "weak",
    "am": "critical",
    "note": "A pituitary hormone best known for lactation, but relevant here because when it is persistently high it suppresses testosterone.\n\nWorth checking once in anyone with unexplained low testosterone, since a small prolactin-secreting pituitary tumour is both a real cause and a treatable one.\n\nTwo things inflate it harmlessly: stress and sleep, and macroprolactin — a bulky bound form the body cannot use, which some labs count in the total unless they screen for it.\n\nUNITS: the mUI/L conversion (x0.0472, i.e. 1 ng/mL = 21.2 mIU/L) is tied to WHO IS 84/500, not to physics. A laboratory calibrated to a different standard will not match it — check the report before trusting a converted value.",
    "axis": [
@@ -5696,10 +5821,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    150,
-    400
-   ],
    "note": "Cell fragments that form the first plug at a bleeding site — the beginning of a clot.\n\nTracked for bleeding and clotting risk, and as a general check on bone marrow output.\n\nOne common artefact: in some people platelets clump together inside the collection tube. The analyser counts a clump as one platelet, so the result comes back falsely low. If a low count appears out of nowhere in someone with no symptoms, this is the first thing to rule out.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 180-350, which pointed UPWARD — against the direction three items in this stack are meant to push. Omega-3, curcumin and AGE garlic all reduce platelet count or aggregation, and they are linked to this marker for that reason. Within the reference range a higher count carries more thrombotic risk, not less, so there is nothing here to raise and no benign way to raise it: the agents that work (thrombopoietin receptor agonists) treat immune thrombocytopenia and carry thrombosis and marrow-fibrosis risk.\n\nThis subject sits at 148-172 across six draws from 2020 to 2026 — a stable set point with no trend, alongside a normal red series, which is what separates a set point from a signal. The MPV explains it: 11.7-12.1, meaning fewer but larger platelets, so total platelet mass is nearer normal than the count alone suggests.\n\nWhat would change the reading: a downward TREND, several cell lines falling together, or symptoms — easy bruising, petechiae, prolonged bleeding. A single low-normal count with none of those is not a finding.",
    "axis": [
     100,
@@ -5717,10 +5838,6 @@ window.BLOODWORK =
      "l": "fL",
      "m": 1
     }
-   ],
-   "clin": [
-    7,
-    11
    ],
    "am": "useful",
    "note": "The average size of your platelets. Bigger platelets are younger, so a high value suggests the marrow is producing them quickly.\n\nRead alongside the platelet count rather than alone — the pair together says more about turnover than either does.\n\nBig caveat: platelets swell the longer they sit in the tube before being measured. That makes MPV as much a reflection of how fast the sample reached the analyser as of anything happening in you.",
@@ -5745,15 +5862,6 @@ window.BLOODWORK =
      "m": 0.1
     }
    ],
-   "clin": [
-    13.5,
-    17.5
-   ],
-   "opt": [
-    14,
-    17
-   ],
-   "oc": "moderate",
    "note": "The protein inside red blood cells that actually carries oxygen. Low haemoglobin IS anaemia — the two mean the same thing.\n\nIt is a concentration: grams of haemoglobin per volume of blood. So the number moves when the amount of fluid changes, even if your red cells do not:\n\n• Dehydrated — less plasma, same cells, so it reads higher\n• Endurance-trained — the body carries extra plasma, diluting it, so it reads lower\n\nThat second one is why fit endurance athletes often look mildly anaemic on paper and are not.",
    "axis": [
     11,
@@ -5772,15 +5880,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    40,
-    52
-   ],
-   "opt": [
-    42,
-    50
-   ],
-   "oc": "moderate",
    "note": "The share of your blood that is red cells rather than liquid, as a percentage. Roughly 45% cells, 55% plasma.\n\nIt says much the same thing as haemoglobin and rarely adds to it. Because it is a ratio, it is even more sensitive to hydration: the same red cells suspended in less fluid make a bigger share of the total, so the percentage climbs without a single new cell being made.",
    "axis": [
     35,
@@ -5803,15 +5902,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    4.2,
-    5.8
-   ],
-   "opt": [
-    4.5,
-    5.6
-   ],
-   "oc": "weak",
    "note": "A straight count of how many red cells are in a given volume of blood.\n\nOn its own it says surprisingly little, because it counts cells without asking how much haemoglobin each one carries — you can have plenty of cells that are each under-filled. Its real job is as the denominator for MCV, MCH and MCHC, which is where the useful detail lives.\n\nBeing a per-volume count, hydration shifts it exactly as it shifts haemoglobin.",
    "axis": [
     3.5,
@@ -5830,15 +5920,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    80,
-    100
-   ],
-   "opt": [
-    85,
-    95
-   ],
-   "oc": "weak",
    "note": "The average size of your red blood cells.\n\nSize is the single most useful clue to why someone is anaemic, because the common causes push it in opposite directions:\n\n• Small cells — iron deficiency, or thalassaemia trait\n• Large cells — B12 or folate deficiency, alcohol, or an underactive thyroid\n\nThe catch: if two causes are present at once they cancel out and the average lands normal. A normal MCV does not rule out either problem.",
    "axis": [
     70,
@@ -5857,15 +5938,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    26,
-    34
-   ],
-   "opt": [
-    28,
-    33
-   ],
-   "oc": "weak",
    "note": "The average amount of haemoglobin packed into each red cell, by weight.\n\nIt moves almost in lockstep with cell size, so in practice it rarely tells you anything MCV has not already. Mostly it serves as a consistency check that the analyser's sizing and its haemoglobin measurement agree with each other.",
    "axis": [
     22,
@@ -5888,15 +5960,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    31,
-    36.5
-   ],
-   "opt": [
-    32,
-    36.5
-   ],
-   "oc": "weak",
    "note": "How concentrated the haemoglobin is inside each cell — not how much per cell, but how tightly packed.\n\nUnusual among the red cell indices in being largely independent of the instrument used. That makes a high value informative in an unexpected way: it is usually a sign of a measurement problem rather than a real finding — fat in the sample, ruptured cells, or cold-clumping antibodies confusing the analyser.",
    "axis": [
     29,
@@ -5915,15 +5978,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    11,
-    15
-   ],
-   "opt": [
-    11,
-    13.5
-   ],
-   "oc": "weak",
    "note": "How much your red cells vary in size — a high value means a mixed population rather than a uniform one.\n\nUseful because it often moves before the average size does. When a deficiency is developing, new cells come out the wrong size while the old normal ones are still circulating, so the spread widens while MCV still reads normal.\n\nIt also rises when two causes overlap, which is exactly the case where MCV is misleadingly normal.",
    "axis": [
     9,
@@ -5941,10 +5995,6 @@ window.BLOODWORK =
      "l": "G/L",
      "m": 1
     }
-   ],
-   "clin": [
-    4,
-    10
    ],
    "note": "The total number of immune cells in circulation. A broad screen for infection, inflammation and bone-marrow function.\n\nThe total by itself is fairly blunt — nearly all the information is in the breakdown below it, since a high count from neutrophils means something very different from a high count from lymphocytes.\n\nRises briefly with acute stress, adrenaline, and recent hard exercise, none of which involve illness.\n\nNO OPTIMAL BAND, DELIBERATELY. It was 4.5-8.5, pointing upward. A white count in the lower half of normal is unremarkable in lean, heavily trained people, and WBC doubles as an inflammation marker — within the reference range the lower end tends to track with LOWER risk, not higher. So the band was asking for a number to rise that there is no reason to raise and no benign way to raise. What matters is a TREND, or a fall alongside the other cell lines; a single low-normal count with a normal red series is not a finding.",
    "axis": [
@@ -5968,15 +6018,6 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
-   "clin": [
-    1500,
-    7800
-   ],
-   "opt": [
-    2000,
-    6000
-   ],
-   "oc": "weak",
    "note": "The immune system's first responders, and usually the largest white cell group. They arrive first at bacterial infections.\n\nThey are also the main reason a white count swings either way.\n\nWorth knowing: they climb within hours of physical stress — a hard training session, a bad night's sleep, or simply the adrenaline of the blood draw itself. A mild elevation very often has nothing to do with infection.",
    "axis": [
     1000,
@@ -5999,15 +6040,6 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
-   "clin": [
-    850,
-    3900
-   ],
-   "opt": [
-    1200,
-    3000
-   ],
-   "oc": "weak",
    "note": "T cells and B cells — the part of the immune system that handles viruses and remembers past infections.\n\nTracked for immune competence, and because a persistently high or low count can point at something more.\n\nThey drop sharply when cortisol is high, so stress or an early-morning draw both push them down temporarily. A single low reading is usually the clock or the day, not the immune system.",
    "axis": [
     500,
@@ -6030,15 +6062,6 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
-   "clin": [
-    200,
-    950
-   ],
-   "opt": [
-    250,
-    800
-   ],
-   "oc": "weak",
    "note": "Cells that clean up debris and mature into the macrophages that live in tissue.\n\nThey rise during chronic inflammation and during recovery from infection — often climbing just as neutrophils fall, which is a useful sign that something is resolving rather than starting.\n\nRarely informative on its own; the ratio to lymphocytes carries more than the raw count.",
    "axis": [
     0,
@@ -6061,15 +6084,6 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
-   "clin": [
-    15,
-    500
-   ],
-   "opt": [
-    15,
-    350
-   ],
-   "oc": "weak",
    "note": "White cells that deal with allergy and parasites, and the clearest blood signal that an allergic process is active.\n\nThey normally make up a very small fraction of white cells, which creates a trap: a tiny absolute change looks dramatic when expressed as a percentage. Read the absolute count, not the percent.",
    "axis": [
     0,
@@ -6096,10 +6110,6 @@ window.BLOODWORK =
      "m": 0.4167
     }
    ],
-   "clin": [
-    0,
-    100
-   ],
    "am": "useful",
    "note": "The antibody class evolved to fight parasites, which in wealthy countries mostly ends up doing allergy instead. It sits on the surface of mast cells, and when its target binds, the cell dumps histamine.\n\nTotal IgE adds every specificity together, so it says you react to something without saying what. It rises with hay fever, asthma, eczema and food allergy — and much further with parasites, or with an allergic reaction to a mould growing in the airways.\n\nA normal total does not rule allergy out: one strong sensitivity can hide inside a normal sum. Specific IgE against named allergens is what actually answers the question.\n\nUNITS: the ng/mL conversion (x0.4167, i.e. 1 IU/mL = 2.4 ng/mL) is a WHO convention, not physics. kUI/L and UI/mL are the same quantity. Both values in this file were printed in UI/mL, so the conversion has never been exercised.",
    "axis": [
@@ -6123,15 +6133,6 @@ window.BLOODWORK =
      "m": 1000
     }
    ],
-   "clin": [
-    0,
-    200
-   ],
-   "opt": [
-    0,
-    150
-   ],
-   "oc": "weak",
    "note": "The rarest white cell, involved in histamine release and allergic reactions.\n\nThey are present in such small numbers that the count is imprecise by nature — a single high or low value is usually just the statistics of counting very few things. A persistent pattern across several draws means something; one reading does not.",
    "axis": [
     0,
@@ -6149,10 +6150,6 @@ window.BLOODWORK =
      "l": "mm/h",
      "m": 1
     }
-   ],
-   "clin": [
-    0,
-    15
    ],
    "am": "useful",
    "note": "How far red cells sink through a column of plasma in one hour. Inflammation produces proteins that make red cells stack together, and stacks sink faster.\n\nSo it is an indirect and slow read on inflammation: days to rise, weeks to fall, where CRP does both within hours.\n\nThat lag is its one real advantage — it describes the past few weeks rather than this morning. For everything else hs-CRP is simply better, and this test is largely a survivor from pre-CRP medicine.\n\nAge, anaemia and sex all shift it with no inflammation present at all.",
@@ -6180,15 +6177,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    50,
-    180
-   ],
-   "opt": [
-    70,
-    150
-   ],
-   "oc": "weak",
    "note": "The iron travelling in your blood bound to transferrin at the exact moment of the draw.\n\nAlmost meaningless on its own, for two reasons: it swings by roughly a third across a single day on its own rhythm, and it jumps after any iron-containing meal or supplement.\n\nIt exists to be combined — with transferrin it produces saturation, which is the number that actually says whether iron is available.",
    "axis": [
     20,
@@ -6211,15 +6199,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    250,
-    425
-   ],
-   "opt": [
-    250,
-    400
-   ],
-   "oc": "weak",
    "am": "useful",
    "note": "How much iron the blood could carry if every transferrin binding site were full — in effect a measure of transferrin itself.\n\nIts job is to be the denominator for saturation.\n\nWhat makes it informative is that it moves opposite to ferritin in deficiency: running low on iron, the body makes MORE transferrin, so capacity rises while stores fall. In inflammation both drop together instead.",
    "axis": [
@@ -6242,16 +6221,40 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    20,
-    45
-   ],
    "am": "useful",
    "note": "Serum iron divided by total capacity — the percentage of your iron transport that is actually loaded.\n\nThe most useful single number in the iron panel, because it reflects iron that is available right now rather than stored or potential.\n\nIt is also what separates true iron deficiency from the low iron of inflammation, where ferritin alone is ambiguous.\n\nInherits serum iron's daily swing, so time of draw affects it.",
    "axis": [
     0,
     60
-   ]
+   ],
+   "cut": {
+    "label": "Transferrin-saturation zones",
+    "source": "Clinical iron-status guidance",
+    "zones": [
+     {
+      "max": 20,
+      "label": "Low iron availability",
+      "level": "out"
+     },
+     {
+      "min": 20,
+      "max": 45,
+      "label": "Within the usual interval",
+      "level": "ok"
+     },
+     {
+      "min": 45,
+      "max": 50,
+      "label": "High-normal; confirm fasting iron context",
+      "level": "watch"
+     },
+     {
+      "min": 50,
+      "label": "Elevated; confirm before work-up",
+      "level": "out"
+     }
+    ]
+   }
   },
   {
    "id": "mg",
@@ -6273,15 +6276,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    1.7,
-    2.4
-   ],
-   "opt": [
-    2,
-    2.4
-   ],
-   "oc": "weak",
    "note": "A mineral needed by hundreds of enzymes, including every reaction that uses ATP. Central to muscle relaxation, nerve conduction and heart rhythm.\n\nThe measurement problem is severe: under 1% of the body's magnesium is in blood, and that fraction is defended tightly by pulling from bone and muscle.\n\nSo serum magnesium can look perfectly normal while tissue stores are depleted. That limitation is why the erythrocyte assay was ordered instead — it looks inside cells, where the magnesium actually is.",
    "axis": [
     1.4,
@@ -6299,10 +6293,6 @@ window.BLOODWORK =
      "l": "UI/L",
      "m": 1
     }
-   ],
-   "clin": [
-    30,
-    380
    ],
    "am": "useful",
    "note": "An enzyme that leaks out of muscle fibres whenever they are damaged. At extreme levels it signals rhabdomyolysis, where muscle breakdown overwhelms the kidneys.\n\nBut ordinary resistance training damages fibres by design — that is how muscle adapts — and CK stays elevated for several days afterwards.\n\nSo in anyone training regularly, a high CK reflects the training. The reference range assumes a sedentary person and is close to meaningless otherwise.",
@@ -6323,15 +6313,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    135,
-    146
-   ],
-   "opt": [
-    137,
-    143
-   ],
-   "oc": "weak",
    "note": "The main electrolyte outside cells, and the thing that determines how much water your body holds and how hydrated each cell is.\n\nThe body defends it fiercely — kidneys, thirst and hormones all work to keep it within a couple of percent.\n\nWhich is exactly why it is worth watching. Because it barely moves, a shift of even 3 or 4 units is a real signal about kidney, adrenal or water balance rather than noise.",
    "axis": [
     130,
@@ -6350,15 +6331,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    3.5,
-    5.3
-   ],
-   "opt": [
-    4,
-    5
-   ],
-   "oc": "weak",
    "note": "An electrolyte kept mostly inside cells, with only a small amount in blood — but that small amount governs heart rhythm, which makes it one of the few genuinely urgent lab values.\n\nThe common artefact: potassium leaks out of red cells if the sample sits too long or is shaken in transit. That reads as high potassium in someone entirely fine.\n\nA high result with no symptoms is usually the tube, not the patient — which is why it gets repeated.",
    "axis": [
     3,
@@ -6376,10 +6348,6 @@ window.BLOODWORK =
      "l": "mmol/L",
      "m": 1
     }
-   ],
-   "clin": [
-    98,
-    107
    ],
    "note": "The main negative ion outside cells, and the counterweight that keeps blood electrically neutral as sodium comes and goes.\n\nIt tracks sodium almost perfectly, which is why on its own it adds very little.\n\nIts value is in the gap between the two. Chloride that moves independently of sodium points at an acid–base problem rather than a water one — it climbs when bicarbonate is being lost, and falls with prolonged vomiting or with diuretics.",
    "axis": [
@@ -6403,15 +6371,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    22,
-    29
-   ],
-   "opt": [
-    24,
-    28
-   ],
-   "oc": "weak",
    "am": "useful",
    "note": "The blood's main buffer, and the number that reports your acid-base balance. The kidneys make and retain it; the lungs adjust CO₂ to match.\n\nLow means acid is accumulating or bicarbonate is being lost. High means the reverse — usually vomiting or diuretics.\n\nThe version that matters here is the slow one. A diet heavy in animal protein and dairy generates a daily acid load, and the body buffers part of it out of bone and muscle. That shows up as a bicarbonate sitting at the low end of normal, not as anything dramatic.\n\nIt is also fragile: CO₂ escapes from a tube left open, so a delayed sample reads falsely low. Repeat before believing one low value.",
    "axis": [
@@ -6435,10 +6394,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    2,
-    4.4
-   ],
    "am": "critical",
    "note": "The active thyroid hormone — the one that actually drives metabolic rate in tissue. Most of it is converted from T4 locally rather than secreted by the thyroid.\n\nUseful when TSH and T4 look fine but symptoms do not.\n\nImportant caveat: T3 falls during illness, fasting and sustained calorie restriction. That is a deliberate energy-saving adaptation, not thyroid disease, and it is routinely mistaken for one.",
    "axis": [
@@ -6457,10 +6412,6 @@ window.BLOODWORK =
      "l": "UI/mL",
      "m": 1
     }
-   ],
-   "clin": [
-    0,
-    115
    ],
    "am": "critical",
    "note": "Antibodies against thyroglobulin, the scaffold protein the thyroid builds its hormones on. A second marker of autoimmune thyroid disease.\n\nChecked alongside anti-TPO because a minority of people are positive for one and not the other, so testing both catches more.\n\nSame limitation: the presence is what matters, the magnitude is not comparable between labs.",
@@ -6485,10 +6436,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    160,
-    449
-   ],
    "am": "useful",
    "note": "An adrenal steroid, and the most abundant hormone in the bloodstream. It acts as a raw material the body converts into other androgens and oestrogens.\n\nUseful as a stable read on adrenal output, because unlike cortisol it does not swing hour to hour — one draw represents you well.\n\nIt declines steadily from the twenties onward, so it is judged against age rather than a single fixed range.",
    "axis": [
@@ -6512,12 +6459,8 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    82,
-    241
-   ],
    "am": "critical",
-   "note": "The messenger through which growth hormone actually works. GH itself is released in short pulses and is nearly impossible to measure meaningfully; it tells the liver to make IGF-1, which circulates steadily.\n\nSo IGF-1 is the practical read on GH status.\n\nDeliberately has no optimal target here. Mortality against IGF-1 is U-shaped, and the LOW side is the stronger signal — so the common longevity claim that lower is better runs against the population data.",
+   "note": "The messenger through which growth hormone actually works. GH itself is released in short pulses and is nearly impossible to measure meaningfully; it tells the liver to make IGF-1, which circulates steadily.\n\nSo IGF-1 is the practical read on GH status.\n\nDeliberately has no evidence target here. Mortality against IGF-1 is U-shaped, and the LOW side is the stronger signal — so the common longevity claim that lower is better runs against the population data.",
    "axis": [
     60,
     280
@@ -6538,10 +6481,6 @@ window.BLOODWORK =
      "l": "g/dL",
      "m": 1
     }
-   ],
-   "clin": [
-    6.4,
-    8.3
    ],
    "note": "All the protein in blood added together — mostly albumin, plus the globulins that include antibodies.\n\nToo coarse to interpret alone, because the two components can move in opposite directions and leave the total looking unchanged. A falling albumin masked by rising globulins reads as perfectly normal here.\n\nUseful mainly as a first pass before splitting it into its parts.",
    "axis": [
@@ -6565,10 +6504,6 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    200,
-    360
-   ],
    "note": "The protein that ferries iron through the bloodstream, made by the liver. Iron is toxic loose in the blood, so essentially none travels unbound.\n\nThe direct measurement behind total binding capacity.\n\nA low transferrin has several unrelated causes — inflammation, liver disease, or poor nutrition — so it is read with the rest of the iron panel rather than alone.",
    "axis": [
     150,
@@ -6591,15 +6526,27 @@ window.BLOODWORK =
      "m": 1
     }
    ],
-   "clin": [
-    0,
-    150
-   ],
    "note": "Protein leaking into urine, expressed relative to urine creatinine so that a dilute sample and a concentrated one give comparable answers.\n\nOne of the earliest signs of glomerular damage — often detectable years before filtration rate starts to fall. That makes it more of a leading indicator than eGFR.\n\nA single positive is not a diagnosis: exercise, fever and simply standing for a long time all cause transient, harmless proteinuria.",
    "axis": [
     0,
     600
-   ]
+   ],
+   "cut": {
+    "label": "Urine protein category",
+    "source": "KDIGO kidney-damage categories",
+    "zones": [
+     {
+      "max": 150,
+      "label": "Below the proteinuria threshold",
+      "level": "ok"
+     },
+     {
+      "min": 150,
+      "label": "Proteinuria range; confirm with an appropriate repeat",
+      "level": "out"
+     }
+    ]
+   }
   },
   {
    "id": "ucrea",
@@ -6616,10 +6563,6 @@ window.BLOODWORK =
      "l": "mg/L",
      "m": 1
     }
-   ],
-   "clin": [
-    400,
-    2780
    ],
    "note": "How concentrated your urine is, in effect.\n\nNot interpreted on its own. Its purpose is to normalise other urine measurements — a low value just means dilute urine, which would otherwise make everything measured in that sample look low too. This is why urine results are reported as ratios rather than raw concentrations.",
    "axis": [
@@ -7178,7 +7121,7 @@ window.BLOODWORK =
       ]
      },
      "crea": {
-      "r": 12.0,
+      "r": 12,
       "u": "mg/L",
       "a": "Roche Cobas / Spectrophotométrie (BD)",
       "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
@@ -7302,7 +7245,7 @@ window.BLOODWORK =
       ]
      },
      "vitd": {
-      "r": 80.0,
+      "r": 80,
       "u": "nmol/L",
       "a": "Roche Cobas / Electrochimiluminescence (BD)",
       "an": "D2 and D3 together as total 25-OH-D. Biotin-sensitive."
@@ -7497,7 +7440,7 @@ window.BLOODWORK =
       ]
      },
      "crea": {
-      "r": 12.0,
+      "r": 12,
       "u": "mg/L",
       "a": "Roche Cobas / Spectrophotométrie (CL)",
       "an": "Printed only as \"spectrophotométrie\": Jaffé and enzymatic both fit, and Jaffé reads higher.",
@@ -7727,7 +7670,7 @@ window.BLOODWORK =
       "cx": "Second hour 5 mm."
      },
      "fib": {
-      "r": 2.0,
+      "r": 2,
       "u": "g/L",
       "a": "Chronométrie (BD)",
       "lr": [
@@ -7787,7 +7730,7 @@ window.BLOODWORK =
       ]
      },
      "vitd": {
-      "r": 73.0,
+      "r": 73,
       "u": "nmol/L",
       "a": "Roche Cobas / Electrochimiluminescence (BD)",
       "lr": [
@@ -7809,7 +7752,7 @@ window.BLOODWORK =
       "u": "T/L",
       "lr": [
        4.28,
-       6.0
+       6
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7826,8 +7769,8 @@ window.BLOODWORK =
       "r": 44.8,
       "u": "%",
       "lr": [
-       39.0,
-       49.0
+       39,
+       49
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7844,8 +7787,8 @@ window.BLOODWORK =
       "r": 31.3,
       "u": "pg",
       "lr": [
-       26.0,
-       34.0
+       26,
+       34
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7853,7 +7796,7 @@ window.BLOODWORK =
       "r": 36.2,
       "u": "g/dL",
       "lr": [
-       31.0,
+       31,
        36.5
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
@@ -7862,8 +7805,8 @@ window.BLOODWORK =
       "r": 11.7,
       "u": "%",
       "lr": [
-       0.0,
-       15.0
+       0,
+       15
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7871,8 +7814,8 @@ window.BLOODWORK =
       "r": 4.48,
       "u": "G/L",
       "lr": [
-       4.0,
-       11.0
+       4,
+       11
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7907,7 +7850,7 @@ window.BLOODWORK =
       "r": 1.55,
       "u": "G/L",
       "lr": [
-       1.0,
+       1,
        4.8
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
@@ -7917,7 +7860,7 @@ window.BLOODWORK =
       "u": "G/L",
       "lr": [
        0.18,
-       1.0
+       1
       ],
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex"
      },
@@ -7955,7 +7898,7 @@ window.BLOODWORK =
       "u": "g/L",
       "lr": [
        1.2,
-       2.0
+       2
       ],
       "a": "Cholesterol oxydase Beckman"
      },
@@ -8086,7 +8029,7 @@ window.BLOODWORK =
       ]
      },
      "mch": {
-      "r": 31.0,
+      "r": 31,
       "u": "pg",
       "a": "Impédance, photométrie, fluorocytométrie XN Sysmex",
       "lr": [
@@ -8275,7 +8218,7 @@ window.BLOODWORK =
       ]
      },
      "k": {
-      "r": 4.0,
+      "r": 4,
       "u": "mmol/L",
       "a": "Potentiométrie indirecte Cobas Roche",
       "lr": [
@@ -8424,7 +8367,7 @@ window.BLOODWORK =
       "ak": "ECLIA Roche"
      },
      "vitd": {
-      "r": 70.0,
+      "r": 70,
       "u": "nmol/L",
       "a": "CLIA LIAISON XL Diasorin",
       "an": "Diasorin CLIA — a different platform from the Roche ECLIA used through 2024."
@@ -8451,7 +8394,7 @@ window.BLOODWORK =
       "ak": "ECLIA Roche"
      },
      "atpo": {
-      "r": 8.0,
+      "r": 8,
       "u": "UI/mL",
       "lt": true,
       "a": "ECLIA Cobas Roche",
