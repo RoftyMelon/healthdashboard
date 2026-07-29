@@ -2026,10 +2026,10 @@ function det(row,id,cols,n,tri){
     .map(e=>JSON.stringify(e.lr.map(x=>x===null?null:+toUS(m,x,e.u).toFixed(6))))).size>1;
   const chg=(aDiff||lDiff)
     ?`<div class="achg">${aDiff&&lDiff
-        ?'Assay AND reference range both differ between draws &mdash; not one continuous series'
+        ?'Assay AND printed lab reference both differ between draws &mdash; not one continuous series'
       :aDiff
         ?'Assay differs between draws &mdash; these numbers are not on one scale'
-        :'Reference range differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
+        :'Printed lab reference differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
   // moves it, plus the one cross-draw finding no single point can carry.
   const anote=(m.note||chg)?`<div class="dassay">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';

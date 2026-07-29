@@ -93,6 +93,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     `lr` is evidence of changed cut-offs or method; a matching interval alone does not prove the
     assay stayed the same. It is provenance: the viewer shows it inside that datapoint’s
     hover/tap bubble and in cross-draw change warnings, never as a marker-wide judgement band.
+    Bubble endpoints render from the stored numbers without the dashboard’s display rounding,
+    because turning a printed `28.98` into `29` weakens the assay fingerprint.
   - `marker.reference` is a rigorously sourced healthy-population interval that can legitimately
     apply across draws. It needs numeric bounds, a label, `evidence: strong | moderate | weak`,
     source, applicable population, assay requirement and a `YYYY-MM-DD` review date. Only total
