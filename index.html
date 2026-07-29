@@ -303,9 +303,10 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    overflow:hidden. fitChart() only ever writes widths, so nothing depends on the 200. */
 .chart{display:flex;min-height:200px;padding:22px 0 18px;opacity:0;transition:opacity .2s ease}
 .dwrap.open .chart{opacity:1}
-/* Every other .cy child (.cyl, .cyu, .ckey) is absolutely positioned, so turning this into a
-   column flex disturbs none of them — it exists purely to drop the one flow child, the assay
-   note, to the BOTTOM of the otherwise empty left pane. */
+/* Every other .cy child (.cyl, .cyu) is absolutely positioned, so turning this into a column
+   flex disturbs none of them — it exists purely to drop the one flow child, the marker note,
+   to the BOTTOM of the otherwise empty left pane. The claim key now lives after .cplot, in
+   .cpad, so the note owns this pane without competing with a second block of prose. */
 .cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-end}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
 .cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--bg);padding:0 5px;
@@ -315,7 +316,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cyl.g span{color:var(--info);font-weight:600}
 .cyl.z span{color:var(--watch)}
 .cyu{position:absolute;right:14px;top:-7px;font-size:13px;font-weight:500;color:var(--t4)}
-.ckey{position:absolute;right:58px;top:0;width:min(270px,46%);display:grid;gap:6px;
+.ckey{position:sticky;right:var(--gut,20px);top:0;width:auto;margin:0 14px 0 18px;display:grid;gap:6px;
   white-space:normal;text-align:left}
 .ckr{display:grid;grid-template-columns:8px 1fr;gap:8px;align-items:start;
   font-size:11.5px;line-height:1.3;color:var(--t3)}
@@ -376,7 +377,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cd.dtl::before{content:"";position:absolute;inset:-6px;border-radius:50%}
 .cd.dtl:hover,.cd.dtl.act{box-shadow:0 0 0 3px var(--t3)}
 .cd.lt.dtl:hover,.cd.lt.dtl.act{box-shadow:inset 0 0 0 2px currentColor,0 0 0 3px var(--t3)}
-.cpad{flex:none}
+.cpad{flex:none;position:relative;white-space:normal;text-align:left}
 /* Assay footnote under an expanded row: which METHOD produced each point. Sticky-left like
    tr.grp .ghd, so it holds the gutter while the table pans horizontally. Its opacity rides
    the SAME rule as .chart — two independent easings would not agree on an expansion. The
@@ -388,9 +389,9 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
 .dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
-  /* The claim key owns the right side. The marker note takes at most the left 45%, so the
-     two claim types cannot overlap even when the frozen marker pane narrows on phone scroll. */
-  max-width:min(220px,36%);min-width:0;
+  /* Claim prose moved after the plot, so the marker description can use nearly the whole
+     pre-graph pane. The 74px reserve keeps it clear of the y-axis labels at the right edge. */
+  max-width:min(520px,calc(100% - 74px));min-width:0;
   margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
@@ -1138,6 +1139,10 @@ a.sbuy:hover{color:var(--info)}
   .chip{padding:7px 9px;font-size:13.5px}
   .bar{gap:4px}
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
+  /* Desktop can spend the full pre-graph pane on the marker description. On a phone that
+     pane is wider than the viewport, so cap the prose to the visible measure instead of
+     making each sentence disappear sideways before the user reaches the graph. */
+  .dassay{max-width:calc(100vw - 2 * var(--gut,10px) - 16px)}
 }
 /* (A max-width:580px block used to shrink .cgnote to 8px. That was written when this card was a
    day-indexed dot-matrix, where the footnotes sat under a wide panning grid and had to stay out of
@@ -2061,7 +2066,6 @@ function det(row,id,cols,n,tri){
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
-        <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
         <div class="cyu">${uLab(m)}</div>${ylab}${anote}</div>
       <div class="cplot">
         ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
@@ -2070,7 +2074,9 @@ function det(row,id,cols,n,tri){
         ${bnds}
         ${dots}
       </div>
-      <div class="cpad" style="width:${padW}px"></div>
+      <div class="cpad" style="width:${padW}px">
+        <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
+      </div>
     </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
