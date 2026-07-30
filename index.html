@@ -2831,20 +2831,24 @@ window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{
 // Raw touch events with preventDefault: iOS ignores overscroll-behavior on a
 // no-overflow scroller and cancels pointer events once its pan latches, so the
 // gesture must be claimed BEFORE the native latch (~10px) via an early axis lock.
-{const sw=document.querySelector('.swap'),tc=document.getElementById('toc');
- if(sw&&tc&&sw.addEventListener){let _tx=null,_ty=null,_axis=null;
+{const sw=document.querySelector('.swap'),bar=document.getElementById('bar');
+ if(sw&&bar&&sw.addEventListener){let _tx=null,_ty=null,_axis=null;
   sw.addEventListener('touchstart',e=>{
     // the tab strip scrolls natively — its gestures are not ours to redirect
     if(e.target.closest&&e.target.closest('.ptabs')){_tx=null;return;}
     _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_axis=null;},{passive:true});
+  // A drag STARTING on the pills/search must scroll the whole row. #bar is the scroller —
+  // #toc was, until the row was unified, and this handler still pushed its scrollLeft at the
+  // dead #toc (flex:none, no overflow) while preventDefault killed #bar's native pan, so the
+  // pills ate the gesture and moved nothing. Forward to #bar, and gate on #bar overflowing.
   sw.addEventListener('touchmove',e=>{
     if(_tx==null)return;
     const x=e.touches[0].clientX,y=e.touches[0].clientY;
     if(_axis==null&&(Math.abs(x-_tx)>4||Math.abs(y-_ty)>4))
       _axis=Math.abs(x-_tx)>Math.abs(y-_ty)?'x':'y';
-    if(_axis==='x'&&sw.scrollWidth<=sw.clientWidth+1&&e.cancelable){
+    if(_axis==='x'&&bar.scrollWidth>bar.clientWidth+1&&e.cancelable){
       e.preventDefault();
-      tc.scrollLeft+=_tx-x;
+      bar.scrollLeft+=_tx-x;
     }
     _tx=x;_ty=y;
   },{passive:false});
