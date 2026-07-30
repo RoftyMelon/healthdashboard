@@ -2832,11 +2832,13 @@ window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{
 // no-overflow scroller and cancels pointer events once its pan latches, so the
 // gesture must be claimed BEFORE the native latch (~10px) via an early axis lock.
 {const sw=document.querySelector('.swap'),bar=document.getElementById('bar');
- if(sw&&bar&&sw.addEventListener){let _tx=null,_ty=null,_axis=null;
+ if(sw&&bar&&sw.addEventListener){let _tx=null,_ty=null,_axis=null,_vx=0,_raf=0;
+  const _stop=()=>{if(_raf){cancelAnimationFrame(_raf);_raf=0;}};
   sw.addEventListener('touchstart',e=>{
+    _stop();   // grabbing the row mid-fling stops it, exactly like native momentum
     // the tab strip scrolls natively — its gestures are not ours to redirect
     if(e.target.closest&&e.target.closest('.ptabs')){_tx=null;return;}
-    _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_axis=null;},{passive:true});
+    _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_axis=null;_vx=0;},{passive:true});
   // A drag STARTING on the pills/search must scroll the whole row. #bar is the scroller —
   // #toc was, until the row was unified, and this handler still pushed its scrollLeft at the
   // dead #toc (flex:none, no overflow) while preventDefault killed #bar's native pan, so the
@@ -2848,11 +2850,18 @@ window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{
       _axis=Math.abs(x-_tx)>Math.abs(y-_ty)?'x':'y';
     if(_axis==='x'&&bar.scrollWidth>bar.clientWidth+1&&e.cancelable){
       e.preventDefault();
-      bar.scrollLeft+=_tx-x;
+      _vx=_tx-x;bar.scrollLeft+=_vx;   // _vx is the last frame's delta — the release velocity
     }
     _tx=x;_ty=y;
   },{passive:false});
-  const _end=()=>{_tx=null;_axis=null;};
+  // preventDefault suppresses the native fling, so a manual drag stopped dead on release while
+  // a native #toc drag glided. Replay the last frame's velocity with a decay so both coast.
+  const _fling=()=>{
+    _vx*=.95;
+    if(Math.abs(_vx)<.5){_raf=0;return;}
+    bar.scrollLeft+=_vx;_raf=requestAnimationFrame(_fling);};
+  const _end=()=>{const go=_axis==='x'&&Math.abs(_vx)>1.5;_tx=null;_axis=null;
+    if(go){_stop();_raf=requestAnimationFrame(_fling);}};
   sw.addEventListener('touchend',_end,{passive:true});
   sw.addEventListener('touchcancel',_end,{passive:true});}}
 TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
