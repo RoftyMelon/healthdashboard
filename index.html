@@ -2072,9 +2072,15 @@ function det(row,id,cols,n,tri){
      Just the 74px y-axis reserve, no other subtraction: .cy gives up 71px as the marker column
      narrows (532 -> 461 here) and 74 > 71, so a block sized to the RESTING pane minus the
      reserve still fits at the narrowest without ever overflowing the plot. An earlier version
-     also subtracted the marker column's own 86px of travel, which was unnecessary and left 160px
-     of dead space to the right of the text at rest. */
-  const _daW=Math.max(0,Math.min(520,preW-74));
+     The travel subtraction is NOT optional, though it looks like dead space at rest. The y-axis
+     unit and tick labels live at .cy's RIGHT edge, so the 74px reserve has to survive the pane
+     shrinking — and it does not: sized to the resting pane, the gap collapses from 74px to 3px as
+     the marker column narrows and the prose runs straight through "10⁶/µL". Subtracting the
+     travel up front keeps the reserve intact at the narrowest, at the cost of ~160px unused
+     beside the text at rest. That cost is structural: this block shares a shrinking pane with the
+     axis labels, so it cannot both fill the pane at rest and clear them when narrowed. */
+  const _nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
+  const _daW=Math.max(0,Math.min(520,preW-(_nm-78)-74));
   const anote=(m.note||chg)?`<div class="dassay" style="width:${_daW}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
