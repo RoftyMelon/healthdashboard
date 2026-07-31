@@ -3198,6 +3198,72 @@ window.BLOODWORK =
       }
      },
      {
+      "n": "Dark chocolate",
+      "amt": "~10g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Cocoa 85%, Madagascar origin"
+        ]
+       ],
+       "Macronutrients — per ~10g": [
+        [
+         "Energy",
+         "60kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Magnesium",
+         "23mg",
+         "6%"
+        ],
+        [
+         "Iron",
+         "1.1mg",
+         "8%"
+        ],
+        [
+         "Copper",
+         "0.2mg",
+         "18%"
+        ],
+        [
+         "Manganese",
+         "0.2mg",
+         "10%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Coffee, Half Caffeinated",
       "amt": "230 + 100mL",
       "info": {
@@ -3806,72 +3872,6 @@ window.BLOODWORK =
          "Magnesium",
          "28mg",
          "7%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Dark chocolate",
-      "amt": "~10g",
-      "info": {
-       "Ingredients": [
-        [
-         "",
-         "Cocoa 85%, Madagascar origin"
-        ]
-       ],
-       "Macronutrients — per ~10g": [
-        [
-         "Energy",
-         "60kcal",
-         "3%"
-        ],
-        [
-         "Fat",
-         "5g",
-         "7%"
-        ],
-        [
-         "– saturates",
-         "3g",
-         "14%"
-        ],
-        [
-         "Carbs",
-         "2g",
-         "1%"
-        ],
-        [
-         "Fibre",
-         "1g"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Magnesium",
-         "23mg",
-         "6%"
-        ],
-        [
-         "Iron",
-         "1.1mg",
-         "8%"
-        ],
-        [
-         "Copper",
-         "0.2mg",
-         "18%"
-        ],
-        [
-         "Manganese",
-         "0.2mg",
-         "10%"
         ]
        ],
        "Changes": [
