@@ -1950,7 +1950,6 @@ function trend(m){
 }
 
 // re-measure the open chart's panes against the CURRENT column positions
-let _daMin=Infinity;   // smallest .dassay width seen since the last geometry change
 function fitChart(){
   const d=document.querySelector('tr.det'); if(!d)return;
   const cy=d.querySelector('.cy'),cp=d.querySelector('.cpad');
@@ -1962,30 +1961,13 @@ function fitChart(){
   const cyw=h[first].getBoundingClientRect().left-tb.left;
   cy.style.width=cyw+'px';
   cp.style.width=(tb.right-h[last].getBoundingClientRect().right)+'px';
-  // The description must NOT follow that width. .cy shrinks as you swipe sideways — setNmW
-  // narrows the frozen marker column 164->78 and calls us — so a max-width of `100% - 74`
-  // against .cy reflowed the paragraph on every frame of the gesture: the block visibly
-  // re-wrapped and changed height while the thumb was still moving. Size it to the NARROWEST
-  // .cy instead (subtract whatever travel is still left in --nmw) and it is scroll-invariant,
-  // which also means it can never overflow into the plot at full narrow.
-  // The description must NOT track that width. Sizing it as max-width:calc(100% - 74px) against
-  // .cy re-wrapped the paragraph on every frame of a sideways swipe, because setNmW eases the
-  // frozen marker column 164->78 and calls us on the way.
-  // Modelling the shrink does not work: --nmw gives up 86px but .cy only gives up ~71, so
-  // subtracting the travel over-corrects at rest and under-corrects at the end — measured
-  // 372 / 372 / 382 / 387 across one gesture. Track the MINIMUM candidate instead. It is
-  // monotonic, so the block settles on its first frame and never grows, which also means it can
-  // never overflow into the plot. _daMin resets when the geometry genuinely changes: a resize,
-  // or a different row opening. Literals not the NM_* consts — those are declared ~850 lines
-  // below in this same scope and reading them here would hit the temporal dead zone.
-  const da=d.querySelector('.dassay');
-  if(da){const nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
-    _daMin=Math.min(_daMin,cyw-(nm-78)-74);
-    da.style.width=Math.max(0,Math.min(520,_daMin))+'px';}
+  // .dassay is deliberately NOT touched here. Its width is fixed once in det() and must stay
+  // fixed: .cy shrinks on every frame of a sideways swipe (setNmW narrows the frozen marker
+  // column and calls us on the way), so anything recomputed from it re-wraps the paragraph
+  // mid-gesture. The reserve in det() is larger than the travel, so it fits at the narrowest.
 }
 
 function det(row,id,cols,n,tri){
-  _daMin=Infinity;   // a different row is a different pane: re-converge rather than inherit
   const cur=document.querySelector('tr.det');
   if(cur&&openRow===row){                                // toggle shut THIS row
     const w=cur.querySelector('.dwrap');openRow=null;
@@ -2079,14 +2061,16 @@ function det(row,id,cols,n,tri){
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
-  /* The description's width is settled HERE, at build time, not left to CSS. Without this it
-     paints at the stylesheet's calc(100% - 74px) against a full-width .cy, then the first
-     sideways scroll runs fitChart and drops it — the paragraph visibly re-wrapped once, mid
-     gesture, which is the resize you can see happening. Same narrow-state formula fitChart
-     uses, seeded into _daMin so the two cannot disagree. */
-  const _nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
-  _daMin=Math.max(0,Math.min(520,preW-(_nm-78)-74));
-  const anote=(m.note||chg)?`<div class="dassay" style="width:${_daMin}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
+  /* The description's width is settled HERE, once, and nothing touches it again — not the
+     stylesheet, not fitChart. Left to CSS it painted at calc(100% - 74px) against a full-width
+     .cy and then dropped on the first sideways scroll, re-wrapping mid-gesture.
+     Just the 74px y-axis reserve, no other subtraction: .cy gives up 71px as the marker column
+     narrows (532 -> 461 here) and 74 > 71, so a block sized to the RESTING pane minus the
+     reserve still fits at the narrowest without ever overflowing the plot. An earlier version
+     also subtracted the marker column's own 86px of travel, which was unnecessary and left 160px
+     of dead space to the right of the text at rest. */
+  const _daW=Math.max(0,Math.min(520,preW-74));
+  const anote=(m.note||chg)?`<div class="dassay" style="width:${_daW}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
@@ -2869,7 +2853,7 @@ window.addEventListener('scroll',()=>{
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
-window.addEventListener('resize',()=>{_daMin=Infinity;setTop();setGut();fitChart();movePtu();},{passive:true});
+window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{passive:true});
 // a horizontal pan on the pills band with nothing to scroll drives the TOC below.
 // Raw touch events with preventDefault: iOS ignores overscroll-behavior on a
 // no-overflow scroller and cancels pointer events once its pan latches, so the
