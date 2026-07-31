@@ -273,8 +273,19 @@ more than that. GitHub Pages does NOT redirect a renamed repo, so the old path i
 
 ```bash
 python3 tools/check-css.py && node tools/check-js.js   # BOTH must pass
-git add -A && git commit -m "..." && git push
+git add index.html bloodwork.js && git commit -m "..." && git push   # name the files you changed
 ```
+
+**Stage the files you changed, never `git add -A`.** More than one Claude session edits this
+repo at a time, in the SAME working tree, split by dashboard section — so `-A` sweeps the other
+session's half-written edit into your commit and ships it unvalidated. Your validators passed on
+a tree that held someone else's unfinished work; they said nothing about it, and they were right
+to, because it was never yours to check.
+
+The crossing runs the other way too: **a validator failure may not be yours.** Both validators
+read the whole file from disk, so the other session mid-edit fails YOUR run. Re-read the file and
+confirm the reported line is code you touched before you "fix" it — reverting someone else's
+in-progress work looks exactly like fixing a bug, and passes.
 
 **Never push if a validator fails.** The whole point of the harness is that it gates the commit.
 **Check its EXIT CODE, not its output.** `node tools/check-js.js | grep -E "passed|❌" && git push`
