@@ -1951,8 +1951,21 @@ function fitChart(){
   const n=chron().length,first=5+(filter==='flag'?1:0),last=first+n-1;
   if(!h[first]||!h[last])return;
   const tb=t.getBoundingClientRect();
-  cy.style.width=(h[first].getBoundingClientRect().left-tb.left)+'px';
+  const cyw=h[first].getBoundingClientRect().left-tb.left;
+  cy.style.width=cyw+'px';
   cp.style.width=(tb.right-h[last].getBoundingClientRect().right)+'px';
+  // The description must NOT follow that width. .cy shrinks as you swipe sideways — setNmW
+  // narrows the frozen marker column 164->78 and calls us — so a max-width of `100% - 74`
+  // against .cy reflowed the paragraph on every frame of the gesture: the block visibly
+  // re-wrapped and changed height while the thumb was still moving. Size it to the NARROWEST
+  // .cy instead (subtract whatever travel is still left in --nmw) and it is scroll-invariant,
+  // which also means it can never overflow into the plot at full narrow.
+  // Literals, not the NM_* consts: those are declared 850 lines below in the same module scope,
+  // so reading them here would hit the temporal dead zone on the first render. Keep the three
+  // numbers in step with setNmW if that easing is ever retuned.
+  const da=d.querySelector('.dassay');
+  if(da){const nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
+    da.style.width=Math.max(0,Math.min(520,cyw-(nm-78)-74))+'px';}
 }
 
 function det(row,id,cols,n,tri){
