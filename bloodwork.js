@@ -990,6 +990,50 @@ window.BLOODWORK =
     ],
     "url": "https://www.amazon.fr/dp/B0GS9RWTLF",
     "dec": null
+   },
+   {
+    "id": "greentea",
+    "name": "Green tea",
+    "ev": "moderate",
+    "judge": "ApoB and LDL — but the effect is 5-10 mg/dL, too small to read against any other change made in the same window",
+    "dose": "2-3 cups",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Catechins, chiefly EGCG: they cut micellar cholesterol solubilisation in the gut and improve endothelial function. The caffeine and L-theanine are mildly ergogenic."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "2-3 cups daily, away from meals. Matcha carries 2-3x the catechins per gram, because the whole leaf is consumed rather than infused."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Meta-analysed at -0.19 mmol/L LDL and -2 mmHg systolic. The visceral-fat trials used 583mg catechins in overweight or diabetic cohorts and do not transfer to a lean one; brewed tea does not reach that dose anyway."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Tannins cut non-heme iron absorption by up to 70% when drunk with food, and most iron here is non-heme. Concentrated EGCG extracts carry a hepatotoxicity signal above 800mg/day; brewed tea does not."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Nothing physiological gates it. Enter it at the start of a measurement window rather than mid-window, so it does not confound a change already being tested."
+      ]
+     ]
+    },
+    "cat": "maylater",
+    "status": "planned",
+    "when": null,
+    "url": null,
+    "dec": null
    }
   ]
  },
