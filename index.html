@@ -388,23 +388,19 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    a 382px box, where .dclip's overflow:hidden silently ate the tail — no error, just a
    sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
-/* NOT sticky. It carried position:sticky;left:var(--gut) for a long time and never once stuck:
-   a sticky box cannot leave its containing block, and this one's is .cy — the pre-graph pane,
-   which scrolls away with the table like everything else in the row. So the offset did nothing
-   except make the block LOOK broken on a sideways swipe, sliding to left:-502 and being cut off
-   by the screen edge, which reads as the text resizing. It scrolls away with its row now, which
-   is what it was always doing. The width is still pinned in fitChart — that part was a real bug
-   and is fixed there, not here. */
-.dassay{align-self:flex-start;
-  /* Claim prose moved after the plot, so the marker description can use nearly the whole
-     pre-graph pane. The 74px reserve keeps it clear of the y-axis labels at the right edge. */
-  /* NO max-width. det() writes an explicit px width and that is the only thing allowed to size
-     this block. A percentage cap here resolves against .cy, which shrinks on every frame of a
-     sideways swipe, so it silently overrode the inline width and re-wrapped the paragraph anyway
-     — 458 -> 433 -> 397 -> 387 across one gesture, with the inline 458 never winning after the
-     first frame. The 520px ceiling lives in det() now. */
-  min-width:0;
-  margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+/* Sized from the VIEWPORT, and deliberately not from any pane. This block used to live inside
+   .cy, the pre-graph pane, which fitChart shrinks on every frame of a sideways swipe as the frozen
+   marker column narrows. Everything that went wrong with it came from that one fact: the paragraph
+   re-wrapped mid-gesture, it travelled at a different rate from the plot beside it, and sizing it
+   to fill the pane at rest made it run through the y-axis labels once the pane closed up. It is a
+   sibling of .chart now — one full-width block under the whole graph — so it shares nothing with
+   the plot's geometry and needs no reserve beside it.
+   100vw, not 100%: the containing block is the TABLE, which is far wider than the screen, so a
+   percentage would run the prose off the side. Viewport units do not change on horizontal scroll,
+   so the width is constant by construction with no JS involved. 700px caps the measure at a
+   readable ~75 characters. NOT sticky either — it scrolls away with its row, as asked. */
+.dassay{width:min(700px,calc(100vw - 2 * var(--gut,20px)));min-width:0;
+  margin:2px 0 0;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
@@ -2066,22 +2062,7 @@ function det(row,id,cols,n,tri){
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
-  /* The description's width is settled HERE, once, and nothing touches it again — not the
-     stylesheet, not fitChart. Left to CSS it painted at calc(100% - 74px) against a full-width
-     .cy and then dropped on the first sideways scroll, re-wrapping mid-gesture.
-     Just the 74px y-axis reserve, no other subtraction: .cy gives up 71px as the marker column
-     narrows (532 -> 461 here) and 74 > 71, so a block sized to the RESTING pane minus the
-     reserve still fits at the narrowest without ever overflowing the plot. An earlier version
-     The travel subtraction is NOT optional, though it looks like dead space at rest. The y-axis
-     unit and tick labels live at .cy's RIGHT edge, so the 74px reserve has to survive the pane
-     shrinking — and it does not: sized to the resting pane, the gap collapses from 74px to 3px as
-     the marker column narrows and the prose runs straight through "10⁶/µL". Subtracting the
-     travel up front keeps the reserve intact at the narrowest, at the cost of ~160px unused
-     beside the text at rest. That cost is structural: this block shares a shrinking pane with the
-     axis labels, so it cannot both fill the pane at rest and clear them when narrowed. */
-  const _nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
-  const _daW=Math.max(0,Math.min(520,preW-(_nm-78)-74));
-  const anote=(m.note||chg)?`<div class="dassay" style="width:${_daW}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
+  const anote=(m.note||chg)?`<div class="dassay">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
@@ -2104,7 +2085,7 @@ function det(row,id,cols,n,tri){
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
-        <div class="cyu">${uLab(m)}</div>${ylab}${anote}</div>
+        <div class="cyu">${uLab(m)}</div>${ylab}</div>
       <div class="cplot">
         ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
         ${grid}
@@ -2115,7 +2096,7 @@ function det(row,id,cols,n,tri){
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
       </div>
-    </div></div></div></td></tr>`;
+    </div>${anote}</div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
