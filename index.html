@@ -301,13 +301,21 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* min-height, not height: the assay note now lives in the left pane, and a marker with many
    tagged draws must GROW the chart rather than be silently swallowed by .dclip's
    overflow:hidden. fitChart() only ever writes widths, so nothing depends on the 200. */
-.chart{display:flex;min-height:200px;padding:22px 0 18px;opacity:0;transition:opacity .2s ease}
+/* --ploth, and align-items:flex-start, exist because .cplot used to be flex:1 in a stretching
+   row: its height came from the TALLEST item, which is the marker description in .cy. Raising
+   that prose from 11.5px to 15px therefore stretched the plot to ~850px and smeared six points
+   over it with the reference band as one grey slab. The plot's height is a property of the
+   plot, not of however much prose the marker happens to carry. */
+.chart{display:flex;align-items:flex-start;--ploth:260px;padding:22px 0 18px;opacity:0;transition:opacity .2s ease}
 .dwrap.open .chart{opacity:1}
 /* Every other .cy child (.cyl, .cyu) is absolutely positioned, so turning this into a column
    flex disturbs none of them — it exists purely to drop the one flow child, the marker note,
    to the BOTTOM of the otherwise empty left pane. The claim key now lives after .cplot, in
    .cpad, so the note owns this pane without competing with a second block of prose. */
-.cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column;justify-content:flex-end}
+.cy{flex:none;color:var(--t3);display:flex;flex-direction:column}
+/* The tick labels are positioned bottom:% and must resolve against the PLOT, not against .cy —
+   .cy is now much taller than the plot because the description sits under this box. */
+.cyax{position:relative;height:var(--ploth);width:100%}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
 .cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--bg);padding:0 5px;
   transform:translateY(-.5px)}
@@ -330,7 +338,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
 .cy::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line)}
-.cplot{flex:1;position:relative}
+.cplot{flex:1;position:relative;height:var(--ploth)}
 .cplot svg{position:absolute;inset:0;width:100%;height:100%;color:var(--t2);overflow:visible}
 .cb{position:absolute;left:0;right:0}
 .cb.cut.ok{background:color-mix(in srgb,var(--ok) 6%,transparent)}
@@ -397,7 +405,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    every frame, drifting out of step with the plot, running through the axis labels when the pane
    closed up — was that shrink, not this element. Not sticky: it scrolls away with its row. */
 .dassay{align-self:flex-start;min-width:0;
-  margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+  margin-top:16px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
@@ -2084,7 +2092,7 @@ function det(row,id,cols,n,tri){
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
-        <div class="cyu">${uLab(m)}</div>${ylab}${anote}</div>
+        <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
       <div class="cplot">
         ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
         ${grid}
