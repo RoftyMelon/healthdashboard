@@ -2603,6 +2603,12 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Mixed into the Huel in the morning, not the night before — anthocyanins degrade fastest at its near-neutral pH"
+        ]
        ]
       }
      },
