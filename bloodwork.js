@@ -2479,60 +2479,6 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Banana",
-      "amt": "1",
-      "info": {
-       "Macronutrients — per 1 (~118g)": [
-        [
-         "Energy",
-         "105kcal",
-         "5%"
-        ],
-        [
-         "Carbs",
-         "27g",
-         "10%"
-        ],
-        [
-         "– sugars",
-         "14g",
-         "16%"
-        ],
-        [
-         "Fibre",
-         "3g"
-        ],
-        [
-         "Protein",
-         "1.3g",
-         "3%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Potassium",
-         "422mg",
-         "21%"
-        ],
-        [
-         "B6",
-         "0.45mg",
-         "32%"
-        ],
-        [
-         "Vit C",
-         "10mg",
-         "12%"
-        ],
-        [
-         "Magnesium",
-         "32mg",
-         "8%"
-        ]
-       ]
-      }
-     },
-     {
       "n": "Berries (frozen)",
       "amt": "75g",
       "info": {
@@ -2608,6 +2554,60 @@ window.BLOODWORK =
         [
          "",
          "Mixed into the Huel in the morning, not the night before — anthocyanins degrade fastest at its near-neutral pH"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Banana",
+      "amt": "1",
+      "info": {
+       "Macronutrients — per 1 (~118g)": [
+        [
+         "Energy",
+         "105kcal",
+         "5%"
+        ],
+        [
+         "Carbs",
+         "27g",
+         "10%"
+        ],
+        [
+         "– sugars",
+         "14g",
+         "16%"
+        ],
+        [
+         "Fibre",
+         "3g"
+        ],
+        [
+         "Protein",
+         "1.3g",
+         "3%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Potassium",
+         "422mg",
+         "21%"
+        ],
+        [
+         "B6",
+         "0.45mg",
+         "32%"
+        ],
+        [
+         "Vit C",
+         "10mg",
+         "12%"
+        ],
+        [
+         "Magnesium",
+         "32mg",
+         "8%"
         ]
        ]
       }
