@@ -145,6 +145,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   banana is a banana. The section earns its place only when it adds a fact the name does not:
   `Ground beef, 5% fat`, `Chicken breast, skinless`, `Fresh trout with skin, cooked`. Do not
   "complete" the missing ones.
+  **The same applies to `Changes`. Seven items carry none — Huel, banana, Poêlée Rustique, both
+  olive oils, the fruit slot and the kiwis — because they are PRE-EXISTING foods that were already
+  being eaten.** `1 Aug 2026 · added` marks what the intervention actually introduced, so adding
+  the entry everywhere would erase the distinction between the new diet and the old one. Confirmed
+  deliberate 2026-07-31. Do not backfill them.
   **The macro header states the WEIGHT BASIS whenever it changes the numbers**: `per 200g raw`,
   `per 150g frozen`, `per ~75g cooked`, `per ~300g frozen`. It is not decoration and it is not
   copyable between foods — beef and chicken are raw-weight figures, rice and trout are cooked,

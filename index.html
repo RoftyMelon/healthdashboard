@@ -388,19 +388,16 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    a 382px box, where .dclip's overflow:hidden silently ate the tail — no error, just a
    sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
-/* Sized from the VIEWPORT, and deliberately not from any pane. This block used to live inside
-   .cy, the pre-graph pane, which fitChart shrinks on every frame of a sideways swipe as the frozen
-   marker column narrows. Everything that went wrong with it came from that one fact: the paragraph
-   re-wrapped mid-gesture, it travelled at a different rate from the plot beside it, and sizing it
-   to fill the pane at rest made it run through the y-axis labels once the pane closed up. It is a
-   sibling of .chart now — one full-width block under the whole graph — so it shares nothing with
-   the plot's geometry and needs no reserve beside it.
-   100vw, not 100%: the containing block is the TABLE, which is far wider than the screen, so a
-   percentage would run the prose off the side. Viewport units do not change on horizontal scroll,
-   so the width is constant by construction with no JS involved. 700px caps the measure at a
-   readable ~75 characters. NOT sticky either — it scrolls away with its row, as asked. */
-.dassay{width:min(700px,calc(100vw - 2 * var(--gut,20px)));min-width:0;
-  margin:2px 0 0;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+/* Fills the pre-graph pane, which is otherwise dead space: the plot has to begin where the first
+   draw column does, so that band exists whether or not anything sits in it. Moving the prose out
+   left a large empty rectangle beside a squeezed plot, which is worse than anything it fixed.
+   width is written inline by det() as preW-74 — the whole pane bar the y-axis label reserve. That
+   is only safe because setNmW now FREEZES the frozen marker column while a detail row is open, so
+   .cy cannot shrink under it mid-swipe. Every symptom this block used to have — re-wrapping on
+   every frame, drifting out of step with the plot, running through the axis labels when the pane
+   closed up — was that shrink, not this element. Not sticky: it scrolls away with its row. */
+.dassay{align-self:flex-start;min-width:0;
+  margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
@@ -1974,7 +1971,9 @@ function det(row,id,cols,n,tri){
     const w=cur.querySelector('.dwrap');openRow=null;
     if(!w){cur.remove();return;}
     w.classList.remove('open');row.classList.remove('op');
-    let done=false;const kill=()=>{if(!done){done=true;cur.remove();}};
+    // setNmW bails while a detail row exists, so the column resumes narrowing only once this
+    // one is actually gone — call it on removal rather than waiting for the next scroll event.
+    let done=false;const kill=()=>{if(!done){done=true;cur.remove();_lastW=-1;setNmW();}};
     w.addEventListener('transitionend',e=>{if(e.target===w&&e.propertyName==='grid-template-rows')kill();});
     setTimeout(kill,420); return;
   }
@@ -2062,7 +2061,7 @@ function det(row,id,cols,n,tri){
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
-  const anote=(m.note||chg)?`<div class="dassay">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
+  const anote=(m.note||chg)?`<div class="dassay" style="width:${preW-74}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
@@ -2085,7 +2084,7 @@ function det(row,id,cols,n,tri){
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
-        <div class="cyu">${uLab(m)}</div>${ylab}</div>
+        <div class="cyu">${uLab(m)}</div>${ylab}${anote}</div>
       <div class="cplot">
         ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
         ${grid}
@@ -2096,7 +2095,7 @@ function det(row,id,cols,n,tri){
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
       </div>
-    </div>${anote}</div></div></td></tr>`;
+    </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
@@ -2818,6 +2817,11 @@ const NM_WIDE=164, NM_NARROW=78, NM_TRAVEL=170;
 let _rafx=0, _lastW=-1;
 function setNmW(){
   _rafx=0;
+  // An OPEN detail row pins the column. Narrowing it changes .cy's width, and .cy is what the
+  // marker description is sized from — so easing it mid-swipe re-wrapped the prose on every
+  // frame and slid the pane out of step with the plot beside it. The density the narrowing
+  // buys is worth little while an expanded panel is the thing being read.
+  if(document.querySelector('tr.det'))return;
   const t=Math.min(Math.max(window.scrollX,0)/NM_TRAVEL,1);
   const e=t*t*(3-2*t);                                  // smoothstep: eases in and out
   const w=Math.round(NM_WIDE+(NM_NARROW-NM_WIDE)*e);
