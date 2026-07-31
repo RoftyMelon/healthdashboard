@@ -398,7 +398,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dassay{align-self:flex-start;
   /* Claim prose moved after the plot, so the marker description can use nearly the whole
      pre-graph pane. The 74px reserve keeps it clear of the y-axis labels at the right edge. */
-  max-width:min(520px,calc(100% - 74px));min-width:0;
+  /* NO max-width. det() writes an explicit px width and that is the only thing allowed to size
+     this block. A percentage cap here resolves against .cy, which shrinks on every frame of a
+     sideways swipe, so it silently overrode the inline width and re-wrapped the paragraph anyway
+     — 458 -> 433 -> 397 -> 387 across one gesture, with the inline 458 never winning after the
+     first frame. The 520px ceiling lives in det() now. */
+  min-width:0;
   margin-top:-13px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
