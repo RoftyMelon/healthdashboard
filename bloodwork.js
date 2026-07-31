@@ -4090,6 +4090,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 8.62,
+    "max": 10.06,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval, total calcium",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004); corroborated by AACB/RCPA 2.10-2.60 mmol/L (Koerbin & Tate, 2016), which contains it",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2569 serum; NORIP tested for sex and age partitioning and found none, so the adult male interval is this interval.",
+    "method": "TOTAL calcium by routine photometry, recalibrated onto the NORIP project calibrator CAL with trueness validated against NFKK Reference Serum X (1.4% bias goal); laboratories reporting an IONISED calcium as total were excluded, so this does not apply to an ionised result. Caveat: assumes minimal-stasis sampling and a normal albumin — a prolonged tourniquet alone moves total calcium 0.2-0.3 mg/dL.",
+    "reviewed": "2026-07-31"
+   },
    "note": "Total calcium in blood, held in an extremely narrow range by PTH and vitamin D — because both muscle contraction and nerve signalling depend on it.\n\nOnly about half is free and active; the rest travels bound to albumin.\n\nThat is the catch with the total: when albumin is low, the total drops while the active half is untouched. Which is exactly what corrected calcium is for.",
    "axis": [
     8,
@@ -4146,6 +4156,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 2.32,
+    "max": 5.11,
+    "evidence": "moderate",
+    "label": "NORIP healthy-adult male interval, 18-49 y",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004), male 18-49 serum tier",
+    "population": "Healthy Nordic men aged 18-49, n=670 serum. Phosphate is partitioned by BOTH sex and age — women 18+ are 0.85-1.50 and men 50+ are capped at 1.35 mmol/L — so this is the only tier applicable to a 31-year-old man.",
+    "method": "Direct phosphomolybdate UV photometry recalibrated to the NORIP CAL level, 5.4% bias goal; SERUM figures — the Li-heparin plasma tier is 0.71-1.53 mmol/L, so tube type alone moves the ceiling 0.37 mg/dL. Caveat: not a fasting interval (NORIP required fasting only for glucose and triglyceride) while phosphate falls postprandially and has a morning nadir, and the ceiling is contested — AACB/RCPA harmonise at 1.50 mmol/L with no sex partition, so 4.65-5.11 mg/dL reads ok here and high almost everywhere else.",
+    "reviewed": "2026-07-31"
+   },
    "note": "An anion that pairs with calcium in bone, carries every cell's energy as the phosphate groups of ATP, and forms the backbone of DNA.\n\nIt is governed by PTH and vitamin D — the same two hormones that run calcium — but pushed the opposite way: PTH raises calcium while lowering phosphate.\n\nSo it is read next to calcium and PTH, never alone.\n\nTwo things move it independently of any disease: a meal raises it, and falling kidney function raises it early, because excreting the excess is the kidney's job.",
    "axis": [
     1.5,
@@ -4776,6 +4796,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 8.96,
+    "max": 22.69,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval, 18-49 y",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004), carbamide male 18-49 serum tier",
+    "population": "Healthy Nordic men aged 18-49, n=649 serum (plasma n=252); NORIP's male 50+ tier starts higher (3.5 mmol/L) and the female 18-49 floor is lower (2.6), so the pooled intervals most labs print do not apply to a 31-year-old man.",
+    "method": "Urease methods on serum or Li-heparin plasma corrected to the shared NORIP calibrator; one suggestion covers both matrices, so tube type needs no adjustment. Caveat: urea tracks dietary protein load and hydration independently of renal function, so a daily-training high-protein subject can sit legitimately in the top quarter — and the male-specific floor sits above the pooled floors labs print, so a low-protein-day result near 8 mg/dL would render low. Read the urea:creatinine ratio, not the absolute number.",
+    "reviewed": "2026-07-31"
+   },
    "note": "A nitrogen waste product from breaking down protein, cleared by the kidneys.\n\nRarely useful alone — its value is in the ratio to creatinine, which separates two situations that look similar: dehydration raises urea disproportionately, while true kidney impairment raises both together.\n\nA high-protein diet also raises it independently of kidney function.",
    "axis": [
     0,
@@ -5341,6 +5371,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 3.87,
+    "max": 8.07,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult male interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004), urate male 18+",
+    "population": "Healthy Nordic men aged 18 and over, n=1232 serum (plasma n=503); no age partition in men. Male-specific by necessity — the female 18-49 interval is 155-350 umol/L, roughly a third lower.",
+    "method": "Uricase/peroxidase colorimetry corrected to the shared NORIP calibrator; one suggestion covers serum and Li-heparin plasma, and both draws are Roche Cobas enzymatic colorimetry, the same family. Caveat: this is a population distribution, not a safe zone — the male 97.5th percentile (8.07 mg/dL) sits well above the ~6.8 mg/dL monosodium-urate saturation point, so a value inside this band can still be crystallising. Gout and cardiometabolic thresholds belong in a cut.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The waste product left when the body breaks down purines, cleared by the kidneys.\n\nTwo reasons to watch it: above a certain concentration it crystallises in joints, which is gout, and it rises alongside insulin resistance and high fructose intake, making it a rough metabolic marker.\n\nAlso rises temporarily with fasting, dehydration and intense exercise — all three raise it without anything changing underneath.",
    "axis": [
     2,
@@ -5424,6 +5464,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 12,
+    "max": 68,
+    "evidence": "moderate",
+    "label": "IFCC C-RIDL non-Nordic common male interval",
+    "source": "IFCC C-RIDL / C-RSE multicentre study (Ceriotti et al., Clin Chem Lab Med 2010;48:1593-1601)",
+    "population": "Healthy adult MEN aged 18-85, 354 of 765 subjects, in Milan, Beijing and Bursa; the Nordic group was excluded from the GGT calculation because its limits ran far higher. Male-specific — the female interval is 6-40 U/L.",
+    "method": "Commercial systems traceable to the IFCC 37 C reference measurement procedure, so the assay does not move the number. Caveat: the population does — the male 97.5th percentile was 114 U/L in Scandinavia against 69 Milan, 66 Bursa, 64 Beijing, tracking alcohol and adiposity, and the authors conclude a common worldwide GGT interval is unlikely. NORIP's Nordic male 18-39 tier is 10-80 and AACB/RCPA harmonise at 5-50 U/L; this subject is 31 and lean, at the low-exposure end.",
+    "reviewed": "2026-07-31"
+   },
    "note": "An enzyme concentrated in the small bile ducts inside the liver.\n\nTwo jobs. First, it disambiguates a high alkaline phosphatase — ALP comes from both liver and bone, and a raised GGT alongside it says the source is liver. Second, it is the most sensitive routine marker of alcohol intake.\n\nCaveat: many ordinary medications induce it, raising the number with no liver injury at all.",
    "axis": [
     0,
@@ -5445,6 +5495,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 40,
+    "max": 120,
+    "evidence": "moderate",
+    "label": "North Denmark uniform adult interval (IFCC 37 C)",
+    "source": "North Denmark method-stratified reference-interval study (Rasmussen et al., Scand J Clin Lab Invest 2026;86:150-157), which supersedes NORIP's 35-105 U/L for this analyte",
+    "population": "Healthy Danish adults of both sexes aged 18 and over: 120 blood donors plus 183,267 general-practice samples. ALP is not sex-partitioned in adults — NORIP's own partitioning test was uncertain for both sex and age, and AACB/RCPA and UK Pathology Harmony likewise publish a single adult interval.",
+    "method": "Enzymatic ALP at 37 C traceable to the IFCC reference procedure, verified across Alinity, Atellica and Cobas; the Cobas-specific healthy limits were 42-118 U/L and the region implemented a uniform 40-120. Caveat: the ceiling is the least settled figure on the panel — 105 (NORIP, now retired), 110 (AACB/RCPA), 129 (Roche male insert), 130 (UK Pathology Harmony); the floor is stable at 30-42 everywhere.",
+    "reviewed": "2026-07-31"
+   },
    "note": "An enzyme that comes from two unrelated places — bile ducts and bone — which is what makes it ambiguous on its own.\n\nRaised ALP means the liver or the skeleton, and you cannot tell which from this number. GGT settles it: raised alongside points at liver, normal alongside points at bone.\n\nPhysiologically high during adolescent growth and while a fracture heals, neither of which is a problem.",
    "axis": [
     20,
@@ -5470,6 +5530,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 0.29,
+    "max": 1.46,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult interval, total bilirubin",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2738 serum; no sex or age partition — men run slightly higher than women but not enough to partition.",
+    "method": "Diazo total bilirubin with calibration corrected to a DGKC reference-method target; between-platform bias is ~1%. Caveat: a healthy population retains the 5-8% with Gilbert's syndrome, which is why NORIP's 25 umol/L ceiling exceeds the AACB (20) and UK Pathology Harmony (21) clinical limits — just above the line is usually benign unconjugated hyperbilirubinaemia, not liver injury. Rises with prolonged fasting, falls with light exposure; a low value has no adverse meaning.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The yellow pigment left over when old red blood cells are broken down. The liver picks it up, processes it, and excretes it in bile.\n\nSo it rises either when the liver cannot process it or when red cells are being destroyed faster than usual.\n\nThe common finding by far is neither: a mildly raised unprocessed bilirubin is usually Gilbert's syndrome, a harmless inherited quirk in about 1 in 20 people. It becomes more obvious with fasting, illness or stress.",
    "axis": [
     0,
@@ -5739,6 +5809,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 1.93,
+    "max": 9.7,
+    "evidence": "moderate",
+    "label": "NORIP adult male interval, age-30 tier",
+    "source": "NORIP/NOBIDA male hormone sub-study (Bjerner et al., Scand J Clin Lab Invest 2009;69:873-879)",
+    "population": "599 healthy Nordic men aged 18 and over, with age-continuous limits reported at 30, 50 and 70 y; the 30-year tier applies at 31. Screened as generally healthy, not gonadal-axis tested, so a few compensatorily raised LH values sit inside the cohort.",
+    "method": "Immunoassay calibrated to the WHO 2nd International Reference Preparation for pituitary LH (80/552); the analyser is not stated and LH results still differ between monoclonal systems despite shared calibration — hence moderate. The larger problem is pre-analytical: LH pulses at 60-120 min with a 20-30 min half-life, so one measurement can swing nearly two-fold within an hour. Limits drift up with age (2.01-10.4 at 50 y), so this tier expires — re-check well before then.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The pituitary's signal telling the testes to produce testosterone.\n\nIts value is in localising a problem rather than in the number itself:\n\n• Low testosterone with HIGH LH — the testes are being asked and not delivering\n• Low testosterone with LOW LH — the signal itself is missing, so the problem is upstream in the pituitary\n\nReleased in pulses through the day, so a single draw catches an arbitrary point in that rhythm.",
    "axis": [
     0,
@@ -5757,6 +5837,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 1.5,
+    "max": 10.3,
+    "evidence": "moderate",
+    "label": "NORIP adult male interval, age-30 tier",
+    "source": "NORIP/NOBIDA male hormone sub-study (Bjerner et al., Scand J Clin Lab Invest 2009;69:873-879)",
+    "population": "The same 599 healthy Nordic men aged 18 and over, age-continuous limits at 30, 50 and 70 y; the 30-year tier applies at 31. Screened as subjectively healthy rather than fertility-verified, so early testicular insufficiency is not excluded and the upper end is slightly widened.",
+    "method": "Immunoassay calibrated to the WHO 2nd International Reference Preparation for FSH (78/549); the analyser is not stated and FSH immunoassays retain real between-method differences, hence moderate. Pre-analytically FSH is the safer gonadotropin to read from one draw — a 3-4 h half-life against LH's 20-30 min, so pulsatile scatter is small. Limits drift up with age (2.04-12.4 at 50 y), so this tier expires.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The pituitary's other gonadal signal, driving sperm production in the testes.\n\nRead alongside LH for the same localising logic, and it is the more sensitive of the two to testicular damage — FSH often rises first when the testes are struggling.\n\nAlso pulsatile, though its swings are gentler than LH's.",
    "axis": [
     0,
@@ -6332,6 +6422,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 50,
+    "max": 190,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult serum interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
+    "population": "Healthy Nordic adults aged 18 and over, BOTH SEXES COMBINED, n=2309 serum — NORIP ran the partitioning test and reported iron unpartitioned, so no male-specific limit exists in the source and none is invented.",
+    "method": "Spectrophotometric serum iron corrected to the shared NORIP calibrator; both draws are Roche colorimetry, same family. Three caveats: NORIP standardised neither fasting nor time of day, so this interval already absorbs the ~30% diurnal swing and cannot be narrowed into a morning band; within-subject variation is large (CVI ~27%), so a single value is weak evidence alone — read it with transferrin, TIBC and saturation; and results below 6 umol/L were excluded before calculation, so the floor describes the healthy distribution and is not a deficiency cut-off.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The iron travelling in your blood bound to transferrin at the exact moment of the draw.\n\nAlmost meaningless on its own, for two reasons: it swings by roughly a third across a single day on its own rhythm, and it jumps after any iron-containing meal or supplement.\n\nIt exists to be combined — with transferrin it produces saturation, which is the number that actually says whether iron is available.",
    "axis": [
     20,
@@ -6431,6 +6531,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 1.73,
+    "max": 2.28,
+    "evidence": "moderate",
+    "label": "NORIP healthy-adult serum interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2123 serum (plasma n=943); no sex or age partition for magnesium, so this is the applicable interval for a 31-year-old man.",
+    "method": "Colorimetric magnesium recalibrated to the NORIP CAL level, 2.6% bias goal; NORIP issued ONE suggestion spanning serum and Li-heparin plasma. Caveat: 2.28 mg/dL is the lowest ceiling in the literature (NORIP 0.94 vs Aussie Normals 1.04, Pathology Harmony 1.00, AACB/RCPA 1.10 mmol/L), so a supplementing subject can render high on a physiologically normal result; the floors agree closely and are the clinically actionable end. Serum magnesium reflects under 1% of body magnesium.",
+    "reviewed": "2026-07-31"
+   },
    "note": "A mineral needed by hundreds of enzymes, including every reaction that uses ATP. Central to muscle relaxation, nerve conduction and heart rhythm.\n\nThe measurement problem is severe: under 1% of the body's magnesium is in blood, and that fraction is defended tightly by pulling from bone and muscle.\n\nSo serum magnesium can look perfectly normal while tissue stores are depleted. That limitation is why the erythrocyte assay was ordered instead — it looks inside cells, where the magnesium actually is.",
    "axis": [
     1.4,
@@ -6468,6 +6578,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 137,
+    "max": 145,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult serum interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2642 serum; NORIP tested and found no sex or age partition for sodium, so this is the applicable interval for a 31-year-old man.",
+    "method": "Direct or indirect ion-selective potentiometry recalibrated to the NORIP CAL level, 0.5% bias goal — the tightest of the 25 properties; caveat: these are SERUM figures, NORIP's Li-heparin plasma suggestion is 137-144, and specimen type is not recorded in this file.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The main electrolyte outside cells, and the thing that determines how much water your body holds and how hydrated each cell is.\n\nThe body defends it fiercely — kidneys, thirst and hormones all work to keep it within a couple of percent.\n\nWhich is exactly why it is worth watching. Because it barely moves, a shift of even 3 or 4 units is a real signal about kidney, adrenal or water balance rather than noise.",
    "axis": [
     130,
@@ -6486,6 +6606,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 3.6,
+    "max": 4.6,
+    "evidence": "moderate",
+    "label": "NORIP healthy-adult serum interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004), Table I serum column and the potassium discussion, p. 281",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2608 serum (plasma n=1172); no sex or age partition for potassium, so this is the applicable interval for a 31-year-old man.",
+    "method": "Ion-selective potentiometry on promptly separated SERUM — NORIP's Li-heparin plasma interval is 3.5-4.4, and specimen type is not recorded here; caveat: pre-analytics dominate the ceiling (cell leak before centrifugation, haemolysis), which is why published upper limits span 4.4-5.3, so a routine draw can exceed this without pathology.",
+    "reviewed": "2026-07-31"
+   },
    "note": "An electrolyte kept mostly inside cells, with only a small amount in blood — but that small amount governs heart rhythm, which makes it one of the few genuinely urgent lab values.\n\nThe common artefact: potassium leaks out of red cells if the sample sits too long or is shaken in transit. That reads as high potassium in someone entirely fine.\n\nA high result with no symptoms is usually the tube, not the patient — which is why it gets repeated.",
    "axis": [
     3,
@@ -6504,6 +6634,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 95,
+    "max": 108,
+    "evidence": "moderate",
+    "label": "UK Pathology Harmony harmonised adult interval",
+    "source": "UK Pathology Harmony agreed adult clinical-biochemistry intervals (Berg & Lane, Ann Clin Biochem 2011;48:195-197, Table 1)",
+    "population": "UK adults of both sexes, the programme's adult tier (16 years and over); the underlying age composition is not itemised, and chloride is not a sex-specific analyte, so no male partition exists or is needed.",
+    "method": "ISE potentiometry on serum or Li-heparin plasma; caveat: NORIP does not cover chloride at all, so unlike sodium and potassium this is a harmonisation consensus rather than a percentile study, and the one large direct healthy-population study (Aussie Normals, Abbott ARCHITECT) found 101-110 — 6 mmol/L higher at the floor. Read the lower limit as tolerant.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The main negative ion outside cells, and the counterweight that keeps blood electrically neutral as sodium comes and goes.\n\nIt tracks sodium almost perfectly, which is why on its own it adds very little.\n\nIts value is in the gap between the two. Chloride that moves independently of sodium points at an acid–base problem rather than a water one — it climbs when bicarbonate is being lost, and falls with prolonged vomiting or with diuretics.",
    "axis": [
     90,
@@ -6637,6 +6777,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 6.2,
+    "max": 7.8,
+    "evidence": "strong",
+    "label": "NORIP healthy-adult serum interval",
+    "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
+    "population": "Healthy Nordic adults of both sexes aged 18 and over, n=1985 serum; total protein is not sex-partitioned in any harmonisation programme.",
+    "method": "Biuret colorimetry corrected to a DGKC reference-method target, 2.1% bias goal — platform is not the dominant error term, sample type is: NORIP's Li-heparin plasma interval is 2 g/L higher (6.4-7.9 g/dL) because fibrinogen is retained. Caveat: total protein is a pre-analytical measurement before it is a liver measurement — upright posture, a prolonged tourniquet or dehydration raise it up to ~10%. It is also 2 g/L tighter at each end than the AACB/RCPA and UK Pathology Harmony consensus of 60-80 g/L.",
+    "reviewed": "2026-07-31"
+   },
    "note": "All the protein in blood added together — mostly albumin, plus the globulins that include antibodies.\n\nToo coarse to interpret alone, because the two components can move in opposite directions and leave the total looking unchanged. A falling albumin masked by rising globulins reads as perfectly normal here.\n\nUseful mainly as a first pass before splitting it into its parts.",
    "axis": [
     5.5,
@@ -6659,6 +6809,16 @@ window.BLOODWORK =
      "m": 1
     }
    ],
+   "reference": {
+    "min": 200,
+    "max": 360,
+    "evidence": "moderate",
+    "label": "CRM 470 consensus adult transferrin interval",
+    "source": "IFCC/BCR/CAP CRM 470 consensus for 14 serum proteins (Dati et al., Eur J Clin Chem Clin Biochem 1996;34:517-520)",
+    "population": "Adults of both sexes; the consensus did not sex-partition transferrin, so no male limit exists, and it does not itemise the age composition of the pooled European reference studies — that missing detail is the main reason for the moderate grade.",
+    "method": "Any immunoturbidimetric or immunonephelometric transferrin whose calibrator is traceable to CRM 470 / ERM-DA470k — method-independent by construction, but only inside that traceability chain; the stored draw is Roche Tina-quant, which qualifies. Caveat: transferrin is a NEGATIVE acute-phase protein, falling with inflammation, liver disease and undernutrition and rising with iron deficiency and oestrogen, so a normal value alongside a raised CRP may be a masked low.",
+    "reviewed": "2026-07-31"
+   },
    "note": "The protein that ferries iron through the bloodstream, made by the liver. Iron is toxic loose in the blood, so essentially none travels unbound.\n\nThe direct measurement behind total binding capacity.\n\nA low transferrin has several unrelated causes — inflammation, liver disease, or poor nutrition — so it is read with the rest of the iron panel rather than alone.",
    "axis": [
     150,

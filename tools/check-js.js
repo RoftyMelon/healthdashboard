@@ -37,8 +37,11 @@ setTimeout(()=>{
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
+  // 31 = total testosterone + 14 blood count + the 16 assay-independent chemistry markers added
+  // 2026-07-31. The count is hardcoded ON PURPOSE: a reference is a marker-wide claim about a whole
+  // population, so one appearing without being argued for is the failure this catches.
   ok('only rigorously sourced evidence references render marker-wide',
-    DATA.MARK.filter(m=>m.reference).length===15&&DATA.MARK.find(m=>m.id==='tt').reference,
+    DATA.MARK.filter(m=>m.reference).length===31&&DATA.MARK.find(m=>m.id==='tt').reference,
     DATA.MARK.filter(m=>m.reference).length+' references');
   ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
     .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
