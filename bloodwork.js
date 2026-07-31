@@ -996,7 +996,7 @@ window.BLOODWORK =
     "name": "Green tea",
     "ev": "moderate",
     "judge": "ApoB and LDL — but the effect is 5-10 mg/dL, too small to read against any other change made in the same window",
-    "dose": "2-3 cups",
+    "dose": "2-3g matcha",
     "info": {
      "What it does": [
       [
@@ -1007,7 +1007,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "2-3 cups daily, away from meals. Matcha carries 2-3x the catechins per gram, because the whole leaf is consumed rather than infused."
+       "2-3g of matcha daily, away from meals, on top of the 1.8g already in Huel — together about 580mg catechins, the dose the trials used. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Matcha delivers 2-3x a brewed cup because the whole leaf is consumed rather than infused."
       ]
      ],
      "Evidence": [
@@ -1019,7 +1019,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Tannins cut non-heme iron absorption by up to 70% when drunk with food, and most iron here is non-heme. Concentrated EGCG extracts carry a hepatotoxicity signal above 800mg/day; brewed tea does not."
+       "Tannins cut non-heme iron absorption by up to 70% when taken with food, and most iron here is non-heme. Concentrated EGCG extracts carry a hepatotoxicity signal above 800mg/day and rank high in drug-induced liver injury registries; leaf does not. The matcha route lands near 300mg EGCG, well inside that margin — which is the reason not to switch to an extract for a cleaner number."
       ]
      ],
      "Parked": [
