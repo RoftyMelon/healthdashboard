@@ -283,6 +283,12 @@ window.BLOODWORK =
        "",
        "Calcium alongside 25-OH-D at every retest. The risk of a high dose is hypercalcaemia, not the D itself."
       ]
+     ],
+     "Changes": [
+      [
+       "1 Aug 2026",
+       "started, in response to the July 28 ng/mL"
+      ]
      ]
     },
     "cat": "essentials",
