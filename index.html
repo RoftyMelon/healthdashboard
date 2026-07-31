@@ -338,7 +338,11 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
 .cy::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line)}
-.cplot{flex:1;position:relative;height:var(--ploth)}
+/* overflow:hidden is what lets the axis STOP at the data. A claim band wider than the window
+   now runs off the top or bottom edge and reads as 'continues beyond this view', instead of
+   dragging the scale open until the series is a flat line. .ptip is position:fixed, so
+   datapoint bubbles are not clipped by this. */
+.cplot{flex:1;position:relative;height:var(--ploth);overflow:hidden}
 .cplot svg{position:absolute;inset:0;width:100%;height:100%;color:var(--t2);overflow:visible}
 .cb{position:absolute;left:0;right:0}
 .cb.cut.ok{background:color-mix(in srgb,var(--ok) 6%,transparent)}
@@ -2002,6 +2006,24 @@ function det(row,id,cols,n,tri){
   const scale=vals.length+rb.length>1?[...vals,...rb]:[...m.axis,...vals,...rb];
   let lo=Math.min(...scale),hi=Math.max(...scale);
   const pd=((hi-lo)||1)*.12; lo-=pd; hi+=pd;
+  /* MINIMUM AMPLITUDE. Fitting every claim bound makes the axis as wide as the widest claim, and
+     a marker whose reference spans 145-348 while the person lives in 148-172 renders six years of
+     record as a flat line — measured at 0.4% of plot height for serum iron, 2% for ALP, 4% for
+     triglycerides. Worse, the compression is accidental: a marker with NO claim scales to its
+     values alone and always fills 80.6%, so unclaimed noise looks dramatic while claimed change
+     looks like nothing. Whether a chart exaggerates or flattens depended on whether someone had
+     written a reference for it.
+     So the series gets a floor of 30% of the height. If honouring a claim would push it below
+     that, the window tightens around the data instead and the band clips at the plot edge — you
+     still read position against the band's visible edge, and you can still read the trend. */
+  const MINSHARE=.30;
+  if(vals.length>1){
+    const vlo=Math.min(...vals),vhi=Math.max(...vals),vspan=vhi-vlo;
+    if(vspan>0&&vspan<(hi-lo)*MINSHARE){
+      const want=vspan/MINSHARE,mid=(vlo+vhi)/2;
+      lo=mid-want/2; hi=mid+want/2;
+    }
+  }
   const P=v=>((v-lo)/(hi-lo))*100;                      // % up from the bottom
   const X=i=>((i+.5)/n)*100;                            // dead centre of each draw column
 
@@ -2009,6 +2031,7 @@ function det(row,id,cols,n,tri){
   // later label yields when it would collide with a more foundational earlier one.
   let L=[];
   const addL=(r,c)=>(r||[]).filter(Number.isFinite).forEach(v=>{
+    if(P(v)<0||P(v)>100)return;            // off the window: the band clips, so the label would too
     if(L.every(([w])=>Math.abs(P(v)-P(w))>7))L.push([v,c]);});
   addL(rr,'r');addL(tr,'t');addL(gr,'g');addL(cb,'z');
   const ylab=L.map(([v,c])=>`<div class="cyl ${c}" style="bottom:${P(v).toFixed(2)}%"><span>${fmt(dV(m,v))}</span></div>`).join('');
