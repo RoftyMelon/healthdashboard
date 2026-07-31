@@ -5501,7 +5501,7 @@ window.BLOODWORK =
     "evidence": "moderate",
     "label": "North Denmark uniform adult interval (IFCC 37 C)",
     "source": "North Denmark method-stratified reference-interval study (Philipsen, Andersen & Andersen, Scand J Clin Lab Invest 2026;86(2):150-157), which postdates NORIP's 35-105 U/L for this analyte on a far larger and method-stratified sample",
-    "population": "Healthy Danish adults of both sexes aged 18 and over: 120 blood donors plus 183,267 general-practice samples. ALP is not sex-partitioned in adults — NORIP's own partitioning test was uncertain for both sex and age, and AACB/RCPA and UK Pathology Harmony likewise publish a single adult interval.",
+    "population": "Danish adults of both sexes, the source stating no age floor: 120 health-screened blood donors plus 183,267 routine general-practice samples read indirectly — only the donor tier is a healthy cohort. ALP is not sex-partitioned in adults — NORIP's own partitioning test was uncertain for both sex and age, and AACB/RCPA and UK Pathology Harmony likewise publish a single adult interval.",
     "method": "Enzymatic ALP at 37 C traceable to the IFCC reference procedure, verified across Alinity, Atellica and Cobas; the Cobas-specific healthy limits were 42-118 U/L and the region implemented a uniform 40-120. Caveat: the ceiling is the least settled figure on the panel — 105 (NORIP, now retired), 110 (AACB/RCPA), 129 (Roche male insert), 130 (UK Pathology Harmony); the floor is stable at 30-42 everywhere.",
     "reviewed": "2026-07-31"
    },
@@ -5537,7 +5537,7 @@ window.BLOODWORK =
     "label": "NORIP healthy-adult interval, total bilirubin",
     "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004)",
     "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2738 serum; no sex or age partition — men run slightly higher than women but not enough to partition.",
-    "method": "Diazo total bilirubin with calibration corrected to a DGKC reference-method target; between-platform bias is ~1%. Caveat: a healthy population retains the 5-8% with Gilbert's syndrome, which is why NORIP's 25 umol/L ceiling exceeds the AACB (20) and UK Pathology Harmony (21) clinical limits — just above the line is usually benign unconjugated hyperbilirubinaemia, not liver injury. Rises with prolonged fasting, falls with light exposure; a low value has no adverse meaning.",
+    "method": "Diazo total bilirubin with calibration corrected to a DGKC reference-method target; NORIP's 15.1% figure for it is a desirable-bias goal, not a measured between-platform bias, and the paper found the limits near-identical with or without calibrator correction. Caveat: a healthy population retains the 5-8% with Gilbert's syndrome, which is why NORIP's 25 umol/L ceiling exceeds the AACB (20) and UK Pathology Harmony (21) clinical limits — just above the line is usually benign unconjugated hyperbilirubinaemia, not liver injury. Rises with prolonged fasting, falls with light exposure; a low value has no adverse meaning.",
     "reviewed": "2026-07-31"
    },
    "note": "The yellow pigment left over when old red blood cells are broken down. The liver picks it up, processes it, and excretes it in bile.\n\nSo it rises either when the liver cannot process it or when red cells are being destroyed faster than usual.\n\nThe common finding by far is neither: a mildly raised unprocessed bilirubin is usually Gilbert's syndrome, a harmless inherited quirk in about 1 in 20 people. It becomes more obvious with fasting, illness or stress.",
@@ -6613,7 +6613,7 @@ window.BLOODWORK =
     "label": "NORIP healthy-adult serum interval",
     "source": "NORIP multicentre Nordic adult study (Rustad et al., 2004), Table I serum column and the potassium discussion, p. 281",
     "population": "Healthy Nordic adults of both sexes aged 18 and over, n=2608 serum (plasma n=1172); no sex or age partition for potassium, so this is the applicable interval for a 31-year-old man.",
-    "method": "Ion-selective potentiometry on promptly separated SERUM — NORIP's Li-heparin plasma interval is 3.5-4.4, and specimen type is not recorded here; caveat: pre-analytics dominate the ceiling (cell leak before centrifugation, haemolysis), which is why published upper limits span 4.4-5.3, so a routine draw can exceed this without pathology.",
+    "method": "Ion-selective potentiometry on promptly separated SERUM — NORIP's Li-heparin plasma interval is 3.5-4.4, and specimen type is not recorded here; caveat: pre-analytics dominate the ceiling (cell leak before centrifugation, haemolysis), which is why published upper limits span 4.4-5.1, so a routine draw can exceed this without pathology.",
     "reviewed": "2026-07-31"
    },
    "note": "An electrolyte kept mostly inside cells, with only a small amount in blood — but that small amount governs heart rhythm, which makes it one of the few genuinely urgent lab values.\n\nThe common artefact: potassium leaks out of red cells if the sample sits too long or is shaken in transit. That reads as high potassium in someone entirely fine.\n\nA high result with no symptoms is usually the tube, not the patient — which is why it gets repeated.",
@@ -6640,7 +6640,7 @@ window.BLOODWORK =
     "evidence": "moderate",
     "label": "UK Pathology Harmony harmonised adult interval",
     "source": "UK Pathology Harmony agreed adult clinical-biochemistry intervals (Berg & Lane, Ann Clin Biochem 2011;48:195-197, Table 1)",
-    "population": "UK adults of both sexes, the programme's adult tier (16 years and over); the underlying age composition is not itemised, and chloride is not a sex-specific analyte, so no male partition exists or is needed.",
+    "population": "UK adults of both sexes, the programme's undifferentiated adult tier — the source states no age boundary and the underlying age composition is not itemised, and chloride is not a sex-specific analyte, so no male partition exists or is needed.",
     "method": "ISE potentiometry on serum or Li-heparin plasma; caveat: NORIP does not cover chloride at all, so unlike sodium and potassium this is a harmonisation consensus rather than a percentile study, and the one large direct healthy-population study (Aussie Normals, Abbott ARCHITECT) found 101-110 — 6 mmol/L higher at the floor. Read the lower limit as tolerant.",
     "reviewed": "2026-07-31"
    },
@@ -6815,8 +6815,8 @@ window.BLOODWORK =
     "evidence": "moderate",
     "label": "CRM 470 consensus adult transferrin interval",
     "source": "IFCC/BCR/CAP CRM 470 consensus for 14 serum proteins (Dati et al., Eur J Clin Chem Clin Biochem 1996;34:517-520)",
-    "population": "Adults of both sexes; the consensus did not sex-partition transferrin, so no male limit exists, and it does not itemise the age composition of the pooled European reference studies — that missing detail is the main reason for the moderate grade.",
-    "method": "Any immunoturbidimetric or immunonephelometric transferrin whose calibrator is traceable to CRM 470 / ERM-DA470k — method-independent by construction, but only inside that traceability chain; the stored draw is Roche Tina-quant, which qualifies. Caveat: transferrin is a NEGATIVE acute-phase protein, falling with inflammation, liver disease and undernutrition and rising with iron deficiency and oestrogen, so a normal value alongside a raised CRP may be a masked low.",
+    "population": "Adult Caucasian subjects of both sexes — the source's own framing, and a real limit on transferring it; the consensus did not sex-partition transferrin, so no male limit exists, and it does not itemise the age composition of the pooled European reference studies — that missing detail is the main reason for the moderate grade.",
+    "method": "Any immunoturbidimetric or immunonephelometric transferrin whose calibrator is traceable to CRM 470 / ERM-DA470k — method-independent by construction, but only inside that traceability chain; the stored draw is Roche Tina-quant, which qualifies. The 2.0-3.6 g/L interval itself was confirmed only indirectly: the primary table is paywalled, and 200-360 mg/dL comes from assay inserts citing this consensus verbatim. Caveat: transferrin is a NEGATIVE acute-phase protein, falling with inflammation, liver disease and undernutrition and rising with iron deficiency and oestrogen, so a normal value alongside a raised CRP may be a masked low.",
     "reviewed": "2026-07-31"
    },
    "note": "The protein that ferries iron through the bloodstream, made by the liver. Iron is toxic loose in the blood, so essentially none travels unbound.\n\nThe direct measurement behind total binding capacity.\n\nA low transferrin has several unrelated causes — inflammation, liver disease, or poor nutrition — so it is read with the rest of the iron panel rather than alone.",
