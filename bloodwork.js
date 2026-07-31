@@ -2605,58 +2605,52 @@ window.BLOODWORK =
         ]
        ]
       }
-     }
-    ]
-   },
-   {
-    "id": "brunch",
-    "t": "Brunch",
-    "at": "10:00",
-    "items": [
+     },
      {
-      "n": "Coffee half-caffeine + milk",
-      "amt": "230 + 100mL",
+      "n": "Nuts",
+      "amt": "~15g",
       "info": {
-       "Macronutrients — per 330mL": [
+       "Ingredients": [
+        [
+         "",
+         "Walnut 6g, almond 5g, pistachio 4g"
+        ]
+       ],
+       "Macronutrients — per ~15g": [
         [
          "Energy",
-         "~50kcal",
-         "2%"
+         "90kcal",
+         "5%"
         ],
         [
          "Protein",
-         "3.4g",
-         "7%"
+         "3g",
+         "6%"
         ],
         [
          "Fat",
-         "1.7g",
-         "2%"
+         "8g",
+         "11%"
         ],
         [
-         "Carbs (lactose)",
-         "4.8g",
-         "2%"
+         "Fibre",
+         "1.5g"
         ]
        ],
        "Standouts": [
         [
-         "Caffeine",
-         "~80mg"
+         "Omega-3 (ALA)",
+         "0.6g"
         ],
         [
-         "Chlorogenic acids",
-         "~150mg"
+         "Vitamin E",
+         "1.3mg",
+         "11%"
         ],
         [
-         "Calcium",
-         "120mg",
-         "15%"
-        ],
-        [
-         "Potassium",
-         "~260mg",
-         "13%"
+         "Magnesium",
+         "28mg",
+         "7%"
         ]
        ],
        "Changes": [
@@ -2667,7 +2661,79 @@ window.BLOODWORK =
        ]
       }
      },
-     "---",
+     {
+      "n": "Dark chocolate",
+      "amt": "~10g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Cocoa 85%, Madagascar origin"
+        ]
+       ],
+       "Macronutrients — per ~10g": [
+        [
+         "Energy",
+         "60kcal",
+         "3%"
+        ],
+        [
+         "Fat",
+         "5g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "3g",
+         "14%"
+        ],
+        [
+         "Carbs",
+         "2g",
+         "1%"
+        ],
+        [
+         "Fibre",
+         "1g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Magnesium",
+         "23mg",
+         "6%"
+        ],
+        [
+         "Iron",
+         "1.1mg",
+         "8%"
+        ],
+        [
+         "Copper",
+         "0.2mg",
+         "18%"
+        ],
+        [
+         "Manganese",
+         "0.2mg",
+         "10%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "brunch",
+    "t": "Brunch",
+    "at": "10:00",
+    "items": [
      {
       "n": "Mackerel OR Tofu",
       "amt": "80g / 125g",
@@ -3132,116 +3198,49 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Nuts",
-      "amt": "~15g",
+      "n": "Coffee, Half Caffeinated",
+      "amt": "230 + 100mL",
       "info": {
-       "Ingredients": [
-        [
-         "",
-         "Walnut 6g, almond 5g, pistachio 4g"
-        ]
-       ],
-       "Macronutrients — per ~15g": [
+       "Macronutrients — per 330mL": [
         [
          "Energy",
-         "90kcal",
-         "5%"
+         "~50kcal",
+         "2%"
         ],
         [
          "Protein",
-         "3g",
-         "6%"
+         "3.4g",
+         "7%"
         ],
         [
          "Fat",
-         "8g",
-         "11%"
+         "1.7g",
+         "2%"
         ],
         [
-         "Fibre",
-         "1.5g"
+         "Carbs (lactose)",
+         "4.8g",
+         "2%"
         ]
        ],
        "Standouts": [
         [
-         "Omega-3 (ALA)",
-         "0.6g"
+         "Caffeine",
+         "~80mg"
         ],
         [
-         "Vitamin E",
-         "1.3mg",
-         "11%"
+         "Chlorogenic acids",
+         "~150mg"
         ],
         [
-         "Magnesium",
-         "28mg",
-         "7%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Dark chocolate",
-      "amt": "~10g",
-      "info": {
-       "Ingredients": [
-        [
-         "",
-         "Cocoa 85%, Madagascar origin"
-        ]
-       ],
-       "Macronutrients — per ~10g": [
-        [
-         "Energy",
-         "60kcal",
-         "3%"
+         "Calcium",
+         "120mg",
+         "15%"
         ],
         [
-         "Fat",
-         "5g",
-         "7%"
-        ],
-        [
-         "– saturates",
-         "3g",
-         "14%"
-        ],
-        [
-         "Carbs",
-         "2g",
-         "1%"
-        ],
-        [
-         "Fibre",
-         "1g"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Magnesium",
-         "23mg",
-         "6%"
-        ],
-        [
-         "Iron",
-         "1.1mg",
-         "8%"
-        ],
-        [
-         "Copper",
-         "0.2mg",
-         "18%"
-        ],
-        [
-         "Manganese",
-         "0.2mg",
-         "10%"
+         "Potassium",
+         "~260mg",
+         "13%"
         ]
        ],
        "Changes": [
