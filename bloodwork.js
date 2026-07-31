@@ -1923,7 +1923,7 @@ window.BLOODWORK =
     ],
     "why": "Does stable creatine lower methyl demand enough to move homocysteine before adding methyl donors?",
     "decision": "Observe if it falls meaningfully; if it remains high, interpret folate, PLP and B12 before designing a targeted B-complex or TMG trial.",
-    "trigger": "A fall of at least 2µmol/L and below 15 supports observation; a standardized repeat at or above 15 triggers cofactor review.",
+    "trigger": "July was exactly 15µmol/L, so the branches must cover the middle. A fall to below 13µmol/L supports observation; a standardized repeat at or above 15 triggers cofactor review; between the two the move is equivocal — it neither confirms the creatine hypothesis nor closes it, so repeat under the same conditions before changing anything.",
     "method": "Same enzymatic method as July.",
     "prep": "Stable creatine, no B-complex or TMG, fasting morning draw.",
     "timing": "Main draw. Creatine lowering is a testable hypothesis with mixed controlled-trial results, not a guaranteed outcome."
@@ -2211,7 +2211,7 @@ window.BLOODWORK =
     "en": "Selenium",
     "fr": "Sélénium",
     "s": "remove",
-    "why": "July was mid-range and food intake is adequate; no supplement decision depends on it.",
+    "why": "July's 93.5 µg/L is sufficient — above the 80 threshold — but below the weak 100–130 target, so the gap is an opinion-weighted watch signal, not a deficiency. No supplement decision turns on repeating it: food intake is already adequate, and pushing toward the target carries a diabetes signal above roughly 130.",
     "reconsider": "Add after a meaningful diet change or if thyroid findings create a reason."
    },
    {
