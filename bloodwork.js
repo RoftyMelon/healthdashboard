@@ -203,7 +203,7 @@ window.BLOODWORK =
       "dose": "12mg"
      }
     ],
-    "url": null,
+    "url": "https://www.sunday.de/en/astaxanthin-bioastin-capsules-12mg.html",
     "dec": null,
     "judge": "time to redness in consistent sun, and skin photos — read at the next draw, end of 2026"
    },
