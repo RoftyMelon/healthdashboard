@@ -4858,7 +4858,7 @@ window.BLOODWORK =
    ],
    "cut": {
     "label": "ApoB risk threshold",
-    "source": "ESC/EAS prevention guidance",
+    "source": "2018 AHA/ACC multisociety cholesterol guideline, risk-enhancing factors",
     "zones": [
      {
       "max": 130,
