@@ -1013,7 +1013,7 @@ window.BLOODWORK =
      "Evidence": [
       [
        "",
-       "Meta-analyses of randomised trials give -0.19 mmol/L LDL and -2 mmHg systolic. The visceral-fat trials used 583mg catechins in overweight or diabetic cohorts and do not transfer to a lean one; brewed tea does not reach that dose anyway."
+       "Meta-analyses give -0.19 mmol/L LDL and -2 mmHg systolic. The visceral-fat trials used 583mg catechins in overweight or diabetic cohorts and do not transfer to a lean one; brewed tea does not reach that dose anyway."
       ]
      ],
      "Watch": [
