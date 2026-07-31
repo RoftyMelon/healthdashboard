@@ -1943,6 +1943,7 @@ function trend(m){
 }
 
 // re-measure the open chart's panes against the CURRENT column positions
+let _daMin=Infinity;   // smallest .dassay width seen since the last geometry change
 function fitChart(){
   const d=document.querySelector('tr.det'); if(!d)return;
   const cy=d.querySelector('.cy'),cp=d.querySelector('.cpad');
@@ -1960,15 +1961,24 @@ function fitChart(){
   // re-wrapped and changed height while the thumb was still moving. Size it to the NARROWEST
   // .cy instead (subtract whatever travel is still left in --nmw) and it is scroll-invariant,
   // which also means it can never overflow into the plot at full narrow.
-  // Literals, not the NM_* consts: those are declared 850 lines below in the same module scope,
-  // so reading them here would hit the temporal dead zone on the first render. Keep the three
-  // numbers in step with setNmW if that easing is ever retuned.
+  // The description must NOT track that width. Sizing it as max-width:calc(100% - 74px) against
+  // .cy re-wrapped the paragraph on every frame of a sideways swipe, because setNmW eases the
+  // frozen marker column 164->78 and calls us on the way.
+  // Modelling the shrink does not work: --nmw gives up 86px but .cy only gives up ~71, so
+  // subtracting the travel over-corrects at rest and under-corrects at the end — measured
+  // 372 / 372 / 382 / 387 across one gesture. Track the MINIMUM candidate instead. It is
+  // monotonic, so the block settles on its first frame and never grows, which also means it can
+  // never overflow into the plot. _daMin resets when the geometry genuinely changes: a resize,
+  // or a different row opening. Literals not the NM_* consts — those are declared ~850 lines
+  // below in this same scope and reading them here would hit the temporal dead zone.
   const da=d.querySelector('.dassay');
   if(da){const nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
-    da.style.width=Math.max(0,Math.min(520,cyw-(nm-78)-74))+'px';}
+    _daMin=Math.min(_daMin,cyw-(nm-78)-74);
+    da.style.width=Math.max(0,Math.min(520,_daMin))+'px';}
 }
 
 function det(row,id,cols,n,tri){
+  _daMin=Infinity;   // a different row is a different pane: re-converge rather than inherit
   const cur=document.querySelector('tr.det');
   if(cur&&openRow===row){                                // toggle shut THIS row
     const w=cur.querySelector('.dwrap');openRow=null;
@@ -2845,7 +2855,7 @@ window.addEventListener('scroll',()=>{
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
-window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{passive:true});
+window.addEventListener('resize',()=>{_daMin=Infinity;setTop();setGut();fitChart();movePtu();},{passive:true});
 // a horizontal pan on the pills band with nothing to scroll drives the TOC below.
 // Raw touch events with preventDefault: iOS ignores overscroll-behavior on a
 // no-overflow scroller and cancels pointer events once its pan latches, so the
