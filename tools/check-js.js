@@ -37,11 +37,13 @@ setTimeout(()=>{
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
-  // 31 = total testosterone + 14 blood count + the 16 assay-independent chemistry markers added
-  // 2026-07-31. The count is hardcoded ON PURPOSE: a reference is a marker-wide claim about a whole
-  // population, so one appearing without being argued for is the failure this catches.
+  // 44 = total testosterone + 14 blood count + 16 assay-independent chemistry + the 13 survivors of
+  // the 2026-07-31 sourcing pass over 53 candidates. Hardcoded ON PURPOSE: a reference is a
+  // marker-wide claim about a whole population, so one appearing without being argued for is the
+  // failure this catches. 22 of those 53 were rejected at source, 1 by verification and 7 by an
+  // adversarial pass — the low yield IS the result.
   ok('only rigorously sourced evidence references render marker-wide',
-    DATA.MARK.filter(m=>m.reference).length===31&&DATA.MARK.find(m=>m.id==='tt').reference,
+    DATA.MARK.filter(m=>m.reference).length===44&&DATA.MARK.find(m=>m.id==='tt').reference,
     DATA.MARK.filter(m=>m.reference).length+' references');
   ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
     .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
