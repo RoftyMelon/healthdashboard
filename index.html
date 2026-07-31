@@ -312,10 +312,14 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    flex disturbs none of them — it exists purely to drop the one flow child, the marker note,
    to the BOTTOM of the otherwise empty left pane. The claim key now lives after .cplot, in
    .cpad, so the note owns this pane without competing with a second block of prose. */
-.cy{flex:none;color:var(--t3);display:flex;flex-direction:column}
-/* The tick labels are positioned bottom:% and must resolve against the PLOT, not against .cy —
-   .cy is now much taller than the plot because the description sits under this box. */
-.cyax{position:relative;height:var(--ploth);width:100%}
+.cy{flex:none;position:relative;color:var(--t3);display:flex;flex-direction:column}
+/* The tick labels are positioned bottom:% and must resolve against the PLOT, not against .cy,
+   which is as tall as the description. Hence this box, at exactly the plot's height.
+   ABSOLUTE, not in the flow: as a block it occupied 260px of the pane and pushed the prose
+   below it, leaving the empty rectangle the description is supposed to fill. It overlays the
+   top of the pane instead, and the labels sit in the 74px reserve the text already leaves for
+   them. pointer-events:none so it never swallows a text selection. */
+.cyax{position:absolute;top:0;left:0;right:0;height:var(--ploth);pointer-events:none}
 .cyl{position:absolute;right:14px;height:0;display:flex;align-items:center;justify-content:flex-end}
 .cyl span{font-size:13px;font-variant-numeric:tabular-nums;background:var(--bg);padding:0 5px;
   transform:translateY(-.5px)}
@@ -409,7 +413,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    every frame, drifting out of step with the plot, running through the axis labels when the pane
    closed up — was that shrink, not this element. Not sticky: it scrolls away with its row. */
 .dassay{align-self:flex-start;min-width:0;
-  margin-top:16px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
+  margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
