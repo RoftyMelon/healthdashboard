@@ -2073,13 +2073,20 @@ function det(row,id,cols,n,tri){
         :'Printed lab reference differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
   // moves it, plus the one cross-draw finding no single point can carry.
-  const anote=(m.note||chg)?`<div class="dassay">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
   const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
+  /* The description's width is settled HERE, at build time, not left to CSS. Without this it
+     paints at the stylesheet's calc(100% - 74px) against a full-width .cy, then the first
+     sideways scroll runs fitChart and drops it — the paragraph visibly re-wrapped once, mid
+     gesture, which is the resize you can see happening. Same narrow-state formula fitChart
+     uses, seeded into _daMin so the two cannot disagree. */
+  const _nm=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nmw'))||164;
+  _daMin=Math.max(0,Math.min(520,preW-(_nm-78)-74));
+  const anote=(m.note||chg)?`<div class="dassay" style="width:${_daMin}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
