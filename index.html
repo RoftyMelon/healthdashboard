@@ -397,7 +397,13 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper */
 .dassay .achg{color:var(--watch);padding-top:4px;font-weight:560}
-.dassay .mnt{color:var(--t3);font-size:11.5px;line-height:1.55}
+/* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
+   bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
+   the marker description, several paragraphs of it. It belongs in the 15 'caveat notes' tier
+   alongside .cnote and .dnotes li, and it needs no mobile step-down for the same reason they do
+   not. Line-height goes to 1.6 because the paragraphs are long enough for the extra leading to
+   matter more than the density it costs. */
+.dassay .mnt{color:var(--t3);font-size:15px;line-height:1.6}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
    .chart here would leave the footnote permanently at opacity:0 for those users. */
