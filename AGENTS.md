@@ -276,16 +276,30 @@ python3 tools/check-css.py && node tools/check-js.js   # BOTH must pass
 git add index.html bloodwork.js && git commit -m "..." && git push   # name the files you changed
 ```
 
-**Stage the files you changed, never `git add -A`.** More than one Claude session edits this
-repo at a time, in the SAME working tree, split by dashboard section — so `-A` sweeps the other
-session's half-written edit into your commit and ships it unvalidated. Your validators passed on
-a tree that held someone else's unfinished work; they said nothing about it, and they were right
-to, because it was never yours to check.
+### Several sessions edit this repo at once
 
-The crossing runs the other way too: **a validator failure may not be yours.** Both validators
-read the whole file from disk, so the other session mid-edit fails YOUR run. Re-read the file and
-confirm the reported line is code you touched before you "fix" it — reverting someone else's
-in-progress work looks exactly like fixing a bug, and passes.
+Multiple Claude sessions share this ONE working tree, and they may be in the SAME file at the
+same time. Nothing in git or in the harness tells you another one is live. Assume one is.
+
+**Never `git add -A` — and do not trust `git add <file>` either.** `-A` sweeps another session's
+half-written edit into your commit; naming the file does not save you when two sessions are both
+inside `bloodwork.js`. **Read `git diff --staged` before every commit** and confirm every hunk is
+one you wrote. Hunks you do not recognise are work in flight — leave them and say so, rather than
+shipping them under your message. Validators passing proves nothing about them: they checked a
+tree that held that unfinished work too.
+
+**Never `Write` a whole file — targeted edits only.** A full-file write erases every concurrent
+change with no conflict, no marker and no error, and the validators pass the result happily,
+because what survives is internally consistent. It is the one failure here with no evidence left
+behind.
+
+**A validator failure may not be yours.** Both read the file from disk, so another session
+mid-edit fails YOUR run. Confirm the reported line is code you touched before you "fix" it —
+reverting someone else's in-progress work looks exactly like fixing a bug, and passes.
+
+**A rejected push means the tree is about to change under you.** `git pull --rebase`, then
+RE-RUN both validators before pushing. The merged result is a combination neither session has
+ever validated.
 
 **Never push if a validator fails.** The whole point of the harness is that it gates the commit.
 **Check its EXIT CODE, not its output.** `node tools/check-js.js | grep -E "passed|❌" && git push`
