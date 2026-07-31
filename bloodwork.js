@@ -5500,7 +5500,7 @@ window.BLOODWORK =
     "max": 120,
     "evidence": "moderate",
     "label": "North Denmark uniform adult interval (IFCC 37 C)",
-    "source": "North Denmark method-stratified reference-interval study (Rasmussen et al., Scand J Clin Lab Invest 2026;86:150-157), which supersedes NORIP's 35-105 U/L for this analyte",
+    "source": "North Denmark method-stratified reference-interval study (Philipsen, Andersen & Andersen, Scand J Clin Lab Invest 2026;86(2):150-157), which postdates NORIP's 35-105 U/L for this analyte on a far larger and method-stratified sample",
     "population": "Healthy Danish adults of both sexes aged 18 and over: 120 blood donors plus 183,267 general-practice samples. ALP is not sex-partitioned in adults — NORIP's own partitioning test was uncertain for both sex and age, and AACB/RCPA and UK Pathology Harmony likewise publish a single adult interval.",
     "method": "Enzymatic ALP at 37 C traceable to the IFCC reference procedure, verified across Alinity, Atellica and Cobas; the Cobas-specific healthy limits were 42-118 U/L and the region implemented a uniform 40-120. Caveat: the ceiling is the least settled figure on the panel — 105 (NORIP, now retired), 110 (AACB/RCPA), 129 (Roche male insert), 130 (UK Pathology Harmony); the floor is stable at 30-42 everywhere.",
     "reviewed": "2026-07-31"
