@@ -287,7 +287,7 @@ window.BLOODWORK =
      "Changes": [
       [
        "1 Aug 2026",
-       "started, in response to the July 28 ng/mL"
+       "started"
       ]
      ]
     },
