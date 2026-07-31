@@ -992,11 +992,11 @@ window.BLOODWORK =
     "dec": null
    },
    {
-    "id": "greentea",
-    "name": "Green tea",
+    "id": "matcha",
+    "name": "Matcha",
     "ev": "moderate",
     "judge": "ApoB and LDL — but the effect is 5-10 mg/dL, too small to read against any other change made in the same window",
-    "dose": "2-3g matcha",
+    "dose": "2-3g",
     "info": {
      "What it does": [
       [
@@ -1007,7 +1007,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "2-3g of matcha daily, away from meals, on top of the 1.8g already in Huel — together about 580mg catechins, the dose the trials used. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Matcha delivers 2-3x a brewed cup because the whole leaf is consumed rather than infused."
+       "2-3g daily, away from meals, on top of the 1.8g already in Huel — together about 580mg catechins, the dose the trials used. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Powder beats brewed leaf 2-3x because the whole leaf is consumed rather than infused."
       ]
      ],
      "Evidence": [
