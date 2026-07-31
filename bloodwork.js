@@ -2504,7 +2504,11 @@ window.BLOODWORK =
          "68mg"
         ],
         [
-         "Green tea",
+         "Matcha (2%)",
+         "1.8g"
+        ],
+        [
+         "Green tea extract",
          "130mg"
         ],
         [
