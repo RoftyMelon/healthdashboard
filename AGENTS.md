@@ -220,6 +220,41 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
 
 ---
 
+## How to reason about an intervention
+
+`ev` records **how good the evidence is**. It does not record **whether the bet is worth taking**,
+and those are different questions. Grading the literature is half the job here; the other half is
+helping place bets, including on things that will not have an RCT for a decade. Weak evidence is
+never on its own a reason to drop something, and "there is no evidence" is not the same claim as
+"there is evidence of no effect." Say which one you mean.
+
+Four axes, only the first of which is in the data:
+
+1. **Evidence** — the `ev` tag. What trials exist, in whom, at what dose.
+2. **Mechanism quality** — what carries the weight when trials are absent. Glycine/methionine
+   rests on a characterised pathway with human biomarker data; ergothioneine rests on in-vitro
+   antioxidant capacity, the same reasoning that died with ORAC. Both are `weak`. They are not
+   the same bet, and the tag cannot tell them apart.
+3. **Cost** — money, friction, physiological risk, interactions, and crowding out something
+   better. Most bets are actually decided here, not on evidence.
+4. **Confounding cost** — the axis nothing in the file can see. Every simultaneous addition
+   degrades the ability to attribute any result. The measurement discipline in this dashboard IS
+   the edge; a long list added at once spends it. Sequencing is part of the recommendation, not
+   an afterthought.
+
+Favour **bounded downside, plausible upside, reversible**. Undetectable bets are legitimate — two
+items carry a `judge` saying outright that nothing will ever read them — but they are permanent
+commitments, so they deserve a budget rather than open room. And weight by **compounding runway**:
+he is 31, so cumulative-exposure variables (ApoB particle-years, muscle mass, cardiorespiratory
+fitness, sleep) dominate acute biomarker nudges, and the honest ranking will sometimes put an
+unglamorous fundamental above everything in the stack. Say so when it does.
+
+**This reasoning deliberately lives here and NOT as a field on each item.** A per-item bet rating
+would freeze a wager whose price moves as the literature moves; `ev` is a claim about evidence and
+survives that, a `bet` score would not. Do not add one.
+
+---
+
 ## Dev loop
 
 The page loads its data from disk — `<script src>` works over `file://` even though `fetch` does not.
