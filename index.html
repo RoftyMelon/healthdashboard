@@ -388,7 +388,14 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    a 382px box, where .dclip's overflow:hidden silently ate the tail — no error, just a
    sentence that stops (measuring the BOX said "no overflow"; only scrollWidth caught it).
    The right-align then set every wrapped line ragged-left against a left-anchored label. */
-.dassay{position:sticky;left:var(--gut,20px);align-self:flex-start;
+/* NOT sticky. It carried position:sticky;left:var(--gut) for a long time and never once stuck:
+   a sticky box cannot leave its containing block, and this one's is .cy — the pre-graph pane,
+   which scrolls away with the table like everything else in the row. So the offset did nothing
+   except make the block LOOK broken on a sideways swipe, sliding to left:-502 and being cut off
+   by the screen edge, which reads as the text resizing. It scrolls away with its row now, which
+   is what it was always doing. The width is still pinned in fitChart — that part was a real bug
+   and is fixed there, not here. */
+.dassay{align-self:flex-start;
   /* Claim prose moved after the plot, so the marker description can use nearly the whole
      pre-graph pane. The 74px reserve keeps it clear of the y-axis labels at the right edge. */
   max-width:min(520px,calc(100% - 74px));min-width:0;
