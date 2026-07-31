@@ -91,7 +91,7 @@ window.BLOODWORK =
   "B-complex (methylfolate)",
   "Curcumin",
   "Creatine 5g",
-  "Vitamin D3 10000 IU + K2",
+  "Vitamin D3 6000 IU + K2",
   "Magnesium L-threonate",
   "Glycine 8g + taurine + collagen",
   "Huel"
@@ -258,7 +258,7 @@ window.BLOODWORK =
     "id": "vitd3k2",
     "name": "Vitamin D3 + K2",
     "ev": "strong",
-    "dose": "10000IU",
+    "dose": "6000IU",
     "info": {
      "What it does": [
       [
@@ -269,7 +269,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "10000 IU, 2 tablets. Above the EFSA/IOM upper limit of 4000 — the Endocrine Society ceiling is 10000 — so this is titration, not a setting."
+       "6000 IU. Above the EFSA/IOM upper limit of 4000 but well under the Endocrine Society ceiling of 10000 — sized to lift 28 ng/mL into the 30-50 window, not to saturate."
       ]
      ],
      "Evidence": [
@@ -287,7 +287,7 @@ window.BLOODWORK =
      "Changes": [
       [
        "1 Aug 2026",
-       "5000 → 10000 IU"
+       "5000 → 6000 IU"
       ]
      ]
     },
@@ -296,11 +296,11 @@ window.BLOODWORK =
     "when": [
      {
       "at": "brunch",
-      "dose": "10000IU"
+      "dose": "6000IU"
      }
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
-    "dec": "Vitamin D3 10000 IU + K2",
+    "dec": "Vitamin D3 6000 IU + K2",
     "judge": "25-OH-D, calcium and albumin at the year-end draw — aim for 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
    },
    {
@@ -1970,7 +1970,7 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "Where does 10000 IU/day place vitamin D, and is calcium remaining safe?",
+    "why": "Where does 6000 IU/day place vitamin D, and is calcium remaining safe?",
     "decision": "Use the year-end result to titrate the vitamin-D dose; albumin is also reused for calculated free T.",
     "trigger": "Aim for 30–50ng/mL; reduce above 50, and reassess promptly above 60 or if calcium exceeds the laboratory range.",
     "method": "Same DiaSorin Liaison XL 25-OH-D method and same laboratory calcium and albumin methods.",
@@ -3975,7 +3975,7 @@ window.BLOODWORK =
    "id": "vitd",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 10000 IU + K2",
+    "Vitamin D3 6000 IU + K2",
     "Boron 10mg",
     "Huel"
    ],
@@ -4070,7 +4070,7 @@ window.BLOODWORK =
    "id": "ca",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 10000 IU + K2",
+    "Vitamin D3 6000 IU + K2",
     "Huel"
    ],
    "en": "Calcium",
@@ -4110,7 +4110,7 @@ window.BLOODWORK =
    "id": "pth",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 10000 IU + K2"
+    "Vitamin D3 6000 IU + K2"
    ],
    "en": "Parathyroid hormone",
    "fr": "Parathormone (PTH)",
@@ -5484,7 +5484,7 @@ window.BLOODWORK =
    "id": "alp",
    "cat": "liver",
    "dec": [
-    "Vitamin D3 10000 IU + K2"
+    "Vitamin D3 6000 IU + K2"
    ],
    "en": "Alkaline phosphatase",
    "fr": "Phosphatases alcalines",
@@ -5550,7 +5550,7 @@ window.BLOODWORK =
    "id": "alb",
    "cat": "liver",
    "dec": [
-    "Vitamin D3 10000 IU + K2"
+    "Vitamin D3 6000 IU + K2"
    ],
    "en": "Albumin",
    "fr": "Albumine",
