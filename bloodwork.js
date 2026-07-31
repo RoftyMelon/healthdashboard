@@ -3131,73 +3131,6 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Kefir",
-      "amt": "250mL (half a bottle)",
-      "info": {
-       "Ingredients": [
-        [
-         "",
-         "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
-        ]
-       ],
-       "Macronutrients — per 250mL": [
-        [
-         "Energy",
-         "110kcal",
-         "6%"
-        ],
-        [
-         "Carbs",
-         "9.8g",
-         "4%"
-        ],
-        [
-         "– sugars",
-         "9.8g",
-         "11%"
-        ],
-        [
-         "Protein",
-         "8.5g",
-         "17%"
-        ],
-        [
-         "Fat",
-         "3.8g",
-         "5%"
-        ],
-        [
-         "– saturates",
-         "2.3g",
-         "12%"
-        ],
-        [
-         "Salt",
-         "0.25g",
-         "4%"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Calcium",
-         "300mg",
-         "38%"
-        ],
-        [
-         "Vit D",
-         "2mcg",
-         "40%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ]
-      }
-     },
-     {
       "n": "Dark chocolate",
       "amt": "~10g",
       "info": {
@@ -3307,6 +3240,73 @@ window.BLOODWORK =
          "Potassium",
          "~260mg",
          "13%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Kefir",
+      "amt": "250mL (half a bottle)",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Semi-skimmed milk, skimmed milk powder, lactic ferments, kefir grains, yeasts, vitamin D"
+        ]
+       ],
+       "Macronutrients — per 250mL": [
+        [
+         "Energy",
+         "110kcal",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "9.8g",
+         "4%"
+        ],
+        [
+         "– sugars",
+         "9.8g",
+         "11%"
+        ],
+        [
+         "Protein",
+         "8.5g",
+         "17%"
+        ],
+        [
+         "Fat",
+         "3.8g",
+         "5%"
+        ],
+        [
+         "– saturates",
+         "2.3g",
+         "12%"
+        ],
+        [
+         "Salt",
+         "0.25g",
+         "4%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Calcium",
+         "300mg",
+         "38%"
+        ],
+        [
+         "Vit D",
+         "2mcg",
+         "40%"
         ]
        ],
        "Changes": [
@@ -3712,6 +3712,61 @@ window.BLOODWORK =
      },
      "---",
      {
+      "n": "Nuts",
+      "amt": "~15g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Walnut 6g, almond 5g, pistachio 4g"
+        ]
+       ],
+       "Macronutrients — per ~15g": [
+        [
+         "Energy",
+         "90kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "3g",
+         "6%"
+        ],
+        [
+         "Fat",
+         "8g",
+         "11%"
+        ],
+        [
+         "Fibre",
+         "1.5g"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Omega-3 (ALA)",
+         "0.6g"
+        ],
+        [
+         "Vitamin E",
+         "1.3mg",
+         "11%"
+        ],
+        [
+         "Magnesium",
+         "28mg",
+         "7%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Kiwis",
       "amt": "2",
       "info": {
@@ -3817,61 +3872,6 @@ window.BLOODWORK =
          "Vit D",
          "2mcg",
          "40%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Nuts",
-      "amt": "~15g",
-      "info": {
-       "Ingredients": [
-        [
-         "",
-         "Walnut 6g, almond 5g, pistachio 4g"
-        ]
-       ],
-       "Macronutrients — per ~15g": [
-        [
-         "Energy",
-         "90kcal",
-         "5%"
-        ],
-        [
-         "Protein",
-         "3g",
-         "6%"
-        ],
-        [
-         "Fat",
-         "8g",
-         "11%"
-        ],
-        [
-         "Fibre",
-         "1.5g"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Omega-3 (ALA)",
-         "0.6g"
-        ],
-        [
-         "Vitamin E",
-         "1.3mg",
-         "11%"
-        ],
-        [
-         "Magnesium",
-         "28mg",
-         "7%"
         ]
        ],
        "Changes": [
