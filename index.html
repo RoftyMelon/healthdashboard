@@ -330,8 +330,13 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cyu{position:absolute;right:14px;top:-7px;font-size:13px;font-weight:500;color:var(--t4)}
 .ckey{position:sticky;right:var(--gut,20px);top:0;width:auto;margin:0 14px 0 18px;display:grid;gap:6px;
   white-space:normal;text-align:left}
+/* min-width:0 + overflow-wrap on the TEXT column. A grid track defaults to min-width:auto, i.e.
+   min-content, so one unbreakable token — a DOI like 10.3109/00365510903380886, a PMID — widened
+   the track past .cpad and the whole key overflowed its pane, clipping every line mid-word. The
+   citations are short now, but nothing stopped the next long source doing it again. */
 .ckr{display:grid;grid-template-columns:8px 1fr;gap:8px;align-items:start;
   font-size:11.5px;line-height:1.3;color:var(--t3)}
+.ckr>span{min-width:0;overflow-wrap:anywhere}
 .cks{width:8px;height:8px;border-radius:2px;margin-top:3px;background:var(--band)}
 .ckr.reference .cks{background:var(--band)}
 .ckr.cut .cks{background:var(--watch);opacity:.65}
