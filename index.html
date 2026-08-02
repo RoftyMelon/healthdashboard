@@ -2010,24 +2010,12 @@ function det(row,id,cols,n,tri){
   const scale=vals.length+rb.length>1?[...vals,...rb]:[...m.axis,...vals,...rb];
   let lo=Math.min(...scale),hi=Math.max(...scale);
   const pd=((hi-lo)||1)*.12; lo-=pd; hi+=pd;
-  /* MINIMUM AMPLITUDE. Fitting every claim bound makes the axis as wide as the widest claim, and
-     a marker whose reference spans 145-348 while the person lives in 148-172 renders six years of
-     record as a flat line — measured at 0.4% of plot height for serum iron, 2% for ALP, 4% for
-     triglycerides. Worse, the compression is accidental: a marker with NO claim scales to its
-     values alone and always fills 80.6%, so unclaimed noise looks dramatic while claimed change
-     looks like nothing. Whether a chart exaggerates or flattens depended on whether someone had
-     written a reference for it.
-     So the series gets a floor of 30% of the height. If honouring a claim would push it below
-     that, the window tightens around the data instead and the band clips at the plot edge — you
-     still read position against the band's visible edge, and you can still read the trend. */
-  const MINSHARE=.30;
-  if(vals.length>1){
-    const vlo=Math.min(...vals),vhi=Math.max(...vals),vspan=vhi-vlo;
-    if(vspan>0&&vspan<(hi-lo)*MINSHARE){
-      const want=vspan/MINSHARE,mid=(vlo+vhi)/2;
-      lo=mid-want/2; hi=mid+want/2;
-    }
-  }
+  /* The window ALWAYS contains every claim bound in full. A tightening rule lived here that
+     guaranteed the value series 30% of the plot height, clipping any band too wide to fit —
+     it made trends legible and made the ranges wrong, which is the wrong trade: a reference
+     interval with one end off-screen is worse than a compressed series, because the interval
+     is what gives the series meaning. If a band is wide and the values sit in a narrow strip
+     of it, that IS the finding. */
   const P=v=>((v-lo)/(hi-lo))*100;                      // % up from the bottom
   const X=i=>((i+.5)/n)*100;                            // dead centre of each draw column
 
