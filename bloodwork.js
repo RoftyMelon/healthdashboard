@@ -1149,8 +1149,7 @@ window.BLOODWORK =
     "Body lotion 12% AHA while still wet after morning shower, at least once a week",
     "Glycolic 7% once a week instead of Peptides and Retinal",
     "Microneedling → Infadolan: face 1mm weekly, up to 2mm monthly; scalp 0.75mm weekly.",
-    "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum",
-    "Salicylic acid on the nose and paranasal area only, on dry skin before the Vit C — 3x/week at first, daily if comfortable. None on microneedling day or the day after"
+    "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
    ]
   },
   {
