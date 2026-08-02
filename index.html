@@ -343,7 +343,11 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckr.target .cks{background:var(--ok)}
 .ckr.goal .cks{background:transparent;border:1.5px solid var(--info)}
 .ckr b{display:inline;font-size:11.5px;color:var(--txt);font-weight:650}
-.ckv{padding-left:5px;color:var(--t2)}
+/* BLOCK, not inline. Run on from the label, the value wrapped wherever it happened to land —
+   and what landed on the break was the interval itself, splitting '13.5-57.4' across two lines.
+   A number must never break. On its own line it gets the full column, and .nb below keeps the
+   range atomic even when the pane is narrow enough to wrap the label that follows it. */
+.ckv{display:block;margin-top:1px;color:var(--t2)}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
 .cy::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line)}
@@ -2095,11 +2099,11 @@ function det(row,id,cols,n,tri){
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
   const key=[
     rr&&keyRow('reference','Evidence reference',
-      `${rangeText(m,rr,false,true)} ${uLab(m)} · ${esc(m.reference.label)}`,
+      `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span> · ${esc(m.reference.label)}`,
       `${esc(m.reference.evidence)} · ${esc(m.reference.source)} · reviewed ${esc(m.reference.reviewed)}`),
     m.cut&&keyRow('cut','Decision cut',`${esc(m.cut.label)} · ${esc(cutSummary(m))}`,esc(m.cut.source)),
-    tr&&keyRow('target','Evidence target',`${rangeText(m,tr,false,true)} ${uLab(m)}`,`${m.target.evidence} · ${esc(m.target.source)}`),
-    gr&&keyRow('goal','Personal goal',`${rangeText(m,gr,false,true)} ${uLab(m)}`,esc(m.goal.why))
+    tr&&keyRow('target','Evidence target',`<span class="nb">${rangeText(m,tr,false,true)} ${uLab(m)}</span>`,`${m.target.evidence} · ${esc(m.target.source)}`),
+    gr&&keyRow('goal','Personal goal',`<span class="nb">${rangeText(m,gr,false,true)} ${uLab(m)}</span>`,esc(m.goal.why))
   ].filter(Boolean).join('');
   const plotBand=(cls,r)=>{
     if(!r)return'';
