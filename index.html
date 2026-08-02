@@ -328,7 +328,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cyl.g span{color:var(--info);font-weight:600}
 .cyl.z span{color:var(--watch)}
 .cyu{position:absolute;right:14px;top:-7px;font-size:13px;font-weight:500;color:var(--t4)}
-.ckey{position:sticky;right:var(--gut,20px);top:0;width:auto;margin:0 14px 0 18px;display:grid;gap:6px;
+/* In the READING column now, under the description — not in .cpad. .cpad is sized to the gap
+   between the last draw column and the table's right edge, and the table is far wider than the
+   screen, so the key sat permanently off the right of the viewport: every line clipped mid-word
+   ("13.5-57." losing its 4, "healthy-" losing "adult") and no citation length would have fixed
+   it. .cpad stays as the spacer that keeps the plot aligned with the draw columns. */
+.ckey{width:100%;margin:18px 74px 0 0;display:grid;gap:6px;
   white-space:normal;text-align:left}
 .ckr{display:grid;grid-template-columns:8px 1fr;gap:8px;align-items:start;
   font-size:11.5px;line-height:1.3;color:var(--t3)}
@@ -2107,7 +2112,8 @@ function det(row,id,cols,n,tri){
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
-        <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
+        <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}
+        <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint\u2019s assay details.</div>'}</div></div>
       <div class="cplot">
         ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
         ${grid}
@@ -2115,9 +2121,7 @@ function det(row,id,cols,n,tri){
         ${bnds}
         ${dots}
       </div>
-      <div class="cpad" style="width:${padW}px">
-        <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
-      </div>
+      <div class="cpad" style="width:${padW}px"></div>
     </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
