@@ -97,10 +97,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     because turning a printed `28.98` into `29` weakens the assay fingerprint.
   - `marker.reference` is a rigorously sourced healthy-population interval that can legitimately
     apply across draws. It needs numeric bounds, a label, `evidence: strong | moderate | weak`,
-    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. Fifteen
-    markers currently have one: total testosterone plus 14 Blood Count markers. MPV, total IgE
-    and ESR are deliberately excluded because a universal interval would overstate analyzer,
-    method or population comparability. Do not create one merely to give a marker a grey band.
+    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. ALL 88
+    markers now carry one (2026-08-02, the owner's call: he wants to see where he sits on every
+    marker, and accepts that position does not always matter and that an assay change between
+    draws explains some movement — the bold orange note already warns about that). The bar is
+    "is there a published citable interval", NOT "does it transfer universally", so the evidence
+    GRADE carries the doubt that withholding used to: 16 are `weak` on purpose, and `method`
+    names the analyser and every transfer limit. MPV, total IgE and ESR were the last three
+    deliberate blanks and are now weak-graded with their analyser named. Never invent one to fill
+    a gap — if nothing is published, say so.
   - `marker.cut` holds guideline, diagnostic or risk **zones**. Every zone has numeric `min`
     and/or `max`, a plain-language label and `level: ok | watch | out`; the cut carries a source.
     A cut is never described as a lab reference.

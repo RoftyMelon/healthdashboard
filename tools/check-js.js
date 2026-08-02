@@ -37,23 +37,28 @@ setTimeout(()=>{
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
-  // 44 = total testosterone + 14 blood count + 16 assay-independent chemistry + the 13 survivors of
-  // the 2026-07-31 sourcing pass over 53 candidates. Hardcoded ON PURPOSE: a reference is a
-  // marker-wide claim about a whole population, so one appearing without being argued for is the
-  // failure this catches. 22 of those 53 were rejected at source, 1 by verification and 7 by an
-  // adversarial pass — the low yield IS the result.
-  ok('only rigorously sourced evidence references render marker-wide',
-    DATA.MARK.filter(m=>m.reference).length===44&&DATA.MARK.find(m=>m.id==='tt').reference,
+  // ALL 88 carry one as of 2026-08-02, by the owner's explicit decision: he wants to see where he
+  // sits on every marker and accepts that position does not always matter and that assay changes
+  // between draws explain some movement — the bold orange note already warns about the latter.
+  // The bar moved with it: 'is there a published citable interval', not 'does it transfer
+  // universally'. So the evidence GRADE now carries the doubt that rejection used to — 16 of the
+  // last batch are 'weak' on purpose. What this assertion still guards is that none goes MISSING.
+  ok('every marker carries an evidence reference',
+    DATA.MARK.filter(m=>m.reference).length===88&&DATA.MARK.find(m=>m.id==='tt').reference,
     DATA.MARK.filter(m=>m.reference).length+' references');
   ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
     .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
       m.reference.population&&m.reference.method&&/^\d{4}-\d{2}-\d{2}$/.test(m.reference.reviewed)));
-  {const cbc=DATA.MARK.filter(m=>m.cat==='cbc'),withRef=cbc.filter(m=>m.reference),
-    excluded=cbc.filter(m=>!m.reference).map(m=>m.id).sort().join(',');
-   ok('14 Blood Count markers have transferable evidence references',
-     cbc.length===17&&withRef.length===14,`${withRef.length}/${cbc.length}`);
-   ok('method-sensitive Blood Count exclusions stay explicit',
-     excluded==='esr,ige,mpv',excluded);}
+  // esr, ige and mpv were the three deliberate Blood Count blanks — analyser-dependent enough that
+  // a universal interval overstates comparability. They now carry one, weak-graded, with the
+  // analyser named in method. The guard becomes: those three must SAY they are method-bound.
+  {const cbc=DATA.MARK.filter(m=>m.cat==='cbc');
+   ok('all 17 Blood Count markers carry a reference',
+     cbc.length===17&&cbc.filter(m=>m.reference).length===17,
+     `${cbc.filter(m=>m.reference).length}/${cbc.length}`);
+   ok('the three analyser-bound Blood Count markers name their analyser',
+     ['esr','ige','mpv'].every(id=>{const m=DATA.MARK.find(x=>x.id===id);
+       return m.reference&&m.reference.method.length>300;}));}
   ok('9 evidence targets remain',DATA.MARK.filter(m=>m.target).length===9,
     DATA.MARK.filter(m=>m.target).length+' targets');
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
@@ -62,7 +67,11 @@ setTimeout(()=>{
     DATA.MARK.filter(m=>m.goal).every(m=>m.goal.why),DATA.MARK.filter(m=>m.goal).length+' goals');
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
   const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
-  ok('a lab-only copper interval is provenance, not a dashboard judgement',state('cu')==='none',state('cu'));
+  // copper was 'none' while its only interval was the lab's own print. It now has a sourced one,
+  // so it is judged like everything else — what must NOT happen is the printed lab interval
+  // becoming the judge, which is what claim() reporting 'reference' here confirms.
+  ok('copper is judged by its sourced reference, not the printed lab interval',
+    claim(DATA.MARK.find(m=>m.id==='cu'),latestFor('cu').v,latestFor('cu').raw).kind==='reference');
   ok('omega-3 follows the evidence cut, not the printed 8–11 lab interval',
     state('o3')==='watch'&&claim(DATA.MARK.find(m=>m.id==='o3'),latestFor('o3').v,latestFor('o3').raw).kind==='cut',
     state('o3'));
@@ -75,8 +84,12 @@ setTimeout(()=>{
   ok('white blood cells use a sourced population interval',
     state('wbc')==='ok'&&claim(DATA.MARK.find(m=>m.id==='wbc'),latestFor('wbc').v,latestFor('wbc').raw).kind==='reference',
     state('wbc'));
-  ok('MPV lab provenance does not become a universal judgement band',
-    state('mpv')==='none',state('mpv'));
+  // MPV now carries a sourced (weak, analyser-named) reference and reads 'out' — correct, not an
+  // artefact: 12.1 fL is above the 7.4-10.8 his own laboratory printed for that draw. The guard
+  // that still matters is that the judgement comes from the sourced band, not the lab's print.
+  ok('MPV is judged by its sourced reference, not the printed lab interval',
+    claim(DATA.MARK.find(m=>m.id==='mpv'),latestFor('mpv').v,latestFor('mpv').raw).kind==='reference',
+    state('mpv'));
   {const m=DATA.MARK.find(x=>x.id==='tt'),d=DATA.DATA.draws.find(x=>x.date==='2026-07-20');
    const h=ptHTML(m,d);
    ok('printed lab reference remains in the datapoint bubble',
