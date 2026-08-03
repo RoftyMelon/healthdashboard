@@ -349,17 +349,17 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckv{display:block;margin-top:1px;color:var(--t2)}
 /* What a claim's numbers MEAN gets its own line, never a ' · ' behind them. */
 .ckl{display:block;color:var(--t3)}
-/* Every claim row now reads value-then-meaning, so the VALUE carries the same weight in all
-   three — a reference interval set lighter than the cut thresholds below it read as the lesser
-   claim, which is backwards. */
-.ckv>.nb{font-weight:650;color:var(--txt)}
+/* Every claim row reads value-then-meaning, so the VALUE is the darkest text in all three — a
+   reference interval set lighter than the thresholds below it read as the lesser claim, which is
+   backwards. Colour alone: bold was tried and the key turned into a wall of heavy numerals. */
+.ckv>.nb{color:var(--txt)}
 /* One threshold per line. Dot-joined behind the cut's own label they read as a paragraph — four
    of them on vitamin D — and a cut you cannot pick a single value out of is not a cut. The
    numbers share a right-aligned tabular column so they stack; minmax(0,1fr) because a grid track
    is min-content by default and one long unbreakable word would push the meaning column past the
    pane. A wrapped meaning indents under itself, not under the number. */
 .ckt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1px 6px;margin-top:2px}
-.ctv{text-align:right;font-weight:650;color:var(--txt);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ctv{text-align:right;color:var(--txt);white-space:nowrap;font-variant-numeric:tabular-nums}
 .ctl{color:var(--t2);overflow-wrap:anywhere}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
@@ -1404,7 +1404,7 @@ function claim(m,v,e){
     const unresolved=e&&e.lt&&z.min!=null&&(m.cut.zones||[]).some(q=>
       q.level==='ok'&&(q.min==null||0>=q.min)&&(q.max==null||0<q.max));
     return{status:unresolved?'watch':z.level,kind:'cut',zone:z,
-      label:unresolved?'Assay upper bound does not resolve the decision cut':z.label};
+      label:unresolved?'Assay upper bound does not resolve the decision threshold':z.label};
   }
   if(m.target&&outside(v,[m.target.min??null,m.target.max??null]))
     return{status:'watch',kind:'target',range:[m.target.min??null,m.target.max??null],
@@ -1902,9 +1902,9 @@ function mini(m){
   const labelled=rr||tr||(cz?[cz.min??null,cz.max??null]:null);
   const labs=labelled?labelled.filter(x=>x!=null).map(x=>lab(x,dV(m,x))).join(''):'';
   const tip=[
-    rr&&`Evidence reference ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
+    rr&&`Reference range ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
     m.cut&&`Decision thresholds\n${cutRows(m).map(z=>`  ${z.v}  ${z.l}`).join('\n')}`,
-    tr&&`Evidence target ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
+    tr&&`Optimal range ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
   /* One claim per line, one threshold per line. A native title honours \n, and dot-joining four
      vitamin-D thresholds behind three other claims made a single unreadable run of text. */
@@ -1942,8 +1942,8 @@ function excursion(m,v,e){                  // how far past the edge, in the CUR
   if(c.kind==='cut'){
     const oks=(m.cut.zones||[]).filter(z=>z.level==='ok').map(z=>[z.min??null,z.max??null]);
     const gs=oks.map(gap).filter(Boolean).sort((a,b)=>a[0]-b[0]);
-    if(gs[0])return`${gs[0][1]==='under'?lo:hi}${fmt(dD(m,gs[0][0]))} ${gs[0][1]} cut`;
-    return'outside decision zone';
+    if(gs[0])return`${gs[0][1]==='under'?lo:hi}${fmt(dD(m,gs[0][0]))} ${gs[0][1]} threshold`;
+    return'outside the decision thresholds';
   }
   if(c.kind==='target'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} optimal`;}
   return '';
@@ -2126,7 +2126,7 @@ function det(row,id,cols,n,tri){
     rr&&keyRow('reference','Reference range',
       `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span><span class="ckl">${esc(m.reference.label)}</span>`,
       `${esc(m.reference.evidence)} · ${esc(m.reference.source)} · reviewed ${esc(m.reference.reviewed)}`),
-    m.cut&&keyRow('cut','Decision cut',
+    m.cut&&keyRow('cut','Decision thresholds',
       `<span class="ckl">${esc(m.cut.label)}</span><span class="ckt">`+
       cutRows(m).map(z=>`<span class="ctv">${esc(z.v)}</span><span class="ctl">${esc(z.l)}</span>`).join('')+
       `</span>`,esc(m.cut.source)),
@@ -2285,7 +2285,7 @@ function render(){
   document.getElementById('chipset').innerHTML=
     [{id:'all',t:'All'},{id:'flag',t:'Flagged'},{id:'crit',t:'By supplement'}]
       .map(c=>`<button class="chip" aria-pressed="${filter===c.id&&!q}" onclick="setF('${c.id}')"`+
-        (c.id==='flag'?` title="Outside a sourced reference range, in a flagged decision zone, or outside an optimal range"`
+        (c.id==='flag'?` title="Outside a sourced reference range, past a flagged decision threshold, or outside an optimal range"`
          :c.id==='crit'?` title="${DECS.length} supplements, ${MARK.filter(m=>m.dec).length} markers between them"`:'')+
         `>${c.t}<span class="cn${c.id==='flag'&&out.length?' hot':''}">${N[c.id]}</span></button>`).join('');
   moveSegT();barFade();
@@ -2299,8 +2299,8 @@ function render(){
     `<th class="now" title="Most recent value for this marker, whichever draw it came from">Latest</th>`+
     `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Unit system for the whole table — Latest, every draw, the gauge, the chart and the delta. Click to switch to ${S.units==='si'?'US':'SI'}."><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
     `<th class="lc lft" title="How long ago the latest reading was taken">Age</th>`+
-    (tri?`<th class="off lft" title="How far outside the specific reference range, cut or optimal range the latest value sits">Off by</th>`:'')+
-    `<th class="pos lft" title="Reference range, decision cuts and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
+    (tri?`<th class="off lft" title="How far past the specific reference range, decision threshold or optimal range the latest value sits">Off by</th>`:'')+
+    `<th class="pos lft" title="Reference range, decision thresholds and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
     `<th class="tr lft" title="Latest reading vs the one before it">Since prev.</th></tr></thead>`;
 
   // A censored result prints its DETECTION LIMIT, not a measurement — "<0.6" means somewhere
@@ -2313,7 +2313,7 @@ function render(){
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
     if(L){const C=claim(m,L.v,L.raw),st=C.status,mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
       const why=C.kind==='reference'?(st==='out'?`outside ${m.reference.label.toLowerCase()}`:`within ${m.reference.label.toLowerCase()}`)
-        :C.kind==='cut'?(st==='ok'?`within decision zone: ${C.label}`:C.label)
+        :C.kind==='cut'?(st==='ok'?`between decision thresholds: ${C.label}`:C.label)
         :C.kind==='target'?(st==='watch'?`${C.label} (${m.target.evidence} evidence)`:`within ${C.label.toLowerCase()}`)
         :'no universal claim applies';
       pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
@@ -2377,7 +2377,7 @@ function render(){
   } else if(filter==='flag'){
     const rows=MARK.filter(m=>cur[m.id]&&['out','watch'].includes(status(m,cur[m.id].v,cur[m.id].raw)))
                    .sort((a,b)=>sev(b,cur[b.id].v,cur[b.id].raw)-sev(a,cur[a.id].v,cur[a.id].raw));
-    h+=SEC(null,'Needs attention','Lab, decision-cut and optimal-range flags remain distinct',
+    h+=SEC(null,'Needs attention','Lab, decision-threshold and optimal-range flags remain distinct',
       rows.length?rows.map(R).join(''):NONE('Nothing flagged.'));
   } else if(sup){
     DECS.forEach((g,gi)=>{
