@@ -1856,8 +1856,13 @@ const band=(cls,r,P)=>{
 };
 const cutBands=(m,P,base='mgz')=>(m.cut&&m.cut.zones||[]).map(z=>
   band(`${base} ${z.level}`,[z.min??null,z.max??null],P)).join('');
-const cutSummary=m=>(m.cut&&m.cut.zones||[]).map(z=>
-  `${rangeText(m,[z.min??null,z.max??null],true)}: ${z.label}`).join(' · ');
+/* A cut is a set of THRESHOLDS, so it reads as its boundaries — the value and what lies above it —
+   not as zones. Rendered as ranges ("20-50: Generally adequate") it looked like a third band
+   competing with the reference and optimal ranges, when the plot draws it as bare lines. The
+   lowest zone needs no entry of its own: "12 Potentially inadequate" already says what is below 12. */
+const cutSummary=m=>((m.cut&&m.cut.zones)||[]).slice(1)
+  .filter(z=>Number.isFinite(z.min))
+  .map(z=>`${fmt(dV(m,z.min))} ${z.label.charAt(0).toLowerCase()}${z.label.slice(1)}`).join(' · ');
 
 /* Inline position gauge. Every band is marker-wide and evidence-first: a sourced population
    reference is neutral grey, decision zones tint the rail, an evidence target is green, and a
@@ -1875,7 +1880,7 @@ function mini(m){
   const labs=labelled?labelled.filter(x=>x!=null).map(x=>lab(x,dV(m,x))).join(''):'';
   const tip=[
     rr&&`Evidence reference ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
-    m.cut&&`Decision zones — ${cutSummary(m)}`,
+    m.cut&&`Decision thresholds — ${cutSummary(m)}`,
     tr&&`Evidence target ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
   ].filter(Boolean).join(' · ');
