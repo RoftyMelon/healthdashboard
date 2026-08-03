@@ -358,9 +358,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cplot{flex:1;position:relative;height:var(--ploth);overflow:hidden}
 .cplot svg{position:absolute;inset:0;width:100%;height:100%;color:var(--t2);overflow:visible}
 .cb{position:absolute;left:0;right:0}
-.cb.cut.ok{background:color-mix(in srgb,var(--ok) 6%,transparent)}
-.cb.cut.watch{background:color-mix(in srgb,var(--watch) 9%,transparent)}
-.cb.cut.out{background:color-mix(in srgb,var(--out) 9%,transparent)}
+/* A cut draws NO FILL. It is a threshold — a line — and it was being said three ways at once:
+   a tinted zone fill, a dashed boundary line and an axis label. Vitamin D stacked five zone fills
+   over the reference band, six translucent layers deep, and the fills were the thing making the
+   plot look busy while asserting categories nowhere near the data. The boundary line (.cgl.z) and
+   its axis label carry the whole message. The reference band is now the only filled region on the
+   plot, which is the point: one fill, one meaning. */
 .cb.reference{background:var(--band)}
 .cb.target{background:var(--ok);opacity:.2}
 .cb.goal{background:color-mix(in srgb,var(--info) 6%,transparent);
@@ -2110,8 +2113,10 @@ function det(row,id,cols,n,tri){
     const a=r[0]==null?lo:r[0],b=r[1]==null?hi:r[1],p0=P(a),p1=P(b);
     return `<div class="cb ${cls}" style="bottom:${Math.min(p0,p1).toFixed(2)}%;height:${Math.abs(p1-p0).toFixed(2)}%"></div>`;
   };
-  const cutPlot=(m.cut&&m.cut.zones||[]).map(z=>
-    plotBand(`cut ${z.level}`,[z.min??null,z.max??null])).join('');
+  // Cut zones are drawn by their BOUNDARIES only — see .cgl.z and addL(cb,'z') above. No fill:
+  // a threshold is a line, and the tinted zones competed with the reference band for the one
+  // visual channel that should mean "where a healthy population sits".
+  const cutPlot='';
 
   const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
