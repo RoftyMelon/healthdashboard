@@ -2028,7 +2028,15 @@ function det(row,id,cols,n,tri){
     if(L.every(([w])=>Math.abs(P(v)-P(w))>7))L.push([v,c]);});
   addL(rr,'r');addL(tr,'t');addL(cb,'z');
   const ylab=L.map(([v,c])=>`<div class="cyl ${c}" style="bottom:${P(v).toFixed(2)}%"><span>${fmt(dV(m,v))}</span></div>`).join('');
-  const grid=L.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
+  /* Gridlines come from ALL bounds, not from L. The 7% rule exists so two LABELS cannot print on
+     top of each other, but it was suppressing the line too — and on glucose that hid the two that
+     matter most: 100 (impaired fasting) sits 3 mg/dL under the reference ceiling of 103, and 70
+     sits 2 under the floor of 72, so both were dropped and only the far-away 126 drew. A cut whose
+     threshold is invisible is not a cut. Lines are 0.5px and dashed; they can sit close together
+     without becoming unreadable, which is exactly what labels cannot do. */
+  const ALL=[...(rr||[]).map(v=>[v,'r']),...(tr||[]).map(v=>[v,'t']),...cb.map(v=>[v,'z'])]
+    .filter(([v])=>Number.isFinite(v)&&P(v)>=0&&P(v)<=100);
+  const grid=ALL.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
   // One <path> PER SEGMENT rather than a single polyline, because a leg touching a censored
   // point is not drawn at all. A "<0.5" was never measured at 0.5 — it is somewhere in [0, 0.5]
   // — so any slope drawn to it is invented, and dashing it only softens the invention.
