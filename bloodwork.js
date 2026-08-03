@@ -1189,10 +1189,12 @@ window.BLOODWORK =
      ]
     }
    ],
+   "notesPre": [
+    "Glycolic 7% once a week instead of Peptides and Retinal, on a day without needling"
+   ],
    "notesT": "Sunday",
    "notes": [
     "Body lotion 12% AHA while still wet after morning shower",
-    "Glycolic 7% instead of Peptides and Retinal",
     "Microneedling → Infadolan: face 1mm, up to 2mm monthly; scalp 0.75mm",
     "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
    ]

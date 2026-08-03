@@ -2543,8 +2543,11 @@ function renderPage(p){
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     // footer notes under a list card (Skincare): the same .cgnote the schedule grid used, so a
     // card that dropped its dot-matrix keeps its footnotes reading exactly as before.
-    const notes=!(c.notes||[]).length?''
-      :(c.notesT?`<div class="cnoteh">${esc(c.notesT)}</div>`:'')+c.notes.map(n=>`<div class="cgnote">${esc(n)}</div>`).join('');
+    // notesPre sits ABOVE the headed block, for footnotes the header does not apply to —
+    // the glycolic day is weekly but explicitly not the needling day, so SUNDAY must not claim it.
+    const cgn=a=>(a||[]).map(n=>`<div class="cgnote">${esc(n)}</div>`).join('');
+    const notes=cgn(c.notesPre)+(!(c.notes||[]).length?''
+      :(c.notesT?`<div class="cnoteh">${esc(c.notesT)}</div>`:'')+cgn(c.notes));
     return `<div class="ccard"${c.id?` data-care="${esc(c.id)}"`:''}><b>${esc(c.t)}</b>${inner}${notes}</div>`;}).join('')+`</div>`;
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
