@@ -341,7 +341,6 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckr.reference .cks{background:var(--band)}
 .ckr.cut .cks{background:var(--watch);opacity:.65}
 .ckr.target .cks{background:var(--ok)}
-.ckr.goal .cks{background:transparent;border:1.5px solid var(--info)}
 .ckr b{display:inline;font-size:11.5px;color:var(--txt);font-weight:650}
 /* BLOCK, not inline. Run on from the label, the value wrapped wherever it happened to land —
    and what landed on the break was the interval itself, splitting '13.5-57.4' across two lines.
@@ -366,9 +365,6 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    plot, which is the point: one fill, one meaning. */
 .cb.reference{background:var(--band)}
 .cb.target{background:var(--ok);opacity:.2}
-.cb.goal{background:color-mix(in srgb,var(--info) 6%,transparent);
-  border-top:1px solid color-mix(in srgb,var(--info) 65%,transparent);
-  border-bottom:1px solid color-mix(in srgb,var(--info) 65%,transparent)}
 .cgl{position:absolute;left:0;right:0;height:0;border-top:.5px dashed var(--line)}
 .cgl.t{border-top-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 .cgl.g{border-top-color:color-mix(in srgb,var(--info) 45%,transparent)}
@@ -1367,10 +1363,9 @@ const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
    - marker.reference: a sourced healthy-population interval that applies across draws
    - marker.cut: guideline / diagnostic / risk zones
    - marker.target: evidence-backed optimization target
-   - marker.goal: this person's intervention criterion
    The marker-wide evidence claims drive dashboard status. A printed lab interval remains in
    its datapoint bubble and cross-draw provenance warning; it is never promoted into a universal
-   judgement band. Targets and goals are watch-level signals, never abnormalities. */
+   judgement band. An optimal range is a watch-level signal, never an abnormality. */
 const labRange=(m,e)=>e&&e.lr?e.lr.map(x=>x===null?null:toUS(m,x,e.u)):null;
 const outside=(v,r)=>!!r&&((r[0]!=null&&v<r[0])||(r[1]!=null&&v>r[1]));
 const cutZone=(m,v)=>(m.cut&&m.cut.zones||[]).find(z=>
@@ -1452,7 +1447,7 @@ function audit(j){
   // .am declares that the ASSAY is part of this marker's reading — a closed enum.
   j.MARK.forEach(m=>{
     ['clin','opt','oc'].forEach(k=>{
-      if(m[k]!==undefined)bad.push(`MARK "${m.id}": legacy "${k}" is forbidden — use lr, reference, cut, target or goal`);
+      if(m[k]!==undefined)bad.push(`MARK "${m.id}": legacy "${k}" is forbidden — use lr, reference, cut or target`);
     });
     if(m.am!=null&&!['critical','useful'].includes(m.am))
       bad.push(`MARK "${m.id}": am "${m.am}" is not critical/useful`);
@@ -1514,12 +1509,6 @@ function audit(j){
         bad.push(`MARK "${m.id}": target.evidence must be strong/moderate/weak`);
       if(typeof (m.target&&m.target.source)!=='string'||!m.target.source.trim())
         bad.push(`MARK "${m.id}": target.source is required`);
-    }
-    if(m.goal!==undefined){
-      // Removed 2026-08-02: a personal criterion is CONTEXT, not data, and this dashboard displays
-      // data. The one that was a real published claim — vitamin D's 30-50 sufficiency window — is a
-      // target now; ApoB's next-draw criterion lives in NEXTDRAW.trigger, where the decision is.
-      bad.push(`MARK "${m.id}": "goal" is retired — a personal criterion belongs in NEXTDRAW, and an evidence-backed band is a target`);
     }
   });
   j.DATA.draws.forEach(d=>{
@@ -1872,7 +1861,7 @@ const cutSummary=m=>(m.cut&&m.cut.zones||[]).map(z=>
 
 /* Inline position gauge. Every band is marker-wide and evidence-first: a sourced population
    reference is neutral grey, decision zones tint the rail, an evidence target is green, and a
-   personal goal is a blue outline. Per-draw laboratory intervals stay in datapoint details. */
+   Per-draw laboratory intervals stay in datapoint details. */
 function mini(m){
   const [a0,a1]=m.axis,sp=a1-a0||1;
   const P=x=>Math.max(0,Math.min(100,((x-a0)/sp)*100));
@@ -1894,7 +1883,7 @@ function mini(m){
     <div class="mg">${band('mgr',rr,P)}${cutBands(m,P)}${band('mgo',tr,P)}${tick}</div>
     <div class="mgx">${labs}</div></div>`;
 }
-/* Rank sourced population-reference and risk abnormalities before target/goal misses.
+/* Rank sourced population-reference and risk abnormalities before optimal-range misses.
    Evidence only weights targets; a printed lab interval is provenance and does not rank. */
 const EVW={strong:1,moderate:.6,weak:.3};
 function sev(m,v,e){
@@ -2026,7 +2015,7 @@ function det(row,id,cols,n,tri){
   const P=v=>((v-lo)/(hi-lo))*100;                      // % up from the bottom
   const X=i=>((i+.5)/n)*100;                            // dead centre of each draw column
 
-  // Claim boundaries share one axis. Evidence reference first, then target, goal and cuts; a
+  // Claim boundaries share one axis. Reference first, then target and cuts; a
   // later label yields when it would collide with a more foundational earlier one.
   let L=[];
   const addL=(r,c)=>(r||[]).filter(Number.isFinite).forEach(v=>{
@@ -2255,7 +2244,7 @@ function render(){
   document.getElementById('chipset').innerHTML=
     [{id:'all',t:'All'},{id:'flag',t:'Flagged'},{id:'crit',t:'By supplement'}]
       .map(c=>`<button class="chip" aria-pressed="${filter===c.id&&!q}" onclick="setF('${c.id}')"`+
-        (c.id==='flag'?` title="Outside a sourced evidence reference, in a flagged decision zone, or outside an evidence target or personal goal"`
+        (c.id==='flag'?` title="Outside a sourced reference range, in a flagged decision zone, or outside an optimal range"`
          :c.id==='crit'?` title="${DECS.length} supplements, ${MARK.filter(m=>m.dec).length} markers between them"`:'')+
         `>${c.t}<span class="cn${c.id==='flag'&&out.length?' hot':''}">${N[c.id]}</span></button>`).join('');
   moveSegT();barFade();
@@ -2269,8 +2258,8 @@ function render(){
     `<th class="now" title="Most recent value for this marker, whichever draw it came from">Latest</th>`+
     `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Unit system for the whole table — Latest, every draw, the gauge, the chart and the delta. Click to switch to ${S.units==='si'?'US':'SI'}."><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
     `<th class="lc lft" title="How long ago the latest reading was taken">Age</th>`+
-    (tri?`<th class="off lft" title="How far outside the specific evidence reference, cut, target or goal claim the latest value sits">Off by</th>`:'')+
-    `<th class="pos lft" title="Evidence reference, decision cuts, evidence target and personal goal are separate marker-wide layers">Claims &amp; position</th>${hd}`+
+    (tri?`<th class="off lft" title="How far outside the specific reference range, cut or optimal range the latest value sits">Off by</th>`:'')+
+    `<th class="pos lft" title="Reference range, decision cuts and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
     `<th class="tr lft" title="Latest reading vs the one before it">Since prev.</th></tr></thead>`;
 
   // A censored result prints its DETECTION LIMIT, not a measurement — "<0.6" means somewhere
@@ -2347,7 +2336,7 @@ function render(){
   } else if(filter==='flag'){
     const rows=MARK.filter(m=>cur[m.id]&&['out','watch'].includes(status(m,cur[m.id].v,cur[m.id].raw)))
                    .sort((a,b)=>sev(b,cur[b.id].v,cur[b.id].raw)-sev(a,cur[a.id].v,cur[a.id].raw));
-    h+=SEC(null,'Needs attention','Lab, decision-cut, evidence-target and personal-goal flags remain distinct',
+    h+=SEC(null,'Needs attention','Lab, decision-cut and optimal-range flags remain distinct',
       rows.length?rows.map(R).join(''):NONE('Nothing flagged.'));
   } else if(sup){
     DECS.forEach((g,gi)=>{
