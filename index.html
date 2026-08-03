@@ -1393,10 +1393,7 @@ function claim(m,v,e){
   if(m.target&&outside(v,[m.target.min??null,m.target.max??null]))
     return{status:'watch',kind:'target',range:[m.target.min??null,m.target.max??null],
       label:e&&e.lt&&m.target.max!=null&&v>m.target.max?'Assay upper bound does not establish a target miss':m.target.label};
-  if(m.goal&&outside(v,[m.goal.min??null,m.goal.max??null]))
-    return{status:'watch',kind:'goal',range:[m.goal.min??null,m.goal.max??null],
-      label:e&&e.lt&&m.goal.max!=null&&v>m.goal.max?'Assay upper bound does not establish a personal-goal miss':m.goal.label};
-  const kind=rr?'reference':z?'cut':m.target?'target':m.goal?'goal':null;
+  const kind=rr?'reference':z?'cut':m.target?'target':null;
   return{status:kind?'ok':'none',kind,range:rr||null,zone:z||null,
     label:kind==='reference'?m.reference.label:z&&z.label};
 }
@@ -1519,9 +1516,10 @@ function audit(j){
         bad.push(`MARK "${m.id}": target.source is required`);
     }
     if(m.goal!==undefined){
-      validBounds(m.goal,'goal');
-      if(typeof (m.goal&&m.goal.why)!=='string'||!m.goal.why.trim())
-        bad.push(`MARK "${m.id}": goal.why is required`);
+      // Removed 2026-08-02: a personal criterion is CONTEXT, not data, and this dashboard displays
+      // data. The one that was a real published claim — vitamin D's 30-50 sufficiency window — is a
+      // target now; ApoB's next-draw criterion lives in NEXTDRAW.trigger, where the decision is.
+      bad.push(`MARK "${m.id}": "goal" is retired — a personal criterion belongs in NEXTDRAW, and an evidence-backed band is a target`);
     }
   });
   j.DATA.draws.forEach(d=>{
@@ -1879,22 +1877,21 @@ function mini(m){
   const [a0,a1]=m.axis,sp=a1-a0||1;
   const P=x=>Math.max(0,Math.min(100,((x-a0)/sp)*100));
   const L=latest(m);
-  const rr=bounds(m.reference),tr=bounds(m.target),gr=bounds(m.goal);
+  const rr=bounds(m.reference),tr=bounds(m.target);
   const tick=L?`<div class="mgt ${status(m,L.v,L.raw)}" style="left:${P(L.v)}%"></div>`:'';
   const lab=(x,v)=>{const p=P(x);const tf=p<9?'none':p>91?'translateX(-100%)':'translateX(-50%)';
     return `<span style="left:${p}%;transform:${tf}">${fmt(v)}</span>`;};
   const cz=L?cutZone(m,L.v):null;
-  const labelled=rr||tr||gr||(cz?[cz.min??null,cz.max??null]:null);
+  const labelled=rr||tr||(cz?[cz.min??null,cz.max??null]:null);
   const labs=labelled?labelled.filter(x=>x!=null).map(x=>lab(x,dV(m,x))).join(''):'';
   const tip=[
     rr&&`Evidence reference ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
     m.cut&&`Decision zones — ${cutSummary(m)}`,
     tr&&`Evidence target ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
-    gr&&`Personal goal ${rangeText(m,gr,false,true)} ${uLab(m)}`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
   ].filter(Boolean).join(' · ');
   return `<div title="${tip}">
-    <div class="mg">${band('mgr',rr,P)}${cutBands(m,P)}${band('mgo',tr,P)}${band('mgg',gr,P)}${tick}</div>
+    <div class="mg">${band('mgr',rr,P)}${cutBands(m,P)}${band('mgo',tr,P)}${tick}</div>
     <div class="mgx">${labs}</div></div>`;
 }
 /* Rank sourced population-reference and risk abnormalities before target/goal misses.
@@ -1911,7 +1908,6 @@ function sev(m,v,e){
     const r=c.range,d=r[0]!=null&&v<r[0]?r[0]-v:r[1]!=null&&v>r[1]?v-r[1]:0;
     return 20+d/w*(EVW[m.target.evidence]||.3);
   }
-  if(c.kind==='goal')return 10;
   return 0;
 }
 function excursion(m,v,e){                  // how far past the edge, in the CURRENT reading unit
@@ -1931,7 +1927,6 @@ function excursion(m,v,e){                  // how far past the edge, in the CUR
     return'outside decision zone';
   }
   if(c.kind==='target'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} target`;}
-  if(c.kind==='goal'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} personal goal`;}
   return '';
 }
 function trend(m){
@@ -2016,9 +2011,9 @@ function det(row,id,cols,n,tri){
   // Y-AXIS: include every visible marker-wide claim and every value. A per-result laboratory
   // interval is provenance in its datapoint bubble, so it never changes the historical scale.
   const vals=pts.map(o=>V(o.d));
-  const rr=bounds(m.reference),tr=bounds(m.target),gr=bounds(m.goal);
+  const rr=bounds(m.reference),tr=bounds(m.target);
   const cb=(m.cut&&m.cut.zones||[]).flatMap(z=>[z.min,z.max]).filter(Number.isFinite);
-  const rb=[...(rr||[]),...(tr||[]),...(gr||[]),...cb].filter(Number.isFinite);
+  const rb=[...(rr||[]),...(tr||[]),...cb].filter(Number.isFinite);
   const scale=vals.length+rb.length>1?[...vals,...rb]:[...m.axis,...vals,...rb];
   let lo=Math.min(...scale),hi=Math.max(...scale);
   const pd=((hi-lo)||1)*.12; lo-=pd; hi+=pd;
@@ -2037,7 +2032,7 @@ function det(row,id,cols,n,tri){
   const addL=(r,c)=>(r||[]).filter(Number.isFinite).forEach(v=>{
     if(P(v)<0||P(v)>100)return;            // off the window: the band clips, so the label would too
     if(L.every(([w])=>Math.abs(P(v)-P(w))>7))L.push([v,c]);});
-  addL(rr,'r');addL(tr,'t');addL(gr,'g');addL(cb,'z');
+  addL(rr,'r');addL(tr,'t');addL(cb,'z');
   const ylab=L.map(([v,c])=>`<div class="cyl ${c}" style="bottom:${P(v).toFixed(2)}%"><span>${fmt(dV(m,v))}</span></div>`).join('');
   const grid=L.map(([v,c])=>`<div class="cgl ${c}" style="bottom:${P(v).toFixed(2)}%"></div>`).join('');
   // One <path> PER SEGMENT rather than a single polyline, because a leg touching a censored
@@ -2101,13 +2096,12 @@ function det(row,id,cols,n,tri){
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
   const key=[
-    rr&&keyRow('reference','Evidence reference',
+    rr&&keyRow('reference','Reference range',
       `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span> · ${esc(m.reference.label)}`,
       `${esc(m.reference.evidence)} · ${esc(m.reference.source)} · reviewed ${esc(m.reference.reviewed)}`),
     m.cut&&keyRow('cut','Decision cut',`${esc(m.cut.label)} · ${esc(cutSummary(m))}`,esc(m.cut.source)),
-    tr&&keyRow('target','Evidence target',`<span class="nb">${rangeText(m,tr,false,true)} ${uLab(m)}</span>`,`${m.target.evidence} · ${esc(m.target.source)}`),
-    gr&&keyRow('goal','Personal goal',`<span class="nb">${rangeText(m,gr,false,true)} ${uLab(m)}</span>`,esc(m.goal.why))
-  ].filter(Boolean).join('');
+    tr&&keyRow('target','Optimal range',`<span class="nb">${rangeText(m,tr,false,true)} ${uLab(m)}</span>`,`${m.target.evidence} · ${esc(m.target.source)}`),
+    ].filter(Boolean).join('');
   const plotBand=(cls,r)=>{
     if(!r)return'';
     const a=r[0]==null?lo:r[0],b=r[1]==null?hi:r[1],p0=P(a),p1=P(b);
@@ -2123,7 +2117,7 @@ function det(row,id,cols,n,tri){
       <div class="cy" style="width:${preW}px">
         <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
       <div class="cplot">
-        ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}${plotBand('goal',gr)}
+        ${plotBand('reference',rr)}${cutPlot}${plotBand('target',tr)}
         ${grid}
         ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
         ${bnds}
@@ -2291,7 +2285,6 @@ function render(){
       const why=C.kind==='reference'?(st==='out'?`outside ${m.reference.label.toLowerCase()}`:`within ${m.reference.label.toLowerCase()}`)
         :C.kind==='cut'?(st==='ok'?`within decision zone: ${C.label}`:C.label)
         :C.kind==='target'?(st==='watch'?`${C.label} (${m.target.evidence} evidence)`:`within ${C.label.toLowerCase()}`)
-        :C.kind==='goal'?(st==='watch'?`${C.label} (personal criterion)`:`within ${C.label.toLowerCase()}`)
         :'no universal claim applies';
       pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
         L.raw&&L.raw.lt?' · below the assay detection limit — an upper bound, not a measurement':''} · ${esc(why)}">${LT(L.raw)}${fmt(dV(m,L.v))}</span>`;

@@ -59,12 +59,14 @@ setTimeout(()=>{
    ok('the three analyser-bound Blood Count markers name their analyser',
      ['esr','ige','mpv'].every(id=>{const m=DATA.MARK.find(x=>x.id===id);
        return m.reference&&m.reference.method.length>300;}));}
-  ok('9 evidence targets remain',DATA.MARK.filter(m=>m.target).length===9,
+  ok('10 optimal ranges remain',DATA.MARK.filter(m=>m.target).length===10,
     DATA.MARK.filter(m=>m.target).length+' targets');
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
     .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source));
-  ok('personal goals stay sparse and explicit',DATA.MARK.filter(m=>m.goal).length===2&&
-    DATA.MARK.filter(m=>m.goal).every(m=>m.goal.why),DATA.MARK.filter(m=>m.goal).length+' goals');
+  // 'goal' was retired 2026-08-02: a personal criterion is CONTEXT and this dashboard shows data.
+  // audit() now REJECTS one outright, so the guard is that none comes back.
+  ok('no marker carries a personal goal',DATA.MARK.every(m=>m.goal===undefined),
+    DATA.MARK.filter(m=>m.goal).length+' goals');
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
   const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
   // copper was 'none' while its only interval was the lab's own print. It now has a sourced one,
@@ -99,8 +101,11 @@ setTimeout(()=>{
   ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
   ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
-  ok('vitamin D personal dosing goal is distinct from its adequacy cut',state('vitd')==='watch'&&
-    claim(DATA.MARK.find(m=>m.id==='vitd'),latestFor('vitd').v,latestFor('vitd').raw).kind==='goal');
+  // the 30-50 window survived the goal removal as an OPTIMAL RANGE — it is the Endocrine Society
+  // sufficiency threshold, a published claim rather than a personal preference. Without it the 28
+  // would have gone quiet: the population reference runs 5.2-60.5.
+  ok('vitamin D still flags below its sufficiency window',state('vitd')==='watch'&&
+    claim(DATA.MARK.find(m=>m.id==='vitd'),latestFor('vitd').v,latestFor('vitd').raw).kind==='target');
   ok('a censored uPCR above the cut is unresolved, not diagnosed high',state('upcr')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='upcr'),latestFor('upcr').v,latestFor('upcr').raw).label.includes('does not resolve'));
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
@@ -323,8 +328,8 @@ setTimeout(()=>{
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;
   ok('audit rejects overlapping decision zones',audit(j16).length===1,audit(j16)[0]||'');
-  const j17=JSON.parse(JSON.stringify(DATA)); delete j17.MARK.find(m=>m.id==='apob').goal.why;
-  ok('audit rejects a personal goal with no rationale',audit(j17).length===1,audit(j17)[0]||'');
+  const j17=JSON.parse(JSON.stringify(DATA)); j17.MARK.find(m=>m.id==='apob').goal={max:85,label:'x',why:'y'};
+  ok('audit rejects a personal goal outright',audit(j17).length===1,audit(j17)[0]||'');
   try{ setPage('nextdraw');
     const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
     ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');

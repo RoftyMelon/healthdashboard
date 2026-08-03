@@ -4135,12 +4135,13 @@ window.BLOODWORK =
      }
     ]
    },
-   "goal": {
-    "min": 30,
-    "max": 50,
-    "label": "Personal vitamin-D dosing window",
-    "why": "Dose-management goal while using high-dose vitamin D; not a universal longevity optimum"
-   }
+    "target": {
+     "min": 30,
+     "max": 50,
+     "evidence": "weak",
+     "label": "Sufficiency window",
+     "source": "Endocrine Society guideline (Holick et al., J Clin Endocrinol Metab 2011;96(7):1911-1930)"
+    }
   },
   {
    "id": "cacorr",
@@ -5225,11 +5226,6 @@ window.BLOODWORK =
     "evidence": "moderate",
     "label": "Favourable primary-prevention particle burden",
     "source": "ApoB risk gradients and prevention guidance"
-   },
-   "goal": {
-    "max": 85,
-    "label": "Next-draw diet-response criterion",
-    "why": "A reduction of at least 10% from the July 94 mg/dL baseline would support the August diet change"
    }
   },
   {

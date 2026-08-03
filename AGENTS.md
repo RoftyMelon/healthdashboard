@@ -113,10 +113,13 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
     have no target: 9 of 88 currently do. A weak target is an opinion-weighted watch signal,
     never a lab abnormality.
-  - `marker.goal` is this person's intervention criterion. It needs numeric bounds, a label and
-    `why`; 2 markers currently carry one. It is rendered as a personal goal, never as a
-    universal health claim.
-  Marker-wide evidence drives status: reference first, then risk cut, target and goal. A printed
+  - `marker.goal` is RETIRED (2026-08-02) and `audit()` rejects it. A personal criterion is
+    CONTEXT, and this dashboard displays data — the same rule that keeps protocol framing out of
+    the intro prose. The one goal that was a published claim, vitamin D's 30-50 sufficiency
+    window, is a `target` now; ApoB's next-draw criterion lives in `NEXTDRAW.trigger`, where the
+    decision actually gets made. Two claim types render as ranges: `reference` ("Reference range")
+    and `target` ("Optimal range"); `cut` renders as boundary LINES only, never a fill.
+  Marker-wide evidence drives status: reference first, then risk cut, then target. A printed
   `lr` never changes the row colour or flagged filter. The viewer labels the four marker-wide
   layers separately in the gauge and expanded chart; lab provenance remains on the datapoint.
 - A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
