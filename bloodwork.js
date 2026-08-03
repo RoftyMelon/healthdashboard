@@ -404,6 +404,50 @@ window.BLOODWORK =
     "judge": "skin hydration and fine lines — photos in consistent light, read at the next draw, end of 2026"
    },
    {
+    "id": "collagenb",
+    "name": "Collagen hydrolysate (bovine hide)",
+    "ev": "weak",
+    "judge": "skin hydration and fine lines in photos; nothing available at home reads the tendon effect",
+    "dose": "10g",
+    "info": {
+     "What it does": [
+      [
+       "",
+       "Raw material rather than signal: glycine, proline and hydroxyproline for collagen synthesis. Avascular tissue draws it in mechanically, as loading squeezes fluid out of the matrix and back in."
+      ]
+     ],
+     "Dose": [
+      [
+       "",
+       "10g with the 07:15 Huel, 30-60min before loading, alongside the 500 Da product until that runs out. Hide, never bone broth — mammals sequester heavy metals in bone. Type I/III labelling is irrelevant; it is hydrolysed to amino acids either way."
+      ]
+     ],
+     "Evidence": [
+      [
+       "",
+       "Skin trials run 2.5-12g, so this dose is comfortably inside them; a 2023 meta-analysis of 26 RCTs found improved hydration and elasticity, largely industry-funded. Tendon is weaker: 15g gelatin with vitamin C doubled synthesis markers in 2017, but a 2023 trial saw a procollagen rise only at 30g and none at 15g."
+      ]
+     ],
+     "Watch": [
+      [
+       "",
+       "Incomplete protein — tryptophan-poor, so it never counts toward the protein target. Hydroxyproline metabolises to oxalate, which matters only with a stone history."
+      ]
+     ],
+     "Parked": [
+      [
+       "",
+       "Until the next draw, with glycine, NAC and TMG."
+      ]
+     ]
+    },
+    "cat": "maylater",
+    "status": "planned",
+    "when": null,
+    "url": null,
+    "dec": null
+   },
+   {
     "id": "ha",
     "name": "Hyaluronic acid",
     "ev": "weak",
