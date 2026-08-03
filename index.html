@@ -347,6 +347,20 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    A number must never break. On its own line it gets the full column, and .nb below keeps the
    range atomic even when the pane is narrow enough to wrap the label that follows it. */
 .ckv{display:block;margin-top:1px;color:var(--t2)}
+/* What a claim's numbers MEAN gets its own line, never a ' · ' behind them. */
+.ckl{display:block;color:var(--t3)}
+/* Every claim row now reads value-then-meaning, so the VALUE carries the same weight in all
+   three — a reference interval set lighter than the cut thresholds below it read as the lesser
+   claim, which is backwards. */
+.ckv>.nb{font-weight:650;color:var(--txt)}
+/* One threshold per line. Dot-joined behind the cut's own label they read as a paragraph — four
+   of them on vitamin D — and a cut you cannot pick a single value out of is not a cut. The
+   numbers share a right-aligned tabular column so they stack; minmax(0,1fr) because a grid track
+   is min-content by default and one long unbreakable word would push the meaning column past the
+   pane. A wrapped meaning indents under itself, not under the number. */
+.ckt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1px 6px;margin-top:2px}
+.ctv{text-align:right;font-weight:650;color:var(--txt);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ctl{color:var(--t2);overflow-wrap:anywhere}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
 .cy::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line)}
@@ -1864,10 +1878,12 @@ const cutBands=(m,P,base='mgz')=>(m.cut&&m.cut.zones||[]).map(z=>
 /* A cut is a set of THRESHOLDS, so it reads as its boundaries — the value and what lies above it —
    not as zones. Rendered as ranges ("20-50: Generally adequate") it looked like a third band
    competing with the reference and optimal ranges, when the plot draws it as bare lines. The
-   lowest zone needs no entry of its own: "12 Potentially inadequate" already says what is below 12. */
-const cutSummary=m=>((m.cut&&m.cut.zones)||[]).slice(1)
+   lowest zone needs no entry of its own: "12 Potentially inadequate" already says what is below 12.
+   Returns the thresholds as rows, not as one joined string: every surface that shows them puts
+   ONE PER LINE, and a caller that had to split a ' · ' run back apart would eventually not. */
+const cutRows=m=>((m.cut&&m.cut.zones)||[]).slice(1)
   .filter(z=>Number.isFinite(z.min))
-  .map(z=>`${fmt(dV(m,z.min))} ${z.label.charAt(0).toLowerCase()}${z.label.slice(1)}`).join(' · ');
+  .map(z=>({v:fmt(dV(m,z.min)),l:z.label}));
 
 /* Inline position gauge. Every band is marker-wide and evidence-first: a sourced population
    reference is neutral grey, decision zones tint the rail, an evidence target is green, and a
@@ -1885,10 +1901,12 @@ function mini(m){
   const labs=labelled?labelled.filter(x=>x!=null).map(x=>lab(x,dV(m,x))).join(''):'';
   const tip=[
     rr&&`Evidence reference ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
-    m.cut&&`Decision thresholds — ${cutSummary(m)}`,
+    m.cut&&`Decision thresholds\n${cutRows(m).map(z=>`  ${z.v}  ${z.l}`).join('\n')}`,
     tr&&`Evidence target ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
-  ].filter(Boolean).join(' · ');
+  /* One claim per line, one threshold per line. A native title honours \n, and dot-joining four
+     vitamin-D thresholds behind three other claims made a single unreadable run of text. */
+  ].filter(Boolean).join('\n');
   return `<div title="${tip}">
     <div class="mg">${band('mgr',rr,P)}${cutBands(m,P)}${band('mgo',tr,P)}${tick}</div>
     <div class="mgx">${labs}</div></div>`;
@@ -2104,9 +2122,12 @@ function det(row,id,cols,n,tri){
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
   const key=[
     rr&&keyRow('reference','Reference range',
-      `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span> · ${esc(m.reference.label)}`,
+      `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span><span class="ckl">${esc(m.reference.label)}</span>`,
       `${esc(m.reference.evidence)} · ${esc(m.reference.source)} · reviewed ${esc(m.reference.reviewed)}`),
-    m.cut&&keyRow('cut','Decision cut',`${esc(m.cut.label)} · ${esc(cutSummary(m))}`,esc(m.cut.source)),
+    m.cut&&keyRow('cut','Decision cut',
+      `<span class="ckl">${esc(m.cut.label)}</span><span class="ckt">`+
+      cutRows(m).map(z=>`<span class="ctv">${esc(z.v)}</span><span class="ctl">${esc(z.l)}</span>`).join('')+
+      `</span>`,esc(m.cut.source)),
     tr&&keyRow('target','Optimal range',`<span class="nb">${rangeText(m,tr,false,true)} ${uLab(m)}</span>`,`${m.target.evidence} · ${esc(m.target.source)}`),
     ].filter(Boolean).join('');
   const plotBand=(cls,r)=>{
