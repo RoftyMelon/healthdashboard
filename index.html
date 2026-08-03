@@ -537,7 +537,12 @@ td.dnow,th.dnow{font-weight:700;color:var(--txt)}
   border-color:color-mix(in srgb,var(--watch) 32%,transparent)}
 .pill.out{color:var(--out);background:color-mix(in srgb,var(--out) 14%,transparent);
   border-color:color-mix(in srgb,var(--out) 38%,transparent);}
-td.off{text-align:left;padding-left:16px;white-space:nowrap}
+/* NOT nowrap. This column is 150px and its text is generated, not authored — a censored value
+   over a reference ceiling prints "at most 103 over reference", which is half again as wide as
+   the column. With nowrap the cell simply overflowed and ran through the gauge and its endpoint
+   numbers in the pane to its right. Let it take a second line instead; the row is already tall
+   enough for two. */
+td.off{text-align:left;padding-left:16px;white-space:normal;overflow-wrap:anywhere}
 .exc{font-size:15px;font-weight:600;white-space:nowrap;letter-spacing:-.01em}
 .exc em{font-style:normal;font-weight:500;opacity:.62;font-size:13.5px}
 .exc.out{color:var(--out)} .exc.watch{color:var(--watch)}
@@ -1913,14 +1918,14 @@ function excursion(m,v,e){                  // how far past the edge, in the CUR
      distance the assay never measured. */
   const lt=!!(e&&e.lt),hi=lt?'at most ':'',lo=lt?'more than ':'',c=claim(m,v,e);
   const gap=r=>r&&r[0]!=null&&v<r[0]?[r[0]-v,'under']:r&&r[1]!=null&&v>r[1]?[v-r[1],'over']:null;
-  if(c.kind==='reference'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} evidence reference`;}
+  if(c.kind==='reference'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} reference`;}
   if(c.kind==='cut'){
     const oks=(m.cut.zones||[]).filter(z=>z.level==='ok').map(z=>[z.min??null,z.max??null]);
     const gs=oks.map(gap).filter(Boolean).sort((a,b)=>a[0]-b[0]);
     if(gs[0])return`${gs[0][1]==='under'?lo:hi}${fmt(dD(m,gs[0][0]))} ${gs[0][1]} cut`;
     return'outside decision zone';
   }
-  if(c.kind==='target'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} target`;}
+  if(c.kind==='target'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} optimal`;}
   return '';
 }
 function trend(m){
