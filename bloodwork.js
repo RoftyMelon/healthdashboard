@@ -1138,7 +1138,7 @@ window.BLOODWORK =
  "CARE": [
   {
    "id": "face",
-   "t": "Skincare",
+   "t": "Skincare routine",
    "groups": [
     {
      "t": "Morning",
