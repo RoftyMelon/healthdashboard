@@ -108,7 +108,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     a gap — if nothing is published, say so.
   - `marker.cut` holds guideline, diagnostic or risk **zones**. Every zone has numeric `min`
     and/or `max`, a plain-language label and `level: ok | watch | out`; the cut carries a source.
-    A cut is never described as a lab reference.
+    A cut is never described as a lab reference. These zones remain in the source of truth for
+    clinical/AI context, but the dashboard does not display them or use them for status or flags.
   - `marker.target` is an evidence-backed health-optimization target. It needs `min` and/or
     `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
     have no target: only 5 of 88 currently do (`o3`, `tg`, `apob`, `nonhdl`, `ldl`). A target must
@@ -117,17 +118,18 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     vitamin-D titration window belong in `NEXTDRAW`, not here, unless outcome evidence supports
     promoting them to a marker-wide target. A weak target is an opinion-weighted watch signal,
     never a lab abnormality.
-  Marker-wide evidence drives status: reference first, then risk cut, then target. A printed
-  `lr` never changes the row colour or flagged filter. The viewer labels the three marker-wide
-  claim types separately in the gauge and expanded chart; lab provenance remains on the datapoint.
+  Marker-wide evidence drives status: reference first, then target. A printed `lr` and a stored
+  `cut` never change the row colour or flagged filter. The viewer shows the reference range and,
+  where one exists, the optimal target in the gauge and expanded chart; lab provenance remains
+  on the datapoint.
 - A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on
   creatine, 2 days into a diet change) — state, not method; `lr` = the lab's printed interval,
   `[lo, hi]` with either end `null` for a one-sided range; `lt: true` = the result was CENSORED,
   the lab printed `<x` and `r` holds the limit, so it renders `<x` and never as a measurement.
-  If that upper bound crosses a high cutoff, the claim is unresolved/watch — never confirmed
-  abnormal, because the true value may still sit below the cutoff;
+  If that upper bound crosses a reference or target ceiling, the claim is unresolved/watch —
+  never confirmed outside it, because the true value may still sit below the ceiling;
   `t` = a collection time that OVERRIDES the draw's, for a result folded in from a different
   day (the Dec 2020 zinc) — `audit()` requires a `cx` beside it, since a bare override is a typo;
   `ak` = what the printed `a` actually IS, a canonical key used ONLY to compare draws and never

@@ -95,6 +95,17 @@ setTimeout(()=>{
      h.includes('Lab reference')&&h.includes('8.63')&&h.includes('28.98 nmol/L'));}
   ok('primary gauge no longer promotes the latest lab interval',
     !mini(DATA.MARK.find(m=>m.id==='tt')).includes('Latest lab reference'));
+  {const gauges=DATA.MARK.map(mini).join('');
+   ok('benchmark gauges show no decision-limit layer',
+     !gauges.includes('Decision limits')&&!gauges.includes('mgz'));
+   ok('compact gauges expose non-colliding optimal endpoints',
+     mini(DATA.MARK.find(m=>m.id==='apob')).includes('class="o"')&&
+     mini(DATA.MARK.find(m=>m.id==='apob')).includes('>90</span>'));}
+  ok('decision limits remain stored but do not drive status',
+    DATA.MARK.some(m=>m.cut)&&state('chol')==='ok'&&
+    claim(DATA.MARK.find(m=>m.id==='chol'),latestFor('chol').v,latestFor('chol').raw).kind==='reference');
+  ok('LDL remains a target watch without decision-limit status',state('ldl')==='watch'&&
+    claim(DATA.MARK.find(m=>m.id==='ldl'),latestFor('ldl').v,latestFor('ldl').raw).kind==='target');
   ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
   ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
@@ -107,7 +118,7 @@ setTimeout(()=>{
     DATA.MARK.find(m=>m.id==='o3').target.min===8&&DATA.MARK.find(m=>m.id==='o3').target.max===undefined);
   ok('formula or assay-transfer conflicts are weak-graded',
     ['cacorr','pth','igf1'].every(id=>DATA.MARK.find(m=>m.id===id).reference.evidence==='weak'));
-  ok('a censored uPCR above the cut is unresolved, not diagnosed high',state('upcr')==='watch'&&
+  ok('a censored uPCR above the reference ceiling is unresolved, not diagnosed high',state('upcr')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='upcr'),latestFor('upcr').v,latestFor('upcr').raw).label.includes('does not resolve'));
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
   ['all','flag','crit'].forEach(f=>{ setF(f);
