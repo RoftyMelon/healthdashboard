@@ -175,7 +175,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "24mg/day, 12mg twice with fat. Above the EU cap but safe to 40mg — held here rather than raised until it has shown it does anything."
+       "24mg/day, 12mg twice with fat. Above the EU cap — held here rather than raised until it has shown it does anything."
       ]
      ],
      "Evidence": [
