@@ -24,10 +24,10 @@ window.BLOODWORK =
    "height": "187 cm",
    "weight": "80 kg",
    "bodyfat": "~12%",
-   "training": "resistance 1h15/day, plus one 30-min HIT run per week",
+   "training": "resistance 1h15, 6 days per week, plus one 30-min HIT run per week",
    "country": "France",
    "purpose": "Bryan Johnson-style quantified-self biohacking: longitudinal blood draws judge diet, supplement and lifestyle interventions, with AI used as the analytical medical team.",
-   "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice / whole-grain pasta), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
    "alcohol": "none — does not drink",
    "supervision": "none"
   },
@@ -1221,7 +1221,7 @@ window.BLOODWORK =
  ],
  "TRAINING": {
   "cardio": "One 30min HIT per week - mostly ~5k run.\nStriving for 3 sessions when business will be automated.",
-  "note": "Six sessions a week, each card twice. Weights and reps are approximations and may vary dramatically based on the machine used",
+  "note": "Three cards, each twice — six sessions a week. Weights and reps are approximations and may vary dramatically based on the machine used",
   "cards": [
    {
     "id": "pull",
