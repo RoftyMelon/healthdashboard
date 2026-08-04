@@ -421,8 +421,16 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
-   techniques it contradicts, not at the gap line's whisper */
-.dassay .achg{color:var(--watch);padding-top:4px;font-weight:560}
+   techniques it contradicts, not at the gap line's whisper.
+   It sits AFTER .chart, full width, not inside .dassay. It was measured at y=1230 there against a
+   plot ending at y=486 — three quarters of a screen below the line it contradicts, in a pane you
+   scroll sideways AWAY from to read the chart. It is a caveat on the series, so it belongs under
+   the series. Full width also frees it from .dassay's 339px ragged column, and the size is set
+   here rather than inherited: inside .dassay it picked up that block's 11px base, the type scale's
+   floor, for the single most important sentence in the panel. 15 is the caveat-notes tier. */
+.achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
+  padding:0 var(--gut,20px) 16px;opacity:0;transition:opacity .2s ease}
+.dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
    the marker description, several paragraphs of it. It belongs in the 15 'caveat notes' tier
@@ -433,7 +441,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
    .chart here would leave the footnote permanently at opacity:0 for those users. */
-@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart,.dassay{opacity:1}}
+@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart,.dassay,.achg{opacity:1}}
 tbody td{padding:9px 10px;font-size:15.5px;text-align:right;white-space:nowrap;color:var(--t2);
   border-bottom:.5px solid var(--line2);font-variant-numeric:tabular-nums}
 tr.m{cursor:pointer;transition:background .14s}
@@ -2083,7 +2091,7 @@ function det(row,id,cols,n,tri){
   // would overflow .cy and run through the axis labels by the end of a swipe. Fixed here once,
   // it never re-wraps mid-gesture either — the pane shrinks around it, the paragraph does not move.
   const _nmNow=_lastW>0?_lastW:NM_WIDE, _preMin=preW-(_nmNow-NM_NARROW);
-  const anote=(m.note||chg)?`<div class="dassay" style="width:${_preMin-74}px">${m.note?`<div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div>`:''}${chg}</div>`:'';
+  const anote=m.note?`<div class="dassay" style="width:${_preMin-74}px"><div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div></div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
@@ -2112,7 +2120,7 @@ function det(row,id,cols,n,tri){
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
       </div>
-    </div></div></div></td></tr>`;
+    </div>${chg}</div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
