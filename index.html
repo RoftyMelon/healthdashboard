@@ -350,10 +350,10 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* What a claim's numbers MEAN gets its own line, never a ' · ' behind them. */
 .ckl{display:block;color:var(--t3)}
 /* Every claim row reads value-then-meaning, so the VALUE is the darkest text in all three — a
-   reference interval set lighter than the thresholds below it read as the lesser claim, which is
+   reference interval set lighter than the limits below it read as the lesser claim, which is
    backwards. Colour alone: bold was tried and the key turned into a wall of heavy numerals. */
 .ckv>.nb{color:var(--txt)}
-/* One threshold per line. Dot-joined behind the cut's own label they read as a paragraph — four
+/* One limit per line. Dot-joined behind the cut's own label they read as a paragraph — four
    of them on vitamin D — and a cut you cannot pick a single value out of is not a cut. The
    numbers share a right-aligned tabular column so they stack; minmax(0,1fr) because a grid track
    is min-content by default and one long unbreakable word would push the meaning column past the
@@ -371,7 +371,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cplot{flex:1;position:relative;height:var(--ploth);overflow:hidden}
 .cplot svg{position:absolute;inset:0;width:100%;height:100%;color:var(--t2);overflow:visible}
 .cb{position:absolute;left:0;right:0}
-/* A cut draws NO FILL. It is a threshold — a line — and it was being said three ways at once:
+/* A cut draws NO FILL. It is a decision limit — a line — and it was being said three ways at once:
    a tinted zone fill, a dashed boundary line and an axis label. Vitamin D stacked five zone fills
    over the reference band, six translucent layers deep, and the fills were the thing making the
    plot look busy while asserting categories nowhere near the data. The boundary line (.cgl.z) and
@@ -1404,7 +1404,7 @@ function claim(m,v,e){
     const unresolved=e&&e.lt&&z.min!=null&&(m.cut.zones||[]).some(q=>
       q.level==='ok'&&(q.min==null||0>=q.min)&&(q.max==null||0<q.max));
     return{status:unresolved?'watch':z.level,kind:'cut',zone:z,
-      label:unresolved?'Assay upper bound does not resolve the decision threshold':z.label};
+      label:unresolved?'Assay upper bound does not resolve the decision limit':z.label};
   }
   if(m.target&&outside(v,[m.target.min??null,m.target.max??null]))
     return{status:'watch',kind:'target',range:[m.target.min??null,m.target.max??null],
@@ -1881,7 +1881,7 @@ const cutBands=(m,P,base='mgz')=>(m.cut&&m.cut.zones||[]).map(z=>
    not as zones. Rendered as ranges ("20-50: Generally adequate") it looked like a third band
    competing with the reference and optimal ranges, when the plot draws it as bare lines. The
    lowest zone needs no entry of its own: "12 Potentially inadequate" already says what is below 12.
-   Returns the thresholds as rows, not as one joined string: every surface that shows them puts
+   Returns the limits as rows, not as one joined string: every surface that shows them puts
    ONE PER LINE, and a caller that had to split a ' · ' run back apart would eventually not. */
 const cutRows=m=>((m.cut&&m.cut.zones)||[]).slice(1)
   .filter(z=>Number.isFinite(z.min))
@@ -1903,11 +1903,11 @@ function mini(m){
   const labs=labelled?labelled.filter(x=>x!=null).map(x=>lab(x,dV(m,x))).join(''):'';
   const tip=[
     rr&&`Reference range ${rangeText(m,rr,false,true)} ${uLab(m)} — ${m.reference.label} (${m.reference.evidence}; ${m.reference.source})`,
-    m.cut&&`Decision thresholds\n${cutRows(m).map(z=>`  ${z.v}  ${z.l}`).join('\n')}`,
+    m.cut&&`Decision limits\n${cutRows(m).map(z=>`  ${z.v}  ${z.l}`).join('\n')}`,
     tr&&`Optimal range ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
-  /* One claim per line, one threshold per line. A native title honours \n, and dot-joining four
-     vitamin-D thresholds behind three other claims made a single unreadable run of text. */
+  /* One claim per line, one limit per line. A native title honours \n, and dot-joining four
+     vitamin-D limits behind three other claims made a single unreadable run of text. */
   ].filter(Boolean).join('\n');
   return `<div title="${tip}">
     <div class="mg">${band('mgr',rr,P)}${cutBands(m,P)}${band('mgo',tr,P)}${tick}</div>
@@ -1942,8 +1942,8 @@ function excursion(m,v,e){                  // how far past the edge, in the CUR
   if(c.kind==='cut'){
     const oks=(m.cut.zones||[]).filter(z=>z.level==='ok').map(z=>[z.min??null,z.max??null]);
     const gs=oks.map(gap).filter(Boolean).sort((a,b)=>a[0]-b[0]);
-    if(gs[0])return`${gs[0][1]==='under'?lo:hi}${fmt(dD(m,gs[0][0]))} ${gs[0][1]} threshold`;
-    return'outside the decision thresholds';
+    if(gs[0])return`${gs[0][1]==='under'?lo:hi}${fmt(dD(m,gs[0][0]))} ${gs[0][1]} limit`;
+    return'outside the decision limits';
   }
   if(c.kind==='target'){const g=gap(c.range);if(g)return`${g[1]==='under'?lo:hi}${fmt(dD(m,g[0]))} ${g[1]} optimal`;}
   return '';
@@ -2057,7 +2057,7 @@ function det(row,id,cols,n,tri){
      top of each other, but it was suppressing the line too — and on glucose that hid the two that
      matter most: 100 (impaired fasting) sits 3 mg/dL under the reference ceiling of 103, and 70
      sits 2 under the floor of 72, so both were dropped and only the far-away 126 drew. A cut whose
-     threshold is invisible is not a cut. Lines are 0.5px and dashed; they can sit close together
+     limit is invisible is not a cut. Lines are 0.5px and dashed; they can sit close together
      without becoming unreadable, which is exactly what labels cannot do. */
   const ALL=[...(rr||[]).map(v=>[v,'r']),...(tr||[]).map(v=>[v,'t']),...cb.map(v=>[v,'z'])]
     .filter(([v])=>Number.isFinite(v)&&P(v)>=0&&P(v)<=100);
@@ -2126,7 +2126,7 @@ function det(row,id,cols,n,tri){
     rr&&keyRow('reference','Reference range',
       `<span class="nb">${rangeText(m,rr,false,true)} ${uLab(m)}</span><span class="ckl">${esc(m.reference.label)}</span>`,
       `${esc(m.reference.evidence)} · ${esc(m.reference.source)} · reviewed ${esc(m.reference.reviewed)}`),
-    m.cut&&keyRow('cut','Decision thresholds',
+    m.cut&&keyRow('cut','Decision limits',
       `<span class="ckl">${esc(m.cut.label)}</span><span class="ckt">`+
       cutRows(m).map(z=>`<span class="ctv">${esc(z.v)}</span><span class="ctl">${esc(z.l)}</span>`).join('')+
       `</span>`,esc(m.cut.source)),
@@ -2138,7 +2138,7 @@ function det(row,id,cols,n,tri){
     return `<div class="cb ${cls}" style="bottom:${Math.min(p0,p1).toFixed(2)}%;height:${Math.abs(p1-p0).toFixed(2)}%"></div>`;
   };
   // Cut zones are drawn by their BOUNDARIES only — see .cgl.z and addL(cb,'z') above. No fill:
-  // a threshold is a line, and the tinted zones competed with the reference band for the one
+  // a decision limit is a line, and the tinted zones competed with the reference band for the one
   // visual channel that should mean "where a healthy population sits".
   const cutPlot='';
 
@@ -2285,7 +2285,7 @@ function render(){
   document.getElementById('chipset').innerHTML=
     [{id:'all',t:'All'},{id:'flag',t:'Flagged'},{id:'crit',t:'By supplement'}]
       .map(c=>`<button class="chip" aria-pressed="${filter===c.id&&!q}" onclick="setF('${c.id}')"`+
-        (c.id==='flag'?` title="Outside a sourced reference range, past a flagged decision threshold, or outside an optimal range"`
+        (c.id==='flag'?` title="Outside a sourced reference range, past a flagged decision limit, or outside an optimal range"`
          :c.id==='crit'?` title="${DECS.length} supplements, ${MARK.filter(m=>m.dec).length} markers between them"`:'')+
         `>${c.t}<span class="cn${c.id==='flag'&&out.length?' hot':''}">${N[c.id]}</span></button>`).join('');
   moveSegT();barFade();
@@ -2299,8 +2299,8 @@ function render(){
     `<th class="now" title="Most recent value for this marker, whichever draw it came from">Latest</th>`+
     `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Unit system for the whole table — Latest, every draw, the gauge, the chart and the delta. Click to switch to ${S.units==='si'?'US':'SI'}."><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
     `<th class="lc lft" title="How long ago the latest reading was taken">Age</th>`+
-    (tri?`<th class="off lft" title="How far past the specific reference range, decision threshold or optimal range the latest value sits">Off by</th>`:'')+
-    `<th class="pos lft" title="Reference range, decision thresholds and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
+    (tri?`<th class="off lft" title="How far past the specific reference range, decision limit or optimal range the latest value sits">Off by</th>`:'')+
+    `<th class="pos lft" title="Reference range, decision limits and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
     `<th class="tr lft" title="Latest reading vs the one before it">Since prev.</th></tr></thead>`;
 
   // A censored result prints its DETECTION LIMIT, not a measurement — "<0.6" means somewhere
@@ -2313,7 +2313,7 @@ function render(){
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
     if(L){const C=claim(m,L.v,L.raw),st=C.status,mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
       const why=C.kind==='reference'?(st==='out'?`outside ${m.reference.label.toLowerCase()}`:`within ${m.reference.label.toLowerCase()}`)
-        :C.kind==='cut'?(st==='ok'?`between decision thresholds: ${C.label}`:C.label)
+        :C.kind==='cut'?(st==='ok'?`between decision limits: ${C.label}`:C.label)
         :C.kind==='target'?(st==='watch'?`${C.label} (${m.target.evidence} evidence)`:`within ${C.label.toLowerCase()}`)
         :'no universal claim applies';
       pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
@@ -2377,7 +2377,7 @@ function render(){
   } else if(filter==='flag'){
     const rows=MARK.filter(m=>cur[m.id]&&['out','watch'].includes(status(m,cur[m.id].v,cur[m.id].raw)))
                    .sort((a,b)=>sev(b,cur[b.id].v,cur[b.id].raw)-sev(a,cur[a.id].v,cur[a.id].raw));
-    h+=SEC(null,'Needs attention','Lab, decision-threshold and optimal-range flags remain distinct',
+    h+=SEC(null,'Needs attention','Lab, decision-limit and optimal-range flags remain distinct',
       rows.length?rows.map(R).join(''):NONE('Nothing flagged.'));
   } else if(sup){
     DECS.forEach((g,gi)=>{
