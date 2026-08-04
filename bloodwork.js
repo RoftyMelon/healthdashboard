@@ -844,7 +844,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "5g/day, up to 20g on poor-sleep weeks. Saturation-based, so timing is flexible."
+       "5g/day. Saturation-based, so timing is flexible."
       ]
      ],
      "Evidence": [
