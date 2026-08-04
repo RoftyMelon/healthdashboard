@@ -3986,8 +3986,8 @@ window.BLOODWORK =
     ]
    },
    {
-    "id": "biweekly",
-    "t": "Biweekly",
+    "id": "weekly",
+    "t": "Weekly",
     "items": [
      {
       "n": "Trout",
