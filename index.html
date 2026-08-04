@@ -422,14 +422,17 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* a detected method change is a FINDING, not a to-do — it reads at the weight of the
    techniques it contradicts, not at the gap line's whisper.
-   It sits AFTER .chart, full width, not inside .dassay. It was measured at y=1230 there against a
-   plot ending at y=486 — three quarters of a screen below the line it contradicts, in a pane you
-   scroll sideways AWAY from to read the chart. It is a caveat on the series, so it belongs under
-   the series. Full width also frees it from .dassay's 339px ragged column, and the size is set
-   here rather than inherited: inside .dassay it picked up that block's 11px base, the type scale's
-   floor, for the single most important sentence in the panel. 15 is the caveat-notes tier. */
+   It leads .dclip, ABOVE .chart, full width — not inside .dassay, and not after .chart either.
+   Inside .dassay it measured y=1230 against a plot ending at y=486, three quarters of a screen
+   below the line it contradicts and in a pane you scroll sideways AWAY from to read the chart.
+   After .chart is no better: .chart is a flex ROW whose height is the marker description's, so a
+   260px plot can sit in a 1180px row and anything following it lands just as far down. Above the
+   chart is the only position adjacent to the plot without restructuring the row or absolutely
+   positioning against measured column widths. Size is set here rather than inherited: inside
+   .dassay it picked up that block's 11px base, the type scale's floor, for the panel's most
+   important sentence. 15 is the caveat-notes tier. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  padding:0 var(--gut,20px) 16px;opacity:0;transition:opacity .2s ease}
+  padding:14px var(--gut,20px) 0;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
@@ -2106,7 +2109,7 @@ function det(row,id,cols,n,tri){
     const a=r[0]==null?lo:r[0],b=r[1]==null?hi:r[1],p0=P(a),p1=P(b);
     return `<div class="cb ${cls}" style="bottom:${Math.min(p0,p1).toFixed(2)}%;height:${Math.abs(p1-p0).toFixed(2)}%"></div>`;
   };
-  const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
+  const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">${chg}
     <div class="chart">
       <div class="cy" style="width:${preW}px">
         <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
@@ -2120,7 +2123,7 @@ function det(row,id,cols,n,tri){
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
       </div>
-    </div>${chg}</div></div></td></tr>`;
+    </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
