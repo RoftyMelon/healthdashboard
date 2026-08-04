@@ -2329,7 +2329,7 @@ function render(){
                    .sort((a,b)=>sev(b,cur[b.id].v,cur[b.id].raw)-sev(a,cur[a.id].v,cur[a.id].raw));
     const low=m=>lowConf(m,cur[m.id].v,cur[m.id].raw,cur[m.id].d.date);
     const hi=rows.filter(m=>!low(m)),lo=rows.filter(low);
-    h+=SEC(null,'Needs attention','Results outside a reference or optimal range',
+    h+=SEC(null,'Needs attention','Results outside of reference or optimal range',
       hi.length?hi.map(R).join(''):NONE('Nothing flagged.'));
     if(lo.length)h+=SEC(null,'Low confidence',
       'Weak evidence, old data, or a lab result too imprecise to classify',lo.map(R).join(''));
