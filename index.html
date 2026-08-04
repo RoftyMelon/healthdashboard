@@ -2300,7 +2300,7 @@ function render(){
     `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Unit system for the whole table — Latest, every draw, the gauge, the chart and the delta. Click to switch to ${S.units==='si'?'US':'SI'}."><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
     `<th class="lc lft" title="How long ago the latest reading was taken">Age</th>`+
     (tri?`<th class="off lft" title="How far past the specific reference range, decision limit or optimal range the latest value sits">Off by</th>`:'')+
-    `<th class="pos lft" title="Reference range, decision limits and optimal range are separate marker-wide layers">Claims &amp; position</th>${hd}`+
+    `<th class="pos lft" title="Sourced reference range, decision thresholds and optimal target; the marker shows your latest result">Benchmarks &amp; position</th>${hd}`+
     `<th class="tr lft" title="Latest reading vs the one before it">Since prev.</th></tr></thead>`;
 
   // A censored result prints its DETECTION LIMIT, not a measurement — "<0.6" means somewhere
