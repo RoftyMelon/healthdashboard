@@ -40,7 +40,7 @@ window.BLOODWORK =
    "No existing draw was modified, reordered or dropped. Count them: there are 7.",
    "The file still parses: it is window.BLOODWORK = {...}; with the wrapper intact."
   ],
-  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; all 88 markers carry one, graded strong/moderate/weak — the grade carries the doubt, so a weak interval is shown with its transfer limits in method rather than withheld. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval; it renders as boundary LINES on the plot, never a fill. target is an evidence-backed optimization band and must carry strong/moderate/weak evidence plus its basis; 10 of 88 markers have one. The viewer renders reference as \"Reference range\" and target as \"Optimal range\", the only two filled bands. Legacy clin[], opt[] and oc are rejected by audit()."
+  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; all 88 markers carry one, graded strong/moderate/weak — the grade carries the doubt, so a weak interval is shown with its transfer limits in method rather than withheld. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval; it renders as boundary LINES on the plot, never a fill. target is an evidence-backed optimization band and must carry strong/moderate/weak evidence plus its basis; 5 of 88 markers have one. The viewer renders reference as \"Reference range\" and target as \"Optimal range\", the only two filled bands. Legacy clin[], opt[] and oc are rejected by audit()."
  },
  "CATS": [
   {
@@ -269,13 +269,13 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "5000 IU, 1 tablet. Above the EFSA/IOM upper limit of 4000 but well under the Endocrine Society ceiling of 10000 — sized to lift 28 ng/mL into the 30-50 window, not to saturate."
+       "5000 IU, 1 tablet. Above the adult EFSA/IOM upper limit of 4000, so it is a monitored personal experiment — sized to move 28 ng/mL toward the predeclared 30-50 titration window, not an evidence-defined longevity optimum."
       ]
      ],
      "Evidence": [
       [
        "",
-       "Correcting a measured deficiency rather than betting on one: the July draw read 28 ng/mL against the lab's own 30 floor."
+       "Testing a monitored dose response rather than assuming benefit: July was 28 ng/mL, adequate by NASEM but below the personal 30-50 titration window."
       ]
      ],
      "Watch": [
@@ -301,7 +301,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/vitamin-d-tablets-5000-iu-plus-k2-mk7-100mcg-xl.html",
     "dec": "Vitamin D3 5000 IU + K2",
-    "judge": "25-OH-D, calcium and albumin at the year-end draw — aim for 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
+    "judge": "25-OH-D, calcium and albumin at the year-end draw — personal titration window 30-50 ng/mL; reduce above 50 and reassess promptly above 60 or if calcium rises"
    },
    {
     "id": "omega3",
@@ -358,7 +358,7 @@ window.BLOODWORK =
     ],
     "url": "https://www.sunday.de/en/omega-3-epa-dha-capsules.html",
     "dec": "Omega-3 (2000mg EPA, 1125mg DHA)",
-    "judge": "omega-3 index — titrate to 8-12%"
+    "judge": "omega-3 index — seek at least 8%; there is no evidence-defined upper optimum, so review rather than automatically increase the current high intake"
    },
    {
     "id": "collagenc",
@@ -2076,8 +2076,8 @@ window.BLOODWORK =
      "main"
     ],
     "why": "Does approximately 3.9g/day EPA+DHA including mackerel, trout and supplements reach the intended red-cell range?",
-    "decision": "Maintain in-range intake; if low, verify intake and method before increasing an already-high dose; if above range, reduce the supplement.",
-    "trigger": "Proposed personal band: 8–12%. This is a weak-evidence observational framework, not an outcome-defined optimum.",
+    "decision": "If below the proposed lower-risk threshold, verify intake and method before increasing an already-high dose; a value above 12% prompts a conservative supplement review rather than proving excess.",
+    "trigger": "Proposed lower-risk threshold: at least 8%. No outcome study establishes 12% as an upper optimum; it remains a personal review point only.",
     "method": "Exact erythrocyte-membrane AGRAS measurement by GC-FID through Bioavenir Metz.",
     "prep": "Keep average food plus supplement intake stable; record fish frequency and supplemental EPA/DHA.",
     "timing": "Main draw after at least 4 months of stable average intake.",
@@ -2308,7 +2308,7 @@ window.BLOODWORK =
     "en": "Selenium",
     "fr": "Sélénium",
     "s": "remove",
-    "why": "July's 93.5 µg/L is sufficient — above the 80 threshold — but below the weak 100–130 target, so the gap is an opinion-weighted watch signal, not a deficiency. No supplement decision turns on repeating it: food intake is already adequate, and pushing toward the target carries a diabetes signal above roughly 130.",
+    "why": "July's 93.5 µg/L is sufficient — above the 80 threshold — and no outcome-defined optimum justifies pushing it higher. No supplement decision turns on repeating it: food intake is already adequate, while higher exposure has shown diabetes signals in trials and observational cohorts.",
     "reconsider": "Add after a meaningful diet change or if thyroid findings create a reason."
    },
    {
@@ -4095,8 +4095,8 @@ window.BLOODWORK =
     "label": "Healthy French adult 25(OH)D, 3rd-97th percentile",
     "source": "Souberbielle et al., Clin Chem 2005;51(2):395-400 (927 healthy French adults, DiaSorin LIAISON)",
     "population": "927 apparently healthy adults studied at a French laboratory; sex and age not partitioned and not reported in the accessible record. 506 of them (54.6%) were vitamin-D insufficient. Published interval 13-151 nmol/L as the 3rd-97th percentile — note that is 3rd/97th, not the conventional 2.5th/97.5th.",
-    "method": "DiaSorin LIAISON automated 25-OH Vitamin D immunoassay. SEASON OF COLLECTION AND FASTING STATE ARE NOT REPORTED in anything retrievable, so no claim is made about either; what IS known is that over half the cohort fell below 50 nmol/L, which bounds this distribution downward rather than upward. Transfer limits: (1) it predates VDSP/NIST standardisation (2010+), and 25(OH)D immunoassays are notoriously discordant between manufacturers — his 2020-2024 draws are Roche Cobas ECLIA and only the 2026 draw is LIAISON XL DiaSorin, so the earlier points are being read against an interval built on a different platform; (2) this is a POPULATION DISTRIBUTION, not an adequacy claim, and because roughly half the source population was insufficient, the 3rd percentile of 5.2 ng/mL falls deep inside what the marker's existing NIH/NASEM cut calls 'Deficient'. Corroborating French data on the exact 2026 platform: the VARIETE cohort (898 healthy French adults, all seasons, fasting, LIAISON XL) had a median 25(OH)D of 59 nmol/L = 23.6 ng/mL — his 28.0 ng/mL in July 2026 sits just above that median. US NHANES gives a broadly similar median near 27 ng/mL on a standardised assay, cited loosely rather than as a matched comparator. His 2024 lab printed 75-250 nmol/L (30.0-100.1 ng/mL), which is an adequacy/target band — its floor is the Endocrine Society sufficiency threshold, its ceiling a toxicity guard — which is exactly why it disagrees with this reference at both ends and why his 2024 result read BELOW the lab band while sitting comfortably inside the healthy-population distribution. STORAGE WARNING FOR THE INTEGRATOR: CLAUDE.md sets marker-wide precedence as reference first, then risk cut. Storing this band would let a 13 ng/mL result render in-range and drop out of the flagged filter while the NIH/NASEM cut calls it potentially inadequate. Store ONLY if the viewer keeps existingCut as the status driver for this row, or the band will quietly disarm the deficiency flag. It sits alongside this marker's 30-50 ng/mL optimal range, which is the Endocrine Society sufficiency window — a distribution and an adequacy threshold answer different questions.",
-    "reviewed": "2026-08-02"
+    "method": "DiaSorin LIAISON automated 25-OH Vitamin D immunoassay. SEASON OF COLLECTION AND FASTING STATE ARE NOT REPORTED in anything retrievable, so no claim is made about either; what IS known is that over half the cohort fell below 50 nmol/L, which bounds this distribution downward rather than upward. Transfer limits: (1) it predates VDSP/NIST standardisation (2010+), and 25(OH)D immunoassays are notoriously discordant between manufacturers — his 2020-2024 draws are Roche Cobas ECLIA and only the 2026 draw is LIAISON XL DiaSorin, so the earlier points are being read against an interval built on a different platform; (2) this is a POPULATION DISTRIBUTION, not an adequacy claim, and because roughly half the source population was insufficient, the 3rd percentile of 5.2 ng/mL falls deep inside what the marker's existing NIH/NASEM cut calls 'Deficient'. Corroborating French data on the exact 2026 platform: the VARIETE cohort (898 healthy French adults, all seasons, fasting, LIAISON XL) had a median 25(OH)D of 59 nmol/L = 23.6 ng/mL — his 28.0 ng/mL in July 2026 sits just above that median. US NHANES gives a broadly similar median near 27 ng/mL on a standardised assay, cited loosely rather than as a matched comparator. His 2024 lab printed 75-250 nmol/L (30.0-100.1 ng/mL), which is an adequacy/target band — its floor reflects that laboratory's adopted adequacy convention, while its ceiling is a safety guard — which is exactly why it disagrees with this reference at both ends and why his 2024 result read BELOW the lab band while sitting comfortably inside the healthy-population distribution. STORAGE WARNING FOR THE INTEGRATOR: CLAUDE.md sets marker-wide precedence as reference first, then risk cut. Storing this band would let a 13 ng/mL result render in-range and drop out of the flagged filter while the NIH/NASEM cut calls it potentially inadequate. Store ONLY if the viewer keeps existingCut as the status driver for this row, or the band will quietly disarm the deficiency flag. The 2024 Endocrine Society guideline found no outcome-defined 25(OH)D threshold for healthy adults under 50; the personal 30-50 ng/mL titration window therefore remains in the intervention plan rather than an evidence target on this marker.",
+    "reviewed": "2026-08-04"
    },
    "note": "Technically a hormone rather than a vitamin. Skin makes it from UVB light, the liver converts it to the 25-OH form measured here, and the kidney activates it.\n\n25-OH is the right thing to measure because it is the storage form with a long half-life — the active form fluctuates far too quickly to be informative.\n\nIt moves over months rather than days. And daily sunscreen removes most skin synthesis, which leaves diet and supplements doing nearly all the work.",
    "axis": [
@@ -4136,14 +4136,7 @@ window.BLOODWORK =
       "level": "out"
      }
     ]
-   },
-    "target": {
-     "min": 30,
-     "max": 50,
-     "evidence": "weak",
-     "label": "Sufficiency window",
-     "source": "Endocrine Society guideline (Holick et al., J Clin Endocrinol Metab 2011;96(7):1911-1930)"
-    }
+   }
   },
   {
    "id": "cacorr",
@@ -4169,12 +4162,12 @@ window.BLOODWORK =
    "reference": {
     "min": 8.7,
     "max": 9.9,
-    "evidence": "moderate",
-    "label": "NORIP albumin-corrected calcium, adults 18-49",
+    "evidence": "weak",
+    "label": "Provisional NORIP corrected-calcium comparator; formula differs",
     "source": "Rustad et al. (NORIP), Scand J Clin Lab Invest 2004;64(4):271-284 (3,036 healthy Nordic adults, 102 laboratories)",
     "population": "3,036 subjectively healthy adults aged 18 and over from Denmark, Finland, Iceland, Norway and Sweden, recruited through 102 routine clinical biochemistry laboratories and evenly distributed for sex and age. The albumin-corrected calcium row is REPORTED SEX-COMBINED (gender FM); that is the source's presentation and should not be read as a demonstrated absence of a sex difference. It IS age-banded, and 18-49 is the band that applies to a 31-year-old; the 50+ band shares the same lower limit with an upper limit of 2.53 mmol/L (10.14 mg/dL).",
-    "method": "NORIP is one of the few reference-interval projects that derived a limit for albumin-corrected calcium as a property in its own right rather than reusing the total-calcium interval, which is what makes it the right citation here. Total calcium and albumin were measured on routine analysers across 102 laboratories, all corrected to a common fresh-frozen serum calibrator traceable to reference methods — that harmonisation is why this is not graded weak. THREE TRANSFER LIMITS, and the first is a systematic offset rather than noise. (1) FORMULA MISMATCH, DIRECTIONAL: NORIP corrects as Ca + 0.020 x (41.3 - albumin g/L), while derive() in this dashboard uses Ca(mg/dL) - (albumin(g/dL) - 4), i.e. 0.025 mmol/L per g/L referenced to 40 g/L. Across albumin 30-40 g/L the dashboard's number sits about 0.10 mg/dL BELOW a NORIP-corrected calcium — roughly 8% of this 1.2 mg/dL interval, always in the same direction. That is a consistent downward bias, not rounding. (2) MATRIX: 2.17-2.47 mmol/L is the harmonised suggestion pooling serum and Li-heparin plasma; the serum-only limits for 18-49 were 2.20-2.47 mmol/L (n=1385, i.e. a floor of 8.82 mg/dL), and every draw here is serum, so this stored floor is about 0.12 mg/dL more permissive than a serum-specific reading. (3) The correction is only as good as the albumin method — bromocresol green and bromocresol purple disagree by several g/L in this range and that error multiplies straight into the corrected calcium; population is Nordic, not French, though calcium homeostasis is tightly regulated and varies little between populations. NOTE ON THE EMPTY ROW: this marker currently holds no values by design, because derive() refuses to compute corrected calcium when albumin exceeds 40 g/L (the source lab's own printed rule) and every albumin in the file is above 40. The reference is still worth storing — it is what the row will be read against if a lower albumin ever appears — but it will render against an empty series until then. This is where a healthy population sits, not where hypercalcaemia begins; that threshold is a separate claim and belongs in a cut. For orientation, NORIP's uncorrected total-calcium interval for adults is 2.15-2.51 mmol/L = 8.62-10.06 mg/dL.",
-    "reviewed": "2026-08-02"
+    "method": "NORIP is one of the few reference-interval projects that derived a limit for albumin-corrected calcium as a property in its own right rather than reusing the total-calcium interval, which is what makes it the right citation here. Total calcium and albumin were measured on routine analysers across 102 laboratories, all corrected to a common fresh-frozen serum calibrator traceable to reference methods — the source interval is strong, but the formula and matrix mismatch make transfer to this derived row weak. THREE TRANSFER LIMITS, and the first is a systematic offset rather than noise. (1) FORMULA MISMATCH, DIRECTIONAL: NORIP corrects as Ca + 0.020 x (41.3 - albumin g/L), while derive() in this dashboard uses Ca(mg/dL) - (albumin(g/dL) - 4), i.e. 0.025 mmol/L per g/L referenced to 40 g/L. Across albumin 30-40 g/L the dashboard's number sits about 0.10 mg/dL BELOW a NORIP-corrected calcium — roughly 8% of this 1.2 mg/dL interval, always in the same direction. That is a consistent downward bias, not rounding. (2) MATRIX: 2.17-2.47 mmol/L is the harmonised suggestion pooling serum and Li-heparin plasma; the serum-only limits for 18-49 were 2.20-2.47 mmol/L (n=1385, i.e. a floor of 8.82 mg/dL), and every draw here is serum, so this stored floor is about 0.12 mg/dL more permissive than a serum-specific reading. (3) The correction is only as good as the albumin method — bromocresol green and bromocresol purple disagree by several g/L in this range and that error multiplies straight into the corrected calcium; population is Nordic, not French, though calcium homeostasis is tightly regulated and varies little between populations. NOTE ON THE EMPTY ROW: this marker currently holds no values by design, because derive() refuses to compute corrected calcium when albumin exceeds 40 g/L (the source lab's own printed rule) and every albumin in the file is above 40. The reference is still worth storing — it is what the row will be read against if a lower albumin ever appears — but it will render against an empty series until then. This is where a healthy population sits, not where hypercalcaemia begins; that threshold is a separate claim and belongs in a cut. For orientation, NORIP's uncorrected total-calcium interval for adults is 2.15-2.51 mmol/L = 8.62-10.06 mg/dL.",
+    "reviewed": "2026-08-04"
    },
    "note": "Calcium adjusted for how much albumin is available to bind it, so that low albumin is not mistaken for genuinely low calcium.\n\nIt is calculated, not measured — and only when it is valid to do so.\n\nDeliberately left empty here: the source lab's own printed rule is not to correct above 40 g/L albumin, and every albumin in this file is above that. Above that threshold the formula subtracts from a calcium that needed no correction, manufacturing a low result out of a normal one.\n\nSo an empty row is the correct answer, not a missing value.",
    "axis": [
@@ -4249,12 +4242,12 @@ window.BLOODWORK =
    "reference": {
     "min": 9.4,
     "max": 28.9,
-    "evidence": "moderate",
-    "label": "Vitamin-D-replete French adults, LIAISON XL 3rd-gen PTH",
+    "evidence": "weak",
+    "label": "Provisional LIAISON XL 3rd-generation PTH comparator",
     "source": "Souberbielle et al., Eur J Endocrinol 2016;174(3):315-323 (VARIETE; 898 healthy French adults, LIAISON XL)",
     "population": "Drawn from 898 healthy French adults (432 women, 466 men) aged 18-89 with normal BMI and normal eGFR — the VARIETE cohort. The published limits come from the vitamin-D-replete subgroup with normal renal function (25(OH)D >= 30 ng/mL); the exact subgroup n is reported inconsistently in the secondary literature as either 183 or 293 and is deliberately left unpinned here. Sex was not partitioned; the authors reported no sex difference. Age was not partitioned either, though subjects over 60 ran higher and were too few to split — so a 31-year-old sits, if anything, at the low-reading end of this cohort.",
-    "method": "Third-generation (whole 1-84) PTH immunochemiluminometric assay on the DiaSorin LIAISON XL platform, fasting morning samples, all seasons — the exact manufacturer and platform recorded for his 2026-07-20 result, which is the strongest assay match available for any marker in this panel. THE ASSAY CAVEAT IS THE WHOLE STORY FOR PTH: second-generation 'intact' PTH assays also detect the 7-84 fragment and read roughly twice as high, and even among second-generation kits the same serum spans a fourfold range between manufacturers. This interval must never be transferred to a second-generation result. WHICH GENERATION HIS ASSAY IS, IS AN INFERENCE, NOT A PROOF: the stored assay string 'CLIA LIAISON XL Diasorin' names the platform, not the generation, and DiaSorin sells second-generation assays on that same platform. The printed 6.5-36.8 pg/mL closely resembles DiaSorin's own LIAISON 1-84 PTH insert range of 5.5-38.4 pg/mL, which points to a third-generation assay — but it is not decisive, because published second-generation inserts do reach that low (13-54 and 7.5-53.5 pg/mL are both real second-generation figures). Confirm the generation on the next report. Two further caveats: (1) the authors deliberately restricted to 25(OH)D >= 30 ng/mL, which lowered the upper limit by 22.4% versus the manufacturer's insert ULN of 38.4 pg/mL — a stricter reference population than a routine lab uses, so this band is tighter than a lab handbook would print; the unrestricted 898-subject healthy group had a median of 18.8 pg/mL and his 17.9 sits essentially on it; (2) PTH has a real circadian rhythm (nocturnal peak, mid-morning nadir) and responds to dietary calcium, so a non-fasting or afternoon draw is not comparable. His own 25(OH)D on the same 2026 draw was 28.0 ng/mL — just below the >= 30 replete criterion this interval was built on, a small mismatch worth stating. This is a population reference, not a diagnostic threshold: primary hyperparathyroidism is diagnosed on PTH read jointly with calcium, and the paper's point in moving the ULN from 38.4 to 28.9 was sensitivity for surgically proven disease (66.6% to 90.1%), not a claim that 29-38 pg/mL is unhealthy.",
-    "reviewed": "2026-08-02"
+    "method": "Third-generation (whole 1-84) PTH immunochemiluminometric assay on the DiaSorin LIAISON XL platform, fasting morning samples, all seasons — the exact manufacturer and platform recorded for his 2026-07-20 result, but the assay generation is not printed, so the comparator remains provisional. THE ASSAY CAVEAT IS THE WHOLE STORY FOR PTH: second-generation 'intact' PTH assays also detect the 7-84 fragment and read roughly twice as high, and even among second-generation kits the same serum spans a fourfold range between manufacturers. This interval must never be transferred to a second-generation result. WHICH GENERATION HIS ASSAY IS, IS AN INFERENCE, NOT A PROOF: the stored assay string 'CLIA LIAISON XL Diasorin' names the platform, not the generation, and DiaSorin sells second-generation assays on that same platform. The printed 6.5-36.8 pg/mL closely resembles DiaSorin's own LIAISON 1-84 PTH insert range of 5.5-38.4 pg/mL, which points to a third-generation assay — but it is not decisive, because published second-generation inserts do reach that low (13-54 and 7.5-53.5 pg/mL are both real second-generation figures). Confirm the generation on the next report. Two further caveats: (1) the authors deliberately restricted to 25(OH)D >= 30 ng/mL, which lowered the upper limit by 22.4% versus the manufacturer's insert ULN of 38.4 pg/mL — a stricter reference population than a routine lab uses, so this band is tighter than a lab handbook would print; the unrestricted 898-subject healthy group had a median of 18.8 pg/mL and his 17.9 sits essentially on it; (2) PTH has a real circadian rhythm (nocturnal peak, mid-morning nadir) and responds to dietary calcium, so a non-fasting or afternoon draw is not comparable. His own 25(OH)D on the same 2026 draw was 28.0 ng/mL — just below the >= 30 replete criterion this interval was built on, a small mismatch worth stating. This is a population reference, not a diagnostic threshold: primary hyperparathyroidism is diagnosed on PTH read jointly with calcium, and the paper's point in moving the ULN from 38.4 to 28.9 was sensitivity for surgically proven disease (66.6% to 90.1%), not a claim that 29-38 pg/mL is unhealthy.",
+    "reviewed": "2026-08-04"
    },
    "note": "The hormone that keeps blood calcium constant. When calcium dips, the parathyroid glands release PTH, which pulls calcium from bone, tells the kidney to retain it, and activates vitamin D to absorb more.\n\nSo it is not really read on its own — it is read to interpret calcium and vitamin D.\n\nA raised PTH usually points at the deficiency behind it: the system is working, but working hard, and it is taking the calcium from your skeleton to do it.\n\nThere is no universal optimization band: PTH is assay-specific and is interpreted with calcium and vitamin D. A low result beside normal calcium is not automatically a deficit; the relevant pattern is an unexpected rise, or suppression paired with abnormal calcium.",
    "axis": [
@@ -4472,8 +4465,8 @@ window.BLOODWORK =
     "label": "French adult male serum selenium, central 95%",
     "source": "Arnaud et al., Br J Nutr 2006;95(2):313-320 (SU.VI.MAX; 4,915 French men aged 45-60)",
     "population": "French men aged 45-60, community volunteers in the SU.VI.MAX antioxidant supplementation cohort, baseline (unsupplemented) samples collected 1994-1995; mean 1.14 µmol/L (SD 0.20). The companion female figure (n=7,423, aged 35-60) is 1.09 (SD 0.19).",
-    "method": "DEPARTURE FROM THE PANEL NOTE, STATED DELIBERATELY: the note asked for the NHANES adult distribution, which gives US males >=14 y a 5th-95th percentile of 101-151 µg/L (Kafai & Ganji, J Trace Elem Med Biol 2003;17:13-18). That band does not transfer to France. Serum selenium is dominated by soil selenium in the food chain and US intake runs far above European — a review of 37 studies in 8,010 healthy German adults found a weighted mean of 82 µg/L (Liaskos et al., Eur J Nutr 2023;62(1):71-82), roughly 40 µg/L below the US median. Applying the NHANES band would have put this subject's entirely ordinary 93.5 µg/L below the reference and, because reference drives row status ahead of the cut, turned a normal French result red. THE BOUNDS ARE DERIVED, NOT PUBLISHED, and that is the main reason this is not graded higher: the paper reports mean and SD, not percentiles, so these are a normal approximation (mean ± 1.96 SD). The approximation's weak end is the FLOOR. The paper states fewer than 2% of volunteers fell below 0.75 µmol/L (59.2 µg/L), but that statement covers a cohort that is mostly women, for whom the same normal model would predict 3.7% below — so the real distribution has a SHORTER left tail than normal and the true male 2.5th percentile probably sits somewhat above 59. This floor is therefore permissive and errs toward not flagging a healthy man; the mild right skew of selenium distributions makes the ceiling slightly conservative in the same way. ASSAY: the SU.VI.MAX group (Grenoble) routinely used electrothermal atomic absorption spectrometry and that is the likely method, but the full text is paywalled and the method is not confirmed; this subject's result is ICP-MS. Both are NIST-traceable for total serum selenium and agree closely, so the transfer is acceptable, but it is a method difference and the assay-change warning applies. Other caveats: the cohort is 45-60 and he is 31 (serum selenium varies little across adult ages, but the age partition does not strictly transfer); samples are ~30 years old and national selenium status drifts over decades; serum selenium is not fasting-sensitive but responds within weeks to supplement intake, so it reads current intake rather than long-term status — whole blood or plasma glutathione peroxidase is the status measure. LAYER SEPARATION: the floor of 59 falls below the existing cut's 80 µg/L sufficiency line on purpose — the same paper reports 75% of men below the concentration considered optimal for glutathione peroxidase, so a large minority of French adults genuinely sit below functional sufficiency. Population position and functional sufficiency are different claims. The existing 100-130 target sits in the upper half of the population band, which is the correct relationship. His single draw printed 70-130 µg/L, a narrower working range sitting inside this band.",
-    "reviewed": "2026-08-02"
+    "method": "DEPARTURE FROM THE PANEL NOTE, STATED DELIBERATELY: the note asked for the NHANES adult distribution, which gives US males >=14 y a 5th-95th percentile of 101-151 µg/L (Kafai & Ganji, J Trace Elem Med Biol 2003;17:13-18). That band does not transfer to France. Serum selenium is dominated by soil selenium in the food chain and US intake runs far above European — a review of 37 studies in 8,010 healthy German adults found a weighted mean of 82 µg/L (Liaskos et al., Eur J Nutr 2023;62(1):71-82), roughly 40 µg/L below the US median. Applying the NHANES band would have put this subject's entirely ordinary 93.5 µg/L below the reference and, because reference drives row status ahead of the cut, turned a normal French result red. THE BOUNDS ARE DERIVED, NOT PUBLISHED, and that is the main reason this is not graded higher: the paper reports mean and SD, not percentiles, so these are a normal approximation (mean ± 1.96 SD). The approximation's weak end is the FLOOR. The paper states fewer than 2% of volunteers fell below 0.75 µmol/L (59.2 µg/L), but that statement covers a cohort that is mostly women, for whom the same normal model would predict 3.7% below — so the real distribution has a SHORTER left tail than normal and the true male 2.5th percentile probably sits somewhat above 59. This floor is therefore permissive and errs toward not flagging a healthy man; the mild right skew of selenium distributions makes the ceiling slightly conservative in the same way. ASSAY: the SU.VI.MAX group (Grenoble) routinely used electrothermal atomic absorption spectrometry and that is the likely method, but the full text is paywalled and the method is not confirmed; this subject's result is ICP-MS. Both are NIST-traceable for total serum selenium and agree closely, so the transfer is acceptable, but it is a method difference and the assay-change warning applies. Other caveats: the cohort is 45-60 and he is 31 (serum selenium varies little across adult ages, but the age partition does not strictly transfer); samples are ~30 years old and national selenium status drifts over decades; serum selenium is not fasting-sensitive but responds within weeks to supplement intake, so it reads current intake rather than long-term status — whole blood or plasma glutathione peroxidase is the status measure. LAYER SEPARATION: the floor of 59 falls below the existing cut's 80 µg/L sufficiency line on purpose — the same paper reports 75% of men below the concentration considered optimal for glutathione peroxidase, so a large minority of French adults genuinely sit below functional sufficiency. Population position and functional sufficiency are different claims. No target is stored: randomized prevention trials have not shown benefit from pushing an already-sufficient concentration higher, while higher exposure has produced diabetes signals. His single draw printed 70-130 µg/L, a narrower working range sitting inside this band.",
+    "reviewed": "2026-08-04"
    },
    "note": "A trace mineral built into the enzymes that regenerate the body's antioxidants, and into the enzyme that converts T4 into active T3.\n\nUnusual in having a narrow safe window — both deficiency and excess cause real harm, so more is not better here.\n\nBlood levels vary widely by region, because the amount in food depends on how much selenium is in the soil where it grew. Serum reflects recent intake more than long-term stores.",
    "axis": [
@@ -4501,13 +4494,6 @@ window.BLOODWORK =
       "level": "watch"
      }
     ]
-   },
-   "target": {
-    "min": 100,
-    "max": 130,
-    "evidence": "weak",
-    "label": "Proposed selenium status band",
-    "source": "Status associations; no outcome-defined longevity optimum"
    }
   },
   {
@@ -4533,42 +4519,19 @@ window.BLOODWORK =
     "label": "French adult Omega-3 Index, central 95%",
     "source": "Wagner et al., Eur J Clin Nutr 2015;69(4):436-441 (MONA LISA-NUT; 503 French adults aged 35-64)",
     "population": "French adults aged 35-64, men and women pooled, sampled in the MONA LISA-NUT national nutrition survey 2005-2007 across three French regions; mean Omega-3 Index 6.02% (SD 1.75). No sex-specific values are published.",
-    "method": "Red cell fatty acids by gas chromatography, Omega-3 Index computed as EPA + DHA as a percentage of total RBC fatty acids — the same measurand and the same method family as this subject's GC-FID result, so the transfer is unusually clean for a reference interval. Bounds are a normal approximation (mean ± 1.96 SD) because the paper publishes mean and SD, not percentiles; the Omega-3 Index is mildly right-skewed, so the lower bound is slightly pessimistic and the upper slightly conservative. THE HONEST CAVEAT, AND IT IS THE WHOLE CAVEAT: THIS IS AN INTAKE DISTRIBUTION, NOT A PHYSIOLOGICAL RANGE. There is no homeostatic set point for the Omega-3 Index — it is a direct readout of habitual EPA/DHA intake over the preceding ~4 months of red cell turnover, so the interval says where French eating habits sat in 2005-2007 and nothing about a biological norm. It moves with national fish consumption and needs re-review if French intake shifts. Corroboration across Europe on the same RBC-GC method: Germany mean 5.80%, Italy 4.75%, Barcelona 7.05%, USA 5.44% (Schuchardt et al., Prostaglandins Leukot Essent Fatty Acids 2022;179:102418, 167,347 individuals); the 2024 update of that world map (Schuchardt et al., Prog Lipid Res 2024;95:101286, 328 studies) places France in the moderate 6-8% band. Younger European adults may run lower — the GAPP cohort in LIECHTENSTEIN, adults aged 25-41, is reported around 4.6% by whole-blood GC (Filipovic et al., J Hypertens 2018;36(7):1548-1554), though that exact median is unverified and whole blood reads slightly differently from RBC. UK Biobank NMR-ESTIMATED O3I in men was 5.2% (SD 2.2), n=117,108 (Schuchardt et al., Br J Nutr 2023;130(2):312-322), but that is predicted from plasma and is not directly comparable. Graded weak: n=503, samples 20 years old, bounds derived rather than published, sexes pooled, ages 35-64 against a subject of 31, and the analyte drifts with national diet. THE MOST IMPORTANT LINE ON THIS ROW: his 2026 lab printed [8, 11]%, which is NOT a population interval — it is the Harris/von Schacky cardioprotective TARGET reprinted in the reference column, which is why a 50th-percentile French value reads 'low' on the report. Against his population he is at the median (6.12% vs 6.02%); against the target he is short by about 2 points. The population band spans the existing cut's high-risk and intermediate zones and stops short of the 8-12 target, which is the expected relationship — presenting 2.6-9.5 as a risk range would be wrong.",
-    "reviewed": "2026-08-02"
+    "method": "Red cell fatty acids by gas chromatography, Omega-3 Index computed as EPA + DHA as a percentage of total RBC fatty acids — the same measurand and the same method family as this subject's GC-FID result, so the transfer is unusually clean for a reference interval. Bounds are a normal approximation (mean ± 1.96 SD) because the paper publishes mean and SD, not percentiles; the Omega-3 Index is mildly right-skewed, so the lower bound is slightly pessimistic and the upper slightly conservative. THE HONEST CAVEAT, AND IT IS THE WHOLE CAVEAT: THIS IS AN INTAKE DISTRIBUTION, NOT A PHYSIOLOGICAL RANGE. There is no homeostatic set point for the Omega-3 Index — it is a direct readout of habitual EPA/DHA intake over the preceding ~4 months of red cell turnover, so the interval says where French eating habits sat in 2005-2007 and nothing about a biological norm. It moves with national fish consumption and needs re-review if French intake shifts. Corroboration across Europe on the same RBC-GC method: Germany mean 5.80%, Italy 4.75%, Barcelona 7.05%, USA 5.44% (Schuchardt et al., Prostaglandins Leukot Essent Fatty Acids 2022;179:102418, 167,347 individuals); the 2024 update of that world map (Schuchardt et al., Prog Lipid Res 2024;95:101286, 328 studies) places France in the moderate 6-8% band. Younger European adults may run lower — the GAPP cohort in LIECHTENSTEIN, adults aged 25-41, is reported around 4.6% by whole-blood GC (Filipovic et al., J Hypertens 2018;36(7):1548-1554), though that exact median is unverified and whole blood reads slightly differently from RBC. UK Biobank NMR-ESTIMATED O3I in men was 5.2% (SD 2.2), n=117,108 (Schuchardt et al., Br J Nutr 2023;130(2):312-322), but that is predicted from plasma and is not directly comparable. Graded weak: n=503, samples 20 years old, bounds derived rather than published, sexes pooled, ages 35-64 against a subject of 31, and the analyte drifts with national diet. THE MOST IMPORTANT LINE ON THIS ROW: his 2026 lab printed [8, 11]%, which is NOT a population interval — it is a Harris/von Schacky-derived risk target reprinted in the reference column, which is why a 50th-percentile French value reads 'low' on the report. Against his population he is at the median (6.12% vs 6.02%); against the target he is short by about 2 points. The population band spans values below and above the proposed 8% lower-risk threshold, which is the expected relationship — presenting 2.6-9.5 as a risk range would be wrong.",
+    "reviewed": "2026-08-04"
    },
    "note": "EPA and DHA expressed as a percentage of all the fatty acids in your red cell membranes.\n\nMembranes turn over slowly, so unlike a blood fatty acid level this reflects months of intake rather than the last meal — closer to an HbA1c for omega-3 status.\n\nMethod matters: the published targets belong specifically to the red-cell measurement. Plasma and whole-blood versions produce different numbers that those targets do not apply to.",
    "axis": [
     0,
     14
    ],
-   "cut": {
-    "label": "Omega-3 Index risk proposal",
-    "source": "Harris–von Schacky Omega-3 Index framework",
-    "zones": [
-     {
-      "max": 4,
-      "label": "Proposed high-risk zone",
-      "level": "out"
-     },
-     {
-      "min": 4,
-      "max": 8,
-      "label": "Proposed intermediate zone",
-      "level": "watch"
-     },
-     {
-      "min": 8,
-      "label": "Proposed lower-risk zone",
-      "level": "ok"
-     }
-    ]
-   },
    "target": {
     "min": 8,
-    "max": 12,
     "evidence": "weak",
-    "label": "Proposed lower-risk Omega-3 Index band",
-    "source": "Observational Omega-3 Index framework, not an RCT-defined optimum"
+    "label": "Proposed lower-risk Omega-3 Index threshold",
+    "source": "Harris and von Schacky framework, supported by prospective cohort associations; no RCT-defined optimum or upper bound"
    }
   },
   {
@@ -5170,9 +5133,9 @@ window.BLOODWORK =
    },
    "target": {
     "max": 100,
-    "evidence": "moderate",
-    "label": "Favourable fasting triglycerides",
-    "source": "Cardiometabolic risk associations and prevention guidance"
+    "evidence": "weak",
+    "label": "Favourable fasting metabolic phenotype",
+    "source": "Young-adult cardiometabolic associations (Bogalusa Heart Study); guidelines define no triglyceride treatment goal below 150mg/dL"
    }
   },
   {
@@ -5227,7 +5190,7 @@ window.BLOODWORK =
     "max": 90,
     "evidence": "moderate",
     "label": "Favourable primary-prevention particle burden",
-    "source": "ApoB risk gradients and prevention guidance"
+    "source": "2024 National Lipid Association apoB consensus and causal evidence for cumulative apoB-particle exposure"
    }
   },
   {
@@ -5339,7 +5302,7 @@ window.BLOODWORK =
     "max": 130,
     "evidence": "moderate",
     "label": "Favourable atherogenic cholesterol burden",
-    "source": "Cardiovascular prevention guidance"
+    "source": "International Atherosclerosis Society and National Lipid Association primary-prevention goals"
    }
   },
   {
@@ -5395,12 +5358,6 @@ window.BLOODWORK =
       "level": "out"
      }
     ]
-   },
-   "target": {
-    "max": 1,
-    "evidence": "moderate",
-    "label": "Low inflammatory-risk category",
-    "source": "Prospective cardiovascular cohorts; non-specific marker"
    }
   },
   {
@@ -5469,7 +5426,7 @@ window.BLOODWORK =
     "max": 100,
     "evidence": "moderate",
     "label": "Favourable primary-prevention LDL-C",
-    "source": "LDL causal evidence interpreted in a low-risk primary-prevention context"
+    "source": "International Atherosclerosis Society primary-prevention goal and causal evidence for cumulative LDL exposure"
    }
   },
   {
@@ -5651,13 +5608,6 @@ window.BLOODWORK =
       "level": "out"
      }
     ]
-   },
-   "target": {
-    "min": 80,
-    "max": 94,
-    "evidence": "moderate",
-    "label": "Favourable fasting-glucose band",
-    "source": "Observational glycaemic-risk data; not an RCT-defined longevity optimum"
    }
   },
   {
@@ -5685,8 +5635,8 @@ window.BLOODWORK =
     "label": "SHIP healthy-adult interval, men 20–39",
     "source": "Masuch et al., BMC Endocr Disord 2019;19:20 (SHIP, men 20-39)",
     "population": "1804 healthy adults from two German population-based cohorts in West Pomerania — SHIP-0 (1997–2001, n=817) and SHIP-Trend (2008–2012, n=987) — screened to exclude self-reported diabetes or diabetes medication, hypertension, BMI ≥30, eGFR ≤60, any medication other than thyroid or sex hormones, anaemia (a genuine confounder for HbA1c), and any history of stroke, myocardial infarction, hepatitis, cirrhosis or cancer. Partitioned by sex AND age; the cell used is men 20–39, which brackets the subject at 31. Not a trained cohort: the only fitness criterion is BMI <30, so this is a general lean-to-overweight European male band, one rung below athlete-specific.",
-    "method": "Bio-Rad Diamat cation-exchange HPLC, NGSP-certified and DCCT-aligned. The interval assumes an NGSP-certified, IFCC-traceable method AND a normal red-cell lifespan. The subject's Sebia Capillarys capillary electrophoresis is NGSP-certified and is less disturbed by haemoglobin variants and carbamylation than HPLC, but a ±0.2–0.3 percentage-point difference between certified methods is still expected, so treat the limits as soft to that width. Two things must be said out loud. (1) The reference population was screened only for SELF-REPORTED diabetes, so undiagnosed dysglycaemia remains inside it, and the 97.5th percentile of 6.1% therefore sits above the ADA prediabetes threshold of 5.7%. That is replicated, not an artefact — Pani et al. found a 97.5th percentile of 6.0% in Framingham Offspring participants under 40 (5.6% in NHANES 2001–2004), and showed A1c rises with age even after excluding IFG and IGT. Glycaemic risk belongs in the cut; this band is only a statement about where healthy young men sit. (2) The LOWER limit is the half that earns this reference its place: the marker's cut has no floor, and a value under 4.1% reads as shortened red-cell survival or haemolysis, not as excellent control. Replace the assay sentence with: 'Assumes cation-exchange HPLC (Bio-Rad Diamat, Munich) as used in SHIP; NGSP/DCCT alignment is an assumption this interval requires, not something the paper states. SHIP-0 (1997-2001) and SHIP-Trend (2008-2012) are pooled across the NGSP/IFCC re-standardisation era, and this subject''s results are Sebia Capillarys capillary electrophoresis — a different separation principle, well-correlated but capable of a 0.1-0.2 point bias, which is material against a 0.4-point-wide target. Population: 1804 healthy German adults, men 20-39 tier; exclusions included self-reported diabetes or diabetes medication, hypertension, BMI>=30, eGFR<=60, anaemia, pregnancy, medication other than thyroid or sex hormones, and history of stroke, MI, hepatitis, cirrhosis or cancer. No per-partition sample size is reported, so whether the men 20-39 cell met CLSI n>=120 is unknown — hence moderate, not strong. CEILING CAVEAT: diabetes was excluded by self-report only, never by OGTT or glucose, so the 97.5th percentile carries undiagnosed dysglycaemia; Pani et al., Diabetes Care 2008;31(10):1991-6 gives 5.6% (NHANES 2001-04) and 6.0% (Framingham Offspring) for age under 40, so comparable cohorts span 5.6-6.1%. This is a population percentile, not a health threshold: the ADA cut on this marker carries the decision, and above 6.1% the out-of-reference label will displace the ADA grading. For a trained subject the lower bound is likewise descriptive only — HbA1c tracks red-cell lifespan, which training shortens.' FULL CITATION: Masuch A, Friedrich N, Roth J, Nauck M, Müller UA, Petersmann A. Preventing misdiagnosis of diabetes in the elderly: age-dependent HbA1c reference intervals derived from two population-based study cohorts. BMC Endocr Disord. 2019;19:20 (doi 10.1186/s12902-019-0338-7). Table 3, men aged 20–39: 21.3–43.2 mmol/mol (4.1–6.1%).",
-    "reviewed": "2026-07-31"
+    "method": "Bio-Rad Diamat cation-exchange HPLC, NGSP-certified and DCCT-aligned. The interval assumes an NGSP-certified, IFCC-traceable method AND a normal red-cell lifespan. The subject's Sebia Capillarys capillary electrophoresis is NGSP-certified and is less disturbed by haemoglobin variants and carbamylation than HPLC, but a ±0.2–0.3 percentage-point difference between certified methods is still expected, so treat the limits as soft to that width. Two things must be said out loud. (1) The reference population was screened only for SELF-REPORTED diabetes, so undiagnosed dysglycaemia remains inside it, and the 97.5th percentile of 6.1% therefore sits above the ADA prediabetes threshold of 5.7%. That is replicated, not an artefact — Pani et al. found a 97.5th percentile of 6.0% in Framingham Offspring participants under 40 (5.6% in NHANES 2001–2004), and showed A1c rises with age even after excluding IFG and IGT. Glycaemic risk belongs in the cut; this band is only a statement about where healthy young men sit. (2) The LOWER limit is the half that earns this reference its place: the marker's cut has no floor, and a value under 4.1% reads as shortened red-cell survival or haemolysis, not as excellent control. Replace the assay sentence with: 'Assumes cation-exchange HPLC (Bio-Rad Diamat, Munich) as used in SHIP; NGSP/DCCT alignment is an assumption this interval requires, not something the paper states. SHIP-0 (1997-2001) and SHIP-Trend (2008-2012) are pooled across the NGSP/IFCC re-standardisation era, and this subject''s results are Sebia Capillarys capillary electrophoresis — a different separation principle, well-correlated but capable of a 0.1-0.2 point bias, which is material when comparing small longitudinal changes. Population: 1804 healthy German adults, men 20-39 tier; exclusions included self-reported diabetes or diabetes medication, hypertension, BMI>=30, eGFR<=60, anaemia, pregnancy, medication other than thyroid or sex hormones, and history of stroke, MI, hepatitis, cirrhosis or cancer. No per-partition sample size is reported, so whether the men 20-39 cell met CLSI n>=120 is unknown — hence moderate, not strong. CEILING CAVEAT: diabetes was excluded by self-report only, never by OGTT or glucose, so the 97.5th percentile carries undiagnosed dysglycaemia; Pani et al., Diabetes Care 2008;31(10):1991-6 gives 5.6% (NHANES 2001-04) and 6.0% (Framingham Offspring) for age under 40, so comparable cohorts span 5.6-6.1%. This is a population percentile, not a health threshold: the ADA cut on this marker carries the decision, and above 6.1% the out-of-reference label will displace the ADA grading. For a trained subject the lower bound is likewise descriptive only — HbA1c tracks red-cell lifespan, which training shortens.' FULL CITATION: Masuch A, Friedrich N, Roth J, Nauck M, Müller UA, Petersmann A. Preventing misdiagnosis of diabetes in the elderly: age-dependent HbA1c reference intervals derived from two population-based study cohorts. BMC Endocr Disord. 2019;19:20 (doi 10.1186/s12902-019-0338-7). Table 3, men aged 20–39: 21.3–43.2 mmol/mol (4.1–6.1%).",
+    "reviewed": "2026-08-04"
    },
    "note": "A snapshot of the past three months rather than this morning. Glucose slowly sticks to haemoglobin inside red cells, and since a red cell lives about 120 days, the fraction that is coated reflects average blood sugar over that window — weighted toward the most recent weeks.\n\nThe main trap: anything that shortens red cell lifespan gives glucose less time to attach, so the result understates true average sugar. It is only as reliable as the blood count sitting next to it.",
    "axis": [
@@ -5714,13 +5664,6 @@ window.BLOODWORK =
       "level": "out"
      }
     ]
-   },
-   "target": {
-    "min": 5,
-    "max": 5.4,
-    "evidence": "moderate",
-    "label": "Favourable HbA1c band",
-    "source": "Observational glycaemic-risk data; interpret with red-cell turnover"
    }
   },
   {
@@ -7405,12 +7348,12 @@ window.BLOODWORK =
    "reference": {
     "min": 124,
     "max": 310,
-    "evidence": "moderate",
-    "label": "VARIETE French adult male interval, LIAISON XL, age 30-39",
+    "evidence": "weak",
+    "label": "Provisional VARIETE LIAISON XL comparator, men 30-39",
     "source": "Chanson et al., J Clin Endocrinol Metab 2016;101(9):3450-3458 (VARIETE)",
     "population": "911 healthy French adults aged 18-90 (470 men), roughly 100 subjects per decade so about 50 men in the 30-39 tier that applies here. Screened by clinical examination, history and laboratory work-up; anyone on a medication or with a condition affecting IGF-I was excluded, and BMI was restricted to 19-28 kg/m². That BMI window is a genuine adiposity criterion and it fits this subject (80 kg / 1.87 m = 22.9), but it is not a trained-athlete cohort — no fitness criterion was applied, so I stopped at sex-and-age rather than claiming the athlete tier.",
     "method": "Assay-specific and not transferable off-platform: DiaSorin LIAISON XL chemiluminescence, the same platform as the stored 2026-07 result. IGF-I has no working cross-platform harmonisation despite universal calibration to WHO IS 02/254 — LIAISON XL reads about 17% above LC-MS/MS and 8% above IDS iSYS (Lee et al., Clin Chim Acta 2023;539:130-133), and VARIETE's own iSYS tier for the same men is 108-265. If a future draw moves to another analyser this interval must be dropped, not carried over. Reviewed 2026-07-31. Locked to LIAISON XL and to VARIETE's 2012-14 calibration epoch. The subject's laboratory runs a LIAISON XL commissioned 23/09/2025 and prints 82-241 for it — a 34% gap at the lower limit on a nominally identical platform that no publication reconciles. VARIETE and Kim both argue the manufacturer band is the outlier, and that is the likelier reading, but with one stored draw the cross-draw assay warning can never surface the gap. The men 30-39 limits are LMS-smoothed centile curves fitted across 470 men, not an empirical percentile among the 56 men of that decade. Applying this flips the only stored value, 104.6, from unclaimed to 'out'. Raise the marker's axis top from 280 to ~340 in the same edit: mini() clamps to axis, so a 310 ceiling renders flush to the rail end and any future value above 310 would sit on the band edge and read as in-range while claim() colours it out. FULL CITATION: Chanson P, Arnoux A, Mavromati M, Brailly-Tabard S, Massart C, Young J, Piketty ML, Souberbielle JC; VARIETE Investigators. Reference Values for IGF-I Serum Concentrations: Comparison of Six Immunoassays. J Clin Endocrinol Metab. 2016;101(9):3450-3458 (PMID 27167056, doi 10.1210/jc.2016-1257)",
-    "reviewed": "2026-07-31"
+    "reviewed": "2026-08-04"
    },
    "note": "The messenger through which growth hormone actually works. GH itself is released in short pulses and is nearly impossible to measure meaningfully; it tells the liver to make IGF-1, which circulates steadily.\n\nSo IGF-1 is the practical read on GH status.\n\nDeliberately has no evidence target here. Mortality against IGF-1 is U-shaped, and the LOW side is the stronger signal — so the common longevity claim that lower is better runs against the population data.",
    "axis": [

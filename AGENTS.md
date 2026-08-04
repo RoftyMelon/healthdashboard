@@ -102,7 +102,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     marker, and accepts that position does not always matter and that an assay change between
     draws explains some movement — the bold orange note already warns about that). The bar is
     "is there a published citable interval", NOT "does it transfer universally", so the evidence
-    GRADE carries the doubt that withholding used to: 16 are `weak` on purpose, and `method`
+    GRADE carries the doubt that withholding used to: 20 are `weak` on purpose, and `method`
     names the analyser and every transfer limit. MPV, total IgE and ESR were the last three
     deliberate blanks and are now weak-graded with their analyser named. Never invent one to fill
     a gap — if nothing is published, say so.
@@ -111,11 +111,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     A cut is never described as a lab reference.
   - `marker.target` is an evidence-backed health-optimization target. It needs `min` and/or
     `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
-    have no target: 9 of 88 currently do. A weak target is an opinion-weighted watch signal,
+    have no target: only 5 of 88 currently do (`o3`, `tg`, `apob`, `nonhdl`, `ldl`). A target must
+    add a defensible optimization claim rather than duplicate a decision cut or manufacture a
+    lower boundary from observational noise. Personal experiment criteria such as the 30-50ng/mL
+    vitamin-D titration window belong in `NEXTDRAW`, not here, unless outcome evidence supports
+    promoting them to a marker-wide target. A weak target is an opinion-weighted watch signal,
     never a lab abnormality.
   Marker-wide evidence drives status: reference first, then risk cut, then target. A printed
-  `lr` never changes the row colour or flagged filter. The viewer labels the four marker-wide
-  layers separately in the gauge and expanded chart; lab provenance remains on the datapoint.
+  `lr` never changes the row colour or flagged filter. The viewer labels the three marker-wide
+  claim types separately in the gauge and expanded chart; lab provenance remains on the datapoint.
 - A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on

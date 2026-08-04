@@ -41,7 +41,7 @@ setTimeout(()=>{
   // sits on every marker and accepts that position does not always matter and that assay changes
   // between draws explain some movement — the bold orange note already warns about the latter.
   // The bar moved with it: 'is there a published citable interval', not 'does it transfer
-  // universally'. So the evidence GRADE now carries the doubt that rejection used to — 16 of the
+  // universally'. So the evidence GRADE now carries the doubt that rejection used to — 20 of the
   // last batch are 'weak' on purpose. What this assertion still guards is that none goes MISSING.
   ok('every marker carries an evidence reference',
     DATA.MARK.filter(m=>m.reference).length===88&&DATA.MARK.find(m=>m.id==='tt').reference,
@@ -59,10 +59,11 @@ setTimeout(()=>{
    ok('the three analyser-bound Blood Count markers name their analyser',
      ['esr','ige','mpv'].every(id=>{const m=DATA.MARK.find(x=>x.id===id);
        return m.reference&&m.reference.method.length>300;}));}
-  ok('10 optimal ranges remain',DATA.MARK.filter(m=>m.target).length===10,
-    DATA.MARK.filter(m=>m.target).length+' targets');
+  const targetIds=DATA.MARK.filter(m=>m.target).map(m=>m.id);
+  ok('only the five substantiated optimization targets remain',
+    targetIds.join(',')==='o3,tg,apob,nonhdl,ldl',targetIds.join(','));
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
-    .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source));
+    .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source&&m.target.label));
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
   const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
   // copper was 'none' while its only interval was the lab's own print. It now has a sourced one,
@@ -70,8 +71,8 @@ setTimeout(()=>{
   // becoming the judge, which is what claim() reporting 'reference' here confirms.
   ok('copper is judged by its sourced reference, not the printed lab interval',
     claim(DATA.MARK.find(m=>m.id==='cu'),latestFor('cu').v,latestFor('cu').raw).kind==='reference');
-  ok('omega-3 follows the evidence cut, not the printed 8–11 lab interval',
-    state('o3')==='watch'&&claim(DATA.MARK.find(m=>m.id==='o3'),latestFor('o3').v,latestFor('o3').raw).kind==='cut',
+  ok('omega-3 follows its weak evidence target, not the printed 8–11 lab interval',
+    state('o3')==='watch'&&claim(DATA.MARK.find(m=>m.id==='o3'),latestFor('o3').v,latestFor('o3').raw).kind==='target',
     state('o3'));
   ok('total testosterone uses the harmonized evidence reference',
     state('tt')==='ok'&&claim(DATA.MARK.find(m=>m.id==='tt'),latestFor('tt').v,latestFor('tt').raw).kind==='reference',
@@ -97,10 +98,15 @@ setTimeout(()=>{
   ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
   ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
-  // 30-50 is the Endocrine Society sufficiency window; the population reference runs 5.2-60.5, so
-  // this optimal range is the only thing watching that floor.
-  ok('vitamin D still flags below its sufficiency window',state('vitd')==='watch'&&
-    claim(DATA.MARK.find(m=>m.id==='vitd'),latestFor('vitd').v,latestFor('vitd').raw).kind==='target');
+  ok('vitamin D has no evidence target; its 30-50 window remains a personal draw decision',
+    !DATA.MARK.find(m=>m.id==='vitd').target&&state('vitd')==='ok'&&
+    DATA.NEXTDRAW.items.find(x=>x.en.startsWith('25-OH vitamin D')).trigger.includes('30–50'));
+  ok('glucose, HbA1c, hs-CRP and selenium do not manufacture optimal bands',
+    ['glu','a1c','hscrp','sel'].every(id=>!DATA.MARK.find(m=>m.id===id).target));
+  ok('omega-3 target has a proposed floor but no evidence-defined ceiling',
+    DATA.MARK.find(m=>m.id==='o3').target.min===8&&DATA.MARK.find(m=>m.id==='o3').target.max===undefined);
+  ok('formula or assay-transfer conflicts are weak-graded',
+    ['cacorr','pth','igf1'].every(id=>DATA.MARK.find(m=>m.id===id).reference.evidence==='weak'));
   ok('a censored uPCR above the cut is unresolved, not diagnosed high',state('upcr')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='upcr'),latestFor('upcr').v,latestFor('upcr').raw).label.includes('does not resolve'));
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
@@ -313,7 +319,7 @@ setTimeout(()=>{
   ok('audit rejects an active/deferred duplicate', audit(j12).length===1, audit(j12)[0]||'');
   const j13=JSON.parse(JSON.stringify(DATA)); j13.MARK[0].opt=[30,50];
   ok('audit rejects a legacy optimal band',audit(j13).length===1,audit(j13)[0]||'');
-  const j14=JSON.parse(JSON.stringify(DATA)); delete j14.MARK.find(m=>m.id==='sel').target.source;
+  const j14=JSON.parse(JSON.stringify(DATA)); delete j14.MARK.find(m=>m.id==='apob').target.source;
   ok('audit rejects an unsourced evidence target',audit(j14).length===1,audit(j14)[0]||'');
   const j18=JSON.parse(JSON.stringify(DATA)); delete j18.MARK.find(m=>m.id==='tt').reference.method;
   ok('audit rejects an evidence reference with no assay requirement',audit(j18).length===1,audit(j18)[0]||'');
