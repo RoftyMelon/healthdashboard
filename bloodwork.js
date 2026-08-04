@@ -5786,7 +5786,23 @@ window.BLOODWORK =
    "axis": [
     2,
     9
-   ]
+   ],
+   "cut": {
+    "label": "Urate saturation point",
+    "source": "2020 ACR gout guideline (FitzGerald et al., Arthritis Care Res 2020;72(6):744-760)",
+    "zones": [
+     {
+      "max": 6.8,
+      "label": "Below the monosodium-urate saturation point",
+      "level": "ok"
+     },
+     {
+      "min": 6.8,
+      "label": "Hyperuricaemia; treating it without gout has no outcome benefit",
+      "level": "watch"
+     }
+    ]
+   }
   },
   {
    "id": "alt",
