@@ -1195,7 +1195,7 @@ window.BLOODWORK =
    "notesT": "Sunday",
    "notes": [
     "Body lotion 12% AHA while still wet after morning shower",
-    "Microneedling → Multi-Peptide → Infadolan: face 1mm, up to 2mm monthly; scalp 0.75mm"
+    "Microneedling → Multi-Peptide → Infadolan. Face 0.5mm-1mm, up to 2mm in thick areas; scalp 0.5mm"
    ]
   },
   {
