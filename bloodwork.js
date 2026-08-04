@@ -1195,8 +1195,7 @@ window.BLOODWORK =
    "notesT": "Sunday",
    "notes": [
     "Body lotion 12% AHA while still wet after morning shower",
-    "Microneedling → Infadolan: face 1mm, up to 2mm monthly; scalp 0.75mm",
-    "No Retinal for 24h after microneedling; slug with Infadolan instead of Petrolatum"
+    "Microneedling → Multi-Peptide → Infadolan: face 1mm, up to 2mm monthly; scalp 0.75mm"
    ]
   },
   {
