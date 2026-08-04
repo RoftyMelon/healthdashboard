@@ -9621,7 +9621,8 @@ window.BLOODWORK =
        0.86,
        3.44
       ],
-      "an": "Mass spectrometry, the reference method — unlike the immunoassays used for the other androgens."
+      "an": "Mass spectrometry, the reference method — unlike the immunoassays used for the other androgens.",
+      "cx": "Pre-treatment baseline: topical finasteride started 1 Aug 2026, twelve days after this draw."
      },
      "o3": {
       "r": 6.12,
