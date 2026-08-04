@@ -1373,11 +1373,12 @@ function claim(m,v,e){
   const rr=m.reference?[m.reference.min??null,m.reference.max??null]:null;
   if(rr&&outside(v,rr)){
     if(e&&e.lt&&rr[1]!=null&&v>rr[1])
-      return{status:'watch',kind:'reference',range:rr,label:'Assay upper bound does not resolve the evidence reference'};
+      return{status:'watch',kind:'reference',range:rr,unresolved:true,label:'Assay upper bound does not resolve the reference range'};
     return{status:'out',kind:'reference',range:rr,label:`Outside ${m.reference.label.toLowerCase()}`};
   }
   if(m.target&&outside(v,[m.target.min??null,m.target.max??null]))
     return{status:'watch',kind:'target',range:[m.target.min??null,m.target.max??null],
+      unresolved:!!(e&&e.lt&&m.target.max!=null&&v>m.target.max),
       label:e&&e.lt&&m.target.max!=null&&v>m.target.max?'Assay upper bound does not establish a target miss':m.target.label};
   const kind=rr?'reference':m.target?'target':null;
   return{status:kind?'ok':'none',kind,range:rr||(m.target?[m.target.min??null,m.target.max??null]:null),
@@ -1874,6 +1875,19 @@ function mini(m){
 /* Rank sourced population-reference abnormalities before optimal-range misses. Evidence only
    weights targets; printed lab intervals and stored decision limits do not rank. */
 const EVW={strong:1,moderate:.6,weak:.3};
+/* A flag is only worth as much as the claim behind it, and three things make one unreadable
+   rather than wrong: the claim is weak-graded, the value is old enough that it may no longer
+   describe the subject, or censoring left the excursion unresolved. MPV fired on the first two
+   — a weak, unharmonised interval read against a 2023 value — and still sorted ABOVE ApoB,
+   because sev() gives every reference excursion a base of 200 and every target miss a base of
+   20, so the bands can never interleave. Rather than reweight that, the flagged view splits.
+   A cut carries a source but no evidence grade, so it can only land here on age or censoring. */
+function lowConf(m,v,e,date){
+  const c=claim(m,v,e);
+  const ev=c.kind==='reference'?(m.reference||{}).evidence
+          :c.kind==='target'?(m.target||{}).evidence:null;
+  return ev==='weak'||!!c.unresolved||(!!date&&months(date)>STALE);
+}
 function sev(m,v,e){
   const c=claim(m,v,e),w=(m.axis[1]-m.axis[0])||1;
   if(c.kind==='reference'&&c.range){
@@ -2313,8 +2327,12 @@ function render(){
   } else if(filter==='flag'){
     const rows=MARK.filter(m=>cur[m.id]&&['out','watch'].includes(status(m,cur[m.id].v,cur[m.id].raw)))
                    .sort((a,b)=>sev(b,cur[b.id].v,cur[b.id].raw)-sev(a,cur[a.id].v,cur[a.id].raw));
-    h+=SEC(null,'Needs attention','Reference-range and optimal-range flags remain distinct',
-      rows.length?rows.map(R).join(''):NONE('Nothing flagged.'));
+    const low=m=>lowConf(m,cur[m.id].v,cur[m.id].raw,cur[m.id].d.date);
+    const hi=rows.filter(m=>!low(m)),lo=rows.filter(low);
+    h+=SEC(null,'Needs attention','Results outside a reference or optimal range',
+      hi.length?hi.map(R).join(''):NONE('Nothing flagged.'));
+    if(lo.length)h+=SEC(null,'Low confidence',
+      'Weak evidence, old data, or a lab result too imprecise to classify',lo.map(R).join(''));
   } else if(sup){
     DECS.forEach((g,gi)=>{
       const rows=MARK.filter(m=>m.dec&&m.dec.includes(g));
