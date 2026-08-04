@@ -4552,19 +4552,19 @@ window.BLOODWORK =
    ],
    "am": "useful",
    "reference": {
-    "min": 30,
-    "max": 400,
-    "evidence": "weak",
-    "label": "Manufacturer adult male ferritin interval (Roche)",
-    "source": "Roche Elecsys Ferritin method sheet, 120 healthy German men aged 20-60; cohort documented in Snozek et al., Clin Biochem 2021;87:100-103",
-    "population": "120 healthy German men aged 20-60, sampled in the mid-1990s as part of a 224-adult reference study that also included 104 premenopausal women aged 17-60 (women 13-150 µg/L). Sex-partitioned, with no age partition inside adulthood and no reported screening of the reference subjects for iron deficiency.",
-    "method": "Roche Elecsys/Cobas ferritin electrochemiluminescence immunoassay — the platform both stored draws were run on, so this is the closest possible method match and the 2026 laboratory printed exactly this interval. It is nonetheless weak, and the reasons deserve naming even though the grading scale would place a manufacturer's healthy-population study at moderate. The source cohort is 120 men, single-country, roughly thirty years old, and the systematic review of ferritin reference intervals (Truong et al., Lancet Haematol 2024;11(7):e530-e539; 37 studies) found that most published ferritin intervals, this one included, neither screened the reference population for iron deficiency nor followed CLSI reference-interval standards — a bias that pushes the lower limit down; across those studies the male lower limit had a median of 25 µg/L and the five commonest commercial assays a median of 22 µg/L. Erring conservative on the grade is the right call. No percentile claim is made for the bounds: sources disagree on whether the insert range is a central 90% or 95% interval and neither could be verified. A larger and more recent alternative exists (Rodgers et al., Ann Clin Biochem 2024;61(5):365-371, 25,425 healthy UK adults on Roche Cobas, age-banded 18-39 and 40+ for men) but its numeric bounds are not accessible from any open source, so it was deliberately not used. Biology caveats: ferritin is an acute-phase protein, raised by inflammation, infection, hepatic injury, obesity and alcohol independently of iron stores, so a normal ferritin beside a raised CRP may be a masked low — this subject drinks no alcohol, which removes one usual confounder. It is not fasting-sensitive, is mildly diurnal, and rises after strenuous exercise as part of the acute-phase response, so a draw after a hard training week reads high. Frequent blood donation lowers it markedly. Both stored results (72 and 58 µg/L) sit inside; the 2020 draw printed 30-300 and the 2026 draw 30-400 on the same manufacturer's platform at different laboratories, so the printed-interval-change warning should fire on that pair, and the 14 µg/L fall between them is well within biological variation. LAYER SEPARATION: the existing cut also breaks at 30 µg/L (depleted stores), but that is clinical iron-deficiency guidance and this is a manufacturer's healthy-male lower bound — the numeric coincidence is not evidence for either and they must stay separately labelled. The 400 µg/L ceiling is explicitly NOT a risk threshold: iron-overload evaluation in men is usually triggered nearer 300 µg/L alongside a raised transferrin saturation. VIEWER NOTE: 400 exceeds this marker's axis of [0,300]; raise it to about 430.",
-    "reviewed": "2026-08-02"
+    "min": 44.8,
+    "max": 442,
+    "evidence": "moderate",
+    "label": "Healthy UK men aged 18–39, Roche Cobas immunoturbidimetry",
+    "source": "Rodgers et al., Ann Clin Biochem 2024;61(5):365-371, doi:10.1177/00045632241243026 (25,425 healthy UK adults; Roche Cobas)",
+    "population": "Healthy UK adults selected after excluding results associated with disorders of iron metabolism, inflammation and other relevant pathology. The male interval was partitioned at age 40; 44.8-442 µg/L is the reported nonparametric interval for men aged 18-39 and was checked against independent validation datasets.",
+    "method": "Ferritin by Roche Cobas-series immunoturbidimetry. This matches the manufacturer family and immunoturbidimetric principle recorded for both stored ferritin results; the exact French analyser module was not printed, so module-level equivalence is not claimed. The interval is recent, age- and sex-matched and based on a much larger screened sample than the former manufacturer interval, but remains moderate rather than strong because it is a single-country indirect reference study and the accessible record does not report a separate 18-39 male sample count. Ferritin is an acute-phase protein: inflammation, infection, liver injury, adiposity and hard training can raise it independently of iron stores, while blood donation lowers it. This is a population reference interval, not an iron-deficiency or overload decision threshold; the separate cut at 30 µg/L and transferrin saturation retain those roles.",
+    "reviewed": "2026-08-04"
    },
    "note": "The protein that stores iron inside cells, and the best single estimate of total body iron stores.\n\nWith one large caveat: ferritin is also an acute-phase protein, meaning inflammation raises it regardless of iron. So a high ferritin has two very different explanations.\n\nThe way to tell them apart is the rest of the panel — genuine iron loading raises transferrin saturation too, while inflammation leaves saturation normal or low.",
    "axis": [
     0,
-    300
+    470
    ],
    "cut": {
     "label": "Iron-deficiency threshold",
@@ -6216,14 +6216,14 @@ window.BLOODWORK =
    ],
    "am": "critical",
    "reference": {
-    "min": 3.3,
-    "max": 37,
-    "evidence": "weak",
-    "label": "Adult men, LC-MS/MS (CDC-traceable)",
-    "source": "Verdonk et al., Clin Chim Acta 2019;495:198-204 (64 men, CDC-traceable LC-MS/MS)",
-    "population": "64 men used to establish a single adult-male estradiol interval, not partitioned by age. The published record states only the sample size; nationality and the health-screening criteria are not recoverable, and the author group spans Amsterdam, the CDC and Massachusetts General, so no single national cohort should be claimed.",
-    "method": "Estradiol by an LC-MS/MS method calibrated to the CDC reference measurement procedure; 2.5th-97.5th percentile of 12-136 pmol/L. GRADED WEAK, and the reason is transfer, not the study: this is a method-specific interval and his draws are Roche ECLIA on Cobas, a direct immunoassay. n=64 is also well below the 120 samples CLSI wants for nonparametric 2.5/97.5 percentiles, so both bounds are imprecise. THE TRANSFER FAILURE IS DOCUMENTED, NOT HYPOTHETICAL, and the practical consequence needs saying in one line: at male concentrations direct immunoassays read HIGHER than LC-MS/MS because of matrix effects and steroid cross-reactivity, and NHANES nonsmoking lean men aged 20-39 measured on a Roche Elecsys competitive ECLIA had MEDIAN total estradiol of 29-32 pg/mL (Chadid et al., J Endocr Soc 2019;3(10):1825-1836) — which sits at roughly the 85th-90th centile of this 3.3-37.0 band. So ON HIS PLATFORM the upper half of this band is the population norm, not a high reading. His own lab printed 40.4-157.8 pmol/L (11.0-43.0 pg/mL) as its ECLIA adult-male range, whose ceiling agrees closely with this band (43.0 vs 37.0) while its floor is more than three times higher (11.0 vs 3.3) — exactly the pattern expected when a direct immunoassay cannot resolve low male estradiol. Read a rising ECLIA trend, not the absolute position. No fasting or time-of-day requirement in men, but E2 in men is aromatase output from adipose tissue, so a lean trained subject is expected toward the lower half of any population band; low position here is not a deficiency signal on its own. This is a population interval and makes no claim about where symptomatic low or high estradiol begins in men.",
-    "reviewed": "2026-08-02"
+    "min": 11.3,
+    "max": 43.2,
+    "evidence": "moderate",
+    "label": "Healthy men, Roche Elecsys Estradiol III",
+    "source": "Roche Elecsys Estradiol III method sheet, version 9.0, April 2025 (150 healthy men; 2.5th-97.5th percentile)",
+    "population": "150 healthy adult men used for a sex-specific interval. The manufacturer does not publish an age partition for men in the accessible method sheet, so this improves assay transfer and sample size but not age matching.",
+    "method": "Estradiol by Roche Elecsys Estradiol III competitive ECLIA on cobas e 411/e 601/e 602: 11.3-43.2 pg/mL (41.5-158.6 pmol/L). The latest report records Roche Cobas ECLIA and prints 40.4-157.8 pmol/L, which strongly supports the same assay family but does not prove the unprinted 'Estradiol III' generation; transfer is therefore graded moderate. This method-matched interval replaces the prior LC-MS/MS range, which was not transferable to a direct immunoassay at male concentrations. It is a healthy-population reference interval, not a symptom or treatment threshold, and a low-normal position in a lean man is not deficiency on its own.",
+    "reviewed": "2026-08-04"
    },
    "note": "The main oestrogen. In men it is not produced directly in any quantity — it is converted from testosterone by the aromatase enzyme, mostly in fat tissue.\n\nWorth tracking because both directions cause problems, and because it moves with testosterone rather than independently of it. More fat mass means more conversion.\n\nMeasurement is the difficulty: standard immunoassays are unreliable at the low concentrations found in men, and mass spectrometry is the reference method.",
    "axis": [
