@@ -152,11 +152,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   being eaten.** `1 Aug 2026 · added` marks what the intervention actually introduced, so adding
   the entry everywhere would erase the distinction between the new diet and the old one. Confirmed
   deliberate 2026-07-31. Do not backfill them.
-  **The macro header states the WEIGHT BASIS whenever it changes the numbers**: `per 200g raw`,
+  **The macro header states the WEIGHT BASIS whenever it changes the numbers**: `per ~200g cooked`,
   `per 150g frozen`, `per ~75g cooked`, `per ~300g frozen`. It is not decoration and it is not
-  copyable between foods — beef and chicken are raw-weight figures, rice and trout are cooked,
-  the frozen greens are as-purchased. A pass that "harmonised" these to `cooked` everywhere
-  would silently understate beef by a third of its calories.
+  copyable between foods — beef, chicken, rice and trout are cooked-weight figures, while the
+  frozen greens are as-purchased. A pass that relabelled the meat figures as `raw` would silently
+  understate a 200g cooked serving by applying nutrition for a smaller amount of meat.
   Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
   fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
   `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
