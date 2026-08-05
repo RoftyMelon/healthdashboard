@@ -446,15 +446,23 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    .dassay declares both for the same reason; it is not redundancy there. Size is set rather than
    inherited too: inside .dassay it picked up that block's 11px base, the type scale's floor, for
    the panel's most important sentence. 15 is the caveat-notes tier.
-   ABOVE the plot, not below it. .cplot's box runs on well past the reference band, because the
-   scale floor sits under the data — so a strip flush against the BOTTOM measured a 0px gap and
-   still looked stranded 85px beneath the chart. A border-top was tried there to explain that
-   space and made it worse: a third horizontal line beside the band's own dashed gridline, with
-   the y-axis rule continuing past the text so the warning read as caught inside the frame. There
-   is no such gap at the top — the band starts flush with the plot's upper edge — so above it the
-   strip sits tight against the data with nothing between, and needs no rule to justify itself. */
+   BELOW the plot, and it must stay below. .cyax is absolutely positioned at top:0 of .cy and takes
+   its height from --ploth, so it aligns with the plot only while both start at .chart's top edge.
+   Putting this strip ABOVE .cplot inside .cmid pushed the plot down and left every tick label
+   floating ~110px above the band it names — the axis silently stopped describing the chart.
+   Anything inserted above the plot must therefore sit outside .cmid entirely, which costs the
+   binding to the series that putting it here buys.
+   The cost of below is cosmetic: .cplot's box runs on past the reference band because the scale
+   floor sits under the data, so a strip flush against the box bottom measures a 0px gap and can
+   still look stranded. A border-top was tried to explain that space and made it worse — a third
+   horizontal line beside the band's own dashed gridline, with the y-axis rule running past the
+   text so the warning read as caught inside the frame. Left plain.
+   text-align and white-space are SET, never inherited: this sits inside a numeric table cell, so
+   it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
+   Size is set rather than inherited too — inside .dassay it picked up that block's 11px base, the
+   type scale's floor, for the panel's most important sentence. 15 is the caveat-notes tier. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  text-align:left;white-space:normal;padding:0 14px 10px 0;opacity:0;transition:opacity .2s ease}
+  text-align:left;white-space:normal;padding:14px 14px 0 0;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
@@ -2137,14 +2145,14 @@ function det(row,id,cols,n,tri){
     <div class="chart">
       <div class="cy" style="width:${preW}px">
         <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
-      <div class="cmid">${chg}
+      <div class="cmid">
         <div class="cplot">
           ${plotBand('reference',rr)}${plotBand('target',tr)}
           ${grid}
           ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
           ${bnds}
           ${dots}
-        </div>
+        </div>${chg}
       </div>
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
