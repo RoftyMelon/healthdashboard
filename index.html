@@ -461,8 +461,11 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
    Size is set rather than inherited too — inside .dassay it picked up that block's 11px base, the
    type scale's floor, for the panel's most important sentence. 15 is the caveat-notes tier. */
+/* padding-left clears the FROZEN COLUMN DIVIDER, not the chart. td.nm/td.uc carry a 1.5px
+   border-right that runs the whole height of the expanded row, so the plot's left edge sits hard
+   against it. A filled band butting that rule looks deliberate; bold text butting it looks broken. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  text-align:left;white-space:normal;padding:14px 14px 0 0;opacity:0;transition:opacity .2s ease}
+  text-align:left;white-space:normal;padding:14px 14px 0 14px;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
