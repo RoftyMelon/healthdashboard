@@ -181,6 +181,11 @@ td.boot span{color:var(--t3);font-size:15px}
    way; this only decides whether the gesture is allowed to reach it. iOS-only + touch-only, so
    the Browser pane (which reports desktop width and cannot emit real touch) cannot verify it. */
 .swap,.ptabs,.toc,.chips,.chipset,.chip{touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+/* iOS paints a translucent BLACK rectangle over whatever you tap unless this is transparent, and
+   on a rounded pill in a light palette it reads as the control flashing black. Set on html because
+   the property inherits — every button, row and tab is covered by the one declaration. Nothing
+   loses feedback: the pills have their sliding indicator, rows their background transition. */
+html{-webkit-tap-highlight-color:transparent}
 /* One line: the filter pills keep their width and the categories take the rest, scrolling
    inside it. flex-basis is auto now — 100% was what forced the toc onto its own row — and
    the -12px seam hack goes with it, since there is no longer a seam between two rows.
