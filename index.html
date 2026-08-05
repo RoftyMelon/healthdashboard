@@ -430,12 +430,14 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    so a width measured at rest overflowed .cy and ran through the axis labels by the end of a swipe;
    freezing the column instead was tried and cost the narrowing everywhere. Sized for the narrow end,
    the pane shrinks around a paragraph that never re-wraps. Not sticky: it scrolls away with its row. */
-/* Anchored to .cy's RIGHT edge, 74px clear of it — the axis-label reserve — NOT to its left.
-   .cy narrows from the right as the marker column collapses, so the plot rides that edge and
-   travels ~71px left over a swipe. Left-anchored, the description did not move at all and the two
-   visibly came apart mid-gesture. Sharing the moving edge puts them back in lockstep, and the
-   fixed width (sized in det() for the narrow end) means nothing re-wraps on the way. */
-.dassay{align-self:flex-end;margin-right:74px;min-width:0;
+/* LEFT-anchored and TRANSLATED, not right-anchored. .cy narrows from the right as the marker
+   column collapses, so the plot rides that edge and travels ~86px left over a swipe while a
+   left-anchored block travels 0 — they came apart mid-gesture. Anchoring right fixed the travel
+   and dumped the same 86px as dead gutter on the left instead, because the width is fixed.
+   The transform resolves it: --nmw runs 164px -> 78px, so this shifts 0 -> -86px, exactly the
+   plot's travel. A transform moves painted pixels without touching layout, so the paragraph
+   travels in lockstep and still never re-wraps. Width can then be the honest at-rest one. */
+.dassay{align-self:flex-start;transform:translateX(calc(var(--nmw,164px) - 164px));min-width:0;
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
@@ -2074,12 +2076,14 @@ function det(row,id,cols,n,tri){
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
-  // Size the prose for the NARROWEST the pane will ever be, not the width it happens to have
-  // now: the marker column keeps narrowing while this row is open, so a width measured at rest
-  // would overflow .cy and run through the axis labels by the end of a swipe. Fixed here once,
-  // it never re-wraps mid-gesture either — the pane shrinks around it, the paragraph does not move.
-  const _nmNow=_lastW>0?_lastW:NM_WIDE, _preMin=preW-(_nmNow-NM_NARROW);
-  const anote=m.note?`<div class="dassay" style="width:${_preMin-74}px"><div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div></div>`:'';
+  /* Sized for the pane AT REST, minus the y-axis label reserve, and normalised to the wide column
+     so the number does not depend on how far the row happened to be scrolled when it opened.
+     Three constraints fight here and a width alone cannot hold all of them: fill the pane at rest
+     (no dead gutter), travel with the plot during a swipe, and never re-wrap mid-gesture. Sizing
+     for the NARROW end satisfied the last two and left ~86px of dead space on one side; the CSS
+     translate on .dassay handles the travel instead, so the width is free to be the honest one. */
+  const _nmNow=_lastW>0?_lastW:NM_WIDE, _preRest=preW+(NM_WIDE-_nmNow);
+  const anote=m.note?`<div class="dassay" style="width:${_preRest-74}px"><div class="mnt">${esc(m.note).replace(/\n/g,'<br>')}</div></div>`:'';
 
   const keyRow=(kind,name,value,meta='')=>`<div class="ckr ${kind}"><span class="cks"></span>`+
     `<span><b>${name}</b><span class="ckv">${value}</span>${meta?`<em>${meta}</em>`:''}</span></div>`;
