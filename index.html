@@ -358,7 +358,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    now runs off the top or bottom edge and reads as 'continues beyond this view', instead of
    dragging the scale open until the series is a flat line. .ptip is position:fixed, so
    datapoint bubbles are not clipped by this. */
-.cplot{flex:1;position:relative;height:var(--ploth);overflow:hidden}
+/* .cmid owns the middle track so the plot can have something BENEATH it. .chart is a horizontal
+   flex row, so before this the only slots were left of the plot (.cy) and right of it (.cpad) —
+   there was no "under the graph" at all. flex:1 moves here; min-width:0 because a flex item
+   defaults to min-content and the plot would otherwise refuse to shrink. */
+.cmid{flex:1;min-width:0;display:flex;flex-direction:column}
+.cplot{position:relative;height:var(--ploth);overflow:hidden}
 .cplot svg{position:absolute;inset:0;width:100%;height:100%;color:var(--t2);overflow:visible}
 .cb{position:absolute;left:0;right:0}
 .cb.reference{background:var(--band)}
@@ -431,14 +436,18 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    positioning against measured column widths. Size is set here rather than inherited: inside
    .dassay it picked up that block's 11px base, the type scale's floor, for the panel's most
    important sentence. 15 is the caveat-notes tier. */
-/* text-align and white-space are SET, never inherited. This block lives inside a numeric table
-   cell, so it arrived centred and nowrap: the sentence started a third of the way across the row
-   and ran off the right edge with no wrap point. .dassay declares both for the same reason — it is
-   not redundancy there. max-width caps it to the viewport rather than the table's full scroll
-   width, which is far wider than any screen. */
+/* Lives in .cmid, DIRECTLY under the plot — it is a caveat on the series, so it travels with the
+   series at every viewport instead of reading as a panel header. Two earlier positions failed:
+   inside .dassay it measured y=1230 against a plot ending at y=486, a screen below the line it
+   contradicts and in a pane you scroll sideways AWAY from; leading .dclip put it above the whole
+   panel, adjacent vertically but bound to nothing.
+   text-align and white-space are SET, never inherited — this sits inside a numeric table cell, so
+   it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
+   .dassay declares both for the same reason; it is not redundancy there. Size is set rather than
+   inherited too: inside .dassay it picked up that block's 11px base, the type scale's floor, for
+   the panel's most important sentence. 15 is the caveat-notes tier. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  text-align:left;white-space:normal;max-width:calc(100vw - 2 * var(--gut,20px));
-  padding:14px var(--gut,20px) 0;opacity:0;transition:opacity .2s ease}
+  text-align:left;white-space:normal;padding:14px 14px 0 0;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
@@ -2115,16 +2124,18 @@ function det(row,id,cols,n,tri){
     const a=r[0]==null?lo:r[0],b=r[1]==null?hi:r[1],p0=P(a),p1=P(b);
     return `<div class="cb ${cls}" style="bottom:${Math.min(p0,p1).toFixed(2)}%;height:${Math.abs(p1-p0).toFixed(2)}%"></div>`;
   };
-  const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">${chg}
+  const box=`<tr class="det"><td colspan="${cols}"><div class="dwrap"><div class="dclip">
     <div class="chart">
       <div class="cy" style="width:${preW}px">
         <div class="cyax"><div class="cyu">${uLab(m)}</div>${ylab}</div>${anote}</div>
-      <div class="cplot">
-        ${plotBand('reference',rr)}${plotBand('target',tr)}
-        ${grid}
-        ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
-        ${bnds}
-        ${dots}
+      <div class="cmid">
+        <div class="cplot">
+          ${plotBand('reference',rr)}${plotBand('target',tr)}
+          ${grid}
+          ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
+          ${bnds}
+          ${dots}
+        </div>${chg}
       </div>
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
