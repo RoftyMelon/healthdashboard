@@ -430,7 +430,12 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    so a width measured at rest overflowed .cy and ran through the axis labels by the end of a swipe;
    freezing the column instead was tried and cost the narrowing everywhere. Sized for the narrow end,
    the pane shrinks around a paragraph that never re-wraps. Not sticky: it scrolls away with its row. */
-.dassay{align-self:flex-start;min-width:0;
+/* Anchored to .cy's RIGHT edge, 74px clear of it — the axis-label reserve — NOT to its left.
+   .cy narrows from the right as the marker column collapses, so the plot rides that edge and
+   travels ~71px left over a swipe. Left-anchored, the description did not move at all and the two
+   visibly came apart mid-gesture. Sharing the moving edge puts them back in lockstep, and the
+   fixed width (sized in det() for the narrow end) means nothing re-wraps on the way. */
+.dassay{align-self:flex-end;margin-right:74px;min-width:0;
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
