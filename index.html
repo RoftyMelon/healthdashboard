@@ -445,9 +445,14 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
    .dassay declares both for the same reason; it is not redundancy there. Size is set rather than
    inherited too: inside .dassay it picked up that block's 11px base, the type scale's floor, for
-   the panel's most important sentence. 15 is the caveat-notes tier. */
+   the panel's most important sentence. 15 is the caveat-notes tier.
+   The border-top is doing two jobs. .cplot's box runs on well past the reference band — the scale
+   floor is below the data — so a strip flush against the box bottom LOOKED stranded 85px under the
+   chart even though the gap was 0. The rule gives the plot the bottom edge it never had, which
+   both explains that space and reads as the chart's floor rather than a line above a footnote. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  text-align:left;white-space:normal;padding:14px 14px 0 0;opacity:0;transition:opacity .2s ease}
+  text-align:left;white-space:normal;padding:10px 14px 0 0;opacity:0;transition:opacity .2s ease;
+  border-top:.5px solid var(--line)}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
@@ -2092,10 +2097,12 @@ function det(row,id,cols,n,tri){
     .map(e=>JSON.stringify(e.lr.map(x=>x===null?null:+toUS(m,x,e.u).toFixed(6))))).size>1;
   const chg=(aDiff||lDiff)
     ?`<div class="achg">${aDiff&&lDiff
-        ?'Assay AND printed lab reference both differ between draws &mdash; not one continuous series'
+        /* &nbsp; AFTER the dash, never before: it ties the rule to the clause it introduces, so a
+           wrap falls between "draws" and the dash instead of stranding the dash at a line end. */
+        ?'Assay AND printed lab reference both differ between draws &mdash;&nbsp;not one continuous series'
       :aDiff
-        ?'Assay differs between draws &mdash; these numbers are not on one scale'
-        :'Printed lab reference differs between draws &mdash; a changed assay, or just a different lab’s cut-offs'}</div>`:'';
+        ?'Assay differs between draws &mdash;&nbsp;these numbers are not on one scale'
+        :'Printed lab reference differs between draws &mdash;&nbsp;a changed assay, or just a different lab’s cut-offs'}</div>`:'';
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
   // moves it, plus the one cross-draw finding no single point can carry.
   // measure, don't assume: column widths change with the viewport, so the panes must follow
