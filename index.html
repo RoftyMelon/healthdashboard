@@ -430,14 +430,17 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    so a width measured at rest overflowed .cy and ran through the axis labels by the end of a swipe;
    freezing the column instead was tried and cost the narrowing everywhere. Sized for the narrow end,
    the pane shrinks around a paragraph that never re-wraps. Not sticky: it scrolls away with its row. */
-/* LEFT-anchored and TRANSLATED, not right-anchored. .cy narrows from the right as the marker
-   column collapses, so the plot rides that edge and travels ~86px left over a swipe while a
-   left-anchored block travels 0 — they came apart mid-gesture. Anchoring right fixed the travel
-   and dumped the same 86px as dead gutter on the left instead, because the width is fixed.
-   The transform resolves it: --nmw runs 164px -> 78px, so this shifts 0 -> -86px, exactly the
-   plot's travel. A transform moves painted pixels without touching layout, so the paragraph
-   travels in lockstep and still never re-wraps. Width can then be the honest at-rest one. */
-.dassay{align-self:flex-start;transform:translateX(calc(var(--nmw,164px) - 164px));min-width:0;
+/* Anchored to .cy's RIGHT edge, 74px clear of it — the axis-label reserve. That edge is where the
+   plot begins, so sharing it is what keeps the two travelling as one block; left-anchored, the
+   description sat still while the plot moved and they came apart mid-gesture.
+   Do NOT swap this for a translate keyed to --nmw. That was tried: --nmw moves 86px but .cy only
+   narrows 71px, because the table redistributes the rest, so the paragraph overshot the plot by
+   15px. The edge knows the real number; the variable does not.
+   The dead gutter this once had at rest was never the anchor's fault — it was the width being
+   sized for the narrow end. det() sizes it for the pane at rest now, so the left edge lands on
+   .cy's own left edge and the block simply slides out of view under the frozen column, which is
+   what the plot's content does too. */
+.dassay{align-self:flex-end;margin-right:74px;min-width:0;
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
