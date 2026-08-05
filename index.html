@@ -2870,36 +2870,50 @@ window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{
 // no-overflow scroller and cancels pointer events once its pan latches, so the
 // gesture must be claimed BEFORE the native latch (~10px) via an early axis lock.
 {const sw=document.querySelector('.swap'),bar=document.getElementById('bar');
- if(sw&&bar&&sw.addEventListener){let _tx=null,_ty=null,_axis=null,_vx=0,_raf=0;
-  const _stop=()=>{if(_raf){cancelAnimationFrame(_raf);_raf=0;}};
+ if(sw&&bar&&sw.addEventListener){let _tx=null,_ty=null,_axis=null,_vx=0,_lt=0,_raf=0;
+  const _stop=()=>{if(_raf){cancelAnimationFrame(_raf);_raf=0;}_vx=0;};
   sw.addEventListener('touchstart',e=>{
     _stop();   // grabbing the row mid-fling stops it, exactly like native momentum
     // the tab strip scrolls natively — its gestures are not ours to redirect
     if(e.target.closest&&e.target.closest('.ptabs')){_tx=null;return;}
-    _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_axis=null;_vx=0;},{passive:true});
+    _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_axis=null;_vx=0;_lt=e.timeStamp;},{passive:true});
   // A drag STARTING on the pills/search must scroll the whole row. #bar is the scroller —
   // #toc was, until the row was unified, and this handler still pushed its scrollLeft at the
   // dead #toc (flex:none, no overflow) while preventDefault killed #bar's native pan, so the
   // pills ate the gesture and moved nothing. Forward to #bar, and gate on #bar overflowing.
   sw.addEventListener('touchmove',e=>{
     if(_tx==null)return;
-    const x=e.touches[0].clientX,y=e.touches[0].clientY;
+    const x=e.touches[0].clientX,y=e.touches[0].clientY,t=e.timeStamp;
     if(_axis==null&&(Math.abs(x-_tx)>4||Math.abs(y-_ty)>4))
       _axis=Math.abs(x-_tx)>Math.abs(y-_ty)?'x':'y';
     if(_axis==='x'&&bar.scrollWidth>bar.clientWidth+1&&e.cancelable){
       e.preventDefault();
-      _vx=_tx-x;bar.scrollLeft+=_vx;   // _vx is the last frame's delta — the release velocity
+      const d=_tx-x, dt=Math.max(t-_lt,1);
+      bar.scrollLeft+=d;
+      /* Velocity is a SMOOTHED rate in px/ms, not the last frame's raw delta. Reading one frame
+         meant the release decided everything: pause a hair before lifting — which is exactly what
+         you do when stopping or reversing — and the last delta was ~0, so the fling never fired
+         and the row stopped dead. One jittery frame could equally launch a fling you did not ask
+         for. Weighting the running rate 70/30 makes the release read the gesture, not its final
+         millisecond. */
+      _vx=_vx*.7+(d/dt)*.3;
     }
-    _tx=x;_ty=y;
+    _tx=x;_ty=y;_lt=t;
   },{passive:false});
-  // preventDefault suppresses the native fling, so a manual drag stopped dead on release while
-  // a native #toc drag glided. Replay the last frame's velocity with a decay so both coast.
-  const _fling=()=>{
-    _vx*=.95;
-    if(Math.abs(_vx)<.5){_raf=0;return;}
-    bar.scrollLeft+=_vx;_raf=requestAnimationFrame(_fling);};
-  const _end=()=>{const go=_axis==='x'&&Math.abs(_vx)>1.5;_tx=null;_axis=null;
-    if(go){_stop();_raf=requestAnimationFrame(_fling);}};
+  /* preventDefault suppresses the native fling, so a manual drag stopped dead on release while a
+     native drag glided. Replay the velocity with a decay so both coast.
+     Decay is per MILLISECOND, not per frame. `_vx*=.95` each rAF tick meant the fling died twice
+     as fast on a 120Hz ProMotion iPhone as on a 60Hz one — same flick, half the distance, and no
+     way to tell from a desktop browser. pow(.994,dt) is frame-rate independent. */
+  const _fling=ts=>{
+    const dt=Math.min(ts-_lt,32); _lt=ts;
+    bar.scrollLeft+=_vx*dt;
+    _vx*=Math.pow(.994,dt);
+    if(Math.abs(_vx)<.02){_raf=0;return;}
+    _raf=requestAnimationFrame(_fling);};
+  const _end=()=>{const go=_axis==='x'&&Math.abs(_vx)>.25;_tx=null;_axis=null;
+    if(go){if(_raf)cancelAnimationFrame(_raf);_lt=performance.now();_raf=requestAnimationFrame(_fling);}
+    else _stop();};
   sw.addEventListener('touchend',_end,{passive:true});
   sw.addEventListener('touchcancel',_end,{passive:true});}}
 TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
