@@ -353,7 +353,10 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .ckv>.nb{color:var(--txt)}
 .ckr em{display:block;font-style:normal;color:var(--t4);padding-top:1px}
 .cknone{font-size:11.5px;line-height:1.4;color:var(--t4)}
-.cy::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line)}
+/* The y-axis rule is the PLOT's height, not the pane's. bottom:0 ran it the full height of .cy —
+   which is as tall as the marker description — so it carried on hundreds of px past the chart and
+   framed the empty middle column as if it were part of the graph. */
+.cy::after{content:'';position:absolute;right:0;top:0;height:var(--ploth);width:1px;background:var(--line)}
 /* overflow:hidden is what lets the axis STOP at the data. A claim band wider than the window
    now runs off the top or bottom edge and reads as 'continues beyond this view', instead of
    dragging the scale open until the series is a flat line. .ptip is position:fixed, so
@@ -461,11 +464,10 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
    Size is set rather than inherited too — inside .dassay it picked up that block's 11px base, the
    type scale's floor, for the panel's most important sentence. 15 is the caveat-notes tier. */
-/* padding-left clears the FROZEN COLUMN DIVIDER, not the chart. td.nm/td.uc carry a 1.5px
-   border-right that runs the whole height of the expanded row, so the plot's left edge sits hard
-   against it. A filled band butting that rule looks deliberate; bold text butting it looks broken. */
+/* Centred under the plot, and the padding is symmetric so the centring is true. Left-aligned it
+   started hard against the y-axis rule and read as a caption for the axis rather than the series. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
-  text-align:left;white-space:normal;padding:14px 14px 0 14px;opacity:0;transition:opacity .2s ease}
+  text-align:center;white-space:normal;padding:14px 14px 0;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
