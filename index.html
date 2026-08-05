@@ -428,47 +428,6 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dassay{align-self:flex-start;min-width:0;
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
-/* a detected method change is a FINDING, not a to-do — it reads at the weight of the
-   techniques it contradicts, not at the gap line's whisper.
-   It leads .dclip, ABOVE .chart, full width — not inside .dassay, and not after .chart either.
-   Inside .dassay it measured y=1230 against a plot ending at y=486, three quarters of a screen
-   below the line it contradicts and in a pane you scroll sideways AWAY from to read the chart.
-   After .chart is no better: .chart is a flex ROW whose height is the marker description's, so a
-   260px plot can sit in a 1180px row and anything following it lands just as far down. Above the
-   chart is the only position adjacent to the plot without restructuring the row or absolutely
-   positioning against measured column widths. Size is set here rather than inherited: inside
-   .dassay it picked up that block's 11px base, the type scale's floor, for the panel's most
-   important sentence. 15 is the caveat-notes tier. */
-/* Lives in .cmid, DIRECTLY under the plot — it is a caveat on the series, so it travels with the
-   series at every viewport instead of reading as a panel header. Two earlier positions failed:
-   inside .dassay it measured y=1230 against a plot ending at y=486, a screen below the line it
-   contradicts and in a pane you scroll sideways AWAY from; leading .dclip put it above the whole
-   panel, adjacent vertically but bound to nothing.
-   text-align and white-space are SET, never inherited — this sits inside a numeric table cell, so
-   it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
-   .dassay declares both for the same reason; it is not redundancy there. Size is set rather than
-   inherited too: inside .dassay it picked up that block's 11px base, the type scale's floor, for
-   the panel's most important sentence. 15 is the caveat-notes tier.
-   BELOW the plot, and it must stay below. .cyax is absolutely positioned at top:0 of .cy and takes
-   its height from --ploth, so it aligns with the plot only while both start at .chart's top edge.
-   Putting this strip ABOVE .cplot inside .cmid pushed the plot down and left every tick label
-   floating ~110px above the band it names — the axis silently stopped describing the chart.
-   Anything inserted above the plot must therefore sit outside .cmid entirely, which costs the
-   binding to the series that putting it here buys.
-   The cost of below is cosmetic: .cplot's box runs on past the reference band because the scale
-   floor sits under the data, so a strip flush against the box bottom measures a 0px gap and can
-   still look stranded. A border-top was tried to explain that space and made it worse — a third
-   horizontal line beside the band's own dashed gridline, with the y-axis rule running past the
-   text so the warning read as caught inside the frame. Left plain.
-   text-align and white-space are SET, never inherited: this sits inside a numeric table cell, so
-   it arrived centred and nowrap, starting a third of the way across the row with no wrap point.
-   Size is set rather than inherited too — inside .dassay it picked up that block's 11px base, the
-   type scale's floor, for the panel's most important sentence. 15 is the caveat-notes tier. */
-/* Centred under the plot, and the padding is symmetric so the centring is true. Left-aligned it
-   started hard against the y-axis rule and read as a caption for the axis rather than the series. */
-.achg{color:var(--watch);font-weight:560;font-size:13px;line-height:1.45;
-  text-align:center;white-space:normal;padding:14px 14px 0;opacity:0;transition:opacity .2s ease}
-.dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
    bracket and axis micro-labels — the absolute floor — and this is the longest prose on the page:
    the marker description, several paragraphs of it. It belongs in the 15 'caveat notes' tier
@@ -478,8 +437,8 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .dassay .mnt{color:var(--t3);font-size:15px;line-height:1.6}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
-   .chart here would leave the footnote permanently at opacity:0 for those users. */
-@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart,.dassay,.achg{opacity:1}}
+   .chart here would leave the description permanently at opacity:0 for those users. */
+@media(prefers-reduced-motion:reduce){.dwrap{grid-template-rows:1fr}.chart,.dassay{opacity:1}}
 tbody td{padding:9px 10px;font-size:15.5px;text-align:right;white-space:nowrap;color:var(--t2);
   border-bottom:.5px solid var(--line2);font-variant-numeric:tabular-nums}
 tr.m{cursor:pointer;transition:background .14s}
@@ -2090,36 +2049,15 @@ function det(row,id,cols,n,tri){
     (more?` data-mk="${m.id}" data-dt="${o.d.date}"`
          :` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}"`)+
     `></div>`;}).join('');
-  // Which METHOD produced each point. Only drawn for draws that recorded one — a gap here
-  // means unrecorded, so no row is emitted rather than an empty or inherited one. Date label
-  // is built exactly like the column headers so the footnote names the same column you see.
-  /* Per-draw detail now lives in the datapoint bubble — the pane cannot hold seven techniques,
-     seven intervals and their caveats at 200px tall. What stays is the one finding that is NOT
-     per-point: a printed interval that DIFFERS across draws means the lab changed method, which
-     no single reading can reveal because it only exists in the comparison. */
-  /* Two independent signals, and they do not imply each other. A DIFFERING ASSAY is decisive on
-     its own — hs-CRP ran on three platforms that all printed the same "<5", so keying off the
-     interval alone would have missed the very series this field exists for. A differing INTERVAL
-     with no assay change is weaker: labs also just disagree on where to cut a range. Say which
-     one is actually in evidence rather than collapsing both into one warning. */
-  const many=k=>new Set(pts.map(o=>o.d.v[m.id][k]).filter(Boolean).map(x=>JSON.stringify(x))).size>1;
-  // compare the canonical key where one is given, the printed string otherwise
-  const aDiffer=new Set(pts.map(o=>o.d.v[m.id]).map(e=>e.ak||e.a).filter(Boolean)).size>1;
-  /* lr is stored in the VALUE's unit, so two labs printing the identical interval in g/dL and
-     g/L compare as different strings. Normalise through toUS first — the same rule the rest of
-     the panel obeys: compare in canonical units, format in whatever unit was printed. */
-  const aDiff=aDiffer,lDiff=new Set(pts.map(o=>o.d.v[m.id]).filter(e=>e.lr)
-    .map(e=>JSON.stringify(e.lr.map(x=>x===null?null:+toUS(m,x,e.u).toFixed(6))))).size>1;
-  const chg=(aDiff||lDiff)
-    ?`<div class="achg">${aDiff&&lDiff
-        /* &nbsp; AFTER the dash, never before: it ties the rule to the clause it introduces, so a
-           wrap falls between "draws" and the dash instead of stranding the dash at a line end. */
-        ?'Assay AND printed lab reference both differ between draws &mdash;&nbsp;not one continuous series'
-      :aDiff
-        ?'Assay differs between draws &mdash;&nbsp;these numbers are not on one scale'
-        :'Printed lab reference differs between draws &mdash;&nbsp;a changed assay, or just a different lab’s cut-offs'}</div>`:'';
+  /* There was a cross-draw banner here warning that the assay and/or the printed lab reference
+     differed between draws. Removed 2026-08-03 after counting what it actually flagged: it fired
+     on 41 of the 49 markers that have two or more draws, leaving 8 clean. A warning that appears
+     on 84% of charts is the default state, not a signal — it cannot tell you which series to
+     distrust. The provenance it summarised is per-point anyway, and already lives in each
+     datapoint's bubble, which shows that draw's own assay and printed interval. Do not restore it
+     as a banner; if the comparison is ever worth surfacing again, it has to distinguish the 8. */
   // The pane holds what belongs to the MARKER, not to a reading: what it measures and what
-  // moves it, plus the one cross-draw finding no single point can carry.
+  // moves it.
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
   const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
@@ -2157,7 +2095,7 @@ function det(row,id,cols,n,tri){
           ${pts.length>1?`<svg viewBox="0 0 100 100" preserveAspectRatio="none">${path}</svg>`:''}
           ${bnds}
           ${dots}
-        </div>${chg}
+        </div>
       </div>
       <div class="cpad" style="width:${padW}px">
         <div class="ckey">${key||'<div class="cknone">No sourced marker-wide range claim — use the trend and each datapoint’s assay details.</div>'}</div>
