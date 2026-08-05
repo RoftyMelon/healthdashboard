@@ -60,8 +60,11 @@ setTimeout(()=>{
      ['esr','ige','mpv'].every(id=>{const m=DATA.MARK.find(x=>x.id===id);
        return m.reference&&m.reference.method.length>300;}));}
   const targetIds=DATA.MARK.filter(m=>m.target).map(m=>m.id);
-  ok('only the five substantiated optimization targets remain',
-    targetIds.join(',')==='o3,tg,apob,nonhdl,ldl',targetIds.join(','));
+  // Seven, not five: vitamin D and selenium were culled in the target audit and restored by the
+  // owner on 2026-08-05. Both are weak-graded on purpose — the grade carries the doubt, and the
+  // vitamin-D window is the one the NEXTDRAW titration rule already steers by.
+  ok('only the seven sanctioned optimization targets remain',
+    targetIds.join(',')==='vitd,sel,o3,tg,apob,nonhdl,ldl',targetIds.join(','));
   ok('all evidence targets declare strength and source',DATA.MARK.filter(m=>m.target)
     .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source&&m.target.label));
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
@@ -109,11 +112,14 @@ setTimeout(()=>{
   ok('eGFR 83.4 is not labelled CKD without kidney-damage evidence',state('egfr')==='ok',state('egfr'));
   ok('ApoB is a target watch, not a lab abnormality',state('apob')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='apob'),latestFor('apob').v,latestFor('apob').raw).kind==='target');
-  ok('vitamin D has no evidence target; its 30-50 window remains a personal draw decision',
-    !DATA.MARK.find(m=>m.id==='vitd').target&&state('vitd')==='ok'&&
-    DATA.NEXTDRAW.items.find(x=>x.en.startsWith('25-OH vitamin D')).trigger.includes('30–50'));
-  ok('glucose, HbA1c, hs-CRP and selenium do not manufacture optimal bands',
-    ['glu','a1c','hscrp','sel'].every(id=>!DATA.MARK.find(m=>m.id===id).target));
+  // The vitamin-D window and the NEXTDRAW titration rule must agree. They are the same number
+  // stated twice, so a change to one that skips the other is the failure this catches.
+  ok('vitamin D targets the same 30-50 window its draw rule titrates to',
+    (()=>{const t=DATA.MARK.find(m=>m.id==='vitd').target;
+      return t&&t.min===30&&t.max===50&&t.evidence==='weak'&&
+        DATA.NEXTDRAW.items.find(x=>x.en.startsWith('25-OH vitamin D')).trigger.includes('30–50');})());
+  ok('glucose, HbA1c and hs-CRP do not manufacture optimal bands',
+    ['glu','a1c','hscrp'].every(id=>!DATA.MARK.find(m=>m.id===id).target));
   ok('omega-3 target has a proposed floor but no evidence-defined ceiling',
     DATA.MARK.find(m=>m.id==='o3').target.min===8&&DATA.MARK.find(m=>m.id==='o3').target.max===undefined);
   ok('formula or assay-transfer conflicts are weak-graded',

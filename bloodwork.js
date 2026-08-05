@@ -4136,6 +4136,13 @@ window.BLOODWORK =
       "level": "out"
      }
     ]
+   },
+   "target": {
+    "min": 30,
+    "max": 50,
+    "evidence": "weak",
+    "label": "Sufficiency window",
+    "source": "Endocrine Society guideline (Holick et al., J Clin Endocrinol Metab 2011;96(7):1911-1930)"
    }
   },
   {
@@ -4494,6 +4501,13 @@ window.BLOODWORK =
       "level": "watch"
      }
     ]
+   },
+   "target": {
+    "min": 100,
+    "max": 130,
+    "evidence": "weak",
+    "label": "Proposed selenium status band",
+    "source": "Status associations; no outcome-defined longevity optimum"
    }
   },
   {
