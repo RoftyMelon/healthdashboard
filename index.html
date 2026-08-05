@@ -431,7 +431,13 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    positioning against measured column widths. Size is set here rather than inherited: inside
    .dassay it picked up that block's 11px base, the type scale's floor, for the panel's most
    important sentence. 15 is the caveat-notes tier. */
+/* text-align and white-space are SET, never inherited. This block lives inside a numeric table
+   cell, so it arrived centred and nowrap: the sentence started a third of the way across the row
+   and ran off the right edge with no wrap point. .dassay declares both for the same reason — it is
+   not redundancy there. max-width caps it to the viewport rather than the table's full scroll
+   width, which is far wider than any screen. */
 .achg{color:var(--watch);font-weight:560;font-size:15px;line-height:1.45;
+  text-align:left;white-space:normal;max-width:calc(100vw - 2 * var(--gut,20px));
   padding:14px var(--gut,20px) 0;opacity:0;transition:opacity .2s ease}
 .dwrap.open .achg{opacity:1}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
