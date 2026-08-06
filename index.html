@@ -430,17 +430,16 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
    so a width measured at rest overflowed .cy and ran through the axis labels by the end of a swipe;
    freezing the column instead was tried and cost the narrowing everywhere. Sized for the narrow end,
    the pane shrinks around a paragraph that never re-wraps. Not sticky: it scrolls away with its row. */
-/* Anchored to .cy's RIGHT edge, 74px clear of it — the axis-label reserve. That edge is where the
-   plot begins, so sharing it is what keeps the two travelling as one block; left-anchored, the
-   description sat still while the plot moved and they came apart mid-gesture.
-   Do NOT swap this for a translate keyed to --nmw. That was tried: --nmw moves 86px but .cy only
-   narrows 71px, because the table redistributes the rest, so the paragraph overshot the plot by
-   15px. The edge knows the real number; the variable does not.
-   The dead gutter this once had at rest was never the anchor's fault — it was the width being
-   sized for the narrow end. det() sizes it for the pane at rest now, so the left edge lands on
-   .cy's own left edge and the block simply slides out of view under the frozen column, which is
-   what the plot's content does too. */
-.dassay{align-self:flex-end;margin-right:74px;min-width:0;
+/* LEFT-anchored, and moved by a transform fitChart writes — not by right-anchoring, and not by a
+   translate keyed to --nmw. Both were tried:
+   RIGHT-ANCHORED tracked the plot perfectly but opened a 119px gutter on phones, because the
+   mobile cap below pins this to viewport width; anchoring a capped element to the far edge puts
+   all the slack on the near one.
+   --nmw KEYED overshot by 15px: the variable moves 86px while .cy only narrows 71, the table
+   absorbing the difference. Only measurement knows the real number, so fitChart measures it.
+   The transform is what makes it safe — it moves painted pixels without touching layout, so the
+   paragraph travels with the plot and still never re-wraps mid-swipe. */
+.dassay{align-self:flex-start;min-width:0;
   margin-top:-4px;padding:0 0 2px;opacity:0;transition:opacity .2s ease;white-space:normal;text-align:left;
   font-size:11px;line-height:1.45;color:var(--t3)}
 /* 15, not the 11.5 this sat at until 2026-07-31. The TYPE SCALE above reserves 11.5 for chart
@@ -1986,10 +1985,18 @@ function fitChart(){
   const cyw=h[first].getBoundingClientRect().left-tb.left;
   cy.style.width=cyw+'px';
   cp.style.width=(tb.right-h[last].getBoundingClientRect().right)+'px';
-  // .dassay is deliberately NOT touched here. Its width is fixed once in det() and must stay
-  // fixed: .cy shrinks on every frame of a sideways swipe (setNmW narrows the frozen marker
-  // column and calls us on the way), so anything recomputed from it re-wraps the paragraph
-  // mid-gesture. det() sizes it for the narrow end of the travel, so it fits at every point.
+  /* .dassay's WIDTH is still never touched here — it is fixed once in det(), because .cy shrinks
+     on every frame of a sideways swipe and anything recomputed from it re-wraps the paragraph
+     mid-gesture. Its POSITION is another matter: the plot rides .cy's right edge and travels left
+     as the column collapses, so a left-anchored paragraph sat still and the two came apart.
+     Shift it by the pane's own change. _rest is the widest .cy has been for this row, which is its
+     at-rest width — taking the max rather than a computed value means this never depends on how
+     far the row happened to be scrolled when it opened, nor on --nmw, whose 86px of travel only
+     produces 71px here because the table absorbs the rest. transform, not margin: it moves
+     painted pixels without triggering layout, so the width stays put and nothing re-wraps. */
+  const da=d.querySelector('.dassay');
+  if(da){da._rest=Math.max(da._rest||0,cyw);
+    da.style.transform='translateX('+Math.round(cyw-da._rest)+'px)';}
 }
 
 function det(row,id,cols,n,tri){
