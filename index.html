@@ -2358,7 +2358,7 @@ function render(){
     h+=SEC(null,'Needs attention','Results outside of reference or optimal range',
       hi.length?hi.map(R).join(''):NONE('Nothing flagged.'));
     if(lo.length)h+=SEC(null,'Low confidence',
-      'Weak evidence, old data, or a lab result too imprecise to classify',lo.map(R).join(''));
+      'Weakly evidenced ranges, old readings, or below the detection limit',lo.map(R).join(''));
   } else if(sup){
     DECS.forEach((g,gi)=>{
       const rows=MARK.filter(m=>m.dec&&m.dec.includes(g));
