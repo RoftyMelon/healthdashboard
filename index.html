@@ -2119,6 +2119,15 @@ function det(row,id,cols,n,tri){
       </div>
     </div></div></div></td></tr>`;
   row.insertAdjacentHTML('afterend',box);
+  /* Size the prose from .cy's REAL width, not from preW. preW is measured off a header cell and
+     under-reports the pane — 413 against an actual 532 — which right-anchored left a 119px gutter
+     at rest. fitChart() writes .cy's true width from live column geometry, so run it first and
+     read back rather than trusting the estimate. Set once: the width must not track the pane, or
+     the paragraph re-wraps on every frame of a swipe. */
+  fitChart();
+  {const _cy=row.nextElementSibling.querySelector('.cy'),
+         _da=row.nextElementSibling.querySelector('.dassay');
+   if(_cy&&_da)_da.style.width=Math.max(0,Math.round(_cy.getBoundingClientRect().width)-74)+'px';}
   const w=row.nextElementSibling.querySelector('.dwrap');
   requestAnimationFrame(()=>w.classList.add('open'));
 }
