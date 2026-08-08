@@ -1221,7 +1221,7 @@ window.BLOODWORK =
  ],
  "TRAINING": {
   "cardio": "~45min run (~10km) on Sunday mornings",
-  "note": "Three cards, each twice — six sessions a week. Weights and reps are approximations and may vary dramatically based on the machine used",
+  "note": "Pull-Push-Legs, repeated twice - Monday through Saturday.\nWeights and reps are approximations.\nDrop sets on most exercises",
   "cards": [
    {
     "id": "pull",

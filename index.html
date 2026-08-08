@@ -2750,7 +2750,9 @@ function renderPage(p){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote lead">${esc(TRAINING.cardio).replace(/\n/g,'<br>')}</div>`:'')+
       `<div class="pgst">Resistance</div><div class="pgsub pgsp">${TRAINING.cards.map(c=>esc(c.t)).join(' · ')}</div>`+
-      (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note)}</div>`:'')+
+      // \n -> <br>, the same as the marker note at det(): this one is written as separate lines
+      // and esc() alone would run them into a single paragraph
+      (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards);
   } else if(p==='diet'&&DIET){
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
