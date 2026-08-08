@@ -1644,10 +1644,10 @@ window.BLOODWORK =
     "t": "Legs",
     "groups": [
      {
-      "t": "Calves",
+      "t": "Calves (unilateral → bilateral drop sets)",
       "items": [
        {
-        "n": "Seated calf (unilateral) raise",
+        "n": "Seated calf raise",
         "sets": [
          [
           20,
@@ -1664,7 +1664,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Standing calf raise (unilateral)",
+        "n": "Standing calf raise",
         "sets": [
          [
           40,
@@ -1688,18 +1688,6 @@ window.BLOODWORK =
        {
         "n": "Shrimp squat",
         "sets": [
-         [
-          null,
-          5
-         ],
-         [
-          null,
-          5
-         ],
-         [
-          null,
-          5
-         ],
          [
           null,
           5
