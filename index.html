@@ -656,6 +656,11 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 3px}
 .pgsub{font-size:16px;color:var(--t3)}
 .pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
+/* The bed and wake lines are one fact split in two — they share a boundary and sum to the day.
+   The screen window is a different claim over the same hours, so it gets a gap rather than a
+   third <br>. A block, not a <br>, because margin is what makes the separation; the hairline
+   would be a second rule inside a subtitle and reads as heavier than the distinction deserves. */
+.pgscr{margin-top:9px}
 .pgst.mini{font-size:12.5px}                       /* footnote-grade section */
 .srow.lite{padding:7px 0}
 .srow.lite .sn{font-size:15px;font-weight:450;color:var(--t2);flex:1;min-width:0}
@@ -2692,7 +2697,7 @@ function renderPage(p){
       // be: no entry says when screens go on or off, and the window spans several of them. It is
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
-        ?`<br>${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window`:'')+
+        ?`<div class="pgscr">${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window</div>`:'')+
       `</div>`;
     let hr=H0;
     while(hr<=H1){
