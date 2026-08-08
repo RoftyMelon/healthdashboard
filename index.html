@@ -988,6 +988,12 @@ a.sbuy:hover{color:var(--info)}
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
 .ccard li.lrow .exinfo{top:calc(100% + 4px);left:0;right:auto;max-width:min(94vw,260px)}
+/* Shoulder prep is the Push card's one top-level protocol note. Its card has an intentionally
+   empty upper-right quadrant, so anchor this bubble to the CARD instead of dropping it below the
+   row. The narrow measure turns the long ribbon into a compact near-square. */
+.ccard li.lrow.exprep{position:static}
+.ccard li.lrow.exprep .exinfo{top:10px;right:10px;bottom:auto;left:auto;transform:none;
+  width:min(55%,150px);max-width:min(55%,150px);padding:9px 11px}
 /* The ↗ in a card list. Scoped to .ccard li so the Stack's own .sbuy (a flex item in .srow,
    where align-self:center already centres it) is untouched. Here the <li> is a block, so the
    arrow is an inline 11px glyph sitting on the 16px text's baseline — measured 1.7px below the
@@ -2512,7 +2518,8 @@ function renderPage(p){
     if(x.url||x.info){
       const link=x.url?` <a class="sbuy" href="${esc(x.url)}" target="_blank" rel="noopener" aria-label="Open ${esc(x.n)}">&#8599;</a>`:'';
       const tip=x.info?`<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo">${esc(x.info)}</div>`:'';
-      return `<li${x.info?' class="lrow"':''}>${esc(x.n)}${link}${tip}</li>`;
+      const tipClass=x.info?` class="lrow${x.n==='Shoulder prep'?' exprep':''}"`:'';
+      return `<li${tipClass}>${esc(x.n)}${link}${tip}</li>`;
     }
     // uniform weight AND reps (the usual case) collapse to ONE line on the name:
     // "40kg - 3x5". Uniform weight with mixed reps keeps a reps row; mixed weights
