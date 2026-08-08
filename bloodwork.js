@@ -1154,10 +1154,6 @@ window.BLOODWORK =
        "url": "https://geekandgorgeous.com/products/c-glow"
       },
       {
-       "n": "Serum - Niacinamide (B3) + Green Tea",
-       "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1119542353"
-      },
-      {
        "n": "Moisturizer - Ceramides + Cholesterol",
        "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
       },
