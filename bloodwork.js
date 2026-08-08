@@ -1148,26 +1148,27 @@ window.BLOODWORK =
      "t": "Morning",
      "icon": "sun",
      "items": [
+      "Serum - Finasteride 0.1% + Minoxidil 5%",
       "Serum - Salicylic Acid 2%",
       {
        "n": "Serum - Vit C 15% + Ferulic Acid + Vit E",
        "url": "https://geekandgorgeous.com/products/c-glow"
       },
       {
-       "n": "Moisturizer - Ceramides + Cholesterol",
+       "n": "Moisturizer - Niacinamide",
        "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
       },
       {
        "n": "SPF 50",
        "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1122974582"
-      },
-      "Serum - Finasteride 0.1% + Minoxidil 5%"
+      }
      ]
     },
     {
      "t": "Before sleep",
      "icon": "moon",
      "items": [
+      "Serum - Finasteride 0.1% + Minoxidil 5%",
       {
        "n": "Serum - Multi-Peptide",
        "url": "https://theordinary.com/fr-fr/sérum-multi-peptides-peptides-de-cuivre-1-100625.html"
@@ -1177,11 +1178,10 @@ window.BLOODWORK =
        "url": "https://geekandgorgeous.com/products/a-game-20"
       },
       {
-       "n": "Moisturizer - Ceramides + Cholesterol",
+       "n": "Moisturizer - Niacinamide",
        "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
       },
       "Slugging - Petrolatum",
-      "Serum - Finasteride 0.1% + Minoxidil 5%",
       {
        "n": "Serum - Greyverse",
        "url": "https://neofollics.com/products/anti-grey-hair-serum"
