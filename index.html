@@ -2749,7 +2749,10 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote lead">${esc(TRAINING.cardio).replace(/\n/g,'<br>')}</div>`:'')+
-      `<div class="pgst">Resistance</div><div class="pgsub pgsp">${TRAINING.cards.map(c=>esc(c.t)).join(' · ')}</div>`+
+      // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
+      // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
+      // Three statements of the same three words. The note says it better, so it says it alone.
+      `<div class="pgst">Resistance</div>`+
       // \n -> <br>, the same as the marker note at det(): this one is written as separate lines
       // and esc() alone would run them into a single paragraph
       (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
