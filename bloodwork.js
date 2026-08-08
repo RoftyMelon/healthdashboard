@@ -1647,36 +1647,36 @@ window.BLOODWORK =
       "t": "Calves",
       "items": [
        {
-        "n": "Seated calf raise",
+        "n": "Seated calf (unilateral) raise",
         "sets": [
          [
-          80,
-          20
+          20,
+          25
          ],
          [
-          80,
-          20
+          20,
+          25
          ],
          [
-          80,
-          20
+          20,
+          25
          ]
         ]
        },
        {
-        "n": "Standing calf raise",
+        "n": "Standing calf raise (unilateral)",
         "sets": [
          [
-          200,
-          20
+          40,
+          25
          ],
          [
-          200,
-          20
+          40,
+          25
          ],
          [
-          200,
-          20
+          40,
+          25
          ]
         ]
        }
