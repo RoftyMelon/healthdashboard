@@ -818,6 +818,11 @@ a.sbuy:hover{color:var(--info)}
    exercise names they label, or the labels read as the content */
 .cgrp,.cnoteh{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--info);text-transform:uppercase;
   display:flex;align-items:center;gap:6px;padding:10px 0 1px}   /* flex seats an optional group icon (sun/moon); text-only groups are unaffected */
+/* The group QUALIFIER: the scheme a group is run under, beside its name. Everything the parent
+   sets for a label has to be undone here — uppercase, tracking, weight and colour — because this
+   is a phrase, not a label, and a long one in caps at .1em tracking swamps the header it belongs
+   to. min-width:0 so it wraps inside the flex rather than pushing the row wider. */
+.cgq{text-transform:none;letter-spacing:normal;font-weight:520;font-size:12px;color:var(--t3);min-width:0}
 /* .cnoteh heads the footnote block and deliberately is NOT .cgrp: check-js asserts one .cgrp per
    groups[] entry, and a heading with no group behind it would break that count. */
 /* the info tip: a small circled i, details unfold below on tap */
@@ -2533,7 +2538,10 @@ function renderPage(p){
     return `<li${_sub}><div class="exn"><span class="exnm">${esc(x.n)}${tip}</span>${kgTag}</div>${detail}${sets}</li>`;};
   const cardRow=(list,cls)=>!list.length?'':`<div class="care${cls?' '+cls:''}">`+list.map(c=>{
     const inner=c.groups
-      ?c.groups.map(g=>`<div class="cgrp">${g.icon?cgIcon(g.icon):''}${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
+      // "q" is a qualifier on the group — the scheme its exercises are run under, not part of its
+      // name. It sits outside the uppercase so the header still reads CALVES like every other
+      // group, with the scheme in sentence case beside it.
+      ?c.groups.map(g=>`<div class="cgrp">${g.icon?cgIcon(g.icon):''}${esc(g.t)}${g.q?`<span class="cgq">${esc(g.q)}</span>`:''}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     // footer notes under a list card (Skincare): the same .cgnote the schedule grid used, so a
     // card that dropped its dot-matrix keeps its footnotes reading exactly as before.

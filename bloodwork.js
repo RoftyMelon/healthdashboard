@@ -1644,7 +1644,8 @@ window.BLOODWORK =
     "t": "Legs",
     "groups": [
      {
-      "t": "Calves (unilateral → bilateral drop sets)",
+      "t": "Calves",
+      "q": "Unilateral → Bilateral drop sets",
       "items": [
        {
         "n": "Seated calf raise",
