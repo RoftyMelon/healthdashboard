@@ -1094,7 +1094,7 @@ window.BLOODWORK =
  "ROUTINE": [
   {
    "t": "07:00",
-   "do": "10min walk, sunlight, shower"
+   "do": "10min walk/run, sunlight, shower"
   },
   {
    "t": "07:15",
