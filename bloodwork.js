@@ -1224,8 +1224,8 @@ window.BLOODWORK =
   }
  ],
  "TRAINING": {
-  "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km)\n\nDaily\n• 1min bursts per hour throughout the day (squats, stairs, jumping jacks in private)",
-  "note": "Pull-Push-Legs, repeated twice - Monday through Saturday.\nWeights and reps are approximations.\nDrop sets on most exercises",
+  "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km)\n\nDaily\n• 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
+  "note": "• Pull-Push-Legs, repeated twice - Monday through Saturday.\n• Weights and reps are approximations.\n• Drop sets on most exercises",
   "cards": [
    {
     "id": "pull",
