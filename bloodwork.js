@@ -24,7 +24,7 @@ window.BLOODWORK =
    "height": "187 cm",
    "weight": "80 kg",
    "bodyfat": "~12%",
-   "training": "resistance 1h15, 6 days per week, plus a ~45min ~10km run on Sunday mornings",
+   "training": "resistance 1h15, 6 days per week; ~10min run on waking on weekdays and ~45min (~10km) on Sundays; 1min movement bursts every hour through the day",
    "country": "France",
    "purpose": "Bryan Johnson-style quantified-self biohacking: longitudinal blood draws judge diet, supplement and lifestyle interventions, with AI used as the analytical medical team.",
    "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
@@ -1220,7 +1220,7 @@ window.BLOODWORK =
   }
  ],
  "TRAINING": {
-  "cardio": "~45min run (~10km) on Sunday mornings",
+  "cardio": "Upon waking\nWeekdays: ~10min run\nSundays: ~45min run (~10km)\n\n1min bursts every hour throughout the day (squats, stairs, jumping jacks in private)",
   "note": "Pull-Push-Legs, repeated twice - Monday through Saturday.\nWeights and reps are approximations.\nDrop sets on most exercises",
   "cards": [
    {
