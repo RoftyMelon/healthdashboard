@@ -2721,7 +2721,7 @@ function renderPage(p){
       // be: no entry says when screens go on or off, and the window spans several of them. It is
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
-        ?`<div class="pgscr">${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window</div>`:'')+
+        ?`<div class="pgscr">(${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window)</div>`:'')+
       `</div>`;
     let hr=H0;
     while(hr<=H1){
