@@ -664,9 +664,7 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .rpair>.rptime:first-child{grid-row:1}
 .rpair>.rptime:nth-child(2){grid-row:2}
 .rpair>.rplabel{grid-column:2;grid-row:1/3;align-self:center}
-/* Wake time and screen window are one comparison row; each keeps its own two-row grid, so the
-   duration labels remain centred independently rather than sharing a baseline. */
-.rpairrow{display:flex;align-items:flex-start;column-gap:24px;width:max-content;margin-top:9px}
+.rpair+.rpair{margin-top:9px}
 .pgst.mini{font-size:12.5px}                       /* footnote-grade section */
 .srow.lite{padding:7px 0}
 .srow.lite .sn{font-size:15px;font-weight:450;color:var(--t2);flex:1;min-width:0}
@@ -1214,9 +1212,6 @@ a.sbuy:hover{color:var(--info)}
   .chip{padding:7px 9px;font-size:13.5px}
   .bar{gap:4px}
   #chips .chip:nth-child(1) .cn,#chips .chip:nth-child(3) .cn{display:none}
-  /* Keep the two comparison blocks side by side without opening horizontal page overflow. */
-  .rsummary{font-size:14.5px}
-  .rpairrow{column-gap:10px}
   /* Desktop can spend the full pre-graph pane on the marker description. On a phone that
      pane is wider than the viewport, so cap the prose to the visible measure instead of
      making each sentence disappear sideways before the user reaches the graph. */
@@ -2718,16 +2713,15 @@ function renderPage(p){
           _wake=_min(ROUTINE[ROUTINE.length-1].t)-_min(ROUTINE[0].t);
     const pair=(from,to,label)=>`<div class="rpair"><div class="rptime">${esc(from)}</div>`+
       `<div class="rptime">${esc(to)}</div><div class="rplabel">· ${label}</div></div>`;
-    h=`<div class="pgh">Daily routine</div><div class="pgsub rsummary">`+
+    h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
       pair(ROUTINE[ROUTINE.length-1].t,ROUTINE[0].t,`${dur(1440-_wake)} bed time`)+
-      `<div class="rpairrow">`+
       pair(ROUTINE[0].t,ROUTINE[ROUTINE.length-1].t,`${dur(_wake)} wake time`)+
       // The other two lines are DERIVED from the first and last routine entries. This one cannot
       // be: no entry says when screens go on or off, and the window spans several of them. It is
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
         ?pair(SCREEN.from,SCREEN.to,`${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window`):'')+
-      `</div></div>`;
+      `</div>`;
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
