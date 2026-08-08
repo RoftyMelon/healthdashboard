@@ -143,7 +143,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Minoxidil sheds in weeks 2-8 — expected, not failure. Blocking 5α-reductase shunts substrate, so DHT 1.8 should fall while total T 22.12 and estradiol 58.7 can both drift up; all three are July pre-treatment baselines. Both drugs are indefinite — stopping hands the gains back within 6-12 months."
+       "Minoxidil sheds in weeks 2-8. That is expected, not failure. Blocking 5α-reductase redirects the substrate, so DHT should fall from 1.8 while total T at 22.12 and estradiol at 58.7 can both drift up. All three are July pre-treatment baselines. Both drugs are indefinite: stopping hands the gains back within 6-12 months."
       ]
      ],
      "Changes": [
@@ -169,7 +169,7 @@ window.BLOODWORK =
      "What it does": [
       [
        "",
-       "Photoprotection — it raises the UV-burn threshold — plus moisture and elasticity. Not colour; that is beta-carotene's job."
+       "Photoprotection: it raises the threshold at which UV burns you. Also moisture and elasticity. Not colour, which is beta-carotene's job."
       ]
      ],
      "Dose": [
@@ -269,7 +269,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "5000 IU, 1 tablet. Above the adult EFSA/IOM upper limit of 4000, so it is a monitored personal experiment — sized to move 28 ng/mL toward the predeclared 30-50 titration window, not an evidence-defined longevity optimum."
+       "5000 IU, 1 tablet. That is above the adult EFSA/IOM upper limit of 4000, so treat it as a monitored personal experiment. It is sized to move 28 ng/mL into the 30-50 window declared in advance, not to hit an evidence-based longevity optimum."
       ]
      ],
      "Evidence": [
@@ -631,7 +631,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC — heavier than the glycine arm because the trial dosed by moles (1.33 and 0.81 mmol/kg) and NAC is the larger molecule."
+       "11g is 132mg/kg, the NAC arm of Sekhar's GlyNAC. It is heavier than the glycine arm because the trial dosed by moles, 1.33 and 0.81 mmol/kg, and NAC is the larger molecule."
       ]
      ],
      "Evidence": [
@@ -737,7 +737,7 @@ window.BLOODWORK =
      "Parked": [
       [
        "",
-       "Diet folate clears the RDA at ~450-500mcg — down from ~520-570 since the eggs went 5 to 3 — yet serum folate sits at 6.3 on the floor of its band — which points at conversion rather than intake. The greens and the August creatine restart get read first."
+       "Diet folate clears the RDA at ~450-500mcg, down from ~520-570 since the eggs went from 5 to 3. Serum folate still sits at 6.3, on the floor of its band. That gap points at conversion, not intake. Read the greens and the August creatine restart first."
       ]
      ]
     },
@@ -813,7 +813,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Among the supplements most often implicated in drug-induced liver injury registries. Your liver panel is pristine — AST 22, ALT 17, GGT 16 — so this trades a small real risk against no measurable gain."
+       "Among the supplements most often implicated in drug-induced liver injury registries. Your liver panel is pristine: AST 22, ALT 17, GGT 16. So this trades a small real risk against no measurable gain."
       ]
      ],
      "Parked": [
@@ -1020,7 +1020,7 @@ window.BLOODWORK =
      "Evidence": [
       [
        "",
-       "Strong mechanism, decent observational data — higher plasma levels track with lower cardiovascular and all-cause mortality in Swedish cohorts — but no outcome trials and no assay to check it against. A deliberate bet at ~10 euros a month, not a correction of anything measured."
+       "Strong mechanism and decent observational data. In Swedish cohorts, higher plasma levels go with lower cardiovascular and all-cause mortality. But there are no outcome trials, and no assay to check yourself against. A deliberate bet at ~10 euros a month, not a correction of anything measured."
       ]
      ],
      "Changes": [
