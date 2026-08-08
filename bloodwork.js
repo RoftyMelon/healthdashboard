@@ -1213,7 +1213,7 @@ window.BLOODWORK =
      "t": "Yearly",
      "items": [
       "Dental scaling",
-      "Carbamide peroxide 10-15%, applied with custom dental tray"
+      "Carbamide peroxide 10-15%, applied with custom dental tray (6h/day for 10 days)"
      ]
     }
    ]
