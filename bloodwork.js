@@ -1350,6 +1350,10 @@ window.BLOODWORK =
           12
          ]
         ]
+       },
+       {
+        "n": "Single arm cable curl",
+        "sets": []
        }
       ]
      },
@@ -1465,7 +1469,8 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Lateral raise",
+        "n": "Standing Lateral raise",
+        "ss": 1,
         "sets": [
          [
           12,
@@ -1482,21 +1487,9 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Machine deltoid raise",
-        "sets": [
-         [
-          50,
-          5
-         ],
-         [
-          50,
-          5
-         ],
-         [
-          50,
-          5
-         ]
-        ]
+        "n": "Incline Lateral raise",
+        "ss": 1,
+        "sets": []
        },
        {
         "n": "Rear deltoid",
@@ -1587,6 +1580,37 @@ window.BLOODWORK =
          [
           25,
           15
+         ]
+        ]
+       }
+      ]
+     },
+     {
+      "t": "Core",
+      "items": [
+       {
+        "n": "Psoas knee raise",
+        "sets": [
+         [
+          16,
+          10
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Crunch",
+        "sets": [
+         [
+          20,
+          12
+         ],
+         [
+          20,
+          12
          ]
         ]
        }
@@ -1795,37 +1819,6 @@ window.BLOODWORK =
          ],
          [
           80,
-          12
-         ]
-        ]
-       }
-      ]
-     },
-     {
-      "t": "Core",
-      "items": [
-       {
-        "n": "Psoas knee raise",
-        "sets": [
-         [
-          16,
-          10
-         ],
-         [
-          16,
-          10
-         ]
-        ]
-       },
-       {
-        "n": "Crunch",
-        "sets": [
-         [
-          20,
-          12
-         ],
-         [
-          20,
           12
          ]
         ]

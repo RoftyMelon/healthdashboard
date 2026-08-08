@@ -938,6 +938,15 @@ a.sbuy:hover{color:var(--info)}
 .ccard ul{margin:4px 0 8px;padding:0;list-style:none}
 .ccard ul:last-child{margin-bottom:0}
 .ccard li{font-size:16px;color:var(--txt);line-height:1.45;padding:2px 0;border-bottom:.5px solid var(--line2)}
+/* SUPERSET bracket. One continuous rule down the left of every row sharing an ss id, so the pair
+   reads as a unit rather than two exercises that happen to sit together. Drawn on ::before rather
+   than as a border-left because the rule has to run edge to edge THROUGH the row separators, and
+   only the first and last of the group get the rounded cap. --out is the palette's red, which is
+   also what a flagged marker uses; nothing else on this page is red, so it cannot be confused. */
+.ccard li.ss{position:relative;padding-left:13px}
+.ccard li.ss::before{content:'';position:absolute;left:2px;top:0;bottom:0;width:2px;background:var(--out)}
+.ccard li.ss.sstop::before{top:5px;border-top-left-radius:2px;border-top-right-radius:2px}
+.ccard li.ss.ssend::before{bottom:5px;border-bottom-left-radius:2px;border-bottom-right-radius:2px}
 /* Greedy wrapping fills line one to the brim and leaves a stub: "Carbamide peroxide 10-15%,
    applied with" / "custom dental tray" breaks mid-clause and orphans three words. balance
    evens the two lines, which on any item written as "<thing>, <qualifier>" lands the break on
@@ -2490,7 +2499,12 @@ function setPage(p){
 function renderPage(p){
   // an exercise renders as a gridless set table: one column per set, kg over reps.
   // Long protocol details hide behind an info tip so the cards stay narrow.
-  const exRow=x=>{
+  /* i and arr are for SUPERSETS only. Items sharing an "ss" id are performed back to back, and
+     the rule marking them has to span the pair, so a row needs to know whether its neighbours
+     belong to the same set. Every other caller passes items through .map, which supplies both. */
+  const exRow=(x,i,arr)=>{
+    const _ss=x&&typeof x==='object'&&x.ss!=null&&arr
+      ?` ss${arr[i-1]&&arr[i-1].ss===x.ss?'':' sstop'}${arr[i+1]&&arr[i+1].ss===x.ss?'':' ssend'}`:'';
     if(typeof x==='string')return `<li>${esc(x).replace(/\n/g,'<br>')}</li>`;
     // a product row that links out and/or carries a caveat tip (skincare). ↗ is the Stack's buy
     // glyph. The ⓘ button and its bubble MUST stay adjacent siblings — the CSS reveals the bubble
@@ -2521,7 +2535,7 @@ function renderPage(p){
     }
     const tip=x.info?`<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button>`:'';
     const detail=x.info?`<div class="exinfo">${esc(x.info)}</div>`:'';
-    return `<li><div class="exn"><span class="exnm">${esc(x.n)}${tip}</span>${kgTag}</div>${detail}${sets}</li>`;};
+    return `<li${_ss?` class="${_ss.trim()}"`:''}><div class="exn"><span class="exnm">${esc(x.n)}${tip}</span>${kgTag}</div>${detail}${sets}</li>`;};
   const cardRow=(list,cls)=>!list.length?'':`<div class="care${cls?' '+cls:''}">`+list.map(c=>{
     const inner=c.groups
       ?c.groups.map(g=>`<div class="cgrp">${g.icon?cgIcon(g.icon):''}${esc(g.t)}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
