@@ -1353,7 +1353,16 @@ window.BLOODWORK =
        },
        {
         "n": "Single arm cable curl",
-        "sets": []
+        "sets": [
+         [
+          7.5,
+          20
+         ],
+         [
+          7.5,
+          20
+         ]
+        ]
        }
       ]
      },
@@ -1469,8 +1478,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Standing Lateral raise",
-        "ss": 1,
+        "n": "Standing lateral raise",
         "sets": [
          [
           12,
@@ -1487,9 +1495,22 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Incline Lateral raise",
-        "ss": 1,
-        "sets": []
+        "n": "Incline lateral raise",
+        "sub": true,
+        "sets": [
+         [
+          6,
+          12
+         ],
+         [
+          6,
+          12
+         ],
+         [
+          6,
+          12
+         ]
+        ]
        },
        {
         "n": "Rear deltoid",
