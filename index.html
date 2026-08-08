@@ -656,15 +656,11 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .pgh{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 3px}
 .pgsub{font-size:16px;color:var(--t3)}
 .pgsp{padding-top:8px}   /* a subtitle sitting under a bordered .pgst needs its own air */
-/* Each routine span is a two-row time column. Its duration label occupies a second column and
-   spans both rows, so align-self:center places it at the exact midpoint between the times. */
-.rpair{display:grid;grid-template-columns:max-content max-content;grid-template-rows:repeat(2,auto);
-  column-gap:6px;width:max-content;font-variant-numeric:tabular-nums}
-.rpair>.rptime{grid-column:1}
-.rpair>.rptime:first-child{grid-row:1}
-.rpair>.rptime:nth-child(2){grid-row:2}
-.rpair>.rplabel{grid-column:2;grid-row:1/3;align-self:center}
-.rpair+.rpair{margin-top:9px}
+/* The bed and wake lines are one fact split in two — they share a boundary and sum to the day.
+   The screen window is a different claim over the same hours, so it gets a gap rather than a
+   third <br>. A block, not a <br>, because margin is what makes the separation; the hairline
+   would be a second rule inside a subtitle and reads as heavier than the distinction deserves. */
+.pgscr{margin-top:9px}
 .pgst.mini{font-size:12.5px}                       /* footnote-grade section */
 .srow.lite{padding:7px 0}
 .srow.lite .sn{font-size:15px;font-weight:450;color:var(--t2);flex:1;min-width:0}
@@ -2711,16 +2707,14 @@ function renderPage(p){
     const _min=t=>{const[a,b]=t.split(':');return +a*60+ +b;},
           dur=mn=>{const H=Math.floor(mn/60),M=mn%60;return M?`${H}h${String(M).padStart(2,'0')}`:`${H}h`;},
           _wake=_min(ROUTINE[ROUTINE.length-1].t)-_min(ROUTINE[0].t);
-    const pair=(from,to,label)=>`<div class="rpair"><div class="rptime">${esc(from)}</div>`+
-      `<div class="rptime">${esc(to)}</div><div class="rplabel">· ${label}</div></div>`;
     h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
-      pair(ROUTINE[ROUTINE.length-1].t,ROUTINE[0].t,`${dur(1440-_wake)} bed time`)+
-      pair(ROUTINE[0].t,ROUTINE[ROUTINE.length-1].t,`${dur(_wake)} wake time`)+
+      `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${dur(1440-_wake)} bed time<br>`+
+      `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${dur(_wake)} wake time`+
       // The other two lines are DERIVED from the first and last routine entries. This one cannot
       // be: no entry says when screens go on or off, and the window spans several of them. It is
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
-        ?pair(SCREEN.from,SCREEN.to,`${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window`):'')+
+        ?`<div class="pgscr">${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window</div>`:'')+
       `</div>`;
     let hr=H0;
     while(hr<=H1){
