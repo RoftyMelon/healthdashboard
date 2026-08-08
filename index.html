@@ -1340,7 +1340,7 @@ document.write('<script src="./bloodwork.js'+(location.search||'')+'"><\/script>
 // ---- DATA LIVES IN bloodwork.js ----
 // One source of truth. The dashboard reads it; so does any AI you hand it to.
 // To add a draw, edit that file. Never edit data in here.
-let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,RECORD=null,ROUTINE=[],DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null;
+let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,RECORD=null,ROUTINE=[],SCREEN=null,DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null;
 
 // Accent-folding, so "hemoglobine" finds "Hémoglobine". NFKD splits the accent off the
 // letter; the range then strips it. œ/æ have no decomposition, so they're folded by hand.
@@ -1783,7 +1783,7 @@ function boot(j,cache){
     return;                                   // refuse to render rather than render a lie
   }
   MARK=j.MARK; DECS=j.DECS; CATS=j.CATS; DATA=j.DATA;
-  STACK=j.STACK||null; RECORD=j.RECORD||null; ROUTINE=j.ROUTINE||[]; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null;
+  STACK=j.STACK||null; RECORD=j.RECORD||null; ROUTINE=j.ROUTINE||[]; SCREEN=j.SCREEN||null; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null;
   S.draws=DATA.draws;
   MARK.forEach(m=>m._h=norm(m.en+' '+m.fr+' '+m.us));   // search index, derived
   // Remember it, so opening from disk on a phone doesn't mean re-picking the file
@@ -2687,7 +2687,13 @@ function renderPage(p){
           _wake=_min(ROUTINE[ROUTINE.length-1].t)-_min(ROUTINE[0].t);
     h=`<div class="pgh">Daily routine</div><div class="pgsub">`+
       `${ROUTINE[ROUTINE.length-1].t} &rarr; ${ROUTINE[0].t} · ${dur(1440-_wake)} bed time<br>`+
-      `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${dur(_wake)} wake time</div>`;
+      `${ROUTINE[0].t} &rarr; ${ROUTINE[ROUTINE.length-1].t} · ${dur(_wake)} wake time`+
+      // The other two lines are DERIVED from the first and last routine entries. This one cannot
+      // be: no entry says when screens go on or off, and the window spans several of them. It is
+      // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
+      (SCREEN&&SCREEN.from&&SCREEN.to
+        ?`<br>${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window`:'')+
+      `</div>`;
     let hr=H0;
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);

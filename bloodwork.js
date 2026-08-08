@@ -1087,6 +1087,10 @@ window.BLOODWORK =
    }
   ]
  },
+ "SCREEN": {
+  "from": "10:00",
+  "to": "21:00"
+ },
  "ROUTINE": [
   {
    "t": "07:00",
@@ -1220,7 +1224,7 @@ window.BLOODWORK =
   }
  ],
  "TRAINING": {
-  "cardio": "Upon waking\nWeekdays: ~10min run\nSundays: ~45min run (~10km)\n\n1min bursts every hour throughout the day (squats, stairs, jumping jacks in private)",
+  "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km)\n\nDaily\n• 1min bursts per hour throughout the day (squats, stairs, jumping jacks in private)",
   "note": "Pull-Push-Legs, repeated twice - Monday through Saturday.\nWeights and reps are approximations.\nDrop sets on most exercises",
   "cards": [
    {
