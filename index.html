@@ -1856,7 +1856,9 @@ function audit(j){
             else{
               if(typeof a.min!=='number'||!isFinite(a.min)||typeof a.max!=='number'||!isFinite(a.max)||a.min>=a.max)
                 bad.push(`${tag}: athletic must have ascending numeric min/max`);
-              ['label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
+              ['heading','label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
+              if(!['Active men range','Recreational runners range'].includes(a.heading))
+                bad.push(`${tag}: athletic.heading must name the supported comparison group`);
               if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
               if(!['strong','moderate','weak'].includes(a.evidence))bad.push(`${tag}: athletic.evidence must be strong/moderate/weak`);
               if(typeof a.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(a.reviewed))
@@ -2709,7 +2711,7 @@ function rbSvg(x,dates){
 }
 function rbLegend(x){
   let h='';
-  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>Active men range</b>${esc(x.athletic.label)}`+
+  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>${esc(x.athletic.heading)}</b>${esc(x.athletic.label)}`+
     `<small>${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
     `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
   if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b>${esc(x.world.display)} · ${esc(x.world.athlete)}<small>${esc(x.world.surface)} · ${esc(x.world.venue)} · ${esc(x.world.date)}</small><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;

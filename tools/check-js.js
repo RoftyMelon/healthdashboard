@@ -302,8 +302,14 @@ setTimeout(()=>{
       M.athletic.min===339&&M.athletic.max===419&&M.athletic.evidence==='moderate'&&M.athletic.basis.includes('7,284'));
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
-    ok('VO2max uses a measured treadmill band and no world-record line',
-      BI.find(x=>x.kind==='vo2').athletic.min===49.2&&!BI.find(x=>x.kind==='vo2').world);
+    const V=BI.find(x=>x.kind==='vo2');
+    ok('VO2max uses the measured recreational-runner band and no world-record line',
+      V.athletic.min===49.7&&V.athletic.max===61.1&&V.athletic.evidence==='moderate'&&
+      V.athletic.label==='Male recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
+      !V.world);
+    ok('peer-range headings match the measured cohorts',
+      BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
+      BI.filter(x=>['runmile','run5k','run10k','vo2max'].includes(x.id)).every(x=>x.athletic.heading==='Recreational runners range'));
     const grps=DATA.TRAINING.cards.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
     ok(`training shows ${grps} muscle groups`, count(n.pages.innerHTML,'cgrp')===grps,
       count(n.pages.innerHTML,'cgrp')+' groups');
@@ -335,6 +341,8 @@ setTimeout(()=>{
       ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE students, 21–25'));
+    ok('VO2max shows the recreational-runner comparison at a glance',
+      rbDetail(V,[],2).includes('Recreational runners range')&&rbDetail(V,[],2).includes('Male recreational runners, 30–39'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});

@@ -1254,6 +1254,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 12.51,
       "max": 14,
+      "heading": "Active men range",
       "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.24s fast against a fully automatic attempt — a sixth of its own width — so read a near-miss as a tie.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
@@ -1284,6 +1285,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 59.36,
       "max": 64,
+      "heading": "Active men range",
       "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.14s fast against a fully automatic attempt — the standard 400m conversion, smaller than the sprint's.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
@@ -1314,6 +1316,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 339,
       "max": 419,
+      "heading": "Recreational runners range",
       "label": "Male road-mile finishers, 30–34",
       "basis": "Observed P25–P75 across 7,284 official finishes by men aged 30–34 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
       "source": "https://results.nyrr.org/races",
@@ -1344,6 +1347,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 1200,
       "max": 1696.25,
+      "heading": "Recreational runners range",
       "label": "Male recreational runners, all adult ages",
       "basis": "Observed P25–P75 of self-reported best pace among 166 male 5 km runners; adult ages pooled. Self-reported and age-pooled, so it reads as a rough active-male range rather than a measured 31-year-old cohort.",
       "source": "https://www.mdpi.com/2227-9032/9/7/829",
@@ -1374,6 +1378,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 2800,
       "max": 3400,
+      "heading": "Recreational runners range",
       "label": "Male recreational runners, all adult ages",
       "basis": "Observed P25–P75 of self-reported best pace among 216 male 10 km runners; adult ages pooled. Self-reported and age-pooled, so it reads as a rough active-male range rather than a measured 31-year-old cohort.",
       "source": "https://www.mdpi.com/2227-9032/9/7/829",
@@ -1403,12 +1408,13 @@ window.BLOODWORK =
      "precision": 1,
      "protocol": "Direct treadmill cardiopulmonary exercise test with respiratory gas analysis. Do not mix wearable estimates or cycle-ergometer results into this series.",
      "athletic": {
-      "min": 49.2,
-      "max": 56.5,
-      "label": "75th–90th percentile · men, age 30–39",
-      "basis": "Directly measured treadmill VO₂max in the FRIEND registry.",
-      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4919021/",
-      "evidence": "strong",
+      "min": 49.7,
+      "max": 61.1,
+      "heading": "Recreational runners range",
+      "label": "Male recreational runners, 30–39",
+      "basis": "Mean ±1 SD from 94 male recreational runners aged 30–39 (55.4 ±5.7 mL/kg/min), each with at least three years of regular training; beginners and high-performance club runners were excluded. VO₂max was measured by graded treadmill test at 5% incline with open-system respiratory gas analysis and plateau plus effort criteria.",
+      "source": "https://doi.org/10.3390/app12073252",
+      "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
      "attempts": []
