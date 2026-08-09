@@ -38,7 +38,7 @@
   --frost:rgba(48,48,46,.72); --frost-b:rgba(245,244,239,.14); --frost-h:rgba(59,59,55,.9);
   --glass:rgba(48,48,46,.08); --glass-b:rgba(245,244,239,.14);
 }
-:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px}   /* sizing: theme-independent, must not sit in a theme block */
+:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px; --rbn:1}   /* sizing: theme-independent, must not sit in a theme block */
 /* --noww is the LATEST column's width, and it is declared once because it is used TWICE:
    as that column's own width AND inside the Unit column's sticky left offset. It was two
    hardcoded 68px, so widening one silently overlapped the frozen columns on horizontal
@@ -1095,6 +1095,77 @@ a.sbuy:hover{color:var(--info)}
 .cgnote~.cgnote{border-top:none;margin-top:6px;padding-top:0}   /* stacked notes: only the first carries the divider */
 .cgnote~.cgnote::before{top:0}   /* later notes have no top padding, so the bullet rides up with the text */
 
+/* Running benchmark ledger. It borrows the Markers page's grammar — dated columns, an inline
+   expansion and a full-width plot — without pretending everyday training is a lab draw. */
+.rbtitle{margin-top:20px}
+.rbintro{max-width:760px;padding-bottom:9px}
+.rbscroll{width:min(calc(100vw - var(--gut,20px) - 20px),1100px);overflow-x:auto;
+  scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
+.rbtbl{min-width:calc(520px + var(--rbn,1)*105px);width:100%;table-layout:fixed;border-collapse:separate;
+  border-spacing:0;background:var(--bg)}
+.rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
+  font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--t4);text-align:center;white-space:nowrap}
+.rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:190px;text-align:left;z-index:3;background:var(--stick)}
+.rbtbl thead th.rbname{z-index:5;background:var(--head)}
+.rbtbl th.rblatest,.rbtbl td.rblatest{width:96px}
+.rbtbl th.rbunit,.rbtbl td.rbunit{width:92px}
+.rbtbl th.rbdate,.rbtbl td.rbattempt{width:105px}
+.rbtbl th.rbchange,.rbtbl td.rbchange{width:220px}
+.rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
+  color:var(--t2);text-align:center;white-space:nowrap;background:var(--bg)}
+.rbtbl tbody tr:last-child:not(.rbdet)>td{border-bottom:0}
+.rbrow{cursor:pointer}
+.rbrow:hover td{background:var(--hov)}
+.rbrow:hover td.rbname{background:var(--hovs)}
+.rbname{position:relative}
+.rbname>span{display:block;padding-left:10px;font-size:15.5px;font-weight:620;letter-spacing:-.01em;color:var(--txt)}
+.rbname>small{display:block;padding-left:10px;margin-top:2px;font-size:11.5px;font-weight:450;color:var(--t4);
+  overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:0}
+.rbrow td.rbname::before{content:"";position:absolute;left:3px;top:50%;width:9px;height:9px;background:var(--t4);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
+  transform:translateY(-50%);transition:transform .18s,background .14s}
+.rbrow.op td.rbname::before{background:var(--sel);transform:translateY(-50%) rotate(90deg)}
+.rbunit{font-size:12.5px!important;color:var(--t4)!important;text-transform:none!important;letter-spacing:0!important}
+.rbval{display:inline-block;cursor:pointer;font-variant-numeric:tabular-nums;transition:text-shadow .12s,color .12s}
+.rbval:hover,.rbval.act{text-shadow:0 0 7px color-mix(in srgb,var(--sel) 65%,transparent)}
+.rbpb,.rbattempt.pb .rbval,.rblatest.pb .rbval{color:var(--ok);font-weight:750}
+.rbnil{color:var(--t4)}
+.rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
+  font-size:12.5px;font-variant-numeric:tabular-nums}
+.rbdlt{color:var(--t2)}.rbdlt.good{color:var(--ok)}.rbdlt.down{color:var(--out)}
+.rbpct,.rbtsp{color:var(--t4);text-align:right}
+.rbdet>td{height:auto!important;padding:0!important;border-bottom:.5px solid var(--line)!important;background:var(--bg)!important;
+  white-space:normal!important;text-align:left!important}
+.rbchart{display:flex;align-items:flex-start;min-height:270px;padding:18px 0 16px;background:var(--bg);animation:rise .22s ease both}
+.rbcy,.rbcpad{flex:none;min-width:0;white-space:normal;text-align:left}
+.rbdesc{padding:2px 22px 0 14px;color:var(--t3);font-size:13px;line-height:1.52}
+.rbdesc>b{display:block;margin-bottom:5px;font-size:13px;color:var(--txt)}
+.rbdesc p{max-width:330px}
+.rbcplot{position:relative;flex:1;min-width:0;height:236px;overflow:hidden;border-left:.5px solid var(--line);
+  border-right:.5px solid var(--line)}
+.rbcplot svg{position:absolute;inset:0;width:100%;height:236px;overflow:hidden}
+.rbgrid{stroke:var(--line2);stroke-width:1;vector-effect:non-scaling-stroke}
+.rbbg{fill:var(--ok);opacity:.13}
+.rbbedge{stroke:var(--ok);stroke-width:.8;stroke-dasharray:3 3;opacity:.55;vector-effect:non-scaling-stroke}
+.rbwr{stroke:var(--watch);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
+.rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
+.rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
+  background:var(--info);border:2px solid var(--bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--info) 55%,transparent)}
+.rbpt:hover,.rbpt.act{box-shadow:0 0 0 3px var(--t3)}
+.rbpt.rbpbpt{background:var(--ok);box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 60%,transparent)}
+.rbpt.rbpbpt:hover,.rbpt.rbpbpt.act{box-shadow:0 0 0 3px var(--t3)}
+.rbfirst{margin-top:8px;color:var(--t4)}
+.rbcpad{padding:2px 14px 0}
+.rbleg{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px;margin-bottom:13px;font-size:11px;line-height:1.35;color:var(--t3)}
+.rbleg span{min-width:0;overflow-wrap:anywhere}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
+.rbleg small{display:block;font-size:10.5px;color:var(--t4);margin-top:2px}.rbleg a{display:block;color:var(--info);margin-top:3px;text-decoration:none}
+.rblinks{display:flex;gap:10px;flex-wrap:wrap}.rblinks a{display:inline-block}
+.rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
+.rbsw.wr{height:0;margin-top:7px;border-top:1.5px dashed var(--watch);border-radius:0}
+.rbonly{font-size:11.5px;line-height:1.45;color:var(--t2)}.rbonly span{color:var(--t4)}
+.rbpbl{color:var(--ok);font-weight:650;margin:1px 0 2px}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   .orbit-disc,.icon-moon,.icon-sun{transition:none!important}
   html.tfade,html.tfade *{transition:none!important}}
@@ -1287,6 +1358,16 @@ a.sbuy:hover{color:var(--info)}
   .ndrow .frn,.ndxrow .frn{margin-top:3px}
   .ndmeta{padding-right:22px}
   .ndcard .frcopy{width:100%}
+  .rbscroll{width:calc(100vw - 2 * var(--gut,10px))}
+  .rbtbl{min-width:calc(425px + var(--rbn,1)*95px)}
+  .rbtbl th.rbname,.rbtbl td.rbname{width:165px}
+  .rbtbl th.rblatest,.rbtbl td.rblatest{width:82px}
+  .rbtbl th.rbunit,.rbtbl td.rbunit{width:78px}
+  .rbtbl th.rbdate,.rbtbl td.rbattempt{width:95px}
+  .rbtbl th.rbchange,.rbtbl td.rbchange{width:180px}
+  .rbname>span{font-size:14.5px}.rbname>small{font-size:11px}
+  .rbchart{min-height:255px;padding-top:12px}.rbdesc{padding-left:10px;padding-right:14px;font-size:12px}
+  .rbcpad{padding-left:10px;padding-right:10px}
 }
 </style>
 <script>
@@ -1741,18 +1822,78 @@ function audit(j){
       if(!Array.isArray(g.items)||!g.items.length)bad.push(`CARE "${c.t}" / "${g.t}": group needs items`);});
     else if(!Array.isArray(c.items))bad.push(`CARE "${c.t}": items must be an array (empty is fine)`);
   });
-  if(j.TRAINING)(j.TRAINING.cards||[]).forEach(c=>{
-    if(c.groups)c.groups.forEach(g=>{
-      if(!Array.isArray(g.items)||!g.items.length){bad.push(`TRAINING "${c.t}" / "${g.t}": group needs items`);return;}
-      g.items.forEach(x=>{
-        if(typeof x==='string')return;
-        if(!x.n)bad.push(`TRAINING "${c.t}" / "${g.t}": exercise needs a name`);
-        if(x.sets!=null&&(!Array.isArray(x.sets)||x.sets.some(s=>!Array.isArray(s)||s.length!==2)))
-          bad.push(`TRAINING "${x.n}": sets must be [kg,reps] pairs`);
+  if(j.TRAINING){
+    const b=j.TRAINING.benchmarks;
+    if(b){
+      if(typeof b.age!=='number'||!isFinite(b.age)||b.age<18)bad.push('TRAINING benchmarks.age must be an adult numeric age');
+      if(typeof b.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(b.reviewed))
+        bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
+      if(typeof b.classificationSource!=='string'||!/^https:\/\//.test(b.classificationSource))
+        bad.push('TRAINING benchmarks.classificationSource must be https://');
+      if(typeof b.intro!=='string'||!b.intro.trim())bad.push('TRAINING benchmarks.intro must be a non-empty string');
+      if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
+      else{
+        const bids=new Set(),kinds=['time','heart-rate','vo2'];
+        b.items.forEach(x=>{
+          const tag=`TRAINING benchmark "${x&&x.name||'?'}"`;
+          if(!x||typeof x!=='object')return bad.push('TRAINING benchmark items must be objects');
+          ['id','name','quality','unit','protocol'].forEach(k=>{if(typeof x[k]!=='string'||!x[k].trim())bad.push(`${tag}: ${k} is required`);});
+          if(bids.has(x.id))bad.push(`${tag}: id "${x.id}" is duplicated`);else bids.add(x.id);
+          if(!kinds.includes(x.kind))bad.push(`${tag}: kind must be ${kinds.join('/')}`);
+          if(!['lower','higher'].includes(x.direction))bad.push(`${tag}: direction must be lower/higher`);
+          if(!Number.isInteger(x.precision)||x.precision<0||x.precision>3)bad.push(`${tag}: precision must be an integer from 0 to 3`);
+          ['pb','personalBest','tier','optional','core'].forEach(k=>{if(x[k]!==undefined)bad.push(`${tag}: ${k} is derived or forbidden`);});
+          if(!Array.isArray(x.attempts))bad.push(`${tag}: attempts must be an array (empty is fine)`);
+          else{const dates=new Set();x.attempts.forEach(a=>{
+            if(!a||typeof a!=='object')return bad.push(`${tag}: attempts must be objects`);
+            if(typeof a.date!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(a.date))bad.push(`${tag}: attempt date must be YYYY-MM-DD`);
+            else if(dates.has(a.date))bad.push(`${tag}: attempt date ${a.date} is duplicated`);else dates.add(a.date);
+            if(typeof a.value!=='number'||!isFinite(a.value)||a.value<=0)bad.push(`${tag}: attempt value must be a positive number`);
+            ['method','conditions'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: attempt ${k} is required`);});
+            if(a.note!==undefined&&(typeof a.note!=='string'||!a.note.trim()))bad.push(`${tag}: attempt note must be a non-empty string`);
+          });}
+          if(x.world!==undefined){const w=x.world;
+            if(!w||typeof w!=='object')bad.push(`${tag}: world must be an object`);
+            else{
+              if(typeof w.value!=='number'||!isFinite(w.value)||w.value<=0)bad.push(`${tag}: world.value must be positive`);
+              ['display','athlete','venue','surface'].forEach(k=>{if(typeof w[k]!=='string'||!w[k].trim())bad.push(`${tag}: world.${k} is required`);});
+              if(typeof w.date!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(w.date))bad.push(`${tag}: world.date must be YYYY-MM-DD`);
+              if(typeof w.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(w.reviewed))bad.push(`${tag}: world.reviewed must be YYYY-MM-DD`);
+              if(typeof w.source!=='string'||!/^https:\/\//.test(w.source))bad.push(`${tag}: world.source must be https://`);
+            }
+          }
+          if(x.athletic!==undefined){const a=x.athletic;
+            if(!a||typeof a!=='object')bad.push(`${tag}: athletic must be an object`);
+            else{
+              if(typeof a.min!=='number'||!isFinite(a.min)||typeof a.max!=='number'||!isFinite(a.max)||a.min>=a.max)
+                bad.push(`${tag}: athletic must have ascending numeric min/max`);
+              ['label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
+              if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
+            }
+          }
+          if(x.kind==='time'){
+            if(!x.world||!x.athletic)bad.push(`${tag}: timed running events need world and athletic benchmarks`);
+            else if(Math.abs(x.athletic.min-x.world.value/.8)>.001||Math.abs(x.athletic.max-x.world.value/.7)>.001)
+              bad.push(`${tag}: athletic bounds must remain the 80–70% age-grade interval`);
+          }
+          if(x.kind==='vo2'&&(!x.athletic||x.world))bad.push(`${tag}: measured VO₂max needs an athletic band and no world record`);
+          if(x.kind==='heart-rate'&&(x.athletic||x.world))bad.push(`${tag}: fixed-pace heart rate has no universal athletic band or world record`);
+        });
+      }
+    }
+    (j.TRAINING.cards||[]).forEach(c=>{
+      if(c.groups)c.groups.forEach(g=>{
+        if(!Array.isArray(g.items)||!g.items.length){bad.push(`TRAINING "${c.t}" / "${g.t}": group needs items`);return;}
+        g.items.forEach(x=>{
+          if(typeof x==='string')return;
+          if(!x.n)bad.push(`TRAINING "${c.t}" / "${g.t}": exercise needs a name`);
+          if(x.sets!=null&&(!Array.isArray(x.sets)||x.sets.some(s=>!Array.isArray(s)||s.length!==2)))
+            bad.push(`TRAINING "${x.n}": sets must be [kg,reps] pairs`);
+        });
       });
+      else if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
     });
-    else if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
-  });
+  }
   return bad;
 }
 
@@ -2214,27 +2355,42 @@ function ptHTML(m,d){
   if(e.cx)h+=`<span class="pk">Context</span><div>${esc(e.cx)}</div>`;
   return h;
 }
+function rbPtHTML(x,a){
+  if(!x||!a)return '';
+  let h=`<b>${esc(rbFmt(x,a.value))} <span class="pt2">&middot; ${esc(rbDate(a.date))}</span></b>`;
+  if(rbIsPB(x,a.value))h+=`<div class="rbpbl">Personal best</div>`;
+  h+=`<span class="pk">Test</span><div>${esc(a.method)}</div><div class="pq">${esc(a.conditions)}</div>`;
+  if(a.note)h+=`<span class="pk">Context</span><div>${esc(a.note)}</div>`;
+  return h;
+}
 const PTIP=document.getElementById('ptip');
 /* Hover opens it where a pointer exists; tap opens it everywhere. Gated on (hover:hover) so a
    touch device never arms mouse handlers that fire spuriously after a tap. */
 const HOVERS=!!(window.matchMedia&&window.matchMedia('(hover:hover)').matches);
 let ptT=null;
+const ptKey=el=>el.dataset.rb?`r:${el.dataset.rb}:${el.dataset.dt}`:`m:${el.dataset.mk}:${el.dataset.dt}`;
 function showPt(el){
-  const k=el.dataset.mk+el.dataset.dt;
-  if(PTIP.classList.contains('on')&&PTIP.dataset.k===k)return;   // mouseover repeats per move
-  const m=MARK.find(x=>x.id===el.dataset.mk),d=chron().find(x=>x.date===el.dataset.dt);
-  const html=m&&d?ptHTML(m,d):'';
+  const k=ptKey(el);
+  if(PTIP.classList.contains('on')&&PTIP.dataset.k===k&&PTIP._anchor===el)return;   // mouseover repeats per move
+  let html='';
+  if(el.dataset.rb){
+    const x=((((TRAINING||{}).benchmarks||{}).items)||[]).find(z=>z.id===el.dataset.rb);
+    const a=x&&rbAttempts(x).find(z=>z.date===el.dataset.dt);html=x&&a?rbPtHTML(x,a):'';
+  }else{
+    const m=MARK.find(x=>x.id===el.dataset.mk),d=chron().find(x=>x.date===el.dataset.dt);
+    html=m&&d?ptHTML(m,d):'';
+  }
   if(!html){closePt();return;}
   document.querySelectorAll('.dtl.act').forEach(x=>x.classList.remove('act'));
   el.classList.add('act');
-  PTIP.innerHTML=html; PTIP.dataset.k=k; PTIP.classList.add('on');
+  PTIP.innerHTML=html; PTIP.dataset.k=k; PTIP._anchor=el; PTIP.classList.add('on');
   // measure only once displayable, then clamp into the viewport on both axes
   const r=el.getBoundingClientRect(),b=PTIP.getBoundingClientRect();
   PTIP.style.left=Math.min(Math.max(8,r.left+r.width/2-b.width/2),Math.max(8,innerWidth-b.width-8))+'px';
   const under=r.bottom+8,over=r.top-b.height-8;
   PTIP.style.top=((under+b.height>innerHeight-8&&over>8)?over:under)+'px';
 }
-function closePt(){PTIP.classList.remove('on');PTIP.dataset.k='';
+function closePt(){PTIP.classList.remove('on');PTIP.dataset.k='';PTIP._anchor=null;
   document.querySelectorAll('.dtl.act').forEach(x=>x.classList.remove('act'));}
 /* CAPTURE phase, deliberately: the handler that expands a row lives on the <tr> ANCESTOR, so a
    bubbling listener would fire after it and the chart would toggle every time you asked about a
@@ -2242,7 +2398,7 @@ function closePt(){PTIP.classList.remove('on');PTIP.dataset.k='';
 document.addEventListener('click',e=>{
   const t=e.target.closest('.dtl');
   if(t){e.stopPropagation();
-    if(PTIP.classList.contains('on')&&PTIP.dataset.k===t.dataset.mk+t.dataset.dt)closePt();
+    if(PTIP.classList.contains('on')&&PTIP.dataset.k===ptKey(t)&&PTIP._anchor===t)closePt();
     else showPt(t);
     return;}
   if(!e.target.closest('#ptip'))closePt();
@@ -2504,6 +2660,108 @@ const tipSecs=s=>{
   return secs.map(([k,v])=>tipSec(k,v)).join('');
 };
 
+// RUNNING BENCHMARKS — the data stores deliberate attempts; every summary below is derived.
+// Seconds are canonical for timed events so sorting, PBs and age-grade bands never depend on a
+// display string. The formatter is the only place that turns them back into a race-clock value.
+const rbAttempts=x=>[...(x.attempts||[])].sort((a,b)=>a.date.localeCompare(b.date));
+function rbFmt(x,v,p=x.precision){
+  if(v==null||!isFinite(v))return '—';
+  if(x.kind!=='time')return Number(v).toFixed(p).replace(/\.0+$/,'');
+  const k=10**p,n=Math.round(v*k)/k;
+  if(n<60)return n.toFixed(p).replace(/\.0+$/,'')+'s';
+  const mn=Math.floor(n/60),sec=n-mn*60,ss=sec.toFixed(p).padStart(p?3+p:2,'0');
+  return `${mn}:${ss}`;
+}
+const rbPB=x=>{const a=rbAttempts(x);if(!a.length)return null;
+  return x.direction==='lower'?Math.min(...a.map(z=>z.value)):Math.max(...a.map(z=>z.value));};
+const rbIsPB=(x,v)=>{const p=rbPB(x);return p!=null&&Math.abs(v-p)<1e-9;};
+const rbDates=()=>{const s=new Set();
+  (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(a.date)));
+  return [...s].sort();};
+const rbDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+const rbHeadDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{month:'short',year:'2-digit'});
+function rbDeltaFmt(x,n){
+  if(x.kind==='time')return Math.abs(n)<60?`${Math.abs(n).toFixed(Math.abs(n)<10?1:0).replace(/\.0$/,'')}s`:rbFmt(x,Math.abs(n),0);
+  return `${Math.abs(n).toFixed(x.precision).replace(/\.0+$/,'')} ${x.kind==='heart-rate'?'bpm':'mL/kg/min'}`;
+}
+function rbTrend(x){
+  const a=rbAttempts(x);if(a.length<2)return '<span class="rbnil">—</span>';
+  const A=a[a.length-2],B=a[a.length-1],d=B.value-A.value,improved=x.direction==='lower'?d<0:d>0;
+  const pc=A.value?Math.abs(d/A.value*100):null,yrs=(new Date(B.date)-new Date(A.date))/31557600000;
+  return `<div class="rbtrend" title="${esc(rbFmt(x,A.value))} (${esc(A.date)}) → ${esc(rbFmt(x,B.value))} (${esc(B.date)})">`+
+    `<span class="rbdlt${d===0?'':improved?' good':' down'}">${d===0?'no change':(d>0?'↑ ':'↓ ')+esc(rbDeltaFmt(x,d))}</span>`+
+    `<span class="rbpct">${pc==null||d===0?'':`${pc.toFixed(pc>=10?0:1)}%`}</span>`+
+    `<span class="rbtsp">${yrs>=1?fmt(yrs)+'y':Math.max(1,Math.round(yrs*12))+'mo'}</span></div>`;
+}
+function rbValue(x,a,extra=''){
+  if(!a)return '<span class="rbnil">—</span>';
+  const pb=rbIsPB(x,a.value);
+  return `<span class="dtl rbval${pb?' rbpb':''}${extra}" data-rb="${esc(x.id)}" data-dt="${esc(a.date)}">${esc(rbFmt(x,a.value))}</span>`;
+}
+function rbSvg(x,dates){
+  const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value);
+  if(x.athletic)vals.push(x.athletic.min,x.athletic.max);
+  if(x.world)vals.push(x.world.value);
+  let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
+  const gap=Math.max((hi-lo)*.13,x.kind==='time'?1:2);lo-=gap;hi+=gap;if(lo===hi){lo-=1;hi+=1;}
+  const Y=v=>x.direction==='lower'?T+(v-lo)/(hi-lo)*(B-T):T+(hi-v)/(hi-lo)*(B-T);
+  const cols=Math.max(1,dates.length),X=d=>((Math.max(0,dates.indexOf(d))+.5)/cols)*W;
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
+  [0,.5,1].forEach(q=>{const y=T+q*(B-T);s+=`<line class="rbgrid" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
+  if(x.athletic){const y1=Y(x.athletic.min),y2=Y(x.athletic.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
+    s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;}
+  if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
+  if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
+  a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
+  s+='</svg>';return s+dots;
+}
+function rbLegend(x){
+  let h='';
+  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>Athletic range</b>${esc(x.athletic.label)}`+
+    `<small>${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
+    `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">${x.kind==='time'?'Factors':'Source'} ↗</a>`+
+    (x.kind==='time'?`<a href="${esc(((TRAINING||{}).benchmarks||{}).classificationSource)}" target="_blank" rel="noopener">Classes ↗</a>`:'')+`</span></span></div>`;
+  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b>${esc(x.world.display)} · ${esc(x.world.athlete)}<small>${esc(x.world.surface)} · ${esc(x.world.venue)} · ${esc(x.world.date)}</small><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
+  if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
+  return h;
+}
+function rbDetail(x,dates,colspan){
+  return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart"><div class="rbcy">`+
+    `<div class="rbdesc"><b>${esc(x.quality)}</b><p>${esc(x.protocol)}</p>`+
+    (!rbAttempts(x).length?`<p class="rbfirst">First result starts the trend.</p>`:'')+`</div></div>`+
+    `<div class="rbcplot">${rbSvg(x,dates)}</div><div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
+}
+let openRb=null;
+function fitRbChart(){
+  const d=document.querySelector('tr.rbdet'),t=document.getElementById('rbtbl');if(!d||!t||!t.tHead)return;
+  const h=[...t.tHead.rows[0].cells],dates=rbDates(),n=Math.max(1,dates.length),first=3,last=first+n-1;
+  const cy=d.querySelector('.rbcy'),cp=d.querySelector('.rbcpad');if(!h[first]||!h[last]||!cy||!cp)return;
+  const tb=t.getBoundingClientRect();cy.style.width=(h[first].getBoundingClientRect().left-tb.left)+'px';
+  cp.style.width=(tb.right-h[last].getBoundingClientRect().right)+'px';
+}
+function rbToggle(row,id){
+  closePt();const cur=document.querySelector('tr.rbdet');
+  if(cur&&openRb===row){cur.remove();row.classList.remove('op');openRb=null;return;}
+  if(cur)cur.remove();document.querySelectorAll('.rbrow.op').forEach(r=>r.classList.remove('op'));
+  const b=((TRAINING||{}).benchmarks||{}),x=(b.items||[]).find(z=>z.id===id);if(!x)return;
+  const dates=rbDates(),n=Math.max(1,dates.length);row.classList.add('op');openRb=row;
+  row.insertAdjacentHTML('afterend',rbDetail(x,dates,n+4));fitRbChart();
+}
+function runningBenchmarks(){
+  const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
+  const dates=rbDates(),heads=dates.length?dates:[''];
+  const th=heads.map(d=>`<th class="rbdate"${d?` title="${esc(rbDate(d))}"`:''}>${d?esc(rbHeadDate(d)):'Attempts'}</th>`).join('');
+  const rows=items.map(x=>{const a=rbAttempts(x),last=a[a.length-1];
+    const hist=heads.map(d=>{const z=d?a.find(q=>q.date===d):null;return `<td class="rbattempt${z&&rbIsPB(x,z.value)?' pb':''}">${rbValue(x,z)}</td>`;}).join('');
+    return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
+      `<td class="rbname"><span>${esc(x.name)}</span><small>${esc(x.quality)}</small></td>`+
+      `<td class="rblatest${last&&rbIsPB(x,last.value)?' pb':''}">${rbValue(x,last,' latest')}</td>`+
+      `<td class="rbunit">${esc(x.unit)}</td>${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
+  return `<div class="rbscroll" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl" style="--rbn:${heads.length}"><thead><tr>`+
+    `<th class="rbname">Benchmark</th><th class="rblatest">Latest</th><th class="rbunit">Unit</th>${th}<th class="rbchange">Since previous</th>`+
+    `</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
 function setPage(p){
   if(!PAGES[p])return;
   if(p===page)return;
@@ -2627,6 +2885,7 @@ function renderPage(p){
   // stack + card tips both reveal on hover now (.tipw:hover / .exn:hover) — no JS,
   // no outside-click handler, no '.open' toggling to leak or clash with search.
   let h='';
+  if(p==='training')openRb=null;
   if(p==='nextdraw'&&NEXTDRAW){
     const it=NEXTDRAW.items||[],df=NEXTDRAW.deferred||[];
     const ND=[['decision','Decision markers','Each result can change a current intervention or decide the next one'],
@@ -2834,6 +3093,8 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote lead">${esc(TRAINING.cardio).replace(/\n/g,'<br>')}</div>`:'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Running benchmarks</div>`+
+        `<div class="cnote lead rbintro">${esc(TRAINING.benchmarks.intro)}</div>`+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
@@ -2982,7 +3243,7 @@ window.addEventListener('scroll',()=>{
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 setNmW();
-window.addEventListener('resize',()=>{setTop();setGut();fitChart();movePtu();},{passive:true});
+window.addEventListener('resize',()=>{setTop();setGut();fitChart();fitRbChart();movePtu();},{passive:true});
 // a horizontal pan on the pills band with nothing to scroll drives the TOC below.
 // Raw touch events with preventDefault: iOS ignores overscroll-behavior on a
 // no-overflow scroller and cancels pointer events once its pan latches, so the

@@ -1228,6 +1228,183 @@ window.BLOODWORK =
  ],
  "TRAINING": {
   "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km)\n\nDaily\n• 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
+  "benchmarks": {
+   "age": 31,
+   "reviewed": "2026-08-09",
+   "classificationSource": "https://usatfmasters.org/age-grading/",
+   "intro": "Deliberate benchmark attempts only — everyday runs do not enter this history. Repeat the same surface and timing method whenever possible.",
+   "items": [
+    {
+     "id": "run100",
+     "name": "100 m",
+     "quality": "Speed",
+     "kind": "time",
+     "unit": "s",
+     "direction": "lower",
+     "precision": 2,
+     "protocol": "Outdoor track from a stationary start. Keep the timing method consistent; fully automatic timing is preferred.",
+     "world": {
+      "value": 9.58,
+      "display": "9.58",
+      "athlete": "Usain Bolt",
+      "venue": "Berlin",
+      "date": "2009-08-16",
+      "surface": "Outdoor track",
+      "source": "https://worldathletics.org/records/all-time-toplists/sprints/100-metres/outdoor/men/senior",
+      "reviewed": "2026-08-09"
+     },
+     "athletic": {
+      "min": 11.975,
+      "max": 13.685714,
+      "label": "70–80% age grade · men, age 31",
+      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
+      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+     },
+     "attempts": []
+    },
+    {
+     "id": "run400",
+     "name": "400 m",
+     "quality": "Speed endurance",
+     "kind": "time",
+     "unit": "s",
+     "direction": "lower",
+     "precision": 1,
+     "protocol": "One lap of an outdoor 400 m track from a stationary start. Keep the timing method consistent.",
+     "world": {
+      "value": 43.03,
+      "display": "43.03",
+      "athlete": "Wayde van Niekerk",
+      "venue": "Rio de Janeiro",
+      "date": "2016-08-14",
+      "surface": "Outdoor track",
+      "source": "https://worldathletics.org/records/all-time-toplists/sprints/400-metres/outdoor/men/senior",
+      "reviewed": "2026-08-09"
+     },
+     "athletic": {
+      "min": 53.7875,
+      "max": 61.471429,
+      "label": "70–80% age grade · men, age 31",
+      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
+      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+     },
+     "attempts": []
+    },
+    {
+     "id": "runmile",
+     "name": "1 mile",
+     "quality": "Aerobic power",
+     "kind": "time",
+     "unit": "min:s",
+     "direction": "lower",
+     "precision": 0,
+     "protocol": "Outdoor track mile. Record 1609.344 m rather than substituting a 1600 m result, and keep the timing method consistent.",
+     "world": {
+      "value": 222.66,
+      "display": "3:42.66",
+      "athlete": "Josh Kerr",
+      "venue": "London",
+      "date": "2026-07-18",
+      "surface": "Outdoor track",
+      "source": "https://worldathletics.org/news/feature/mile-world-record-josh-kerr-history-book",
+      "reviewed": "2026-08-09"
+     },
+     "athletic": {
+      "min": 278.325,
+      "max": 318.085714,
+      "label": "70–80% age grade · men, age 31",
+      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
+      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+     },
+     "attempts": []
+    },
+    {
+     "id": "run5k",
+     "name": "5 km",
+     "quality": "Running fitness",
+     "kind": "time",
+     "unit": "min:s",
+     "direction": "lower",
+     "precision": 0,
+     "protocol": "Flat, accurately measured road course. Avoid mixing road, track and treadmill attempts in one series.",
+     "world": {
+      "value": 769,
+      "display": "12:49",
+      "athlete": "Berihu Aregawi",
+      "venue": "Barcelona",
+      "date": "2021-12-31",
+      "surface": "Road",
+      "source": "https://worldathletics.org/news/press-releases/ratified-world-5km-records-taye-aregawi",
+      "reviewed": "2026-08-09"
+     },
+     "athletic": {
+      "min": 961.25,
+      "max": 1098.571429,
+      "label": "70–80% age grade · men, age 31",
+      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
+      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+     },
+     "attempts": []
+    },
+    {
+     "id": "run10k",
+     "name": "10 km",
+     "quality": "Endurance",
+     "kind": "time",
+     "unit": "min:s",
+     "direction": "lower",
+     "precision": 0,
+     "protocol": "Flat, accurately measured road course. Avoid mixing road, track and treadmill attempts in one series.",
+     "world": {
+      "value": 1591,
+      "display": "26:31",
+      "athlete": "Yomif Kejelcha",
+      "venue": "Castellón",
+      "date": "2025-02-16",
+      "surface": "Road",
+      "source": "https://worldathletics.org/news/press-releases/ratified-world-records-hoey-kejelcha-yamanishi",
+      "reviewed": "2026-08-09"
+     },
+     "athletic": {
+      "min": 1988.75,
+      "max": 2272.857143,
+      "label": "70–80% age grade · men, age 31",
+      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
+      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+     },
+     "attempts": []
+    },
+    {
+     "id": "run20hr",
+     "name": "20 min fixed pace",
+     "quality": "Aerobic efficiency",
+     "kind": "heart-rate",
+     "unit": "avg bpm",
+     "direction": "lower",
+     "precision": 0,
+     "protocol": "Choose speed, grade, surface and heart-rate device on the first test, then keep all four fixed. Record average heart rate for the full 20 minutes.",
+     "attempts": []
+    },
+    {
+     "id": "vo2max",
+     "name": "Treadmill VO₂max",
+     "quality": "Measured cardiorespiratory fitness",
+     "kind": "vo2",
+     "unit": "mL/kg/min",
+     "direction": "higher",
+     "precision": 1,
+     "protocol": "Direct treadmill cardiopulmonary exercise test with respiratory gas analysis. Do not mix wearable estimates or cycle-ergometer results into this series.",
+     "athletic": {
+      "min": 49.2,
+      "max": 56.5,
+      "label": "75th–90th percentile · men, age 30–39",
+      "basis": "Directly measured treadmill VO₂max in the FRIEND registry.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4919021/"
+     },
+     "attempts": []
+    }
+   ]
+  },
   "note": "• Pull-Push-Legs, repeated twice - Monday through Saturday.\n• Weights and reps are approximations.\n• Drop sets on most exercises",
   "cards": [
    {

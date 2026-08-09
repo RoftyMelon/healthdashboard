@@ -288,6 +288,19 @@ setTimeout(()=>{
   catch(e){ ok('grooming care cards',false,e.message); }
   // training cards are organised in muscle-group sub-sections; every set renders a column
   try{ setPage('training');
+    const BI=DATA.TRAINING.benchmarks.items,H=n.pages.innerHTML;
+    ok('training shows the seven agreed benchmarks',count(H,'rbrow')===7&&
+      BI.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,run20hr,vo2max',
+      BI.map(x=>x.id).join(','));
+    ok('benchmark table has no separate personal-best column',!/<th[^>]*>\s*(PB|Personal best)\s*<\/th>/i.test(H));
+    ok('personal bests and tiers are derived, never stored',BI.every(x=>
+      ['pb','personalBest','tier','optional','core'].every(k=>x[k]===undefined)));
+    ok('five timed events carry event-matched world and athletic comparisons',
+      BI.filter(x=>x.kind==='time'&&x.world&&x.athletic).length===5);
+    ok('fixed-pace heart rate has no invented universal comparison',
+      !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
+    ok('VO2max uses a measured treadmill band and no world-record line',
+      BI.find(x=>x.kind==='vo2').athletic.min===49.2&&!BI.find(x=>x.kind==='vo2').world);
     const grps=DATA.TRAINING.cards.reduce((a,c)=>a+(c.groups?c.groups.length:0),0);
     ok(`training shows ${grps} muscle groups`, count(n.pages.innerHTML,'cgrp')===grps,
       count(n.pages.innerHTML,'cgrp')+' groups');
@@ -309,6 +322,29 @@ setTimeout(()=>{
     const kgSeen=(n.pages.innerHTML.match(/kg<\/i>/g)||[]).length;
     ok(`training keeps ${kgColN} per-set weights`, kgSeen===kgColN, kgSeen+' in columns'); }
   catch(e){ ok('training groups',false,e.message); }
+  // Populate the in-memory copy briefly to exercise history, PB, delta, chart and bubble
+  // rendering. Nothing is written back to bloodwork.js; the shipped table correctly starts empty.
+  try{
+    const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
+    R.attempts.push(
+      {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
+      {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});
+    V.attempts.push(
+      {date:'2026-08-01',value:48.0,method:'Treadmill CPET with gas analysis',conditions:'Laboratory ramp protocol'},
+      {date:'2026-09-01',value:51.0,method:'Treadmill CPET with gas analysis',conditions:'Same laboratory ramp protocol'});
+    const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+4);
+    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===6,count(H,'dtl rbval')+' values');
+    ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
+    ok('expanded benchmark chart draws history, athletic band and world-record line',
+      D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('11.98s&ndash;13.69s'));
+    ok('benchmark datapoint bubble records exact date, method and conditions',
+      rbPtHTML(R,R.attempts[1]).includes('1 Sept 2026')&&rbPtHTML(R,R.attempts[1]).includes('Hand timed')&&
+      rbPtHTML(R,R.attempts[1]).includes('Outdoor track'));
+    R.attempts.length=0;V.attempts.length=0;
+  }catch(e){
+    DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
+    ok('benchmark history rendering',false,e.message);
+  }
   // every meal card embeds a derived Supps sub-section (the evening card's title IS its list)
   try{ setPage('diet');
     const timed=DATA.DIET.meals.filter(m=>m.at).length;
@@ -356,6 +392,14 @@ setTimeout(()=>{
   ok('audit rejects an evidence reference with no assay requirement',audit(j18).length===1,audit(j18)[0]||'');
   const j19=JSON.parse(JSON.stringify(DATA)); j19.MARK.find(m=>m.id==='tt').reference.reviewed='July 2026';
   ok('audit rejects a malformed evidence-reference review date',audit(j19).length===1,audit(j19)[0]||'');
+  const j20=JSON.parse(JSON.stringify(DATA)); j20.TRAINING.benchmarks.items[0].kind='sprintish';
+  ok('audit rejects an unknown benchmark kind',audit(j20).length===1,audit(j20)[0]||'');
+  const j21=JSON.parse(JSON.stringify(DATA)); j21.TRAINING.benchmarks.items[0].pb=9.7;
+  ok('audit rejects a stored personal best',audit(j21).length===1,audit(j21)[0]||'');
+  const j22=JSON.parse(JSON.stringify(DATA)); j22.TRAINING.benchmarks.items[0].athletic.min=12;
+  ok('audit rejects a drifted age-grade band',audit(j22).length===1,audit(j22)[0]||'');
+  const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5,conditions:'Outdoor track'});
+  ok('audit rejects an attempt with no timing method',audit(j23).length===1,audit(j23)[0]||'');
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;
