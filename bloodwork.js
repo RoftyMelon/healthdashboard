@@ -1254,7 +1254,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 12.51,
       "max": 14,
-      "label": "Male PE students",
+      "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported.",
       "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
@@ -1284,7 +1284,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 59.36,
       "max": 64,
-      "label": "Male PE students",
+      "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported.",
       "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
@@ -1344,7 +1344,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 1200,
       "max": 1696.25,
-      "label": "Male recreational runners",
+      "label": "Male recreational runners, all adult ages",
       "basis": "Observed P25–P75 of self-reported best pace among 166 male 5 km runners; adult ages pooled.",
       "source": "https://www.mdpi.com/2227-9032/9/7/829",
       "evidence": "moderate",
@@ -1374,7 +1374,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 2800,
       "max": 3400,
-      "label": "Male recreational runners",
+      "label": "Male recreational runners, all adult ages",
       "basis": "Observed P25–P75 of self-reported best pace among 216 male 10 km runners; adult ages pooled.",
       "source": "https://www.mdpi.com/2227-9032/9/7/829",
       "evidence": "moderate",

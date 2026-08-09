@@ -331,7 +331,7 @@ setTimeout(()=>{
       (E.match(/onclick="rbToggle/g)||[]).length===7&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
       ED.includes('Active peer benchmark')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
-      ED.includes('Male PE students'));
+      ED.includes('Male PE students, 21–25'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});
