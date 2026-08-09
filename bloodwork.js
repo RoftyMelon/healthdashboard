@@ -2180,13 +2180,13 @@ window.BLOODWORK =
    {
     "en": "Iron studies — ferritin, iron, transferrin/TIBC + TSAT",
     "fr": "Bilan martial — ferritine, fer, transferrine/CTF + coefficient de saturation",
-    "g": "trend",
+    "g": "decision",
     "draws": [
      "main"
     ],
-    "why": "Are iron availability and stores stable on a diet whose iron is largely non-haem?",
-    "decision": "Use the panel, never serum iron alone, to decide whether diet or further evaluation needs attention.",
-    "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% changes the decision.",
+    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and the August diet moved iron from largely haem to largely non-haem. Is it still holding?",
+    "decision": "Use the panel, never serum iron alone. A confirmed decline is the one result on this draw that would argue for changing the diet rather than continuing it, whether by restoring haem iron or by pairing the non-haem sources with vitamin C and separating them from the tea and kefir.",
+    "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% from 58µg/L — roughly 43 or lower — changes the decision.",
     "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
     "prep": "Fasting morning draw under ordinary dietary conditions.",
     "timing": "Main draw."
