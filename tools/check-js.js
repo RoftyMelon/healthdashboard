@@ -299,7 +299,8 @@ setTimeout(()=>{
       BI.filter(x=>x.kind==='time'&&x.world&&x.athletic).length===5);
     const M=BI.find(x=>x.id==='runmile');
     ok('mile uses the pooled official multi-year road-race band',
-      M.athletic.min===339&&M.athletic.max===419&&M.athletic.evidence==='moderate'&&M.athletic.basis.includes('7,284'));
+      M.athletic.min===336&&M.athletic.max===416&&M.athletic.evidence==='moderate'&&
+      M.athletic.label==='Male road-mile finishers, 19–39'&&M.athletic.basis.includes('21,799'));
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');

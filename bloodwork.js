@@ -1314,11 +1314,11 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 339,
-      "max": 419,
+      "min": 336,
+      "max": 416,
       "heading": "Recreational runners range",
-      "label": "Male road-mile finishers, 30–34",
-      "basis": "Observed P25–P75 across 7,284 official finishes by men aged 30–34 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
+      "label": "Male road-mile finishers, 19–39",
+      "basis": "Observed P25–P75 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
       "reviewed": "2026-08-09"
