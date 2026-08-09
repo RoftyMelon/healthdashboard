@@ -1155,10 +1155,6 @@ window.BLOODWORK =
        "url": "https://geekandgorgeous.com/products/c-glow"
       },
       {
-       "n": "Moisturizer - Niacinamide",
-       "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
-      },
-      {
        "n": "SPF 50",
        "url": "https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1122974582"
       }
