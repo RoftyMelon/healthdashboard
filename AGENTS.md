@@ -235,10 +235,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `{date, value, method, conditions, note?}`. The viewer derives the change and personal best;
   never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
-  no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Rows
-  with no attempts are static — no chevron and no empty chart; the expansion appears as soon as
-  the first result exists. Running world records must match the event and surface and carry a
-  source plus review date. The green
+  no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
+  row expands: before the first attempt it shows a compact range/reference summary rather than an
+  empty plot; after the first result it switches to the full trend chart. Running world records
+  must match the event and surface and carry a source plus review date. The green
   `athletic` band is a sourced performance comparison, never labelled a longevity optimum.
   Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are
   different series. The fixed-pace heart-rate test must preserve pace, grade, surface and device.

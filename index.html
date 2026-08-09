@@ -1111,13 +1111,12 @@ a.sbuy:hover{color:var(--info)}
 .rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
   color:var(--t2);text-align:center;white-space:nowrap;background:var(--bg)}
 .rbtbl tbody tr:last-child:not(.rbdet)>td{border-bottom:0}
-.rbrow{cursor:default}
-.rbrow.has{cursor:pointer}
-.rbrow.has:hover td{background:var(--hov)}
-.rbrow.has:hover td.rbname{background:var(--hovs)}
+.rbrow{cursor:pointer}
+.rbrow:hover td{background:var(--hov)}
+.rbrow:hover td.rbname{background:var(--hovs)}
 .rbname{position:relative}
 .rbname>span{display:block;padding-left:10px;font-size:15.5px;font-weight:620;letter-spacing:-.01em;color:var(--txt)}
-.rbrow.has td.rbname::before{content:"";position:absolute;left:3px;top:50%;width:9px;height:9px;background:var(--t4);
+.rbrow td.rbname::before{content:"";position:absolute;left:3px;top:50%;width:9px;height:9px;background:var(--t4);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
   transform:translateY(-50%);transition:transform .18s,background .14s}
@@ -1148,6 +1147,10 @@ a.sbuy:hover{color:var(--info)}
 .rbpt.rbpbpt{background:var(--ok);box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 60%,transparent)}
 .rbpt.rbpbpt:hover,.rbpt.rbpbpt.act{box-shadow:0 0 0 3px var(--t3)}
 .rbcpad{padding:2px 14px 0}
+.rbrefs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;padding:16px 18px;
+  background:var(--bg);animation:rise .22s ease both}
+.rbrefs .rbleg{margin:0;padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
+.rbrefs .rbonly{padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
 .rbleg{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px;margin-bottom:13px;font-size:11px;line-height:1.35;color:var(--t3)}
 .rbleg span{min-width:0;overflow-wrap:anywhere}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
 .rbleg small{display:block;font-size:10.5px;color:var(--t4);margin-top:2px}.rbleg a{display:block;color:var(--info);margin-top:3px;text-decoration:none}
@@ -2714,6 +2717,8 @@ function rbLegend(x){
   return h;
 }
 function rbDetail(x,dates,colspan){
+  if(!rbAttempts(x).length)
+    return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
     `<div class="rbcplot">${rbSvg(x,dates)}</div><div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
 }
@@ -2727,7 +2732,6 @@ function rbToggle(row,id){
   if(cur&&openRb===row){cur.remove();row.classList.remove('op');openRb=null;return;}
   if(cur)cur.remove();document.querySelectorAll('.rbrow.op').forEach(r=>r.classList.remove('op'));
   const b=((TRAINING||{}).benchmarks||{}),x=(b.items||[]).find(z=>z.id===id);if(!x)return;
-  if(!rbAttempts(x).length){openRb=null;return;}
   const dates=rbDates();row.classList.add('op');openRb=row;
   row.insertAdjacentHTML('afterend',rbDetail(x,dates,dates.length+2));fitRbChart();
 }
@@ -2737,7 +2741,7 @@ function runningBenchmarks(){
   const th=dates.map(d=>`<th class="rbdate" title="${esc(rbDate(d))}">${esc(rbHeadDate(d))}</th>`).join('');
   const rows=items.map(x=>{const a=rbAttempts(x);
     const hist=dates.map(d=>{const z=a.find(q=>q.date===d);return `<td class="rbattempt${z&&rbIsPB(x,z.value)?' pb':''}">${rbValue(x,z)}</td>`;}).join('');
-    return `<tr class="rbrow${a.length?' has':''}" data-rbrow="${esc(x.id)}"${a.length?` onclick="rbToggle(this,'${esc(x.id)}')"`:''}>`+
+    return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
       `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
   return `<div class="rbscroll" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl" style="--rbn:${dates.length}"><thead><tr>`+
