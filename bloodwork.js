@@ -2262,6 +2262,34 @@ window.BLOODWORK =
     "prep": "Shared fasting morning protocol.",
     "timing": "At the main draw, after at least three months of the stable diet.",
     "cost": "Expensive — justified"
+   },
+   {
+    "en": "Urine protein/creatinine ratio — quantitative",
+    "fr": "Rapport protéines/créatinine urinaire — méthode quantitative",
+    "g": "decision",
+    "draws": [
+     "main"
+    ],
+    "why": "July printed <221mg/g against a 118mg/g ceiling, so the only flagged renal result on the panel was never resolved either way.",
+    "decision": "A quantified value under the ceiling closes the question; a quantified value above it, with eGFR and cystatin C in hand, is the one result here that would justify a kidney work-up.",
+    "trigger": "Only worth ordering if the laboratory can report below 118mg/g. Repeating the same censored assay returns <221 again and resolves nothing, so confirm the reporting limit before collection rather than after.",
+    "method": "Quantitative protein/creatinine on a first-morning specimen, reporting limit below 118mg/g (13mg/mmol). Urine total-protein methods are poorly harmonised, so record the manufacturer alongside the result.",
+    "prep": "First-morning specimen, no strenuous exercise for 48 hours — exercise alone raises urinary protein.",
+    "timing": "Same morning as the main draw."
+   },
+   {
+    "en": "Selenium",
+    "fr": "Sélénium",
+    "g": "trend",
+    "draws": [
+     "main"
+    ],
+    "why": "The August diet moved fish from occasional to near-daily, and mackerel and trout are among the densest selenium sources — so does intake alone now reach the restored 100-130 band?",
+    "decision": "Read it as a diet effect, not a supplement question. No selenium supplement is planned at any result, since intake above roughly 130 carries a diabetes signal.",
+    "trigger": "July was 93.5µg/L. Reaching 100-130 confirms the diet supplies it; staying near 93.5 says the fish did not move it and the gap is tolerated deliberately. Above 130 is the only result that would prompt a change, by reviewing intake down.",
+    "method": "Same ICP-MS serum method as July; selenium is not transferable between platforms.",
+    "prep": "Shared fasting morning protocol.",
+    "timing": "Main draw, after at least three months of the stable diet."
    }
   ],
   "deferred": [
@@ -2287,13 +2315,6 @@ window.BLOODWORK =
     "reconsider": "Add if B12 is 150–399pg/mL, neurological symptoms arise, or persistent homocysteine remains unexplained."
    },
    {
-    "en": "Urinalysis / dipstick / ACR",
-    "fr": "Bandelette urinaire / rapport albumine-créatinine urinaire",
-    "s": "remove",
-    "why": "Low decision value without diabetes, hypertension, known kidney disease, symptoms or an abnormal renal result.",
-    "reconsider": "Add a first-morning ACR or appropriate urinalysis only when a kidney-risk question exists."
-   },
-   {
     "en": "Prolactin",
     "fr": "Prolactine",
     "s": "remove",
@@ -2313,13 +2334,6 @@ window.BLOODWORK =
     "s": "remove",
     "why": "A single morning result has weak actionability without symptoms or a defined experiment.",
     "reconsider": "Add for a specific clinical question or a deliberately designed ashwagandha experiment."
-   },
-   {
-    "en": "Selenium",
-    "fr": "Sélénium",
-    "s": "remove",
-    "why": "July's 93.5 µg/L is sufficient — above the 80 threshold — and no outcome-defined optimum justifies pushing it higher. No supplement decision turns on repeating it: food intake is already adequate, while higher exposure has shown diabetes signals in trials and observational cohorts.",
-    "reconsider": "Add after a meaningful diet change or if thyroid findings create a reason."
    },
    {
     "en": "Serum magnesium",
