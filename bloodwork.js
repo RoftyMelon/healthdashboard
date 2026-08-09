@@ -1222,10 +1222,6 @@ window.BLOODWORK =
     {
      "n": "Ketoconazole 2% shampoo",
      "info": "Twice a week, left on 3-5 minutes. Calms the scalp inflammation that drives shedding, and acts as a weak local antiandrogen. Evidence is a handful of small trials, the best known being Pierard-Franchimont 1998, which found density gains close to 2% minoxidil over 21 months. About 10 euros over the counter, and no interaction with the finasteride/minoxidil serum."
-    },
-    {
-     "n": "Bimatoprost 0.03%",
-     "info": "A prostaglandin analogue, brushed along the lash line at night. The strongest evidence of anything not already in the routine - proper randomised trials, and approved for thin lashes. Only worth starting if longer lashes or fuller brows is an actual goal."
     }
    ]
   }
