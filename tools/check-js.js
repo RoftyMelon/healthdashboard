@@ -162,7 +162,7 @@ setTimeout(()=>{
     stack:['srow',DATA.STACK.items.length],
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
-    grooming:['ccard',DATA.CARE.filter(c=>!c.schedule).length],   // scheduled cards (face) render as grids, not ccards
+    grooming:['ccard',DATA.CARE.filter(c=>!c.schedule&&!c.tier).length],   // a scheduled card renders as a grid and a .tier one as a plain list — neither is a ccard
     diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meal cards + Evening; untimed sections are plain rows
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
@@ -264,7 +264,15 @@ setTimeout(()=>{
       DATA.CARE.filter(c=>!c.id).map(c=>c.t).join(', ')||'all present');
     ok('no care card leaked onto stack', !n.pages.innerHTML.includes('data-care="'));
     setPage('grooming');
-    const cards=DATA.CARE.filter(c=>!c.schedule).length, grids=DATA.CARE.filter(c=>c.schedule).length;
+    // a .tier card is NOT a ccard — it renders as the Stack's plain parked list, so it must be
+    // out of the card count and present as a .pgtier instead. Counting it as a card was the
+    // assertion that caught the switch, which is the point: the two shapes cannot both be right.
+    const cards=DATA.CARE.filter(c=>!c.schedule&&!c.tier).length, grids=DATA.CARE.filter(c=>c.schedule).length,
+          tiers=DATA.CARE.filter(c=>c.tier).length;
+    ok(`grooming shows ${tiers} plain tier${tiers===1?'':'s'}`, count(n.pages.innerHTML,'pgtier')===tiers,
+      count(n.pages.innerHTML,'pgtier')+' tiers');
+    DATA.CARE.filter(c=>c.tier).forEach(c=>ok(`tier "${c.t}" renders no card`,
+      !n.pages.innerHTML.includes(`ccard" data-care="${c.id}"`)));
     ok(`grooming shows ${cards} care card${cards===1?'':'s'}`, count(n.pages.innerHTML,'ccard')===cards,
       count(n.pages.innerHTML,'ccard')+' cards');
     ok(`grooming shows ${grids} schedule grid${grids===1?'':'s'}`, count(n.pages.innerHTML,'cgrid')===grids,

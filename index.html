@@ -682,6 +682,13 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    (The old `.pgsec.stk .pgst` rule went too — the tier heading is a .pgtier now, so that
    selector matched nothing.) */
 .pgsec.stk{max-width:min(430px,100%);padding:0 14px}
+/* Grooming's parked list borrows .pgsec.stk wholesale, but 430px is the STACK card's measure and
+   a grooming card is 356px — the same mismatch documented above, one page over: the hairlines ran
+   74px past the Dental card and the two blocks stopped reading as one column. The 14px inset is
+   already right, so only the cap moves. Specificity 0,3,0, above the 0,2,0 it overrides, and
+   above the phone `.pgsec{max-width:335px}` too — which is the point, since the cards go to
+   min(356px,100%) on a phone and the list has to follow them, not the 335px text measure. */
+.gwrap+.pgtier+.pgsec.stk{max-width:min(356px,100%)}
 .pgsec.ndlist,.ndintro,.ndcollections{max-width:760px}
 .ndintro{margin-top:14px;color:var(--t2);font-size:15px;line-height:1.6}
 .ndcards{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:16px}
@@ -737,6 +744,11 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .pgtier{font-size:19px;font-weight:750;letter-spacing:.05em;text-transform:uppercase;color:var(--txt);
   margin:24px 0 4px}
 .pgtier:first-of-type{margin-top:16px}
+/* Grooming's parked tier is the page's ONLY .pgtier, so :first-of-type catches it and hands it
+   the 16px opener meant for a tier at the top of a page — but it follows a stack of cards and
+   needs the 24px the Stack's parked tier gets. Same specificity as the rule above (0,2,0), so
+   this must stay BELOW it to win the tie. */
+.gwrap+.pgtier{margin-top:24px}
 .care.col .ccard .srow:last-child{border-bottom:0}   /* the card edge already closes the list */
 .pgst small{font-weight:500;letter-spacing:0;font-size:13.5px;color:var(--t4);text-transform:none}
 .srow{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:.5px solid var(--line2);flex-wrap:wrap;position:relative}
@@ -848,6 +860,16 @@ a.sbuy:hover{color:var(--info)}
   width:min(94vw,340px);max-width:min(94vw,340px)}
 .tipw .exinfo.up{top:auto;bottom:calc(100% + 4px)}   /* aimTip() flips it when the fold is close */
 .tipw:hover .exinfo{display:block}
+/* The bubble is centred on its row, so its WIDTH has to be the section's width or it hangs off an
+   edge — the 430px above is the Stack section's measure, and the two coincide there by design.
+   Grooming's parked list is 356px (it follows the grooming CARD, not the stack card), and 430
+   centred on 356 put the left edge 27px off-screen, silently eating the first word of every line.
+   0,4,0 — this outranks both `.tipw .exinfo` and the 430px restatement inside the max-width:900px
+   block, so it holds at every width and does NOT need to sit after them. Keep the gutter form:
+   on a phone the section goes full-bleed and the bubble has to track it. */
+.gwrap+.pgtier+.pgsec .tipw .exinfo{
+  width:min(calc(100vw - 2 * var(--gut,10px)),356px);
+  max-width:min(calc(100vw - 2 * var(--gut,10px)),356px)}
 /* base bubble: a compact popover tucked into the TOP-RIGHT CORNER of its anchor —
    used by the exercise/care cards (.ccard is position:relative). Stack tips
    override this via .tipw .exinfo to open leftward beside their icon. */
@@ -2559,6 +2581,28 @@ function renderPage(p){
     const notes=cgn(c.notesPre)+(!(c.notes||[]).length?''
       :(c.notesT?`<div class="cnoteh">${esc(c.notesT)}</div>`:'')+cgn(c.notes));
     return `<div class="ccard"${c.id?` data-care="${esc(c.id)}"`:''}><b>${esc(c.t)}</b>${inner}${notes}</div>`;}).join('')+`</div>`;
+  /* A CARE card carrying .tier renders as a page tier instead — the Stack's parked-list treatment,
+     borrowed deliberately. There, DAILY is a card per group and the parking lot is a plain list,
+     and that contrast IS the hierarchy: a card is a bounded set you act on every morning, a list
+     is one you are still reading. Grooming had the same two kinds of thing and was drawing both
+     as cards. Rows are the Stack's own .srow/.stop, so the ⓘ lands on the same vertical as the
+     Stack's — a CARE item has no dose and no ev tag, so .sfill flushes the tip right on its own.
+     The empty .tipw is the Stack's reserved slot: it keeps tipless rows in the same column. */
+  const careTier=c=>{
+    const row=x=>{
+      const n=typeof x==='string'?x:x.n, url=x&&x.url, info=x&&x.info;
+      return `<div class="srow"><div class="stop">`+
+        `<span class="sn">${wordSafe(n,url?`<a class="sbuy" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open ${esc(n)}">&#8599;</a>`:'')}</span>`+
+        `<span class="sfill"></span>`+
+        // .infob and .exinfo stay adjacent siblings inside .tipw — the reveal is `.tipw:hover .exinfo`
+        (info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(n)} details">i</button>`+
+              `<div class="exinfo">${esc(info)}</div></span>`
+             :`<span class="tipw"></span>`)+
+        `</div></div>`;};
+    return `<div class="pgtier">${esc(c.t)}</div>`+
+      `<div class="pgsec stk nohead"${c.id?` data-care="${esc(c.id)}"`:''}>`+
+      (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
+      (c.items||[]).map(row).join('')+`</div>`;};
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
     sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
@@ -2679,11 +2723,16 @@ function renderPage(p){
   } else if(p==='grooming'&&CARE.length){
     // the face schedule renders as a day-indexed grid; the dental protocol stays a cadence card
     const grids=CARE.filter(c=>c.schedule);
+    // tiers sit OUTSIDE .gwrap, at page level, the way the Stack's parked list does. Three CSS
+    // rules key off that exact position — `.gwrap+.pgtier`, `.gwrap+.pgtier+.pgsec.stk` and
+    // `.gwrap+.pgtier+.pgsec .tipw .exinfo` — so moving this inside the wrapper drops the tier's
+    // top margin, its 356px measure AND its tooltip width, all three silently.
     h=`<div class="pgh">Grooming</div><div class="pgsub">${CARE.map(c=>esc(c.t)).join(' &middot; ')}</div>`+
       `<div class="gwrap">`+
         (grids.length?`<div class="cgscroll">`+grids.map(careGrid).join('')+`</div>`:'')+   // no grid left → no empty scroller
-        cardRow(CARE.filter(c=>!c.schedule),'wide')+
-      `</div>`;
+        cardRow(CARE.filter(c=>!c.schedule&&!c.tier),'wide')+
+      `</div>`+
+      CARE.filter(c=>c.tier).map(careTier).join('');
   } else if(p==='routine'&&ROUTINE.length){
     // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
     // hours take up (a little) space and the day reads as time, not as glued-together events

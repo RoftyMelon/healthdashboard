@@ -1217,6 +1217,7 @@ window.BLOODWORK =
   {
    "id": "later",
    "t": "May add later",
+   "tier": true,
    "items": [
     {
      "n": "Ketoconazole 2% shampoo",
