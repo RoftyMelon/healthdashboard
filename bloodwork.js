@@ -1256,7 +1256,7 @@ window.BLOODWORK =
       "max": 14,
       "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.24s fast against a fully automatic attempt — a sixth of its own width — so read a near-miss as a tie.",
-      "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
       "reviewed": "2026-08-09"
      },
@@ -1286,7 +1286,7 @@ window.BLOODWORK =
       "max": 64,
       "label": "Male PE students, 21–25",
       "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.14s fast against a fully automatic attempt — the standard 400m conversion, smaller than the sprint's.",
-      "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
       "reviewed": "2026-08-09"
      },
