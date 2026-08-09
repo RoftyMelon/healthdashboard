@@ -1820,8 +1820,6 @@ function audit(j){
       if(typeof b.age!=='number'||!isFinite(b.age)||b.age<18)bad.push('TRAINING benchmarks.age must be an adult numeric age');
       if(typeof b.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(b.reviewed))
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
-      if(typeof b.classificationSource!=='string'||!/^https:\/\//.test(b.classificationSource))
-        bad.push('TRAINING benchmarks.classificationSource must be https://');
       if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
       else{
         const bids=new Set(),kinds=['time','heart-rate','vo2'];
@@ -1860,12 +1858,15 @@ function audit(j){
                 bad.push(`${tag}: athletic must have ascending numeric min/max`);
               ['label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
               if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
+              if(!['strong','moderate','weak'].includes(a.evidence))bad.push(`${tag}: athletic.evidence must be strong/moderate/weak`);
+              if(typeof a.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(a.reviewed))
+                bad.push(`${tag}: athletic.reviewed must be YYYY-MM-DD`);
             }
           }
           if(x.kind==='time'){
             if(!x.world||!x.athletic)bad.push(`${tag}: timed running events need world and athletic benchmarks`);
-            else if(Math.abs(x.athletic.min-x.world.value/.8)>.001||Math.abs(x.athletic.max-x.world.value/.7)>.001)
-              bad.push(`${tag}: athletic bounds must remain the 80–70% age-grade interval`);
+            else if(/age[- ]?grade|world-record level/i.test(`${x.athletic.label} ${x.athletic.basis}`))
+              bad.push(`${tag}: athletic band must describe a measured comparison cohort, not an age-grade formula`);
           }
           if(x.kind==='vo2'&&(!x.athletic||x.world))bad.push(`${tag}: measured VO₂max needs an athletic band and no world record`);
           if(x.kind==='heart-rate'&&(x.athletic||x.world))bad.push(`${tag}: fixed-pace heart rate has no universal athletic band or world record`);
@@ -2652,7 +2653,7 @@ const tipSecs=s=>{
 };
 
 // RUNNING BENCHMARKS — the data stores deliberate attempts; every summary below is derived.
-// Seconds are canonical for timed events so sorting, PBs and age-grade bands never depend on a
+// Seconds are canonical for timed events so sorting, PBs and comparison bands never depend on a
 // display string. The formatter is the only place that turns them back into a race-clock value.
 const rbAttempts=x=>[...(x.attempts||[])].sort((a,b)=>a.date.localeCompare(b.date));
 function rbFmt(x,v,p=x.precision){
@@ -2708,10 +2709,9 @@ function rbSvg(x,dates){
 }
 function rbLegend(x){
   let h='';
-  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>Athletic range</b>${esc(x.athletic.label)}`+
+  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>Active peer benchmark</b>${esc(x.athletic.label)}`+
     `<small>${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
-    `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">${x.kind==='time'?'Factors':'Source'} ↗</a>`+
-    (x.kind==='time'?`<a href="${esc(((TRAINING||{}).benchmarks||{}).classificationSource)}" target="_blank" rel="noopener">Classes ↗</a>`:'')+`</span></span></div>`;
+    `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
   if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b>${esc(x.world.display)} · ${esc(x.world.athlete)}<small>${esc(x.world.surface)} · ${esc(x.world.venue)} · ${esc(x.world.date)}</small><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;

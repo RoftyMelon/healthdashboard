@@ -239,9 +239,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   row expands: before the first attempt it shows a compact range/reference summary rather than an
   empty plot; after the first result it switches to the full trend chart. Running world records
   must match the event and surface and carry a source plus review date. The green
-  `athletic` band is a sourced performance comparison, never labelled a longevity optimum. Its
-  visible label must explain the score as a percentage of world-record level rather than relying
-  on the opaque term "age grade" alone.
+  `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
+  optimum. Its visible label must name the measured comparison population; modelled percentages
+  of a world record do not qualify. Each band carries an evidence grade and review date.
   Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are
   different series. The fixed-pace heart-rate test must preserve pace, grade, surface and device.
 

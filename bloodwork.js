@@ -1231,7 +1231,6 @@ window.BLOODWORK =
   "benchmarks": {
    "age": 31,
    "reviewed": "2026-08-09",
-   "classificationSource": "https://usatfmasters.org/age-grading/",
    "items": [
     {
      "id": "run100",
@@ -1253,11 +1252,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 11.975,
-      "max": 13.685714,
-      "label": "70–80% of world-record level · men, age 31",
-      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
-      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+      "min": 12.51,
+      "max": 14,
+      "label": "Male physical-education students, 21–25",
+      "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported.",
+      "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "evidence": "weak",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     },
@@ -1281,11 +1282,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 53.7875,
-      "max": 61.471429,
-      "label": "70–80% of world-record level · men, age 31",
-      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
-      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+      "min": 59.36,
+      "max": 64,
+      "label": "Male physical-education students, 21–25",
+      "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported.",
+      "source": "https://ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "evidence": "weak",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     },
@@ -1309,11 +1312,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 278.325,
-      "max": 318.085714,
-      "label": "70–80% of world-record level · men, age 31",
-      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
-      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+      "min": 346,
+      "max": 433,
+      "label": "Male Fifth Avenue Mile finishers, 30–34",
+      "basis": "Observed P25–P75 official finish times among 1,062 male finishers aged 30–34 in the 2025 Fifth Avenue Mile.",
+      "source": "https://results.nyrr.org/event/25FAM/finishers",
+      "evidence": "strong",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     },
@@ -1337,11 +1342,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 961.25,
-      "max": 1098.571429,
-      "label": "70–80% of world-record level · men, age 31",
-      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
-      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+      "min": 1200,
+      "max": 1696.25,
+      "label": "Male recreational road runners",
+      "basis": "Observed P25–P75 of self-reported best pace among 166 male 5 km runners; adult ages pooled.",
+      "source": "https://www.mdpi.com/2227-9032/9/7/829",
+      "evidence": "moderate",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     },
@@ -1365,11 +1372,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 1988.75,
-      "max": 2272.857143,
-      "label": "70–80% of world-record level · men, age 31",
-      "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
-      "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
+      "min": 2800,
+      "max": 3400,
+      "label": "Male recreational road runners",
+      "basis": "Observed P25–P75 of self-reported best pace among 216 male 10 km runners; adult ages pooled.",
+      "source": "https://www.mdpi.com/2227-9032/9/7/829",
+      "evidence": "moderate",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     },
@@ -1398,7 +1407,9 @@ window.BLOODWORK =
       "max": 56.5,
       "label": "75th–90th percentile · men, age 30–39",
       "basis": "Directly measured treadmill VO₂max in the FRIEND registry.",
-      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4919021/"
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4919021/",
+      "evidence": "strong",
+      "reviewed": "2026-08-09"
      },
      "attempts": []
     }

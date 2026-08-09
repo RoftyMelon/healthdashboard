@@ -329,9 +329,9 @@ setTimeout(()=>{
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
     ok('empty benchmark rows expand to a compact range summary',
       (E.match(/onclick="rbToggle/g)||[]).length===7&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
-      ED.includes('Athletic range')&&ED.includes('World record'));
-    ok('athletic score is explicit at a glance',
-      ED.includes('70–80% of world-record level · men, age 31'));
+      ED.includes('Active peer benchmark')&&ED.includes('World record'));
+    ok('active-peer cohort is explicit at a glance',
+      ED.includes('Male physical-education students, 21–25'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});
@@ -348,7 +348,7 @@ setTimeout(()=>{
     ok('benchmark table and chart show no descriptive copy',
       !H.includes('Speed endurance')&&!D.includes(R.quality)&&!D.includes(R.protocol));
     ok('expanded benchmark chart draws history, athletic band and world-record line',
-      D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('11.98s&ndash;13.69s'));
+      D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('12.51s&ndash;14s'));
     ok('benchmark datapoint bubble records exact date, method and conditions',
       rbPtHTML(R,R.attempts[1]).includes('1 Sept 2026')&&rbPtHTML(R,R.attempts[1]).includes('Hand timed')&&
       rbPtHTML(R,R.attempts[1]).includes('Outdoor track'));
@@ -408,8 +408,8 @@ setTimeout(()=>{
   ok('audit rejects an unknown benchmark kind',audit(j20).length===1,audit(j20)[0]||'');
   const j21=JSON.parse(JSON.stringify(DATA)); j21.TRAINING.benchmarks.items[0].pb=9.7;
   ok('audit rejects a stored personal best',audit(j21).length===1,audit(j21)[0]||'');
-  const j22=JSON.parse(JSON.stringify(DATA)); j22.TRAINING.benchmarks.items[0].athletic.min=12;
-  ok('audit rejects a drifted age-grade band',audit(j22).length===1,audit(j22)[0]||'');
+  const j22=JSON.parse(JSON.stringify(DATA)); delete j22.TRAINING.benchmarks.items[0].athletic.reviewed;
+  ok('audit rejects an unreviewed active-peer band',audit(j22).length===1,audit(j22)[0]||'');
   const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5,conditions:'Outdoor track'});
   ok('audit rejects an attempt with no timing method',audit(j23).length===1,audit(j23)[0]||'');
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
