@@ -332,7 +332,7 @@ setTimeout(()=>{
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
     ok('empty benchmark rows expand to a compact range summary',
       (E.match(/onclick="rbToggle/g)||[]).length===7&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
-      ED.includes('Active peer benchmark')&&ED.includes('World record'));
+      ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE students, 21–25'));
     R.attempts.push(
