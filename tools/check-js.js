@@ -330,6 +330,8 @@ setTimeout(()=>{
     ok('empty benchmark rows expand to a compact range summary',
       (E.match(/onclick="rbToggle/g)||[]).length===7&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
       ED.includes('Athletic range')&&ED.includes('World record'));
+    ok('athletic score is explicit at a glance',
+      ED.includes('70–80% of world-record level · men, age 31'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});

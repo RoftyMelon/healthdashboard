@@ -1255,7 +1255,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 11.975,
       "max": 13.685714,
-      "label": "70–80% age grade · men, age 31",
+      "label": "70–80% of world-record level · men, age 31",
       "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
       "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
      },
@@ -1283,7 +1283,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 53.7875,
       "max": 61.471429,
-      "label": "70–80% age grade · men, age 31",
+      "label": "70–80% of world-record level · men, age 31",
       "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
       "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
      },
@@ -1311,7 +1311,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 278.325,
       "max": 318.085714,
-      "label": "70–80% age grade · men, age 31",
+      "label": "70–80% of world-record level · men, age 31",
       "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
       "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
      },
@@ -1339,7 +1339,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 961.25,
       "max": 1098.571429,
-      "label": "70–80% age grade · men, age 31",
+      "label": "70–80% of world-record level · men, age 31",
       "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
       "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
      },
@@ -1367,7 +1367,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 1988.75,
       "max": 2272.857143,
-      "label": "70–80% age grade · men, age 31",
+      "label": "70–80% of world-record level · men, age 31",
       "basis": "World record ÷ age-graded score; WMA factor 1.0000 at age 31. A performance classification, not a longevity optimum.",
       "source": "https://world-masters-athletics.org/wp-content/uploads/2023/02/2023-Age-Factors-WMA.pdf"
      },
