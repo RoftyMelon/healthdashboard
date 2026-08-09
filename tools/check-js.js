@@ -297,6 +297,9 @@ setTimeout(()=>{
       ['pb','personalBest','tier','optional','core'].every(k=>x[k]===undefined)));
     ok('five timed events carry event-matched world and athletic comparisons',
       BI.filter(x=>x.kind==='time'&&x.world&&x.athletic).length===5);
+    const M=BI.find(x=>x.id==='runmile');
+    ok('mile uses the pooled official multi-year road-race band',
+      M.athletic.min===339&&M.athletic.max===419&&M.athletic.evidence==='moderate'&&M.athletic.basis.includes('7,284'));
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     ok('VO2max uses a measured treadmill band and no world-record line',

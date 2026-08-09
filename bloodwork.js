@@ -1312,12 +1312,12 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 346,
-      "max": 433,
-      "label": "Male Fifth Avenue Mile finishers, 30–34",
-      "basis": "Observed P25–P75 official finish times among 1,062 male finishers aged 30–34 in the 2025 Fifth Avenue Mile.",
-      "source": "https://results.nyrr.org/event/25FAM/finishers",
-      "evidence": "strong",
+      "min": 339,
+      "max": 419,
+      "label": "Male road-mile finishers, 30–34",
+      "basis": "Observed P25–P75 across 7,284 official finishes by men aged 30–34 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
+      "source": "https://results.nyrr.org/races",
+      "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
      "attempts": []
