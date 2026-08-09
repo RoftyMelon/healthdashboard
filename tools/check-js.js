@@ -332,9 +332,13 @@ setTimeout(()=>{
     V.attempts.push(
       {date:'2026-08-01',value:48.0,method:'Treadmill CPET with gas analysis',conditions:'Laboratory ramp protocol'},
       {date:'2026-09-01',value:51.0,method:'Treadmill CPET with gas analysis',conditions:'Same laboratory ramp protocol'});
-    const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+4);
-    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===6,count(H,'dtl rbval')+' values');
+    const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
+    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===4,count(H,'dtl rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
+    ok('benchmark table has date-only headers and no summary columns',
+      H.includes("Aug '26")&&H.includes("Sept '26")&&!H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
+    ok('benchmark table and chart show no descriptive copy',
+      !H.includes('Speed endurance')&&!D.includes(R.quality)&&!D.includes(R.protocol));
     ok('expanded benchmark chart draws history, athletic band and world-record line',
       D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('11.98s&ndash;13.69s'));
     ok('benchmark datapoint bubble records exact date, method and conditions',

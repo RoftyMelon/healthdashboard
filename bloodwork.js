@@ -1232,7 +1232,6 @@ window.BLOODWORK =
    "age": 31,
    "reviewed": "2026-08-09",
    "classificationSource": "https://usatfmasters.org/age-grading/",
-   "intro": "Deliberate benchmark attempts only — everyday runs do not enter this history. Repeat the same surface and timing method whenever possible.",
    "items": [
     {
      "id": "run100",

@@ -1098,17 +1098,14 @@ a.sbuy:hover{color:var(--info)}
 /* Running benchmark ledger. It borrows the Markers page's grammar — dated columns, an inline
    expansion and a full-width plot — without pretending everyday training is a lab draw. */
 .rbtitle{margin-top:20px}
-.rbintro{max-width:760px;padding-bottom:9px}
 .rbscroll{width:min(calc(100vw - var(--gut,20px) - 20px),1100px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
-.rbtbl{min-width:calc(520px + var(--rbn,1)*105px);width:100%;table-layout:fixed;border-collapse:separate;
+.rbtbl{min-width:calc(410px + var(--rbn,0)*105px);width:100%;table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
 .rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
   font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--t4);text-align:center;white-space:nowrap}
 .rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:190px;text-align:left;z-index:3;background:var(--stick)}
 .rbtbl thead th.rbname{z-index:5;background:var(--head)}
-.rbtbl th.rblatest,.rbtbl td.rblatest{width:96px}
-.rbtbl th.rbunit,.rbtbl td.rbunit{width:92px}
 .rbtbl th.rbdate,.rbtbl td.rbattempt{width:105px}
 .rbtbl th.rbchange,.rbtbl td.rbchange{width:220px}
 .rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
@@ -1119,17 +1116,14 @@ a.sbuy:hover{color:var(--info)}
 .rbrow:hover td.rbname{background:var(--hovs)}
 .rbname{position:relative}
 .rbname>span{display:block;padding-left:10px;font-size:15.5px;font-weight:620;letter-spacing:-.01em;color:var(--txt)}
-.rbname>small{display:block;padding-left:10px;margin-top:2px;font-size:11.5px;font-weight:450;color:var(--t4);
-  overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:0}
 .rbrow td.rbname::before{content:"";position:absolute;left:3px;top:50%;width:9px;height:9px;background:var(--t4);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
   transform:translateY(-50%);transition:transform .18s,background .14s}
 .rbrow.op td.rbname::before{background:var(--sel);transform:translateY(-50%) rotate(90deg)}
-.rbunit{font-size:12.5px!important;color:var(--t4)!important;text-transform:none!important;letter-spacing:0!important}
 .rbval{display:inline-block;cursor:pointer;font-variant-numeric:tabular-nums;transition:text-shadow .12s,color .12s}
 .rbval:hover,.rbval.act{text-shadow:0 0 7px color-mix(in srgb,var(--sel) 65%,transparent)}
-.rbpb,.rbattempt.pb .rbval,.rblatest.pb .rbval{color:var(--ok);font-weight:750}
+.rbpb,.rbattempt.pb .rbval{color:var(--ok);font-weight:750}
 .rbnil{color:var(--t4)}
 .rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
   font-size:12.5px;font-variant-numeric:tabular-nums}
@@ -1138,10 +1132,7 @@ a.sbuy:hover{color:var(--info)}
 .rbdet>td{height:auto!important;padding:0!important;border-bottom:.5px solid var(--line)!important;background:var(--bg)!important;
   white-space:normal!important;text-align:left!important}
 .rbchart{display:flex;align-items:flex-start;min-height:270px;padding:18px 0 16px;background:var(--bg);animation:rise .22s ease both}
-.rbcy,.rbcpad{flex:none;min-width:0;white-space:normal;text-align:left}
-.rbdesc{padding:2px 22px 0 14px;color:var(--t3);font-size:13px;line-height:1.52}
-.rbdesc>b{display:block;margin-bottom:5px;font-size:13px;color:var(--txt)}
-.rbdesc p{max-width:330px}
+.rbcpad{flex:0 0 220px;min-width:0;white-space:normal;text-align:left}
 .rbcplot{position:relative;flex:1;min-width:0;height:236px;overflow:hidden;border-left:.5px solid var(--line);
   border-right:.5px solid var(--line)}
 .rbcplot svg{position:absolute;inset:0;width:100%;height:236px;overflow:hidden}
@@ -1155,7 +1146,6 @@ a.sbuy:hover{color:var(--info)}
 .rbpt:hover,.rbpt.act{box-shadow:0 0 0 3px var(--t3)}
 .rbpt.rbpbpt{background:var(--ok);box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 60%,transparent)}
 .rbpt.rbpbpt:hover,.rbpt.rbpbpt.act{box-shadow:0 0 0 3px var(--t3)}
-.rbfirst{margin-top:8px;color:var(--t4)}
 .rbcpad{padding:2px 14px 0}
 .rbleg{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px;margin-bottom:13px;font-size:11px;line-height:1.35;color:var(--t3)}
 .rbleg span{min-width:0;overflow-wrap:anywhere}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
@@ -1359,15 +1349,13 @@ a.sbuy:hover{color:var(--info)}
   .ndmeta{padding-right:22px}
   .ndcard .frcopy{width:100%}
   .rbscroll{width:calc(100vw - 2 * var(--gut,10px))}
-  .rbtbl{min-width:calc(425px + var(--rbn,1)*95px)}
+  .rbtbl{min-width:calc(345px + var(--rbn,0)*95px)}
   .rbtbl th.rbname,.rbtbl td.rbname{width:165px}
-  .rbtbl th.rblatest,.rbtbl td.rblatest{width:82px}
-  .rbtbl th.rbunit,.rbtbl td.rbunit{width:78px}
   .rbtbl th.rbdate,.rbtbl td.rbattempt{width:95px}
   .rbtbl th.rbchange,.rbtbl td.rbchange{width:180px}
-  .rbname>span{font-size:14.5px}.rbname>small{font-size:11px}
-  .rbchart{min-height:255px;padding-top:12px}.rbdesc{padding-left:10px;padding-right:14px;font-size:12px}
-  .rbcpad{padding-left:10px;padding-right:10px}
+  .rbname>span{font-size:14.5px}
+  .rbchart{min-height:255px;padding-top:12px}
+  .rbcpad{flex-basis:180px;padding-left:10px;padding-right:10px}
 }
 </style>
 <script>
@@ -1830,7 +1818,6 @@ function audit(j){
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
       if(typeof b.classificationSource!=='string'||!/^https:\/\//.test(b.classificationSource))
         bad.push('TRAINING benchmarks.classificationSource must be https://');
-      if(typeof b.intro!=='string'||!b.intro.trim())bad.push('TRAINING benchmarks.intro must be a non-empty string');
       if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
       else{
         const bids=new Set(),kinds=['time','heart-rate','vo2'];
@@ -2679,7 +2666,7 @@ const rbDates=()=>{const s=new Set();
   (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(a.date)));
   return [...s].sort();};
 const rbDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-const rbHeadDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{month:'short',year:'2-digit'});
+const rbHeadDate=d=>{const z=new Date(d+'T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
 function rbDeltaFmt(x,n){
   if(x.kind==='time')return Math.abs(n)<60?`${Math.abs(n).toFixed(Math.abs(n)<10?1:0).replace(/\.0$/,'')}s`:rbFmt(x,Math.abs(n),0);
   return `${Math.abs(n).toFixed(x.precision).replace(/\.0+$/,'')} ${x.kind==='heart-rate'?'bpm':'mL/kg/min'}`;
@@ -2726,39 +2713,33 @@ function rbLegend(x){
   return h;
 }
 function rbDetail(x,dates,colspan){
-  return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart"><div class="rbcy">`+
-    `<div class="rbdesc"><b>${esc(x.quality)}</b><p>${esc(x.protocol)}</p>`+
-    (!rbAttempts(x).length?`<p class="rbfirst">First result starts the trend.</p>`:'')+`</div></div>`+
+  return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
     `<div class="rbcplot">${rbSvg(x,dates)}</div><div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
 }
 let openRb=null;
 function fitRbChart(){
-  const d=document.querySelector('tr.rbdet'),t=document.getElementById('rbtbl');if(!d||!t||!t.tHead)return;
-  const h=[...t.tHead.rows[0].cells],dates=rbDates(),n=Math.max(1,dates.length),first=3,last=first+n-1;
-  const cy=d.querySelector('.rbcy'),cp=d.querySelector('.rbcpad');if(!h[first]||!h[last]||!cy||!cp)return;
-  const tb=t.getBoundingClientRect();cy.style.width=(h[first].getBoundingClientRect().left-tb.left)+'px';
-  cp.style.width=(tb.right-h[last].getBoundingClientRect().right)+'px';
+  // Kept as the table's resize/scroll hook: the chart now flexes into the space freed by removing
+  // its descriptive pane, so it needs no measured column geometry.
 }
 function rbToggle(row,id){
   closePt();const cur=document.querySelector('tr.rbdet');
   if(cur&&openRb===row){cur.remove();row.classList.remove('op');openRb=null;return;}
   if(cur)cur.remove();document.querySelectorAll('.rbrow.op').forEach(r=>r.classList.remove('op'));
   const b=((TRAINING||{}).benchmarks||{}),x=(b.items||[]).find(z=>z.id===id);if(!x)return;
-  const dates=rbDates(),n=Math.max(1,dates.length);row.classList.add('op');openRb=row;
-  row.insertAdjacentHTML('afterend',rbDetail(x,dates,n+4));fitRbChart();
+  const dates=rbDates();row.classList.add('op');openRb=row;
+  row.insertAdjacentHTML('afterend',rbDetail(x,dates,dates.length+2));fitRbChart();
 }
 function runningBenchmarks(){
   const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
-  const dates=rbDates(),heads=dates.length?dates:[''];
-  const th=heads.map(d=>`<th class="rbdate"${d?` title="${esc(rbDate(d))}"`:''}>${d?esc(rbHeadDate(d)):'Attempts'}</th>`).join('');
-  const rows=items.map(x=>{const a=rbAttempts(x),last=a[a.length-1];
-    const hist=heads.map(d=>{const z=d?a.find(q=>q.date===d):null;return `<td class="rbattempt${z&&rbIsPB(x,z.value)?' pb':''}">${rbValue(x,z)}</td>`;}).join('');
+  const dates=rbDates();
+  const th=dates.map(d=>`<th class="rbdate" title="${esc(rbDate(d))}">${esc(rbHeadDate(d))}</th>`).join('');
+  const rows=items.map(x=>{const a=rbAttempts(x);
+    const hist=dates.map(d=>{const z=a.find(q=>q.date===d);return `<td class="rbattempt${z&&rbIsPB(x,z.value)?' pb':''}">${rbValue(x,z)}</td>`;}).join('');
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
-      `<td class="rbname"><span>${esc(x.name)}</span><small>${esc(x.quality)}</small></td>`+
-      `<td class="rblatest${last&&rbIsPB(x,last.value)?' pb':''}">${rbValue(x,last,' latest')}</td>`+
-      `<td class="rbunit">${esc(x.unit)}</td>${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
-  return `<div class="rbscroll" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl" style="--rbn:${heads.length}"><thead><tr>`+
-    `<th class="rbname">Benchmark</th><th class="rblatest">Latest</th><th class="rbunit">Unit</th>${th}<th class="rbchange">Since previous</th>`+
+      `<td class="rbname"><span>${esc(x.name)}</span></td>`+
+      `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
+  return `<div class="rbscroll" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl" style="--rbn:${dates.length}"><thead><tr>`+
+    `<th class="rbname">Benchmark</th>${th}<th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
@@ -3093,8 +3074,7 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote lead">${esc(TRAINING.cardio).replace(/\n/g,'<br>')}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Running benchmarks</div>`+
-        `<div class="cnote lead rbintro">${esc(TRAINING.benchmarks.intro)}</div>`+runningBenchmarks():'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Running benchmarks</div>`+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.

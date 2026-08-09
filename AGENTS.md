@@ -232,9 +232,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   never hide this page's decision logic in hover tooltips.
 - **`TRAINING.benchmarks` is a deliberate test history, not a workout log.** Its `items[]` hold
   the benchmark definition and `attempts[]` holds only intentional tests as
-  `{date, value, method, conditions, note?}`. The viewer derives the latest result, change and
-  personal best; never store a separate PB or tier the tests into core/optional groups. Keep every
-  attempt visible in the row and reveal the full trend chart underneath, like Markers. Running
+  `{date, value, method, conditions, note?}`. The viewer derives the change and personal best;
+  never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
+  in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
+  no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Running
   world records must match the event and surface and carry a source plus review date. The green
   `athletic` band is a sourced performance comparison, never labelled a longevity optimum.
   Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are
