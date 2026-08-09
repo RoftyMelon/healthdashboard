@@ -1345,13 +1345,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 1200,
-      "max": 1696.25,
+      "min": 1100,
+      "max": 1408,
       "heading": "Recreational runners range",
-      "label": "Male recreational runners, all adult ages",
-      "basis": "Observed P25–P75 of self-reported best pace among 166 male 5 km runners; adult ages pooled. Self-reported and age-pooled, so it reads as a rough active-male range rather than a measured 31-year-old cohort.",
-      "source": "https://www.mdpi.com/2227-9032/9/7/829",
-      "evidence": "weak",
+      "label": "Male recreational runners, median age 34",
+      "basis": "Observed P25–P75 of self-reported recent race times from 855 men. The 5 km cohort was age 34 (IQR 29–42) and typically ran 28 miles/week (IQR 18–40); 52% used intervals and 56% used tempo runs most weeks.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
      "attempts": []
@@ -1376,13 +1376,13 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 2800,
-      "max": 3400,
+      "min": 2388,
+      "max": 3090,
       "heading": "Recreational runners range",
-      "label": "Male recreational runners, all adult ages",
-      "basis": "Observed P25–P75 of self-reported best pace among 216 male 10 km runners; adult ages pooled. Self-reported and age-pooled, so it reads as a rough active-male range rather than a measured 31-year-old cohort.",
-      "source": "https://www.mdpi.com/2227-9032/9/7/829",
-      "evidence": "weak",
+      "label": "Male recreational runners, median age 35",
+      "basis": "Observed P25–P75 of self-reported recent race times from 607 men. The 10 km cohort was age 35 (IQR 30–43) and typically ran 25 miles/week (IQR 18–40); 49% used intervals and 57% used tempo runs most weeks.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
      "attempts": []
