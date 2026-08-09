@@ -326,6 +326,9 @@ setTimeout(()=>{
   // rendering. Nothing is written back to bloodwork.js; the shipped table correctly starts empty.
   try{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
+    const E=runningBenchmarks();
+    ok('empty benchmark rows have no chevron or expandable chart',
+      !E.includes('rbrow has')&&!E.includes('onclick="rbToggle'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});
@@ -333,6 +336,8 @@ setTimeout(()=>{
       {date:'2026-08-01',value:48.0,method:'Treadmill CPET with gas analysis',conditions:'Laboratory ramp protocol'},
       {date:'2026-09-01',value:51.0,method:'Treadmill CPET with gas analysis',conditions:'Same laboratory ramp protocol'});
     const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
+    ok('a first attempt enables the row expansion',
+      count(H,'rbrow has')===2&&(H.match(/onclick="rbToggle/g)||[]).length===2);
     ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===4,count(H,'dtl rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     ok('benchmark table has date-only headers and no summary columns',
