@@ -2251,17 +2251,17 @@ window.BLOODWORK =
    {
     "en": "IGF-1",
     "fr": "IGF-1 (somatomédine C)",
-    "g": "optional",
+    "g": "trend",
     "draws": [
      "main"
     ],
-    "why": "Is another longitudinal point worth collecting when no current intervention depends on it?",
-    "decision": "Use only for exploratory longevity tracking; do not change the stack from this result alone.",
-    "trigger": "No defensible personal action threshold.",
-    "method": "Same post-23/09/2025 assay; otherwise the point is not comparable.",
+    "why": "Did the August diet raise IGF-1, or is 104.6 simply the individual set point rather than a signal about intake?",
+    "decision": "A rise supports intake having been the earlier constraint and argues for holding the diet; a flat result closes that question and moves the training-response investigation off calories.",
+    "trigger": "July was 104.6ng/mL on the LIAISON XL. A rise of at least 20%, to roughly 125 or above, clears assay noise and reaches the VARIETE floor. A result within about 10% either way, roughly 94-115, argues for a set point. Between the two, repeat under the same conditions before concluding anything.",
+    "method": "Same post-23/09/2025 assay; otherwise the point is not comparable. A second point on this analyser is also what lets the cross-draw assay warning surface the unreconciled 124-310 versus 82-241 gap.",
     "prep": "Shared fasting morning protocol.",
-    "timing": "Optional at the main draw.",
-    "cost": "Expensive — weak decision value"
+    "timing": "At the main draw, after at least three months of the stable diet.",
+    "cost": "Expensive — justified"
    }
   ],
   "deferred": [
