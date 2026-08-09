@@ -2216,6 +2216,34 @@ window.BLOODWORK =
     "timing": "Main draw. Creatine lowering is a testable hypothesis with mixed controlled-trial results, not a guaranteed outcome."
    },
    {
+    "en": "Vitamin B12",
+    "fr": "Vitamine B12",
+    "g": "decision",
+    "draws": [
+     "main"
+    ],
+    "why": "Does B12 help explain persistent homocysteine, rather than becoming an intervention by itself?",
+    "decision": "Use it to decide whether MMA adds value and whether any B-vitamin intervention should be targeted.",
+    "trigger": "A result in the 150–399pg/mL range makes MMA useful; July's 522pg/mL does not.",
+    "method": "Same assay as July.",
+    "prep": "Fasting morning draw before supplements.",
+    "timing": "Main draw with homocysteine, folate and PLP."
+   },
+   {
+    "en": "Folate + vitamin B6 (PLP)",
+    "fr": "Folates (B9) + vitamine B6 (phosphate de pyridoxal, PLP)",
+    "g": "decision",
+    "draws": [
+     "main"
+    ],
+    "why": "Is either cofactor contributing to homocysteine before a B-complex is introduced?",
+    "decision": "Use targeted replacement only if the assay supports it; adequate values argue against an indiscriminate high-dose complex.",
+    "trigger": "A result below the assay range changes the intervention; there is no reason to chase an above-range optimization target.",
+    "method": "Same folate assay; PLP specifically for B6.",
+    "prep": "No B-complex before the draw; morning supplements after collection.",
+    "timing": "Main draw with homocysteine and B12."
+   },
+   {
     "en": "Total testosterone + SHBG + albumin (calculated free testosterone)",
     "fr": "Testostérone totale + SHBG + albumine sur le même prélèvement (testostérone libre calculée)",
     "g": "decision",
@@ -2272,34 +2300,6 @@ window.BLOODWORK =
     "prep": "Keep average food plus supplement intake stable; record fish frequency and supplemental EPA/DHA.",
     "timing": "Main draw after at least 4 months of stable average intake.",
     "cost": "Expensive — justified"
-   },
-   {
-    "en": "Vitamin B12",
-    "fr": "Vitamine B12",
-    "g": "decision",
-    "draws": [
-     "main"
-    ],
-    "why": "Does B12 help explain persistent homocysteine, rather than becoming an intervention by itself?",
-    "decision": "Use it to decide whether MMA adds value and whether any B-vitamin intervention should be targeted.",
-    "trigger": "A result in the 150–399pg/mL range makes MMA useful; July's 522pg/mL does not.",
-    "method": "Same assay as July.",
-    "prep": "Fasting morning draw before supplements.",
-    "timing": "Main draw with homocysteine, folate and PLP."
-   },
-   {
-    "en": "Folate + vitamin B6 (PLP)",
-    "fr": "Folates (B9) + vitamine B6 (phosphate de pyridoxal, PLP)",
-    "g": "decision",
-    "draws": [
-     "main"
-    ],
-    "why": "Is either cofactor contributing to homocysteine before a B-complex is introduced?",
-    "decision": "Use targeted replacement only if the assay supports it; adequate values argue against an indiscriminate high-dose complex.",
-    "trigger": "A result below the assay range changes the intervention; there is no reason to chase an above-range optimization target.",
-    "method": "Same folate assay; PLP specifically for B6.",
-    "prep": "No B-complex before the draw; morning supplements after collection.",
-    "timing": "Main draw with homocysteine and B12."
    },
    {
     "en": "Zinc + copper + ceruloplasmin",
