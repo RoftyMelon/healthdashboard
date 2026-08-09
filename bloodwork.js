@@ -1345,11 +1345,11 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 1100,
-      "max": 1408,
+      "min": 1070,
+      "max": 1372,
       "heading": "Recreational runners range",
-      "label": "Male recreational runners, median age 34",
-      "basis": "Observed P25–P75 of self-reported recent race times from 855 men. The 5 km cohort was age 34 (IQR 29–42) and typically ran 28 miles/week (IQR 18–40); 52% used intervals and 56% used tempo runs most weeks.",
+      "label": "Male recreational runners, 19–39",
+      "basis": "Observed P25–P75 of self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-09"
@@ -1376,11 +1376,11 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 2388,
-      "max": 3090,
+      "min": 2290,
+      "max": 3000,
       "heading": "Recreational runners range",
-      "label": "Male recreational runners, median age 35",
-      "basis": "Observed P25–P75 of self-reported recent race times from 607 men. The 10 km cohort was age 35 (IQR 30–43) and typically ran 25 miles/week (IQR 18–40); 49% used intervals and 57% used tempo runs most weeks.",
+      "label": "Male recreational runners, 19–39",
+      "basis": "Observed P25–P75 of self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-09"
