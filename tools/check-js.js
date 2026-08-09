@@ -250,13 +250,19 @@ setTimeout(()=>{
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
   // The Stack has its own cards (one per daily group), so a bare ccard count no longer proves
   // anything: it would pass with a grooming card sitting in the middle. Count the stack's own
-  // exactly, then look for the CARE titles by name.
+  // exactly, then look for the CARE cards by their data-care id.
+  // NOT by title. The Stack's own "May add later" tier header is plain text on the page, so a
+  // Grooming card of the same name read as a leak that was never there — the check failed on a
+  // string the Stack has always legitimately owned. data-care is emitted only by cardRow, which
+  // renders Grooming and Training and never the Stack, so the attribute is proof where the title
+  // was a guess. The id check below is what gives this one teeth: no id, no attribute, no catch.
   try{ setPage('stack');
     const daily=new Set(DATA.STACK.items.filter(s=>s.cat!=='maylater').map(s=>s.cat)).size;
     ok(`stack shows ${daily} daily cards`, count(n.pages.innerHTML,'ccard')===daily,
       count(n.pages.innerHTML,'ccard')+' on stack');
-    ok('no care card leaked onto stack',
-      !DATA.CARE.some(c=>c.t&&n.pages.innerHTML.includes('>'+c.t+'<')));
+    ok('every care card carries an id', DATA.CARE.every(c=>c.id),
+      DATA.CARE.filter(c=>!c.id).map(c=>c.t).join(', ')||'all present');
+    ok('no care card leaked onto stack', !n.pages.innerHTML.includes('data-care="'));
     setPage('grooming');
     const cards=DATA.CARE.filter(c=>!c.schedule).length, grids=DATA.CARE.filter(c=>c.schedule).length;
     ok(`grooming shows ${cards} care card${cards===1?'':'s'}`, count(n.pages.innerHTML,'ccard')===cards,
