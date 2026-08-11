@@ -4179,6 +4179,69 @@ window.BLOODWORK =
         ]
        ]
       }
+     },
+     {
+      "n": "Clams",
+      "amt": "150g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Clams, cooked"
+        ]
+       ],
+       "Macronutrients — per 150g cooked": [
+        [
+         "Energy",
+         "149kcal",
+         "7%"
+        ],
+        [
+         "Protein",
+         "24.3g",
+         "49%"
+        ],
+        [
+         "Fat",
+         "2.2g",
+         "3%"
+        ],
+        [
+         "Carbs",
+         "8.0g",
+         "3%"
+        ],
+        [
+         "Salt",
+         "2.34g",
+         "39%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Iron",
+         "14.5mg",
+         "104%"
+        ],
+        [
+         "Copper",
+         "0.75mg",
+         "75%"
+        ]
+       ],
+       "Changes": [
+        [
+         "11 Aug 2026",
+         "added"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Edible cooked weight, shells excluded; nutrition from ANSES-Ciqual 2025, food code 10027"
+        ]
+       ]
+      }
      }
     ]
    }
