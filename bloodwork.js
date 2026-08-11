@@ -2930,8 +2930,7 @@ window.BLOODWORK =
         ],
         [
          "Iron",
-         "1.1mg",
-         "8%"
+         "1.1mg"
         ],
         [
          "Copper",
@@ -3399,8 +3398,7 @@ window.BLOODWORK =
         ],
         [
          "Iron",
-         "1.1mg",
-         "8%"
+         "1.1mg"
         ],
         [
          "Copper",
@@ -3616,8 +3614,7 @@ window.BLOODWORK =
         ],
         [
          "Iron",
-         "2mg",
-         "14%"
+         "2mg"
         ],
         [
          "Potassium",
@@ -3844,13 +3841,11 @@ window.BLOODWORK =
         ],
         [
          "Iron",
-         "5.4mg",
-         "39%"
+         "5.4mg"
         ],
         [
          "Calcium",
-         "204mg",
-         "26%"
+         "204mg"
         ]
        ],
        "Spinach 150g · Changes": [
