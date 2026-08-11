@@ -18,7 +18,7 @@ window.BLOODWORK =
   "confounds": [
    "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
    "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them.",
-   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. The 'Huel' dec still links vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg, and that link remains correct for the JULY values it explains; from August it names an exposure that has ENDED. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
+   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. The dec that groups these was RENAMED from 'Huel' to 'Fortified base (stopped Aug 2026)' on 11 Aug 2026, because the brand name rendered as a group heading on the Markers page long after the product was gone; it still links vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg, and that link remains correct for the JULY values it explains; from August it names an exposure that has ENDED. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
   ],
   "subject": {
    "sex": "male",
@@ -33,7 +33,7 @@ window.BLOODWORK =
    "supervision": "none"
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
-  "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in functional categories; most items are status 'planned' — queued for the new protocol, not yet started. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is null (not yet assigned — never guess) OR an array of {at, dose}: one entry per meal slot it's taken at (presnack/brunch/dinner/evening), each carrying the PER-SLOT dose (astaxanthin = [{at:brunch,dose:12mg},{at:dinner,dose:12mg}]; the item's own .dose stays the daily total). Timing lives on the item (.when), not in the categories: cats are functional groups. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). An optional .judge string is the readout — the marker or felt endpoint that decides whether a trial-tier (maylater) supplement is working — shown as a 'Judge by:' line under the item. A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot. A meal item is a string, or {n, info} — in a timed meal card, .info opens behind a hover info-tip on the name: .info is a string (plain caveat) OR a {section: [[label,value],…]} object rendered as a compact nutrition table (Huel Black uses this). ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; supplements are NOT shown in ROUTINE — they live only on the Diet tab (derived from STACK.when), so the routine just names the meal or event. CARE holds the dental / face protocols, rendered as cards on their own Grooming tab — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with a when entry {at:'brunch'} belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. DIET.eveningAt stamps the Evening supplements card's time. NEXTDRAW is a decision contract: collections[] names the draw windows, protocol[] stores the shared preparation, active items[] carry en/fr plus group, draw ids, question, decision, trigger, method, preparation and timing, and deferred[] records exclusions that never enter a lab copy. The default copy includes decision and trend rows for one collection; the separate optional copy adds that collection's optional rows. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups, OR carry a .schedule instead — a day-indexed weekly grid (days[] with an optional tag + hi chip, sections[] (each an optional .icon: sun/sunset/moon) of rows {n, on:[day names], hi?}, plus notes[]) rendered as a dot-matrix (solid = applied, faint = skipped); the Skincare card (id 'face') uses this and every on-day name must appear in days[]. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note is the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
+  "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in functional categories; most items are status 'planned' — queued for the new protocol, not yet started. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is null (not yet assigned — never guess) OR an array of {at, dose}: one entry per meal slot it's taken at (presnack/brunch/dinner/evening), each carrying the PER-SLOT dose (astaxanthin = [{at:brunch,dose:12mg},{at:dinner,dose:12mg}]; the item's own .dose stays the daily total). Timing lives on the item (.when), not in the categories: cats are functional groups. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). An optional .judge string is the readout — the marker or felt endpoint that decides whether a trial-tier (maylater) supplement is working — shown as a 'Judge by:' line under the item. A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot. A meal item is a string, or {n, info} — in a timed meal card, .info opens behind a hover info-tip on the name: .info is a string (plain caveat) OR a {section: [[label,value],…]} object rendered as a compact nutrition table (most DIET items use this). ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; supplements are NOT shown in ROUTINE — they live only on the Diet tab (derived from STACK.when), so the routine just names the meal or event. CARE holds the dental / face protocols, rendered as cards on their own Grooming tab — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with a when entry {at:'brunch'} belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. DIET.eveningAt stamps the Evening supplements card's time. NEXTDRAW is a decision contract: collections[] names the draw windows, protocol[] stores the shared preparation, active items[] carry en/fr plus group, draw ids, question, decision, trigger, method, preparation and timing, and deferred[] records exclusions that never enter a lab copy. The default copy includes decision and trend rows for one collection; the separate optional copy adds that collection's optional rows. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups, OR carry a .schedule instead — a day-indexed weekly grid (days[] with an optional tag + hi chip, sections[] (each an optional .icon: sun/sunset/moon) of rows {n, on:[day names], hi?}, plus notes[]) rendered as a dot-matrix (solid = applied, faint = skipped); the Skincare card (id 'face') uses this and every on-day name must appear in days[]. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note is the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
   "never_measured": "9 markers have no stored result: corrected calcium is deliberately blank because every albumin exceeds the source lab’s correction ceiling; TIBC and calculated free testosterone are derived at load when their inputs exist; ceruloplasmin, MMA, PLP, urea, dialysis free testosterone and bicarbonate have not been measured.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
@@ -95,7 +95,7 @@ window.BLOODWORK =
   "Vitamin D3 5000 IU + K2",
   "Magnesium L-threonate",
   "Glycine 8g + taurine + collagen",
-  "Huel"
+  "Fortified base (stopped Aug 2026)"
  ],
  "STACK": {
   "cats": [
@@ -1058,7 +1058,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "5g daily, away from meals — about 580mg catechins, the dose the trials used. It was 2-3g while Huel supplied 1.8g matcha and 130mg green tea extract alongside it; Huel stopped on 1 Aug 2026, so the whole dose now has to come from the powder. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Powder beats brewed leaf 2-3x because the whole leaf is consumed rather than infused."
+       "5g daily, away from meals — about 580mg catechins, the dose the trials used, all of it from the powder. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Powder beats brewed leaf 2-3x because the whole leaf is consumed rather than infused."
       ]
      ],
      "Evidence": [
@@ -2340,7 +2340,7 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, Huel Black stopped and took 9mg/day of fortified iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
+    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, the fortified base stopped and took 9mg/day of iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
     "decision": "Use the panel, never serum iron alone. A confirmed decline is the one result on this draw that would argue for changing the diet rather than continuing it, whether by restoring haem iron or by pairing the non-haem sources with vitamin C and separating them from the tea and kefir.",
     "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% from 58µg/L — roughly 43 or lower — changes the decision.",
     "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
@@ -4137,7 +4137,7 @@ window.BLOODWORK =
    "dec": [
     "Vitamin D3 5000 IU + K2",
     "Boron 10mg",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Vitamin D (25-OH)",
    "fr": "Vitamine D (25-OH)",
@@ -4252,7 +4252,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "Vitamin D3 5000 IU + K2",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Calcium",
    "fr": "Calcium (calcémie)",
@@ -4367,7 +4367,7 @@ window.BLOODWORK =
    "id": "tsh",
    "cat": "thy",
    "dec": [
-    "Huel",
+    "Fortified base (stopped Aug 2026)",
     "Ashwagandha 600mg"
    ],
    "en": "TSH",
@@ -4514,7 +4514,7 @@ window.BLOODWORK =
    "id": "sel",
    "cat": "vitmin",
    "dec": [
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Selenium",
    "fr": "Sélénium",
@@ -4618,7 +4618,7 @@ window.BLOODWORK =
    "cat": "iron",
    "dec": [
     "Curcumin",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Ferritin",
    "fr": "Ferritine",
@@ -4666,7 +4666,7 @@ window.BLOODWORK =
    "id": "zn",
    "cat": "vitmin",
    "dec": [
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Zinc",
    "fr": "Zinc",
@@ -4773,7 +4773,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "TMG 6g",
-    "Huel",
+    "Fortified base (stopped Aug 2026)",
     "B-complex (methylfolate)"
    ],
    "en": "Vitamin B12",
@@ -4833,7 +4833,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "B-complex (methylfolate)",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "MMA (methylmalonic acid)",
    "fr": "Acide méthylmalonique (MMA)",
@@ -4886,7 +4886,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "TMG 6g",
-    "Huel",
+    "Fortified base (stopped Aug 2026)",
     "B-complex (methylfolate)"
    ],
    "en": "Folate",
@@ -4910,7 +4910,7 @@ window.BLOODWORK =
     "label": "Dutch unfortified-population adult serum folate interval (Roche Folate III)",
     "source": "Vos et al., Pract Lab Med 2019;16:e00127 (Dutch general population)",
     "population": "347 adults aged 21-90 y of both sexes - 192 men (mean age 44 y) and 214 women (mean age 45.5 y) - from the Dutch population-based Lifelines cohort, screened for health by requiring haemoglobin and MCV within sex- and age-specific norms and eGFR >60 mL/min/1.73m2. The Netherlands runs NO folic-acid fortification programme, which is the single most important match to this subject: serum folate distributions in fortified populations (US post-1998) sit far higher and their intervals are not transferable to France. Age partitioning was tested and explicitly not warranted (the authors propose an interval 'independent of age'); sex was examined and not applied. No fitness or BMI criterion, and no trained-cohort folate reference exists, so tier 1 and tier 2 of the ladder are genuinely unavailable - this stops at tier 3, an unpartitioned adult interval where partitioning was tested rather than assumed.",
-    "method": "Roche Folate III (Elecsys folate-binding-protein ECLIA) on a cobas e602, calibrated against the WHO international folate standard - the same assay family as this subject's 'ECLIA Cobas Roche' result, which is why this source was preferred over the far larger NHANES microbiologic-assay data (different method AND a fortified population). Non-parametric percentile estimation with bootstrap resampling; the authors chose it over gamma-fitting (which gave 6.8-26.0) because without supplement-use data the upper tail is likely supplement users, and discarding them would have understated the limit. The lower limit was independently verified against homocysteine in 117 patient samples. Two caveats: samples reading above the assay's 45.4 nmol/L measuring ceiling were EXCLUDED, so the upper limit is partly assay-truncated and in any case carries no health meaning - high folate is not a lab abnormality; and serum folate tracks recent intake rather than stores, so a supplementing subject (this one takes 90 g/day of folate-fortified Huel) will read higher than this reference population and red-cell folate remains the status marker. Roche Elecsys ECLIA, the same platform family as this subject's result; Vos measured heparinised plasma rather than serum, a minor matrix difference for Roche folate. Assumes a fasting morning draw and no folate supplementation: the cohort was supplement-naive and unfortified, so the upper limit is a distributional artifact of low intake with no health meaning attached to it. Serum folate reflects intake over the preceding days, not tissue status — RBC folate is the status measure. Do not read the upper limit as a ceiling: a value above it in someone taking 5-MTHF or fortified food is the expected result of that intake, not an abnormality, and the deficiency threshold is the only side of this interval that carries a decision. FULL CITATION: Vos MJ, van Pelt LJ, Kok MB, Dijck-Brouwer DAJ, Heiner-Fokkema MR, Dikkeschei LD, Kootstra-Ros JE. Folate reference interval estimation in the Dutch general population. Pract Lab Med. 2019;16:e00127. PMID 31289733. Proposed interval 7.3-38.5 nmol/L (the paper itself prints 3.2-17.0 ug/L). The upper limit is independently reproduced to within 0.3% on the same assay by an entirely different derivation - Madurga A, Arbiol-Roca A, Navarro-Badal MR, Cortes-Bosch de Basea A, Dot-Bach D. Biochem Med (Zagreb). 2025;35(1):010705, indirect Big-Data method, n=18285, upper limit 38.4 nmol/L (90% CI 38.3-38.5).",
+    "method": "Roche Folate III (Elecsys folate-binding-protein ECLIA) on a cobas e602, calibrated against the WHO international folate standard - the same assay family as this subject's 'ECLIA Cobas Roche' result, which is why this source was preferred over the far larger NHANES microbiologic-assay data (different method AND a fortified population). Non-parametric percentile estimation with bootstrap resampling; the authors chose it over gamma-fitting (which gave 6.8-26.0) because without supplement-use data the upper tail is likely supplement users, and discarding them would have understated the limit. The lower limit was independently verified against homocysteine in 117 patient samples. Two caveats: samples reading above the assay's 45.4 nmol/L measuring ceiling were EXCLUDED, so the upper limit is partly assay-truncated and in any case carries no health meaning - high folate is not a lab abnormality; and serum folate tracks recent intake rather than stores, so a subject taking fortified food or a supplement reads higher than this reference population and red-cell folate remains the status marker. Read this one the other way: the July 6.3 was measured while a fortified 80mcg/day was still coming in, so it sat at the floor of the band DESPITE that intake, and the fortified source stopped on 1 Aug 2026 - see confounds. Roche Elecsys ECLIA, the same platform family as this subject's result; Vos measured heparinised plasma rather than serum, a minor matrix difference for Roche folate. Assumes a fasting morning draw and no folate supplementation: the cohort was supplement-naive and unfortified, so the upper limit is a distributional artifact of low intake with no health meaning attached to it. Serum folate reflects intake over the preceding days, not tissue status — RBC folate is the status measure. Do not read the upper limit as a ceiling: a value above it in someone taking 5-MTHF or fortified food is the expected result of that intake, not an abnormality, and the deficiency threshold is the only side of this interval that carries a decision. FULL CITATION: Vos MJ, van Pelt LJ, Kok MB, Dijck-Brouwer DAJ, Heiner-Fokkema MR, Dikkeschei LD, Kootstra-Ros JE. Folate reference interval estimation in the Dutch general population. Pract Lab Med. 2019;16:e00127. PMID 31289733. Proposed interval 7.3-38.5 nmol/L (the paper itself prints 3.2-17.0 ug/L). The upper limit is independently reproduced to within 0.3% on the same assay by an entirely different derivation - Madurga A, Arbiol-Roca A, Navarro-Badal MR, Cortes-Bosch de Basea A, Dot-Bach D. Biochem Med (Zagreb). 2025;35(1):010705, indirect Big-Data method, n=18285, upper limit 38.4 nmol/L (90% CI 38.3-38.5).",
     "reviewed": "2026-07-31"
    },
    "note": "A B vitamin required for DNA synthesis and red cell production, working in the same pathway as B12.\n\nThe reason they are read together is a specific trap. Folate can correct the anaemia of B12 deficiency while doing nothing for the nerve damage, which then keeps progressing unnoticed and can become permanent.\n\nSerum folate reflects the last few days of intake. Red cell folate reflects months of stores.",
@@ -4940,7 +4940,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "B-complex (methylfolate)",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Vitamin B6 (PLP)",
    "fr": "Vitamine B6 (pyridoxal-5-phosphate)",
@@ -7006,7 +7006,7 @@ window.BLOODWORK =
    "id": "iron",
    "cat": "iron",
    "dec": [
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Serum iron",
    "fr": "Fer sérique",
@@ -7074,7 +7074,7 @@ window.BLOODWORK =
    "id": "tsat",
    "cat": "iron",
    "dec": [
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Transferrin saturation",
    "fr": "Coefficient de saturation (CST)",
@@ -7135,7 +7135,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "Magnesium L-threonate",
-    "Huel"
+    "Fortified base (stopped Aug 2026)"
    ],
    "en": "Magnesium (serum)",
    "fr": "Magnésium",
