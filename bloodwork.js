@@ -17,7 +17,8 @@ window.BLOODWORK =
   "dec": "Which supplements a marker bears on. Many-to-many. Membership does NOT mean the supplement moves it: cystatin C is under Creatine precisely because creatine CANNOT distort it, albumin is under Vitamin D because calcium cannot be corrected without it, selenium is iodine's cofactor, B12/folate are TMG's pathway. The DECS order is deliberate — grouped by primary biomarker domain (hormones/thyroid → lipids/cardio → liver/methylation → kidney/muscle → bone/minerals → aminos → foundational), NOT alphabetical; do not re-sort.",
   "confounds": [
    "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
-   "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them."
+   "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them.",
+   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. The 'Huel' dec still links vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg, and that link remains correct for the JULY values it explains; from August it names an exposure that has ENDED. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
   ],
   "subject": {
    "sex": "male",
@@ -27,7 +28,7 @@ window.BLOODWORK =
    "training": "resistance 1h15, 6 days per week; ~10min run on waking on weekdays and ~45min (~10km) on Sundays; 1min movement bursts every hour through the day",
    "country": "France",
    "purpose": "Bryan Johnson-style quantified-self biohacking: longitudinal blood draws judge diet, supplement and lifestyle interventions, with AI used as the analytical medical team.",
-   "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice), and iodized salt. Huel Black: 90g/day as the pre-workout snack. Its fortification: iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron.",
+   "diet": "See the DIET tab. Regular mackerel and trout as recorded there; lots of olive oil; no cheese, 3 eggs/day, potatoes, mushrooms, legumes + whole grains (wild rice), and iodized salt. Rolled oats: 80g/day as the pre-workout snack, which REPLACED Huel Black on 1 Aug 2026. Huel had carried the only fortified layer in this diet - iodine, vitamin D, zinc, selenium, B12, folate, magnesium, calcium, iron - and nothing took it over; see confounds.",
    "alcohol": "none — does not drink",
    "supervision": "none"
   },
@@ -419,7 +420,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "10g with the 07:15 Huel, 30-60min before loading, alongside the 500 Da product until that runs out. Hide, never bone broth — mammals sequester heavy metals in bone. Type I/III labelling is irrelevant; it is hydrolysed to amino acids either way."
+       "10g with the 07:15 oats, 30-60min before loading, alongside the 500 Da product until that runs out. Hide, never bone broth — mammals sequester heavy metals in bone. Type I/III labelling is irrelevant; it is hydrolysed to amino acids either way."
       ]
      ],
      "Evidence": [
@@ -1046,7 +1047,7 @@ window.BLOODWORK =
     "name": "Matcha",
     "ev": "moderate",
     "judge": "ApoB and LDL — but the effect is 5-10 mg/dL, too small to read against any other change made in the same window",
-    "dose": "2-3g",
+    "dose": "5g",
     "info": {
      "What it does": [
       [
@@ -1057,7 +1058,7 @@ window.BLOODWORK =
      "Dose": [
       [
        "",
-       "2-3g daily, away from meals, on top of the 1.8g already in Huel — together about 580mg catechins, the dose the trials used. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Powder beats brewed leaf 2-3x because the whole leaf is consumed rather than infused."
+       "5g daily, away from meals — about 580mg catechins, the dose the trials used. It was 2-3g while Huel supplied 1.8g matcha and 130mg green tea extract alongside it; Huel stopped on 1 Aug 2026, so the whole dose now has to come from the powder. Culinary grade rather than ceremonial: shading builds theanine and strips the catechins. Powder beats brewed leaf 2-3x because the whole leaf is consumed rather than infused."
       ]
      ],
      "Evidence": [
@@ -2339,7 +2340,7 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and the August diet moved iron from largely haem to largely non-haem. Is it still holding?",
+    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, Huel Black stopped and took 9mg/day of fortified iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
     "decision": "Use the panel, never serum iron alone. A confirmed decline is the one result on this draw that would argue for changing the diet rather than continuing it, whether by restoring haem iron or by pairing the non-haem sources with vitamin C and separating them from the tea and kefir.",
     "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% from 58µg/L — roughly 43 or lower — changes the decision.",
     "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
@@ -2564,232 +2565,81 @@ window.BLOODWORK =
     "at": "07:15",
     "items": [
      {
-      "n": "Huel Black",
-      "amt": "90g",
+      "n": "Oats (rolled)",
+      "amt": "80g",
       "info": {
-       "Macronutrients — per 90g": [
+       "Macronutrients — per 80g": [
         [
          "Energy",
-         "400kcal",
-         "20%"
+         "291kcal",
+         "15%"
         ],
         [
          "Protein",
-         "40g",
-         "80%"
+         "8.8g",
+         "18%"
         ],
         [
          "Fat",
-         "17g",
-         "24%"
+         "5.7g",
+         "8%"
         ],
         [
          "– saturates",
-         "4.0g",
-         "20%"
-        ],
-        [
-         "– monounsat.",
-         "3.8g"
-        ],
-        [
-         "– PUFA",
-         "9.4g"
+         "1.0g",
+         "5%"
         ],
         [
          "Carbs",
-         "19g",
-         "7%"
+         "46g",
+         "18%"
         ],
         [
          "– sugars",
-         "1.6g",
+         "1.4g",
          "2%"
         ],
         [
          "Fibre",
-         "8.4g"
+         "8.8g"
         ],
         [
          "Salt",
-         "0.8g",
-         "13%"
+         "0.02g",
+         "0%"
         ]
        ],
-       "Vitamins": [
+       "Standouts": [
         [
-         "A",
-         "180mcg",
-         "23%"
-        ],
-        [
-         "D",
-         "160IU",
-         "80%"
-        ],
-        [
-         "E",
-         "4.0mg",
-         "33%"
-        ],
-        [
-         "K",
-         "39mcg",
-         "52%"
-        ],
-        [
-         "C",
-         "60mg",
-         "75%"
-        ],
-        [
-         "Thiamin",
-         "0.22mg",
-         "20%"
-        ],
-        [
-         "Riboflavin",
-         "0.28mg",
-         "20%"
-        ],
-        [
-         "Niacin",
-         "3.2mg",
-         "20%"
-        ],
-        [
-         "B6",
-         "0.28mg",
-         "20%"
-        ],
-        [
-         "Pantoth.",
-         "1.2mg",
-         "20%"
-        ],
-        [
-         "Folate",
-         "80mcg",
-         "40%"
-        ],
-        [
-         "B12",
-         "0.80mcg",
-         "32%"
-        ],
-        [
-         "Biotin",
-         "12mcg",
-         "24%"
-        ]
-       ],
-       "Minerals": [
-        [
-         "Calcium",
-         "240mg",
-         "30%"
-        ],
-        [
-         "Phosphorus",
-         "360mg",
-         "51%"
-        ],
-        [
-         "Potassium",
-         "700mg",
-         "35%"
-        ],
-        [
-         "Chloride",
-         "164mg",
-         "21%"
-        ],
-        [
-         "Magnesium",
-         "88mg",
-         "23%"
+         "Beta-glucan",
+         "~3.2g"
         ],
         [
          "Iron",
-         "9.0mg",
-         "64%"
+         "~3.4mg",
+         "24%"
+        ],
+        [
+         "Magnesium",
+         "~120mg",
+         "32%"
         ],
         [
          "Zinc",
-         "4.6mg",
-         "46%"
-        ],
-        [
-         "Copper",
-         "0.50mg",
-         "50%"
-        ],
-        [
-         "Manganese",
-         "0.90mg",
-         "45%"
-        ],
-        [
-         "Selenium",
-         "33mcg",
-         "60%"
-        ],
-        [
-         "Iodine",
-         "30mcg",
-         "20%"
-        ],
-        [
-         "Chromium",
-         "12mcg",
-         "30%"
-        ],
-        [
-         "Molybdenum",
-         "37mcg",
-         "74%"
+         "~2.9mg",
+         "29%"
         ]
        ],
-       "Other": [
+       "Changes": [
         [
-         "Choline",
-         "120mg"
-        ],
+         "1 Aug 2026",
+         "replaced Huel Black"
+        ]
+       ],
+       "Notes": [
         [
-         "Omega-3 (ALA)",
-         "4.0g"
-        ],
-        [
-         "Omega-6",
-         "4.2g"
-        ],
-        [
-         "MCT",
-         "1.1g"
-        ],
-        [
-         "Caffeine",
-         "68mg"
-        ],
-        [
-         "Matcha (2%)",
-         "1.8g"
-        ],
-        [
-         "Green tea extract",
-         "130mg"
-        ],
-        [
-         "Lutein",
-         "1.6mg"
-        ],
-        [
-         "Zeaxanthin",
-         "0.1mg"
-        ],
-        [
-         "B. coagulans",
-         "200M"
+         "",
+         "80g is chosen for the beta-glucan: about 3.2g, the dose the LDL trials used. Its phytate binds non-haem iron, which is why the berries and banana stay in this meal rather than moving elsewhere."
         ]
        ]
       }
@@ -2869,7 +2719,7 @@ window.BLOODWORK =
        "Notes": [
         [
          "",
-         "Mixed into the Huel in the morning, not the night before — anthocyanins degrade fastest at its near-neutral pH"
+         "Mixed into the oats in the morning, not the night before — anthocyanins degrade fastest at its near-neutral pH"
         ]
        ]
       }
@@ -3822,6 +3672,12 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "15% → 5% fat"
+        ]
+       ],
+       "Lean beef 200g · Notes": [
+        [
+         "",
+         "On beef nights, keep the kefir back to about 18:30 instead of drinking it with the meal. 300mg of calcium blunts non-haem iron absorption acutely, and this is the highest-iron meal of the week. The effect fades over weeks of steady intake, so it is worth doing here and not worth policing elsewhere."
         ]
        ],
        "Chicken 200g · Ingredients": [
