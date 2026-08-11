@@ -2611,11 +2611,11 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Beta-glucan",
-         "~3.2g"
+         "3.2g"
         ],
         [
          "Iron",
-         "~3.4mg"
+         "3.4mg"
         ],
         [
          "Magnesium",
@@ -2624,7 +2624,7 @@ window.BLOODWORK =
         ],
         [
          "Zinc",
-         "~2.9mg"
+         "2.9mg"
         ]
        ],
        "Changes": [
@@ -2685,7 +2685,7 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Calcium",
-         "~240mg",
+         "240mg",
          "30%"
         ]
        ],
@@ -2752,20 +2752,20 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Anthocyanins",
-         "~100-200mg"
+         "100-200mg"
         ],
         [
          "Vit C",
-         "~30-45mg"
+         "30-45mg"
         ],
         [
          "Manganese",
-         "~0.2mg",
+         "0.2mg",
          "11%"
         ],
         [
          "Vit K",
-         "~9mcg",
+         "9mcg",
          "12%"
         ]
        ],
@@ -2810,22 +2810,22 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Potassium",
-         "~422mg",
+         "422mg",
          "21%"
         ],
         [
          "B6",
-         "~0.45mg",
+         "0.45mg",
          "32%"
         ],
         [
          "Vit C",
-         "~10mg",
+         "10mg",
          "12%"
         ],
         [
          "Magnesium",
-         "~32mg",
+         "32mg",
          "8%"
         ]
        ]
@@ -2865,16 +2865,16 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Omega-3 (ALA)",
-         "~0.6g"
+         "0.6g"
         ],
         [
          "Vitamin E",
-         "~1.3mg",
+         "1.3mg",
          "11%"
         ],
         [
          "Magnesium",
-         "~28mg",
+         "28mg",
          "7%"
         ]
        ],
@@ -2925,21 +2925,21 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Magnesium",
-         "~23mg",
+         "23mg",
          "6%"
         ],
         [
          "Iron",
-         "~1.1mg"
+         "1.1mg"
         ],
         [
          "Copper",
-         "~0.2mg",
+         "0.2mg",
          "18%"
         ],
         [
          "Manganese",
-         "~0.2mg",
+         "0.2mg",
          "10%"
         ]
        ],
@@ -2998,7 +2998,7 @@ window.BLOODWORK =
        "Mackerel 80g · Standouts": [
         [
          "EPA + DHA",
-         "~2g"
+         "2g"
         ]
        ],
        "Mackerel 80g · Changes": [
@@ -3053,12 +3053,12 @@ window.BLOODWORK =
        "Tofu 125g · Standouts": [
         [
          "Calcium",
-         "~235mg",
+         "235mg",
          "29%"
         ],
         [
          "Magnesium",
-         "~74mg",
+         "74mg",
          "20%"
         ]
        ],
@@ -3108,27 +3108,27 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Folate",
-         "~57mcg",
+         "57mcg",
          "14%"
         ],
         [
          "Potassium",
-         "~340mg",
+         "340mg",
          "17%"
         ],
         [
          "Vit K",
-         "~15mcg",
+         "15mcg",
          "20%"
         ],
         [
          "Vit E",
-         "~1.4mg",
+         "1.4mg",
          "12%"
         ],
         [
          "Monounsaturated",
-         "~6.8g"
+         "6.8g"
         ]
        ],
        "Changes": [
@@ -3169,36 +3169,36 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Choline",
-         "~443mg"
+         "443mg"
         ],
         [
          "Selenium",
-         "~45mcg",
+         "45mcg",
          "82%"
         ],
         [
          "Vit D",
-         "~120IU",
+         "120IU",
          "60%"
         ],
         [
          "B12",
-         "~1.5mcg",
+         "1.5mcg",
          "60%"
         ],
         [
          "Vit A",
-         "~240mcg",
+         "240mcg",
          "30%"
         ],
         [
          "Riboflavin",
-         "~0.6mg",
+         "0.6mg",
          "43%"
         ],
         [
          "Folate",
-         "~71mcg",
+         "71mcg",
          "36%"
         ]
        ],
@@ -3268,7 +3268,7 @@ window.BLOODWORK =
         ],
         [
          "Potassium",
-         "~900mg",
+         "900mg",
          "45%"
         ]
        ],
@@ -3308,7 +3308,7 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Vit E",
-         "~1mg",
+         "1mg",
          "10%"
         ]
        ]
@@ -3343,12 +3343,12 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Vit C",
-         "~7mg",
+         "7mg",
          "9%"
         ],
         [
          "Potassium",
-         "~180mg",
+         "180mg",
          "9%"
         ]
        ]
@@ -3393,21 +3393,21 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Magnesium",
-         "~23mg",
+         "23mg",
          "6%"
         ],
         [
          "Iron",
-         "~1.1mg"
+         "1.1mg"
         ],
         [
          "Copper",
-         "~0.2mg",
+         "0.2mg",
          "18%"
         ],
         [
          "Manganese",
-         "~0.2mg",
+         "0.2mg",
          "10%"
         ]
        ],
@@ -3426,42 +3426,42 @@ window.BLOODWORK =
        "Macronutrients — per 330mL": [
         [
          "Energy",
-         "~50kcal",
+         "50kcal",
          "2%"
         ],
         [
          "Protein",
-         "~3.4g",
+         "3.4g",
          "7%"
         ],
         [
          "Fat",
-         "~1.7g",
+         "1.7g",
          "2%"
         ],
         [
          "Carbs (lactose)",
-         "~4.8g",
+         "4.8g",
          "2%"
         ]
        ],
        "Standouts": [
         [
          "Caffeine",
-         "~80mg"
+         "80mg"
         ],
         [
          "Chlorogenic acids",
-         "~150mg"
+         "150mg"
         ],
         [
          "Calcium",
-         "~120mg",
+         "120mg",
          "15%"
         ],
         [
          "Potassium",
-         "~260mg",
+         "260mg",
          "13%"
         ]
        ],
@@ -3609,16 +3609,16 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Folate",
-         "~120mcg",
+         "120mcg",
          "60%"
         ],
         [
          "Iron",
-         "~2mg"
+         "2mg"
         ],
         [
          "Potassium",
-         "~270mg",
+         "270mg",
          "14%"
         ]
        ],
@@ -3658,7 +3658,7 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Vit E",
-         "~6mg",
+         "6mg",
          "50%"
         ]
        ]
@@ -3699,22 +3699,22 @@ window.BLOODWORK =
        "Lean beef 200g · Standouts": [
         [
          "Iron",
-         "~5.4mg",
+         "5.4mg",
          "39%"
         ],
         [
          "Zinc",
-         "~12mg",
+         "12mg",
          "120%"
         ],
         [
          "B12",
-         "~5mcg",
+         "5mcg",
          "200%"
         ],
         [
          "Selenium",
-         "~42mcg",
+         "42mcg",
          "76%"
         ]
        ],
@@ -3761,27 +3761,27 @@ window.BLOODWORK =
        "Chicken 200g · Standouts": [
         [
          "Selenium",
-         "~44mcg",
+         "44mcg",
          "80%"
         ],
         [
          "Niacin",
-         "~28mg",
+         "28mg",
          "175%"
         ],
         [
          "B6",
-         "~1.2mg",
+         "1.2mg",
          "86%"
         ],
         [
          "Phosphorus",
-         "~440mg",
+         "440mg",
          "63%"
         ],
         [
          "Zinc",
-         "~1.8mg",
+         "1.8mg",
          "18%"
         ]
        ]
@@ -3826,26 +3826,26 @@ window.BLOODWORK =
        "Spinach 150g · Standouts": [
         [
          "Folate",
-         "~170mcg",
+         "170mcg",
          "43%"
         ],
         [
          "Vit K",
-         "~740mcg",
+         "740mcg",
          "987%"
         ],
         [
          "Magnesium",
-         "~130mg",
+         "130mg",
          "35%"
         ],
         [
          "Iron",
-         "~5.4mg"
+         "5.4mg"
         ],
         [
          "Calcium",
-         "~204mg"
+         "204mg"
         ]
        ],
        "Spinach 150g · Changes": [
@@ -3899,22 +3899,22 @@ window.BLOODWORK =
        "Broccoli 150g · Standouts": [
         [
          "Folate",
-         "~120mcg",
+         "120mcg",
          "30%"
         ],
         [
          "Vit C",
-         "~45mg",
+         "45mg",
          "56%"
         ],
         [
          "Vit K",
-         "~210mcg",
+         "210mcg",
          "280%"
         ],
         [
          "Calcium",
-         "~70mg",
+         "70mg",
          "9%"
         ]
        ],
@@ -3971,16 +3971,16 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Omega-3 (ALA)",
-         "~0.6g"
+         "0.6g"
         ],
         [
          "Vitamin E",
-         "~1.3mg",
+         "1.3mg",
          "11%"
         ],
         [
          "Magnesium",
-         "~28mg",
+         "28mg",
          "7%"
         ]
        ],
@@ -4020,22 +4020,22 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Vit C",
-         "~130mg",
+         "130mg",
          "163%"
         ],
         [
          "Vit K",
-         "~55mcg",
+         "55mcg",
          "73%"
         ],
         [
          "Potassium",
-         "~430mg",
+         "430mg",
          "22%"
         ],
         [
          "Vit E",
-         "~2mg",
+         "2mg",
          "17%"
         ]
        ]
@@ -4127,48 +4127,48 @@ window.BLOODWORK =
        "Macronutrients — per 300g cooked": [
         [
          "Energy",
-         "~500kcal",
+         "500kcal",
          "25%"
         ],
         [
          "Protein",
-         "~72g",
+         "72g",
          "144%"
         ],
         [
          "Fat",
-         "~21g",
+         "21g",
          "30%"
         ],
         [
          "– saturates",
-         "~4.5g",
+         "4.5g",
          "23%"
         ]
        ],
        "Standouts": [
         [
          "EPA + DHA",
-         "~3g"
+         "3g"
         ],
         [
          "Vit D",
-         "~1600IU",
+         "1600IU",
          "800%"
         ],
         [
          "B12",
-         "~15mcg",
+         "15mcg",
          "600%"
         ],
         [
          "Selenium",
-         "~42mcg",
+         "42mcg",
          "76%"
         ],
         [
          "Potassium",
-         "~1200mg",
+         "1200mg",
          "60%"
         ]
        ],
