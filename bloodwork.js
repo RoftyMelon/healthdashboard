@@ -2638,6 +2638,74 @@ window.BLOODWORK =
       }
      },
      {
+      "n": "Fromage blanc 0%",
+      "amt": "200g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Pasteurised skimmed milk, lactic ferments"
+        ]
+       ],
+       "Macronutrients — per 200g": [
+        [
+         "Energy",
+         "108kcal",
+         "5%"
+        ],
+        [
+         "Protein",
+         "17g",
+         "34%"
+        ],
+        [
+         "Fat",
+         "1.0g",
+         "1%"
+        ],
+        [
+         "– saturates",
+         "0.4g",
+         "2%"
+        ],
+        [
+         "Carbs",
+         "9.8g",
+         "4%"
+        ],
+        [
+         "– sugars",
+         "8.8g",
+         "10%"
+        ],
+        [
+         "Salt",
+         "0.22g",
+         "4%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Calcium",
+         "~240mg",
+         "30%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "added"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "The oats soak in it overnight. Its acidity activates the oats' own phytase, which breaks down the phytate binding their iron and zinc — slower in the fridge than at room temperature, but real over eight hours."
+        ]
+       ]
+      }
+     },
+     {
       "n": "Berries (frozen)",
       "amt": "75g",
       "info": {
