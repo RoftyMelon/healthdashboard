@@ -2956,7 +2956,7 @@ window.BLOODWORK =
       "n": "Seafood starter",
       "amt": "see Weekly ↓",
       "info": {
-       "Macronutrients — per average rotation serving": [
+       "Macronutrients — average serving": [
         [
          "Energy",
          "166kcal",
@@ -2965,14 +2965,8 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "11 Aug 2026",
-         "linked to the Weekly rotation"
-        ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Equal-weight mean of Mackerel 80g, Trout 150g, Clams 100g and Mussels 100g; use the chosen food's actual values"
+         "1 Aug 2026",
+         "added"
         ]
        ]
       }
