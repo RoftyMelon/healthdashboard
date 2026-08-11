@@ -168,8 +168,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   One deliberate exception: an alternating item carries one macro panel per option — `Mackerel 80g`
   / `Tofu 125g`, `Lean beef 200g` / `Chicken 200g`, `Spinach 150g` / `Broccoli 150g` — because it
   has two sets. (There used to be a second: Huel Black kept `Vitamins`/`Minerals`/`Other`, being
-  the one item with a full fortification label. It stopped on 1 Aug 2026 and no food in the block
-  is fortified now, so that shape is gone rather than dormant.) The order regressed once silently — a pass that renamed
+  the one item with a full fortification panel. It stopped on 1 Aug 2026, so that tooltip shape is
+  gone rather than dormant.) The order regressed once silently — a pass that renamed
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
 - **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why
   this number, and which form) → `Evidence` (what the tag rests on) → `Watch` (ceilings,
