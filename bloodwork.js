@@ -3017,10 +3017,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
-        ],
-        [
-         "11 Aug 2026",
-         "increased from half to whole"
         ]
        ]
       }
@@ -3200,7 +3196,7 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "increased from 10mL to 20mL"
         ]
        ]
@@ -3556,7 +3552,7 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "reduced from 50mL to 40mL"
         ]
        ]

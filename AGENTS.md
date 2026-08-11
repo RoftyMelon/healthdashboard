@@ -159,7 +159,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   "complete" the missing ones.
   **The same applies to `Changes`. Four carry none — banana, Poêlée Rustique, the fruit slot and
   the kiwis — because they are PRE-EXISTING foods that were already being eaten and have not
-  changed.** The two olive-oil rows now carry genuine 11 Aug 2026 changes because the same daily
+  changed.** The two olive-oil rows carry genuine 1 Aug 2026 changes because the same daily
   60mL was redistributed from 10+50mL to 20+40mL. `1 Aug 2026 · added` marks what the intervention
   actually introduced, so adding that entry everywhere would erase the distinction between the
   new diet and the old one. Confirmed deliberate 2026-07-31. Do not backfill it.
