@@ -2959,7 +2959,7 @@ window.BLOODWORK =
        "Macronutrients — average serving": [
         [
          "Energy",
-         "169kcal",
+         "162kcal",
          "8%"
         ]
        ],
@@ -4286,7 +4286,7 @@ window.BLOODWORK =
      },
      {
       "n": "Tofu",
-      "amt": "125g",
+      "amt": "100g",
       "info": {
        "Ingredients": [
         [
@@ -4294,30 +4294,30 @@ window.BLOODWORK =
          "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
         ]
        ],
-       "Macronutrients — per 125g": [
+       "Macronutrients — per 100g": [
         [
          "Energy",
-         "181kcal",
-         "9%"
+         "145kcal",
+         "7%"
         ],
         [
          "Protein",
-         "17.5g",
-         "35%"
+         "14g",
+         "28%"
         ],
         [
          "Fat",
-         "11.3g",
-         "16%"
+         "9g",
+         "13%"
         ],
         [
          "– saturates",
-         "1.9g",
-         "10%"
+         "1.5g",
+         "8%"
         ],
         [
          "Fibre",
-         "3.1g"
+         "2.5g"
         ],
         [
          "Salt",
@@ -4328,19 +4328,23 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Calcium",
-         "235mg",
-         "29%"
+         "188mg",
+         "24%"
         ],
         [
          "Magnesium",
-         "74mg",
-         "20%"
+         "59mg",
+         "16%"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "replaced 100g mozzarella"
+        ],
+        [
+         "11 Aug 2026",
+         "reduced from 125g to 100g"
         ]
        ]
       }

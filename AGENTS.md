@@ -168,8 +168,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   copyable between foods — beef, chicken, rice and trout are cooked-weight figures, while the
   frozen greens are as-purchased. A pass that relabelled the meat figures as `raw` would silently
   understate a 200g cooked serving by applying nutrition for a smaller amount of meat.
-  **The Brunch `Starter rotation` row is a pointer, not a sixth rotation item.** Its 169kcal is the
-  equal-weight mean of the five current Weekly servings (212, 250, 99, 103 and 181kcal) and exists so
+  **The Brunch `Starter rotation` row is a pointer, not a sixth rotation item.** Its 162kcal is the
+  equal-weight mean of the five current Weekly servings (212, 250, 99, 103 and 145kcal) and exists so
   the Brunch total does not omit the starter. Recalculate it whenever any Weekly serving changes;
   it does not assert how often each option is eaten.
   An alternating item carries one macro panel per option — `Lean beef 200g` / `Chicken 200g` and
