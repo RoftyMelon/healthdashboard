@@ -26,7 +26,7 @@
   --chrome:#262624;
   /* Claude dark: warm near-black grey, never a cold blue-black */
   --bg:#262624;
-  --txt:#F5F4EF; --t2:rgba(245,244,239,.62); --t3:rgba(245,244,239,.42); --t4:rgba(245,244,239,.26);
+  --txt:#F5F4EF; --t2:rgba(245,244,239,.70); --t3:rgba(245,244,239,.56); --t4:rgba(245,244,239,.42);
   --line:rgba(245,244,239,.13); --line2:rgba(245,244,239,.075);
   --ok:#52C07E; --watch:#E5A34A; --out:#F0705F; --info:#7FB3F0;
   --stick:#262624; --head:#30302E;
@@ -59,7 +59,7 @@
   
   /* Claude cream: warm ivory paper, warm near-black ink */
   --bg:#FAF9F5;
-  --txt:#1F1E1D; --t2:rgba(31,30,29,.64); --t3:rgba(31,30,29,.45); --t4:rgba(31,30,29,.27);
+  --txt:#1F1E1D; --t2:rgba(31,30,29,.70); --t3:rgba(31,30,29,.56); --t4:rgba(31,30,29,.42);
   --line:rgba(31,30,29,.14); --line2:rgba(31,30,29,.08);
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
   --stick:#FAF9F5; --head:#F0EEE6;
@@ -387,6 +387,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 /* colour is carried as well as background so the censored variants below can reach the status
    hue through currentColor instead of restating three rules per decoration. */
 .cd.ok{background:var(--ok);color:var(--ok)}
+.cd.neutral{background:var(--t2);color:var(--t2)}
 .cd.watch{background:var(--watch);color:var(--watch)}
 .cd.out{background:var(--out);color:var(--out)}
 /* A censored point is an upper BOUND, not a reading — the true value lies somewhere BELOW it.
@@ -401,6 +402,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cbnd{position:absolute;width:2px;transform:translateX(-50%);border-radius:1px;pointer-events:none;
   background:linear-gradient(to top,transparent,currentColor);opacity:.38}
 .cbnd.ok{color:var(--ok)}
+.cbnd.neutral{color:var(--t2)}
 .cbnd.watch{color:var(--watch)}
 .cbnd.out{color:var(--out)}
 /* Hover/press highlight — an AFFORDANCE, not a data flag. Every point will carry something
@@ -574,6 +576,7 @@ td.pos{padding-right:14px}
 .mgt{position:absolute;top:-3.5px;width:3px;height:16px;border-radius:2px;transform:translateX(-1.5px);
   background:var(--txt);transition:left .6s cubic-bezier(.2,.85,.25,1)}
 .mgt.ok{background:var(--ok);}
+.mgt.neutral{background:var(--t2)}
 .mgt.watch{background:var(--watch);}
 .mgt.out{background:var(--out);width:3.5px}
 .mgx{position:relative;height:11px;margin-top:5px}
@@ -1529,6 +1532,14 @@ function claim(m,v,e){
     label:kind==='reference'?m.reference.label:kind==='target'?m.target.label:null};
 }
 function status(m,v,e){return claim(m,v,e).status;}
+/* Colour is a narrower claim than status. Green is reserved for a result that actually sits
+   inside an evidence target; merely sitting inside a population reference is neutral. */
+function tone(m,v,e){
+  const s=status(m,v,e);
+  if(s==='out'||s==='watch')return s;
+  const tr=m.target?[m.target.min??null,m.target.max??null]:null;
+  return tr&&!outside(v,tr)?'ok':'neutral';
+}
 const chron=()=>S.draws.slice().sort((a,b)=>a.date.localeCompare(b.date));
 function latest(m){const c=chron().filter(d=>d.v[m.id]);if(!c.length)return null;
   const d=c[c.length-1];return{d,v:toUS(m,d.v[m.id].r,d.v[m.id].u),raw:d.v[m.id]};}
@@ -2060,7 +2071,7 @@ function mini(m){
   const P=x=>Math.max(0,Math.min(100,((x-a0)/sp)*100));
   const L=latest(m);
   const rr=bounds(m.reference),tr=bounds(m.target);
-  const tick=L?`<div class="mgt ${status(m,L.v,L.raw)}" style="left:${P(L.v)}%"></div>`:'';
+  const tick=L?`<div class="mgt ${tone(m,L.v,L.raw)}" style="left:${P(L.v)}%"></div>`:'';
   const lab=(x,cls='')=>{const p=P(x),tf=p<9?'none':p>91?'translateX(-100%)':'translateX(-50%)';
     return `<span${cls?` class="${cls}"`:''} style="left:${p}%;transform:${tf}">${fmt(dV(m,x))}</span>`;};
   /* Optimal endpoints get first claim on the one-line label rail because they are actionable.
@@ -2250,10 +2261,10 @@ function det(row,id,cols,n,tri){
   // hanging off the bottom of the panel would claim a span the marker cannot have.
   const bnds=pts.filter(o=>o.d.v[m.id].lt).map(o=>{
     const top=P(V(o.d)),base=Math.max(0,P(0));
-    return `<div class="cbnd ${status(m,V(o.d),o.d.v[m.id])}" style="left:${X(o.i).toFixed(2)}%;`+
+    return `<div class="cbnd ${tone(m,V(o.d),o.d.v[m.id])}" style="left:${X(o.i).toFixed(2)}%;`+
       `bottom:${base.toFixed(2)}%;height:${Math.max(0,top-base).toFixed(2)}%"></div>`;}).join('');
   const dots=pts.map(o=>{const more=!!ptHTML(m,o.d);
-    return `<div class="cd ${status(m,V(o.d),o.d.v[m.id])}${o.d.v[m.id].lt?' lt':''}${more?' dtl':''}"`+
+    return `<div class="cd ${tone(m,V(o.d),o.d.v[m.id])}${o.d.v[m.id].lt?' lt':''}${more?' dtl':''}"`+
     ` style="left:${X(o.i).toFixed(2)}%;bottom:${P(V(o.d)).toFixed(2)}%"`+
     (more?` data-mk="${m.id}" data-dt="${o.d.date}"`
          :` title="${o.d.date} · ${o.d.v[m.id].lt?'&lt;':''}${fmt(dV(m,V(o.d)))} ${uLab(m)}"`)+
@@ -2490,11 +2501,12 @@ function render(){
   const R=m=>{
     const L=cur[m.id];
     let pill='<span class="nilx">—</span>',off='',lm='<span class="nilx">—</span>';
-    if(L){const C=claim(m,L.v,L.raw),st=C.status,mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
-      const why=C.kind==='reference'?(st==='out'?`outside ${m.reference.label.toLowerCase()}`:`within ${m.reference.label.toLowerCase()}`)
+    if(L){const C=claim(m,L.v,L.raw),st=C.status,tn=tone(m,L.v,L.raw),mo=months(L.d.date),old=mo>STALE,ex=excursion(m,L.v,L.raw);
+      const why=tn==='ok'&&m.target?`within ${m.target.label.toLowerCase()} (${m.target.evidence} evidence)`
+        :C.kind==='reference'?(st==='out'?`outside ${m.reference.label.toLowerCase()}`:`within ${m.reference.label.toLowerCase()}`)
         :C.kind==='target'?(st==='watch'?`${C.label} (${m.target.evidence} evidence)`:`within ${C.label.toLowerCase()}`)
         :'no universal claim applies';
-      pill=`<span class="pill ${st}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
+      pill=`<span class="pill ${tn}" title="${LT(L.raw)}${fmt(dV(m,L.v))} ${uLab(m)} · measured ${L.d.date}${
         L.raw&&L.raw.lt?' · below the assay detection limit — an upper bound, not a measurement':''} · ${esc(why)}">${LT(L.raw)}${fmt(dV(m,L.v))}</span>`;
       lm=`<span class="lm${old?' old':''}" title="Measured ${L.d.date}${old?' · over 18 months old':''}">${ago(mo)}</span>`;
       // No unit here on purpose: the Unit column is FROZEN, so it is already visible on
@@ -2514,7 +2526,7 @@ function render(){
       // The trigger is the NUMBER, not the cell around it: the highlight should sit on the
       // thing being asked about, and a whole-cell target made most of a row hoverable.
       const more=!!ptHTML(m,d),shown=`${LT(e)}${fmt(dV(m,v))}`;
-      return `<td class="c has ${status(m,v,e)} ${i===n-1?'dnow':''}"${
+      return `<td class="c has ${tone(m,v,e)} ${i===n-1?'dnow':''}"${
         more?'':` title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}"`}>${
         more?`<span class="dtl" data-mk="${m.id}" data-dt="${d.date}">${shown}</span>`:shown}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">

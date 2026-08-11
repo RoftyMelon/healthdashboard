@@ -69,6 +69,10 @@ setTimeout(()=>{
     .every(m=>['strong','moderate','weak'].includes(m.target.evidence)&&m.target.source&&m.target.label));
   const latestFor=id=>latest(DATA.MARK.find(m=>m.id===id));
   const state=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return status(m,L.v,L.raw);};
+  const colour=id=>{const m=DATA.MARK.find(x=>x.id===id),L=latestFor(id);return tone(m,L.v,L.raw);};
+  ok('reference-only results render neutral rather than green',colour('tt')==='neutral',colour('tt'));
+  ok('results inside an evidence target retain green',colour('tg')==='ok',colour('tg'));
+  ok('results outside a reference retain red',colour('mpv')==='out',colour('mpv'));
   // copper was 'none' while its only interval was the lab's own print. It now has a sourced one,
   // so it is judged like everything else — what must NOT happen is the printed lab interval
   // becoming the judge, which is what claim() reporting 'reference' here confirms.

@@ -123,7 +123,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   Marker-wide evidence drives status: reference first, then target. A printed `lr` and a stored
   `cut` never change the row colour or flagged filter. The viewer shows the reference range and,
   where one exists, the optimal target in the gauge and expanded chart; lab provenance remains
-  on the datapoint.
+  on the datapoint. Colour makes the narrower claim: green is reserved for a value inside an
+  evidence target, red for a value outside the sourced reference, amber for a target miss or an
+  unresolved bound, and an ordinary in-reference result is neutral rather than green.
 - A value is `{r, u}` plus seven optional keys, each a DIFFERENT kind of claim, and they must not
   be merged: `a` = the assay technique exactly as printed; `an` = what that method means for
   reading the number (usually inference); `cx` = context for this number in this draw (on
