@@ -2953,6 +2953,31 @@ window.BLOODWORK =
     "at": "10:00",
     "items": [
      {
+      "n": "Seafood starter",
+      "amt": "see Weekly ↓",
+      "info": {
+       "Macronutrients — per average rotation serving": [
+        [
+         "Energy",
+         "166kcal",
+         "8%"
+        ]
+       ],
+       "Changes": [
+        [
+         "11 Aug 2026",
+         "linked to the Weekly rotation"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Equal-weight mean of Mackerel 80g, Trout 150g, Clams 100g and Mussels 100g; use the chosen food's actual values"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Avocado",
       "amt": "~140g",
       "info": {
@@ -4067,7 +4092,7 @@ window.BLOODWORK =
      },
      {
       "n": "Trout",
-      "amt": "300g",
+      "amt": "150g",
       "info": {
        "Ingredients": [
         [
@@ -4075,58 +4100,62 @@ window.BLOODWORK =
          "Fresh trout with skin, cooked"
         ]
        ],
-       "Macronutrients — per 300g cooked": [
+       "Macronutrients — per 150g cooked": [
         [
          "Energy",
-         "500kcal",
-         "25%"
+         "250kcal",
+         "13%"
         ],
         [
          "Protein",
-         "72g",
-         "144%"
+         "36g",
+         "72%"
         ],
         [
          "Fat",
-         "21g",
-         "30%"
+         "10.5g",
+         "15%"
         ],
         [
          "– saturates",
-         "4.5g",
-         "23%"
+         "2.25g",
+         "11%"
         ]
        ],
        "Standouts": [
         [
          "EPA + DHA",
-         "3g"
+         "1.5g"
         ],
         [
          "Vit D",
-         "1600IU",
-         "800%"
+         "800IU",
+         "400%"
         ],
         [
          "B12",
-         "15mcg",
-         "600%"
+         "7.5mcg",
+         "300%"
         ],
         [
          "Selenium",
-         "42mcg",
-         "76%"
+         "21mcg",
+         "38%"
         ],
         [
          "Potassium",
-         "1200mg",
-         "60%"
+         "600mg",
+         "30%"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added"
+        ],
+        [
+         "11 Aug 2026",
+         "reduced from 300g to 150g"
         ]
        ],
        "Notes": [
