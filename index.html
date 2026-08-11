@@ -38,7 +38,7 @@
   --frost:rgba(48,48,46,.72); --frost-b:rgba(245,244,239,.14); --frost-h:rgba(59,59,55,.9);
   --glass:rgba(48,48,46,.08); --glass-b:rgba(245,244,239,.14);
 }
-:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px; --rbn:1; --vvx:0px}   /* sizing: theme-independent, must not sit in a theme block */
+:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px; --rbn:1}   /* sizing: theme-independent, must not sit in a theme block */
 /* --noww is the LATEST column's width, and it is declared once because it is used TWICE:
    as that column's own width AND inside the Unit column's sticky left offset. It was two
    hardcoded 68px, so widening one silently overlapped the frozen columns on horizontal
@@ -84,7 +84,6 @@ html.tfade *::before,html.tfade *::after{
              fill .22s ease,stroke .22s ease !important}
 .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 20px 110px}
 .topbar{position:fixed;top:0;left:0;width:100%;z-index:50;background:var(--bg);
-  transform:translateX(var(--vvx,0px));
   padding:2px var(--gut,20px) 0;   /* tab row on top (auto-hides on scroll), pills + category
                                       below. 2px here + 3px of .tabrow padding = the same 5px
                                       of air above the tabs, but the 3px now lives INSIDE the
@@ -247,10 +246,10 @@ thead th.lft{text-align:left}
 /* Frozen block: identity + current value + unit. Everything to its right scrolls.
    With table-layout:fixed these widths are REAL, so the sticky offsets can trust them. */
 th.nm,td.nm,th.now,td.now,th.uc,td.uc{position:sticky;z-index:2;background:var(--stick)}
-th.nm,td.nm{left:calc(var(--vvx,0px) + env(safe-area-inset-left,0px));text-align:left;width:var(--nm)}
-th.now,td.now{left:calc(var(--vvx,0px) + env(safe-area-inset-left,0px) + var(--nm));width:var(--noww)}
+th.nm,td.nm{left:env(safe-area-inset-left,0px);text-align:left;width:var(--nm)}
+th.now,td.now{left:calc(env(safe-area-inset-left,0px) + var(--nm));width:var(--noww)}
 thead th.now{padding:0 5px}   /* 'LATEST' is the only thing keeping this column wide */
-th.uc,td.uc{left:calc(var(--vvx,0px) + env(safe-area-inset-left,0px) + var(--nm) + var(--noww));width:62px;
+th.uc,td.uc{left:calc(env(safe-area-inset-left,0px) + var(--nm) + var(--noww));width:62px;
   border-right:1.5px solid var(--line)}
 th.lc,td.lc{width:52px}
 th.off,td.off{width:150px}
@@ -267,7 +266,7 @@ thead th.now{color:var(--txt)}
 tr.grp td{position:sticky;top:calc(var(--hvis,70px) + var(--thh) - 3px);z-index:6;padding:0;
   background:var(--grp);
   border-top:.5px solid var(--line);border-bottom:.5px solid var(--line)}
-tr.grp .ghd{position:sticky;left:calc(var(--vvx,0px) + env(safe-area-inset-left,0px));width:fit-content;text-align:left;
+tr.grp .ghd{position:sticky;left:env(safe-area-inset-left,0px);width:fit-content;text-align:left;
   padding:9px 10px 10px;
   display:flex;align-items:baseline;gap:11px;white-space:nowrap}
 tr.grp .gt{font-size:15.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
@@ -338,7 +337,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .cyl.t span{color:var(--ok);font-weight:600}
 .cyl.g span{color:var(--info);font-weight:600}
 .cyu{position:absolute;right:14px;top:-7px;font-size:13px;font-weight:500;color:var(--t4)}
-.ckey{position:sticky;right:calc(var(--gut,20px) - var(--vvx,0px));top:0;width:auto;margin:0 14px 0 18px;display:grid;gap:6px;
+.ckey{position:sticky;right:var(--gut,20px);top:0;width:auto;margin:0 14px 0 18px;display:grid;gap:6px;
   white-space:normal;text-align:left}
 /* min-width:0 + overflow-wrap on the TEXT column. A grid track defaults to min-width:auto, i.e.
    min-content, so one unbreakable token — a DOI like 10.3109/00365510903380886, a PMID — widened
@@ -587,9 +586,9 @@ td.pos{padding-right:14px}
 .mgx span{position:absolute;font-size:11.5px;color:var(--t4);font-variant-numeric:tabular-nums;white-space:nowrap}
 .mgx span.o{color:var(--ok);font-weight:600}
 
-.gutmask{position:fixed;top:0;left:var(--vvx,0px);width:env(safe-area-inset-left,0px);height:100%;
+.gutmask{position:fixed;top:0;left:0;width:env(safe-area-inset-left,0px);height:100%;
   background:var(--bg);z-index:7;pointer-events:none}
-.top{position:fixed;right:calc(26px - var(--vvx,0px));bottom:calc(26px + env(safe-area-inset-bottom));z-index:40;width:44px;height:44px;padding:0;
+.top{position:fixed;right:26px;bottom:calc(26px + env(safe-area-inset-bottom));z-index:40;width:44px;height:44px;padding:0;
   display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;
   background:color-mix(in srgb,var(--glass),transparent 55%);border:.5px solid var(--glass-b);color:var(--t2);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 1px 4px rgba(0,0,0,.05);
@@ -3185,19 +3184,6 @@ function renderPage(p){
 }
 const TB=document.getElementById('topbar'),WRAP=document.querySelector('.wrap');
 const R0=document.documentElement.style;
-/* Horizontal table travel normally belongs to the layout viewport (window.scrollX), while the
-   fixed header and sticky identity columns remain pinned. A full-screen transition can leave
-   WebKit's VISUAL viewport panned inside that layout viewport, though: then fixed and sticky
-   paint at layout x=0, which is already off-screen, and the whole interface appears to move.
-   Keep the anchors at the visual edge. At scale 1 offsetLeft is ordinarily zero, so this is a
-   no-op during normal table scrolling. */
-let _vvx=-1;
-function setViewX(){
-  const vv=window.visualViewport;
-  const x=vv&&Number.isFinite(vv.offsetLeft)?Math.max(0,vv.offsetLeft):0;
-  if(Math.abs(x-_vvx)<.25)return;
-  _vvx=x;R0.setProperty('--vvx',x+'px');
-}
 const setGut=()=>{                                   // left margin of the content column
   const pl=parseFloat(getComputedStyle(WRAP).paddingLeft)||0;
   R0.setProperty('--gut',(WRAP.offsetLeft+pl)+'px');
@@ -3228,7 +3214,7 @@ function pumpStick(){
     else{_pumping=false; setTop();} };   // settle: capture the full --toph once shown
   requestAnimationFrame(step);
 }
-setViewX(); setGut(); setTop();
+setGut(); setTop();
 let tbRO;   // hold the reference: an unreferenced ResizeObserver is GC-bait (Safari)
 if(window.ResizeObserver){tbRO=new ResizeObserver(setStick);tbRO.observe(TB);}   // stick only — never yank --toph
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>settleViewport());
@@ -3244,9 +3230,7 @@ function setNmW(){
   // or not a row is expanded. That used to re-wrap the description on every frame, because .dassay
   // was sized from the pane at rest and .cy shrank out from under it; det() now sizes the prose
   // for the narrowest pane instead, so the pane shrinks around a paragraph that never moves.
-  const vv=window.visualViewport;
-  const pageX=vv&&Number.isFinite(vv.pageLeft)?vv.pageLeft:window.scrollX;
-  const t=Math.min(Math.max(pageX,0)/NM_TRAVEL,1);
+  const t=Math.min(Math.max(window.scrollX,0)/NM_TRAVEL,1);
   const e=t*t*(3-2*t);                                  // smoothstep: eases in and out
   const w=Math.round(NM_WIDE+(NM_NARROW-NM_WIDE)*e);
   if(w!==_lastW){
@@ -3261,7 +3245,7 @@ function setNmW(){
    share this one repair path so their geometry cannot settle on different frames. */
 let _viewRaf=0,_viewTimer=0;
 function syncViewport(){
-  setViewX();setTop();setGut();setNmW();fitChart();fitRbChart();movePtu();barFade();
+  setTop();setGut();setNmW();fitChart();fitRbChart();movePtu();barFade();
 }
 function settleViewport(){
   syncViewport();
@@ -3283,7 +3267,6 @@ window.addEventListener('scroll',()=>{
     if(hide!==_th){ _th=hide; DE.classList.toggle('tabhid',hide); pumpStick(); }
   }
   _lastY=y;
-  setViewX();
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
 },{passive:true});
 settleViewport();
@@ -3292,12 +3275,8 @@ window.addEventListener('orientationchange',settleViewport,{passive:true});
 window.addEventListener('pageshow',settleViewport,{passive:true});
 document.addEventListener('fullscreenchange',settleViewport,{passive:true});
 document.addEventListener('webkitfullscreenchange',settleViewport,{passive:true});
-if(window.visualViewport&&window.visualViewport.addEventListener){
+if(window.visualViewport&&window.visualViewport.addEventListener)
   window.visualViewport.addEventListener('resize',settleViewport,{passive:true});
-  window.visualViewport.addEventListener('scroll',()=>{
-    setViewX();if(!_rafx)_rafx=requestAnimationFrame(setNmW);
-  },{passive:true});
-}
 // a horizontal pan on the pills band with nothing to scroll drives the TOC below.
 // Raw touch events with preventDefault: iOS ignores overscroll-behavior on a
 // no-overflow scroller and cancels pointer events once its pan latches, so the

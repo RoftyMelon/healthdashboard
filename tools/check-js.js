@@ -12,15 +12,13 @@ const el=id=>({id,innerHTML:'',value:'',dataset:{},classList:{add(){},remove(){}
  setAttribute(){},title:'',closest:()=>null,tHead:null,querySelector:()=>null,files:[],
  insertAdjacentHTML(){},getBoundingClientRect:()=>({top:0,bottom:0,left:0,right:0,height:70,width:0})});
 const n={}; ['chips','toc','tbl','srch','q','qx','sbtn','tbtn','top','topbar','odisc','omoon','osun','pick'].forEach(i=>n[i]=el(i));
-const rootVars={},vvEvents={};
 global.localStorage={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 global.document={getElementById:i=>n[i]||(n[i]=el(i)),
  querySelector:q=>(q==='.wrap'||q==='thead tr'||q==='thead th'||q==='meta[name=theme-color]')?el(q):null,
  querySelectorAll:()=>[],addEventListener(){},
- documentElement:{dataset:{},style:{setProperty(k,v){rootVars[k]=v;}},classList:{add(){},remove(){}}},
+ documentElement:{dataset:{},style:{setProperty(){}},classList:{add(){},remove(){}}},
  activeElement:{id:''},createElement:()=>el('x'),fonts:{ready:Promise.resolve()}};
 global.window={addEventListener(){},scrollTo(){},scrollBy(){},scrollY:0,scrollX:0,innerHeight:900,
- visualViewport:{offsetLeft:48,pageLeft:48,addEventListener(k,f){vvEvents[k]=f;}},
  matchMedia:()=>({matches:false}),storage:null,BLOODWORK:DATA};
 global.requestAnimationFrame=f=>f(); global.clearTimeout=()=>{};
 global.getComputedStyle=()=>({paddingLeft:'20px',getPropertyValue:()=>'#FFFFFF'});
@@ -133,9 +131,6 @@ setTimeout(()=>{
   ok('a censored uPCR above the reference ceiling is unresolved, not diagnosed high',state('upcr')==='watch'&&
     claim(DATA.MARK.find(m=>m.id==='upcr'),latestFor('upcr').v,latestFor('upcr').raw).label.includes('does not resolve'));
   ok('boot placeholder replaced', !n.tbl.innerHTML.includes('Loading…'));
-  ok('visual-viewport drift offsets the fixed and sticky anchors',rootVars['--vvx']==='48px',rootVars['--vvx']);
-  window.visualViewport.offsetLeft=0;window.visualViewport.pageLeft=0;vvEvents.scroll();
-  ok('visual-viewport anchors return when the drift clears',rootVars['--vvx']==='0px',rootVars['--vvx']);
   ['all','flag','crit'].forEach(f=>{ setF(f);
     const [th,td]=cols(n.tbl.innerHTML);
     ok(`view "${f}" columns line up`, th===td, `th=${th} td=${td}`); });
