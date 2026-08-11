@@ -1153,6 +1153,9 @@ a.sbuy:hover{color:var(--info)}
 .rbrefs .rbonly{padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
 .rbleg{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px;margin-bottom:13px;font-size:11px;line-height:1.35;color:var(--t3)}
 .rbleg span{min-width:0;overflow-wrap:anywhere}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
+.rbleg b.rbcohort{display:flex;justify-content:flex-start;gap:4px}.rbleg .rbage{flex:0 0 auto;color:var(--t3);font-weight:400}
+.rbleg .rbrange,.rbleg .rbresult{display:block;font-size:12.5px;line-height:1.35;color:var(--txt);font-weight:400}
+.rbleg .rbyear{color:var(--t3)}
 .rbleg small{display:block;font-size:10.5px;color:var(--t4);margin-top:2px}.rbleg a{display:block;color:var(--info);margin-top:3px;text-decoration:none}
 .rblinks{display:flex;gap:10px;flex-wrap:wrap}.rblinks a{display:inline-block}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
@@ -2674,6 +2677,8 @@ const rbDates=()=>{const s=new Set();
   return [...s].sort();};
 const rbDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
 const rbHeadDate=d=>{const z=new Date(d+'T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
+const rbYear=d=>`'${String(d).slice(2,4)}`;
+const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
   if(x.kind==='time')return Math.abs(n)<60?`${Math.abs(n).toFixed(Math.abs(n)<10?1:0).replace(/\.0$/,'')}s`:rbFmt(x,Math.abs(n),0);
   return `${Math.abs(n).toFixed(x.precision).replace(/\.0+$/,'')} ${x.kind==='heart-rate'?'bpm':'mL/kg/min'}`;
@@ -2711,10 +2716,11 @@ function rbSvg(x,dates){
 }
 function rbLegend(x){
   let h='';
-  if(x.athletic)h+=`<div class="rbleg"><i class="rbsw band"></i><span><b>${esc(x.athletic.heading)}</b>${esc(x.athletic.label)}`+
-    `<small>${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
-    `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
-  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b>${esc(x.world.display)} · ${esc(x.world.athlete)}<small>${esc(x.world.surface)} · ${esc(x.world.venue)} · ${esc(x.world.date)}</small><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
+  if(x.athletic){const [cohort,ages]=rbCohort(x.athletic.label);
+    h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
+      `<small class="rbrange">${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
+      `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
+  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · ${esc(x.world.athlete)} <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }

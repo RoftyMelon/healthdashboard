@@ -345,11 +345,13 @@ setTimeout(()=>{
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
     ok('empty benchmark rows expand to a compact range summary',
       (E.match(/onclick="rbToggle/g)||[]).length===7&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
-      ED.includes('Active men range')&&ED.includes('World record'));
+      ED.includes('Male PE Students')&&!ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
-      ED.includes('Male PE students, 21–25'));
+      ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));
     ok('VO2max shows the recreational-runner comparison at a glance',
-      rbDetail(V,[],2).includes('Recreational runners range')&&rbDetail(V,[],2).includes('Male recreational runners, 30–39'));
+      !rbDetail(V,[],2).includes('Recreational runners range')&&rbDetail(V,[],2).includes('Male recreational runners<span class="rbage">· 30–39</span>'));
+    ok('world-record cards show only the compact two-digit year',
+      ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
       {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});

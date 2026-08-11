@@ -244,9 +244,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   empty plot; after the first result it switches to the full trend chart. Running world records
   must match the event and surface and carry a source plus review date. The green
   `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
-  optimum. Its visible `heading` names the supported comparison class: `Active men range` for
-  the PE-student sprint cohorts and `Recreational runners range` for measured or observed runner
-  cohorts. The cohort `label` beneath it must remain specific about sex and age; modelled
+  optimum. Its `heading` names the supported comparison class in the data, but the viewer uses
+  the cohort `label` itself as the card heading rather than displaying that generic classification.
+  The label must remain specific about sex and age; modelled
   percentages of a world record do not qualify. Each band carries an evidence grade and review
   date.
   Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are
