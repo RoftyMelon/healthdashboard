@@ -2719,7 +2719,7 @@ window.BLOODWORK =
        "Notes": [
         [
          "",
-         "Mixed into the oats in the morning, not the night before — anthocyanins degrade fastest at its near-neutral pH"
+         "Mixed into the oats in the morning, not the night before — anthocyanins degrade fastest at the near-neutral pH of oats"
         ]
        ]
       }
