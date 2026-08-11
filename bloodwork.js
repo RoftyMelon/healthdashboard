@@ -2698,7 +2698,7 @@ window.BLOODWORK =
        "Notes": [
         [
          "",
-         "The oats soak in it overnight. Its acidity activates the oats' own phytase, which breaks down the phytate binding their iron and zinc — slower in the fridge than at room temperature, but real over eight hours."
+         "The oats soak in it overnight"
         ]
        ]
       }
