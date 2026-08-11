@@ -4234,12 +4234,6 @@ window.BLOODWORK =
          "11 Aug 2026",
          "added"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Edible cooked weight, shells excluded; nutrition from ANSES-Ciqual 2025, food code 10027"
-        ]
        ]
       }
      }
