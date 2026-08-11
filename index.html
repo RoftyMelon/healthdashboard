@@ -1375,6 +1375,19 @@ a.sbuy:hover{color:var(--info)}
   .rbchart{min-height:255px;padding-top:12px}
   .rbcpad{flex-basis:180px;padding-left:10px;padding-right:10px}
 }
+/* Desktop Safari can leave viewport-root sticky layers attached to stale full-screen geometry:
+   the document then pans sideways as one sheet until another full-screen transition forces a
+   relayout. Keep the desktop document fixed and make the existing content wrapper the two-axis
+   scrollport instead. The table header and frozen cells now share a normal element scroller,
+   while the fixed topbar remains outside it. Phones retain the root-scroller path whose touch
+   and safe-area behaviour is separately tuned above. */
+@media(min-width:901px){
+  html,body{height:100%;overflow:hidden}
+  .wrap{height:100vh;height:100dvh;max-width:none;margin:0;padding-left:0;padding-right:0;
+    overflow:auto;overscroll-behavior:none}
+  .shell{margin-left:0;width:100%}
+  .pgs{margin-left:var(--gut,20px);margin-right:var(--gut,20px)}
+}
 </style>
 <script>
 /* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
@@ -1388,8 +1401,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
 }}catch(e){}
 </script>
 
-<div class="wrap">
-  <div class="topbar" id="topbar">
+<div class="topbar" id="topbar">
     <div class="tabrow" id="tabrow">
     <nav class="ptabs" id="ptabs" aria-label="Pages">
       <button class="pt on" data-pg="markers" onclick="setPage('markers')">Markers</button>
@@ -1441,6 +1453,7 @@ try{if(matchMedia('(prefers-color-scheme: dark)').matches){
     </div>
     </div>
   </div>
+<div class="wrap">
   <div class="topspacer"></div>
   <div class="shell"><div class="scroll"><table id="tbl"><tbody><tr><td class="boot">
       <b>Loading…</b><br><span>If this stays here, JavaScript did not run.
@@ -2602,10 +2615,10 @@ function scrollToSec(sec){
     const stuck=parseFloat(getComputedStyle(bar).top),th=document.querySelector('thead th');
     const rest=isFinite(stuck)?stuck:(th?th.getBoundingClientRect().bottom:0);
     return el.getBoundingClientRect().top-rest+1;};   // +1 tucks under, never a seam
-  window.scrollBy({top:aim(),behavior:'smooth'});
+  pageScrollBy({top:aim(),behavior:'smooth'});
   let n=0;
   const settle=()=>{const d=aim();
-    if(Math.abs(d)>1&&n++<3){window.scrollBy({top:d,behavior:'smooth'});setTimeout(settle,240);}};
+    if(Math.abs(d)>1&&n++<3){pageScrollBy({top:d,behavior:'smooth'});setTimeout(settle,240);}};
   setTimeout(settle,400);
 }
 function goto(cat){
@@ -2791,7 +2804,7 @@ function setPage(p){
   // observers can be GC'd), and a stale --toph leaves a phantom gap under the bar.
   requestAnimationFrame(()=>{setTop();movePtu();});
   setTimeout(()=>setTop(),400);   // again once layout settles
-  window.scrollTo({top:0});
+  pageScrollTo({top:0});
   // Deep link: the open tab is mirrored into the URL HASH so any page can be shared directly.
   // It must be the hash and NEVER the query string — location.search is already spoken for as
   // the bloodwork.js cache-buster (see the document.write in <head>), so a ?page= would change
@@ -3184,9 +3197,21 @@ function renderPage(p){
 }
 const TB=document.getElementById('topbar'),WRAP=document.querySelector('.wrap');
 const R0=document.documentElement.style;
+/* The desktop table deliberately scrolls inside .wrap rather than on WebKit's viewport-root
+   scroller. Safari can strand root sticky layers after a full-screen transition; an element
+   scrollport does not share that failure mode. Phones keep the root path, so all scroll reads
+   and writes go through this small adapter instead of assuming one host. */
+const DESK_SCROLL=window.matchMedia('(min-width:901px)');
+const pageHost=()=>DESK_SCROLL.matches?WRAP:window;
+const pageX=()=>DESK_SCROLL.matches?(WRAP.scrollLeft||0):(window.scrollX||0);
+const pageY=()=>DESK_SCROLL.matches?(WRAP.scrollTop||0):(window.scrollY||0);
+const pageScrollTo=o=>{const h=pageHost();if(h&&h.scrollTo)h.scrollTo(o);};
+const pageScrollBy=o=>{const h=pageHost();if(h&&h.scrollBy)h.scrollBy(o);};
+WRAP.addEventListener('scroll',closePt,{passive:true});
 const setGut=()=>{                                   // left margin of the content column
   const pl=parseFloat(getComputedStyle(WRAP).paddingLeft)||0;
-  R0.setProperty('--gut',(WRAP.offsetLeft+pl)+'px');
+  const g=DESK_SCROLL.matches?Math.max(20,(window.innerWidth-1440)/2+20):WRAP.offsetLeft+pl;
+  R0.setProperty('--gut',g+'px');
 };
 const DE=document.documentElement;
 // --hvis = the CURRENTLY visible header bottom — what the frozen thead sticks under, so it
@@ -3230,7 +3255,7 @@ function setNmW(){
   // or not a row is expanded. That used to re-wrap the description on every frame, because .dassay
   // was sized from the pane at rest and .cy shrank out from under it; det() now sizes the prose
   // for the narrowest pane instead, so the pane shrinks around a paragraph that never moves.
-  const t=Math.min(Math.max(window.scrollX,0)/NM_TRAVEL,1);
+  const t=Math.min(Math.max(pageX(),0)/NM_TRAVEL,1);
   const e=t*t*(3-2*t);                                  // smoothstep: eases in and out
   const w=Math.round(NM_WIDE+(NM_NARROW-NM_WIDE)*e);
   if(w!==_lastW){
@@ -3254,8 +3279,8 @@ function settleViewport(){
 }
 // Auto-hide the tab row on the MARKERS page only: scroll down hides it, up reveals it, top shows.
 let _lastY=0;
-window.addEventListener('scroll',()=>{
-  const y=window.scrollY, dy=y-_lastY;
+const pageScrolled=()=>{
+  const y=pageY(), dy=y-_lastY;
   const s=y>12;
   if(s!==_stuck){_stuck=s;TB.classList.toggle('stuck',s);}
   TOP.classList.toggle('on',y>420);
@@ -3268,7 +3293,9 @@ window.addEventListener('scroll',()=>{
   }
   _lastY=y;
   if(!_rafx)_rafx=requestAnimationFrame(setNmW);
-},{passive:true});
+};
+window.addEventListener('scroll',pageScrolled,{passive:true});
+WRAP.addEventListener('scroll',pageScrolled,{passive:true});
 settleViewport();
 window.addEventListener('resize',settleViewport,{passive:true});
 window.addEventListener('orientationchange',settleViewport,{passive:true});
@@ -3328,7 +3355,7 @@ if(window.visualViewport&&window.visualViewport.addEventListener)
     else _stop();};
   sw.addEventListener('touchend',_end,{passive:true});
   sw.addEventListener('touchcancel',_end,{passive:true});}}
-TOP.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+TOP.addEventListener('click',()=>pageScrollTo({top:0,behavior:'smooth'}));
 function onQ(v){qRaw=v.trim();q=norm(qRaw);SRCH.classList.toggle('has',!!q);render();}
 function sShut(){SRCH.classList.remove('open','has');QI.value='';QI.blur();if(q)onQ('');}
 /* One thumb that TRAVELS, rather than a background that blinks from one button to the next.
