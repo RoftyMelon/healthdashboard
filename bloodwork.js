@@ -2615,8 +2615,7 @@ window.BLOODWORK =
         ],
         [
          "Iron",
-         "~3.4mg",
-         "24%"
+         "~3.4mg"
         ],
         [
          "Magnesium",
@@ -2625,8 +2624,7 @@ window.BLOODWORK =
         ],
         [
          "Zinc",
-         "~2.9mg",
-         "29%"
+         "~2.9mg"
         ]
        ],
        "Changes": [
