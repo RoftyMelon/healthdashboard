@@ -2953,70 +2953,74 @@ window.BLOODWORK =
     "at": "10:00",
     "items": [
      {
-      "n": "Avocado half",
-      "amt": "~70g",
+      "n": "Avocado",
+      "amt": "~140g",
       "info": {
-       "Macronutrients — per ~70g": [
+       "Macronutrients — per ~140g": [
         [
          "Energy",
-         "112kcal",
-         "6%"
+         "224kcal",
+         "11%"
         ],
         [
          "Carbs",
-         "6g",
-         "2%"
+         "12g",
+         "5%"
         ],
         [
          "Fibre",
-         "4.7g"
+         "9.4g"
         ],
         [
          "Protein",
-         "1.4g",
-         "3%"
+         "2.8g",
+         "6%"
         ],
         [
          "Fat",
-         "10g",
-         "14%"
+         "20g",
+         "29%"
         ],
         [
          "– saturates",
-         "1.5g",
-         "8%"
+         "3g",
+         "15%"
         ]
        ],
        "Standouts": [
         [
          "Folate",
-         "57mcg",
-         "14%"
+         "114mcg",
+         "29%"
         ],
         [
          "Potassium",
-         "340mg",
-         "17%"
+         "680mg",
+         "34%"
         ],
         [
          "Vit K",
-         "15mcg",
-         "20%"
+         "30mcg",
+         "40%"
         ],
         [
          "Vit E",
-         "1.4mg",
-         "12%"
+         "2.8mg",
+         "23%"
         ],
         [
          "Monounsaturated",
-         "6.8g"
+         "13.6g"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added"
+        ],
+        [
+         "11 Aug 2026",
+         "increased from half to whole"
         ]
        ]
       }
@@ -3164,34 +3168,40 @@ window.BLOODWORK =
      },
      {
       "n": "Olive oil",
-      "amt": "10mL",
+      "amt": "20mL",
       "info": {
-       "Macronutrients — per 10mL": [
+       "Macronutrients — per 20mL": [
         [
          "Energy",
-         "80kcal",
-         "4%"
+         "160kcal",
+         "8%"
         ],
         [
          "Fat",
-         "9g",
-         "13%"
+         "18g",
+         "26%"
         ],
         [
          "– monounsat.",
-         "7g"
+         "14g"
         ],
         [
          "– saturates",
-         "1.2g",
-         "6%"
+         "2.4g",
+         "12%"
         ]
        ],
        "Standouts": [
         [
          "Vit E",
-         "1mg",
-         "10%"
+         "2mg",
+         "20%"
+        ]
+       ],
+       "Changes": [
+        [
+         "11 Aug 2026",
+         "increased from 10mL to 20mL"
         ]
        ]
       }
@@ -3514,34 +3524,40 @@ window.BLOODWORK =
      },
      {
       "n": "Olive oil",
-      "amt": "50mL",
+      "amt": "40mL",
       "info": {
-       "Macronutrients — per 50mL": [
+       "Macronutrients — per 40mL": [
         [
          "Energy",
-         "405kcal",
-         "20%"
+         "324kcal",
+         "16%"
         ],
         [
          "Fat",
-         "46g",
-         "66%"
+         "36.8g",
+         "53%"
         ],
         [
          "– monounsat.",
-         "34g"
+         "27.2g"
         ],
         [
          "– saturates",
-         "6g",
-         "30%"
+         "4.8g",
+         "24%"
         ]
        ],
        "Standouts": [
         [
          "Vit E",
-         "6mg",
-         "50%"
+         "4.8mg",
+         "40%"
+        ]
+       ],
+       "Changes": [
+        [
+         "11 Aug 2026",
+         "reduced from 50mL to 40mL"
         ]
        ]
       }
