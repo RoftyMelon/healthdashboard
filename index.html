@@ -590,7 +590,10 @@ td.pos{padding-right:14px}
   opacity:0;pointer-events:none;transform:translateY(8px);
   transition:opacity .22s ease,transform .22s cubic-bezier(.2,.9,.25,1),color .14s,background .14s}
 .top.on{opacity:1;pointer-events:auto;transform:none}
-.top:hover{color:var(--txt)}
+.top:hover{color:var(--txt);background:color-mix(in srgb,var(--frost),transparent 35%);
+  border-color:var(--frost-b);transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 5px 14px rgba(0,0,0,.1)}
+.top:active{transform:translateY(0)}
 
 /* The categories navigate, they do not filter — so they are set as small caps matching the
    BLOOD COUNT / LIVER bands they jump to, rather than as a third pill shape competing with the
