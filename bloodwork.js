@@ -2715,12 +2715,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Mixed into the oats in the morning, not the night before — anthocyanins degrade fastest at the near-neutral pH of oats"
-        ]
        ]
       }
      },
