@@ -167,9 +167,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   copyable between foods — beef, chicken, rice and trout are cooked-weight figures, while the
   frozen greens are as-purchased. A pass that relabelled the meat figures as `raw` would silently
   understate a 200g cooked serving by applying nutrition for a smaller amount of meat.
-  One deliberate exception: an alternating item carries one macro panel per option — `Mackerel 80g`
-  / `Tofu 125g`, `Lean beef 200g` / `Chicken 200g`, `Spinach 150g` / `Broccoli 150g` — because it
-  has two sets. (There used to be a second: Huel Black kept `Vitamins`/`Minerals`/`Other`, being
+  An alternating item carries one macro panel per option — `Lean beef 200g` / `Chicken 200g` and
+  `Spinach 150g` / `Broccoli 150g` each have two sets. (There used to be another tooltip shape:
+  Huel Black kept `Vitamins`/`Minerals`/`Other`, being
   the one item with a full fortification panel. It stopped on 1 Aug 2026, so that tooltip shape is
   gone rather than dormant.) The order regressed once silently — a pass that renamed
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.

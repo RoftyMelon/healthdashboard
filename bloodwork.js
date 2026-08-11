@@ -2953,118 +2953,6 @@ window.BLOODWORK =
     "at": "10:00",
     "items": [
      {
-      "n": "Mackerel OR Tofu",
-      "amt": "80g / 125g",
-      "info": {
-       "Mackerel 80g · Ingredients": [
-        [
-         "",
-         "Mackerel (Scomber scombrus) 97%, salt, pepper"
-        ]
-       ],
-       "Mackerel 80g · Macronutrients — per 80g": [
-        [
-         "Energy",
-         "212kcal",
-         "11%"
-        ],
-        [
-         "Protein",
-         "14.4g",
-         "29%"
-        ],
-        [
-         "Fat",
-         "16.8g",
-         "24%"
-        ],
-        [
-         "– saturates",
-         "5.2g",
-         "26%"
-        ],
-        [
-         "Salt",
-         "1.6g",
-         "27%"
-        ]
-       ],
-       "Mackerel 80g · Standouts": [
-        [
-         "EPA + DHA",
-         "2g"
-        ]
-       ],
-       "Mackerel 80g · Changes": [
-        [
-         "1 Aug 2026",
-         "replaced 100g mozzarella"
-        ]
-       ],
-       "Mackerel 80g · Notes": [
-        [
-         "",
-         "No omega-3 supplement with this meal"
-        ]
-       ],
-       "Tofu 125g · Ingredients": [
-        [
-         "",
-         "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
-        ]
-       ],
-       "Tofu 125g · Macronutrients — per 125g": [
-        [
-         "Energy",
-         "181kcal",
-         "9%"
-        ],
-        [
-         "Protein",
-         "17.5g",
-         "35%"
-        ],
-        [
-         "Fat",
-         "11.3g",
-         "16%"
-        ],
-        [
-         "– saturates",
-         "1.9g",
-         "10%"
-        ],
-        [
-         "Fibre",
-         "3.1g"
-        ],
-        [
-         "Salt",
-         "0g",
-         "0%"
-        ]
-       ],
-       "Tofu 125g · Standouts": [
-        [
-         "Calcium",
-         "235mg",
-         "29%"
-        ],
-        [
-         "Magnesium",
-         "74mg",
-         "20%"
-        ]
-       ],
-       "Tofu 125g · Changes": [
-        [
-         "1 Aug 2026",
-         "replaced 100g mozzarella"
-        ]
-       ]
-      }
-     },
-     {
       "n": "Avocado half",
       "amt": "~70g",
       "info": {
@@ -4109,6 +3997,63 @@ window.BLOODWORK =
     "t": "Weekly",
     "items": [
      {
+      "n": "Mackerel",
+      "amt": "80g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Mackerel (Scomber scombrus) 97%, salt, pepper"
+        ]
+       ],
+       "Macronutrients — per 80g": [
+        [
+         "Energy",
+         "212kcal",
+         "11%"
+        ],
+        [
+         "Protein",
+         "14.4g",
+         "29%"
+        ],
+        [
+         "Fat",
+         "16.8g",
+         "24%"
+        ],
+        [
+         "– saturates",
+         "5.2g",
+         "26%"
+        ],
+        [
+         "Salt",
+         "1.6g",
+         "27%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "EPA + DHA",
+         "2g"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "replaced 100g mozzarella"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "No omega-3 supplement with this meal"
+        ]
+       ]
+      }
+     },
+     {
       "n": "Trout",
       "amt": "300g",
       "info": {
@@ -4227,6 +4172,73 @@ window.BLOODWORK =
          "Copper",
          "0.75mg",
          "75%"
+        ]
+       ],
+       "Changes": [
+        [
+         "11 Aug 2026",
+         "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Mussels",
+      "amt": "200g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Pacific mussels (Mytilus chilensis), cooked and shelled — frozen, ASC"
+        ]
+       ],
+       "Macronutrients — per 200g": [
+        [
+         "Energy",
+         "206kcal",
+         "10%"
+        ],
+        [
+         "Protein",
+         "32g",
+         "64%"
+        ],
+        [
+         "Fat",
+         "5g",
+         "7%"
+        ],
+        [
+         "– saturates",
+         "1.2g",
+         "6%"
+        ],
+        [
+         "Carbs",
+         "8.8g",
+         "3%"
+        ],
+        [
+         "– sugars",
+         "1.2g",
+         "1%"
+        ],
+        [
+         "Salt",
+         "1.3g",
+         "22%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Iron (est.)",
+         "~5mg",
+         "~36%"
+        ],
+        [
+         "Copper (est.)",
+         "~0.2mg",
+         "~20%"
         ]
        ],
        "Changes": [
