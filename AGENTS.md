@@ -246,7 +246,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
   optimum. Its `heading` names the supported comparison class in the data, but the viewer uses
   the cohort `label` itself as the card heading rather than displaying that generic classification.
-  The label must remain specific about sex and age; modelled
+  The label must remain specific about age and comparison class; sex and sampling details remain
+  explicit in `basis`. Modelled
   percentages of a world record do not qualify. Each band carries an evidence grade and review
   date.
   Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are

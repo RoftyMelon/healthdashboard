@@ -300,13 +300,13 @@ setTimeout(()=>{
     const M=BI.find(x=>x.id==='runmile');
     ok('mile uses the pooled official multi-year road-race band',
       M.athletic.min===336&&M.athletic.max===416&&M.athletic.evidence==='moderate'&&
-      M.athletic.label==='Male Trained Runners, 19–39'&&M.athletic.basis.includes('21,799'));
+      M.athletic.label==='Recreational Runners, 19–39'&&M.athletic.basis.includes('21,799'));
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&
-      K5.athletic.label==='Male Trained Runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
+      K5.athletic.label==='Recreational Runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
       K10.athletic.min===2290&&K10.athletic.max===3000&&
-      K10.athletic.label==='Male Trained Runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39'));
+      K10.athletic.label==='Recreational Runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39'));
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
