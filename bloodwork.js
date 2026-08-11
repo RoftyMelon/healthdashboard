@@ -2635,12 +2635,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "80g is chosen for the beta-glucan: about 3.2g, the dose the LDL trials used. Its phytate binds non-haem iron, which is why the berries and banana stay in this meal rather than moving elsewhere."
-        ]
        ]
       }
      },
