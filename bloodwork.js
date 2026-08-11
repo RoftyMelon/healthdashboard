@@ -18,7 +18,7 @@ window.BLOODWORK =
   "confounds": [
    "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
    "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them.",
-   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. The dec that groups these was RENAMED from 'Huel' to 'Fortified base (stopped Aug 2026)' on 11 Aug 2026, because the brand name rendered as a group heading on the Markers page long after the product was gone; it still links vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg, and that link remains correct for the JULY values it explains; from August it names an exposure that has ENDED. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
+   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. There WAS a 'Huel' dec grouping vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg. It was DELETED on 11 Aug 2026, from DECS and from all thirteen: that list renders as a group heading beside Creatine 5g and NAC 11g on the Markers page, and a stopped food has no place in a list of things being taken. sel, zn, iron and tsat had no other dec and now carry none. THIS ENTRY IS THE ONLY RECORD of which markers that fortification touched - it is not recoverable from the marker rows any more. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
   ],
   "subject": {
    "sex": "male",
@@ -94,8 +94,7 @@ window.BLOODWORK =
   "Creatine 5g",
   "Vitamin D3 5000 IU + K2",
   "Magnesium L-threonate",
-  "Glycine 8g + taurine + collagen",
-  "Fortified base (stopped Aug 2026)"
+  "Glycine 8g + taurine + collagen"
  ],
  "STACK": {
   "cats": [
@@ -2340,7 +2339,7 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, the fortified base stopped and took 9mg/day of iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
+    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, the pre-workout meal changed and took 9mg/day of fortified iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
     "decision": "Use the panel, never serum iron alone. A confirmed decline is the one result on this draw that would argue for changing the diet rather than continuing it, whether by restoring haem iron or by pairing the non-haem sources with vitamin C and separating them from the tea and kefir.",
     "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% from 58µg/L — roughly 43 or lower — changes the decision.",
     "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
@@ -4136,8 +4135,7 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "Vitamin D3 5000 IU + K2",
-    "Boron 10mg",
-    "Fortified base (stopped Aug 2026)"
+    "Boron 10mg"
    ],
    "en": "Vitamin D (25-OH)",
    "fr": "Vitamine D (25-OH)",
@@ -4251,8 +4249,7 @@ window.BLOODWORK =
    "id": "ca",
    "cat": "vitmin",
    "dec": [
-    "Vitamin D3 5000 IU + K2",
-    "Fortified base (stopped Aug 2026)"
+    "Vitamin D3 5000 IU + K2"
    ],
    "en": "Calcium",
    "fr": "Calcium (calcémie)",
@@ -4367,7 +4364,6 @@ window.BLOODWORK =
    "id": "tsh",
    "cat": "thy",
    "dec": [
-    "Fortified base (stopped Aug 2026)",
     "Ashwagandha 600mg"
    ],
    "en": "TSH",
@@ -4513,9 +4509,6 @@ window.BLOODWORK =
   {
    "id": "sel",
    "cat": "vitmin",
-   "dec": [
-    "Fortified base (stopped Aug 2026)"
-   ],
    "en": "Selenium",
    "fr": "Sélénium",
    "us": "µg/L",
@@ -4617,8 +4610,7 @@ window.BLOODWORK =
    "id": "ferr",
    "cat": "iron",
    "dec": [
-    "Curcumin",
-    "Fortified base (stopped Aug 2026)"
+    "Curcumin"
    ],
    "en": "Ferritin",
    "fr": "Ferritine",
@@ -4665,9 +4657,6 @@ window.BLOODWORK =
   {
    "id": "zn",
    "cat": "vitmin",
-   "dec": [
-    "Fortified base (stopped Aug 2026)"
-   ],
    "en": "Zinc",
    "fr": "Zinc",
    "us": "µg/dL",
@@ -4773,7 +4762,6 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "TMG 6g",
-    "Fortified base (stopped Aug 2026)",
     "B-complex (methylfolate)"
    ],
    "en": "Vitamin B12",
@@ -4832,8 +4820,7 @@ window.BLOODWORK =
    "id": "mma",
    "cat": "vitmin",
    "dec": [
-    "B-complex (methylfolate)",
-    "Fortified base (stopped Aug 2026)"
+    "B-complex (methylfolate)"
    ],
    "en": "MMA (methylmalonic acid)",
    "fr": "Acide méthylmalonique (MMA)",
@@ -4886,7 +4873,6 @@ window.BLOODWORK =
    "cat": "vitmin",
    "dec": [
     "TMG 6g",
-    "Fortified base (stopped Aug 2026)",
     "B-complex (methylfolate)"
    ],
    "en": "Folate",
@@ -4939,8 +4925,7 @@ window.BLOODWORK =
    "id": "plp",
    "cat": "vitmin",
    "dec": [
-    "B-complex (methylfolate)",
-    "Fortified base (stopped Aug 2026)"
+    "B-complex (methylfolate)"
    ],
    "en": "Vitamin B6 (PLP)",
    "fr": "Vitamine B6 (pyridoxal-5-phosphate)",
@@ -7005,9 +6990,6 @@ window.BLOODWORK =
   {
    "id": "iron",
    "cat": "iron",
-   "dec": [
-    "Fortified base (stopped Aug 2026)"
-   ],
    "en": "Serum iron",
    "fr": "Fer sérique",
    "us": "µg/dL",
@@ -7073,9 +7055,6 @@ window.BLOODWORK =
   {
    "id": "tsat",
    "cat": "iron",
-   "dec": [
-    "Fortified base (stopped Aug 2026)"
-   ],
    "en": "Transferrin saturation",
    "fr": "Coefficient de saturation (CST)",
    "us": "%",
@@ -7134,8 +7113,7 @@ window.BLOODWORK =
    "id": "mg",
    "cat": "vitmin",
    "dec": [
-    "Magnesium L-threonate",
-    "Fortified base (stopped Aug 2026)"
+    "Magnesium L-threonate"
    ],
    "en": "Magnesium (serum)",
    "fr": "Magnésium",
