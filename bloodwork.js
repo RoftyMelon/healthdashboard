@@ -2620,8 +2620,8 @@ window.BLOODWORK =
         ],
         [
          "Magnesium",
-         "~120mg",
-         "32%"
+         "101mg",
+         "27%"
         ],
         [
          "Zinc",
