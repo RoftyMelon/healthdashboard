@@ -4127,7 +4127,7 @@ window.BLOODWORK =
      },
      {
       "n": "Clams",
-      "amt": "150g",
+      "amt": "100g",
       "info": {
        "Ingredients": [
         [
@@ -4135,43 +4135,43 @@ window.BLOODWORK =
          "Clams, cooked"
         ]
        ],
-       "Macronutrients — per 150g cooked": [
+       "Macronutrients — per 100g cooked": [
         [
          "Energy",
-         "149kcal",
-         "7%"
+         "99kcal",
+         "5%"
         ],
         [
          "Protein",
-         "24.3g",
-         "49%"
+         "16.2g",
+         "32%"
         ],
         [
          "Fat",
-         "2.2g",
-         "3%"
+         "1.5g",
+         "2%"
         ],
         [
          "Carbs",
-         "8.0g",
-         "3%"
+         "5.3g",
+         "2%"
         ],
         [
          "Salt",
-         "2.34g",
-         "39%"
+         "1.56g",
+         "26%"
         ]
        ],
        "Standouts": [
         [
          "Iron",
-         "14.5mg",
-         "104%"
+         "9.7mg",
+         "69%"
         ],
         [
          "Copper",
-         "0.75mg",
-         "75%"
+         "0.5mg",
+         "50%"
         ]
        ],
        "Changes": [
@@ -4184,7 +4184,7 @@ window.BLOODWORK =
      },
      {
       "n": "Mussels",
-      "amt": "200g",
+      "amt": "100g",
       "info": {
        "Ingredients": [
         [
@@ -4192,53 +4192,53 @@ window.BLOODWORK =
          "Pacific mussels (Mytilus chilensis), cooked and shelled — frozen, ASC"
         ]
        ],
-       "Macronutrients — per 200g": [
+       "Macronutrients — per 100g": [
         [
          "Energy",
-         "206kcal",
-         "10%"
+         "103kcal",
+         "5%"
         ],
         [
          "Protein",
-         "32g",
-         "64%"
+         "16g",
+         "32%"
         ],
         [
          "Fat",
-         "5g",
-         "7%"
+         "2.5g",
+         "4%"
         ],
         [
          "– saturates",
-         "1.2g",
-         "6%"
-        ],
-        [
-         "Carbs",
-         "8.8g",
+         "0.6g",
          "3%"
         ],
         [
+         "Carbs",
+         "4.4g",
+         "2%"
+        ],
+        [
          "– sugars",
-         "1.2g",
+         "0.6g",
          "1%"
         ],
         [
          "Salt",
-         "1.3g",
-         "22%"
+         "0.65g",
+         "11%"
         ]
        ],
        "Standouts": [
         [
          "Iron (est.)",
-         "~5mg",
-         "~36%"
+         "~2.5mg",
+         "~18%"
         ],
         [
          "Copper (est.)",
-         "~0.2mg",
-         "~20%"
+         "~0.1mg",
+         "~10%"
         ]
        ],
        "Changes": [
