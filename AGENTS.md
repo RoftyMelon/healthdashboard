@@ -112,7 +112,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     clinical/AI context, but the dashboard does not display them or use them for status or flags.
   - `marker.target` is an evidence-backed health-optimization target. It needs `min` and/or
     `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
-    have no target: only 5 of 88 currently do (`o3`, `tg`, `apob`, `nonhdl`, `ldl`). A target must
+    have no target: only 7 of 88 currently do (`vitd`, `sel`, `o3`, `tg`, `apob`, `nonhdl`,
+    `ldl` — vitamin D and selenium were culled in the target audit and restored by the owner on
+    2026-08-05, both weak-graded on purpose). A target must
     add a defensible optimization claim rather than duplicate a decision cut or manufacture a
     lower boundary from observational noise. Personal experiment criteria such as the 30-50ng/mL
     vitamin-D titration window belong in `NEXTDRAW`, not here, unless outcome evidence supports
@@ -153,8 +155,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   banana is a banana. The section earns its place only when it adds a fact the name does not:
   `Ground beef, 5% fat`, `Chicken breast, skinless`, `Fresh trout with skin, cooked`. Do not
   "complete" the missing ones.
-  **The same applies to `Changes`. Seven items carry none — Huel, banana, Poêlée Rustique, both
-  olive oils, the fruit slot and the kiwis — because they are PRE-EXISTING foods that were already
+  **The same applies to `Changes`. Six carry none — banana, Poêlée Rustique, both olive oils,
+  the fruit slot and the kiwis — because they are PRE-EXISTING foods that were already
   being eaten.** `1 Aug 2026 · added` marks what the intervention actually introduced, so adding
   the entry everywhere would erase the distinction between the new diet and the old one. Confirmed
   deliberate 2026-07-31. Do not backfill them.
@@ -163,9 +165,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   copyable between foods — beef, chicken, rice and trout are cooked-weight figures, while the
   frozen greens are as-purchased. A pass that relabelled the meat figures as `raw` would silently
   understate a 200g cooked serving by applying nutrition for a smaller amount of meat.
-  Two deliberate exceptions: Huel keeps `Vitamins`/`Minerals`/`Other`, since that one IS a full
-  fortification label, and an alternating item carries one macro panel per option (`Mackerel 80g`,
-  `Tofu 125g`) because it has two sets. The order regressed once silently — a pass that renamed
+  One deliberate exception: an alternating item carries one macro panel per option — `Mackerel 80g`
+  / `Tofu 125g`, `Lean beef 200g` / `Chicken 200g`, `Spinach 150g` / `Broccoli 150g` — because it
+  has two sets. (There used to be a second: Huel Black kept `Vitamins`/`Minerals`/`Other`, being
+  the one item with a full fortification label. It stopped on 1 Aug 2026 and no food in the block
+  is fortified now, so that shape is gone rather than dormant.) The order regressed once silently — a pass that renamed
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
 - **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why
   this number, and which form) → `Evidence` (what the tag rests on) → `Watch` (ceilings,
