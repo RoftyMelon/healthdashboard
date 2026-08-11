@@ -2694,12 +2694,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "The oats soak in it overnight"
-        ]
        ]
       }
      },
