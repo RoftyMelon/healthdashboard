@@ -93,6 +93,9 @@ html.tfade *::before,html.tfade *::after{
   touch-action:pan-y;   /* a horizontal pan anywhere on the bar must NEVER scroll the table —
                            the scrollers below re-allow their own horizontal panning */
   transition:border-color .2s ease;border-bottom:.5px solid transparent}
+/* The Markers table reaches the viewport/safe-area edge, so both navigation rows share that
+   same left edge. Keep the right gutter: it matches the table's own right boundary. */
+html[data-page=markers] .topbar{padding-left:env(safe-area-inset-left,0px)}
 .topspacer{height:var(--toph,112px)}   /* fixed takes it out of flow; hold its place */
 .topbar.stuck{border-bottom-color:var(--line)}
 
