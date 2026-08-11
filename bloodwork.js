@@ -2953,13 +2953,13 @@ window.BLOODWORK =
     "at": "10:00",
     "items": [
      {
-      "n": "Seafood starter",
+      "n": "Starter rotation",
       "amt": "see Weekly ↓",
       "info": {
        "Macronutrients — average serving": [
         [
          "Energy",
-         "166kcal",
+         "169kcal",
          "8%"
         ]
        ],
@@ -4280,6 +4280,67 @@ window.BLOODWORK =
         [
          "11 Aug 2026",
          "added"
+        ]
+       ]
+      }
+     },
+     {
+      "n": "Tofu",
+      "amt": "125g",
+      "info": {
+       "Ingredients": [
+        [
+         "",
+         "Water, hulled soya 27.5%, coagulants: calcium sulphate and nigari — organic, French non-GMO"
+        ]
+       ],
+       "Macronutrients — per 125g": [
+        [
+         "Energy",
+         "181kcal",
+         "9%"
+        ],
+        [
+         "Protein",
+         "17.5g",
+         "35%"
+        ],
+        [
+         "Fat",
+         "11.3g",
+         "16%"
+        ],
+        [
+         "– saturates",
+         "1.9g",
+         "10%"
+        ],
+        [
+         "Fibre",
+         "3.1g"
+        ],
+        [
+         "Salt",
+         "0g",
+         "0%"
+        ]
+       ],
+       "Standouts": [
+        [
+         "Calcium",
+         "235mg",
+         "29%"
+        ],
+        [
+         "Magnesium",
+         "74mg",
+         "20%"
+        ]
+       ],
+       "Changes": [
+        [
+         "1 Aug 2026",
+         "replaced 100g mozzarella"
         ]
        ]
       }
