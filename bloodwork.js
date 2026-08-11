@@ -3431,17 +3431,17 @@ window.BLOODWORK =
         ],
         [
          "Protein",
-         "3.4g",
+         "~3.4g",
          "7%"
         ],
         [
          "Fat",
-         "1.7g",
+         "~1.7g",
          "2%"
         ],
         [
          "Carbs (lactose)",
-         "4.8g",
+         "~4.8g",
          "2%"
         ]
        ],
@@ -4127,22 +4127,22 @@ window.BLOODWORK =
        "Macronutrients — per 300g cooked": [
         [
          "Energy",
-         "500kcal",
+         "~500kcal",
          "25%"
         ],
         [
          "Protein",
-         "72g",
+         "~72g",
          "144%"
         ],
         [
          "Fat",
-         "21g",
+         "~21g",
          "30%"
         ],
         [
          "– saturates",
-         "4.5g",
+         "~4.5g",
          "23%"
         ]
        ],
