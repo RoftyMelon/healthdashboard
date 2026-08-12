@@ -4136,10 +4136,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
-        ],
-        [
-         "1 Aug 2026",
-         "reduced from 300g to 150g"
         ]
        ],
        "Notes": [
@@ -4331,10 +4327,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "replaced 100g mozzarella"
-        ],
-        [
-         "1 Aug 2026",
-         "reduced from 125g to 100g"
         ]
        ]
       }
