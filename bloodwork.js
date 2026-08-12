@@ -18,7 +18,7 @@ window.BLOODWORK =
   "confounds": [
    "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
    "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them.",
-   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. There WAS a 'Huel' dec grouping vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg. It was DELETED on 11 Aug 2026, from DECS and from all thirteen: that list renders as a group heading beside Creatine 5g and NAC 11g on the Markers page, and a stopped food has no place in a list of things being taken. sel, zn, iron and tsat had no other dec and now carry none. THIS ENTRY IS THE ONLY RECORD of which markers that fortification touched - it is not recoverable from the marker rows any more. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
+   "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. There WAS a 'Huel' dec grouping vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg. It was DELETED on 1 Aug 2026, from DECS and from all thirteen: that list renders as a group heading beside Creatine 5g and NAC 11g on the Markers page, and a stopped food has no place in a list of things being taken. sel, zn, iron and tsat had no other dec and now carry none. THIS ENTRY IS THE ONLY RECORD of which markers that fortification touched - it is not recoverable from the marker rows any more. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
   ],
   "subject": {
    "sex": "male",
@@ -4138,7 +4138,7 @@ window.BLOODWORK =
          "added"
         ],
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "reduced from 300g to 150g"
         ]
        ],
@@ -4201,7 +4201,7 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "added"
         ]
        ]
@@ -4268,7 +4268,7 @@ window.BLOODWORK =
        ],
        "Changes": [
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "added"
         ]
        ]
@@ -4333,7 +4333,7 @@ window.BLOODWORK =
          "replaced 100g mozzarella"
         ],
         [
-         "11 Aug 2026",
+         "1 Aug 2026",
          "reduced from 125g to 100g"
         ]
        ]
