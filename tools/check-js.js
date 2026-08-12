@@ -402,7 +402,7 @@ setTimeout(()=>{
       !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
       'current averages'); }
   catch(e){ ok('diet supps',false,e.message); }
-  /* Kefir, nuts and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
+  /* Kefir and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
      in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:
      the tooltip payload is stored twice, so an edit that lands on one copy leaves the other
      stale and nothing on the page says so. Same name AND same portion must therefore mean the
@@ -414,6 +414,15 @@ setTimeout(()=>{
       const k=x.n+'@'+x.amt, j=JSON.stringify(x.info);
       if(seen[k]&&seen[k]!==j)drift.push(k); else seen[k]=j;}));
     ok('repeated foods carry identical data', drift.length===0, drift.join(', ')||'no drift');
+  }
+  {
+    const pre=DATA.DIET.meals.find(m=>m.id==='presnack'),dinner=DATA.DIET.meals.find(m=>m.id==='dinner');
+    const wa=pre&&pre.items.find(x=>x&&x.n==='Walnuts + almonds');
+    const pi=dinner&&dinner.items.find(x=>x&&x.n==='Pistachios');
+    ok('walnuts and almonds sit with the muesli; dinner keeps pistachios',
+      wa&&wa.amt==='~22g'&&pi&&pi.amt==='~8g'&&
+      JSON.stringify(wa.info).includes('Walnut 12g, almond 10g')&&
+      JSON.stringify(pi.info).includes('Pistachio 8g'),'split correctly');
   }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }

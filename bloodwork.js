@@ -2831,56 +2831,66 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Nuts",
-      "amt": "~15g",
+      "n": "Walnuts + almonds",
+      "amt": "~22g",
       "info": {
        "Ingredients": [
         [
          "",
-         "Walnut 6g, almond 5g, pistachio 4g"
+         "Walnut 12g, almond 10g"
         ]
        ],
-       "Macronutrients — per ~15g": [
+       "Macronutrients — per ~22g": [
         [
          "Energy",
-         "90kcal",
-         "5%"
+         "135kcal",
+         "7%"
         ],
         [
          "Protein",
-         "3g",
-         "6%"
+         "4g",
+         "8%"
         ],
         [
          "Fat",
-         "8g",
-         "11%"
+         "13g",
+         "19%"
         ],
         [
          "Fibre",
-         "1.5g"
+         "2g"
         ]
        ],
        "Standouts": [
         [
          "Omega-3 (ALA)",
-         "0.6g"
+         "1.2g"
         ],
         [
          "Vitamin E",
-         "1.3mg",
-         "11%"
+         "2.4mg",
+         "20%"
         ],
         [
          "Magnesium",
-         "28mg",
-         "7%"
+         "46mg",
+         "12%"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added"
+        ],
+        [
+         "12 Aug 2026",
+         "all walnuts and almonds consolidated with the muesli"
+        ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Soaked overnight with the oats and the rest of the homemade muesli"
         ]
        ]
       }
@@ -3857,56 +3867,56 @@ window.BLOODWORK =
      },
      "---",
      {
-      "n": "Nuts",
-      "amt": "~15g",
+      "n": "Pistachios",
+      "amt": "~8g",
       "info": {
        "Ingredients": [
         [
          "",
-         "Walnut 6g, almond 5g, pistachio 4g"
+         "Pistachio 8g"
         ]
        ],
-       "Macronutrients — per ~15g": [
+       "Macronutrients — per ~8g": [
         [
          "Energy",
-         "90kcal",
-         "5%"
+         "45kcal",
+         "2%"
         ],
         [
          "Protein",
-         "3g",
-         "6%"
+         "2g",
+         "4%"
         ],
         [
          "Fat",
-         "8g",
-         "11%"
+         "3g",
+         "4%"
         ],
         [
          "Fibre",
-         "1.5g"
+         "1g"
         ]
        ],
        "Standouts": [
         [
-         "Omega-3 (ALA)",
-         "0.6g"
-        ],
-        [
          "Vitamin E",
-         "1.3mg",
-         "11%"
+         "0.2mg",
+         "2%"
         ],
         [
          "Magnesium",
-         "28mg",
-         "7%"
+         "10mg",
+         "3%"
         ]
        ],
        "Changes": [
         [
          "1 Aug 2026",
          "added"
+        ],
+        [
+         "12 Aug 2026",
+         "reduced to pistachios only; walnuts and almonds moved to the muesli"
         ]
        ]
       }
