@@ -459,7 +459,7 @@ tr.det>td{padding:0;border-bottom:.5px solid var(--line)}
 .mnsec+.mnsec{margin-top:18px}
 .mnlabel{margin-bottom:5px;color:var(--info);font-size:10px;font-weight:700;
   letter-spacing:.14em;line-height:1.35;text-transform:uppercase}
-.mnterm{margin-bottom:4px;color:var(--t2);font-size:15px;font-weight:600;line-height:1.45}
+.mnterm{margin-bottom:18px;color:var(--t2);font-size:15px;font-weight:600;line-height:1.45}
 .mnbody{color:var(--t3);font-size:15px;line-height:1.6}
 .dwrap.open .dassay{opacity:1}
 /* reduced motion skips the fade, so BOTH panes must be forced visible — listing only
@@ -1533,16 +1533,15 @@ const dD=(m,d)=>{const u=rdU(m);                   // a DIFFERENCE: slope only, 
   return u?(u.a!==undefined?d/u.a:d/u.m):d;};      // (matters for a1c's affine IFCC unit)
 const fmt=n=>{const a=Math.abs(n);const d=a>=100?0:a>=10?1:a>=1?2:3;return parseFloat(n.toFixed(d)).toString();};
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function markerNoteHTML(note){return[
-  ['What it measures',note.measures,true],
-  ['Why it matters',note.matters,false],
-  ['Main caveat',note.caveat,false]
-].map(([label,body,splitLead])=>{
-  const lines=String(body).split('\n'),term=splitLead&&lines.length>1?lines.shift():'';
-  return '<section class="mnsec"><div class="mnlabel">'+label+'</div>'+
-    (term?'<div class="mnterm">'+esc(term)+'</div>':'')+
-    '<div class="mnbody">'+esc(lines.join('\n')).replace(/\n/g,'<br>')+'</div></section>';
-}).join('');}
+function markerNoteHTML(note){
+  const measures=String(note.measures).split('\n'),term=measures.length>1?measures.shift():'';
+  return (term?'<div class="mnterm">'+esc(term)+'</div>':'')+[
+    ['What it measures',measures.join('\n')],
+    ['Why it matters',note.matters],
+    ['Main caveat',note.caveat]
+  ].map(([label,body])=>'<section class="mnsec"><div class="mnlabel">'+label+'</div>'+
+    '<div class="mnbody">'+esc(body).replace(/\n/g,'<br>')+'</div></section>').join('');
+}
 /* Five different claims, never one generic "normal range":
    - raw.lr: exactly what that laboratory printed for that result; provenance only
    - marker.reference: a sourced healthy-population interval that applies across draws

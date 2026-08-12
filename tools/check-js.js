@@ -61,8 +61,8 @@ setTimeout(()=>{
      Object.keys(expansions).length+' expansions');
    let mcvRendered='';
    try{mcvRendered=(0,eval)('markerNoteHTML(window.BLOODWORK.MARK.find(m=>m.id==="mcv").note)');}catch(e){mcvRendered=e.message;}
-   ok('the acronym expansion renders as a distinct first line',
-     mcvRendered.includes('<div class="mnterm">MCV (Mean Corpuscular Volume)</div>'),
+   ok('the acronym expansion renders before the first description section',
+     mcvRendered.startsWith('<div class="mnterm">MCV (Mean Corpuscular Volume)</div><section class="mnsec"><div class="mnlabel">What it measures</div>'),
      mcvRendered.slice(0,160));}
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
