@@ -1077,11 +1077,7 @@ a.sbuy:hover{color:var(--info)}
 .dprow{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
   padding:5px 0;border-bottom:.5px solid var(--line2);font-size:14.5px;color:var(--t2)}
 .dprow b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
-.dprot{margin-top:17px;padding:11px 0 0 12px;border-top:.5px solid var(--line);border-left:2px solid var(--info)}
-.dproth{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--info)}
-.dprotval{margin-top:4px;font-size:15px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums}
-.dpavg,.dpnote{margin-top:3px;font-size:12.5px;color:var(--t3);line-height:1.45}
-.dpnote{margin-top:13px;color:var(--t4)}
+.dpnote{margin-top:13px;font-size:12.5px;color:var(--t4);line-height:1.45}
 .dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
 .dnotes b{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
 .dnotes ul{margin:6px 0 0;padding:0;list-style:none}
@@ -3234,25 +3230,21 @@ function renderPage(p){
       const ptr=DIET.meals.flatMap(m=>m.items||[]).find(x=>x&&typeof x==='object'&&x.rotation);
       const rotation=ptr&&DIET.meals.find(m=>m.id===ptr.rotation);
       const choices=rotation?(rotation.items||[]).filter(x=>x&&typeof x==='object').flatMap(macroOptions):[];
-      const rv=k=>choices.map(o=>o[k]||0),rEnergy=rv('energy'),rProtein=rv('protein');
-      const rot=rEnergy.length?{
-        energy:[Math.min(...rEnergy),Math.max(...rEnergy)],protein:[Math.min(...rProtein),Math.max(...rProtein)],
-        avgEnergy:rEnergy.reduce((a,b)=>a+b,0)/rEnergy.length,avgProtein:rProtein.reduce((a,b)=>a+b,0)/rProtein.length}:null;
-      const perKg=base.protein.map(v=>v/p.weightKg);
+      const total={};
+      Object.keys(base).forEach(k=>{const vals=choices.map(o=>o[k]||0);
+        total[k]=vals.length?[base[k][0]+Math.min(...vals),base[k][1]+Math.max(...vals)]:base[k];});
+      const perKg=total.protein.map(v=>v/p.weightKg);
       const rows=[
-        ['Energy',`~${fmtRange(base.energy,50)} kcal`],
-        ['Protein',`~${fmtRange(base.protein)} g · ${fmtRange(perKg,.1,1)} g/kg`],
-        ['Carbohydrate',`~${fmtRange(base.carbs)} g`],
-        ['Fat',`~${fmtRange(base.fat)} g`],
-        ['Fibre',`~${fmtRange(base.fibre)} g`],
-        ['Saturated fat',`~${fmtRange(base.saturates)} g`]
+        ['Energy',`~${fmtRange(total.energy,50)} kcal`],
+        ['Protein',`~${fmtRange(total.protein)} g · ${fmtRange(perKg,.1,1)} g/kg`],
+        ['Carbohydrate',`~${fmtRange(total.carbs)} g`],
+        ['Fat',`~${fmtRange(total.fat)} g`],
+        ['Fibre',`~${fmtRange(total.fibre)} g`],
+        ['Saturated fat',`~${fmtRange(total.saturates)} g`]
       ];
       return `<section class="pgsec dietprofile"><div class="pgst">${esc(p.title)}</div><div class="dpbasis">${esc(p.basis)}</div>`+
         `<div class="dpgrid">${rows.map(r=>`<div class="dprow"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>`+
-        (rot?`<div class="dprot"><div class="dproth">Weekly starter adds</div>`+
-          `<div class="dprotval">+${fmtRange(rot.energy)} kcal · +${fmtRange(rot.protein)} g protein</div>`+
-          `<div class="dpavg">Equal-choice average: +${fmtNum(Math.round(rot.avgEnergy))} kcal · +${fmtNum(Math.round(rot.avgProtein))} g protein</div></div>`:'')+
-        `<div class="dpnote">Ranges reflect beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></section>`;
+        `<div class="dpnote">Ranges reflect the Weekly rotation, beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></section>`;
     };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column

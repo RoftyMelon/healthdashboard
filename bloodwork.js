@@ -2559,7 +2559,7 @@ window.BLOODWORK =
   "eveningAt": "21:00",
   "profile": {
    "title": "Nutritional profile",
-   "basis": "Approximate daily intake · food only · excluding the Weekly starter and supplements",
+   "basis": "Approximate daily intake · food only · including one Weekly rotation choice · supplements excluded",
    "weightKg": 80
   },
   "meals": [

@@ -179,9 +179,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   gone rather than dormant.) The order regressed once silently — a pass that renamed
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
 - A DIET food pointer may carry `rotation: "<meal id>"`, naming an untimed food section such as
-  `weekly`. The Diet viewer excludes that pointer from the base nutritional profile and reports
-  the referenced choices as a separate addition. The profile is derived from the food tooltip
-  values at render time; never store a second set of totals that can drift from the foods.
+  `weekly`. The Diet viewer excludes the pointer's average from the nutritional calculation, then
+  folds exactly one of the referenced choices into the displayed daily ranges. The profile is
+  derived from the food tooltip values at render time; never store a second set of totals that can
+  drift from the foods.
   `DIET.profile` enables that standalone section and stores only its title, explanatory basis and body weight
   used for the protein-per-kilogram display — no nutrient totals.
 - **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why

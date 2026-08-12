@@ -395,9 +395,11 @@ setTimeout(()=>{
     const H=n.pages.innerHTML,pi=H.indexOf('class="pgsec dietprofile"'),wi=H.indexOf('>Weekly</div>');
     ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
-    ok('nutritional profile derives the current base ranges',
-      H.includes('~3,050&ndash;3,100 kcal')&&H.includes('~149&ndash;159 g · 1.9&ndash;2.0 g/kg')&&
-      H.includes('+99&ndash;250 kcal · +14&ndash;36 g protein'),'current ranges'); }
+    ok('nutritional profile includes one Weekly rotation choice',
+      H.includes('~3,150&ndash;3,350 kcal')&&H.includes('~163&ndash;195 g · 2.0&ndash;2.4 g/kg')&&
+      H.includes('~255&ndash;262 g')&&H.includes('~151&ndash;172 g')&&
+      H.includes('~53&ndash;56 g')&&H.includes('~31&ndash;40 g')&&
+      !H.includes('Weekly starter adds'),'current ranges'); }
   catch(e){ ok('diet supps',false,e.message); }
   /* Kefir, nuts and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
      in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:
