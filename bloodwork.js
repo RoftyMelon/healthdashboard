@@ -2557,6 +2557,11 @@ window.BLOODWORK =
  },
  "DIET": {
   "eveningAt": "21:00",
+  "profile": {
+   "title": "Approximate daily nutrition",
+   "basis": "Food only · base excludes the Weekly starter and supplements",
+   "weightKg": 80
+  },
   "meals": [
    {
     "id": "presnack",
@@ -2955,6 +2960,7 @@ window.BLOODWORK =
      {
       "n": "Starter rotation",
       "amt": "see Weekly ↓",
+      "rotation": "weekly",
       "info": {
        "Macronutrients — average serving": [
         [

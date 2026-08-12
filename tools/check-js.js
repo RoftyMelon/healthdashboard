@@ -167,7 +167,7 @@ setTimeout(()=>{
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
     grooming:['ccard',DATA.CARE.filter(c=>!c.schedule&&!c.tier).length],   // a scheduled card renders as a grid and a .tier one as a plain list — neither is a ccard
-    diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meal cards + Evening; untimed sections are plain rows
+    diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1+(DATA.DIET.profile?1:0)]};   // timed meals + Evening + optional profile; untimed sections are plain rows
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
       ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
@@ -391,7 +391,13 @@ setTimeout(()=>{
     const shown=(n.pages.innerHTML.match(/<b>Evening<\/b>/g)||[]).length;
     ok('diet shows the Evening card', shown===1, shown+' rendered');
     ok(`evening card derives ${evn} item(s) from STACK.when`,
-      evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived'); }
+      evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived');
+    const H=n.pages.innerHTML,pi=H.indexOf('class="ccard dietprofile"'),wi=H.indexOf('>Weekly</div>');
+    ok('diet shows one nutritional-profile card',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one card');
+    ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
+    ok('nutritional profile derives the current base ranges',
+      H.includes('~3,050&ndash;3,100 kcal')&&H.includes('~149&ndash;159 g · 1.9&ndash;2.0 g/kg')&&
+      H.includes('+99&ndash;250 kcal · +14&ndash;36 g protein'),'current ranges'); }
   catch(e){ ok('diet supps',false,e.message); }
   /* Kefir, nuts and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
      in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:
@@ -440,6 +446,10 @@ setTimeout(()=>{
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;
   ok('audit rejects overlapping decision zones',audit(j16).length===1,audit(j16)[0]||'');
+  const j24=JSON.parse(JSON.stringify(DATA)); j24.DIET.profile.basis='';
+  ok('audit rejects a malformed nutritional profile',audit(j24).length===1,audit(j24)[0]||'');
+  const j25=JSON.parse(JSON.stringify(DATA)); j25.DIET.meals.find(m=>m.id==='brunch').items.find(x=>x.rotation).rotation='ghost';
+  ok('audit rejects an unknown food rotation',audit(j25).length===1,audit(j25)[0]||'');
   try{ setPage('nextdraw');
     const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
     ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');

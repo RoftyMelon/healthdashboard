@@ -1070,6 +1070,17 @@ a.sbuy:hover{color:var(--info)}
    refills them to the width the product list settled on, so they wrap inside it. */
 .care.wide .ccard[data-care="face"] .cgnote{width:0;min-width:100%}
 .care.col .ccard{flex:none;width:min(430px,100%)}   /* wide enough that no item wraps */
+.dietprofile{width:min(var(--cardw,430px),100%);margin:24px 0 26px}
+.dpbasis{margin:5px 0 10px;font-size:13px;color:var(--t3);line-height:1.45}
+.dpgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:0 22px}
+.dprow{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  padding:5px 0;border-bottom:.5px solid var(--line2);font-size:14.5px;color:var(--t2)}
+.dprow b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dprot{margin-top:12px;padding-top:10px;border-top:.5px solid var(--line)}
+.dproth{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--info)}
+.dprotval{margin-top:4px;font-size:15px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums}
+.dpavg,.dpnote{margin-top:3px;font-size:12.5px;color:var(--t3);line-height:1.45}
+.dpnote{margin-top:10px;color:var(--t4)}
 .dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
 .dnotes b{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
 .dnotes ul{margin:6px 0 0;padding:0;list-style:none}
@@ -1827,10 +1838,21 @@ function audit(j){
         bad.push(`ROUTINE "${r.do}": until "${r.until}" must be HH:MM and later than ${r.t}`);
     });
   }
-  if(j.DIET)(j.DIET.meals||[]).forEach(m=>{
-    if(!m.items||!m.items.length)bad.push(`DIET "${m.t}": meal has no items`);
-    else m.items.forEach(it=>{if(typeof it!=='string'&&!(it&&typeof it.n==='string'))bad.push(`DIET "${m.t}": item must be a string or {n, info}`);});
-  });
+  if(j.DIET){
+    const meals=j.DIET.meals||[],ids=new Set(meals.map(m=>m.id));
+    if(j.DIET.profile){const p=j.DIET.profile;
+      if(!p.title||!p.basis||!Number.isFinite(p.weightKg)||p.weightKg<=0)
+        bad.push('DIET.profile must carry title, basis and a positive weightKg');}
+    meals.forEach(m=>{
+      if(!m.items||!m.items.length)bad.push(`DIET "${m.t}": meal has no items`);
+      else m.items.forEach(it=>{
+        if(typeof it!=='string'&&!(it&&typeof it.n==='string'))bad.push(`DIET "${m.t}": item must be a string or {n, info}`);
+        if(it&&typeof it==='object'&&it.rotation!==undefined&&
+          (typeof it.rotation!=='string'||!ids.has(it.rotation)||meals.find(x=>x.id===it.rotation).at))
+          bad.push(`DIET "${m.t}" / "${it.n}": rotation must name an untimed meal id`);
+      });
+    });
+  }
   if(j.CARE)j.CARE.forEach(c=>{
     if(c.schedule){   // a day-indexed weekly grid instead of cadence groups
       const sc=c.schedule, days=(Array.isArray(sc.days)?sc.days:[]).map(d=>d&&d.d);
@@ -3174,6 +3196,63 @@ function renderPage(p){
       return e.length?Math.round(e.reduce((a,b)=>a+b,0)/e.length):0;};
     const kcalTag=m=>{const t=(m.items||[]).reduce((s,x)=>s+foodKcal(x),0);   // meal total, summed live from each food's Energy row
       return t?`<span class="ckcal">~${Math.round(t/50)*50}kcal</span>`:'';};
+    /* The profile is DERIVED from the same food rows the cards show. Storing six totals beside
+       those rows would create six silent drift points every time a serving changes. Missing
+       macro cells contribute no quantified amount, which is why the card calls itself
+       approximate and says explicitly that unlisted nutrients are not captured. */
+    const macroKey=label=>label==='Energy'?'energy':label==='Protein'?'protein':label==='Fat'?'fat':
+      label==='– saturates'?'saturates':String(label).startsWith('Carbs')?'carbs':label==='Fibre'?'fibre':null;
+    const macroOptions=x=>{
+      if(!x||typeof x!=='object'||!x.info||typeof x.info!=='object')return [{}];
+      const opts={};
+      Object.entries(x.info).forEach(([section,rows])=>{
+        if(!section.includes('Macronutrients')||!Array.isArray(rows))return;
+        const split=section.indexOf(' · '),name=split<0?'_':section.slice(0,split),o=opts[name]||(opts[name]={});
+        rows.forEach(r=>{const k=macroKey(r[0]),n=String(r[1]).match(/[\d.]+/);if(k&&n)o[k]=+n[0];});
+      });
+      return Object.keys(opts).length?Object.values(opts):[{}];
+    };
+    const macroRange=items=>{
+      const out={energy:[0,0],protein:[0,0],carbs:[0,0],fat:[0,0],fibre:[0,0],saturates:[0,0]};
+      (items||[]).forEach(x=>{
+        if(x&&typeof x==='object'&&x.rotation)return;
+        const opts=macroOptions(x);
+        Object.keys(out).forEach(k=>{const vals=opts.map(o=>o[k]||0);out[k][0]+=Math.min(...vals);out[k][1]+=Math.max(...vals);});
+      });
+      return out;
+    };
+    const fmtNum=(n,d=0)=>n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+    const fmtRange=(r,step=1,d=0)=>{
+      const a=Math.round(r[0]/step)*step,b=Math.round(r[1]/step)*step;
+      return a===b?fmtNum(a,d):`${fmtNum(a,d)}&ndash;${fmtNum(b,d)}`;
+    };
+    const profileCard=()=>{
+      const p=DIET.profile;if(!p)return '';
+      const base={energy:[0,0],protein:[0,0],carbs:[0,0],fat:[0,0],fibre:[0,0],saturates:[0,0]};
+      DIET.meals.filter(m=>m.at).forEach(m=>{const r=macroRange(m.items);Object.keys(base).forEach(k=>{base[k][0]+=r[k][0];base[k][1]+=r[k][1];});});
+      const ptr=DIET.meals.flatMap(m=>m.items||[]).find(x=>x&&typeof x==='object'&&x.rotation);
+      const rotation=ptr&&DIET.meals.find(m=>m.id===ptr.rotation);
+      const choices=rotation?(rotation.items||[]).filter(x=>x&&typeof x==='object').flatMap(macroOptions):[];
+      const rv=k=>choices.map(o=>o[k]||0),rEnergy=rv('energy'),rProtein=rv('protein');
+      const rot=rEnergy.length?{
+        energy:[Math.min(...rEnergy),Math.max(...rEnergy)],protein:[Math.min(...rProtein),Math.max(...rProtein)],
+        avgEnergy:rEnergy.reduce((a,b)=>a+b,0)/rEnergy.length,avgProtein:rProtein.reduce((a,b)=>a+b,0)/rProtein.length}:null;
+      const perKg=base.protein.map(v=>v/p.weightKg);
+      const rows=[
+        ['Energy',`~${fmtRange(base.energy,50)} kcal`],
+        ['Protein',`~${fmtRange(base.protein)} g · ${fmtRange(perKg,.1,1)} g/kg`],
+        ['Carbohydrate',`~${fmtRange(base.carbs)} g`],
+        ['Fat',`~${fmtRange(base.fat)} g`],
+        ['Fibre',`~${fmtRange(base.fibre)} g`],
+        ['Saturated fat',`~${fmtRange(base.saturates)} g`]
+      ];
+      return `<div class="ccard dietprofile"><b>${esc(p.title)}</b><div class="dpbasis">${esc(p.basis)}</div>`+
+        `<div class="dpgrid">${rows.map(r=>`<div class="dprow"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>`+
+        (rot?`<div class="dprot"><div class="dproth">Weekly starter adds</div>`+
+          `<div class="dprotval">+${fmtRange(rot.energy)} kcal · +${fmtRange(rot.protein)} g protein</div>`+
+          `<div class="dpavg">Equal-choice average: +${fmtNum(Math.round(rot.avgEnergy))} kcal · +${fmtNum(Math.round(rot.avgProtein))} g protein</div></div>`:'')+
+        `<div class="dpnote">Ranges reflect beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></div>`;
+    };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
     h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
@@ -3189,7 +3268,7 @@ function renderPage(p){
           return `<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span>`+
             ((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+
             (k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</div>`;}).join('')+
-        `</div>`).join('');
+        `</div>`).join('')+profileCard();
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
   }
