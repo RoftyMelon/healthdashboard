@@ -2882,12 +2882,6 @@ window.BLOODWORK =
          "1 Aug 2026",
          "added with all walnuts and almonds consolidated with the muesli"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Soaked overnight with the oats and the rest of the homemade muesli"
-        ]
        ]
       }
      },
