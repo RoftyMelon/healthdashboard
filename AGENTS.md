@@ -217,7 +217,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   “Main caveat”. Keep the prose profile-neutral and human-readable; personal values, dates,
   interventions and per-draw context belong in `DATA.draws[].v.*.cx`. Consistency means the
   three-part reasoning structure, not equal length — a simple marker may need one short sentence
-  per field while a complex or high-stakes marker may need substantially more.
+  per field while a complex or high-stakes marker may need substantially more. When the displayed
+  marker name is only an acronym, `measures` begins with `ACRONYM (Expanded Name)\n`; the
+  viewer renders that first line separately, and the explanatory sentence follows it.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC

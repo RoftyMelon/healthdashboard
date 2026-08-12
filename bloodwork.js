@@ -14,7 +14,7 @@ window.BLOODWORK =
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
   "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<a same-scale label from marker units[]>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER rescale a value. Keep the exact number the lab printed; the dashboard handles real conversions.\n 2. \"u\" must be a same-scale unit LABEL from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    Equivalent zero-rescaling notation may be normalized (case, U/L vs UI/L, µUI/mL vs mUI/L). If the numeric scale is not listed, STOP; an obvious report typo may use the correct label only with a cx that records it.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"Explicitly ultra-sensitive per report; older report does not identify sensitivity\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as lr versus cut and target: transcription\n    and interpretation stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). If an upper bound crosses a high cutoff, the claim is unresolved and renders watch — never\n    confirmed abnormal — because the true value may still sit below it. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end. It is provenance, distinct from marker-level reference, cut and target claims. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (a distinctive interval can support assay identification, but March’s <5 mg/L alone could not distinguish standard from ultra-sensitive CRP; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
   "units": "Each marker has a units[] array of {l, m} or {l, a, b} entries. Convert to the US unit with the entry whose l matches v.u: value = (a !== undefined) ? a*raw + b : raw*m. The first entry is not special; v.u names the unit by its LABEL, never by position.",
-  "marker_notes": "Every MARK[].note contains exactly three profile-neutral educational fields: measures, matters and caveat. Keep the structure consistent but let the length match the marker's complexity. Personal results, dates, interventions, assay-specific conclusions and per-draw context belong in DATA.draws, not in marker notes.",
+  "marker_notes": "Every MARK[].note contains exactly three profile-neutral educational fields: measures, matters and caveat. Keep the structure consistent but let the length match the marker's complexity. When the displayed name is only an acronym, measures starts with 'ACRONYM (Expanded Name)\n'. Personal results, dates, interventions, assay-specific conclusions and per-draw context belong in DATA.draws, not in marker notes.",
   "dec": "Which supplements a marker bears on. Many-to-many. Membership does NOT mean the supplement moves it: cystatin C is under Creatine precisely because creatine CANNOT distort it, albumin is under Vitamin D because calcium cannot be corrected without it, selenium is iodine's cofactor, B12/folate are TMG's pathway. The DECS order is deliberate — grouped by primary biomarker domain (hormones/thyroid → lipids/cardio → liver/methylation → kidney/muscle → bone/minerals → aminos → foundational), NOT alphabetical; do not re-sort.",
   "confounds": [
    "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
@@ -4613,7 +4613,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "TSH is the pituitary gland's signal telling the thyroid how much hormone to produce. In primary thyroid dysfunction it usually moves in the opposite direction from free T4.",
+    "measures": "TSH (Thyroid-Stimulating Hormone)\nA pituitary hormone that signals the thyroid to produce thyroid hormones.",
     "matters": "It is the usual first-line thyroid test. A high TSH with low free T4 supports an underactive thyroid, while a low TSH with high thyroid hormones supports an overactive thyroid.",
     "caveat": "Time of day, acute illness, pregnancy, medicines, biotin and pituitary disease can alter the pattern. Read an unexpected result with free T4 and the clinical context, and often confirm it before drawing conclusions."
    },
@@ -5363,7 +5363,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Estimated glomerular filtration rate, or eGFR, calculates how quickly the kidneys filter blood. It is an estimate rather than a direct measurement.",
+    "measures": "eGFR (Estimated Glomerular Filtration Rate)\nAn estimate of how quickly the kidneys filter blood, calculated from a filtration marker plus age and sex.",
     "matters": "eGFR is useful for following kidney filtration over time and for interpreting medicines and other kidney markers. A value from 60 to 89 mL/min/1.73 m² is not chronic kidney disease by itself without persistence or other evidence of kidney damage.",
     "caveat": "The result depends on the biomarker and equation used. Creatinine-based eGFR inherits the effects of muscle mass, meat and creatine; cystatin-C-based eGFR has different confounders. Compare like with like and use the combined estimate when appropriate."
    },
@@ -5533,7 +5533,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Apolipoprotein B is the structural protein carried one-for-one on LDL, VLDL remnants, IDL and Lp(a). The result therefore estimates the number of atherogenic particles in the blood.",
+    "measures": "ApoB (Apolipoprotein B)\nThe structural protein carried one-for-one on LDL, VLDL remnants, IDL and Lp(a). The result therefore estimates the number of atherogenic particles in the blood.",
     "matters": "Each of those particles can enter the artery wall, so cumulative ApoB exposure is causally related to atherosclerosis. ApoB is especially useful when particle number and the cholesterol carried inside those particles disagree.",
     "caveat": "It is still a concentration measured at one moment, not lifetime exposure. Biological variation and assay calibration affect small changes, and a result should be interpreted with the overall cardiovascular-risk context rather than as a disease diagnosis by itself."
    },
@@ -5712,7 +5712,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "High-sensitivity C-reactive protein measures very low concentrations of CRP, a protein the liver releases in response to inflammatory signalling.",
+    "measures": "hs-CRP (High-Sensitivity C-Reactive Protein)\nA low-range measurement of CRP, a protein the liver releases in response to inflammatory signalling.",
     "matters": "When measured while well and persistently elevated, it can add cardiovascular-risk context and reveal that a draw was affected by inflammation.",
     "caveat": "It is highly nonspecific. Infection, injury, dental inflammation, obesity and recent hard training can all raise it, so an unexpected result should usually be repeated after recovery rather than attributed to one cause or treated as a supplement target."
    },
@@ -6038,7 +6038,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-04"
    },
    "note": {
-    "measures": "HbA1c is the percentage of haemoglobin that has glucose attached to it. It approximates average glucose exposure over the preceding two to three months, with greater weight on recent weeks.",
+    "measures": "HbA1c (Hemoglobin A1c)\nThe percentage of hemoglobin with glucose attached. It approximates average glucose exposure over the preceding two to three months, with greater weight on recent weeks.",
     "matters": "It provides a longer-term view than one fasting glucose result and is widely used to screen for and monitor diabetes.",
     "caveat": "Anything that changes red-cell lifespan or haemoglobin can distort it, including iron deficiency, blood loss, haemolysis, kidney disease and haemoglobin variants. It can also miss short glucose spikes and should be read with glucose data and blood-count context."
    },
@@ -6186,7 +6186,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Alanine aminotransferase is an enzyme concentrated mainly in liver cells. It enters the blood when those cells are stressed or injured.",
+    "measures": "ALT (Alanine Aminotransferase)\nAn enzyme concentrated mainly in liver cells that enters the blood when those cells are stressed or injured.",
     "matters": "It is one of the more liver-focused routine enzymes and helps screen for hepatocellular injury from fatty liver, alcohol, infection, medicines and other causes.",
     "caveat": "ALT can also rise after strenuous exercise or muscle injury, and a normal value does not exclude liver disease. Interpret the pattern with AST, GGT, bilirubin, medications, alcohol and recent training."
    },
@@ -6239,7 +6239,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Aspartate aminotransferase is an enzyme found in liver, skeletal muscle, heart and several other tissues.",
+    "measures": "AST (Aspartate Aminotransferase)\nAn enzyme found in the liver, skeletal muscle, heart and several other tissues.",
     "matters": "Together with ALT and the rest of the liver panel, it helps characterize liver-cell injury. Its presence in muscle also makes it useful context after heavy training or muscle damage.",
     "caveat": "AST is less liver-specific than ALT and can rise from exercise, muscle injury or sample haemolysis. Check CK and the wider enzyme pattern before assigning a liver cause."
    },
@@ -6274,7 +6274,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-31"
    },
    "note": {
-    "measures": "Gamma-glutamyl transferase is an enzyme found mainly in the liver and bile ducts.",
+    "measures": "GGT (Gamma-Glutamyl Transferase)\nAn enzyme found mainly in the liver and bile ducts.",
     "matters": "It helps identify hepatobiliary stress and can clarify whether a raised alkaline phosphatase is more likely to come from liver or bone. It may also respond to sustained alcohol exposure and some medicines.",
     "caveat": "GGT is sensitive but nonspecific. Alcohol, medications, fatty liver and metabolic factors can raise it, and a normal result does not rule out liver disease."
    },
@@ -6648,7 +6648,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-31"
    },
    "note": {
-    "measures": "Sex hormone-binding globulin is a liver-produced protein that binds testosterone and estradiol in the blood.",
+    "measures": "SHBG (Sex Hormone-Binding Globulin)\nA liver-produced protein that binds testosterone and estradiol in the blood.",
     "matters": "Changes in SHBG can make total testosterone look high or low without an equivalent change in free testosterone. It therefore helps explain a result that does not fit the symptoms or the rest of the androgen profile.",
     "caveat": "SHBG varies with age, genetics, thyroid and liver function, insulin resistance, body composition, medicines and sex-steroid exposure. It is contextual information, not a standalone health-optimization target."
    },
@@ -6729,7 +6729,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-31"
    },
    "note": {
-    "measures": "Dihydrotestosterone is a potent androgen formed from testosterone by 5-alpha-reductase.",
+    "measures": "DHT (Dihydrotestosterone)\nA potent androgen formed from testosterone by 5-alpha-reductase.",
     "matters": "It provides context on androgen activity and exposure to 5-alpha-reductase inhibitors, particularly for questions involving hair, skin or prostate tissue.",
     "caveat": "Blood DHT does not directly measure androgen action inside tissues, which also depends on local enzyme activity, receptors and genetics. Immunoassays can cross-react with related steroids, so LC-MS/MS and consistent timing are preferable for serial comparisons."
    },
@@ -6761,7 +6761,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-31"
    },
    "note": {
-    "measures": "Luteinizing hormone is a pulsatile signal from the pituitary that stimulates the testes to produce testosterone.",
+    "measures": "LH (Luteinizing Hormone)\nA pulsatile signal from the pituitary that stimulates the testes to produce testosterone.",
     "matters": "When testosterone is repeatedly low, LH helps distinguish a testicular problem from reduced hypothalamic or pituitary signalling.",
     "caveat": "LH is released in pulses and can vary within the same day. Interpret one result with repeat testosterone, FSH, symptoms, medicines and acute-illness context rather than using it alone."
    },
@@ -6793,7 +6793,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-31"
    },
    "note": {
-    "measures": "Follicle-stimulating hormone is a pituitary signal that supports Sertoli-cell function and sperm production in the testes.",
+    "measures": "FSH (Follicle-Stimulating Hormone)\nA pituitary signal that supports Sertoli-cell function and sperm production in the testes.",
     "matters": "An elevated result can support impaired seminiferous-tubule function and can help investigate fertility or broader testicular dysfunction.",
     "caveat": "A normal FSH does not prove normal fertility. Interpret it with LH, testosterone and, when fertility is the question, semen analysis; biological and assay variation also affect small changes."
    },
@@ -6947,7 +6947,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Mean platelet volume is the analyser's estimate of the average size of circulating platelets.",
+    "measures": "MPV (Mean Platelet Volume)\nThe analyser's estimate of the average size of circulating platelets.",
     "matters": "Read with the platelet count, it can add context about platelet production and turnover because newly produced platelets are often larger.",
     "caveat": "MPV changes with the analyser, collection tube and delay before analysis. Reference intervals are method-dependent, so compare serial results only under similar laboratory and pre-analytical conditions."
    },
@@ -7083,7 +7083,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-29"
    },
    "note": {
-    "measures": "Mean corpuscular volume is the average size of a red blood cell.",
+    "measures": "MCV (Mean Corpuscular Volume)\nThe average size of a red blood cell.",
     "matters": "It is a central tool for classifying anaemia: small cells suggest a microcytic pattern, while large cells suggest a macrocytic pattern and point toward different causes.",
     "caveat": "Opposing problems can average out and leave MCV normal, and young reticulocytes are larger than mature cells. Read it with RDW, haemoglobin, iron status, B12, folate and the clinical context."
    },
@@ -7115,7 +7115,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-29"
    },
    "note": {
-    "measures": "Mean corpuscular haemoglobin is the average amount of haemoglobin inside each red blood cell.",
+    "measures": "MCH (Mean Corpuscular Hemoglobin)\nThe average amount of hemoglobin inside each red blood cell.",
     "matters": "It helps describe how much oxygen-carrying protein each cell contains and supports the classification of anaemia when read with cell size and haemoglobin concentration.",
     "caveat": "MCH usually rises and falls with MCV, because larger cells generally contain more haemoglobin. It therefore rarely adds much by itself; its main value is confirming that the red-cell measurements tell a consistent story."
    },
@@ -7151,7 +7151,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-29"
    },
    "note": {
-    "measures": "Mean corpuscular haemoglobin concentration estimates how concentrated haemoglobin is inside the average red blood cell.",
+    "measures": "MCHC (Mean Corpuscular Hemoglobin Concentration)\nAn estimate of how concentrated hemoglobin is inside the average red blood cell.",
     "matters": "It helps distinguish red cells that contain an unusually low or high concentration of haemoglobin and acts as a consistency check on the analyser's red-cell measurements.",
     "caveat": "The normal range is narrow, and true high values are uncommon. Haemolysis, lipaemia, cold agglutinins and analyser effects can produce misleading results, so an unexpected value should be checked against the rest of the blood count and the sample."
    },
@@ -7183,7 +7183,7 @@ window.BLOODWORK =
     "reviewed": "2026-07-29"
    },
    "note": {
-    "measures": "Red-cell distribution width describes how much red blood-cell size varies within the sample.",
+    "measures": "RDW (Red Cell Distribution Width)\nA measure of how much red blood-cell size varies within the sample.",
     "matters": "A wider spread can reveal evolving or mixed red-cell problems even when the average cell size remains normal, such as early iron deficiency or combined nutrient deficiencies.",
     "caveat": "RDW is nonspecific and differs somewhat between analysers. Interpret it with MCV, haemoglobin, the blood smear when available and the relevant nutrient or disease context."
    },
@@ -7542,7 +7542,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "Total iron-binding capacity estimates how much iron transferrin could carry if all its binding sites were occupied.",
+    "measures": "TIBC (Total Iron-Binding Capacity)\nAn estimate of how much iron transferrin could carry if all its binding sites were occupied.",
     "matters": "It supplies the denominator for transferrin saturation and helps distinguish depleted iron stores from inflammatory or liver-related changes in iron transport.",
     "caveat": "TIBC often rises when iron stores are depleted and can fall with inflammation, liver dysfunction or poor nutritional status. Direct measurements and values calculated from transferrin are not always interchangeable, so record the method."
    },
@@ -7915,7 +7915,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-02"
    },
    "note": {
-    "measures": "DHEA-S is a sulfated androgen precursor made mainly by the adrenal glands.",
+    "measures": "DHEA-S (Dehydroepiandrosterone Sulfate)\nA sulfated androgen precursor made mainly by the adrenal glands.",
     "matters": "Its long half-life and limited day-to-day fluctuation make it a relatively stable marker of adrenal androgen production.",
     "caveat": "Levels vary strongly with age and sex and can change with adrenal disease, medicines and assay method. It is not a direct measure of tissue androgen action or an evidence-based longevity target."
    },
@@ -7952,7 +7952,7 @@ window.BLOODWORK =
     "reviewed": "2026-08-04"
    },
    "note": {
-    "measures": "Insulin-like growth factor 1 is produced mainly by the liver in response to growth hormone and carries many of growth hormone's effects to tissues.",
+    "measures": "IGF-1 (Insulin-Like Growth Factor 1)\nA hormone produced mainly by the liver in response to growth hormone that carries many of growth hormone's effects to tissues.",
     "matters": "Because it circulates more steadily than pulsatile growth hormone, it serves as an integrated marker of the growth-hormone axis.",
     "caveat": "Interpretation requires age- and assay-specific reference data. Nutrition, liver or kidney disease, diabetes, hormones and other conditions can change it; one abnormal value is not diagnostic, and observational longevity associations do not establish an optimization target."
    },

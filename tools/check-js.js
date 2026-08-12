@@ -45,6 +45,25 @@ setTimeout(()=>{
      (rendered.match(/class="mnsec"/g)||[]).length===3&&
      ['What it measures','Why it matters','Main caveat'].every(label=>rendered.includes(label)),
      rendered.slice(0,120));}
+  {const expansions={
+    tsh:'TSH (Thyroid-Stimulating Hormone)',egfr:'eGFR (Estimated Glomerular Filtration Rate)',
+    apob:'ApoB (Apolipoprotein B)',hscrp:'hs-CRP (High-Sensitivity C-Reactive Protein)',
+    a1c:'HbA1c (Hemoglobin A1c)',alt:'ALT (Alanine Aminotransferase)',
+    ast:'AST (Aspartate Aminotransferase)',ggt:'GGT (Gamma-Glutamyl Transferase)',
+    shbg:'SHBG (Sex Hormone-Binding Globulin)',dht:'DHT (Dihydrotestosterone)',
+    lh:'LH (Luteinizing Hormone)',fsh:'FSH (Follicle-Stimulating Hormone)',
+    mpv:'MPV (Mean Platelet Volume)',mcv:'MCV (Mean Corpuscular Volume)',
+    mch:'MCH (Mean Corpuscular Hemoglobin)',mchc:'MCHC (Mean Corpuscular Hemoglobin Concentration)',
+    rdw:'RDW (Red Cell Distribution Width)',tibc:'TIBC (Total Iron-Binding Capacity)',
+    dheas:'DHEA-S (Dehydroepiandrosterone Sulfate)',igf1:'IGF-1 (Insulin-Like Growth Factor 1)'};
+   ok('acronym-only marker descriptions open with their expanded name',
+     Object.entries(expansions).every(([id,line])=>DATA.MARK.find(m=>m.id===id).note.measures.startsWith(line+'\n')),
+     Object.keys(expansions).length+' expansions');
+   let mcvRendered='';
+   try{mcvRendered=(0,eval)('markerNoteHTML(window.BLOODWORK.MARK.find(m=>m.id==="mcv").note)');}catch(e){mcvRendered=e.message;}
+   ok('the acronym expansion renders as a distinct first line',
+     mcvRendered.includes('<div class="mnterm">MCV (Mean Corpuscular Volume)</div>'),
+     mcvRendered.slice(0,160));}
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
   // ALL 88 carry one as of 2026-08-02, by the owner's explicit decision: he wants to see where he
