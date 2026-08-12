@@ -212,6 +212,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   State the fact and stop: *why* a decision was taken (why zinc was folded into this draw, why
   the SI value was kept over the mg/L one) is reasoning, and reasoning does not go on screen.
   The marker's `note` is the long field; these two are not.
+- **Every `MARK[].note` has exactly three required fields:** `measures`, `matters` and
+  `caveat`. The viewer supplies the repeated labels “What it measures”, “Why it matters” and
+  “Main caveat”. Keep the prose profile-neutral and human-readable; personal values, dates,
+  interventions and per-draw context belong in `DATA.draws[].v.*.cx`. Consistency means the
+  three-part reasoning structure, not equal length — a simple marker may need one short sentence
+  per field while a complex or high-stakes marker may need substantially more.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC

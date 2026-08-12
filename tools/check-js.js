@@ -35,6 +35,16 @@ setTimeout(()=>{
   ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
     rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
+  {const fields=['measures','matters','caveat'];
+   ok('every marker has the three-part description contract',DATA.MARK.every(m=>
+     m.note&&typeof m.note==='object'&&!Array.isArray(m.note)&&
+     Object.keys(m.note).length===fields.length&&fields.every(k=>typeof m.note[k]==='string'&&m.note[k].trim())));
+   let rendered='';
+   try{rendered=(0,eval)('markerNoteHTML(window.BLOODWORK.MARK[0].note)');}catch(e){rendered=e.message;}
+   ok('marker descriptions render all three visible section labels',
+     (rendered.match(/class="mnsec"/g)||[]).length===3&&
+     ['What it measures','Why it matters','Main caveat'].every(label=>rendered.includes(label)),
+     rendered.slice(0,120));}
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
   // ALL 88 carry one as of 2026-08-02, by the owner's explicit decision: he wants to see where he
@@ -440,6 +450,10 @@ setTimeout(()=>{
   ok('audit rejects an active/deferred duplicate', audit(j12).length===1, audit(j12)[0]||'');
   const j13=JSON.parse(JSON.stringify(DATA)); j13.MARK[0].opt=[30,50];
   ok('audit rejects a legacy optimal band',audit(j13).length===1,audit(j13)[0]||'');
+  const jNote=JSON.parse(JSON.stringify(DATA)); delete jNote.MARK[0].note.caveat;
+  ok('audit rejects an incomplete marker description',audit(jNote).length===1,audit(jNote)[0]||'');
+  const jNoteExtra=JSON.parse(JSON.stringify(DATA)); jNoteExtra.MARK[0].note.advice='Take more';
+  ok('audit rejects an unknown marker-description section',audit(jNoteExtra).length===1,audit(jNoteExtra)[0]||'');
   const j14=JSON.parse(JSON.stringify(DATA)); delete j14.MARK.find(m=>m.id==='apob').target.source;
   ok('audit rejects an unsourced evidence target',audit(j14).length===1,audit(j14)[0]||'');
   const j18=JSON.parse(JSON.stringify(DATA)); delete j18.MARK.find(m=>m.id==='tt').reference.method;
