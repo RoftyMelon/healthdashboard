@@ -1070,17 +1070,18 @@ a.sbuy:hover{color:var(--info)}
    refills them to the width the product list settled on, so they wrap inside it. */
 .care.wide .ccard[data-care="face"] .cgnote{width:0;min-width:100%}
 .care.col .ccard{flex:none;width:min(430px,100%)}   /* wide enough that no item wraps */
-.dietprofile{width:min(var(--cardw,430px),100%);margin:24px 0 26px}
-.dpbasis{margin:5px 0 10px;font-size:13px;color:var(--t3);line-height:1.45}
+.pgsec.dietprofile{max-width:min(620px,100%);padding:0 14px;margin:27px 0 34px}
+.dietprofile .pgst{max-width:none}
+.dpbasis{margin:9px 0 8px;font-size:13px;color:var(--t3);line-height:1.45}
 .dpgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:0 22px}
 .dprow{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
   padding:5px 0;border-bottom:.5px solid var(--line2);font-size:14.5px;color:var(--t2)}
 .dprow b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
-.dprot{margin-top:12px;padding-top:10px;border-top:.5px solid var(--line)}
+.dprot{margin-top:17px;padding:11px 0 0 12px;border-top:.5px solid var(--line);border-left:2px solid var(--info)}
 .dproth{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--info)}
 .dprotval{margin-top:4px;font-size:15px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums}
 .dpavg,.dpnote{margin-top:3px;font-size:12.5px;color:var(--t3);line-height:1.45}
-.dpnote{margin-top:10px;color:var(--t4)}
+.dpnote{margin-top:13px;color:var(--t4)}
 .dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
 .dnotes b{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
 .dnotes ul{margin:6px 0 0;padding:0;list-style:none}
@@ -3198,7 +3199,7 @@ function renderPage(p){
       return t?`<span class="ckcal">~${Math.round(t/50)*50}kcal</span>`:'';};
     /* The profile is DERIVED from the same food rows the cards show. Storing six totals beside
        those rows would create six silent drift points every time a serving changes. Missing
-       macro cells contribute no quantified amount, which is why the card calls itself
+       macro cells contribute no quantified amount, which is why the section calls itself
        approximate and says explicitly that unlisted nutrients are not captured. */
     const macroKey=label=>label==='Energy'?'energy':label==='Protein'?'protein':label==='Fat'?'fat':
       label==='– saturates'?'saturates':String(label).startsWith('Carbs')?'carbs':label==='Fibre'?'fibre':null;
@@ -3246,12 +3247,12 @@ function renderPage(p){
         ['Fibre',`~${fmtRange(base.fibre)} g`],
         ['Saturated fat',`~${fmtRange(base.saturates)} g`]
       ];
-      return `<div class="ccard dietprofile"><b>${esc(p.title)}</b><div class="dpbasis">${esc(p.basis)}</div>`+
+      return `<section class="pgsec dietprofile"><div class="pgst">${esc(p.title)}</div><div class="dpbasis">${esc(p.basis)}</div>`+
         `<div class="dpgrid">${rows.map(r=>`<div class="dprow"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>`+
         (rot?`<div class="dprot"><div class="dproth">Weekly starter adds</div>`+
           `<div class="dprotval">+${fmtRange(rot.energy)} kcal · +${fmtRange(rot.protein)} g protein</div>`+
           `<div class="dpavg">Equal-choice average: +${fmtNum(Math.round(rot.avgEnergy))} kcal · +${fmtNum(Math.round(rot.avgProtein))} g protein</div></div>`:'')+
-        `<div class="dpnote">Ranges reflect beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></div>`;
+        `<div class="dpnote">Ranges reflect beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></section>`;
     };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column

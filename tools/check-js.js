@@ -167,7 +167,7 @@ setTimeout(()=>{
     routine:['rev',R0.length],   // every entry renders one row now — blocks included
     training:['ccard',DATA.TRAINING.cards.length],
     grooming:['ccard',DATA.CARE.filter(c=>!c.schedule&&!c.tier).length],   // a scheduled card renders as a grid and a .tier one as a plain list — neither is a ccard
-    diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1+(DATA.DIET.profile?1:0)]};   // timed meals + Evening + optional profile; untimed sections are plain rows
+    diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meals + Evening; Weekly and the nutrition profile are plain sections
   Object.entries(want).forEach(([p,[cls,n2]])=>{
     try{ setPage(p);
       ok(`page "${p}" renders ${n2} ${cls}`, count(n.pages.innerHTML,cls)===n2,
@@ -392,8 +392,8 @@ setTimeout(()=>{
     ok('diet shows the Evening card', shown===1, shown+' rendered');
     ok(`evening card derives ${evn} item(s) from STACK.when`,
       evn===0||n.pages.innerHTML.includes('Magnesium L-threonate'), 'derived');
-    const H=n.pages.innerHTML,pi=H.indexOf('class="ccard dietprofile"'),wi=H.indexOf('>Weekly</div>');
-    ok('diet shows one nutritional-profile card',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one card');
+    const H=n.pages.innerHTML,pi=H.indexOf('class="pgsec dietprofile"'),wi=H.indexOf('>Weekly</div>');
+    ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
     ok('nutritional profile derives the current base ranges',
       H.includes('~3,050&ndash;3,100 kcal')&&H.includes('~149&ndash;159 g · 1.9&ndash;2.0 g/kg')&&

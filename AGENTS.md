@@ -182,7 +182,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `weekly`. The Diet viewer excludes that pointer from the base nutritional profile and reports
   the referenced choices as a separate addition. The profile is derived from the food tooltip
   values at render time; never store a second set of totals that can drift from the foods.
-  `DIET.profile` enables that card and stores only its title, explanatory basis and body weight
+  `DIET.profile` enables that standalone section and stores only its title, explanatory basis and body weight
   used for the protein-per-kilogram display — no nutrient totals.
 - **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why
   this number, and which form) → `Evidence` (what the tag rests on) → `Watch` (ceilings,
