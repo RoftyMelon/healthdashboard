@@ -2876,12 +2876,6 @@ window.BLOODWORK =
          "46mg",
          "12%"
         ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added with all walnuts and almonds consolidated with the muesli"
-        ]
        ]
       }
      },
@@ -3897,12 +3891,6 @@ window.BLOODWORK =
          "Magnesium",
          "10mg",
          "3%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added as pistachios only; walnuts and almonds moved to the muesli"
         ]
        ]
       }
