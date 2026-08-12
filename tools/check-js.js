@@ -395,11 +395,12 @@ setTimeout(()=>{
     const H=n.pages.innerHTML,pi=H.indexOf('class="pgsec dietprofile"'),wi=H.indexOf('>Weekly</div>');
     ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
-    ok('nutritional profile includes one Weekly rotation choice',
-      H.includes('~3,150&ndash;3,350 kcal')&&H.includes('~163&ndash;195 g · 2.0&ndash;2.4 g/kg')&&
-      H.includes('~255&ndash;262 g')&&H.includes('~151&ndash;172 g')&&
-      H.includes('~53&ndash;56 g')&&H.includes('~31&ndash;40 g')&&
-      !H.includes('Weekly starter adds'),'current ranges'); }
+    ok('nutritional profile shows equal-choice averages including Weekly',
+      H.includes('~3,250 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
+      H.includes('~257 g')&&H.includes('~160 g')&&H.includes('~54 g')&&H.includes('~35 g')&&
+      !H.includes('Weekly starter adds')&&!H.includes('Approximate daily intake')&&
+      !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
+      'current averages'); }
   catch(e){ ok('diet supps',false,e.message); }
   /* Kefir, nuts and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
      in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:

@@ -1072,12 +1072,11 @@ a.sbuy:hover{color:var(--info)}
 .care.col .ccard{flex:none;width:min(430px,100%)}   /* wide enough that no item wraps */
 .pgsec.dietprofile{max-width:min(430px,100%);padding:0 14px;margin:27px 0 34px}   /* same measure as Weekly */
 .dietprofile .pgst{max-width:none}
-.dpbasis{margin:9px 0 8px;font-size:13px;color:var(--t3);line-height:1.45}
+.dietprofile .dpgrid{margin-top:8px}
 .dpgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:0 22px}
 .dprow{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
   padding:5px 0;border-bottom:.5px solid var(--line2);font-size:14.5px;color:var(--t2)}
 .dprow b{font-size:14.5px;font-weight:650;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
-.dpnote{margin-top:13px;font-size:12.5px;color:var(--t4);line-height:1.45}
 .dnotes{margin-top:26px;padding:13px 16px 15px;background:var(--grp);border-radius:12px}
 .dnotes b{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t3)}
 .dnotes ul{margin:6px 0 0;padding:0;list-style:none}
@@ -3195,8 +3194,7 @@ function renderPage(p){
       return t?`<span class="ckcal">~${Math.round(t/50)*50}kcal</span>`:'';};
     /* The profile is DERIVED from the same food rows the cards show. Storing six totals beside
        those rows would create six silent drift points every time a serving changes. Missing
-       macro cells contribute no quantified amount, which is why the section calls itself
-       approximate and says explicitly that unlisted nutrients are not captured. */
+       macro cells contribute no quantified amount, so the displayed values remain approximate. */
     const macroKey=label=>label==='Energy'?'energy':label==='Protein'?'protein':label==='Fat'?'fat':
       label==='– saturates'?'saturates':String(label).startsWith('Carbs')?'carbs':label==='Fibre'?'fibre':null;
     const macroOptions=x=>{
@@ -3209,42 +3207,34 @@ function renderPage(p){
       });
       return Object.keys(opts).length?Object.values(opts):[{}];
     };
-    const macroRange=items=>{
-      const out={energy:[0,0],protein:[0,0],carbs:[0,0],fat:[0,0],fibre:[0,0],saturates:[0,0]};
+    const macroMean=items=>{
+      const out={energy:0,protein:0,carbs:0,fat:0,fibre:0,saturates:0};
       (items||[]).forEach(x=>{
         if(x&&typeof x==='object'&&x.rotation)return;
         const opts=macroOptions(x);
-        Object.keys(out).forEach(k=>{const vals=opts.map(o=>o[k]||0);out[k][0]+=Math.min(...vals);out[k][1]+=Math.max(...vals);});
+        Object.keys(out).forEach(k=>{out[k]+=opts.reduce((s,o)=>s+(o[k]||0),0)/opts.length;});
       });
       return out;
     };
     const fmtNum=(n,d=0)=>n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-    const fmtRange=(r,step=1,d=0)=>{
-      const a=Math.round(r[0]/step)*step,b=Math.round(r[1]/step)*step;
-      return a===b?fmtNum(a,d):`${fmtNum(a,d)}&ndash;${fmtNum(b,d)}`;
-    };
     const profileCard=()=>{
       const p=DIET.profile;if(!p)return '';
-      const base={energy:[0,0],protein:[0,0],carbs:[0,0],fat:[0,0],fibre:[0,0],saturates:[0,0]};
-      DIET.meals.filter(m=>m.at).forEach(m=>{const r=macroRange(m.items);Object.keys(base).forEach(k=>{base[k][0]+=r[k][0];base[k][1]+=r[k][1];});});
+      const total={energy:0,protein:0,carbs:0,fat:0,fibre:0,saturates:0};
+      DIET.meals.filter(m=>m.at).forEach(m=>{const r=macroMean(m.items);Object.keys(total).forEach(k=>{total[k]+=r[k];});});
       const ptr=DIET.meals.flatMap(m=>m.items||[]).find(x=>x&&typeof x==='object'&&x.rotation);
       const rotation=ptr&&DIET.meals.find(m=>m.id===ptr.rotation);
       const choices=rotation?(rotation.items||[]).filter(x=>x&&typeof x==='object').flatMap(macroOptions):[];
-      const total={};
-      Object.keys(base).forEach(k=>{const vals=choices.map(o=>o[k]||0);
-        total[k]=vals.length?[base[k][0]+Math.min(...vals),base[k][1]+Math.max(...vals)]:base[k];});
-      const perKg=total.protein.map(v=>v/p.weightKg);
+      if(choices.length)Object.keys(total).forEach(k=>{total[k]+=choices.reduce((s,o)=>s+(o[k]||0),0)/choices.length;});
       const rows=[
-        ['Energy',`~${fmtRange(total.energy,50)} kcal`],
-        ['Protein',`~${fmtRange(total.protein)} g · ${fmtRange(perKg,.1,1)} g/kg`],
-        ['Carbohydrate',`~${fmtRange(total.carbs)} g`],
-        ['Fat',`~${fmtRange(total.fat)} g`],
-        ['Fibre',`~${fmtRange(total.fibre)} g`],
-        ['Saturated fat',`~${fmtRange(total.saturates)} g`]
+        ['Energy',`~${fmtNum(Math.round(total.energy/50)*50)} kcal`],
+        ['Protein',`~${fmtNum(Math.round(total.protein))} g`],
+        ['Carbohydrate',`~${fmtNum(Math.round(total.carbs))} g`],
+        ['Fat',`~${fmtNum(Math.round(total.fat))} g`],
+        ['Fibre',`~${fmtNum(Math.round(total.fibre))} g`],
+        ['Saturated fat',`~${fmtNum(Math.round(total.saturates))} g`]
       ];
-      return `<section class="pgsec dietprofile"><div class="pgst">${esc(p.title)}</div><div class="dpbasis">${esc(p.basis)}</div>`+
-        `<div class="dpgrid">${rows.map(r=>`<div class="dprow"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>`+
-        `<div class="dpnote">Ranges reflect the Weekly rotation, beef/chicken and spinach/broccoli. Calculated from recorded food values; unlisted nutrient amounts are not captured.</div></section>`;
+      return `<section class="pgsec dietprofile"><div class="pgst">${esc(p.title)}</div>`+
+        `<div class="dpgrid">${rows.map(r=>`<div class="dprow"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div></section>`;
     };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column

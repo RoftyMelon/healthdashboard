@@ -180,11 +180,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   sections by pop-and-reinsert appended them, putting the change log above the nutrition panel.
 - A DIET food pointer may carry `rotation: "<meal id>"`, naming an untimed food section such as
   `weekly`. The Diet viewer excludes the pointer's average from the nutritional calculation, then
-  folds exactly one of the referenced choices into the displayed daily ranges. The profile is
-  derived from the food tooltip values at render time; never store a second set of totals that can
-  drift from the foods.
-  `DIET.profile` enables that standalone section and stores only its title, explanatory basis and body weight
-  used for the protein-per-kilogram display — no nutrient totals.
+  folds one referenced choice into the displayed daily equal-choice average. Timed-meal alternatives
+  use the same equal weighting. The profile is derived from the food tooltip values at render time;
+  never store a second set of totals that can drift from the foods. `DIET.profile` enables that
+  standalone section and stores only its title, hidden explanatory basis and body weight for the
+  owner context — no nutrient totals. The viewer keeps the section terse by rendering only the title
+  and one derived average per nutrient.
 - **A STACK tooltip has SIX sections, in this order**: `What it does` (mechanism) → `Dose` (why
   this number, and which form) → `Evidence` (what the tag rests on) → `Watch` (ceilings,
   interactions, contraindications) → `Changes` (the dated log) → `Parked` (why not yet, and what
