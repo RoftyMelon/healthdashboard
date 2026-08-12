@@ -2880,11 +2880,7 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added"
-        ],
-        [
-         "12 Aug 2026",
-         "all walnuts and almonds consolidated with the muesli"
+         "added with all walnuts and almonds consolidated with the muesli"
         ]
        ],
        "Notes": [
@@ -3912,11 +3908,7 @@ window.BLOODWORK =
        "Changes": [
         [
          "1 Aug 2026",
-         "added"
-        ],
-        [
-         "12 Aug 2026",
-         "reduced to pistachios only; walnuts and almonds moved to the muesli"
+         "added as pistachios only; walnuts and almonds moved to the muesli"
         ]
        ]
       }
