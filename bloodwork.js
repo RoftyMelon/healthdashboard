@@ -18,7 +18,7 @@ window.BLOODWORK =
   "marker_notes": "Every MARK[].note contains exactly three profile-neutral educational fields: measures, matters and caveat. Keep the structure consistent but let the length match the marker's complexity. When the displayed name is only an acronym, measures starts with 'ACRONYM (Expanded Name)\n'. Personal results, dates, interventions, assay-specific conclusions and per-draw context belong in DATA.draws, not in marker notes.",
   "dec": "Which supplements a marker bears on. Many-to-many. Membership does NOT mean the supplement moves it: cystatin C is under Creatine precisely because creatine CANNOT distort it, albumin is under Vitamin D because calcium cannot be corrected without it, selenium is iodine's cofactor, B12/folate are TMG's pathway. The DECS order is deliberate — grouped by primary biomarker domain (hormones/thyroid → lipids/cardio → liver/methylation → kidney/muscle → bone/minerals → aminos → foundational), NOT alphabetical; do not re-sort.",
   "confounds": [
-   "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026, so July cystatin C is the reference every later draw must be read against.",
+   "Creatine was active at the March 2026 draw and PAUSED before July 2026, which is what makes July the clean kidney baseline — its creatinine and eGFR carry no creatine cx, March's carry one. It raises serum creatinine as substrate, not by damaging kidneys, and creatinine-based eGFR inherits the error. It restarted 1 Aug 2026. July cystatin C already provides the clean filtration reference; repeat it only if a new renal signal appears or accurate GFR would affect a clinical decision.",
    "Topical minoxidil appears in no supplement group. That is the finding, not an omission: it is a potassium-channel opener with ~1.4% systemic absorption and no hormonal mechanism. Astaxanthin, lycopene, hyaluronic acid and collagen are absent for the same reason. No blood marker can falsify them.",
    "Huel Black STOPPED on 1 Aug 2026 - the same day the diet intervention started - and 80g of rolled oats took its slot. It had supplied, daily, 9mg iron, 4.6mg zinc, 33mcg selenium, 30mcg iodine, 0.8mcg B12, 80mcg folate, 88mg magnesium, 240mg calcium and 160 IU vitamin D. That entire fortified layer was replaced by NOTHING: no multivitamin, no iron, no zinc, no selenium, no iodine and no B12 exists anywhere in STACK. There WAS a 'Huel' dec grouping vitd, ca, tsh, sel, ferr, zn, b12, mma, fol, plp, iron, tsat and mg. It was DELETED on 1 Aug 2026, from DECS and from all thirteen: that list renders as a group heading beside Creatine 5g and NAC 11g on the Markers page, and a stopped food has no place in a list of things being taken. sel, zn, iron and tsat had no other dec and now carry none. THIS ENTRY IS THE ONLY RECORD of which markers that fortification touched - it is not recoverable from the marker rows any more. So a fall on any of those thirteen at the next draw has two candidate causes that began on the same date and cannot be separated - read the withdrawal first and the diet second. Iron is the sharpest case, because July was already low-normal at ferritin 58µg/L and TSAT 22% and the diet moved to largely non-haem in the same step; the oats add phytate on top. Huel also carried 68mg caffeine, 1.8g matcha, 130mg green tea extract, lutein and B. coagulans, all of which stopped with it - which is why the parked Matcha dose was rewritten standalone."
   ],
@@ -866,7 +866,7 @@ window.BLOODWORK =
      "Watch": [
       [
        "",
-       "Restarting inflates serum creatinine 10-20% without touching kidney function, so the next draw must order cystatin C or the eGFR will read falsely worse. It was paused before the 2026-07-20 draw precisely so that one would read clean — which is what makes that draw the kidney baseline."
+       "Creatine can raise serum creatinine and lower creatinine-based eGFR without reducing filtration. March on creatine, July off creatine and July cystatin C already establish the expected pattern. Keep any incidental creatinine result as context; repeat cystatin C only if a new renal signal appears or accurate GFR would change a decision."
       ]
      ],
      "Changes": [
@@ -886,7 +886,7 @@ window.BLOODWORK =
     ],
     "url": "https://amzn.eu/d/09MG0JOC",
     "dec": "Creatine 5g",
-    "judge": "strength and power in training; and cystatin C, never creatinine alone"
+    "judge": "strength and power in training; and homocysteine before methyl donors"
    },
    {
     "id": "boron",
@@ -2163,34 +2163,6 @@ window.BLOODWORK =
   ],
   "items": [
    {
-    "en": "Kidney filtration — creatinine, eGFRcr, cystatin C, eGFRcys + combined eGFR",
-    "fr": "Fonction rénale — créatinine, DFG créatinine, cystatine C, DFG cystatine C + DFG combiné",
-    "g": "decision",
-    "draws": [
-     "main"
-    ],
-    "why": "Does the creatinine rise reflect creatine and muscle mass, or a real filtration change?",
-    "decision": "Keep interpreting creatinine alongside cystatin C rather than stopping creatine for the draw.",
-    "trigger": "A confirmed combined-eGFR decline over 20% exceeds expected variability; an isolated creatinine change with stable cystatin C supports confounding.",
-    "method": "Same creatinine and cystatin C methods as July; request eGFRcr, eGFRcys and combined eGFR.",
-    "prep": "Stable creatine 5g/day, normal hydration, fasting morning draw and no hard training for 48 hours.",
-    "timing": "Main draw after at least 12–16 stable weeks."
-   },
-   {
-    "en": "Urine protein/creatinine ratio — quantitative",
-    "fr": "Rapport protéines/créatinine urinaire — méthode quantitative",
-    "g": "optional",
-    "draws": [
-     "main"
-    ],
-    "why": "July printed only <221mg/g, so the result could not establish whether urine protein was below the 118mg/g reference ceiling.",
-    "decision": "A quantified first-morning value below the ceiling closes this one-time ambiguity; a confirmed value above it can be interpreted with eGFR and cystatin C to decide whether evaluation is warranted.",
-    "trigger": "Order only if the laboratory can report below 118mg/g. Repeating the same censored assay returns <221 again and resolves nothing, so confirm the reporting limit before collection.",
-    "method": "Quantitative protein/creatinine on a first-morning specimen, reporting limit below 118mg/g (13mg/mmol). Urine total-protein methods are poorly harmonised, so record the manufacturer alongside the result.",
-    "prep": "First-morning specimen, no strenuous exercise for 48 hours — exercise alone raises urinary protein.",
-    "timing": "Optional one-time closure on the same morning as the main draw."
-   },
-   {
     "en": "ApoB + lipid panel (total, LDL, HDL, triglycerides)",
     "fr": "Apolipoprotéine B (ApoB) + bilan lipidique (cholestérol total, LDL, HDL, triglycérides)",
     "g": "decision",
@@ -2361,16 +2333,16 @@ window.BLOODWORK =
     "timing": "Main draw; postpone if the protocol is not clean."
    },
    {
-    "en": "Chemistry + liver bundle",
+    "en": "Chemistry + liver bundle — urea, sodium, potassium, chloride, bicarbonate, AST, ALT, GGT, ALP, total bilirubin, total protein",
     "fr": "Urée, sodium, potassium, chlore, bicarbonates, ASAT, ALAT, GGT, PAL, bilirubine totale, protéines totales",
     "g": "trend",
     "draws": [
      "main"
     ],
     "why": "Is the inexpensive chemistry and liver baseline still stable before any future NAC or curcumin experiment?",
-    "decision": "No action when stable; confirm and investigate a new abnormality before adding another intervention.",
-    "trigger": "Any new out-of-range result or confirmed doubling from the personal baseline changes the decision.",
-    "method": "Same laboratory. Calcium and albumin are already ordered with vitamin D and are not duplicated here.",
+    "decision": "No action when stable; confirm and investigate a new abnormality before adding another intervention. If creatinine/eGFRcr is included automatically, retain it only as context.",
+    "trigger": "Any new out-of-range result changes the decision after confirmation, except creatinine/eGFRcr that merely reproduces the known on-creatine pattern; a confirmed doubling from the personal baseline also changes it.",
+    "method": "Same laboratory. Calcium and albumin are already ordered with vitamin D and are not duplicated here. Do not add creatinine solely to complete the creatine experiment.",
     "prep": "Normal hydration and stable protein intake; fasting morning collection.",
     "timing": "Main draw."
    },
@@ -2462,6 +2434,20 @@ window.BLOODWORK =
    }
   ],
   "deferred": [
+   {
+    "en": "Cystatin C + eGFRcys + combined eGFR",
+    "fr": "Cystatine C + DFG cystatine C + DFG combiné",
+    "s": "defer",
+    "why": "July already established reassuring filtration off creatine, while March and the earlier series establish the expected creatinine pattern. Repeating now would refine assay calibration without changing an intervention.",
+    "reconsider": "Add if a rested, hydrated creatinine/eGFR result is materially worse than the March on-creatine pattern and remains so on confirmation, another kidney-risk signal appears, or accurate GFR would affect a medication or clinical decision."
+   },
+   {
+    "en": "Urine protein/creatinine ratio",
+    "fr": "Rapport protéines/créatinine urinaire",
+    "s": "remove",
+    "why": "July's <221mg/g result was limited by the assay's reporting floor, not evidence of proteinuria; no current decision depends on closing that ambiguity.",
+    "reconsider": "Add a properly sensitive first-morning urine assessment if blood pressure, symptoms, diabetes, an unexpected renal result or another risk factor creates a kidney question."
+   },
    {
     "en": "PTH",
     "fr": "Parathormone (PTH)",
@@ -5294,7 +5280,7 @@ window.BLOODWORK =
     "label": "ERM-DA471-standardised healthy-adult male interval (Danish blood donors)",
     "source": "Erlandsen & Randers, J Clin Lab Anal 2018;32(6):e22433 (male, IFCC-traceable)",
     "population": "152 healthy Danish male blood donors aged 17–66, ~30 per ten-year band (152 women analysed in parallel; women 0.58–1.00, combined 0.61–1.01). No fitness or BMI criterion was applied and none is required here: cystatin C is the one filtration marker independent of muscle mass — Baxmann AC, Ahmed MS, Marques NC, Menon VB, Pereira AB, Kirsztajn GM, Heilberg IP, Clin J Am Soc Nephrol 2008;3(2):348–354 found no correlation with body weight, fat-free mass or body cell mass, while serum and urinary creatinine tracked lean mass strongly. Sex partitioning was reported but was NOT statistically warranted (P=0.21), so the male interval is a conservative presentation rather than a demonstrated sex effect. Independently corroborated in a direct Chinese study of 1,424 men aged 31–40 — the subject's exact band — at 0.62–1.02 mg/L (Deng Y, Xie F, Zhao Z, Wu W, Wang D, Guna Y, Zhang Q, Li Q, Jiang H, Guan M. Sci Rep 2025), agreeing to 0.02 mg/L.",
-    "method": "Assumes a cystatin C assay calibrated against the certified reference material ERM-DA471/IFCC. The source used the Gentian particle-enhanced turbidimetric assay (PETIA) on a Roche cobas c702; the subject's result is by immunonephelometry (PENIA). Before standardisation PETIA read up to ~27% above PENIA; after ERM-DA471 the platforms converge (reported Roche-vs-Siemens bias falling from ~7% to ~0% with second-generation reagents), so the interval transfers — but a residual few-percent inter-platform bias remains, and a single value sitting within a few hundredths of 1.04 should not be called abnormal on that basis. Cystatin C is raised by corticosteroids, hyperthyroidism and high-grade inflammation (none applicable here) and, unlike creatinine, is untouched by creatine supplementation, high meat intake or resistance training — which is exactly why it is the marker that can carry a reference in this panel. Assumes a cystatin C assay traceable to ERM-DA471/IFCC. Three transfer limits, none of which move the numbers. (1) Measurement principle: the source figures are Gentian turbidimetry (PETIA) on a Roche cobas c702; this subject's result is immunonephelometric, and his own laboratory prints a ceiling of 1.11 mg/L against this interval's 1.04. A residual inter-platform bias of a few percent persists after standardisation, and because the next draw repeats the same nephelometric method it is systematic across the whole series rather than noise that averages out — a result of 1.04-1.11 would render above reference here while the running lab prints it normal. (2) The source's own partitioning: it found no sex difference (P=.21), so the male limits used here are an n=152 subgroup the authors declined to treat as a partition (their combined interval is 0.61-1.01); and it found a significant rise with age in men (P<.0053) across 17-66 while publishing no age-stratified interval, so this ceiling is pooled over men up to 66 and is mildly permissive for a 31-year-old. Deng et al. (Sci Rep 2025) give 0.62-1.02 for men 31-40 at n=1,424 by the direct method, which cross-checks the ceiling to 0.02 mg/L rather than narrowing it by eye. (3) Non-GFR determinants: cystatin C is less body-composition-free than its reputation — Knight et al., Kidney Int 2004;65(4):1416-21, found greater height, greater weight and higher CRP independently associated with higher levels, which shifts a 187 cm / 80 kg man upward within the band (his hsCRP, 0.5-1.4 mg/L, is not a live confounder). Sensitivity to a real decline should rest on the NEXTDRAW trigger (a confirmed combined-eGFR fall over 20%), not on this ceiling. FULL CITATION: Erlandsen EJ, Randers E. Reference intervals for plasma cystatin C and plasma creatinine in adults using methods traceable to international calibrators and reference methods. J Clin Lab Anal. 2018;32(6):e22433 (PMID 29573343). Male non-parametric interval 0.62–1.04 mg/L, median 0.79.",
+    "method": "Assumes a cystatin C assay calibrated against the certified reference material ERM-DA471/IFCC. The source used the Gentian particle-enhanced turbidimetric assay (PETIA) on a Roche cobas c702; the subject's result is by immunonephelometry (PENIA). Before standardisation PETIA read up to ~27% above PENIA; after ERM-DA471 the platforms converge (reported Roche-vs-Siemens bias falling from ~7% to ~0% with second-generation reagents), so the interval transfers — but a residual few-percent inter-platform bias remains, and a single value sitting within a few hundredths of 1.04 should not be called abnormal on that basis. Cystatin C is raised by corticosteroids, hyperthyroidism and high-grade inflammation (none applicable here) and, unlike creatinine, is untouched by creatine supplementation, high meat intake or resistance training — which is exactly why it is the marker that can carry a reference in this panel. Assumes a cystatin C assay traceable to ERM-DA471/IFCC. Three transfer limits, none of which move the numbers. (1) Measurement principle: the source figures are Gentian turbidimetry (PETIA) on a Roche cobas c702; this subject's result is immunonephelometric, and his own laboratory prints a ceiling of 1.11 mg/L against this interval's 1.04. A residual inter-platform bias of a few percent persists after standardisation, and any future repeat should preserve the nephelometric method so residual bias remains systematic rather than masquerading as change — a result of 1.04-1.11 would render above reference here while the running lab prints it normal. (2) The source's own partitioning: it found no sex difference (P=.21), so the male limits used here are an n=152 subgroup the authors declined to treat as a partition (their combined interval is 0.61-1.01); and it found a significant rise with age in men (P<.0053) across 17-66 while publishing no age-stratified interval, so this ceiling is pooled over men up to 66 and is mildly permissive for a 31-year-old. Deng et al. (Sci Rep 2025) give 0.62-1.02 for men 31-40 at n=1,424 by the direct method, which cross-checks the ceiling to 0.02 mg/L rather than narrowing it by eye. (3) Non-GFR determinants: cystatin C is less body-composition-free than its reputation — Knight et al., Kidney Int 2004;65(4):1416-21, found greater height, greater weight and higher CRP independently associated with higher levels, which shifts a 187 cm / 80 kg man upward within the band (his hsCRP, 0.5-1.4 mg/L, is not a live confounder). If a future renal question arises, a material confirmed change in combined eGFR matters more than crossing this ceiling. FULL CITATION: Erlandsen EJ, Randers E. Reference intervals for plasma cystatin C and plasma creatinine in adults using methods traceable to international calibrators and reference methods. J Clin Lab Anal. 2018;32(6):e22433 (PMID 29573343). Male non-parametric interval 0.62–1.04 mg/L, median 0.79.",
     "reviewed": "2026-07-31"
    },
    "note": {

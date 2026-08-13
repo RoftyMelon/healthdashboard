@@ -156,6 +156,13 @@ setTimeout(()=>{
     (()=>{const t=DATA.MARK.find(m=>m.id==='vitd').target;
       return t&&t.min===30&&t.max===50&&t.evidence==='weak'&&
         DATA.NEXTDRAW.items.find(x=>x.en.startsWith('25-OH vitamin D')).trigger.includes('30–50');})());
+  ok('routine renal calibration is deferred rather than ordered',
+    !DATA.NEXTDRAW.items.some(x=>/cystatin|kidney filtration|creatinine/i.test(x.en))&&
+    DATA.NEXTDRAW.deferred.some(x=>x.en==='Cystatin C + eGFRcys + combined eGFR'&&x.s==='defer')&&
+    DATA.NEXTDRAW.items.find(x=>x.en.startsWith('Chemistry + liver bundle')).method.includes('Do not add creatinine'));
+  ok('the inconclusive July urine assay does not create a routine repeat',
+    !DATA.NEXTDRAW.items.some(x=>/urine protein\/creatinine/i.test(x.en))&&
+    DATA.NEXTDRAW.deferred.some(x=>x.en==='Urine protein/creatinine ratio'&&x.s==='remove'));
   ok('glucose, HbA1c and hs-CRP do not manufacture optimal bands',
     ['glu','a1c','hscrp'].every(id=>!DATA.MARK.find(m=>m.id===id).target));
   ok('omega-3 target has a proposed floor but no evidence-defined ceiling',
