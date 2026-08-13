@@ -2152,7 +2152,7 @@ window.BLOODWORK =
   ]
  },
  "NEXTDRAW": {
-  "intro": "The December draw judges the interventions started 1 Aug 2026: the stable diet, creatine, omega-3 intake including food, vitamin D and topical finasteride. Do not begin a parked supplement experiment before the draw.",
+  "intro": "Decision-first panel for the interventions started 1 Aug 2026. Do not begin a parked supplement experiment before the draw.",
   "collections": [
    {
     "id": "main",

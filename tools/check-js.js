@@ -503,6 +503,8 @@ setTimeout(()=>{
   try{ setPage('nextdraw');
     const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
     ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');
+    ok('optional and deferred sections start collapsed',count(H,'pgsec ndlist ndgroup')===2,
+      count(H,'pgsec ndlist ndgroup')+' collapsed groups');
     ok(`${DATA.NEXTDRAW.items.length} active decisions shown`, count(H,'nddecision')===DATA.NEXTDRAW.items.length,
       count(H,'nddecision')+' decisions');
     ok(`${DATA.NEXTDRAW.items.length} inline detail panels`, count(H,'ndmeta')===DATA.NEXTDRAW.items.length,
