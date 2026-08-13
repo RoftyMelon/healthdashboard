@@ -510,14 +510,15 @@ setTimeout(()=>{
   try{ setPage('nextdraw');
     const H=n.pages.innerHTML,G=[...new Set(DATA.NEXTDRAW.items.map(x=>x.g))].length;
     ok(`draw list renders ${G} active groups`, count(H,'pgst ndgtitle')===G, count(H,'pgst ndgtitle')+' groups');
-    ok('optional and deferred sections start collapsed',count(H,'pgsec ndlist ndgroup')===2,
+    ok('optional section starts collapsed',count(H,'pgsec ndlist ndgroup')===1,
       count(H,'pgsec ndlist ndgroup')+' collapsed groups');
     ok(`${DATA.NEXTDRAW.items.length} active decisions shown`, count(H,'nddecision')===DATA.NEXTDRAW.items.length,
       count(H,'nddecision')+' decisions');
     ok(`${DATA.NEXTDRAW.items.length} inline detail panels`, count(H,'ndmeta')===DATA.NEXTDRAW.items.length,
       count(H,'ndmeta')+' panels');
-    ok(`${DATA.NEXTDRAW.deferred.length} exclusions shown`, count(H,'srow ndxrow')===DATA.NEXTDRAW.deferred.length,
-      count(H,'srow ndxrow')+' exclusions');
+    ok('deferred exclusions stay source-only',count(H,'srow ndxrow')===0&&
+      !H.includes('Deferred / not this draw')&&!H.includes(`${DATA.NEXTDRAW.deferred.length} deferred`)&&
+      !H.includes('Why not now')&&!H.includes('Reconsider when'));
     const main=ndOrder('main',false),all=ndOrder('main',true);
     ok('recommended copy excludes optional rows',main.every(x=>x.g!=='optional')&&all.length>main.length);
     ok('optional copy adds every optional main row',all.length-main.length===DATA.NEXTDRAW.items.filter(x=>x.g==='optional'&&x.draws.includes('main')).length);

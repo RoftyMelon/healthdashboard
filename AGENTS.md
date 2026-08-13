@@ -272,12 +272,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   window; `protocol[]` holds the shared preparation rules. Every active `items[]` row is
   `{en, fr, g, draws[], why, decision, trigger, method, prep, timing, cost?}` where `g` is
   `decision` / `trend` / `optional` and every `draws[]` id must exist in `collections[]`.
-  `deferred[]` rows are `{en, fr, s, why, reconsider}` with `s` `defer` / `remove`; they render
-  visibly but **never enter a lab copy**. The default copy includes decision + trend rows for
+  `deferred[]` rows are `{en, fr, s, why, reconsider}` with `s` `defer` / `remove`; they remain
+  source-only reasoning and **never render or enter a lab copy**. The default copy includes decision + trend rows for
   one collection; the separate optional copy adds only that collection's optional rows. Keep
   essential reasoning visible on the row and the remaining detail in its inline expansion —
   never hide this page's decision logic in hover tooltips. Decision and Trend stay open for
-  scanning; Optional and Deferred start collapsed but remain available as inline disclosures.
+  scanning; Optional starts collapsed, while deferred reasoning remains available only in the data file.
 - **`TRAINING.benchmarks` is a deliberate test history, not a workout log.** Its `items[]` hold
   the benchmark definition and `attempts[]` holds only intentional tests as
   `{date, value, method, conditions, note?}`. The viewer derives the change and personal best;

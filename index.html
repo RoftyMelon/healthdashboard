@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.1.0">
+<meta name="health-dashboard-viewer-version" content="1.2.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -740,12 +740,6 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .ndmeta b{display:block;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--t4);margin-bottom:2px}
 .ndcost{display:inline-block;margin-left:7px;border:.5px solid var(--line);border-radius:99px;
   padding:2px 7px;font-size:10.5px;font-weight:650;color:var(--t3);vertical-align:2px}
-.ndxrow{align-items:flex-start}
-.ndxrow .sn{flex:0 0 43%;min-width:0}
-.ndxrow .frn{flex:1;min-width:0}
-.ndstatus{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--t3);border:.5px solid var(--line);border-radius:99px;padding:2px 7px}
-.ndreconsider{flex-basis:100%;font-size:12.5px;line-height:1.5;color:var(--t3)}
 /* the scale a section's rows are read against, set under them — a ratio of 0.99 is meaningless
    until you know 1.17 is the positive threshold */
 .ndlist .rfoot{padding:9px 0 2px;font-size:13px;line-height:1.5;color:var(--t4);user-select:text}
@@ -1384,8 +1378,8 @@ a.sbuy:hover{color:var(--info)}
 @media(max-width:700px){
   .ndcards,.ndmeta{grid-template-columns:1fr}
   .ndrow .ndtop{display:block}
-  .ndrow .sn,.ndrow .frn,.ndxrow .sn,.ndxrow .frn{display:block;flex:none;width:100%}
-  .ndrow .frn,.ndxrow .frn{margin-top:3px}
+  .ndrow .sn,.ndrow .frn{display:block;flex:none;width:100%}
+  .ndrow .frn{margin-top:3px}
   .ndmeta{padding-right:22px}
   .ndcard .frcopy{width:100%}
   .rbscroll{width:calc(100vw - 2 * var(--gut,10px))}
@@ -3003,7 +2997,7 @@ function renderPage(p){
   let h='';
   if(p==='training')openRb=null;
   if(p==='nextdraw'&&NEXTDRAW){
-    const it=NEXTDRAW.items||[],df=NEXTDRAW.deferred||[];
+    const it=NEXTDRAW.items||[];
     const ND=[['decision','Decision markers','Each result can change a current intervention or decide the next one'],
               ['trend','Longitudinal trends','Inexpensive context whose value comes from a comparable series'],
               ['optional','Optional exploratory','Excluded from the default order: descriptive or expensive with weak decision value']];
@@ -3023,18 +3017,13 @@ function renderPage(p){
         `<button class="frcopy" data-copy-label="Copy recommended · ${rec}" onclick="copyNd(this,'${esc(c.id)}',false)">Copy recommended · ${rec}</button>`+
         (opt?`<button class="frcopy" data-copy-label="Copy + optional · ${rec+opt}" onclick="copyNd(this,'${esc(c.id)}',true)">Copy + optional · ${rec+opt}</button>`:'')+
         `</div></div>`;}).join(''):(CARD_SHELLS?`<div class="ndcard"><div class="ndct">Next draw</div><div class="cempty">&mdash;</div></div>`:'');
-    h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional · ${df.length} deferred</div>`+
+    h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional</div>`+
       (NEXTDRAW.intro?`<div class="ndintro">${esc(NEXTDRAW.intro)}</div>`:'')+`<div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
       ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length&&!CARD_SHELLS)return '';
         const folded=g==='optional',tag=folded?'details':'div',head=folded?'summary':'div';
         return `<${tag} class="pgsec ndlist${folded?' ndgroup':''}"><${head} class="pgst ndgtitle">${esc(title)}<span class="cn">${rows.length}</span></${head}>`+
           (rows.length?`<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
-          rows.map(row).join(''):`<div class="cempty">&mdash;</div>`)+`</${tag}>`;}).join('')+
-      `<details class="pgsec ndlist ndgroup"><summary class="pgst">Deferred / not this draw<span class="cn">${df.length}</span></summary>`+
-      (df.length?`<div class="cnote">Visible so the exclusions stay reasoned. These rows are never copied into a laboratory order.</div>`+
-      df.map(x=>`<div class="srow ndxrow"><span class="sn">${esc(x.en)} <span class="ndstatus">${esc(x.s)}</span></span>`+
-        `<span class="frn">${esc(x.fr)}</span><div class="ndwhy"><span class="ndlbl">Why not now</span> ${esc(x.why)}</div>`+
-        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span> ${esc(x.reconsider)}</div></div>`).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</details>`;
+          rows.map(row).join(''):`<div class="cempty">&mdash;</div>`)+`</${tag}>`;}).join('');
   } else if(p==='record'&&RECORD){
     /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
        two-column list rather than anything from the marker table. A section with no rows still

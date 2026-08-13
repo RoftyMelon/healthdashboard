@@ -69,6 +69,10 @@ setTimeout(() => {
       check(`${page} page renders`, !elements.pages.innerHTML.includes('problem') && !elements.pages.innerHTML.includes('[object Object]'));
     } catch (error) { check(`${page} page renders`, false, error.message); }
   });
+  (0, eval)("setPage('nextdraw')");
+  check('deferred Next Draw exclusions stay source-only',
+    !elements.pages.innerHTML.includes('Deferred / not this draw') &&
+    !elements.pages.innerHTML.includes('ndxrow'));
   if (DATA._template && DATA._template.blank) {
     (0, eval)("setPage('markers')");
     check("blank marker table shows the UI-only date placeholder", elements.tbl.innerHTML.includes("MMM 'YY"));
