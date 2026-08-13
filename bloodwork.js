@@ -2155,10 +2155,6 @@ window.BLOODWORK =
    {
     "t": "Record",
     "v": "Log fasting duration, collection time, sleep, illness, body weight, hydration, last workout, last topical application, creatine and vitamin-D doses, and average fish plus EPA/DHA intake."
-   },
-   {
-    "t": "Retained sample",
-    "v": "Ask the laboratory to hold the serum, and note how long they keep it. Two deferrals only fire on this draw's own results — MMA if B12 lands in 150-399pg/mL, PTH if calcium is abnormal — and neither can be ordered afterwards without a second venipuncture. Most laboratories retain serum for about a week, which turns both add-ons into a phone call."
    }
   ],
   "items": [

@@ -163,6 +163,8 @@ setTimeout(()=>{
   ok('the inconclusive July urine assay does not create a routine repeat',
     !DATA.NEXTDRAW.items.some(x=>/urine protein\/creatinine/i.test(x.en))&&
     DATA.NEXTDRAW.deferred.some(x=>x.en==='Urine protein/creatinine ratio'&&x.s==='remove'));
+  ok('Next Draw does not ask the laboratory to retain a sample',
+    !DATA.NEXTDRAW.protocol.some(x=>/retained sample|hold the serum|keep the serum/i.test(`${x.t} ${x.v}`)));
   ok('glucose, HbA1c and hs-CRP do not manufacture optimal bands',
     ['glu','a1c','hscrp'].every(id=>!DATA.MARK.find(m=>m.id===id).target));
   ok('omega-3 target has a proposed floor but no evidence-defined ceiling',
