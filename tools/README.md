@@ -8,6 +8,14 @@ piping either through `grep` in an `&&` chain inverts the gate and pushes a brok
 
 `node --check` only proves the file parses. It does not prove the page works.
 
+For a **shared** viewer/schema/reference change, validate both this dashboard and the sibling blank
+Starter with one read-only command:
+
+    node tools/check-share.js
+
+It requires byte-identical viewers and changelogs, checks the shared schema and reusable marker /
+running references, then runs both projects' own validators. It never copies files or creates a ZIP.
+
 `check-js.js` hardcodes counts — the marker total, and each page's expected row/card
 counts. Bump them when the data changes. A stale count fails loudly, which is the point.
 

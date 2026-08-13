@@ -2,6 +2,23 @@
 
 A personal biomarker dashboard. Two files, and the separation between them is the point.
 
+## Personal and Starter edit scope
+
+There are two maintained folders: this personal dashboard and the sibling `Health Dashboard Starter`.
+Say which scope an edit has before changing files:
+
+- **Personal only** — owner results, diet, stack, routine, grooming, training attempts or Next Draw.
+  Change only this folder and deploy the personal site.
+- **Shared** — viewer UI, rendering, schema, generic marker education or canonical public benchmarks.
+  Apply it to both folders, keep `index.html` byte-identical, update `CHANGELOG.md`, and run
+  `node tools/check-share.js`.
+- **Starter only** — blank onboarding, starter documentation or template-shell structure. Leave the
+  personal dashboard untouched and run the Starter validators, including `--blank`.
+
+The two `bloodwork.js` files are never synchronized wholesale. The Starter deliberately excludes
+owner data and personal claim commentary. Compression is manual when the owner wants to share;
+no maintained ZIP or archive-generation step belongs in this workflow.
+
 | file | role |
 |---|---|
 | `bloodwork.js` | **The data. The single source of truth.** 88 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
@@ -225,8 +242,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   show a wrong number. Keep it that way.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
   (from transferrin), free testosterone (Vermeulen, from total T + SHBG + albumin). A MEASURED
-  value must always win — that is what the `!d.v.<id>` guards are for. Corrected calcium is
-  deliberately **not computed when albumin exceeds 40 g/L**: that is the source lab's own
+  value must always win — that is what the `!d.v.<id>` guards are for. The shared viewer contains
+  no owner formula: this file's source-laboratory parameters live in
+  `CALCULATIONS.correctedCalcium`, and the Starter omits that configuration entirely. Corrected
+  calcium is deliberately **not computed when albumin exceeds 40 g/L**: that is the source lab's own
   printed rule, and above it the correction subtracts a large (albumin − 4) from a calcium that
   needed no correcting, manufacturing a low reading out of a normal one. Every albumin in this
   file is above 40, so that row is expected to be **empty — and the emptiness IS the finding**.

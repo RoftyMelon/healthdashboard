@@ -1,4 +1,6 @@
 <meta charset="utf-8">
+<title>Health dashboard</title>
+<meta name="health-dashboard-viewer-version" content="1.0.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -14,8 +16,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Blood panel">
-<link rel="apple-touch-icon" href="./icon.png">
-<link rel="icon" href="./icon.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -822,6 +822,9 @@ a.sbuy:hover{color:var(--info)}
 .rhr.rlast .rhl{height:auto;line-height:24px}   /* match the content's 16px/1.5 line box: BASELINES level */
 .rhr.rlast .rcell{justify-content:flex-start;padding-top:0}
 .rhr.rlast .rev{padding-top:0;position:relative;top:-1px}   /* rides with the trio above it */
+.rhr.rtemplate .rhl{height:40px}
+.rhr.rtemplate .rcell{padding:0}
+.rhr.rtemplate.rlast .rhl{height:auto;line-height:24px}
 .rev{display:flex;gap:12px;align-items:baseline;padding:2px 0}
 .rbody{min-width:0}
 .rdo{font-size:16px;color:var(--t2);line-height:1.5}
@@ -1496,7 +1499,7 @@ document.write('<script src="./bloodwork.js'+(location.search||'')+'"><\/script>
 // ---- DATA LIVES IN bloodwork.js ----
 // One source of truth. The dashboard reads it; so does any AI you hand it to.
 // To add a draw, edit that file. Never edit data in here.
-let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,RECORD=null,ROUTINE=[],SCREEN=null,DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null;
+let MARK=[],DECS=[],CATS=[],DATA={draws:[]},STACK=null,RECORD=null,ROUTINE=[],SCREEN=null,DIET=null,CARE=[],TRAINING=null,NEXTDRAW=null,CARD_SHELLS=false,ROUTINE_WINDOW=null;
 
 // Accent-folding, so "hemoglobine" finds "Hémoglobine". NFKD splits the accent off the
 // letter; the range then strips it. œ/æ have no decomposition, so they're folded by hand.
@@ -1623,11 +1626,42 @@ async function flip(){
   flip._t=setTimeout(()=>H.classList.remove('tfade'),300);   // then get out of hover's way
   try{if(window.storage)await window.storage.set(TKEY,S.theme);}catch(e){}
 }
-const DKEY='bloodpanel.data';
+const VIEWER_VERSION='1.0.0';
+const SUPPORTED_SCHEMA_VERSION=1;
+const DATA_SCOPE=(()=>{try{return (location.pathname||'/').replace(/\/index\.html$/i,'')||'/';}catch(e){return'local';}})();
+const DKEY='healthdashboard.data.v2:'+DATA_SCOPE;
 
 // If an AI edited this file, catch what it got wrong BEFORE it becomes a number on screen.
 function audit(j){
-  const bad=[],ids=new Set(j.MARK.map(m=>m.id));
+  const bad=[],ids=new Set(j.MARK.map(m=>m.id)),cardShells=!!(j._template&&j._template.cardShells);
+  if(j.schemaVersion!==SUPPORTED_SCHEMA_VERSION)
+    bad.push(`schemaVersion must be ${SUPPORTED_SCHEMA_VERSION}`);
+  if(j._template!==undefined){
+    if(!j._template||typeof j._template!=='object'||Array.isArray(j._template))
+      bad.push('_template must be an object when present');
+    else{
+      if(j._template.version!==1)bad.push('_template.version must be 1');
+      if(typeof j._template.blank!=='boolean')bad.push('_template.blank must be true or false');
+      if(typeof j._template.cardShells!=='boolean')bad.push('_template.cardShells must be true or false');
+      if(j._template.routineWindow!==undefined){const w=j._template.routineWindow;
+        if(!w||!/^([01]\d|2[0-3]):[0-5]\d$/.test(w.from)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(w.to)||w.from>=w.to)
+          bad.push('_template.routineWindow must contain ascending HH:MM from/to values');}
+    }
+  }
+  if(j.CALCULATIONS!==undefined&&(!j.CALCULATIONS||typeof j.CALCULATIONS!=='object'||Array.isArray(j.CALCULATIONS)))
+    bad.push('CALCULATIONS must be an object when present');
+  else if(j.CALCULATIONS&&j.CALCULATIONS.correctedCalcium!==undefined){
+    const c=j.CALCULATIONS.correctedCalcium;
+    if(!c||typeof c!=='object'||Array.isArray(c))bad.push('CALCULATIONS.correctedCalcium must be an object');
+    else{
+      ['albuminSetpointGPerDl','albuminMaxGPerDl','coefficientMgDlPerGdl'].forEach(k=>{
+        if(typeof c[k]!=='number'||!isFinite(c[k])||c[k]<=0)bad.push(`CALCULATIONS.correctedCalcium.${k} must be a positive number`);});
+      if(typeof c.outputUnit!=='string'||!c.outputUnit.trim())
+        bad.push('CALCULATIONS.correctedCalcium.outputUnit must be a non-empty string');
+      else{const out=j.MARK.find(m=>m.id==='cacorr');
+        if(!out||!out.units.some(u=>u.l===c.outputUnit))bad.push('CALCULATIONS.correctedCalcium.outputUnit must be a recognised cacorr unit');}
+    }
+  }
   // .am declares that the ASSAY is part of this marker's reading — a closed enum.
   j.MARK.forEach(m=>{
     ['clin','opt','oc'].forEach(k=>{
@@ -1809,7 +1843,7 @@ function audit(j){
       else sec.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])
         bad.push(`RECORD "${sec.t}": every row must be [label, value]`);});
       // a section with nothing in it must SAY so — a silent blank reads as a rendering fault
-      if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
+      if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line&&!cardShells)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
       // .foot is the scale a section's rows are read against — a ratio means nothing without it
       if(sec.foot!==undefined&&(typeof sec.foot!=='string'||!sec.foot.trim()))
         bad.push(`RECORD "${sec.t}": "foot" must be a non-empty string when present`);
@@ -1817,13 +1851,13 @@ function audit(j){
   }
   if(j.NEXTDRAW){
     const nd=j.NEXTDRAW, ids=new Set(), active=new Set();
-    if(typeof nd.intro!=='string'||!nd.intro.trim())bad.push('NEXTDRAW.intro must be a non-empty string');
-    if(!Array.isArray(nd.collections)||!nd.collections.length)bad.push('NEXTDRAW.collections must be a non-empty array');
+    if(typeof nd.intro!=='string'||(!nd.intro.trim()&&!cardShells))bad.push('NEXTDRAW.intro must be a non-empty string');
+    if(!Array.isArray(nd.collections)||(!nd.collections.length&&!cardShells))bad.push('NEXTDRAW.collections must be a non-empty array');
     else nd.collections.forEach(c=>{
       if(!c||!c.id||!c.t||!c.date||!c.note)bad.push('NEXTDRAW collections must be {id, t, date, note}');
       else if(ids.has(c.id))bad.push(`NEXTDRAW collection id "${c.id}" is duplicated`);
       else ids.add(c.id);});
-    if(!Array.isArray(nd.protocol)||!nd.protocol.length)bad.push('NEXTDRAW.protocol must be a non-empty array');
+    if(!Array.isArray(nd.protocol)||(!nd.protocol.length&&!cardShells))bad.push('NEXTDRAW.protocol must be a non-empty array');
     else nd.protocol.forEach(p=>{if(!p||!p.t||!p.v)bad.push('NEXTDRAW protocol rows must be {t, v}');});
     if(!Array.isArray(nd.items))bad.push('NEXTDRAW.items must be an array (empty is fine)');
     /* Every active order declares its question, decision, trigger, continuity, preparation and
@@ -1858,14 +1892,14 @@ function audit(j){
   if(j.DIET){
     const meals=j.DIET.meals||[],ids=new Set(meals.map(m=>m.id));
     if(j.DIET.profile){const p=j.DIET.profile;
-      if(!p.title||!p.basis||!Number.isFinite(p.weightKg)||p.weightKg<=0)
+      if(!p.title||(!cardShells&&(!p.basis||!Number.isFinite(p.weightKg)||p.weightKg<=0)))
         bad.push('DIET.profile must carry title, basis and a positive weightKg');}
     meals.forEach(m=>{
-      if(!m.items||!m.items.length)bad.push(`DIET "${m.t}": meal has no items`);
+      if(!Array.isArray(m.items)||(!m.items.length&&!cardShells))bad.push(`DIET "${m.t}": meal has no items`);
       else m.items.forEach(it=>{
         if(typeof it!=='string'&&!(it&&typeof it.n==='string'))bad.push(`DIET "${m.t}": item must be a string or {n, info}`);
         if(it&&typeof it==='object'&&it.rotation!==undefined&&
-          (typeof it.rotation!=='string'||!ids.has(it.rotation)||meals.find(x=>x.id===it.rotation).at))
+          (typeof it.rotation!=='string'||!ids.has(it.rotation)||Object.prototype.hasOwnProperty.call(meals.find(x=>x.id===it.rotation),'at')))
           bad.push(`DIET "${m.t}" / "${it.n}": rotation must name an untimed meal id`);
       });
     });
@@ -1885,14 +1919,16 @@ function audit(j){
       });
     }
     else if(c.groups)c.groups.forEach(g=>{
-      if(!Array.isArray(g.items)||!g.items.length)bad.push(`CARE "${c.t}" / "${g.t}": group needs items`);});
+      if(!Array.isArray(g.items)||(!g.items.length&&!cardShells))bad.push(`CARE "${c.t}" / "${g.t}": group needs items`);});
     else if(!Array.isArray(c.items))bad.push(`CARE "${c.t}": items must be an array (empty is fine)`);
   });
   if(j.TRAINING){
+    if(j.TRAINING.cardio!==undefined&&typeof j.TRAINING.cardio!=='string')
+      bad.push('TRAINING.cardio must be a string when present');
     const b=j.TRAINING.benchmarks;
     if(b){
-      if(typeof b.age!=='number'||!isFinite(b.age)||b.age<18)bad.push('TRAINING benchmarks.age must be an adult numeric age');
-      if(typeof b.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(b.reviewed))
+      if(b.age!==undefined&&(typeof b.age!=='number'||!isFinite(b.age)||b.age<18))bad.push('TRAINING benchmarks.age must be an adult numeric age');
+      if(b.reviewed!==undefined&&(typeof b.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(b.reviewed)))
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
       if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
       else{
@@ -1951,7 +1987,7 @@ function audit(j){
     }
     (j.TRAINING.cards||[]).forEach(c=>{
       if(c.groups)c.groups.forEach(g=>{
-        if(!Array.isArray(g.items)||!g.items.length){bad.push(`TRAINING "${c.t}" / "${g.t}": group needs items`);return;}
+        if(!Array.isArray(g.items)||(!g.items.length&&!cardShells)){bad.push(`TRAINING "${c.t}" / "${g.t}": group needs items`);return;}
         g.items.forEach(x=>{
           if(typeof x==='string')return;
           if(!x.n)bad.push(`TRAINING "${c.t}" / "${g.t}": exercise needs a name`);
@@ -1965,18 +2001,21 @@ function audit(j){
   return bad;
 }
 
-/* DERIVED markers — computed here at load, NEVER stored in bloodwork.js.
-   The data file keeps one truth per fact (calcium and albumin), and anything reconstructible
-   from them is rebuilt on every load, so it cannot drift the way a stored copy would. Same
-   rule as the Diet page deriving supplement timing from STACK.when.
-   Runs BEFORE audit() so a derived value is validated exactly like a transcribed one. */
+/* Portable derivations run before audit(). Corrected calcium is derived only when bloodwork.js
+   supplies the source laboratory's formula parameters in CALCULATIONS.correctedCalcium. */
 function derive(j){
   const M=id=>j.MARK.find(m=>m.id===id);
   const CA=M('ca'),AL=M('alb'),CC=M('cacorr');
-  if(!CA||!AL||!CC)return;                       // marker removed? derive nothing, never guess
   const canon=(m,e)=>{const x=m.units.find(z=>z.l===e.u)||m.units[0];
     return x.a!==undefined?x.a*e.r+x.b:e.r*x.m;};
+  const fromCanon=(m,v,u)=>{const x=m.units.find(z=>z.l===u);
+    return !x?null:x.a!==undefined?(v-x.b)/x.a:v/x.m;};
   const TT=M('tt'),SH=M('shbg'),TF=M('trf'),TB=M('tibc'),FT=M('ft');
+  const calc=j.CALCULATIONS&&j.CALCULATIONS.correctedCalcium;
+  const validCalc=calc&&typeof calc==='object'&&!Array.isArray(calc)&&
+    ['albuminSetpointGPerDl','albuminMaxGPerDl','coefficientMgDlPerGdl'].every(k=>
+      typeof calc[k]==='number'&&isFinite(calc[k])&&calc[k]>0)&&
+    typeof calc.outputUnit==='string';
   const put=(d,id,v,u)=>{d.v[id]={r:Math.round(v*100)/100,u};};
   /* Never derive FROM a censored input. A bound propagates through these formulas in ways
      that are not uniform — corrected calcium rises with calcium but FALLS with albumin, and
@@ -1987,18 +2026,14 @@ function derive(j){
      "<x" cannot silently become a derived reading. */
   const ok=e=>e&&!e.lt;
   j.DATA.draws.forEach(d=>{
-    const ca=ok(d.v.ca)?d.v.ca:null,al=ok(d.v.alb)?d.v.alb:null;
-    // Needs BOTH, and a stale one must not survive. The albumin ceiling is the SOURCE LAB'S
-    // OWN RULE, printed verbatim on the 2022 report: "Calcium corrigé non indiqué car
-    // albumine >40 g/L". Above 40 g/L the correction subtracts (albumin-4) from a calcium
-    // that never needed correcting, manufacturing a low reading out of a normal one — which
-    // is exactly what it did here, ranking 8.3 as the worst flag on the panel against a
-    // measured 9.4. Refusing to compute is what the lab does; an empty cell is the finding.
-    if(!ca||!al||canon(AL,al)>4)delete d.v.cacorr;
-    else{
-      // the SOURCE LAB'S coefficient (1.0 mg/L per g/L albumin), not Payne's 0.02 mmol/L —
-      // so the number reproduces the printed report instead of quietly disagreeing with it.
-      put(d,'cacorr',canon(CA,ca)-(canon(AL,al)-4),'mg/dL');
+    const ca=CA&&ok(d.v.ca)?d.v.ca:null,al=AL&&ok(d.v.alb)?d.v.alb:null;
+    // A directly reported corrected calcium always wins. The viewer never deletes or rewrites it.
+    if(CA&&AL&&CC&&validCalc&&ca&&al&&!d.v.cacorr){
+      const albumin=canon(AL,al),out=CC.units.find(u=>u.l===calc.outputUnit);
+      if(out&&albumin<=calc.albuminMaxGPerDl){
+        const mgdl=canon(CA,ca)-calc.coefficientMgDlPerGdl*(albumin-calc.albuminSetpointGPerDl);
+        put(d,'cacorr',fromCanon(CC,mgdl,calc.outputUnit),calc.outputUnit);
+      }
     }
 
     // TIBC from transferrin. `!d.v.tibc` matters: a directly MEASURED TIBC must always win
@@ -2036,9 +2071,9 @@ function boot(j,cache){
     return;                                   // refuse to render rather than render a lie
   }
   MARK=j.MARK; DECS=j.DECS; CATS=j.CATS; DATA=j.DATA;
-  STACK=j.STACK||null; RECORD=j.RECORD||null; ROUTINE=j.ROUTINE||[]; SCREEN=j.SCREEN||null; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null;
+  STACK=j.STACK||null; RECORD=j.RECORD||null; ROUTINE=j.ROUTINE||[]; SCREEN=j.SCREEN||null; DIET=j.DIET||null; CARE=j.CARE||[]; TRAINING=j.TRAINING||null; NEXTDRAW=j.NEXTDRAW||null; CARD_SHELLS=!!(j._template&&j._template.cardShells); ROUTINE_WINDOW=j._template&&j._template.routineWindow||null;
   S.draws=DATA.draws;
-  MARK.forEach(m=>m._h=norm(m.en+' '+m.fr+' '+m.us));   // search index, derived
+  MARK.forEach(m=>m._h=norm(m.en+' '+(m.fr||'')+' '+m.us));   // search index, derived
   // Remember it, so opening from disk on a phone doesn't mean re-picking the file
   // every single time. Re-pick only when the data actually changes.
   if(cache!==false){try{localStorage.setItem(DKEY,JSON.stringify(j));}catch(e){}}
@@ -2140,7 +2175,7 @@ function mini(m){
     tr&&`Optimal range ${rangeText(m,tr,false,true)} ${uLab(m)} (${m.target.evidence})`,
     L?`You: ${L.raw&&L.raw.lt?'<':''}${fmt(dV(m,L.v))}${L.raw&&L.raw.lt?' (upper bound)':''} ${uLab(m)}`:'Not measured'
   ].filter(Boolean).join('\n');
-  return `<div title="${tip}">
+  return `<div title="${esc(tip)}">
     <div class="mg">${band('mgr',rr,P)}${band('mgo',tr,P)}${tick}</div>
     <div class="mgx">${labs.join('')}</div></div>`;
 }
@@ -2232,7 +2267,8 @@ function fitChart(){
   const cy=d.querySelector('.cy'),cp=d.querySelector('.cpad');
   const t=document.getElementById('tbl'),h=t.tHead?[...t.tHead.rows[0].cells]:[];
   if(!cy||!cp||!h.length)return;
-  const n=chron().length,first=5+(filter==='flag'?1:0),last=first+n-1;
+  const n=chron().length,tri=filter==='flag',plotCol=4+(tri?1:0);
+  const first=n?5+(tri?1:0):plotCol,last=n?first+n-1:plotCol;
   if(!h[first]||!h[last])return;
   const tb=t.getBoundingClientRect();
   const cyw=h[first].getBoundingClientRect().left-tb.left;
@@ -2335,7 +2371,8 @@ function det(row,id,cols,n,tri){
   // moves it.
   // measure, don't assume: column widths change with the viewport, so the panes must follow
   const _t=document.getElementById('tbl'),_h=_t.tHead?[..._t.tHead.rows[0].cells]:[];
-  const _first=5+(tri?1:0), _last=_first+n-1;       // first and last draw column
+  const _plotCol=4+(tri?1:0);
+  const _first=n?5+(tri?1:0):_plotCol, _last=n?_first+n-1:_plotCol;
   const _tb=_t.getBoundingClientRect();
   const preW=_h[_first]?(_h[_first].getBoundingClientRect().left-_tb.left):634;
   const padW=_h[_last] ?(_tb.right-_h[_last].getBoundingClientRect().right):104;
@@ -2518,6 +2555,8 @@ function copyNd(btn,draw,includeOptional){
 }
 function render(){
   const ds=chron(), n=ds.length;   // oldest -> newest: this row IS the chart's x-axis
+  // Blank template: one visual date slot previews the table without inventing a DATA draw.
+  const drawPlaceholder=CARD_SHELLS&&!n,drawCols=n+(drawPlaceholder?1:0);
   const cur={};MARK.forEach(m=>cur[m.id]=latest(m));
   const out=MARK.filter(m=>cur[m.id]&&status(m,cur[m.id].v,cur[m.id].raw)==='out');
   const wat=MARK.filter(m=>cur[m.id]&&status(m,cur[m.id].v,cur[m.id].raw)==='watch');
@@ -2537,12 +2576,14 @@ function render(){
   document.getElementById('toc').innerHTML=
     CATS.map(c=>`<button class="nav" onclick="goto('${c.id}')">${c.t}</button>`).join('');
   const tri=filter==='flag',sup=filter==='crit';                 // triage view earns an extra column
-  const cols=n+6+(tri?1:0);
-  const hd=ds.map((d,i)=>{const dt=new Date(d.date+'T00:00:00');
-    return `<th class="dcol ${i===n-1?'dnow':''}" title="${d.date}">${dt.toLocaleString('en',{month:'short'})} '${d.date.slice(2,4)}</th>`;}).join('');
+  const cols=drawCols+6+(tri?1:0);
+  const hd=drawPlaceholder
+    ?`<th class="dcol" title="A real draw date will replace this placeholder">MMM 'YY</th>`
+    :ds.map((d,i)=>{const dt=new Date(d.date+'T00:00:00');
+      return `<th class="dcol ${i===n-1?'dnow':''}" title="${d.date}">${dt.toLocaleString('en',{month:'short'})} '${d.date.slice(2,4)}</th>`;}).join('');
   let h=`<thead><tr><th class="nm lft">Marker</th>`+
     `<th class="now" title="Most recent value for this marker, whichever draw it came from">Latest</th>`+
-    `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Unit system for the whole table — Latest, every draw, the gauge, the chart and the delta. Click to switch to ${S.units==='si'?'US':'SI'}."><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
+    `<th class="uc lft"><button class="ubt" onclick="flipU()" title="Showing ${S.units==='si'?'SI':'US'} units · switch to ${S.units==='si'?'US':'SI'}" aria-label="Showing ${S.units==='si'?'SI':'US'} units; switch to ${S.units==='si'?'US':'SI'}"><b class="${S.units==='us'?'on':''}">US</b><b class="${S.units==='si'?'on':''}">SI</b></button></th>`+
     `<th class="lc lft" title="How long ago the latest reading was taken">Age</th>`+
     (tri?`<th class="off lft" title="How far past the specific reference range or optimal range the latest value sits">Off by</th>`:'')+
     `<th class="pos lft">Benchmarks</th>${hd}`+
@@ -2569,7 +2610,7 @@ function render(){
       // cell, spilling over the gauge — and no fixed width fixes that for good, since a
       // long label like "mmol/mol (IFCC)" would overflow again.
       if(ex)off=`<span class="exc ${st}">${ex}</span>`;}
-    const cells=ds.map((d,i)=>{const e=d.v[m.id];
+    const cells=drawPlaceholder?`<td class="c nil" title="No result recorded">·</td>`:ds.map((d,i)=>{const e=d.v[m.id];
       if(!e)return `<td class="c nil ${i===n-1?'dnow':''}">·</td>`;
       const v=toUS(m,e.r,e.u);      // canonical: status() must judge in canonical
       // the tooltip keeps the value AS THE LAB PRINTED IT — provenance, never converted
@@ -2585,7 +2626,7 @@ function render(){
         more?'':` title="${LT(e)}${fmt(e.r)} ${unitOf(m,e.u).l}"`}>${
         more?`<span class="dtl" data-mk="${m.id}" data-dt="${d.date}">${shown}</span>`:shown}</td>`;}).join('');
     return `<tr class="m" data-id="${m.id}" onclick="det(this,'${m.id}',${cols},${n},${tri})">
-      <td class="nm"><div class="n1">${m.en}</div><span class="fr">${m.fr}</span></td>
+      <td class="nm"><div class="n1">${m.en}</div>${m.fr?`<span class="fr">${m.fr}</span>`:''}</td>
       <td class="now">${pill}</td>
       <td class="uc" title="Reported in: ${m.units.map(u=>u.l).join(' / ')}${
         S.units==='si'&&!siOf(m)?' · no SI equivalent — shown unconverted':''}">${uLab(m)}</td>
@@ -2896,7 +2937,8 @@ function renderPage(p){
       // "q" is a qualifier on the group — the scheme its exercises are run under, not part of its
       // name. It sits outside the uppercase so the header still reads CALVES like every other
       // group, with the scheme in sentence case beside it.
-      ?c.groups.map(g=>`<div class="cgrp">${g.icon?cgIcon(g.icon):''}${esc(g.t)}${g.q?`<span class="cgq">${esc(g.q)}</span>`:''}</div><ul>${g.items.map(exRow).join('')}</ul>`).join('')
+      ?c.groups.map(g=>`<div class="cgrp">${g.icon?cgIcon(g.icon):''}${esc(g.t)}${g.q?`<span class="cgq">${esc(g.q)}</span>`:''}</div>`+
+        (g.items.length?`<ul>${g.items.map(exRow).join('')}</ul>`:(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))).join('')
       :(c.items.length?`<ul>${c.items.map(exRow).join('')}</ul>`:`<div class="cempty">&mdash;</div>`);
     // footer notes under a list card (Skincare): the same .cgnote the schedule grid used, so a
     // card that dropped its dot-matrix keeps its footnotes reading exactly as before.
@@ -2927,7 +2969,7 @@ function renderPage(p){
     return `<div class="pgtier">${esc(c.t)}</div>`+
       `<div class="pgsec stk nohead"${c.id?` data-care="${esc(c.id)}"`:''}>`+
       (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
-      (c.items||[]).map(row).join('')+`</div>`;};
+      ((c.items||[]).length?(c.items||[]).map(row).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`;};
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
     sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
@@ -2966,29 +3008,30 @@ function renderPage(p){
       `<div class="ndmeta"><div><b>Meaningful result</b>${esc(x.trigger)}</div>`+
       `<div><b>Assay continuity</b>${esc(x.method)}</div><div><b>Preparation</b>${esc(x.prep)}</div>`+
       `<div><b>Timing</b>${esc(x.timing)}</div></div></details>`;
-    const cards=(NEXTDRAW.collections||[]).map(c=>{
+    const collections=NEXTDRAW.collections||[];
+    const cards=collections.length?collections.map(c=>{
       const rec=ndOrder(c.id,false).length,opt=ndOrder(c.id,true).length-rec;
       return `<div class="ndcard"><div class="ndct">${esc(c.t)}</div><div class="nddate">${esc(c.date)}</div>`+
         `<div class="ndcn">${esc(c.note)}</div><div class="ndactions">`+
         `<button class="frcopy" data-copy-label="Copy recommended · ${rec}" onclick="copyNd(this,'${esc(c.id)}',false)">Copy recommended · ${rec}</button>`+
         (opt?`<button class="frcopy" data-copy-label="Copy + optional · ${rec+opt}" onclick="copyNd(this,'${esc(c.id)}',true)">Copy + optional · ${rec+opt}</button>`:'')+
-        `</div></div>`;}).join('');
+        `</div></div>`;}).join(''):(CARD_SHELLS?`<div class="ndcard"><div class="ndct">Next draw</div><div class="cempty">&mdash;</div></div>`:'');
     h=`<div class="pgh">Next draw</div><div class="pgsub">${it.filter(x=>x.g!=='optional').length} recommended · ${it.filter(x=>x.g==='optional').length} optional · ${df.length} deferred</div>`+
-      `<div class="ndintro">${esc(NEXTDRAW.intro||'')}</div><div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
-      ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length)return '';
+      (NEXTDRAW.intro?`<div class="ndintro">${esc(NEXTDRAW.intro)}</div>`:'')+`<div class="ndcollections"><div class="ndcards">${cards}</div></div>`+
+      ND.map(([g,title,blurb])=>{const rows=it.filter(x=>x.g===g);if(!rows.length&&!CARD_SHELLS)return '';
         return `<div class="pgsec ndlist"><div class="pgst ndgtitle">${esc(title)}<span class="cn">${rows.length}</span></div>`+
-          `<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
-          rows.map(row).join('')+`</div>`;}).join('')+
+          (rows.length?`<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
+          rows.map(row).join(''):`<div class="cempty">&mdash;</div>`)+`</div>`;}).join('')+
       `<div class="pgsec ndlist"><div class="pgst">Deferred / not this draw<span class="cn">${df.length}</span></div>`+
-      `<div class="cnote">Visible so the exclusions stay reasoned. These rows are never copied into a laboratory order.</div>`+
+      (df.length?`<div class="cnote">Visible so the exclusions stay reasoned. These rows are never copied into a laboratory order.</div>`+
       df.map(x=>`<div class="srow ndxrow"><span class="sn">${esc(x.en)} <span class="ndstatus">${esc(x.s)}</span></span>`+
         `<span class="frn">${esc(x.fr)}</span><div class="ndwhy"><span class="ndlbl">Why not now</span> ${esc(x.why)}</div>`+
-        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span> ${esc(x.reconsider)}</div></div>`).join('')+`</div>`;
+        `<div class="ndreconsider"><span class="ndlbl">Reconsider when</span> ${esc(x.reconsider)}</div></div>`).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`;
   } else if(p==='record'&&RECORD){
     /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
        two-column list rather than anything from the marker table. A section with no rows still
        renders its heading and says what belongs there — an invisible section reads as a bug. */
-    const n=RECORD.sections.reduce((a,x)=>a+x.rows.length,0);
+    const n=RECORD.sections.reduce((a,x)=>a+x.rows.filter(r=>r[1]&&r[1]!=='—').length,0);
     h=`<div class="pgh">Record</div><div class="pgsub">${n} standing fact${n===1?'':'s'}</div>`+
       RECORD.sections.map(sec=>
         `<div class="pgsec ndlist"><div class="ndhead"><span class="sn">${esc(sec.t)}</span>`+
@@ -2997,7 +3040,7 @@ function renderPage(p){
           ? `<div class="srow"><span class="rline">${esc(sec.line)}</span></div>`
           : sec.rows.length
             ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
-            : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||'')}</span></div>`)+
+            : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||(CARD_SHELLS?'—':''))}</span></div>`)+
         (sec.foot?`<div class="rfoot">${esc(sec.foot)}</div>`:'')+
         `</div>`).join('');
   } else if(p==='stack'&&STACK){
@@ -3037,15 +3080,15 @@ function renderPage(p){
        hierarchy — a card is a bounded set you act on every morning, a list is one you are still
        reading. Making both cards would have restored the three-equal-things problem in a new
        shape, and 12 parked rows each carrying a judge line make a card nobody can take in. */
-    const daily=STACK.cats.filter(c=>c.id!=='maylater'&&STACK.items.some(s=>s.cat===c.id));
+    const daily=STACK.cats.filter(c=>c.id!=='maylater'&&(CARD_SHELLS||STACK.items.some(s=>s.cat===c.id)));
     if(daily.length)
       h+=`<div class="pgtier">Daily</div><div class="care col">`+
         daily.map(c=>`<div class="ccard">${c.t?`<b>${esc(c.t)}</b>`:''}`+
-          (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+stackRows(c)+`</div>`).join('')+`</div>`;
+          (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+(stackRows(c)||(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`).join('')+`</div>`;
     const ml=STACK.cats.find(c=>c.id==='maylater');   // parking lot, at the very foot
-    if(ml&&STACK.items.some(s=>s.cat===ml.id))
+    if(ml&&(CARD_SHELLS||STACK.items.some(s=>s.cat===ml.id)))
       h+=`<div class="pgtier">${esc(ml.t||'May add later')}</div><div class="pgsec stk nohead">`+
-        (ml.note?`<div class="cnote">${esc(ml.note)}</div>`:'')+stackRows(ml)+`</div>`;
+        (ml.note?`<div class="cnote">${esc(ml.note)}</div>`:'')+(stackRows(ml)||(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`;
   } else if(p==='grooming'&&CARE.length){
     // the face schedule renders as a day-indexed grid; the dental protocol stays a cadence card
     const grids=CARE.filter(c=>c.schedule);
@@ -3059,7 +3102,13 @@ function renderPage(p){
         cardRow(CARE.filter(c=>!c.schedule&&!c.tier),'wide')+
       `</div>`+
       CARE.filter(c=>c.tier).map(careTier).join('');
-  } else if(p==='routine'&&ROUTINE.length){
+  } else if(p==='routine'&&(ROUTINE.length||CARD_SHELLS)){
+    if(!ROUTINE.length){
+      const w=ROUTINE_WINDOW||{from:'07:00',to:'23:00'},h0=parseInt(w.from),h1=parseInt(w.to);
+      h=`<div class="pgh">Daily routine</div><div class="pgsub">${esc(w.from)} &rarr; ${esc(w.to)}</div>`+
+        Array.from({length:h1-h0+1},(_,i)=>{const hh=h0+i,last=hh===h1;
+          return `<div class="rhr rtemplate${last?' rlast':''}"><span class="rht"><i class="rhl lt">${String(hh).padStart(2,'0')}:00</i></span><div class="rcell"></div></div>`;}).join('');
+    }else{
     // an hour RULER, not a list: every hour from wake to lights-out gets a mark, so empty
     // hours take up (a little) space and the day reads as time, not as glued-together events
     const H0=parseInt(ROUTINE[0].t),H1=parseInt(ROUTINE[ROUTINE.length-1].t);
@@ -3157,9 +3206,10 @@ function renderPage(p){
       }
       hr++;
     }
+    }
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
-      (TRAINING.cardio?`<div class="pgst">Cardio</div><div class="cnote lead">${esc(TRAINING.cardio).replace(/\n/g,'<br>')}</div>`:'')+
+      (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
       (TRAINING.benchmarks?`<div class="pgst rbtitle">Running benchmarks</div>`+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
@@ -3170,6 +3220,7 @@ function renderPage(p){
       (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards);
   } else if(p==='diet'&&DIET){
+    const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
     const supps=slot=>{
       // ONLY 'taking'. Diet is a list of what actually goes in with each meal, and since
@@ -3241,7 +3292,7 @@ function renderPage(p){
     const profileCard=()=>{
       const p=DIET.profile;if(!p)return '';
       const total={energy:0,protein:0,carbs:0,fat:0,fibre:0,saturates:0};
-      DIET.meals.filter(m=>m.at).forEach(m=>{const r=macroMean(m.items);Object.keys(total).forEach(k=>{total[k]+=r[k];});});
+      DIET.meals.filter(isMealCard).forEach(m=>{const r=macroMean(m.items);Object.keys(total).forEach(k=>{total[k]+=r[k];});});
       const ptr=DIET.meals.flatMap(m=>m.items||[]).find(x=>x&&typeof x==='object'&&x.rotation);
       const rotation=ptr&&DIET.meals.find(m=>m.id===ptr.rotation);
       const choices=rotation?(rotation.items||[]).filter(x=>x&&typeof x==='object').flatMap(macroOptions):[];
@@ -3259,19 +3310,20 @@ function renderPage(p){
     };
     // timed meals are CARDS; untimed sections (Other foods) render as plain
     // rows BELOW the card column
-    h=`<div class="pgh">Diet</div><div class="pgsub">${DIET.meals.filter(m=>m.at).length} meals a day</div>`+
-      `<div class="care col">`+DIET.meals.filter(m=>m.at).map(m=>
-        `<div class="ccard"><b>${esc(m.t)}</b>${kcalTag(m)}<span class="cwhen">${esc(m.at)}</span>`+
-        `<ul>${m.items.map(x=>{if(x==='---')return '<li class="crs" aria-hidden="true"></li>';const k=foodKcal(x);return `<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>`+((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+(k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</li>`;}).join('')}</ul>`+
+    const mealCards=DIET.meals.filter(isMealCard);
+    h=`<div class="pgh">Diet</div><div class="pgsub">${mealCards.length} ${CARD_SHELLS?'meal slot'+(mealCards.length===1?'':'s'):'meals a day'}</div>`+
+      `<div class="care col">`+mealCards.map(m=>
+        `<div class="ccard"><b>${esc(m.t)}</b>${kcalTag(m)}${m.at?`<span class="cwhen">${esc(m.at)}</span>`:''}`+
+        (m.items.length?`<ul>${m.items.map(x=>{if(x==='---')return '<li class="crs" aria-hidden="true"></li>';const k=foodKcal(x);return `<li class="drow"><span class="dfn">${esc(typeof x==='object'?x.n:x)}</span>`+((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+(k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</li>`;}).join('')}</ul>`:(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+
         `<div class="cgrp">Supplements</div>`+supps(m.id)+`</div>`).join('')+
       `<div class="ccard"><b>Evening</b>${DIET.eveningAt?`<span class="cwhen">${esc(DIET.eveningAt)}</span>`:''}<div class="cgrp">Supplements</div>`+supps('evening')+`</div>`+
       `</div>`+
-      DIET.meals.filter(m=>!m.at).map(m=>
+      DIET.meals.filter(m=>!isMealCard(m)).map(m=>
         `<div class="pgsec dfoods"><div class="pgst mini">${esc(m.t)}</div>`+
-        m.items.map(x=>{const k=foodKcal(x);   // same three columns as a meal row: name, portion, kcal
+        (m.items.length?m.items.map(x=>{const k=foodKcal(x);   // same three columns as a meal row: name, portion, kcal
           return `<div class="srow lite"><span class="sn">${esc(typeof x==='object'?x.n:x)}</span>`+
             ((typeof x==='object'&&x.amt)?`<span class="damt">${esc(x.amt)}</span>`:'')+
-            (k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</div>`;}).join('')+
+            (k?`<span class="dkcal">${k}kcal</span>`:'')+foodTip(x)+`</div>`;}).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+
         `</div>`).join('')+profileCard();
     if(DIET.notes&&DIET.notes.length)
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;

@@ -35,6 +35,11 @@ setTimeout(()=>{
   ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
     rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
   ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
+  ok('schema version is explicit and supported',DATA.schemaVersion===1,`schema ${DATA.schemaVersion}`);
+  {const c=DATA.CALCULATIONS&&DATA.CALCULATIONS.correctedCalcium;
+   ok('personal corrected-calcium rule is data-configured',c&&
+     c.albuminSetpointGPerDl===4&&c.albuminMaxGPerDl===4&&
+     c.coefficientMgDlPerGdl===1&&c.outputUnit==='mg/dL');}
   {const fields=['measures','matters','caveat'];
    ok('every marker has the three-part description contract',DATA.MARK.every(m=>
      m.note&&typeof m.note==='object'&&!Array.isArray(m.note)&&
