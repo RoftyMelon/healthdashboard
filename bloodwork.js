@@ -2217,16 +2217,16 @@ window.BLOODWORK =
    {
     "en": "Urine protein/creatinine ratio — quantitative",
     "fr": "Rapport protéines/créatinine urinaire — méthode quantitative",
-    "g": "decision",
+    "g": "optional",
     "draws": [
      "main"
     ],
-    "why": "July printed <221mg/g against a 118mg/g ceiling, so the only flagged renal result on the panel was never resolved either way.",
-    "decision": "A quantified value under the ceiling closes the question; a quantified value above it, with eGFR and cystatin C in hand, is the one result here that would justify a kidney work-up.",
-    "trigger": "Only worth ordering if the laboratory can report below 118mg/g. Repeating the same censored assay returns <221 again and resolves nothing, so confirm the reporting limit before collection rather than after.",
+    "why": "July printed only <221mg/g, so the result could not establish whether urine protein was below the 118mg/g reference ceiling.",
+    "decision": "A quantified first-morning value below the ceiling closes this one-time ambiguity; a confirmed value above it can be interpreted with eGFR and cystatin C to decide whether evaluation is warranted.",
+    "trigger": "Order only if the laboratory can report below 118mg/g. Repeating the same censored assay returns <221 again and resolves nothing, so confirm the reporting limit before collection.",
     "method": "Quantitative protein/creatinine on a first-morning specimen, reporting limit below 118mg/g (13mg/mmol). Urine total-protein methods are poorly harmonised, so record the manufacturer alongside the result.",
     "prep": "First-morning specimen, no strenuous exercise for 48 hours — exercise alone raises urinary protein.",
-    "timing": "Same morning as the main draw."
+    "timing": "Optional one-time closure on the same morning as the main draw."
    },
    {
     "en": "ApoB + lipid panel (total, LDL, HDL, triglycerides)",
@@ -2334,12 +2334,12 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "Does approximately 3.9g/day EPA+DHA including mackerel, trout and supplements reach the intended red-cell range?",
+    "why": "Does the stable combination of supplemental EPA+DHA and the Weekly fish rotation reach the intended red-cell range?",
     "decision": "If below the proposed lower-risk threshold, verify intake and method before increasing an already-high dose; a value above 12% prompts a conservative supplement review rather than proving excess.",
     "trigger": "Proposed lower-risk threshold: at least 8%. No outcome study establishes 12% as an upper optimum; it remains a personal review point only.",
     "method": "Exact erythrocyte-membrane AGRAS measurement by GC-FID through Bioavenir Metz.",
-    "prep": "Keep average food plus supplement intake stable; record fish frequency and supplemental EPA/DHA.",
-    "timing": "Main draw after at least 4 months of stable average intake.",
+    "prep": "Keep average intake stable; record the actual Weekly rotation choices, fish frequency and any supplement doses replaced on fish days.",
+    "timing": "Main draw after at least 4 months of documented average intake.",
     "cost": "Expensive — justified"
    },
    {
@@ -2349,8 +2349,8 @@ window.BLOODWORK =
     "draws": [
      "main"
     ],
-    "why": "July already sat low-normal — ferritin 58µg/L is barely above the 44.8 floor and TSAT was 22% — and on 1 Aug THREE things moved against it at once: the diet went from largely haem to largely non-haem, the pre-workout meal changed and took 9mg/day of fortified iron with it, and the oats that replaced it add phytate. Nothing in STACK supplies iron. Is it still holding?",
-    "decision": "Use the panel, never serum iron alone. A confirmed decline is the one result on this draw that would argue for changing the diet rather than continuing it, whether by restoring haem iron or by pairing the non-haem sources with vitamin C and separating them from the tea and kefir.",
+    "why": "Huel stopped on 1 Aug, removing 9mg/day of fortified iron; oats replaced it and add phytate. The current rotation includes haem and non-haem sources, but its actual frequencies are not encoded. Are ferritin and TSAT holding after the switch?",
+    "decision": "Use the panel, never serum iron alone. If a decline is confirmed, first review the actual Weekly rotation, iron-rich food frequency, vitamin-C pairing and tea or kefir timing before considering supplementation.",
     "trigger": "TSAT below 20%, ferritin below the laboratory range, or a confirmed ferritin decline over 25% from 58µg/L — roughly 43 or lower — changes the decision.",
     "method": "Same assays; derive TIBC from transferrin when appropriate rather than ordering a duplicate calculation.",
     "prep": "Fasting morning draw under ordinary dietary conditions.",
@@ -2443,31 +2443,31 @@ window.BLOODWORK =
    {
     "en": "IGF-1",
     "fr": "IGF-1 (somatomédine C)",
-    "g": "trend",
+    "g": "optional",
     "draws": [
      "main"
     ],
-    "why": "Did the August diet raise IGF-1, or is 104.6 simply the individual set point rather than a signal about intake?",
-    "decision": "A rise supports intake having been the earlier constraint and argues for holding the diet; a flat result closes that question and moves the training-response investigation off calories.",
-    "trigger": "July was 104.6ng/mL on the LIAISON XL. A rise of at least 20%, to roughly 125 or above, clears assay noise and reaches the VARIETE floor. A result within about 10% either way, roughly 94-115, argues for a set point. Between the two, repeat under the same conditions before concluding anything.",
+    "why": "Would a same-assay second point add useful descriptive context after the diet change?",
+    "decision": "Treat it as descriptive; do not infer calorie sufficiency or change diet or training from IGF-1 alone.",
+    "trigger": "No defensible symptom-free optimization threshold. Only a confirmed result outside an appropriate age- and method-specific interval, with compatible clinical context, would change a decision.",
     "method": "Same post-23/09/2025 assay; otherwise the point is not comparable. A second point on this analyser is also what lets the cross-draw assay warning surface the unreconciled 124-310 versus 82-241 gap.",
     "prep": "Shared fasting morning protocol.",
-    "timing": "At the main draw, after at least three months of the stable diet.",
-    "cost": "Expensive — justified"
+    "timing": "Optional at the main draw, after at least three months of the stable diet.",
+    "cost": "Expensive — weak decision value"
    },
    {
     "en": "Selenium",
     "fr": "Sélénium",
-    "g": "trend",
+    "g": "optional",
     "draws": [
      "main"
     ],
-    "why": "The August diet moved fish from occasional to near-daily, and mackerel and trout are among the densest selenium sources — so does intake alone now reach the restored 100-130 band?",
-    "decision": "Read it as a diet effect, not a supplement question. No selenium supplement is planned at any result, since intake above roughly 130 carries a diabetes signal.",
-    "trigger": "July was 93.5µg/L. Reaching 100-130 confirms the diet supplies it; staying near 93.5 says the fish did not move it and the gap is tolerated deliberately. Above 130 is the only result that would prompt a change, by reviewing intake down.",
+    "why": "Would a same-method second point add useful descriptive context after the diet change?",
+    "decision": "No supplement decision depends on it; review intake only if a standardized repeat is outside the applicable assay interval.",
+    "trigger": "The stored 100-130µg/L band is weak-grade and is not an action threshold. July's 93.5µg/L was within the laboratory range.",
     "method": "Same ICP-MS serum method as July; selenium is not transferable between platforms.",
     "prep": "Shared fasting morning protocol.",
-    "timing": "Main draw, after at least three months of the stable diet."
+    "timing": "Optional at the main draw, after at least three months of the stable diet."
    },
    {
     "en": "Estradiol",
