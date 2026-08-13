@@ -104,7 +104,7 @@ window.BLOODWORK =
   "Creatine 5g",
   "Vitamin D3 5000 IU + K2",
   "Magnesium L-threonate",
-  "Glycine 8g + taurine + collagen"
+  "Glycine 8g + collagen"
  ],
  "STACK": {
   "cats": [
@@ -410,7 +410,7 @@ window.BLOODWORK =
      }
     ],
     "url": "https://www.sunday.de/en/collagen-powder-sunglow-luxe-plus-c.html",
-    "dec": "Glycine 8g + taurine + collagen",
+    "dec": "Glycine 8g + collagen",
     "judge": "skin hydration and fine lines — photos in consistent light, read at the next draw, end of 2026"
    },
    {
@@ -623,7 +623,7 @@ window.BLOODWORK =
     "status": "planned",
     "when": null,
     "url": null,
-    "dec": "Glycine 8g + taurine + collagen"
+    "dec": "Glycine 8g + collagen"
    },
    {
     "id": "nac",
@@ -887,44 +887,6 @@ window.BLOODWORK =
     "url": "https://amzn.eu/d/09MG0JOC",
     "dec": "Creatine 5g",
     "judge": "strength and power in training; and cystatin C, never creatinine alone"
-   },
-   {
-    "id": "taurine",
-    "name": "Taurine",
-    "ev": "none",
-    "judge": "nothing measurable at your age — a theory bet, not a testable one",
-    "dose": "5g",
-    "info": {
-     "What it does": [
-      [
-       "",
-       "Proposed longevity agent, extrapolated from the 2023 mouse-lifespan paper."
-      ]
-     ],
-     "Dose": [
-      [
-       "",
-       "5g is a longevity dose. Exercise studies use 1-3g."
-      ]
-     ],
-     "Evidence": [
-      [
-       "",
-       "Human data is observational, not trial. Cheap and safe to 10g, but unproven."
-      ]
-     ],
-     "Parked": [
-      [
-       "",
-       "Until human data, or a clear reason."
-      ]
-     ]
-    },
-    "cat": "maylater",
-    "status": "planned",
-    "when": null,
-    "url": null,
-    "dec": "Glycine 8g + taurine + collagen"
    },
    {
     "id": "boron",
@@ -5408,7 +5370,7 @@ window.BLOODWORK =
    "cat": "renal",
    "dec": [
     "Creatine 5g",
-    "Glycine 8g + taurine + collagen"
+    "Glycine 8g + collagen"
    ],
    "en": "Urea (BUN)",
    "fr": "Urée",

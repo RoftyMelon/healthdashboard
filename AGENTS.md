@@ -211,8 +211,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   the order and the required three — the sections were nineteen prose paragraphs saying the same
   six things in nineteen different orders before that.
 - **Every STACK item carries `ev`: `strong` / `moderate` / `weak` / `none`**, rendered as a pill
-  beside the name. **`none` is a REAL value, not a missing one** — ergothioneine and taurine have
-  no trial base and no assay, and the tag exists to say that out loud where it can be seen rather
+  beside the name. **`none` is a REAL value, not a missing one** — ergothioneine has no trial base
+  and no assay, and the tag exists to say that out loud where it can be seen rather
   than 400 characters into a paragraph. An item with no `ev` is one whose evidence was never
   examined, so `audit()` refuses to render rather than let it through blank.
 - **`judge` renders in exactly ONE place, and which one depends on the tier.** On the ROW for
