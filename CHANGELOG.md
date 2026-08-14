@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Marker catalogue · 2026-08-14
+
+- Added whole-blood total mercury under a new Environmental exposure category, with a generic
+  educational description, sourced population-position reference and public biomonitoring review zones.
+
 ## Viewer 1.2.0 · Schema 1 · 2026-08-13
 
 - Kept deferred Next Draw exclusions as source-only reasoning and removed their dashboard section and count.

@@ -21,7 +21,7 @@ no maintained ZIP or archive-generation step belongs in this workflow.
 
 | file | role |
 |---|---|
-| `bloodwork.js` | **The data. The single source of truth.** 88 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
+| `bloodwork.js` | **The data. The single source of truth.** 89 markers, 7 draws, the supplement map, and the `STACK` / `ROUTINE` / `DIET` / `CARE` / `TRAINING` / `NEXTDRAW` lifestyle blocks. Also what gets handed to an AI for biomarker work. |
 | `index.html` | **The viewer. Contains ZERO data.** Loads `bloodwork.js` via `<script src>`. |
 
 **Never put data in `index.html`. Never put UI in `bloodwork.js`.** If you find yourself
@@ -114,8 +114,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     because turning a printed `28.98` into `29` weakens the assay fingerprint.
   - `marker.reference` is a rigorously sourced healthy-population interval that can legitimately
     apply across draws. It needs numeric bounds, a label, `evidence: strong | moderate | weak`,
-    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. ALL 88
-    markers now carry one (2026-08-02, the owner's call: he wants to see where he sits on every
+    source, applicable population, assay requirement and a `YYYY-MM-DD` review date. ALL 89
+    markers now carry one (updated 2026-08-14; the owner's call: he wants to see where he sits on every
     marker, and accepts that position does not always matter and that an assay change between
     draws explains some movement — the bold orange note already warns about that). The bar is
     "is there a published citable interval", NOT "does it transfer universally", so the evidence
@@ -129,7 +129,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
     clinical/AI context, but the dashboard does not display them or use them for status or flags.
   - `marker.target` is an evidence-backed health-optimization target. It needs `min` and/or
     `max`, a label, a source and `evidence: strong | moderate | weak`. Most markers deliberately
-    have no target: only 7 of 88 currently do (`vitd`, `sel`, `o3`, `tg`, `apob`, `nonhdl`,
+    have no target: only 7 of 89 currently do (`vitd`, `sel`, `o3`, `tg`, `apob`, `nonhdl`,
     `ldl` — vitamin D and selenium were culled in the target audit and restored by the owner on
     2026-08-05, both weak-graded on purpose). A target must
     add a defensible optimization claim rather than duplicate a decision cut or manufacture a

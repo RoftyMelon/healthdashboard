@@ -36,14 +36,14 @@ window.BLOODWORK =
   },
   "stack": "Moved to the STACK block below — structured, with dose, status, category, meal slot and purchase URL. STACK is the single source of truth for supplements; do not re-list them here.",
   "lifestyle_blocks": "STACK, ROUTINE, CARE and DIET are structured lifestyle data, same contract as the rest of the file: exact, never inferred. STACK is organised in functional categories; most items are status 'planned' — queued for the new protocol, not yet started. STACK.items[].status is one of taking/candidate/stopped/dropped/planned. .when is null (not yet assigned — never guess) OR an array of {at, dose}: one entry per meal slot it's taken at (presnack/brunch/dinner/evening), each carrying the PER-SLOT dose (astaxanthin = [{at:brunch,dose:12mg},{at:dinner,dose:12mg}]; the item's own .dose stays the daily total). Timing lives on the item (.when), not in the categories: cats are functional groups. .dec ties an item to its DECS group (verbatim label) so the dashboard can cross-link; null means no blood marker bears on it (see confounds). An optional .judge string is the readout — the marker or felt endpoint that decides whether a trial-tier (maylater) supplement is working — shown as a 'Judge by:' line under the item. A category's .note is the user's own caveat, shown under the section header; a category with t:null renders HEADERLESS — only its note introduces its items. A DIET meal without .at is a plain food section: no time chip, no supplement slot. A meal item is a string, or {n, info} — in a timed meal card, .info opens behind a hover info-tip on the name: .info is a string (plain caveat) OR a {section: [[label,value],…]} object rendered as a compact nutrition table (most DIET items use this). ROUTINE times are HH:MM ascending; an entry's .until marks the end of a BLOCK (gym, work) and must be later than its .t; supplements are NOT shown in ROUTINE — they live only on the Diet tab (derived from STACK.when), so the routine just names the meal or event. CARE holds the dental / face protocols, rendered as cards on their own Grooming tab — deliberately NOT hour-by-hour events, they would duplicate. Meal supp lists are NOT stored anywhere: the Diet cards derive them from STACK.when (taking + planned) at render time, with an Evening supps card of its own — one source of truth for timing. DIET.meals[].id doubles as the when-slot key: an item with a when entry {at:'brunch'} belongs to the meal whose id is 'brunch' (slots: presnack/brunch/dinner/evening). In DIET, a '---' item is a course separator (starter / main / dessert), rendered as a gap. DIET.eveningAt stamps the Evening supplements card's time. NEXTDRAW is a decision contract: collections[] names the draw windows, protocol[] stores the shared preparation, active items[] carry en/fr plus group, draw ids, question, decision, trigger, method, preparation and timing, and deferred[] records exclusions that never enter a lab copy. The default copy includes decision and trend rows for one collection; the separate optional copy adds that collection's optional rows. A CARE card may split its items into .groups by cadence (Daily / Weekly / Yearly), same shape as TRAINING groups, OR carry a .schedule instead — a day-indexed weekly grid (days[] with an optional tag + hi chip, sections[] (each an optional .icon: sun/sunset/moon) of rows {n, on:[day names], hi?}, plus notes[]) rendered as a dot-matrix (solid = applied, faint = skipped); the Skincare card (id 'face') uses this and every on-day name must appear in days[]. TRAINING is {cardio, note, cards}: the gym program as Pull / Push / Legs cards, each organised in muscle-group .groups ('Accessory' holds what resists categorising). Every item is {n, sets:[[kg,reps],...]} — one pair per set, kg null = bodyweight, a '+' prefix = added weight, reps may be a duration like '0:30', sets [] = a protocol without logged sets; an optional .info string holds details shown behind an info tip. Copied exactly from the user's workout app; .cardio is the cardio baseline and .note is the resistance caveat — the page renders them as labelled Cardio / Resistance sections. Doses write micrograms as mcg, never µg — µ uppercases into M and becomes a 1000x reading error.",
-  "never_measured": "9 markers have no stored result: corrected calcium is deliberately blank because every albumin exceeds the source lab’s correction ceiling; TIBC and calculated free testosterone are derived at load when their inputs exist; ceruloplasmin, MMA, PLP, urea, dialysis free testosterone and bicarbonate have not been measured.",
+  "never_measured": "10 markers have no stored result: corrected calcium is deliberately blank because every albumin exceeds the source lab’s correction ceiling; TIBC and calculated free testosterone are derived at load when their inputs exist; ceruloplasmin, MMA, PLP, urea, dialysis free testosterone, bicarbonate and whole-blood mercury have not been measured.",
   "self_check_before_returning_the_file": [
    "Every markerId in the new draw exists in MARK.",
    "Every \"u\" string appears verbatim in that marker units[] array.",
    "No existing draw was modified, reordered or dropped. Count them: there are 7.",
    "The file still parses: it is window.BLOODWORK = {...}; with the wrapper intact."
   ],
-  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; all 88 markers carry one, graded strong/moderate/weak — the grade carries the doubt, so a weak interval is shown with its transfer limits in method rather than withheld. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval; it is retained as clinical/AI context and is NOT rendered on the dashboard, nor used for status or flags. target is an evidence-backed optimization band and must carry strong/moderate/weak evidence plus its basis; 7 of 88 markers have one. The viewer renders reference as \"Reference range\" and target as \"Optimal range\", the only two filled bands. Legacy clin[], opt[] and oc are rejected by audit()."
+  "interpretation_model": "Four claims stay separate. lr is the exact per-result interval printed by that laboratory, in the result unit; it is provenance shown in the datapoint detail, not a dashboard judgement band. reference is a marker-wide sourced healthy-population interval and must declare its evidence strength, source, applicable population, assay requirement and review date; all 89 markers carry one, graded strong/moderate/weak — the grade carries the doubt, so a weak interval is shown with its transfer limits in method rather than withheld. cut contains guideline, diagnostic or risk zones and never pretends to be a lab interval; it is retained as clinical/AI context and is NOT rendered on the dashboard, nor used for status or flags. target is an evidence-backed optimization band and must carry strong/moderate/weak evidence plus its basis; 7 of 89 markers have one. The viewer renders reference as \"Reference range\" and target as \"Optimal range\", the only two filled bands. Legacy clin[], opt[] and oc are rejected by audit()."
  },
  "CALCULATIONS": {
   "correctedCalcium": {
@@ -89,6 +89,10 @@ window.BLOODWORK =
   {
    "id": "vitmin",
    "t": "Vitamins & minerals"
+  },
+  {
+   "id": "exposure",
+   "t": "Environmental exposure"
   }
  ],
  "DECS": [
@@ -2271,6 +2275,20 @@ window.BLOODWORK =
     "prep": "Keep average intake stable; record the actual Weekly rotation choices, fish frequency and any supplement doses replaced on fish days.",
     "timing": "Main draw after at least 4 months of documented average intake.",
     "cost": "Expensive — justified"
+   },
+   {
+    "en": "Total mercury — whole blood",
+    "fr": "Mercure total — sang total (ICP-MS)",
+    "g": "decision",
+    "draws": [
+     "main"
+    ],
+    "why": "What is total internal mercury exposure under the current seafood rotation and supplement use, rather than inferring it from food lists or product certificates?",
+    "decision": "Below 5µg/L, record the baseline and do not repeat routinely. From 5 to below 15µg/L, confirm the result and review seafood species and frequency plus other exposure sources before changing intake. At or above 15µg/L, seek clinical or toxicology review; add mercury speciation if the source remains unclear.",
+    "trigger": "The German HBM-I and HBM-II review levels for whole-blood total mercury are 5 and 15µg/L. They are precautionary general-population biomonitoring values derived from prenatal neurodevelopment evidence, not toxicity diagnoses for an adult man. The separate 6.84µg/L marker reference is the Northern French male 95th percentile.",
+    "method": "Total mercury by ICP-MS in whole blood collected in the performing laboratory's dedicated trace-element tube; use EDTA or heparin exactly as that laboratory specifies. Do not substitute serum, urine or hair, and do not order speciation up front.",
+    "prep": "No mercury-specific fast is required beyond the shared protocol. Keep usual fish, shellfish and omega-3 intake stable and record the actual species and frequency.",
+    "timing": "One-time at the main draw; no routine repeat if unremarkable."
    },
    {
     "en": "Iron studies — ferritin, iron, transferrin/TIBC + TSAT",
@@ -8073,6 +8091,69 @@ window.BLOODWORK =
     300,
     3000
    ]
+  },
+  {
+   "id": "hg",
+   "cat": "exposure",
+   "en": "Mercury (whole blood)",
+   "fr": "Mercure total sanguin",
+   "us": "µg/L",
+   "units": [
+    {
+     "l": "µg/L",
+     "m": 1
+    },
+    {
+     "l": "ng/mL",
+     "m": 1
+    },
+    {
+     "l": "nmol/L",
+     "m": 0.20059
+    }
+   ],
+   "am": "critical",
+   "reference": {
+    "min": null,
+    "max": 6.84,
+    "evidence": "weak",
+    "label": "Northern French adult men, whole-blood mercury 95th percentile",
+    "source": "Nisse et al., Int J Hyg Environ Health 2017;220(2 Pt B):341-363, doi:10.1016/j.ijheh.2016.09.020 (IMEPOGE)",
+    "population": "Men aged 20-59 from the general population of Northern France; 942 men had an interpretable whole-blood mercury result. The 2008-2010 quota sample was designed to represent the region by sex, age, social category and smoking status.",
+    "method": "Whole-blood total mercury by ICP-MS. The stored 6.84µg/L ceiling is the male 95th percentile reported for IMEPOGE in a published comparison table citing the primary study. It describes population exposure, not a toxicity threshold or an optimization target. Seafood patterns, geography and study period materially affect the distribution; total mercury also does not distinguish methylmercury from inorganic or elemental mercury. Compare only compatible whole-blood measurements and record the collection tube and assay reported by the laboratory.",
+    "reviewed": "2026-08-14"
+   },
+   "note": {
+    "measures": "Total mercury in whole blood measures all mercury species circulating in blood. In the general population, most blood mercury usually reflects methylmercury exposure from seafood.",
+    "matters": "A one-time result measures combined internal exposure instead of inferring it from seafood intake or supplement certificates. A confirmed elevation can justify reviewing the actual sources and, when needed, measuring individual mercury species.",
+    "caveat": "Total mercury does not identify the chemical form or the source. Whole blood is appropriate for current or recent seafood-related exposure; urine is generally more informative for elemental or inorganic exposure. Serum, urine, hair and whole blood are not interchangeable."
+   },
+   "axis": [
+    0,
+    20
+   ],
+   "cut": {
+    "label": "Whole-blood mercury biomonitoring review levels",
+    "source": "German Human Biomonitoring Commission (UBA, 1999), summarized by INRS Biotox, June 2026",
+    "zones": [
+     {
+      "max": 5,
+      "label": "Below HBM-I",
+      "level": "ok"
+     },
+     {
+      "min": 5,
+      "max": 15,
+      "label": "Confirm and review exposure sources",
+      "level": "watch"
+     },
+     {
+      "min": 15,
+      "label": "Clinical or toxicology review",
+      "level": "out"
+     }
+    ]
+   }
   }
  ],
  "DATA": {

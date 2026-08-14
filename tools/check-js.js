@@ -34,7 +34,7 @@ setTimeout(()=>{
   // two separate guards: the renderer must not DROP a marker, and the data must not LOSE one
   ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
     rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
-  ok('88 markers', DATA.MARK.length===88, DATA.MARK.length+' markers');
+  ok('89 markers', DATA.MARK.length===89, DATA.MARK.length+' markers');
   ok('schema version is explicit and supported',DATA.schemaVersion===1,`schema ${DATA.schemaVersion}`);
   {const c=DATA.CALCULATIONS&&DATA.CALCULATIONS.correctedCalcium;
    ok('personal corrected-calcium rule is data-configured',c&&
@@ -71,14 +71,14 @@ setTimeout(()=>{
      mcvRendered.slice(0,160));}
   ok('legacy clin/opt fields are gone',
     DATA.MARK.every(m=>m.clin===undefined&&m.opt===undefined&&m.oc===undefined));
-  // ALL 88 carry one as of 2026-08-02, by the owner's explicit decision: he wants to see where he
+  // ALL 89 carry one as of 2026-08-14, by the owner's explicit decision: he wants to see where he
   // sits on every marker and accepts that position does not always matter and that assay changes
   // between draws explain some movement — the bold orange note already warns about the latter.
   // The bar moved with it: 'is there a published citable interval', not 'does it transfer
   // universally'. So the evidence GRADE now carries the doubt that rejection used to — 20 of the
   // last batch are 'weak' on purpose. What this assertion still guards is that none goes MISSING.
   ok('every marker carries an evidence reference',
-    DATA.MARK.filter(m=>m.reference).length===88&&DATA.MARK.find(m=>m.id==='tt').reference,
+    DATA.MARK.filter(m=>m.reference).length===89&&DATA.MARK.find(m=>m.id==='tt').reference,
     DATA.MARK.filter(m=>m.reference).length+' references');
   ok('every evidence reference declares scope, method and review date',DATA.MARK.filter(m=>m.reference)
     .every(m=>['strong','moderate','weak'].includes(m.reference.evidence)&&m.reference.source&&
@@ -156,6 +156,13 @@ setTimeout(()=>{
     (()=>{const t=DATA.MARK.find(m=>m.id==='vitd').target;
       return t&&t.min===30&&t.max===50&&t.evidence==='weak'&&
         DATA.NEXTDRAW.items.find(x=>x.en.startsWith('25-OH vitamin D')).trigger.includes('30–50');})());
+  {const m=DATA.MARK.find(x=>x.id==='hg');
+   const order=DATA.NEXTDRAW.items.find(x=>x.en==='Total mercury — whole blood');
+   ok('mercury is a one-time whole-blood ICP-MS decision test',m&&order&&
+     m.cat==='exposure'&&m.am==='critical'&&m.reference.max===6.84&&
+     m.reference.evidence==='weak'&&!m.target&&m.cut.zones[1].min===5&&m.cut.zones[2].min===15&&
+     order.g==='decision'&&order.draws.includes('main')&&/whole blood/i.test(order.en)&&
+     /ICP-MS/.test(order.method)&&/no routine repeat/i.test(order.timing));}
   ok('routine renal calibration is deferred rather than ordered',
     !DATA.NEXTDRAW.items.some(x=>/cystatin|kidney filtration|creatinine/i.test(x.en))&&
     DATA.NEXTDRAW.deferred.some(x=>x.en==='Cystatin C + eGFRcys + combined eGFR'&&x.s==='defer')&&
