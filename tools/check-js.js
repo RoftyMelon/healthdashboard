@@ -346,8 +346,8 @@ setTimeout(()=>{
     // Nine since 2026-08-12: two jump rows joined the seven running/VO2max ones. The broad jump
     // deliberately carries NO athletic band — the published normative data is in children, and no
     // adult general-population dataset exists — so a jump row must be allowed to have none.
-    ok('training shows the nine agreed benchmarks',count(H,'rbrow')===9&&
-      BI.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,run20hr,vo2max,vjump,bjump',
+    ok('training shows the ten agreed benchmarks',count(H,'rbrow')===10&&
+      BI.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,run20hr,vo2max,vjump,bjump,grip',
       BI.map(x=>x.id).join(','));
     ok('benchmark table has no separate personal-best column',!/<th[^>]*>\s*(PB|Personal best)\s*<\/th>/i.test(H));
     ok('personal bests and tiers are derived, never stored',BI.every(x=>
@@ -401,7 +401,7 @@ setTimeout(()=>{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
     ok('empty benchmark rows expand to a compact range summary',
-      (E.match(/onclick="rbToggle/g)||[]).length===9&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
+      (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
       ED.includes('Male PE Students')&&!ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));

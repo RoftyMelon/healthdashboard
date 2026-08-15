@@ -1436,6 +1436,27 @@ window.BLOODWORK =
       "reviewed": "2026-08-12"
      },
      "attempts": []
+    },
+    {
+     "id": "grip",
+     "name": "Grip strength",
+     "quality": "Maximal isometric strength",
+     "kind": "strength",
+     "unit": "kg",
+     "direction": "higher",
+     "precision": 1,
+     "protocol": "Jamar-style hand dynamometer at handle position 2, seated, shoulder adducted, elbow at 90 degrees, forearm neutral, no arm swing or body lean. Best of three attempts on the dominant hand, 30 seconds between attempts. Record the device — readings are not interchangeable between hydraulic and spring or strain-gauge dynamometers, so a change of instrument starts a new series.",
+     "athletic": {
+      "min": 43,
+      "max": 59,
+      "heading": "Healthy men range",
+      "label": "Healthy men 30-39, dominant hand",
+      "basis": "Approximately mean ±1 SD for healthy men aged 30-39 on a Jamar dynamometer, from a descriptive meta-analysis pooling 12 studies and 3,317 subjects with age stratification across 30-34 and 35-39. Peak median grip in men falls between ages 29 and 39 at about 51kg, so this age band is the lifetime ceiling rather than a stage on the way up. Graded moderate rather than strong: the pooled mean is well supported, but the spread here is reconstructed from a reported lower bound rather than read from the primary table, and the underlying samples are general healthy adults rather than a trained cohort.",
+      "source": "https://www.sciencedirect.com/science/article/abs/pii/S0031940605000878",
+      "evidence": "moderate",
+      "reviewed": "2026-08-12"
+     },
+     "attempts": []
     }
    ]
   },

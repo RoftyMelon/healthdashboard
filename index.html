@@ -1933,7 +1933,7 @@ function audit(j){
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
       if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
       else{
-        const bids=new Set(),kinds=['time','heart-rate','vo2','jump'];
+        const bids=new Set(),kinds=['time','heart-rate','vo2','jump','strength'];
         b.items.forEach(x=>{
           const tag=`TRAINING benchmark "${x&&x.name||'?'}"`;
           if(!x||typeof x!=='object')return bad.push('TRAINING benchmark items must be objects');
@@ -1968,7 +1968,7 @@ function audit(j){
               if(typeof a.min!=='number'||!isFinite(a.min)||typeof a.max!=='number'||!isFinite(a.max)||a.min>=a.max)
                 bad.push(`${tag}: athletic must have ascending numeric min/max`);
               ['heading','label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
-              if(!['Active men range','Recreational runners range'].includes(a.heading))
+              if(!['Active men range','Recreational runners range','Healthy men range'].includes(a.heading))
                 bad.push(`${tag}: athletic.heading must name the supported comparison group`);
               if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
               if(!['strong','moderate','weak'].includes(a.evidence))bad.push(`${tag}: athletic.evidence must be strong/moderate/weak`);
@@ -1987,6 +1987,9 @@ function audit(j){
              An athletic band is OPTIONAL here — the countermovement jump has a population dataset and
              the standing broad jump does not, and a row is allowed to say so rather than invent one. */
           if(x.kind==='jump'&&x.world)bad.push(`${tag}: a jump has no comparable ratified world record`);
+          /* Grip records exist but are set on bespoke grippers, not a clinical dynamometer, so
+             nothing ratified sits on the same scale as the measurement. */
+          if(x.kind==='strength'&&x.world)bad.push(`${tag}: dynamometer strength has no comparable ratified world record`);
           if(x.kind==='heart-rate'&&(x.athletic||x.world))bad.push(`${tag}: fixed-pace heart rate has no universal athletic band or world record`);
         });
       }
