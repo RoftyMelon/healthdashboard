@@ -368,7 +368,7 @@ setTimeout(()=>{
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
     ok('VO2max uses the measured recreational-runner band and no world-record line',
-      V.athletic.min===49.7&&V.athletic.max===61.1&&V.athletic.evidence==='moderate'&&
+      V.athletic.min===51.6&&V.athletic.max===59.2&&V.athletic.evidence==='moderate'&&
       V.athletic.label==='Male recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
     ok('peer-range headings match the measured cohorts',

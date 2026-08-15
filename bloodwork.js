@@ -1384,11 +1384,11 @@ window.BLOODWORK =
      "precision": 1,
      "protocol": "Direct treadmill cardiopulmonary exercise test with respiratory gas analysis. Do not mix wearable estimates or cycle-ergometer results into this series.",
      "athletic": {
-      "min": 49.7,
-      "max": 61.1,
+      "min": 51.6,
+      "max": 59.2,
       "heading": "Recreational runners range",
       "label": "Male recreational runners, 30–39",
-      "basis": "Mean ±1 SD from 94 male recreational runners aged 30–39 (55.4 ±5.7 mL/kg/min), each with at least three years of regular training; beginners and high-performance club runners were excluded. VO₂max was measured by graded treadmill test at 5% incline with open-system respiratory gas analysis and plateau plus effort criteria.",
+      "basis": "Middle 50% of 94 male recreational runners aged 30-39, converted from the published mean and SD of 55.4 +/- 5.7mL/kg/min by assuming a normal distribution, so the quartiles sit at mean +/- 0.674 SD. Each runner had at least three years of regular training; beginners and high-performance club runners were excluded. VO2max was measured by graded treadmill test at 5% incline with open-system respiratory gas analysis and plateau plus effort criteria. The normality assumption is the one step added beyond the source.",
       "source": "https://doi.org/10.3390/app12073252",
       "evidence": "moderate",
       "reviewed": "2026-08-09"
@@ -1405,11 +1405,11 @@ window.BLOODWORK =
      "precision": 1,
      "protocol": "Countermovement jump from standing, hands on hips, no step-in. Same measurement method every time — jump mat, force plate or a marked reach-and-touch — and never mix methods within the series, since reach-and-touch reads several centimetres higher than flight-time devices. Fresh, before lifting.",
      "athletic": {
-      "min": 36,
-      "max": 57,
+      "min": 39,
+      "max": 54,
       "heading": "Active men range",
       "label": "Canadian men 20-39",
-      "basis": "Middle 50% across the four age brackets of the Canadian Health Measures Survey cycle 5 (2016-17, n=5,188), countermovement jump on a Leonardo Mechanograph force plate. The band runs from the lowest 25th percentile in the range to the highest 75th: 41.2-56.9cm at 20-24, 40.0-55.3 at 25-29, 38.2-52.8 at 30-34 and 36.3-50.2 at 35-39. Read your own bracket rather than the envelope — jump falls about 4-5cm per decade, so the wide band flatters a 38-year-old and understates a 22-year-old. Median for men 30-34 is 45.8cm. A general-population sample, so it is a peer comparison and not a performance standard, and force-plate flight-time heights are not interchangeable with reach-and-touch measurements.",
+      "basis": "Middle 50% for men 20-39, taken as the average of the four age brackets' quartiles in the Canadian Health Measures Survey cycle 5 (2016-17, n=5,188), countermovement jump on a Leonardo Mechanograph force plate. The brackets are 41.2-56.9cm at 20-24, 40.0-55.3 at 25-29, 38.2-52.8 at 30-34 and 36.3-50.2 at 35-39 - read your own rather than the pooled band, since jump falls 4-5cm per decade. Median for men 30-34 is 45.8cm. A general-population sample, so a peer comparison rather than a performance standard, and force-plate flight-time heights are not interchangeable with reach-and-touch.",
       "source": "https://fitnessnorms.com/strength/vertical-jump/",
       "evidence": "moderate",
       "reviewed": "2026-08-12"
@@ -1447,11 +1447,11 @@ window.BLOODWORK =
      "precision": 1,
      "protocol": "Jamar-style hand dynamometer at handle position 2, seated, shoulder adducted, elbow at 90 degrees, forearm neutral, no arm swing or body lean. Best of three attempts on the dominant hand, 30 seconds between attempts. Record the device — readings are not interchangeable between hydraulic and spring or strain-gauge dynamometers, so a change of instrument starts a new series.",
      "athletic": {
-      "min": 43,
-      "max": 59,
+      "min": 45.4,
+      "max": 56.6,
       "heading": "Healthy men range",
       "label": "Healthy men 30-39, dominant hand",
-      "basis": "Approximately mean ±1 SD for healthy men aged 30-39 on a Jamar dynamometer, from a descriptive meta-analysis pooling 12 studies and 3,317 subjects with age stratification across 30-34 and 35-39. Peak median grip in men falls between ages 29 and 39 at about 51kg, so this age band is the lifetime ceiling rather than a stage on the way up. Graded moderate rather than strong: the pooled mean is well supported, but the spread here is reconstructed from a reported lower bound rather than read from the primary table, and the underlying samples are general healthy adults rather than a trained cohort.",
+      "basis": "Middle 50% for healthy men aged 30-39 on a Jamar dynamometer, from a descriptive meta-analysis pooling 12 studies and 3,317 subjects with age stratification across 30-34 and 35-39. Converted from a pooled mean near 51kg and an SD near 8.3 by assuming a normal distribution. Male grip peaks between 29 and 39, so this band is the lifetime ceiling rather than a stage on the way up. Graded moderate: the pooled mean is well supported, but the SD is reconstructed from a reported lower bound rather than read from the primary table, and the normality assumption sits on top of that.",
       "source": "https://www.sciencedirect.com/science/article/abs/pii/S0031940605000878",
       "evidence": "moderate",
       "reviewed": "2026-08-12"
