@@ -1424,7 +1424,17 @@ window.BLOODWORK =
      "unit": "cm",
      "direction": "higher",
      "precision": 0,
-     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. Familiarise before the first recorded attempt: in adults the test-retest change was 29cm before a learning period and about 1cm after it (Adult-Fit, doi 10.1002/ejsc.12182), so an untrained first attempt is not a baseline. No athletic band is stored on purpose: the published normative data for the standing broad jump is in children and adolescents, the only adult study is a validity paper rather than a norms paper, and the adult figures that circulate trace to aggregators with no primary source. Read this row as a personal trend only.",
+     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. Familiarise before the first recorded attempt: in adults the test-retest change was 29cm before a learning period and about 1cm after it (Adult-Fit, doi 10.1002/ejsc.12182), so an untrained first attempt is not a baseline.",
+     "athletic": {
+      "min": 191,
+      "max": 241,
+      "heading": "Active men range",
+      "label": "NSCA rating scale, men 20-29",
+      "basis": "National Strength and Conditioning Association rating scale for men aged 20-29: 191-220cm average, 221-240 good, 241 and above excellent. The band spans the bottom of average to the threshold of excellent. Graded moderate rather than strong because it is a rating scale from a professional body, not a measured distribution — no sample size, cohort or methodology is published with it, and the age band is 20-29 rather than 20-40. Marins et al. 2024 (doi 10.1519/JSC.0000000000004980) measured 8,628 police officers aged 21-70 with age-banded values and would replace this if the values can be obtained.",
+      "source": "https://www.nsca.com/",
+      "evidence": "moderate",
+      "reviewed": "2026-08-12"
+     },
      "attempts": []
     }
    ]
