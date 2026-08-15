@@ -1203,7 +1203,7 @@ window.BLOODWORK =
   }
  ],
  "TRAINING": {
-  "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km)\n\nDaily\n• Aim for 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
+  "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km with intervals)\n\nDaily\n• Aim for 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
   "benchmarks": {
    "age": 31,
    "reviewed": "2026-08-09",
@@ -1876,7 +1876,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Machine squat",
+        "n": "Pendulum squat",
         "sets": [
          [
           80,
