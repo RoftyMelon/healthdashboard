@@ -1167,6 +1167,10 @@ a.sbuy:hover{color:var(--info)}
 .rbbg{fill:var(--ok);opacity:.13}
 .rbbedge{stroke:var(--ok);stroke-width:.8;stroke-dasharray:3 3;opacity:.55;vector-effect:non-scaling-stroke}
 .rbwr{stroke:var(--watch);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
+/* Solid, not dashed: the world record is a far-off marker and reads as a boundary, the median is
+   a value inside the band you are either above or below. Same weight, different language. */
+.rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
+.rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
 .rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
   background:var(--info);border:2px solid var(--bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--info) 55%,transparent)}
@@ -1968,6 +1972,11 @@ function audit(j){
               if(typeof a.min!=='number'||!isFinite(a.min)||typeof a.max!=='number'||!isFinite(a.max)||a.min>=a.max)
                 bad.push(`${tag}: athletic must have ascending numeric min/max`);
               ['heading','label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
+              /* median is OPTIONAL: only three sources publish a P50 alongside their quartiles, and a
+                 band without one is honest rather than incomplete. When present it must sit INSIDE the
+                 band — a median outside its own quartiles means the two came from different places. */
+              if(a.median!==undefined&&(typeof a.median!=='number'||!isFinite(a.median)||a.median<=a.min||a.median>=a.max))
+                bad.push(`${tag}: athletic.median must be a number between min and max`);
               if(!['Active men range','Recreational runners range','Healthy men range'].includes(a.heading))
                 bad.push(`${tag}: athletic.heading must name the supported comparison group`);
               if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
@@ -2830,7 +2839,9 @@ function rbSvg(x,dates){
   let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
   [0,.5,1].forEach(q=>{const y=T+q*(B-T);s+=`<line class="rbgrid" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
   if(x.athletic){const y1=Y(x.athletic.min),y2=Y(x.athletic.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
-    s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;}
+    s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
+    // the median is the line that answers above-or-below; the band edges only say "typical"
+    if(x.athletic.median!==undefined){const ym=Y(x.athletic.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
@@ -2840,7 +2851,8 @@ function rbLegend(x){
   let h='';
   if(x.athletic){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
-      `<small class="rbrange">${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}</small>`+
+      `<small class="rbrange">${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`+
+      `${x.athletic.median!==undefined?` <span class="rbmedlab">median ${esc(rbFmt(x,x.athletic.median))}</span>`:''}</small>`+
       `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
   if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · ${esc(x.world.athlete)} <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';

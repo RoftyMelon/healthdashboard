@@ -1386,6 +1386,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 51.6,
       "max": 59.2,
+      "median": 55.4,
       "heading": "Recreational runners range",
       "label": "Male recreational runners, 30–39",
       "basis": "Middle 50% of 94 male recreational runners aged 30-39, converted from the published mean and SD of 55.4 +/- 5.7mL/kg/min by assuming a normal distribution, so the quartiles sit at mean +/- 0.674 SD. Each runner had at least three years of regular training; beginners and high-performance club runners were excluded. VO2max was measured by graded treadmill test at 5% incline with open-system respiratory gas analysis and plateau plus effort criteria. The normality assumption is the one step added beyond the source.",
@@ -1407,6 +1408,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 39,
       "max": 54,
+      "median": 46.7,
       "heading": "Active men range",
       "label": "Canadian men 20-39",
       "basis": "Middle 50% for men 20-39, taken as the average of the four age brackets' quartiles in the Canadian Health Measures Survey cycle 5 (2016-17, n=5,188), countermovement jump on a Leonardo Mechanograph force plate. The brackets are 41.2-56.9cm at 20-24, 40.0-55.3 at 25-29, 38.2-52.8 at 30-34 and 36.3-50.2 at 35-39 - read your own rather than the pooled band, since jump falls 4-5cm per decade. Median for men 30-34 is 45.8cm. A general-population sample, so a peer comparison rather than a performance standard, and force-plate flight-time heights are not interchangeable with reach-and-touch.",
@@ -1449,6 +1451,7 @@ window.BLOODWORK =
      "athletic": {
       "min": 45.4,
       "max": 56.6,
+      "median": 51,
       "heading": "Healthy men range",
       "label": "Healthy men 30-39, dominant hand",
       "basis": "Middle 50% for healthy men aged 30-39 on a Jamar dynamometer, from a descriptive meta-analysis pooling 12 studies and 3,317 subjects with age stratification across 30-34 and 35-39. Converted from a pooled mean near 51kg and an SD near 8.3 by assuming a normal distribution. Male grip peaks between 29 and 39, so this band is the lifetime ceiling rather than a stage on the way up. Graded moderate: the pooled mean is well supported, but the SD is reconstructed from a reported lower bound rather than read from the primary table, and the normality assumption sits on top of that.",
