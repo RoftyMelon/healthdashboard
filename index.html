@@ -1933,7 +1933,7 @@ function audit(j){
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
       if(!Array.isArray(b.items)||!b.items.length)bad.push('TRAINING benchmarks.items must be a non-empty array');
       else{
-        const bids=new Set(),kinds=['time','heart-rate','vo2'];
+        const bids=new Set(),kinds=['time','heart-rate','vo2','jump'];
         b.items.forEach(x=>{
           const tag=`TRAINING benchmark "${x&&x.name||'?'}"`;
           if(!x||typeof x!=='object')return bad.push('TRAINING benchmark items must be objects');
@@ -1982,6 +1982,11 @@ function audit(j){
               bad.push(`${tag}: athletic band must describe a measured comparison cohort, not an age-grade formula`);
           }
           if(x.kind==='vo2'&&(!x.athletic||x.world))bad.push(`${tag}: measured VO₂max needs an athletic band and no world record`);
+          /* A jump carries no world record: the competition long jump is contested with a run-up and
+             standing-jump records are unratified, so nothing comparable exists to sit above the band.
+             An athletic band is OPTIONAL here — the countermovement jump has a population dataset and
+             the standing broad jump does not, and a row is allowed to say so rather than invent one. */
+          if(x.kind==='jump'&&x.world)bad.push(`${tag}: a jump has no comparable ratified world record`);
           if(x.kind==='heart-rate'&&(x.athletic||x.world))bad.push(`${tag}: fixed-pace heart rate has no universal athletic band or world record`);
         });
       }

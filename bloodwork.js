@@ -1394,6 +1394,38 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "attempts": []
+    },
+    {
+     "id": "vjump",
+     "name": "Vertical jump",
+     "quality": "Lower-body power",
+     "kind": "jump",
+     "unit": "cm",
+     "direction": "higher",
+     "precision": 1,
+     "protocol": "Countermovement jump from standing, hands on hips, no step-in. Same measurement method every time — jump mat, force plate or a marked reach-and-touch — and never mix methods within the series, since reach-and-touch reads several centimetres higher than flight-time devices. Fresh, before lifting.",
+     "athletic": {
+      "min": 38,
+      "max": 53,
+      "heading": "Active men range",
+      "label": "Canadian men 30-34, interquartile range",
+      "basis": "Middle 50% of men aged 30-34 in the Canadian Health Measures Survey (n=5,188 adults aged 20-69), countermovement jump height measured on a Leonardo Mechanograph force plate. A general-population sample rather than a trained one, so it is a peer comparison and not a performance standard. Graded weak: the band is read from a secondary rendering of the survey rather than the primary publication, and force-plate flight-time heights are not interchangeable with reach-and-touch measurements.",
+      "source": "https://fitnessnorms.com/strength/vertical-jump/",
+      "evidence": "weak",
+      "reviewed": "2026-08-12"
+     },
+     "attempts": []
+    },
+    {
+     "id": "bjump",
+     "name": "Standing broad jump",
+     "quality": "Horizontal power",
+     "kind": "jump",
+     "unit": "cm",
+     "direction": "higher",
+     "precision": 0,
+     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. No athletic band is stored on purpose: the published normative data for the standing broad jump is in children and adolescents, and no adult general-population dataset with usable age bands exists to compare against. Read this row as a personal trend only.",
+     "attempts": []
     }
    ]
   },
