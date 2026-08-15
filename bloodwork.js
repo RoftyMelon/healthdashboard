@@ -1408,7 +1408,7 @@ window.BLOODWORK =
       "min": 38,
       "max": 53,
       "heading": "Active men range",
-      "label": "Canadian men 30-34, interquartile range",
+      "label": "Canadian men 30-34, middle 50%",
       "basis": "Middle 50% of men aged 30-34 in the Canadian Health Measures Survey (n=5,188 adults aged 20-69), countermovement jump height measured on a Leonardo Mechanograph force plate. A general-population sample rather than a trained one, so it is a peer comparison and not a performance standard. Graded weak: the band is read from a secondary rendering of the survey rather than the primary publication, and force-plate flight-time heights are not interchangeable with reach-and-touch measurements.",
       "source": "https://fitnessnorms.com/strength/vertical-jump/",
       "evidence": "weak",
