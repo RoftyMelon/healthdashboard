@@ -284,8 +284,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
   no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
-  row expands: before the first attempt it shows a compact range/reference summary rather than an
-  empty plot; after the first result it switches to the full trend chart. Running world records
+  row expands into the trend chart, INCLUDING before the first attempt — the comparison bands and
+  the median line are the content worth seeing, and a row with a band scaled to it is meaningful
+  with no dots on it. Only a row with no band and no world record falls back to the bare summary. Running world records
   must match the event and surface and carry a source plus review date. The green
   `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
   optimum. Its `heading` names the supported comparison class in the data, but the viewer uses

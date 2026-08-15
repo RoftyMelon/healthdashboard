@@ -400,8 +400,10 @@ setTimeout(()=>{
   try{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
-    ok('empty benchmark rows expand to a compact range summary',
-      (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbrefs')&&!ED.includes('rbcplot')&&
+    // An untested row now draws the plot too, so the bands are visible before the first attempt.
+    // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
+    ok('untested benchmark rows still draw their comparison bands',
+      (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
       ED.includes('Male PE Students')&&!ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));

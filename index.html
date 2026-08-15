@@ -2858,8 +2858,13 @@ function rbLegend(x){
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }
+/* An untested row draws the SAME plot as a tested one, just with no dots on it. It used to fall
+   back to a bare legend, on the reasoning that an empty chart says nothing — but the bands are the
+   content here, and seeing where the median sits before the first attempt is the point of having
+   sourced them. rbSvg already handles an empty attempts array: it falls back to the band's own
+   values for the scale, so the axis is meaningful without a single result. */
 function rbDetail(x,dates,colspan){
-  if(!rbAttempts(x).length)
+  if(!rbAttempts(x).length&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
     `<div class="rbcplot">${rbSvg(x,dates)}</div><div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
