@@ -1405,13 +1405,13 @@ window.BLOODWORK =
      "precision": 1,
      "protocol": "Countermovement jump from standing, hands on hips, no step-in. Same measurement method every time — jump mat, force plate or a marked reach-and-touch — and never mix methods within the series, since reach-and-touch reads several centimetres higher than flight-time devices. Fresh, before lifting.",
      "athletic": {
-      "min": 38,
-      "max": 53,
+      "min": 36,
+      "max": 57,
       "heading": "Active men range",
-      "label": "Canadian men 30-34",
-      "basis": "Middle 50% of men aged 30-34 in the Canadian Health Measures Survey (n=5,188 adults aged 20-69), countermovement jump height measured on a Leonardo Mechanograph force plate. A general-population sample rather than a trained one, so it is a peer comparison and not a performance standard. Graded weak: the band is read from a secondary rendering of the survey rather than the primary publication, and force-plate flight-time heights are not interchangeable with reach-and-touch measurements.",
+      "label": "Canadian men 20-39",
+      "basis": "Middle 50% across the four age brackets of the Canadian Health Measures Survey cycle 5 (2016-17, n=5,188), countermovement jump on a Leonardo Mechanograph force plate. The band runs from the lowest 25th percentile in the range to the highest 75th: 41.2-56.9cm at 20-24, 40.0-55.3 at 25-29, 38.2-52.8 at 30-34 and 36.3-50.2 at 35-39. Read your own bracket rather than the envelope — jump falls about 4-5cm per decade, so the wide band flatters a 38-year-old and understates a 22-year-old. Median for men 30-34 is 45.8cm. A general-population sample, so it is a peer comparison and not a performance standard, and force-plate flight-time heights are not interchangeable with reach-and-touch measurements.",
       "source": "https://fitnessnorms.com/strength/vertical-jump/",
-      "evidence": "weak",
+      "evidence": "moderate",
       "reviewed": "2026-08-12"
      },
      "attempts": []
