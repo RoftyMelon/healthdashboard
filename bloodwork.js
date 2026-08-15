@@ -1397,7 +1397,7 @@ window.BLOODWORK =
     }
    ]
   },
-  "note": "• Pull-Push-Legs, repeated twice - Monday through Saturday.\n• Weights and reps are approximations.\n• Drop sets on most exercises",
+  "note": "• Pull-Push-Legs, repeated twice - Monday through Saturday.\n• Weights and reps are approximations.\n• Drop sets on most exercises\n• Single leg pogo hops between sets",
   "cards": [
    {
     "id": "pull",
