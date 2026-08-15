@@ -1424,7 +1424,7 @@ window.BLOODWORK =
      "unit": "cm",
      "direction": "higher",
      "precision": 0,
-     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. No athletic band is stored on purpose: the published normative data for the standing broad jump is in children and adolescents, and no adult general-population dataset with usable age bands exists to compare against. Read this row as a personal trend only.",
+     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. Familiarise before the first recorded attempt: in adults the test-retest change was 29cm before a learning period and about 1cm after it (Adult-Fit, doi 10.1002/ejsc.12182), so an untrained first attempt is not a baseline. No athletic band is stored on purpose: the published normative data for the standing broad jump is in children and adolescents, the only adult study is a validity paper rather than a norms paper, and the adult figures that circulate trace to aggregators with no primary source. Read this row as a personal trend only.",
      "attempts": []
     }
    ]
