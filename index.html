@@ -1160,6 +1160,12 @@ a.sbuy:hover{color:var(--info)}
   white-space:normal!important;text-align:left!important}
 .rbchart{display:flex;align-items:flex-start;min-height:270px;padding:18px 0 16px;background:var(--bg);animation:rise .22s ease both}
 .rbcpad{flex:0 0 220px;min-width:0;white-space:normal;text-align:left}
+/* The plot used to sit flush against the card edge, so it read as cut off and there was nowhere
+   to hang a scale. This is the markers chart's .cy gutter, same job: a fixed column the labels
+   live in, positioned against the plot's own height so a label lines up with the value it names. */
+.rbcy{flex:none;width:52px;position:relative;height:236px;color:var(--t3);font-size:11px;
+  font-variant-numeric:tabular-nums}
+.rbcy span{position:absolute;right:8px;transform:translateY(-50%);white-space:nowrap}
 .rbcplot{position:relative;flex:1;min-width:0;height:236px;overflow:hidden;border-left:.5px solid var(--line);
   border-right:.5px solid var(--line)}
 .rbcplot svg{position:absolute;inset:0;width:100%;height:236px;overflow:hidden}
@@ -2845,7 +2851,12 @@ function rbSvg(x,dates){
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
-  s+='</svg>';return s+dots;
+  s+='</svg>';
+  /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
+     positions the gridlines use, with the value each one represents. */
+  const axis=[0,.5,1].map(q=>{const v=x.direction==='lower'?lo+q*(hi-lo):hi-q*(hi-lo);
+    return `<span style="top:${T+q*(B-T)}px">${esc(rbFmt(x,v))}</span>`;}).join('');
+  return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
 }
 function rbLegend(x){
   let h='';
@@ -2867,7 +2878,7 @@ function rbDetail(x,dates,colspan){
   if(!rbAttempts(x).length&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
-    `<div class="rbcplot">${rbSvg(x,dates)}</div><div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
+    `${rbSvg(x,dates)}<div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
 }
 let openRb=null;
 function fitRbChart(){
