@@ -1189,10 +1189,17 @@ a.sbuy:hover{color:var(--info)}
 .rbrefs .rbleg{margin:0;padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
 .rbrefs .rbonly{padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
 .rbleg{display:grid;grid-template-columns:9px minmax(0,1fr);gap:8px;margin-bottom:13px;font-size:11px;line-height:1.35;color:var(--t3)}
-.rbleg span{min-width:0;overflow-wrap:anywhere}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
-.rbleg b.rbcohort{display:flex;justify-content:flex-start;gap:4px}.rbleg .rbage{flex:0 0 auto;color:var(--t3);font-weight:400}
+/* break-word, NOT anywhere. `anywhere` lets the browser split inside a word to avoid any overflow,
+   which suits a bare URL and ruins everything visible here — it cut 'Niekerk' in half mid-name.
+   break-word only breaks a word that genuinely cannot fit the column. */
+.rbleg span{min-width:0;overflow-wrap:break-word}.rbleg b{display:block;font-size:11.5px;color:var(--txt);margin-bottom:1px}
+/* Block, not flex. As flex items the age chip held its width with flex:0 0 auto and squeezed the
+   cohort name into a narrower box than the column actually offers, so 'Male PE Students' broke
+   over two lines with the age stranded to its right. Inline, the phrase wraps at a space. */
+.rbleg b.rbcohort{display:block}.rbleg .rbage{color:var(--t3);font-weight:400;white-space:nowrap}
 .rbleg .rbrange,.rbleg .rbresult{display:block;font-size:12.5px;line-height:1.35;color:var(--txt);font-weight:400}
 .rbleg .rbyear{color:var(--t3)}
+.rbleg .rbnb{white-space:nowrap}
 .rbleg small{display:block;font-size:10.5px;color:var(--t4);margin-top:2px}.rbleg a{display:block;color:var(--info);margin-top:3px;text-decoration:none}
 .rblinks{display:flex;gap:10px;flex-wrap:wrap}.rblinks a{display:inline-block}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
@@ -2865,7 +2872,7 @@ function rbLegend(x){
       `<small class="rbrange">${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`+
       `${x.athletic.median!==undefined?` <span class="rbmedlab">median ${esc(rbFmt(x,x.athletic.median))}</span>`:''}</small>`+
       `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
-  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · ${esc(x.world.athlete)} <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
+  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }
