@@ -1247,7 +1247,7 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "Olympic",
+      "label": "Olympic entry standard",
       "value": 10,
       "basis": "Men's 100m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
       "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
@@ -1295,7 +1295,7 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "Olympic",
+      "label": "Olympic entry standard",
       "value": 45,
       "basis": "Men's 400m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
       "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
@@ -1396,7 +1396,7 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "Olympic",
+      "label": "Olympic entry standard",
       "value": 785,
       "basis": "Men's 5000m entry standard of 13:05.00 for the Paris 2024 Olympic Games. The track 5000m is compared against a road 5km here, and a road course is usually the slower of the two.",
       "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
@@ -1444,7 +1444,7 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "Olympic",
+      "label": "Olympic entry standard",
       "value": 1620,
       "basis": "Men's 10,000m entry standard of 27:00.00 for the Paris 2024 Olympic Games. The track 10,000m is compared against a road 10km here, and a road course is usually the slower of the two.",
       "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",

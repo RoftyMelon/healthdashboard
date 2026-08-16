@@ -328,7 +328,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   `90th` = the two `target` edges) and must never be stored: four more numbers beside the
   band they come from is exactly how a grade and its band drift apart. Only the top rung is data,
   in `elite: {label, value, basis, source, evidence, reviewed}`, because it is a different claim
-  from a different body. `label` is a closed set — `Olympic` (an entry standard), `World class`
+  from a different body. `label` is a closed set — `Olympic entry standard`, `World class`
   (the four-minute mile, where the event is not Olympic) or `NFL` (a Combine mark) — so a row
   cannot invent a fourth authority. `audit()` rejects a top rung that sits inside the target or on
   a row with no target. Each rung's legend key pairs to its own plotted line by `data-tier`, never
