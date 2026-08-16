@@ -1973,6 +1973,37 @@ window.BLOODWORK =
     "t": "Legs",
     "groups": [
      {
+      "t": "Power",
+      "q": "Before everything else, fully rested",
+      "items": [
+       {
+        "n": "Countermovement jump",
+        "sets": [
+         [
+          null,
+          1
+         ],
+         [
+          null,
+          1
+         ],
+         [
+          null,
+          1
+         ],
+         [
+          null,
+          1
+         ],
+         [
+          null,
+          1
+         ]
+        ]
+       }
+      ]
+     },
+     {
       "t": "Calves",
       "q": "Unilateral → Bilateral drop sets",
       "items": [
