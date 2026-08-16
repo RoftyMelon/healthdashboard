@@ -2860,8 +2860,10 @@ function rbSvg(x,dates){
     // the median is the line that answers above-or-below; the band edges only say "typical"
     if(x.athletic.median!==undefined){const ym=Y(x.athletic.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
-  if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
-  a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
+  // data-col / data-cols carry the column INDEX so fitRbChart can re-place these against the real
+  // header geometry; the values written here are only the pre-measurement fallback.
+  if(a.length>1)s+=`<path class="rbline" data-cols="${a.map(z=>Math.max(0,dates.indexOf(z.date))+' '+Y(z.value)).join(' ')}" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
+  a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" data-col="${Math.max(0,dates.indexOf(z.date))}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
   s+='</svg>';
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
@@ -2901,15 +2903,25 @@ let openRb=null;
    a scroller and offsetLeft would resolve against a different origin depending on their position. */
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
-  const ds=t.querySelectorAll('thead th.rbdate'); if(!ds.length)return;
-  const a=ds[0].getBoundingClientRect(),z=ds[ds.length-1].getBoundingClientRect();
-  const left=a.left,width=z.right-a.left; if(width<=0)return;
+  const ds=[...t.querySelectorAll('thead th.rbdate')]; if(!ds.length)return;
+  const mid=ds.map(th=>{const r=th.getBoundingClientRect();return r.left+r.width/2;});
   document.querySelectorAll('.rbchart').forEach(c=>{
-    const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
-    const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
-    plot.style.flex='none';
-    plot.style.width=width+'px';
-    plot.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    const plot=c.querySelector('.rbcplot'); if(!plot)return;
+    const p=plot.getBoundingClientRect(); if(p.width<=0)return;
+    // fraction of the PLOT's box at which each date column is centred
+    const f=mid.map(x=>(x-p.left)/p.width);
+    c.querySelectorAll('.rbpt').forEach(dot=>{
+      const i=dot.dataset.col!==undefined?+dot.dataset.col:-1;
+      if(f[i]!==undefined)dot.style.left=(f[i]*100)+'%';
+    });
+    const path=c.querySelector('path.rbline');
+    if(path&&path.dataset.cols){
+      const ys=path.dataset.cols.split(' ').map(Number);   // "colIndex y colIndex y ..."
+      let d='';
+      for(let i=0;i<ys.length;i+=2){const fr=f[ys[i]];if(fr===undefined)continue;
+        d+=(d?'L':'M')+(fr*1000)+' '+ys[i+1]+' ';}
+      if(d)path.setAttribute('d',d.trim());
+    }
   });
 }
 function rbToggle(row,id){
