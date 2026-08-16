@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.7.0 · Schema 2 · 2026-08-16
+
+- Named the three derived rungs by their percentiles — `50th`, `75th`, `90th` — instead of Average, Good and Excellent, so a chart answers what a grade means without the reader going back to the intro.
+
 ## Viewer 1.6.0 · Schema 2 · 2026-08-16
 
 - Moved every rung name inside the plot, sitting on its own line, and widened the plot leftward to hold them; the side legend and its absolute-positioning pass are gone, and the cohort now captions the chart from above.

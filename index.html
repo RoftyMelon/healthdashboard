@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.6.0">
+<meta name="health-dashboard-viewer-version" content="1.7.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -2959,10 +2959,10 @@ const RB_TIER_TOP=['Olympic','World class','NFL'];
 function rbTiers(x){
   if(!x)return [];
   const out=[],lower=x.direction==='lower',med=x.athletic&&x.athletic.median;
-  if(med!==undefined&&med!==null)out.push({k:'avg',t:'Average',v:med});
+  if(med!==undefined&&med!==null)out.push({k:'avg',t:'50th percentile',v:med});
   if(x.target){
-    out.push({k:'good',t:'Good',v:lower?x.target.max:x.target.min});
-    out.push({k:'exc',t:'Excellent',v:lower?x.target.min:x.target.max});
+    out.push({k:'good',t:'75th percentile',v:lower?x.target.max:x.target.min});
+    out.push({k:'exc',t:'90th percentile',v:lower?x.target.min:x.target.max});
   }
   if(x.elite)out.push({k:'top',t:x.elite.label,v:x.elite.value,src:x.elite.source});
   return out;
@@ -3046,7 +3046,7 @@ function rbSvg(x,dates){
    ladder existing: with none rendered, the sentence would describe grades nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
-    ?`<div class="trsummary rbintro">Average is the cohort midpoint — a median where one was published, a mean where only that was. Good is its 75th percentile and Excellent its 90th. The top grade is a separate standard and names itself.</div>`:'';
+    ?`<div class="trsummary rbintro">Percentiles are the cohort's own; only the 5km and 10km rows sampled theirs, the rest are modelled and each chart's source says which. The top grade is a separate standard and names itself.</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */

@@ -430,7 +430,7 @@ setTimeout(()=>{
       PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
     ok('the grade ladder is explained once, above the benchmarks',
       count(n.pages.innerHTML,'trsummary rbintro')===1&&
-      n.pages.innerHTML.includes('Average is the cohort midpoint — a median where one was published, a mean where only that was.'),
+      n.pages.innerHTML.includes("Percentiles are the cohort's own; only the 5km and 10km rows sampled theirs"),
       count(n.pages.innerHTML,'trsummary rbintro')+' intro lines');
     /* Average, Good and Excellent are DERIVED, so the only stored rung is the top one. Assert the
        derivation rather than the stored numbers: a grade that stopped tracking its own band would
@@ -549,7 +549,7 @@ setTimeout(()=>{
           d.includes(`class="rbsource" href="${x.elite.source}"`)&&
           d.includes(rbFmt(x,x.athletic.median));}));
     ok('fixed-pace remains personal progression only, with no ladder',
-      FD.includes('Personal progression only')&&!FD.includes('rbt-')&&!FD.includes('>Average<'));
+      FD.includes('Personal progression only')&&!FD.includes('rbt-')&&!FD.includes('percentile<'));
     const hiddenPeer=JSON.parse(JSON.stringify(V));
     Object.assign(hiddenPeer.athletic,{min:-999,max:999,label:'Hidden peer sentinel',span:'hidden'});
     ok('hidden peer-band metadata cannot affect a target-plus-median chart or legend',
