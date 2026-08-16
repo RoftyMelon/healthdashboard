@@ -2936,6 +2936,24 @@ function fitRbChart(){
     // empty gap between a number and its own gridline.
     if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
     plot.style.marginLeft='0px';
+    /* Sit each legend entry beside the thing it names. The SVG is 236 viewBox units tall in a 236px
+       box with preserveAspectRatio="none", so a y attribute is already a pixel offset — no scaling
+       needed. The band's anchor is the middle of its rect, the record's is its line. Entries are
+       nudged apart if they would collide, and the whole thing falls back to normal flow when a row
+       has neither, so a chart with no bands still reads top-down. */
+    const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
+    const legs=[...pad.querySelectorAll('.rbleg')];
+    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr');
+    const at=l=>l.querySelector('.rbsw.band')?(band?+band.getAttribute('y')+ +band.getAttribute('height')/2:null)
+             :l.querySelector('.rbsw.wr')?(wr?+wr.getAttribute('y1'):null):null;
+    if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
+    pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
+    let last=-1e9;
+    legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??1e9)-(b.y??1e9)).forEach(({l,y})=>{
+      if(y===null){l.style.position='';l.style.top='';return;}
+      const t=Math.max(last+l.offsetHeight+8,y-9);
+      l.style.position='absolute';l.style.top=t+'px';l.style.left='0';l.style.right='0';
+      last=t;});
   });
 }
 function rbToggle(row,id){
