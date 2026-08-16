@@ -396,7 +396,7 @@ setTimeout(()=>{
       PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
     ok('the P75–P90 meaning is stated once, above the benchmarks',
       count(n.pages.innerHTML,'trsummary rbintro')===1&&
-      n.pages.innerHTML.includes('Green ranges are the 75th to 90th percentile of the cohort'),
+      n.pages.innerHTML.includes('<i class="rbsw tg"></i>Ranges are the 75th to 90th percentile of the cohort'),
       count(n.pages.innerHTML,'trsummary rbintro')+' intro lines');
     ok('peer-range headings match the measured cohorts',
       BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
@@ -447,6 +447,15 @@ setTimeout(()=>{
     ok('performance chart scale includes target endpoints and median tick',
       VD.includes('class="rbtg"')&&
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD));
+    /* Dropping target.span once made the legend fall through to a numeric range instead of
+       printing nothing — the band's edges appeared a third time, beside an axis and an intro
+       that already carried them. A target legend prints the cohort alone.
+       The peer-only branch is NOT asserted here: every benchmark with a peer band now also
+       carries a target, so `athletic && !target` matches nothing and any check over it would
+       pass vacuously — coverage that reads real and tests nothing. */
+    ok('no target legend prints a range',
+      BI.filter(x=>x.target).every(x=>!/<small class="rbrange">/.test(rbDetail(x,[],2))),
+      BI.filter(x=>x.target).filter(x=>/<small class="rbrange">/.test(rbDetail(x,[],2))).map(x=>x.id).join(',')||'none leaking');
     ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
         (d.match(/<line class="rbmed"/g)||[]).length===2&&d.includes('<svg class="rbsw med"')&&

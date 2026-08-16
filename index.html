@@ -1190,7 +1190,7 @@ a.sbuy:hover{color:var(--info)}
 /* The target band is the same green as an optimal range on the markers page, deliberately: it is
    the same claim about the same kind of thing. The peer band stays neutral. */
 .rbtg{fill:color-mix(in srgb,var(--ok) 15%,transparent)}
-.rbleg .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
+.rbleg .rbsw.tg,.rbintro .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
 .rbleg b.rbmedlab,.rbleg .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
 .rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);
@@ -1222,6 +1222,9 @@ a.sbuy:hover{color:var(--info)}
 /* The key is an SVG copy of the plotted line, so its weight, colour, opacity and 5/4 dash pattern
    cannot drift into the browser-defined border dashes that used to make it look thicker. */
 .rbsw.wr,.rbsw.med{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
+/* The intro's chip is the legend's own 9px swatch, but it sits INLINE in a sentence instead of
+   in .rbleg's 9px grid column — so it needs a box and a baseline nudge the grid was giving it. */
+.rbintro .rbsw{display:inline-block;margin:0 7px 0 0;vertical-align:baseline;position:relative;top:1px}
 .rbonly{font-size:11.5px;line-height:1.45;color:var(--t2)}.rbonly span{color:var(--t4)}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
@@ -2938,15 +2941,18 @@ function rbSvg(x,dates){
    target existing: with none rendered, the sentence would describe a colour nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>x.target)
-    ?`<div class="trsummary rbintro">Green ranges are the 75th to 90th percentile of the cohort</div>`:'';
+    ?`<div class="trsummary rbintro"><i class="rbsw tg"></i>Ranges are the 75th to 90th percentile of the cohort</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
 function rbLegend(x){
   let h='';
+  /* A target legend carries the cohort and nothing else. Its band edges are already labelled on
+     the chart's own axis, and what the band MEANS is stated once by rbIntro — so a range line
+     here would be the third printing of numbers the eye has two better places to read. The peer
+     legend below still prints its span, because no intro sentence explains P25–P75 for it. */
   if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}`+
-    `&nbsp;<a class="rbsource" href="${esc(x.target.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.target.label}`)}">↗</a></b>`+
-    `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small></span></div>`;
+    `&nbsp;<a class="rbsource" href="${esc(x.target.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.target.label}`)}">↗</a></b></span></div>`;
   if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult"><span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}`+
