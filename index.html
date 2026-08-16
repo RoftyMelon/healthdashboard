@@ -1210,7 +1210,9 @@ a.sbuy:hover{color:var(--info)}
 .rbleg small{display:block;font-size:10.5px;color:var(--t4);margin-top:2px}.rbleg a{display:block;color:var(--info);margin-top:3px;text-decoration:none}
 .rblinks{display:flex;gap:10px;flex-wrap:wrap}.rblinks a{display:inline-block}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
-.rbsw.wr{height:0;margin-top:7px;border-top:1.5px dashed var(--watch);border-radius:0}
+/* The key is an SVG copy of the plotted line, so its weight, colour, opacity and 5/4 dash pattern
+   cannot drift into the browser-defined border dashes that used to make it look thicker. */
+.rbsw.wr{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
 .rbonly{font-size:11.5px;line-height:1.45;color:var(--t2)}.rbonly span{color:var(--t4)}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
@@ -2908,7 +2910,7 @@ function rbLegend(x){
   if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}</b>`+
     `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small>`+
     `<span class="rblinks"><a href="${esc(x.target.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
-  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
+  if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
       `<small class="rbrange">${x.athletic.span?esc(x.athletic.span):`${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`}`+
@@ -2935,6 +2937,10 @@ let openRb=null;
    were visibly far apart. Measured, not declared: the name and change columns size to their content,
    so the offset cannot be a constant. getBoundingClientRect, never offsetLeft — the cells are inside
    a scroller and offsetLeft would resolve against a different origin depending on their position. */
+function rbLegAnchor(l){
+  const sw=l.querySelector('.rbsw'),lr=l.getBoundingClientRect(),sr=sw&&sw.getBoundingClientRect();
+  return sr?sr.top+sr.height/2-lr.top:9;
+}
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
   const ds=t.querySelectorAll('thead th.rbdate'); if(!ds.length)return;
@@ -2952,9 +2958,9 @@ function fitRbChart(){
     plot.style.marginLeft='0px';
     /* Sit each legend entry beside the thing it names. The SVG is 236 viewBox units tall in a 236px
        box with preserveAspectRatio="none", so a y attribute is already a pixel offset — no scaling
-       needed. The band's anchor is the middle of its rect, the record's is its line. Entries are
-       nudged apart if they would collide, and the whole thing falls back to normal flow when a row
-       has neither, so a chart with no bands still reads top-down. */
+       needed. Measure the rendered swatch centre rather than guessing at y-9: the world-record key
+       then lands on the exact same pixel row as its SVG line. Entries are nudged apart only if they
+       would collide, and a chart with no bands falls back to normal flow. */
     const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
     const legs=[...pad.querySelectorAll('.rbleg')];
     const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr'),tg=svg.querySelector('rect.rbtg');
@@ -2964,12 +2970,12 @@ function fitRbChart(){
              :l.querySelector('.rbsw.wr')?(wr?+wr.getAttribute('y1'):null):null;
     if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
     pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
-    let last=-1e9;
+    let lastBottom=-1e9;
     legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??1e9)-(b.y??1e9)).forEach(({l,y})=>{
       if(y===null){l.style.position='';l.style.top='';return;}
-      const t=Math.max(last+l.offsetHeight+8,y-9);
-      l.style.position='absolute';l.style.top=t+'px';l.style.left='0';l.style.right='0';
-      last=t;});
+      const top=Math.max(lastBottom+8,y-rbLegAnchor(l));
+      l.style.position='absolute';l.style.top=top+'px';l.style.left='0';l.style.right='0';
+      lastBottom=top+l.offsetHeight;});
   });
 }
 function rbToggle(row,id){

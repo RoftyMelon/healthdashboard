@@ -435,6 +435,13 @@ setTimeout(()=>{
       rbDetail(hiddenPeer,[],2)===VD);
     ok('a benchmark without a target keeps its peer comparison',
       ED.includes('class="rbbg"')&&!ED.includes('class="rbtg"'));
+    ok('world-record legend and plot reuse the exact same SVG line style',
+      (ED.match(/<line class="rbwr"/g)||[]).length===2&&
+      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"'));
+    {const leg=top=>({getBoundingClientRect:()=>({top}),querySelector:()=>({
+       getBoundingClientRect:()=>({top:top+7,height:2})})});
+     ok('legend alignment measures the rendered swatch centre at any page position',
+       rbLegAnchor(leg(10))===8&&rbLegAnchor(leg(410))===8);}
     ok('world-record cards show only the compact two-digit year',
       ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(
