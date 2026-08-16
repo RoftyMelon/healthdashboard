@@ -1992,6 +1992,8 @@ function audit(j){
               /* median is OPTIONAL: only three sources publish a P50 alongside their quartiles, and a
                  band without one is honest rather than incomplete. When present it must sit INSIDE the
                  band — a median outside its own quartiles means the two came from different places. */
+              if(a.span!==undefined&&(typeof a.span!=='string'||!a.span.trim()))
+                bad.push(`${tag}: athletic.span must be a non-empty string when given`);
               if(a.median!==undefined&&(typeof a.median!=='number'||!isFinite(a.median)||a.median<=a.min||a.median>=a.max))
                 bad.push(`${tag}: athletic.median must be a number between min and max`);
               if(!['Active men range','Recreational runners range','Healthy men range'].includes(a.heading))
@@ -2877,6 +2879,7 @@ function rbSvg(x,dates){
   const ticks=[];
   if(x.athletic){ticks.push(x.athletic.min,x.athletic.max);
     if(x.athletic.median!==undefined)ticks.push(x.athletic.median);}
+  if(x.world)ticks.push(x.world.value);
   const kept=[];
   ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
     if(y<T-1||y>B+1)return;
@@ -2886,14 +2889,16 @@ function rbSvg(x,dates){
     `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
   return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
 }
+/* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
+   band first inverted the chart and made you hunt to map an entry to a line. */
 function rbLegend(x){
   let h='';
+  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
-      `<small class="rbrange">${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`+
+      `<small class="rbrange">${x.athletic.span?esc(x.athletic.span):`${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`}`+
       `${x.athletic.median!==undefined?` <span class="rbmedlab">median ${esc(rbFmt(x,x.athletic.median))}</span>`:''}</small>`+
       `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
-  if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }
