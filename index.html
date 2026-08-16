@@ -2854,7 +2854,10 @@ function rbSvg(x,dates){
   const Y=v=>x.direction==='lower'?T+(v-lo)/(hi-lo)*(B-T):T+(hi-v)/(hi-lo)*(B-T);
   const cols=Math.max(1,dates.length),X=d=>((Math.max(0,dates.indexOf(d))+.5)/cols)*W;
   let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
-  [0,.5,1].forEach(q=>{const y=T+q*(B-T);s+=`<line class="rbgrid" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
+  /* No gridlines at thirds. They were the companions of the old axis, which labelled thirds of the
+     drawing area; now the axis marks the band edges and the median, a line at 0.33 of the plot names
+     nothing and reads as a threshold that does not exist. The band's own dashed edges and the median
+     line carry every reference this chart has. */
   if(x.athletic){const y1=Y(x.athletic.min),y2=Y(x.athletic.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
     // the median is the line that answers above-or-below; the band edges only say "typical"
