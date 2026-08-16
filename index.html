@@ -1175,14 +1175,14 @@ a.sbuy:hover{color:var(--info)}
 .rbbg{fill:var(--ok);opacity:.13}
 .rbbedge{stroke:var(--ok);stroke-width:.8;stroke-dasharray:3 3;opacity:.55;vector-effect:non-scaling-stroke}
 .rbwr{stroke:var(--watch);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
-/* Solid, not dashed: the world record is a far-off marker and reads as a boundary, the median is
-   a value inside the band you are either above or below. Same weight, different language. */
+/* Solid, not dashed: the world record is a far-off boundary while the median is neutral cohort
+   context. Same weight, different language; only P75-P90 is shaded as a target. */
 .rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
 /* The target band is the same green as an optimal range on the markers page, deliberately: it is
    the same claim about the same kind of thing. The peer band stays neutral. */
 .rbtg{fill:color-mix(in srgb,var(--ok) 15%,transparent)}
 .rbleg .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
-.rbmedlab{color:var(--t3)}
+.rbleg b.rbmedlab,.rbleg .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
 .rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);
   background:var(--info);border:2px solid var(--bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--info) 55%,transparent)}
@@ -1212,7 +1212,7 @@ a.sbuy:hover{color:var(--info)}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
 /* The key is an SVG copy of the plotted line, so its weight, colour, opacity and 5/4 dash pattern
    cannot drift into the browser-defined border dashes that used to make it look thicker. */
-.rbsw.wr{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
+.rbsw.wr,.rbsw.med{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
 .rbonly{font-size:11.5px;line-height:1.45;color:var(--t2)}.rbonly span{color:var(--t4)}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
@@ -2859,8 +2859,10 @@ function rbValue(x,a,extra=''){
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
 function rbSvg(x,dates){
-  const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic;
+  const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic,
+    median=x.athletic&&x.athletic.median!==undefined?x.athletic.median:null;
   if(peer)vals.push(peer.min,peer.max);
+  if(median!==null)vals.push(median);
   if(x.target)vals.push(x.target.min,x.target.max);
   if(x.world)vals.push(x.world.value);
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
@@ -2875,8 +2877,8 @@ function rbSvg(x,dates){
     s+=`<rect class="rbtg" x="0" y="${ty}" width="${W}" height="${Math.max(th,2)}"/>`;}
   if(peer){const y1=Y(peer.min),y2=Y(peer.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
-    // the median is the line that answers above-or-below; the band edges only say "typical"
-    if(peer.median!==undefined){const ym=Y(peer.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
+  }
+  if(median!==null){const ym=Y(median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
@@ -2891,8 +2893,8 @@ function rbSvg(x,dates){
      dropped so two labels never overprint. */
   const ticks=[];
   if(x.target)ticks.push(x.target.min,x.target.max);
-  if(peer){ticks.push(peer.min,peer.max);
-    if(peer.median!==undefined)ticks.push(peer.median);}
+  if(peer)ticks.push(peer.min,peer.max);
+  if(median!==null)ticks.push(median);
   if(x.world)ticks.push(x.world.value);
   const kept=[];
   ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
@@ -2908,14 +2910,16 @@ function rbSvg(x,dates){
 function rbLegend(x){
   let h='';
   if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}</b>`+
-    `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small>`+
-    `<span class="rblinks"><a href="${esc(x.target.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
+    `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small></span></div>`;
   if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
       `<small class="rbrange">${x.athletic.span?esc(x.athletic.span):`${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`}`+
-      `${x.athletic.median!==undefined?` <span class="rbmedlab">median ${esc(rbFmt(x,x.athletic.median))}</span>`:''}</small>`+
-      `<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
+      `</small><span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
+  if(x.athletic&&x.athletic.median!==undefined)
+    h+=`<div class="rbleg"><svg class="rbsw med" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbmed" x1="0" x2="14" y1="1" y2="1"/></svg>`+
+      `<span><b class="rbmedlab">Cohort median</b><span class="rbresult rbmedlab">${esc(rbFmt(x,x.athletic.median))}${x.kind==='time'?'':` ${esc(x.unit)}`}</span>`+
+      `${x.target?`<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span>`:''}</span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }
@@ -2963,17 +2967,23 @@ function fitRbChart(){
        would collide, and a chart with no bands falls back to normal flow. */
     const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
     const legs=[...pad.querySelectorAll('.rbleg')];
-    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr'),tg=svg.querySelector('rect.rbtg');
+    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr'),med=svg.querySelector('line.rbmed'),tg=svg.querySelector('rect.rbtg');
     const mid=r=>r?+r.getAttribute('y')+ +r.getAttribute('height')/2:null;
     const at=l=>l.querySelector('.rbsw.band')?mid(band)
              :l.querySelector('.rbsw.tg')?mid(tg)
+             :l.querySelector('.rbsw.med')?(med?+med.getAttribute('y1'):null)
              :l.querySelector('.rbsw.wr')?(wr?+wr.getAttribute('y1'):null):null;
     if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
     pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
     let lastBottom=-1e9;
     legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??1e9)-(b.y??1e9)).forEach(({l,y})=>{
       if(y===null){l.style.position='';l.style.top='';return;}
-      const top=Math.max(lastBottom+8,y-rbLegAnchor(l));
+      // The target and median come from the same source. Its link lives with the median so the
+      // target key stays compact enough for both keys to remain on their exact plotted heights.
+      // Five pixels of line-box leading may overlap without the glyphs touching. That tiny allowance
+      // keeps the median key pixel-aligned even when a two-line cohort name ends just above it.
+      const collisionGap=l.querySelector('.rbsw.med')?-5:8;
+      const top=Math.max(lastBottom+collisionGap,y-rbLegAnchor(l));
       l.style.position='absolute';l.style.top=top+'px';l.style.left='0';l.style.right='0';
       lastBottom=top+l.offsetHeight;});
   });
@@ -2996,7 +3006,7 @@ function runningBenchmarks(){
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
       `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
   return `<div class="rbscroll" style="--rbn:${dates.length}" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl"><thead><tr>`+
-    `<th class="rbname">Benchmark</th>${th}<th class="rbchange">Since previous</th>`+
+    `<th class="rbname">Test</th>${th}<th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
@@ -3336,7 +3346,7 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Running benchmarks</div>`+runningBenchmarks():'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.

@@ -1310,10 +1310,11 @@ window.BLOODWORK =
      "athletic": {
       "min": 336,
       "max": 416,
+      "median": 371,
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Male Fifth Avenue Mile finishers, 19–39",
-      "basis": "Observed P25–P75 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
+      "basis": "Observed P25–P75 and median 6:11 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1321,8 +1322,8 @@ window.BLOODWORK =
      "target": {
       "min": 305,
       "max": 336,
-      "span": "P75–P90",
-      "label": "Male Fifth Avenue Mile finishers 19–39, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male Fifth Avenue Mile finishers 19–39",
       "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
@@ -1355,10 +1356,11 @@ window.BLOODWORK =
      "athletic": {
       "min": 1070,
       "max": 1372,
+      "median": 1198,
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Recreational Runners, 19–39",
-      "basis": "Observed P25–P75 of self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks.",
+      "basis": "Observed P25–P75 and median 19:58 from self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1366,8 +1368,8 @@ window.BLOODWORK =
      "target": {
       "min": 992,
       "max": 1070,
-      "span": "P75–P90",
-      "label": "Male recreational runners 19–39, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male recreational runners 19–39",
       "basis": "Observed P75–P90 performance band from the same 535 men aged 19–39 with a recorded recent 5K: nearest-rank P75 is 17:50 and P90 is 16:32. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
@@ -1395,10 +1397,11 @@ window.BLOODWORK =
      "athletic": {
       "min": 2290,
       "max": 3000,
+      "median": 2628.5,
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Recreational Runners, 19–39",
-      "basis": "Observed P25–P75 of self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks.",
+      "basis": "Observed P25–P75 and median 43:48.5 from self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1406,8 +1409,8 @@ window.BLOODWORK =
      "target": {
       "min": 2090,
       "max": 2290,
-      "span": "P75–P90",
-      "label": "Male recreational runners 19–39, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male recreational runners 19–39",
       "basis": "Observed P75–P90 performance band from the same 352 men aged 19–39 with a recorded recent 10K: nearest-rank P75 is 38:10 and P90 is 34:50. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
@@ -1446,8 +1449,8 @@ window.BLOODWORK =
      "target": {
       "min": 59.2,
       "max": 62.7,
-      "span": "P75–P90",
-      "label": "Male recreational runners 30-39, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male recreational runners 30–39",
       "basis": "The 75th to 90th percentile of 94 male recreational runners aged 30-39, derived from the published mean and SD of 55.4 +/- 5.7mL/kg/min under the same normal-distribution assumption used for the peer band, so P90 sits at mean + 1.282 SD. The cohort already trains regularly, so this is the top of a trained group rather than of the general population.",
       "source": "https://doi.org/10.3390/app12073252",
       "evidence": "weak",
@@ -1477,8 +1480,8 @@ window.BLOODWORK =
      "target": {
       "min": 52.5,
       "max": 57.4,
-      "span": "P75–P90",
-      "label": "Canadian men 20–39, upper-quartile band",
+      "span": "75th to 90th percentile",
+      "label": "Canadian men 20–39",
       "basis": "Approximate P75 to published P90, summarized equally across the four five-year male age brackets from 20–39 in the Canadian Health Measures Survey Cycle 5. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The four bracket values are then averaged equally, so this is an age-band summary rather than a true pooled percentile.",
       "source": "https://www150.statcan.gc.ca/n1/pub/82-003-x/2019010/article/00002/tbl/tbl04-eng.htm",
       "evidence": "moderate",
@@ -1508,8 +1511,8 @@ window.BLOODWORK =
      "target": {
       "min": 233.7,
       "max": 245.3,
-      "span": "P75–P90",
-      "label": "Brazilian federal highway police, men 30–39, upper-quartile band",
+      "span": "75th to 90th percentile",
+      "label": "Brazilian federal highway police, men 30–39",
       "basis": "Approximate P75–P90 for the same 2,552 men, derived from the published mean and SD of 220.7 ± 19.2cm under a normal-distribution assumption: P75 is mean + 0.674 SD and P90 is mean + 1.282 SD. Supplemental Table S4 places P80 at 236cm, close to the modelled P80 of 236.9cm; P75 and P90 are not directly tabulated, so this remains a modelled comparison rather than an observed percentile band.",
       "source": "https://doi.org/10.1519/JSC.0000000000004980",
       "evidence": "weak",
@@ -1539,8 +1542,8 @@ window.BLOODWORK =
      "target": {
       "min": 55.9,
       "max": 61.7,
-      "span": "P75–P90",
-      "label": "Men 30–39, upper-quartile band",
+      "span": "75th to 90th percentile",
+      "label": "Men 30–39",
       "basis": "Approximate P75 to published P90 for men aged 30–39 from the international norms. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The 30–34 and 35–39 values are then averaged equally. This is a relative performance band, not a health-outcome optimum.",
       "source": "https://doi.org/10.1016/j.jshs.2024.101014",
       "evidence": "moderate",

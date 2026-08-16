@@ -11,10 +11,12 @@ remain in the personal repository history.
 - Fixed the performance table at a stable measure and sized its name column to the longest label; narrow windows scroll instead of resizing columns.
 - Added a small gap between the performance-benchmark section rule and its table.
 - Included performance targets in chart scaling so the complete P75–P90 band and its upper tick remain visible.
-- Showed only P75–P90 on targeted benchmarks, hiding their lower peer band and median while preserving peer-only rows.
+- Kept P75–P90 as the only shaded band on targeted benchmarks, hiding their lower peer band while preserving peer-only rows.
 - Matched the world-record legend dash to the plotted line and aligned both by their measured centres.
 - Standardized every sourced performance comparison to P75–P90; empirical race cutoffs come from the existing raw cohorts, while modelled cutoffs are labelled and weak-graded where appropriate.
 - Simplified the sprint legend to `Male PE students 21–25` and `75th to 90th percentile`.
+- Extended the same two-line cohort and percentile wording to every benchmark with a population target.
+- Added a neutral cohort-median line and value to every population-benchmarked performance graph; fixed-pace heart rate remains personal-only.
 
 ## Marker catalogue · 2026-08-14
 
