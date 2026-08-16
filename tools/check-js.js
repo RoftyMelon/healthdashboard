@@ -432,6 +432,19 @@ setTimeout(()=>{
      ok('every graded row derives Average/Good/Excellent and stores only the top rung',
        bad.length===0&&PT.every(x=>['Olympic','World class','NFL'].includes(x.elite.label)),
        bad.length?bad.map(x=>x.id).join(','):PT.map(x=>x.elite.label).join(','));}
+    /* The 5km and 10km rows come from independent subgroups of one survey, so they are NOT forced
+       onto a shared curve — that would swap measured times for modelled ones. What is guarded is
+       that they stay physiologically coherent: every 10km rung is slower than Riegel projects from
+       its 5km counterpart (recreational runners fade over distance), and the excess SHRINKS as
+       ability rises. A row edited into a faster-than-Riegel 10km, or into a widening gap, is
+       describing a population that does not exist. */
+    {const K5=PT.find(x=>x.id==='run5k'),KX=PT.find(x=>x.id==='run10k'),RIEGEL=Math.pow(2,1.06);
+     const pair=[[K5.athletic.median,KX.athletic.median],[K5.target.max,KX.target.max],[K5.target.min,KX.target.min]];
+     const ratios=pair.map(([a,b])=>b/a);
+     ok('the 5km and 10km ladders stay physiologically coherent',
+       ratios.every(r=>r>RIEGEL&&r<2.3)&&ratios[0]>ratios[1]&&ratios[1]>ratios[2]&&
+       /independent subgroups/.test(K5.athletic.basis)&&/not the same 535 men/.test(KX.athletic.basis),
+       ratios.map(r=>r.toFixed(3)).join(' > ')+` vs Riegel ${RIEGEL.toFixed(3)}`);}
     ok('the top rung sits beyond Excellent on every graded row',
       PT.every(x=>x.direction==='lower'?x.elite.value<x.target.min:x.elite.value>x.target.max),
       PT.map(x=>`${x.id}:${x.elite.value}`).join(' '));

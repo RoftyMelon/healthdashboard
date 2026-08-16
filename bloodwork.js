@@ -1381,7 +1381,7 @@ window.BLOODWORK =
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Recreational Runners, 19–39",
-      "basis": "Observed P25–P75 and median 19:58 from self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks.",
+      "basis": "Observed P25–P75 and median 19:58 from self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks. This row and the 10km row are independent subgroups of the same survey — 535 men here, 352 there — so their medians are not two readings of one population. Dividing each 10km rung by its 5km counterpart gives 2.19, 2.14 and 2.11 against Riegel's 2.09, an excess that shrinks as ability rises. That is the expected shape: the less trained a runner is, the more ground is lost over the longer distance.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1429,7 +1429,7 @@ window.BLOODWORK =
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Recreational Runners, 19–39",
-      "basis": "Observed P25–P75 and median 43:48.5 from self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks.",
+      "basis": "Observed P25–P75 and median 43:48.5 from self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks. An independent subgroup of the survey behind the 5km row, not the same 535 men. Every rung here is slower than Riegel would project from its 5km counterpart, by 5% at the median falling to 1% at Excellent; forcing the two rows onto one curve would replace measured times with modelled ones.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
