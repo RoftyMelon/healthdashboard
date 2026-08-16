@@ -469,14 +469,14 @@ setTimeout(()=>{
     ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
     ok('nutritional profile shows equal-choice averages including Weekly',
-      H.includes('~3,250 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
-      H.includes('~257 g')&&H.includes('~160 g')&&H.includes('~54 g')&&H.includes('~35 g')&&
+      H.includes('~3,300 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
+      H.includes('~259 g')&&H.includes('~165 g')&&H.includes('~55 g')&&H.includes('~38 g')&&
       !H.includes('Weekly starter adds')&&!H.includes('Approximate daily intake')&&
       !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
       'current averages'); }
   catch(e){ ok('diet supps',false,e.message); }
-  /* Kefir and dark chocolate are eaten at BOTH brunch and dinner, so each is a real entry
-     in each meal — that duplication is the diet, not a mistake. What it cannot survive is DRIFT:
+  /* Kefir is eaten in more than one meal, so each occurrence is a real entry rather than a
+     mistaken duplicate. What repeated food-and-portion entries cannot survive is DRIFT:
      the tooltip payload is stored twice, so an edit that lands on one copy leaves the other
      stale and nothing on the page says so. Same name AND same portion must therefore mean the
      same data. Olive oil is deliberately exempt: same name, 10mL vs 50mL, genuinely different. */
@@ -492,10 +492,13 @@ setTimeout(()=>{
     const pre=DATA.DIET.meals.find(m=>m.id==='presnack'),dinner=DATA.DIET.meals.find(m=>m.id==='dinner');
     const wa=pre&&pre.items.find(x=>x&&x.n==='Walnuts + almonds');
     const pi=dinner&&dinner.items.find(x=>x&&x.n==='Pistachios');
+    const chocolate=DATA.DIET.meals.flatMap(m=>(m.items||[]).filter(x=>x&&x.n==='Dark chocolate').map(x=>({meal:m.id,item:x})));
     ok('walnuts and almonds sit with the muesli; dinner keeps pistachios',
       wa&&wa.amt==='~22g'&&pi&&pi.amt==='~8g'&&
       JSON.stringify(wa.info).includes('Walnut 12g, almond 10g')&&
       JSON.stringify(pi.info).includes('Pistachio 8g'),'split correctly');
+    ok('the full 30g chocolate serving sits only in the pre-workout snack',
+      chocolate.length===1&&chocolate[0].meal==='presnack'&&chocolate[0].item.amt==='~30g');
   }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }

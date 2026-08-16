@@ -2941,7 +2941,7 @@ window.BLOODWORK =
      },
      {
       "n": "Dark chocolate",
-      "amt": "~10g",
+      "amt": "~30g",
       "info": {
        "Ingredients": [
         [
@@ -2949,57 +2949,57 @@ window.BLOODWORK =
          "Cocoa 85%, Madagascar origin"
         ]
        ],
-       "Macronutrients — per ~10g": [
+       "Macronutrients — per ~30g": [
         [
          "Energy",
-         "60kcal",
-         "3%"
+         "180kcal",
+         "9%"
         ],
         [
          "Fat",
-         "5g",
-         "7%"
+         "15g",
+         "21%"
         ],
         [
          "– saturates",
-         "3g",
-         "14%"
+         "9g",
+         "42%"
         ],
         [
          "Carbs",
-         "2g",
-         "1%"
+         "6g",
+         "3%"
         ],
         [
          "Fibre",
-         "1g"
+         "3g"
         ]
        ],
        "Standouts": [
         [
          "Magnesium",
-         "23mg",
-         "6%"
-        ],
-        [
-         "Iron",
-         "1.1mg"
-        ],
-        [
-         "Copper",
-         "0.2mg",
+         "69mg",
          "18%"
         ],
         [
+         "Iron",
+         "3.3mg"
+        ],
+        [
+         "Copper",
+         "0.6mg",
+         "54%"
+        ],
+        [
          "Manganese",
-         "0.2mg",
-         "10%"
+         "0.6mg",
+         "30%"
         ]
        ],
        "Changes": [
         [
-         "1 Aug 2026",
-         "added"
+         "16 Aug 2026",
+         "full 30g daily serving moved to the pre-workout snack"
         ]
        ]
       }
@@ -3317,71 +3317,6 @@ window.BLOODWORK =
          "Potassium",
          "180mg",
          "9%"
-        ]
-       ]
-      }
-     },
-     {
-      "n": "Dark chocolate",
-      "amt": "~10g",
-      "info": {
-       "Ingredients": [
-        [
-         "",
-         "Cocoa 85%, Madagascar origin"
-        ]
-       ],
-       "Macronutrients — per ~10g": [
-        [
-         "Energy",
-         "60kcal",
-         "3%"
-        ],
-        [
-         "Fat",
-         "5g",
-         "7%"
-        ],
-        [
-         "– saturates",
-         "3g",
-         "14%"
-        ],
-        [
-         "Carbs",
-         "2g",
-         "1%"
-        ],
-        [
-         "Fibre",
-         "1g"
-        ]
-       ],
-       "Standouts": [
-        [
-         "Magnesium",
-         "23mg",
-         "6%"
-        ],
-        [
-         "Iron",
-         "1.1mg"
-        ],
-        [
-         "Copper",
-         "0.2mg",
-         "18%"
-        ],
-        [
-         "Manganese",
-         "0.2mg",
-         "10%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "added"
         ]
        ]
       }
