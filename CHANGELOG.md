@@ -18,6 +18,7 @@ remain in the personal repository history.
 - Extended the same two-line cohort and percentile wording to every benchmark with a population target.
 - Added a neutral median line and value to every population-benchmarked performance graph; fixed-pace heart rate remains personal-only.
 - Restored the concise `Recreational runners 19–39` label for 5 km and 10 km, and shortened the median key to `Median`.
+- Replaced the separate population `Source ↗` row with a linked `↗` directly after each comparison name.
 
 ## Marker catalogue · 2026-08-14
 

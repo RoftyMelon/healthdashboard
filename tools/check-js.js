@@ -421,7 +421,7 @@ setTimeout(()=>{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),M=BI.find(x=>x.id==='runmile'),
       B=BI.find(x=>x.id==='bjump'),V=BI.find(x=>x.id==='vo2max'),F=BI.find(x=>x.id==='run20hr');
     const E=runningBenchmarks(),ED=rbDetail(R,[],2),MD=rbDetail(M,[],2),BD=rbDetail(B,[],2),
-      VD=rbDetail(V,[],2),FD=rbDetail(F,[],2);
+      K5D=rbDetail(BI.find(x=>x.id==='run5k'),[],2),VD=rbDetail(V,[],2),FD=rbDetail(F,[],2);
     // An untested row now draws the plot too, so the bands are visible before the first attempt.
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     ok('untested benchmark rows still draw their upper-performance bands',
@@ -443,6 +443,8 @@ setTimeout(()=>{
     ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
         (d.match(/<line class="rbmed"/g)||[]).length===2&&d.includes('<svg class="rbsw med"')&&
+        (d.match(/class="rbsource"/g)||[]).length===1&&
+        d.includes(`class="rbsource" href="${x.target.source}"`)&&!d.includes('class="rblinks"')&&
         (d.match(/>Median<\/b>/g)||[]).length===1&&d.includes(rbFmt(x,x.athletic.median))&&
         !d.includes('class="rbbg"')&&!d.includes('P25–P75');}));
     ok('fixed-pace remains personal progression only, with no median',
@@ -455,10 +457,21 @@ setTimeout(()=>{
     const peerOnlyDetail=rbDetail(peerOnly,[],2);
     ok('the generic viewer still supports a genuine peer-only band plus median',
       peerOnlyDetail.includes('class="rbbg"')&&!peerOnlyDetail.includes('class="rbtg"')&&
-      (peerOnlyDetail.match(/<line class="rbmed"/g)||[]).length===2&&peerOnlyDetail.includes('>Median</b>'));
+      (peerOnlyDetail.match(/<line class="rbmed"/g)||[]).length===2&&
+      (peerOnlyDetail.match(/class="rbsource"/g)||[]).length===1&&
+      peerOnlyDetail.includes(`aria-label="Source for ${peerOnly.athletic.label}"`)&&
+      !peerOnlyDetail.includes('Source ↗')&&
+      peerOnlyDetail.includes('>Median</b>'));
+    ok('population source is a compact linked arrow after the comparison name, not a median row',
+      VD.includes(`class="rbsource" href="${V.target.source}"`)&&VD.includes('&nbsp;<a class="rbsource"')&&
+      VD.includes('>↗</a></b>')&&
+      !VD.includes('Source ↗')&&!VD.includes('class="rblinks"'));
+    ok('5K cohort arrow keeps the requested primary-study URL and accessible label',
+      K5D.includes('class="rbsource" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/"')&&
+      K5D.includes('aria-label="Source for Recreational runners 19–39"'));
     ok('world-record legend and plot reuse the exact same SVG line style',
       (ED.match(/<line class="rbwr"/g)||[]).length===2&&
-      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"'));
+      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"')&&ED.includes('Source ↗'));
     {const leg=top=>({getBoundingClientRect:()=>({top}),querySelector:()=>({
        getBoundingClientRect:()=>({top:top+7,height:2})})});
      ok('legend alignment measures the rendered swatch centre at any page position',
