@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.3.0">
+<meta name="health-dashboard-viewer-version" content="1.4.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -705,6 +705,11 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    above the phone `.pgsec{max-width:335px}` too — which is the point, since the cards go to
    min(356px,100%) on a phone and the list has to follow them, not the 335px text measure. */
 .gwrap+.pgtier+.pgsec.stk{max-width:min(356px,100%)}
+/* Training's parked list carries QUALITIES in the dose column, not a dose — "Vertical jump ·
+   Explosive power · HIIT" is three times a dose's width, so 430px folded every row onto two
+   lines. Specificity 0,3,0, matching the Grooming override above and beating the 0,2,0 base. */
+.pgsec.stk.trpark{max-width:min(560px,100%)}
+.trpark .sd{text-align:right;line-height:1.4}
 .pgsec.ndlist,.ndintro,.ndcollections{max-width:760px}
 .ndintro{margin-top:14px;color:var(--t2);font-size:15px;line-height:1.6}
 .ndcards{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:16px}
@@ -1127,6 +1132,10 @@ a.sbuy:hover{color:var(--info)}
 .rbtitle{margin-top:20px;margin-bottom:8px}
 .restrtitle{margin-top:28px}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
+/* .rbtitle already spends 8px below itself; .trsummary's own 10px on top of that pushed the
+   caption clear of the heading it belongs to. Follows .trsummary in the file on purpose —
+   equal specificity, so the later rule is the one that lands. */
+.trsummary.rbintro{padding-top:0;margin-bottom:14px}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
 .rbscroll{width:calc(411px + var(--rbn,0)*105px);max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
@@ -2058,6 +2067,24 @@ function audit(j){
       });
       else if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
     });
+    /* The parked list. Deliberately NOT a card: a card is a bounded set you act on, a list is one
+       you are still reading — the same contrast the Stack and Grooming draw. Each row carries the
+       qualities the activity would buy, and the shared reason it is parked lives in the section
+       note rather than per-row, because all four wait on the same thing (time), not four things. */
+    {const m=j.TRAINING.maylater;
+     if(m!==undefined){
+       if(!m||typeof m!=='object'||Array.isArray(m))bad.push('TRAINING.maylater must be an object when present');
+       else{
+         if(m.t!==undefined&&(typeof m.t!=='string'||!m.t.trim()))bad.push('TRAINING.maylater.t must be a non-empty string when present');
+         if(m.note!==undefined&&(typeof m.note!=='string'||!m.note.trim()))bad.push('TRAINING.maylater.note must be a non-empty string when present');
+         if(!Array.isArray(m.items))bad.push('TRAINING.maylater.items must be an array (empty is fine)');
+         else m.items.forEach(x=>{
+           if(!x||typeof x!=='object'||!x.n)return bad.push('TRAINING.maylater: every row needs a name');
+           if(!x.q||typeof x.q!=='string')bad.push(`TRAINING.maylater "${x.n}": needs the qualities it would buy`);
+           if(x.info!==undefined&&(typeof x.info!=='string'||!x.info.trim()))bad.push(`TRAINING.maylater "${x.n}": info must be a non-empty string when present`);
+         });
+       }
+     }}
   }
   return bad;
 }
@@ -2905,6 +2932,14 @@ function rbSvg(x,dates){
     `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
   return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
 }
+/* The green band means the same thing on every row it appears on, so it is stated ONCE here
+   rather than repeating "75th to 90th percentile" inside every target legend — nine copies of
+   one sentence, each stealing the line that should have carried the actual numbers. Gated on a
+   target existing: with none rendered, the sentence would describe a colour nothing uses. */
+function rbIntro(){
+  return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>x.target)
+    ?`<div class="trsummary rbintro">Green ranges are the 75th to 90th percentile of the cohort</div>`:'';
+}
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
 function rbLegend(x){
@@ -2912,7 +2947,7 @@ function rbLegend(x){
   if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}`+
     `&nbsp;<a class="rbsource" href="${esc(x.target.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.target.label}`)}">↗</a></b>`+
     `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small></span></div>`;
-  if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
+  if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult"><span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}`+
       `&nbsp;<a class="rbsource" href="${esc(x.athletic.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.athletic.label}`)}">↗</a></b>`+
@@ -3110,6 +3145,23 @@ function renderPage(p){
       `<div class="pgsec stk nohead"${c.id?` data-care="${esc(c.id)}"`:''}>`+
       (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
       ((c.items||[]).length?(c.items||[]).map(row).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`;};
+  /* Training's parked list, drawn with careTier's own rows so the two pages read alike. The
+     qualities take the Stack's dose column: name on the left, what it would buy on the right —
+     the same left-to-right shape as name → dose, which is what a reader is scanning for here. */
+  const trParked=()=>{
+    const m=(TRAINING||{}).maylater; if(!m||!(m.items||[]).length&&!CARD_SHELLS)return '';
+    return `<div class="pgtier">${esc(m.t||'May add later')}</div>`+
+      `<div class="pgsec stk nohead trpark">`+
+      (m.note?`<div class="cnote">${esc(m.note)}</div>`:'')+
+      ((m.items||[]).length?(m.items||[]).map(x=>
+        `<div class="srow"><div class="stop">`+
+        `<span class="sn">${esc(x.n)}</span><span class="sfill"></span>`+
+        `<span class="sd">${esc(x.q)}</span>`+
+        // .infob and .exinfo stay adjacent siblings inside .tipw — the reveal is `.tipw:hover .exinfo`
+        (x.info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button>`+
+                `<div class="exinfo">${esc(x.info)}</div></span>`
+               :`<span class="tipw"></span>`)+
+        `</div></div>`).join(''):`<div class="cempty">&mdash;</div>`)+`</div>`;};
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
     sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
@@ -3346,14 +3398,15 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+runningBenchmarks():'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
       `<div class="pgst restrtitle">Resistance</div>`+
       (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note)}</div>`:'')+
       cardRow(TRAINING.cards)+
-      (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'');
+      (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'')+
+      trParked();
   } else if(p==='diet'&&DIET){
     const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth

@@ -307,6 +307,17 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   Every current benchmark with a sourced population comparison carries that P75–P90 target;
   fixed-pace heart rate deliberately remains personal-progression-only.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
+  **No target carries its own `span`.** The P75–P90 meaning is stated ONCE, by the viewer's intro
+  line under the Performance benchmarks heading, so each target legend keeps its line for the
+  band's actual numbers. Nine identical "75th to 90th percentile" captions crowded those numbers
+  out. The world-record legend names only the athlete and year for the same reason — the chart
+  already plots the time. `audit()` and `check-js` both reject a per-row `span` coming back.
+- **`TRAINING.maylater` is the parked list, and it is deliberately NOT a card.** A card is a
+  bounded set you act on; a list is one you are still reading — the same contrast the Stack and
+  Grooming already draw. `{t, note?, items[{n, q, info?}]}`: `q` names the qualities the activity
+  would add and takes the Stack's dose column, so a row reads name → what it buys. The reason for
+  parking lives in the section `note`, not per row, because all four wait on the same thing
+  (time), not four different things — a per-row trigger would have meant inventing three.
 
 ---
 

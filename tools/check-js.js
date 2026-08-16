@@ -385,12 +385,19 @@ setTimeout(()=>{
       B.athletic.min===207.7&&B.athletic.max===233.7&&B.athletic.median===220.7&&
       B.target.min===233.7&&B.target.max===245.3&&B.athletic.basis.includes('2,552')&&
       B.athletic.source.includes('10.1519/JSC.0000000000004980'));
+    // The P75–P90 claim is made ONCE, by the page intro, so no target may carry its own copy —
+    // nine identical captions crowded out the line that should hold the actual numbers. What
+    // stays per-row is the check no sentence can fake: the target starts at the peer band's edge.
     ok('all performance targets are P75–P90 and begin at the peer band edge',
       PT.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,vo2max,vjump,bjump,grip'&&
-      PT.every(x=>x.target.span==='75th to 90th percentile'&&
-        !/(top quartile to P90|upper-quartile band)/.test(x.target.label)&&
+      PT.every(x=>x.target.span===undefined&&
+        !/(top quartile to P90|upper-quartile band|percentile)/.test(x.target.label)&&
         (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
-      PT.map(x=>`${x.id}:${x.target.span}`).join(', '));
+      PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
+    ok('the P75–P90 meaning is stated once, above the benchmarks',
+      count(n.pages.innerHTML,'trsummary rbintro')===1&&
+      n.pages.innerHTML.includes('Green ranges are the 75th to 90th percentile of the cohort'),
+      count(n.pages.innerHTML,'trsummary rbintro')+' intro lines');
     ok('peer-range headings match the measured cohorts',
       BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
       BI.filter(x=>['runmile','run5k','run10k','vo2max'].includes(x.id)).every(x=>x.athletic.heading==='Recreational runners range'));
@@ -426,19 +433,19 @@ setTimeout(()=>{
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     ok('untested benchmark rows still draw their upper-performance bands',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Male PE students 21–25')&&ED.includes('75th to 90th percentile')&&
+      ED.includes('Male PE students 21–25')&&ED.includes('class="rbtg"')&&
       !ED.includes('top quartile to P90')&&ED.includes('World record'));
     ok('mile now shows only its observed P75–P90 band',
-      MD.includes('75th to 90th percentile')&&MD.includes('5:05')&&MD.includes('5:36')&&
+      MD.includes('class="rbtg"')&&MD.includes('5:05')&&MD.includes('5:36')&&
       !MD.includes('P25–P75')&&!MD.includes('class="rbbg"'));
     ok('broad jump shows only its modelled P75–P90 band',
-      BD.includes('75th to 90th percentile')&&BD.includes('234')&&BD.includes('245')&&
+      BD.includes('class="rbtg"')&&BD.includes('234')&&BD.includes('245')&&
       !BD.includes('P25–P75')&&!BD.includes('class="rbbg"'));
     ok('VO2max shows only its upper recreational-runner percentile band',
       !VD.includes('Recreational runners range')&&
-      VD.includes('Male recreational runners 30–39')&&VD.includes('75th to 90th percentile'));
+      VD.includes('Male recreational runners 30–39')&&VD.includes('class="rbtg"'));
     ok('performance chart scale includes target endpoints and median tick',
-      VD.includes('class="rbtg"')&&VD.includes('75th to 90th percentile')&&
+      VD.includes('class="rbtg"')&&
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD));
     ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
@@ -498,7 +505,7 @@ setTimeout(()=>{
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
     ok('expanded benchmark chart draws history, P75–P90 target, median and world-record line',
       D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbmed')&&D.includes('rbwr')&&
-      D.includes('75th to 90th percentile'));
+      D.includes('class="rbtg"'));
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));

@@ -1240,7 +1240,6 @@ window.BLOODWORK =
      "target": {
       "min": 11.67,
       "max": 12.38,
-      "span": "75th to 90th percentile",
       "label": "Male PE students 21–25",
       "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 13.17 ± 1.17s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
@@ -1281,7 +1280,6 @@ window.BLOODWORK =
      "target": {
       "min": 56.7,
       "max": 59.1,
-      "span": "75th to 90th percentile",
       "label": "Male PE students 21–25",
       "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 61.77 ± 3.96s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
@@ -1322,7 +1320,6 @@ window.BLOODWORK =
      "target": {
       "min": 305,
       "max": 336,
-      "span": "75th to 90th percentile",
       "label": "Male Fifth Avenue Mile finishers 19–39",
       "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
       "source": "https://results.nyrr.org/races",
@@ -1368,7 +1365,6 @@ window.BLOODWORK =
      "target": {
       "min": 992,
       "max": 1070,
-      "span": "75th to 90th percentile",
       "label": "Recreational runners 19–39",
       "basis": "Observed P75–P90 performance band from the same 535 men aged 19–39 with a recorded recent 5K: nearest-rank P75 is 17:50 and P90 is 16:32. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
@@ -1409,7 +1405,6 @@ window.BLOODWORK =
      "target": {
       "min": 2090,
       "max": 2290,
-      "span": "75th to 90th percentile",
       "label": "Recreational runners 19–39",
       "basis": "Observed P75–P90 performance band from the same 352 men aged 19–39 with a recorded recent 10K: nearest-rank P75 is 38:10 and P90 is 34:50. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
@@ -1449,7 +1444,6 @@ window.BLOODWORK =
      "target": {
       "min": 59.2,
       "max": 62.7,
-      "span": "75th to 90th percentile",
       "label": "Male recreational runners 30–39",
       "basis": "The 75th to 90th percentile of 94 male recreational runners aged 30-39, derived from the published mean and SD of 55.4 +/- 5.7mL/kg/min under the same normal-distribution assumption used for the peer band, so P90 sits at mean + 1.282 SD. The cohort already trains regularly, so this is the top of a trained group rather than of the general population.",
       "source": "https://doi.org/10.3390/app12073252",
@@ -1480,7 +1474,6 @@ window.BLOODWORK =
      "target": {
       "min": 52.5,
       "max": 57.4,
-      "span": "75th to 90th percentile",
       "label": "Canadian men 20–39",
       "basis": "Approximate P75 to published P90, summarized equally across the four five-year male age brackets from 20–39 in the Canadian Health Measures Survey Cycle 5. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The four bracket values are then averaged equally, so this is an age-band summary rather than a true pooled percentile.",
       "source": "https://www150.statcan.gc.ca/n1/pub/82-003-x/2019010/article/00002/tbl/tbl04-eng.htm",
@@ -1511,7 +1504,6 @@ window.BLOODWORK =
      "target": {
       "min": 233.7,
       "max": 245.3,
-      "span": "75th to 90th percentile",
       "label": "Brazilian federal highway police, men 30–39",
       "basis": "Approximate P75–P90 for the same 2,552 men, derived from the published mean and SD of 220.7 ± 19.2cm under a normal-distribution assumption: P75 is mean + 0.674 SD and P90 is mean + 1.282 SD. Supplemental Table S4 places P80 at 236cm, close to the modelled P80 of 236.9cm; P75 and P90 are not directly tabulated, so this remains a modelled comparison rather than an observed percentile band.",
       "source": "https://doi.org/10.1519/JSC.0000000000004980",
@@ -1542,7 +1534,6 @@ window.BLOODWORK =
      "target": {
       "min": 55.9,
       "max": 61.7,
-      "span": "75th to 90th percentile",
       "label": "Men 30–39",
       "basis": "Approximate P75 to published P90 for men aged 30–39 from the international norms. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The 30–34 and 35–39 values are then averaged equally. This is a relative performance band, not a health-outcome optimum.",
       "source": "https://doi.org/10.1016/j.jshs.2024.101014",
@@ -1555,6 +1546,30 @@ window.BLOODWORK =
   },
   "note": "Pull–Push–Legs ×2 · Monday–Saturday · Drop sets · Single-leg pogo hops between sets",
   "footnote": "Weights and reps are approximate.",
+  "maylater": {
+   "t": "May add later",
+   "note": "Parked on time, not on merit. Cardio and lifting already carry the longevity case; each of these adds a quality the current week trains only indirectly.",
+   "items": [
+    {
+     "n": "Basketball",
+     "q": "Vertical jump · Explosive power · HIIT"
+    },
+    {
+     "n": "Racket sports",
+     "q": "Explosive power · HIIT",
+     "info": "Squash or padel. Holidays, or whenever a partner is around."
+    },
+    {
+     "n": "Parkour",
+     "q": "Agility · Explosive power"
+    },
+    {
+     "n": "Movement",
+     "q": "Body awareness · Coordination",
+     "info": "Capoeira, dance."
+    }
+   ]
+  },
   "cards": [
    {
     "id": "pull",

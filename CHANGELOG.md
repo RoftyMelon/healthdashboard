@@ -3,6 +3,12 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.4.0 · Schema 2 · 2026-08-16
+
+- Stated the P75–P90 meaning once, as an intro line under the Performance benchmarks heading, instead of repeating it inside every target legend; those legends now carry the band's actual numbers.
+- Dropped the result from the world-record legend, which the chart already plots, leaving the athlete and year.
+- Added an optional `TRAINING.maylater` parked list to the Training page: a headed list of activities under consideration, each naming the qualities it would add, with the shared reason for parking in a section note rather than repeated per row.
+
 ## Viewer 1.3.0 · Schema 2 · 2026-08-16
 
 - Reduced every performance attempt to a date and result, with no method, course, conditions or note metadata.
