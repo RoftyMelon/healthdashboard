@@ -361,10 +361,10 @@ setTimeout(()=>{
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&K5.athletic.median===1198&&
       K5.athletic.label==='Recreational Runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
-      K5.target.min===992&&K5.target.max===1070&&
+      K5.target.min===992&&K5.target.max===1070&&K5.target.label==='Recreational runners 19–39'&&
       K10.athletic.min===2290&&K10.athletic.max===3000&&K10.athletic.median===2628.5&&
       K10.athletic.label==='Recreational Runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39')&&
-      K10.target.min===2090&&K10.target.max===2290);
+      K10.target.min===2090&&K10.target.max===2290&&K10.target.label==='Recreational runners 19–39');
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
@@ -437,16 +437,16 @@ setTimeout(()=>{
     ok('VO2max shows only its upper recreational-runner percentile band',
       !VD.includes('Recreational runners range')&&
       VD.includes('Male recreational runners 30–39')&&VD.includes('75th to 90th percentile'));
-    ok('performance chart scale includes target endpoints and cohort median tick',
+    ok('performance chart scale includes target endpoints and median tick',
       VD.includes('class="rbtg"')&&VD.includes('75th to 90th percentile')&&
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD));
     ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
         (d.match(/<line class="rbmed"/g)||[]).length===2&&d.includes('<svg class="rbsw med"')&&
-        d.includes('Cohort median')&&d.includes(rbFmt(x,x.athletic.median))&&
+        (d.match(/>Median<\/b>/g)||[]).length===1&&d.includes(rbFmt(x,x.athletic.median))&&
         !d.includes('class="rbbg"')&&!d.includes('P25–P75');}));
     ok('fixed-pace remains personal progression only, with no median',
-      FD.includes('Personal progression only')&&!FD.includes('rbmed')&&!FD.includes('Cohort median'));
+      FD.includes('Personal progression only')&&!FD.includes('rbmed')&&!FD.includes('>Median</b>'));
     const hiddenPeer=JSON.parse(JSON.stringify(V));
     Object.assign(hiddenPeer.athletic,{min:-999,max:999,label:'Hidden peer sentinel',span:'hidden'});
     ok('hidden peer-band metadata cannot affect a target-plus-median chart or legend',
@@ -455,7 +455,7 @@ setTimeout(()=>{
     const peerOnlyDetail=rbDetail(peerOnly,[],2);
     ok('the generic viewer still supports a genuine peer-only band plus median',
       peerOnlyDetail.includes('class="rbbg"')&&!peerOnlyDetail.includes('class="rbtg"')&&
-      (peerOnlyDetail.match(/<line class="rbmed"/g)||[]).length===2&&peerOnlyDetail.includes('Cohort median'));
+      (peerOnlyDetail.match(/<line class="rbmed"/g)||[]).length===2&&peerOnlyDetail.includes('>Median</b>'));
     ok('world-record legend and plot reuse the exact same SVG line style',
       (ED.match(/<line class="rbwr"/g)||[]).length===2&&
       ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"'));
@@ -483,7 +483,7 @@ setTimeout(()=>{
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
-    ok('expanded benchmark chart draws history, P75–P90 target, cohort median and world-record line',
+    ok('expanded benchmark chart draws history, P75–P90 target, median and world-record line',
       D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbmed')&&D.includes('rbwr')&&
       D.includes('75th to 90th percentile'));
     ok('benchmark results and chart points have no tooltip hooks',

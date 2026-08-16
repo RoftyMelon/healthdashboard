@@ -2918,7 +2918,7 @@ function rbLegend(x){
       `</small><span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;}
   if(x.athletic&&x.athletic.median!==undefined)
     h+=`<div class="rbleg"><svg class="rbsw med" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbmed" x1="0" x2="14" y1="1" y2="1"/></svg>`+
-      `<span><b class="rbmedlab">Cohort median</b><span class="rbresult rbmedlab">${esc(rbFmt(x,x.athletic.median))}${x.kind==='time'?'':` ${esc(x.unit)}`}</span>`+
+      `<span><b class="rbmedlab">Median</b><span class="rbresult rbmedlab">${esc(rbFmt(x,x.athletic.median))}${x.kind==='time'?'':` ${esc(x.unit)}`}</span>`+
       `${x.target?`<span class="rblinks"><a href="${esc(x.athletic.source)}" target="_blank" rel="noopener">Source ↗</a></span>`:''}</span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;

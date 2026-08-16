@@ -16,7 +16,8 @@ remain in the personal repository history.
 - Standardized every sourced performance comparison to P75–P90; empirical race cutoffs come from the existing raw cohorts, while modelled cutoffs are labelled and weak-graded where appropriate.
 - Simplified the sprint legend to `Male PE students 21–25` and `75th to 90th percentile`.
 - Extended the same two-line cohort and percentile wording to every benchmark with a population target.
-- Added a neutral cohort-median line and value to every population-benchmarked performance graph; fixed-pace heart rate remains personal-only.
+- Added a neutral median line and value to every population-benchmarked performance graph; fixed-pace heart rate remains personal-only.
+- Restored the concise `Recreational runners 19–39` label for 5 km and 10 km, and shortened the median key to `Median`.
 
 ## Marker catalogue · 2026-08-14
 

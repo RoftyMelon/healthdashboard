@@ -286,7 +286,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
   no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
   row expands into the trend chart, INCLUDING before the first attempt. A benchmark with a target
-  displays its P75–P90 target plus a neutral cohort-median line and value; its lower P25–P75 peer
+  displays its P75–P90 target plus a neutral median line and value; its lower P25–P75 peer
   band remains stored as source context but does not render. A benchmark without a target keeps
   its peer band and optional median.
   Only a row with no band and no world record falls back to the bare summary.
@@ -303,7 +303,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   band ends. When a source omits P75, interpolation must be disclosed in `basis`; values above P90
   are above the target band, never worse. The viewer never stacks the lower peer range beneath a
   target: the requested P75–P90 interval is the sole shaded comparison on those rows, with the
-  cohort median retained only as a neutral line for orientation.
+  median retained only as a neutral line for orientation.
   Every current benchmark with a sourced population comparison carries that P75–P90 target;
   fixed-pace heart rate deliberately remains personal-progression-only.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
