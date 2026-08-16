@@ -1403,6 +1403,16 @@ window.BLOODWORK =
       "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
+     "target": {
+      "min": 59.2,
+      "max": 62.7,
+      "span": "P75–P90",
+      "label": "Male recreational runners 30-39, top quartile to P90",
+      "basis": "The 75th to 90th percentile of 94 male recreational runners aged 30-39, derived from the published mean and SD of 55.4 +/- 5.7mL/kg/min under the same normal-distribution assumption used for the peer band, so P90 sits at mean + 1.282 SD. The cohort already trains regularly, so this is the top of a trained group rather than of the general population.",
+      "source": "https://doi.org/10.3390/app12073252",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1425,6 +1435,16 @@ window.BLOODWORK =
       "source": "https://fitnessnorms.com/strength/vertical-jump/",
       "evidence": "moderate",
       "reviewed": "2026-08-12"
+     },
+     "target": {
+      "min": 54,
+      "max": 60.3,
+      "span": "P75–P95",
+      "label": "Canadian men 20-39, top quartile to P95",
+      "basis": "The 75th to 95th percentile for men 20-39, averaged across the four age brackets of the Canadian Health Measures Survey cycle 5 (2016-17, n=5,188) so it is built the same way as the peer band beneath it. P95 rather than P90 because the survey publishes the former. Per bracket the top quartile starts at 56.9cm at 20-24, 55.3 at 25-29, 52.8 at 30-34 and 50.2 at 35-39 — read your own. Reaching it means jumping better than three quarters of men your age.",
+      "source": "https://fitnessnorms.com/strength/vertical-jump/",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },
@@ -1469,6 +1489,16 @@ window.BLOODWORK =
       "source": "https://www.sciencedirect.com/science/article/abs/pii/S0031940605000878",
       "evidence": "moderate",
       "reviewed": "2026-08-12"
+     },
+     "target": {
+      "min": 56.6,
+      "max": 61.6,
+      "span": "P75–P90",
+      "label": "Healthy men 30-39, top quartile to P90",
+      "basis": "The 75th to 90th percentile for healthy men aged 30-39 on a Jamar dynamometer, derived from the pooled mean near 51kg and SD near 8.3 under the same normal-distribution assumption used for the peer band. Grip peaks in this decade, so this is a lifetime ceiling rather than a waypoint. Graded weak: the SD is reconstructed and the normality assumption sits on top of it.",
+      "source": "https://www.sciencedirect.com/science/article/abs/pii/S0031940605000878",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     }

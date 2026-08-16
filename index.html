@@ -1176,6 +1176,10 @@ a.sbuy:hover{color:var(--info)}
 /* Solid, not dashed: the world record is a far-off marker and reads as a boundary, the median is
    a value inside the band you are either above or below. Same weight, different language. */
 .rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
+/* The target band is the same green as an optimal range on the markers page, deliberately: it is
+   the same claim about the same kind of thing. The peer band stays neutral. */
+.rbtg{fill:color-mix(in srgb,var(--ok) 15%,transparent)}
+.rbleg .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
 .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
 .rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
@@ -2017,6 +2021,28 @@ function audit(j){
              standing-jump records are unratified, so nothing comparable exists to sit above the band.
              An athletic band is OPTIONAL here — the countermovement jump has a population dataset and
              the standing broad jump does not, and a row is allowed to say so rather than invent one. */
+          /* An OPTIONAL second band: where the top quarter starts. Same shape as athletic but a
+             different claim — athletic says where peers land, target says what good looks like, the
+             same split the markers page makes between a reference range and an optimal range. It must
+             sit on the better side of the peer band's own edge, or it is not a target at all. */
+          if(x.target!==undefined){const g=x.target;
+            if(!g||typeof g!=='object')bad.push(`${tag}: target must be an object`);
+            else{
+              if(typeof g.min!=='number'||!isFinite(g.min)||typeof g.max!=='number'||!isFinite(g.max)||g.min>=g.max)
+                bad.push(`${tag}: target must have ascending numeric min/max`);
+              ['label','basis'].forEach(k=>{if(typeof g[k]!=='string'||!g[k].trim())bad.push(`${tag}: target.${k} is required`);});
+              if(g.span!==undefined&&(typeof g.span!=='string'||!g.span.trim()))bad.push(`${tag}: target.span must be a non-empty string when given`);
+              if(typeof g.source!=='string'||!/^https:\/\//.test(g.source))bad.push(`${tag}: target.source must be https://`);
+              if(!['strong','moderate','weak'].includes(g.evidence))bad.push(`${tag}: target.evidence must be strong/moderate/weak`);
+              if(typeof g.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(g.reviewed))
+                bad.push(`${tag}: target.reviewed must be YYYY-MM-DD`);
+              if(!x.athletic)bad.push(`${tag}: a target needs the peer band it improves on`);
+              // Touching the peer band's edge is the NORMAL case — the target starts where P75 ends.
+              // What must fail is a target that reaches back inside the band.
+              else if(x.direction==='lower'?g.max>x.athletic.min:g.min<x.athletic.max)
+                bad.push(`${tag}: target must sit beyond the peer band, not inside it`);
+            }
+          }
           if(x.kind==='jump'&&x.world)bad.push(`${tag}: a jump has no comparable ratified world record`);
           /* Grip records exist but are set on bespoke grippers, not a clinical dynamometer, so
              nothing ratified sits on the same scale as the measurement. */
@@ -2863,6 +2889,8 @@ function rbSvg(x,dates){
      drawing area; now the axis marks the band edges and the median, a line at 0.33 of the plot names
      nothing and reads as a threshold that does not exist. The band's own dashed edges and the median
      line carry every reference this chart has. */
+  if(x.target){const t1=Y(x.target.min),t2=Y(x.target.max),ty=Math.min(t1,t2),th=Math.abs(t2-t1);
+    s+=`<rect class="rbtg" x="0" y="${ty}" width="${W}" height="${Math.max(th,2)}"/>`;}
   if(x.athletic){const y1=Y(x.athletic.min),y2=Y(x.athletic.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
     // the median is the line that answers above-or-below; the band edges only say "typical"
@@ -2880,6 +2908,7 @@ function rbSvg(x,dates){
      already named in the legend and would only crowd the top. Anything within 7% of a neighbour is
      dropped so two labels never overprint. */
   const ticks=[];
+  if(x.target)ticks.push(x.target.min,x.target.max);
   if(x.athletic){ticks.push(x.athletic.min,x.athletic.max);
     if(x.athletic.median!==undefined)ticks.push(x.athletic.median);}
   if(x.world)ticks.push(x.world.value);
@@ -2896,6 +2925,9 @@ function rbSvg(x,dates){
    band first inverted the chart and made you hunt to map an entry to a line. */
 function rbLegend(x){
   let h='';
+  if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}</b>`+
+    `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small>`+
+    `<span class="rblinks"><a href="${esc(x.target.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
   if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
   if(x.athletic){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
@@ -2946,8 +2978,10 @@ function fitRbChart(){
        has neither, so a chart with no bands still reads top-down. */
     const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
     const legs=[...pad.querySelectorAll('.rbleg')];
-    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr');
-    const at=l=>l.querySelector('.rbsw.band')?(band?+band.getAttribute('y')+ +band.getAttribute('height')/2:null)
+    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr'),tg=svg.querySelector('rect.rbtg');
+    const mid=r=>r?+r.getAttribute('y')+ +r.getAttribute('height')/2:null;
+    const at=l=>l.querySelector('.rbsw.band')?mid(band)
+             :l.querySelector('.rbsw.tg')?mid(tg)
              :l.querySelector('.rbsw.wr')?(wr?+wr.getAttribute('y1'):null):null;
     if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
     pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
