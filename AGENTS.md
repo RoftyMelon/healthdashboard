@@ -297,7 +297,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   The label must remain specific about age and comparison class; sex and sampling details remain
   explicit in `basis`. Modelled
   percentages of a world record do not qualify. Each band carries an evidence grade and review
-  date.
+  date. Current performance target bands run from P75 to P90 and begin exactly where their peer
+  band ends. When a source omits P75, interpolation must be disclosed in `basis`; values above P90
+  are above the target band, never worse.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
 
 ---

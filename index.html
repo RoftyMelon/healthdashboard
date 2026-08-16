@@ -1996,7 +1996,7 @@ function audit(j){
                 bad.push(`${tag}: athletic.span must be a non-empty string when given`);
               if(a.median!==undefined&&(typeof a.median!=='number'||!isFinite(a.median)||a.median<=a.min||a.median>=a.max))
                 bad.push(`${tag}: athletic.median must be a number between min and max`);
-              if(!['Active men range','Recreational runners range','Healthy men range'].includes(a.heading))
+              if(!['Active men range','Recreational runners range','Healthy men range','General men range'].includes(a.heading))
                 bad.push(`${tag}: athletic.heading must name the supported comparison group`);
               if(typeof a.source!=='string'||!/^https:\/\//.test(a.source))bad.push(`${tag}: athletic.source must be https://`);
               if(!['strong','moderate','weak'].includes(a.evidence))bad.push(`${tag}: athletic.evidence must be strong/moderate/weak`);
@@ -2859,6 +2859,7 @@ function rbValue(x,a,extra=''){
 function rbSvg(x,dates){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value);
   if(x.athletic)vals.push(x.athletic.min,x.athletic.max);
+  if(x.target)vals.push(x.target.min,x.target.max);
   if(x.world)vals.push(x.world.value);
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
   const gap=Math.max((hi-lo)*.13,x.kind==='time'?1:2);lo-=gap;hi+=gap;if(lo===hi){lo-=1;hi+=1;}

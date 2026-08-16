@@ -371,6 +371,19 @@ setTimeout(()=>{
       V.athletic.min===51.6&&V.athletic.max===59.2&&V.athletic.evidence==='moderate'&&
       V.athletic.label==='Male recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
+    const J=BI.find(x=>x.id==='vjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
+    ok('vertical jump uses corrected official Canadian percentiles',
+      J.athletic.min===40.4&&J.athletic.max===52.5&&J.athletic.median===46.7&&
+      J.target.min===52.5&&J.target.max===57.4&&J.athletic.heading==='General men range'&&
+      J.athletic.source.includes('statcan.gc.ca'));
+    ok('grip uses the international adult norms rather than inferred confidence intervals',
+      G.athletic.min===43.3&&G.athletic.max===55.9&&G.athletic.median===49.6&&
+      G.target.min===55.9&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
+      G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
+    ok('all performance targets are P75–P90 and begin at the peer band edge',
+      PT.map(x=>x.id).join(',')==='vo2max,vjump,grip'&&
+      PT.every(x=>x.target.span==='P75–P90'&&x.target.min===x.athletic.max),
+      PT.map(x=>`${x.id}:${x.target.span}`).join(', '));
     ok('peer-range headings match the measured cohorts',
       BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
       BI.filter(x=>['runmile','run5k','run10k','vo2max'].includes(x.id)).every(x=>x.athletic.heading==='Recreational runners range'));
@@ -399,7 +412,7 @@ setTimeout(()=>{
   // Nothing is written back to bloodwork.js.
   try{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
-    const E=runningBenchmarks(),ED=rbDetail(R,[],2);
+    const E=runningBenchmarks(),ED=rbDetail(R,[],2),VD=rbDetail(V,[],2);
     // An untested row now draws the plot too, so the bands are visible before the first attempt.
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     ok('untested benchmark rows still draw their comparison bands',
@@ -408,7 +421,9 @@ setTimeout(()=>{
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));
     ok('VO2max shows the recreational-runner comparison at a glance',
-      !rbDetail(V,[],2).includes('Recreational runners range')&&rbDetail(V,[],2).includes('Male recreational runners<span class="rbage">· 30–39</span>'));
+      !VD.includes('Recreational runners range')&&VD.includes('Male recreational runners<span class="rbage">· 30–39</span>'));
+    ok('performance chart scale includes the full target and its P90 tick',
+      VD.includes('class="rbtg"')&&VD.includes('P75–P90')&&/>62\.7<\/span>/.test(VD));
     ok('world-record cards show only the compact two-digit year',
       ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(

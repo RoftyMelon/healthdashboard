@@ -10,6 +10,7 @@ remain in the personal repository history.
 - Renamed the mile benchmark to `1 Mile (1609m)` so its exact distance is visible at a glance.
 - Fixed the performance table at a stable measure and sized its name column to the longest label; narrow windows scroll instead of resizing columns.
 - Added a small gap between the performance-benchmark section rule and its table.
+- Included performance targets in chart scaling so the complete P75–P90 band and its upper tick remain visible.
 
 ## Marker catalogue · 2026-08-14
 
