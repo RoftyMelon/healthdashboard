@@ -343,9 +343,7 @@ setTimeout(()=>{
   // training cards are organised in muscle-group sub-sections; every set renders a column
   try{ setPage('training');
     const BI=DATA.TRAINING.benchmarks.items,H=n.pages.innerHTML;
-    // Nine since 2026-08-12: two jump rows joined the seven running/VO2max ones. The broad jump
-    // deliberately carries NO athletic band — the published normative data is in children, and no
-    // adult general-population dataset exists — so a jump row must be allowed to have none.
+    // Ten since 2026-08-12: two jumps and grip joined the seven running/VO2max rows.
     ok('training shows the ten agreed benchmarks',count(H,'rbrow')===10&&
       BI.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,run20hr,vo2max,vjump,bjump,grip',
       BI.map(x=>x.id).join(','));
@@ -357,13 +355,16 @@ setTimeout(()=>{
     const M=BI.find(x=>x.id==='runmile');
     ok('mile uses the pooled official multi-year road-race band',
       M.athletic.min===336&&M.athletic.max===416&&M.athletic.evidence==='moderate'&&
-      M.athletic.label==='Recreational Runners, 19–39'&&M.athletic.basis.includes('21,799'));
+      M.athletic.label==='Male Fifth Avenue Mile finishers, 19–39'&&M.athletic.basis.includes('21,799')&&
+      M.target.min===305&&M.target.max===336);
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&
       K5.athletic.label==='Recreational Runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
+      K5.target.min===992&&K5.target.max===1070&&
       K10.athletic.min===2290&&K10.athletic.max===3000&&
-      K10.athletic.label==='Recreational Runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39'));
+      K10.athletic.label==='Recreational Runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39')&&
+      K10.target.min===2090&&K10.target.max===2290);
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
@@ -371,7 +372,7 @@ setTimeout(()=>{
       V.athletic.min===51.6&&V.athletic.max===59.2&&V.athletic.evidence==='moderate'&&
       V.athletic.label==='Male recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
-    const J=BI.find(x=>x.id==='vjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
+    const J=BI.find(x=>x.id==='vjump'),B=BI.find(x=>x.id==='bjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
     ok('vertical jump uses corrected official Canadian percentiles',
       J.athletic.min===40.4&&J.athletic.max===52.5&&J.athletic.median===46.7&&
       J.target.min===52.5&&J.target.max===57.4&&J.athletic.heading==='General men range'&&
@@ -380,9 +381,14 @@ setTimeout(()=>{
       G.athletic.min===43.3&&G.athletic.max===55.9&&G.athletic.median===49.6&&
       G.target.min===55.9&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
       G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
+    ok('broad jump uses adult measured norms with an explicit modelled upper band',
+      B.athletic.min===207.7&&B.athletic.max===233.7&&B.athletic.median===220.7&&
+      B.target.min===233.7&&B.target.max===245.3&&B.athletic.basis.includes('2,552')&&
+      B.athletic.source.includes('10.1519/JSC.0000000000004980'));
     ok('all performance targets are P75–P90 and begin at the peer band edge',
-      PT.map(x=>x.id).join(',')==='vo2max,vjump,grip'&&
-      PT.every(x=>x.target.span==='P75–P90'&&x.target.min===x.athletic.max),
+      PT.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,vo2max,vjump,bjump,grip'&&
+      PT.every(x=>x.target.span==='P75–P90'&&
+        (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
       PT.map(x=>`${x.id}:${x.target.span}`).join(', '));
     ok('peer-range headings match the measured cohorts',
       BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
@@ -411,15 +417,20 @@ setTimeout(()=>{
   // Populate the in-memory copy briefly to exercise history, PB, delta and chart rendering.
   // Nothing is written back to bloodwork.js.
   try{
-    const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
-    const E=runningBenchmarks(),ED=rbDetail(R,[],2),VD=rbDetail(V,[],2);
+    const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),M=BI.find(x=>x.id==='runmile'),
+      B=BI.find(x=>x.id==='bjump'),V=BI.find(x=>x.id==='vo2max');
+    const E=runningBenchmarks(),ED=rbDetail(R,[],2),MD=rbDetail(M,[],2),BD=rbDetail(B,[],2),VD=rbDetail(V,[],2);
     // An untested row now draws the plot too, so the bands are visible before the first attempt.
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
-    ok('untested benchmark rows still draw their comparison bands',
+    ok('untested benchmark rows still draw their upper-performance bands',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Male PE Students')&&!ED.includes('Active men range')&&ED.includes('World record'));
-    ok('active-peer cohort is explicit at a glance',
-      ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));
+      ED.includes('Male PE students 21–25, top quartile to P90')&&ED.includes('P75–P90')&&ED.includes('World record'));
+    ok('mile now shows only its observed P75–P90 band',
+      MD.includes('P75–P90')&&MD.includes('5:05')&&MD.includes('5:36')&&
+      !MD.includes('P25–P75')&&!MD.includes('class="rbbg"'));
+    ok('broad jump shows only its modelled P75–P90 band',
+      BD.includes('P75–P90')&&BD.includes('234')&&BD.includes('245')&&
+      !BD.includes('P25–P75')&&!BD.includes('class="rbbg"'));
     ok('VO2max shows only its upper recreational-runner percentile band',
       !VD.includes('Recreational runners range')&&
       VD.includes('Male recreational runners 30-39, top quartile to P90')&&VD.includes('P75–P90'));
@@ -433,8 +444,9 @@ setTimeout(()=>{
     Object.assign(hiddenPeer.athletic,{min:-999,max:999,median:0,label:'Hidden peer sentinel',span:'hidden'});
     ok('hidden peer metadata cannot affect a target-only chart or legend',
       rbDetail(hiddenPeer,[],2)===VD);
-    ok('a benchmark without a target keeps its peer comparison',
-      ED.includes('class="rbbg"')&&!ED.includes('class="rbtg"'));
+    const peerOnly=JSON.parse(JSON.stringify(V)); delete peerOnly.target;
+    ok('the generic viewer still supports a genuine peer-only comparison',
+      rbDetail(peerOnly,[],2).includes('class="rbbg"')&&!rbDetail(peerOnly,[],2).includes('class="rbtg"'));
     ok('world-record legend and plot reuse the exact same SVG line style',
       (ED.match(/<line class="rbwr"/g)||[]).length===2&&
       ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"'));
@@ -462,8 +474,8 @@ setTimeout(()=>{
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
-    ok('expanded benchmark chart draws history, athletic band and world-record line',
-      D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('12.51s&ndash;14s'));
+    ok('expanded benchmark chart draws history, P75–P90 target and world-record line',
+      D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbwr')&&D.includes('P75–P90'));
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));

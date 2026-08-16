@@ -1206,7 +1206,7 @@ window.BLOODWORK =
   "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km with intervals)\n\nDaily\n• Aim for 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
   "benchmarks": {
    "age": 31,
-   "reviewed": "2026-08-09",
+   "reviewed": "2026-08-16",
    "items": [
     {
      "id": "run100",
@@ -1226,14 +1226,26 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 12.51,
-      "max": 14,
+      "min": 12.38,
+      "max": 13.96,
+      "median": 13.17,
+      "span": "P25–P75",
       "heading": "Active men range",
-      "label": "Male PE Students, 21–25",
-      "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.24s fast against a fully automatic attempt — a sixth of its own width — so read a near-miss as a tie.",
+      "label": "Male PE students, 21–25",
+      "basis": "Modelled middle 50% of 400 male physical-education students aged 21–25 from colleges and university departments in Punjab and Chandigarh, derived from the published mean and SD of 13.17 ± 1.17s under a normal-distribution assumption. Because lower times are better, performance P75 is the 25th percentile of finish time. The paper does not publish empirical percentiles for this age group or report the timing, start, surface or test protocol, so close differences are not interpretable.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 11.67,
+      "max": 12.38,
+      "span": "P75–P90",
+      "label": "Male PE students 21–25, top quartile to P90",
+      "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 13.17 ± 1.17s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
+      "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },
@@ -1255,14 +1267,26 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 59.36,
-      "max": 64,
+      "min": 59.1,
+      "max": 64.4,
+      "median": 61.77,
+      "span": "P25–P75",
       "heading": "Active men range",
-      "label": "Male PE Students, 21–25",
-      "basis": "Study's average performance grade for 400 men aged 21–25; derived from the group distribution, with timing method unreported. If those were hand-timed, the band sits about 0.14s fast against a fully automatic attempt — the standard 400m conversion, smaller than the sprint's.",
+      "label": "Male PE students, 21–25",
+      "basis": "Modelled middle 50% of 400 male physical-education students aged 21–25 from colleges and university departments in Punjab and Chandigarh, derived from the published mean and SD of 61.77 ± 3.96s under a normal-distribution assumption. Because lower times are better, performance P75 is the 25th percentile of finish time. The paper does not publish empirical percentiles for this age group or report the timing, start, surface or test protocol, so close differences are not interpretable.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 56.7,
+      "max": 59.1,
+      "span": "P75–P90",
+      "label": "Male PE students 21–25, top quartile to P90",
+      "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 61.77 ± 3.96s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
+      "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },
@@ -1288,11 +1312,21 @@ window.BLOODWORK =
       "max": 416,
       "span": "P25–P75",
       "heading": "Recreational runners range",
-      "label": "Recreational Runners, 19–39",
+      "label": "Male Fifth Avenue Mile finishers, 19–39",
       "basis": "Observed P25–P75 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 305,
+      "max": 336,
+      "span": "P75–P90",
+      "label": "Male Fifth Avenue Mile finishers 19–39, top quartile to P90",
+      "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
+      "source": "https://results.nyrr.org/races",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
      },
      "attempts": [
       {
@@ -1327,7 +1361,17 @@ window.BLOODWORK =
       "basis": "Observed P25–P75 of self-reported recent race times from 535 men aged 19–39. They typically ran 30 miles/week (IQR 20–45); 54% used intervals and 59% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 992,
+      "max": 1070,
+      "span": "P75–P90",
+      "label": "Male recreational runners 19–39, top quartile to P90",
+      "basis": "Observed P75–P90 performance band from the same 535 men aged 19–39 with a recorded recent 5K: nearest-rank P75 is 17:50 and P90 is 16:32. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },
@@ -1357,7 +1401,17 @@ window.BLOODWORK =
       "basis": "Observed P25–P75 of self-reported recent race times from 352 men aged 19–39. They typically ran 30 miles/week (IQR 18–45); 52% used intervals and 63% used tempo runs most weeks.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 2090,
+      "max": 2290,
+      "span": "P75–P90",
+      "label": "Male recreational runners 19–39, top quartile to P90",
+      "basis": "Observed P75–P90 performance band from the same 352 men aged 19–39 with a recorded recent 10K: nearest-rank P75 is 38:10 and P90 is 34:50. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },
@@ -1440,14 +1494,26 @@ window.BLOODWORK =
      "direction": "higher",
      "precision": 0,
      "athletic": {
-      "min": 191,
-      "max": 241,
+      "min": 207.7,
+      "max": 233.7,
+      "median": 220.7,
+      "span": "P25–P75",
       "heading": "Active men range",
-      "label": "NSCA rating scale, men 20-29",
-      "basis": "National Strength and Conditioning Association rating scale for men aged 20-29: 191-220cm average, 221-240 good, 241 and above excellent. The band spans the bottom of average to the threshold of excellent. Graded moderate rather than strong because it is a rating scale from a professional body, not a measured distribution — no sample size, cohort or methodology is published with it, and the age band is 20-29 rather than 20-40. Marins et al. 2024 (doi 10.1519/JSC.0000000000004980) measured 8,628 police officers aged 21-70 with age-banded values and would replace this if the values can be obtained.",
-      "source": "https://www.nsca.com/",
+      "label": "Brazilian federal highway police, men 30–39",
+      "basis": "Approximate P25–P75 for 2,552 male Brazilian federal highway police officers aged 30–39. The paper reports 220.7 ± 19.2cm for this age group; the quartiles are derived under a normal-distribution assumption as mean ± 0.674 SD. Supplemental Table S4 independently places P20 at 205cm, P40 at 217cm, P60 at 226cm and P80 at 236cm, closely bracketing the estimates. The test was the best of three standing broad jumps with a countermovement arm swing, measured from the line to the nearer heel.",
+      "source": "https://doi.org/10.1519/JSC.0000000000004980",
       "evidence": "moderate",
-      "reviewed": "2026-08-12"
+      "reviewed": "2026-08-16"
+     },
+     "target": {
+      "min": 233.7,
+      "max": 245.3,
+      "span": "P75–P90",
+      "label": "Brazilian federal highway police, men 30–39, upper-quartile band",
+      "basis": "Approximate P75–P90 for the same 2,552 men, derived from the published mean and SD of 220.7 ± 19.2cm under a normal-distribution assumption: P75 is mean + 0.674 SD and P90 is mean + 1.282 SD. Supplemental Table S4 places P80 at 236cm, close to the modelled P80 of 236.9cm; P75 and P90 are not directly tabulated, so this remains a modelled comparison rather than an observed percentile band.",
+      "source": "https://doi.org/10.1519/JSC.0000000000004980",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
      },
      "attempts": []
     },

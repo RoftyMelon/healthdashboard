@@ -13,6 +13,7 @@ remain in the personal repository history.
 - Included performance targets in chart scaling so the complete P75–P90 band and its upper tick remain visible.
 - Showed only P75–P90 on targeted benchmarks, hiding their lower peer band and median while preserving peer-only rows.
 - Matched the world-record legend dash to the plotted line and aligned both by their measured centres.
+- Standardized every sourced performance comparison to P75–P90; empirical race cutoffs come from the existing raw cohorts, while modelled cutoffs are labelled and weak-graded where appropriate.
 
 ## Marker catalogue · 2026-08-14
 
