@@ -2909,7 +2909,11 @@ function fitRbChart(){
     const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
     plot.style.flex='none';
     plot.style.width=width+'px';
-    plot.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    // The whole offset goes on the GUTTER, not the plot: the labels have to sit against the axis
+    // they name. Pushing the plot right instead left them stranded at the card edge with a wide
+    // empty gap between a number and its own gridline.
+    if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    plot.style.marginLeft='0px';
   });
 }
 function rbToggle(row,id){
