@@ -3092,17 +3092,16 @@ function fitRbChart(){
   document.querySelectorAll('.rbchart').forEach(c=>{
     const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
     const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
-    /* The plot now starts right after the gutter and runs to the LAST date column, so it is wider
-       than the columns themselves — that surplus on the left is where the rung names sit. The
-       dots layer is pulled back onto the columns, because a dot's `left` is a percentage of its
-       parent and widening the plot would otherwise slide every attempt off its own header. */
-    if(gut)gut.style.marginLeft='0px';
-    const plotLeft=row.left+g,w=left+width-plotLeft; if(w<=0)return;
+    /* The plot spans EXACTLY the date columns, because rbSvg places an attempt at
+       (index + .5) / columns of its width. The whole offset goes on the GUTTER, so the value
+       labels stay against the axis they name. Names no longer need surplus width on the left —
+       they moved to their own column on the right. */
     plot.style.flex='none';
-    plot.style.width=w+'px';
+    plot.style.width=width+'px';
     plot.style.marginLeft='0px';
+    if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
     const dotsEl=plot.querySelector('.rbcdots');
-    if(dotsEl){dotsEl.style.left=(left-plotLeft)+'px';dotsEl.style.width=width+'px';}
+    if(dotsEl){dotsEl.style.left='0px';dotsEl.style.width='100%';}
     /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
        track event — so names still need spreading. Centre each on its line, then walk downward
        pushing any that would touch the one above. The column has its own width now, so a long
