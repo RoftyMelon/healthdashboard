@@ -381,6 +381,28 @@ setTimeout(()=>{
       G.athletic.min===43.3&&G.athletic.max===55.9&&G.athletic.median===49.6&&
       G.target.min===55.9&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
       G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
+    /* The sprints have no sampled adult distribution anywhere — the old band was a normal curve
+       fitted to 400 PE students in an obscure journal that never reported its timing method.
+       These are practitioner rules of thumb instead, pinned here so a later pass cannot drift
+       them, and deliberately held to one decimal: a tenth is the finest a hand-timed sprint
+       can honestly claim. The two rows must stay mutually consistent — each 400m quarter runs
+       1.2 to 1.4 times the matching 100m time, and that ratio shrinks as ability rises. */
+    {const S=id=>BI.find(x=>x.id===id);const H=S('run100'),Q=S('run400');
+     const ratio=(q,h)=>(q/4)/h;
+     ok('sprints use one-decimal practitioner benchmarks, mutually consistent',
+       H.precision===1&&Q.precision===1&&
+       H.athletic.min===12.6&&H.athletic.max===14.5&&H.athletic.median===13.5&&
+       H.target.min===11.9&&H.target.max===12.6&&
+       Q.athletic.min===66&&Q.athletic.max===86&&Q.athletic.median===75&&
+       Q.target.min===59&&Q.target.max===66&&
+       [H,Q].every(x=>x.athletic.evidence==='weak'&&x.target.evidence==='weak'&&
+         x.athletic.label==='Fit men, 20–40'&&x.target.label==='Fit men 20–40'&&
+         !/ijmess|PE students/i.test(x.athletic.source+x.athletic.basis+x.target.basis))&&
+       // the multiplier must fall as the athlete gets faster, never rise
+       ratio(Q.athletic.max,H.athletic.max)>ratio(Q.athletic.median,H.athletic.median)&&
+       ratio(Q.athletic.median,H.athletic.median)>ratio(Q.target.min,H.target.min),
+       `ratios slow→fast: ${[[Q.athletic.max,H.athletic.max],[Q.athletic.median,H.athletic.median],
+         [Q.target.min,H.target.min]].map(([q,h])=>ratio(q,h).toFixed(2)).join(' > ')}`);}
     ok('broad jump uses adult measured norms with an explicit modelled upper band',
       B.athletic.min===207.7&&B.athletic.max===233.7&&B.athletic.median===220.7&&
       B.target.min===233.7&&B.target.max===245.3&&B.athletic.basis.includes('2,552')&&
@@ -433,7 +455,7 @@ setTimeout(()=>{
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     ok('untested benchmark rows still draw their upper-performance bands',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Male PE students 21–25')&&ED.includes('class="rbtg"')&&
+      ED.includes('Fit men 20–40')&&ED.includes('class="rbtg"')&&
       !ED.includes('top quartile to P90')&&ED.includes('World record'));
     ok('mile now shows only its observed P75–P90 band',
       MD.includes('class="rbtg"')&&MD.includes('5:05')&&MD.includes('5:36')&&

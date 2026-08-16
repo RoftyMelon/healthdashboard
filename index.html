@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.4.0">
+<meta name="health-dashboard-viewer-version" content="1.4.1">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -2857,7 +2857,11 @@ function rbFmt(x,v,p=x.precision){
   if(x.kind!=='time')return Number(v).toFixed(p).replace(/\.0+$/,'');
   const k=10**p,n=Math.round(v*k)/k;
   if(n<60)return n.toFixed(p).replace(/\.0+$/,'')+'s';
-  const mn=Math.floor(n/60),sec=n-mn*60,ss=sec.toFixed(p).padStart(p?3+p:2,'0');
+  // Strip a dead decimal here exactly as the sub-minute branch above does, or a whole-second
+  // value at precision 1 renders "1:06.0". Pad only below ten seconds — padding by a fixed
+  // width breaks the moment the decimal is gone and turns "1:6.5" out of a stripped "6.5".
+  const mn=Math.floor(n/60),sec=n-mn*60;
+  let ss=sec.toFixed(p).replace(/\.0+$/,''); if(sec<10)ss='0'+ss;
   return `${mn}:${ss}`;
 }
 const rbPB=x=>{const a=rbAttempts(x);if(!a.length)return null;

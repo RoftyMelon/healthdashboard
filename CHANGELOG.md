@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.4.1 · Schema 2 · 2026-08-16
+
+- Stripped a dead decimal from m:ss times, so a whole-second value at one-decimal precision renders `1:06` rather than `1:06.0` while a real tenth still shows.
+
 ## Viewer 1.4.0 · Schema 2 · 2026-08-16
 
 - Stated the P75–P90 meaning once, as an intro line with the green swatch under the Performance benchmarks heading, instead of repeating it inside every target legend; those legends now name the cohort alone, since the chart axis already labels the band edges.

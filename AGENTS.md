@@ -307,6 +307,14 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   Every current benchmark with a sourced population comparison carries that P75–P90 target;
   fixed-pace heart rate deliberately remains personal-progression-only.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
+  Where NO sampled adult distribution exists, a `weak`-graded practitioner benchmark ladder is
+  the honest floor and beats fitting a normal curve to whatever paper turns up. Both sprints ran
+  on 400 PE students from a journal that never reported its timing method, and the 400m band that
+  fell out was 3.6s wide — proportionally TIGHTER than the 100m's, which is backwards. The
+  replacement `basis` must say the percentiles are mapped from rules of thumb rather than
+  measured, and must name the timing convention: fully automatic timing reads ~0.24s slower than
+  hand timing, which is larger than the gap between two of these rungs. Sprints display one
+  decimal, because a tenth is the finest a hand-timed sprint can honestly claim.
   **No target carries its own `span`.** The P75–P90 meaning is stated ONCE, by the viewer's intro
   line under the Performance benchmarks heading, so each target legend keeps its line for the
   band's actual numbers. Nine identical "75th to 90th percentile" captions crowded those numbers
