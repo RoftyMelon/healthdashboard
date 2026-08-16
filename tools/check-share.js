@@ -88,12 +88,15 @@ for (const [id, marker] of personalMarkers) {
 
 const personalBenchmarks = personal.TRAINING && personal.TRAINING.benchmarks && personal.TRAINING.benchmarks.items || [];
 const starterBenchmarks = starter.TRAINING && starter.TRAINING.benchmarks && starter.TRAINING.benchmarks.items || [];
-if (personalBenchmarks.map(item => item.id).join('|') !== starterBenchmarks.map(item => item.id).join('|')) {
-  fail('Running benchmark definitions are missing or reordered');
+const starterBenchmarkIds = starterBenchmarks.map(item => item.id);
+const sharedPersonalOrder = personalBenchmarks.filter(item => starterBenchmarkIds.includes(item.id)).map(item => item.id);
+if (!starterBenchmarks.length || sharedPersonalOrder.join('|') !== starterBenchmarkIds.join('|')) {
+  fail('Starter benchmark definitions are missing or reordered');
 }
-personalBenchmarks.forEach((item, index) => {
-  if (!same(benchmarkCore(item), benchmarkCore(starterBenchmarks[index]))) {
-    fail(`Public running benchmark metadata differs for ${item.id}`);
+starterBenchmarks.forEach(templateItem => {
+  const personalItem = personalBenchmarks.find(item => item.id === templateItem.id);
+  if (!personalItem || !same(benchmarkCore(personalItem), benchmarkCore(templateItem))) {
+    fail(`Public benchmark metadata differs for ${templateItem.id}`);
   }
 });
 

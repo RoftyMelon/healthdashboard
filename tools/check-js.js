@@ -35,7 +35,7 @@ setTimeout(()=>{
   ok('renders a row per marker', rows(n.tbl.innerHTML)===DATA.MARK.length,
     rows(n.tbl.innerHTML)+' rows / '+DATA.MARK.length+' markers');
   ok('89 markers', DATA.MARK.length===89, DATA.MARK.length+' markers');
-  ok('schema version is explicit and supported',DATA.schemaVersion===1,`schema ${DATA.schemaVersion}`);
+  ok('schema version is explicit and supported',DATA.schemaVersion===2,`schema ${DATA.schemaVersion}`);
   {const c=DATA.CALCULATIONS&&DATA.CALCULATIONS.correctedCalcium;
    ok('personal corrected-calcium rule is data-configured',c&&
      c.albuminSetpointGPerDl===4&&c.albuminMaxGPerDl===4&&
@@ -395,8 +395,8 @@ setTimeout(()=>{
     const kgSeen=(n.pages.innerHTML.match(/kg<\/i>/g)||[]).length;
     ok(`training keeps ${kgColN} per-set weights`, kgSeen===kgColN, kgSeen+' in columns'); }
   catch(e){ ok('training groups',false,e.message); }
-  // Populate the in-memory copy briefly to exercise history, PB, delta, chart and bubble
-  // rendering. Nothing is written back to bloodwork.js; the shipped table correctly starts empty.
+  // Populate the in-memory copy briefly to exercise history, PB, delta and chart rendering.
+  // Nothing is written back to bloodwork.js.
   try{
     const BI=DATA.TRAINING.benchmarks.items,R=BI.find(x=>x.id==='run100'),V=BI.find(x=>x.id==='vo2max');
     const E=runningBenchmarks(),ED=rbDetail(R,[],2);
@@ -412,27 +412,28 @@ setTimeout(()=>{
     ok('world-record cards show only the compact two-digit year',
       ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(
-      {date:'2026-08-01',value:14.2,method:'Hand timed',conditions:'Outdoor track · dry'},
-      {date:'2026-09-01',value:13.6,method:'Hand timed',conditions:'Outdoor track · dry'});
+      {date:'2026-08-01',value:14.2},
+      {date:'2026-09-01',value:13.6});
     V.attempts.push(
-      {date:'2026-08-01',value:48.0,method:'Treadmill CPET with gas analysis',conditions:'Laboratory ramp protocol'},
-      {date:'2026-09-01',value:51.0,method:'Treadmill CPET with gas analysis',conditions:'Same laboratory ramp protocol'});
+      {date:'2026-08-01',value:48.0},
+      {date:'2026-09-01',value:51.0});
     const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
     // Four synthetic attempts pushed above, plus the one real stored mile from 2026-08-16. This
     // count tracks the DATA, so it moves whenever a real attempt is recorded — that is the point.
-    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===5,count(H,'dtl rbval')+' values');
+    ok('attempt history is visible without expanding a row',count(H,'rbval')===5,count(H,'rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     ok('benchmark table has date-only headers and no summary columns',
       H.includes("Aug '26")&&H.includes("Sept '26")&&!H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
-    ok('benchmark table and chart show no descriptive copy',
-      !H.includes('Speed endurance')&&!D.includes(R.quality)&&!D.includes(R.protocol));
+    ok('benchmark definitions and attempts contain only useful structured fields',
+      BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
+        x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
     ok('expanded benchmark chart draws history, athletic band and world-record line',
       D.includes('rbline')&&D.includes('rbbg')&&D.includes('rbwr')&&D.includes('12.51s&ndash;14s'));
-    ok('benchmark datapoint bubble records exact date, method and conditions',
-      rbPtHTML(R,R.attempts[1]).includes('1 Sept 2026')&&rbPtHTML(R,R.attempts[1]).includes('Hand timed')&&
-      rbPtHTML(R,R.attempts[1]).includes('Outdoor track'));
+    ok('benchmark results and chart points have no tooltip hooks',
+      !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
+    ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));
     R.attempts.length=0;V.attempts.length=0;
   }catch(e){
     DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
@@ -513,13 +514,19 @@ setTimeout(()=>{
   ok('audit rejects a stored personal best',audit(j21).length===1,audit(j21)[0]||'');
   const j22=JSON.parse(JSON.stringify(DATA)); delete j22.TRAINING.benchmarks.items[0].athletic.reviewed;
   ok('audit rejects an unreviewed active-peer band',audit(j22).length===1,audit(j22)[0]||'');
-  // method and conditions became optional on 2026-08-16 — the row's protocol carries the default and
-  // a per-attempt value only means something when it differs. What must still fail is a field that is
-  // PRESENT but blank, which is a slip rather than a deliberate omission.
-  const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5,conditions:'Outdoor track'});
-  ok('audit accepts an attempt with no timing method',audit(j23).length===0,audit(j23)[0]||'');
-  const j23b=JSON.parse(JSON.stringify(DATA)); j23b.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-02',value:13.5,method:'   '});
-  ok('audit rejects an attempt whose method is blank',audit(j23b).length===1,audit(j23b)[0]||'');
+  const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5});
+  ok('audit accepts a date-and-result-only attempt',audit(j23).length===0,audit(j23)[0]||'');
+  const legacyAttemptFields=['method','conditions','course','note'];
+  ok('audit rejects every legacy attempt-metadata field',legacyAttemptFields.every(field=>{
+    const sample=JSON.parse(JSON.stringify(DATA));
+    sample.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-02',value:13.5,[field]:'legacy'});
+    return audit(sample).length===1;
+  }),legacyAttemptFields.join(', '));
+  const legacyBenchmarkFields=['quality','protocol'];
+  ok('audit rejects hidden benchmark description fields',legacyBenchmarkFields.every(field=>{
+    const sample=JSON.parse(JSON.stringify(DATA));sample.TRAINING.benchmarks.items[0][field]='legacy';
+    return audit(sample).length===1;
+  }),legacyBenchmarkFields.join(', '));
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;

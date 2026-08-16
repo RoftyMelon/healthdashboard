@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.3.0 · Schema 2 · 2026-08-16
+
+- Reduced every performance attempt to a date and result, with no method, course, conditions or note metadata.
+- Removed hidden benchmark quality and protocol copy plus the attempt hover/tap bubble; marker-result provenance bubbles remain unchanged.
+
 ## Marker catalogue · 2026-08-14
 
 - Added whole-blood total mercury under a new Environmental exposure category, with a generic

@@ -1971,7 +1971,6 @@ function audit(j){
           if(!kinds.includes(x.kind))bad.push(`${tag}: kind must be ${kinds.join('/')}`);
           if(!['lower','higher'].includes(x.direction))bad.push(`${tag}: direction must be lower/higher`);
           if(!Number.isInteger(x.precision)||x.precision<0||x.precision>3)bad.push(`${tag}: precision must be an integer from 0 to 3`);
-          ['pb','personalBest','tier','optional','core'].forEach(k=>{if(x[k]!==undefined)bad.push(`${tag}: ${k} is derived or forbidden`);});
           if(!Array.isArray(x.attempts))bad.push(`${tag}: attempts must be an array (empty is fine)`);
           else{const dates=new Set();x.attempts.forEach(a=>{
             if(!a||typeof a!=='object')return bad.push(`${tag}: attempts must be objects`);

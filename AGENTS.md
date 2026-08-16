@@ -279,14 +279,17 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   never hide this page's decision logic in hover tooltips. Decision and Trend stay open for
   scanning; Optional starts collapsed, while deferred reasoning remains available only in the data file.
 - **`TRAINING.benchmarks` is a deliberate test history, not a workout log.** Its `items[]` hold
-  the benchmark definition and `attempts[]` holds only intentional tests as
-  `{date, value, method?, conditions?, note?}` — method and conditions are optional, since the row's `protocol` states the default and a per-attempt value only means something when it differs. The viewer derives the change and personal best;
+  only the fields needed to render and compare each benchmark. `attempts[]` holds intentional tests
+  as exactly `{date, value}`. Do not store method, course, conditions, notes, quality labels or
+  hidden protocols. The viewer derives the change and personal best;
   never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
   no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
   row expands into the trend chart, INCLUDING before the first attempt — the comparison bands and
   the median line are the content worth seeing, and a row with a band scaled to it is meaningful
-  with no dots on it. Only a row with no band and no world record falls back to the bare summary. Running world records
+  with no dots on it. Only a row with no band and no world record falls back to the bare summary.
+  Benchmark results and chart points deliberately have no hover/tap bubble; the dated column already
+  identifies the attempt, and clicking the result should expand the row. Running world records
   must match the event and surface and carry a source plus review date. The green
   `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
   optimum. Its `heading` names the supported comparison class in the data, but the viewer uses
@@ -295,8 +298,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   explicit in `basis`. Modelled
   percentages of a world record do not qualify. Each band carries an evidence grade and review
   date.
-  Treadmill VO₂max accepts direct gas-analysis CPET only; wearable estimates and cycle tests are
-  different series. The fixed-pace heart-rate test must preserve pace, grade, surface and device.
+  The event name and unit define the series; no separate testing-protocol metadata is retained.
 
 ---
 
