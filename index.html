@@ -1183,7 +1183,10 @@ a.sbuy:hover{color:var(--info)}
 .rbpt:hover,.rbpt.act{box-shadow:0 0 0 3px var(--t3)}
 .rbpt.rbpbpt{background:var(--ok);box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 60%,transparent)}
 .rbpt.rbpbpt:hover,.rbpt.rbpbpt.act{box-shadow:0 0 0 3px var(--t3)}
-.rbcpad{padding:2px 14px 0 34px}
+/* MARGIN, not padding. The legend entries are absolutely positioned so they can sit beside the
+   line they name, and an abspos child resolves left:0 against its ancestor's PADDING BOX — so
+   padding-left on .rbcpad moved nothing. Margin sits outside the box and shifts the whole column. */
+.rbcpad{padding:2px 14px 0;margin-left:34px}
 .rbrefs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;padding:16px 18px;
   background:var(--bg);animation:rise .22s ease both}
 .rbrefs .rbleg{margin:0;padding:12px 14px;border:.5px solid var(--line);border-radius:9px;background:var(--head)}
