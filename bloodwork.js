@@ -1240,8 +1240,8 @@ window.BLOODWORK =
      "target": {
       "min": 11.67,
       "max": 12.38,
-      "span": "P75–P90",
-      "label": "Male PE students 21–25, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male PE students 21–25",
       "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 13.17 ± 1.17s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",
@@ -1281,8 +1281,8 @@ window.BLOODWORK =
      "target": {
       "min": 56.7,
       "max": 59.1,
-      "span": "P75–P90",
-      "label": "Male PE students 21–25, top quartile to P90",
+      "span": "75th to 90th percentile",
+      "label": "Male PE students 21–25",
       "basis": "Modelled P75–P90 performance band for the same 400 male physical-education students aged 21–25, derived from the published 61.77 ± 3.96s under a normal-distribution assumption: P75 = mean − 0.674 SD and P90 = mean − 1.282 SD. These are inferred rather than empirical percentiles; timing, start, surface and test protocol are unreported, and the cohort is younger than the owner.",
       "source": "https://web.archive.org/web/20200715093452id_/http://www.ijmess.org/assets/front_end/uplodes/gallery/e520195cb97c7c4c44eec7f7d20856c41495127738217.pdf",
       "evidence": "weak",

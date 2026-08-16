@@ -387,7 +387,9 @@ setTimeout(()=>{
       B.athletic.source.includes('10.1519/JSC.0000000000004980'));
     ok('all performance targets are P75–P90 and begin at the peer band edge',
       PT.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,vo2max,vjump,bjump,grip'&&
-      PT.every(x=>x.target.span==='P75–P90'&&
+      PT.every(x=>(['run100','run400'].includes(x.id)
+          ?x.target.span==='75th to 90th percentile'
+          :x.target.span==='P75–P90')&&
         (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
       PT.map(x=>`${x.id}:${x.target.span}`).join(', '));
     ok('peer-range headings match the measured cohorts',
@@ -424,7 +426,8 @@ setTimeout(()=>{
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     ok('untested benchmark rows still draw their upper-performance bands',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Male PE students 21–25, top quartile to P90')&&ED.includes('P75–P90')&&ED.includes('World record'));
+      ED.includes('Male PE students 21–25')&&ED.includes('75th to 90th percentile')&&
+      !ED.includes('top quartile to P90')&&ED.includes('World record'));
     ok('mile now shows only its observed P75–P90 band',
       MD.includes('P75–P90')&&MD.includes('5:05')&&MD.includes('5:36')&&
       !MD.includes('P25–P75')&&!MD.includes('class="rbbg"'));
@@ -475,7 +478,8 @@ setTimeout(()=>{
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
     ok('expanded benchmark chart draws history, P75–P90 target and world-record line',
-      D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbwr')&&D.includes('P75–P90'));
+      D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbwr')&&
+      D.includes('75th to 90th percentile'));
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));
