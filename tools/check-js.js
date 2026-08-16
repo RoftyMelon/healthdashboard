@@ -353,11 +353,22 @@ setTimeout(()=>{
     ok('five timed events carry event-matched world and athletic comparisons',
       BI.filter(x=>x.kind==='time'&&x.world&&x.athletic).length===5);
     const M=BI.find(x=>x.id==='runmile');
-    ok('mile uses the pooled official multi-year road-race band',
-      M.athletic.min===336&&M.athletic.max===416&&M.athletic.median===371&&M.athletic.evidence==='moderate'&&
-      M.athletic.label==='Recreational runners, 19–39'&&M.athletic.basis.includes('21,799')&&
-      /Fifth Avenue Mile/.test(M.athletic.basis)&&/elite entrants/.test(M.athletic.basis)&&
-      M.target.min===305&&M.target.max===336);
+    /* The mile is INDEXED off the 5km row, not measured. Its own 21,799 Fifth Avenue Mile finishes
+       were real but came from a mass-participation field whose median is casual entrants, and they
+       sat 3% off the same cohort's 5km on Riegel in the opposite direction to the 10km — a measured
+       time from the wrong population beats nothing, but loses to a modelled one from the right
+       cohort. Assert the projection itself, so the row cannot drift off the curve it is defined by. */
+    {const K5=BI.find(x=>x.id==='run5k'),F=Math.pow(5000/1609,1.06),near=(a,b)=>Math.abs(a-b)<=1;
+     ok('mile is projected from the 5km row and shares its cohort',
+       near(M.athletic.median,K5.athletic.median/F)&&near(M.athletic.min,K5.target.max/F)&&
+       near(M.athletic.max,K5.athletic.max/F)&&near(M.target.min,K5.target.min/F)&&
+       near(M.target.max,K5.target.max/F)&&
+       M.athletic.evidence==='weak'&&M.target.evidence==='weak'&&
+       M.athletic.source===K5.athletic.source&&
+       M.athletic.label==='Recreational runners, 19–39'&&
+       /MODELLED, not measured/.test(M.athletic.basis)&&
+       /Riegel/.test(M.athletic.basis),
+       `${M.athletic.median} vs ${(K5.athletic.median/F).toFixed(1)}`);}
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&K5.athletic.median===1198&&
@@ -450,7 +461,7 @@ setTimeout(()=>{
       PT.map(x=>`${x.id}:${x.elite.value}`).join(' '));
     {const mi=PT.find(x=>x.id==='runmile'),vo=PT.find(x=>x.id==='vo2max');
      ok('a value below Average earns no grade, and the best reached rung wins',
-       rbGradeOf(mi,420)===null&&rbGradeOf(mi,371).k==='avg'&&rbGradeOf(mi,305).k==='exc'&&
+       rbGradeOf(mi,420)===null&&rbGradeOf(mi,360).k==='avg'&&rbGradeOf(mi,298).k==='exc'&&
        rbGradeOf(mi,200).k==='top'&&rbGradeOf(vo,40)===null&&rbGradeOf(vo,62.7).k==='exc'&&
        rbGradeOf(vo,90).k==='top');}
     ok('peer-range headings match the measured cohorts',
@@ -496,7 +507,7 @@ setTimeout(()=>{
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
         return !d.includes('class="rbtg"')&&!d.includes('class="rbbg"')&&!d.includes('<line class="rbmed"');}));
     ok('mile plots four rungs and labels Good and Excellent on its axis',
-      rungs(MD)===4&&MD.includes('5:05')&&MD.includes('5:36')&&MD.includes('>4:00<')&&
+      rungs(MD)===4&&MD.includes('4:58')&&MD.includes('5:22')&&MD.includes('>4:00<')&&
       !MD.includes('P25–P75'));
     ok('broad jump plots four rungs and labels its own',
       rungs(BD)===4&&BD.includes('234')&&BD.includes('245')&&BD.includes(">"+rbFmt(B,B.elite.value)+"<")&&

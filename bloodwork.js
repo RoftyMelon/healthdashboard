@@ -1322,24 +1322,24 @@ window.BLOODWORK =
       "reviewed": "2026-08-09"
      },
      "athletic": {
-      "min": 336,
-      "max": 416,
-      "median": 371,
+      "min": 322,
+      "max": 412,
+      "median": 360,
       "span": "P25–P75",
       "heading": "Recreational runners range",
       "label": "Recreational runners, 19–39",
-      "basis": "Observed P25–P75 and median 6:11 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners and elite entrants may occur, so this is a self-selected road-race field rather than a survey of recreational runners.",
-      "source": "https://results.nyrr.org/races",
-      "evidence": "moderate",
+      "basis": "Projected from the 5km row's own percentiles with Riegel's endurance formula, T2 = T1 x (D2/D1)^1.06, dividing each 5km time by 3.326. These are MODELLED, not measured: the same 535 men aged 19-39, carried to a distance the survey did not record. It replaced 21,799 measured Fifth Avenue Mile finishes because that field is a mass-participation road race whose median is dominated by casual entrants, and it sat 3 percent off the same cohort's 5km on Riegel in the opposite direction to the 10km row - a measured time from the wrong population is worse than a modelled one from the right cohort. All three run rows now share one cohort and one curve.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "weak",
       "reviewed": "2026-08-16"
      },
      "target": {
-      "min": 305,
-      "max": 336,
+      "min": 298,
+      "max": 322,
       "label": "Recreational runners 19–39",
-      "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
-      "source": "https://results.nyrr.org/races",
-      "evidence": "moderate",
+      "basis": "Projected from the 5km row's P75 and P90 by the same Riegel division. Modelled rather than measured, and inheriting every caveat of the 5km cohort: self-reported times from an internet survey of people who opted in to a race-predictor questionnaire.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
+      "evidence": "weak",
       "reviewed": "2026-08-16"
      },
      "elite": {
