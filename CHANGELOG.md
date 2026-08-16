@@ -3,6 +3,13 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.6.0 · Schema 2 · 2026-08-16
+
+- Moved every rung name inside the plot, sitting on its own line, and widened the plot leftward to hold them; the side legend and its absolute-positioning pass are gone, and the cohort now captions the chart from above.
+- Gave each rung its own colour — neutral, blue, green, amber — with the world record in red above them, in both themes.
+- Added a layout pass that lifts colliding names apart, pulls any that overrun the right edge back inside, and wraps a record name too wide for a narrow plot.
+- Put attempt dots in their own layer so the wider plot cannot slide them off their date columns.
+
 ## Viewer 1.5.0 · Schema 2 · 2026-08-16
 
 - Replaced the shaded performance band with a named grade ladder: Average, Good, Excellent and one top rung, each drawn as its own labelled line.

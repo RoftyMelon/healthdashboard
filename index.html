@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.5.0">
+<meta name="health-dashboard-viewer-version" content="1.6.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1183,7 +1183,7 @@ a.sbuy:hover{color:var(--info)}
 .rbgrid{stroke:var(--line2);stroke-width:1;vector-effect:non-scaling-stroke}
 .rbbg{fill:var(--ok);opacity:.13}
 .rbbedge{stroke:var(--ok);stroke-width:.8;stroke-dasharray:3 3;opacity:.55;vector-effect:non-scaling-stroke}
-.rbwr{stroke:var(--watch);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
+.rbwr{stroke:var(--out);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
 /* Solid, not dashed: the world record is a far-off boundary while the median is neutral cohort
    context. Same weight, different language; only P75-P90 is shaded as a target. */
 .rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
@@ -1225,11 +1225,31 @@ a.sbuy:hover{color:var(--info)}
 /* The grade ladder. One line per rung, weighted so the eye climbs it: Average is the quietest,
    the top rung the loudest, and Excellent carries the green because it is the one being aimed at.
    Colour is doing ORDER here, not status — a rung is not a pass or a fail. */
-.rbt{stroke-width:1.25;vector-effect:non-scaling-stroke;fill:none}
-.rbt-avg{stroke:var(--t3);opacity:.55}
-.rbt-good{stroke:var(--t2);opacity:.8}
+/* One hue per rung, climbing: neutral → blue → green → amber, with the record in red above them.
+   The scale is ORDER, not status — amber and red here mark distance from ordinary, not a problem.
+   Both themes get the same five, since every one is a palette token that already flips. */
+.rbt{stroke-width:1.5;vector-effect:non-scaling-stroke;fill:none}
+.rbt-avg{stroke:var(--t3);opacity:.7}
+.rbt-good{stroke:var(--info);opacity:.85}
 .rbt-exc{stroke:var(--ok);opacity:.95}
-.rbt-top{stroke:var(--txt);opacity:.55;stroke-dasharray:2 3}
+.rbt-top{stroke:var(--watch);opacity:.9;stroke-dasharray:2 3}
+/* Rung names, sitting on their own lines inside the plot. The 236-unit viewBox fills a 236px box,
+   so the y written on a line is already the pixel the label must sit at; translateY(-100%) lifts
+   the text clear of the stroke instead of straddling it. */
+.rbclab{position:absolute;inset:0;pointer-events:none}
+.rbclabi{position:absolute;left:7px;transform:translateY(-100%);padding-bottom:2px;
+  font-size:11.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;pointer-events:auto}
+.rbclabi.rbt-avg{color:var(--t3)}
+.rbclabi.rbt-good{color:var(--info)}
+.rbclabi.rbt-exc{color:var(--ok)}
+.rbclabi.rbt-top{color:var(--watch)}
+.rbclabi.rbclab-wr{color:var(--out);font-weight:500}
+.rbclabi .rbsource{color:inherit;opacity:.75}
+/* The dots ride in their own layer so the plot can run wider than the date columns; fitRbChart
+   pulls this back onto them. */
+.rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
+.rbcohline{padding:4px 0 2px;font-size:11.5px;color:var(--t3)}
+.rbcohline .rbcohort{font-size:12px;color:var(--txt);font-weight:650}
 .rbleg b.rbtlab{font-weight:600}
 .rbleg b.rbtlab-avg{color:var(--t3)}
 .rbleg b.rbtlab-good{color:var(--t2)}
@@ -2984,6 +3004,16 @@ function rbSvg(x,dates){
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
   s+='</svg>';
+  /* Rung names live INSIDE the plot, sitting on their own line at its left edge. They cannot be
+     SVG text: the viewBox is stretched with preserveAspectRatio="none", which would squash the
+     glyphs by whatever the plot's aspect happens to be. HTML absolutely positioned over it keeps
+     the type upright, and the 236-unit viewBox in a 236px box means a y value is already a pixel. */
+  const lab=(y,cls,text,src,name)=>`<span class="rbclabi ${cls}" style="top:${y}px">${esc(text)}`+
+    (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc('Source for '+(name||text))}">↗</a>`:'')+
+    `</span>`;
+  let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k,t.t,t.src,t.t)).join('');
+  if(x.world)labels+=lab(Y(x.world.value),'rbclab-wr',
+    `World record · ${x.world.athlete} ${rbYear(x.world.date)}`,x.world.source,'the world record');
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
   /* Label the values that MEAN something, not thirds of the drawing area. The old axis printed the
@@ -3003,7 +3033,12 @@ function rbSvg(x,dates){
     kept.push(v);});
   const axis=(kept.length?kept:[lo,hi]).map(v=>
     `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
-  return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
+  /* The dots get their own layer because the plot now runs WIDER than the date columns — it
+     extends left to make room for the rung names. A dot's `left` is a percentage of its parent,
+     so leaving them in the plot would slide every attempt off its own column header. fitRbChart
+     sizes this wrapper back down to the columns; the lines and labels keep the full width. */
+  return `<div class="rbcy">${axis}</div>`+
+    `<div class="rbcplot">${s}<div class="rbclab">${labels}</div><div class="rbcdots">${dots}</div></div>`;
 }
 /* Every ladder means the same thing on every row, so it is stated ONCE here. Only the top rung
    varies by event — Olympic where a standard exists, the four-minute mile where the event is not
@@ -3017,27 +3052,11 @@ function rbIntro(){
    band first inverted the chart and made you hunt to map an entry to a line. */
 // The legend key for a plotted line: an SVG copy of the line itself, so its weight, colour and
 // dash pattern cannot drift into browser-drawn border dashes the way a CSS-bordered box did.
-const rbKey=(cls,tier)=>`<svg class="rbsw ${cls}"${tier?` data-tier="${esc(tier)}"`:''} viewBox="0 0 14 2" `+
-  `preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="${cls==='wr'?'rbwr':`rbt rbt-${tier}`}" x1="0" x2="14" y1="1" y2="1"/></svg>`;
+/* rbLegend now serves ONE case: a row with no band, no target and no record, which draws no plot
+   at all. Everything else names its rungs inside the chart, so the side legend — and the whole
+   absolute-positioning pass that used to slide each key onto its line — is gone. */
 function rbLegend(x){
-  let h='';const tiers=rbTiers(x);
-  /* The cohort heads the ladder rather than sitting on one rung, because Average, Good and
-     Excellent all come from it while the top rung does not — that one carries its own source
-     arrow. No values anywhere in here: every rung is labelled on the chart's own axis, and a
-     grade you either reach or you do not needs a name, not a number. */
-  const coh=(x.target&&x.target.label)||(x.athletic&&x.athletic.label);
-  const cohSrc=(x.target&&x.target.source)||(x.athletic&&x.athletic.source);
-  if(coh&&tiers.some(t=>t.k!=='top'))
-    h+=`<div class="rbleg rbcoh"><span><b class="rbcohort">${esc(coh)}`+
-      (cohSrc?`&nbsp;<a class="rbsource" href="${esc(cohSrc)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${coh}`)}">↗</a>`:'')+
-      `</b></span></div>`;
-  tiers.forEach(t=>{
-    // The arrow goes INSIDE the <b>. `.rbleg b` is display:block, so a sibling link after the
-    // closing tag starts its own line — the glyph dropped below the rung it belongs to.
-    h+=`<div class="rbleg">${rbKey('tline',t.k)}<span><b class="rbtlab rbtlab-${t.k}">${esc(t.t)}`+
-      (t.src?`&nbsp;<a class="rbsource" href="${esc(t.src)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${t.t}`)}">↗</a>`:'')+
-      `</b></span></div>`;});
-  if(x.world)h+=`<div class="rbleg">${rbKey('wr')}<span><b>World record</b><span class="rbresult"><span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span>&nbsp;<a class="rbsource" href="${esc(x.world.source)}" target="_blank" rel="noopener" aria-label="Source for the world record">↗</a></span></span></div>`;
+  let h='';
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}`+
       `&nbsp;<a class="rbsource" href="${esc(x.athletic.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.athletic.label}`)}">↗</a></b>`+
@@ -3050,24 +3069,31 @@ function rbLegend(x){
    back to a bare legend, on the reasoning that an empty chart says nothing — but the requested
    target or peer comparison is the content here. rbSvg handles an empty attempts array by using
    the displayed band's own values for the scale, so the axis remains meaningful. */
+/* The cohort caption sits ABOVE the plot now that every rung names itself inside it. It was the
+   only thing left in the side pad, and a 220px column holding one line was stealing the width the
+   names needed. Losing the pad also retired the whole absolute-positioning pass that used to slide
+   each legend key onto its line — the names sit on their lines by construction instead. */
+function rbCohortLine(x){
+  const label=(x.target&&x.target.label)||(x.athletic&&x.athletic.label);
+  const src=(x.target&&x.target.source)||(x.athletic&&x.athletic.source);
+  if(!label)return '';
+  return `<div class="rbcohline"><b class="rbcohort">${esc(label)}`+
+    (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${label}`)}">↗</a>`:'')+
+    `</b></div>`;
+}
 function rbDetail(x,dates,colspan){
   if(!rbAttempts(x).length&&!x.target&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
-  return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
-    `${rbSvg(x,dates)}<div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
+  return `<tr class="rbdet"><td colspan="${colspan}">${rbCohortLine(x)}<div class="rbchart">`+
+    `${rbSvg(x,dates)}</div></td></tr>`;
 }
 let openRb=null;
-/* The plot must occupy EXACTLY the span of the date columns above it, because rbSvg places an
-   attempt at (index + .5) / columns of the plot's own width. Left to flex, the plot filled whatever
-   space the gutter and legend did not, which is a different span from the date columns — so a dot
-   sat centred in the plot while its header sat centred over the table, and with one attempt the two
+/* The DOTS layer must occupy EXACTLY the span of the date columns above it, because rbSvg places an
+   attempt at (index + .5) / columns of its parent's width. Left to the plot itself, a dot sat
+   centred in the plot while its header sat centred over the table, and with one attempt the two
    were visibly far apart. Measured, not declared: the name and change columns size to their content,
    so the offset cannot be a constant. getBoundingClientRect, never offsetLeft — the cells are inside
    a scroller and offsetLeft would resolve against a different origin depending on their position. */
-function rbLegAnchor(l){
-  const sw=l.querySelector('.rbsw'),lr=l.getBoundingClientRect(),sr=sw&&sw.getBoundingClientRect();
-  return sr?sr.top+sr.height/2-lr.top:9;
-}
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
   const ds=t.querySelectorAll('thead th.rbdate'); if(!ds.length)return;
@@ -3076,41 +3102,42 @@ function fitRbChart(){
   document.querySelectorAll('.rbchart').forEach(c=>{
     const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
     const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
+    /* The plot now starts right after the gutter and runs to the LAST date column, so it is wider
+       than the columns themselves — that surplus on the left is where the rung names sit. The
+       dots layer is pulled back onto the columns, because a dot's `left` is a percentage of its
+       parent and widening the plot would otherwise slide every attempt off its own header. */
+    if(gut)gut.style.marginLeft='0px';
+    const plotLeft=row.left+g,w=left+width-plotLeft; if(w<=0)return;
     plot.style.flex='none';
-    plot.style.width=width+'px';
-    // The whole offset goes on the GUTTER, not the plot: the labels have to sit against the axis
-    // they name. Pushing the plot right instead left them stranded at the card edge with a wide
-    // empty gap between a number and its own gridline.
-    if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    plot.style.width=w+'px';
     plot.style.marginLeft='0px';
-    /* Sit each legend entry beside the thing it names. The SVG is 236 viewBox units tall in a 236px
-       box with preserveAspectRatio="none", so a y attribute is already a pixel offset — no scaling
-       needed. Measure the rendered swatch centre rather than guessing at y-9: the world-record key
-       then lands on the exact same pixel row as its SVG line. Entries are nudged apart only if they
-       would collide, and a chart with no bands falls back to normal flow. */
-    const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
-    const legs=[...pad.querySelectorAll('.rbleg')];
-    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr');
-    const mid=r=>r?+r.getAttribute('y')+ +r.getAttribute('height')/2:null;
-    /* data-tier pairs a legend key to its own plotted line, so the two never have to agree on a
-       class name in two places. Grades are added and renamed from the data; a lookup table here
-       would silently strand a key the day a rung changed its name. */
-    const at=l=>{const sw=l.querySelector('.rbsw'); if(!sw)return null;
-      const k=sw.getAttribute('data-tier');
-      if(k){const ln=svg.querySelector(`line[data-tier="${k}"]`);return ln?+ln.getAttribute('y1'):null;}
-      if(sw.classList.contains('band'))return mid(band);
-      if(sw.classList.contains('wr'))return wr?+wr.getAttribute('y1'):null;
-      return null;};
-    if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
-    pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
-    let lastBottom=0;
-    // The cohort heading names no line, so it has no y of its own — sort it to the very top and
-    // let the ladder stack below it. Leaving it in normal flow instead let a high rung's absolute
-    // box ride straight over it, since the two positioning schemes do not see each other.
-    legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??-1e9)-(b.y??-1e9)).forEach(({l,y})=>{
-      const top=y===null?lastBottom:Math.max(lastBottom+8,y-rbLegAnchor(l));
-      l.style.position='absolute';l.style.top=top+'px';l.style.left='0';l.style.right='0';
-      lastBottom=top+l.offsetHeight;});
+    const dotsEl=plot.querySelector('.rbcdots');
+    if(dotsEl){dotsEl.style.left=(left-plotLeft)+'px';dotsEl.style.width=width+'px';}
+    /* Rung names sit on their own lines, but rungs crowd: the world record and an Olympic standard
+       are within a few tenths on every track event, and the jump grades sit centimetres apart.
+       Walk UPWARD from the lowest label and lift any that would collide — the label already draws
+       above its line, so lifting keeps it nearer its own line than the one below. Then pull back
+       anything running past the right edge, which the longer record names do on a narrow plot. */
+    const labs=[...plot.querySelectorAll('.rbclabi')]
+      .map(l=>({l,y:parseFloat(l.style.top)})).filter(o=>isFinite(o.y)).sort((a,b)=>b.y-a.y);
+    let ceil=Infinity;
+    labs.forEach(({l,y})=>{
+      const h=l.offsetHeight;
+      const bottom=Math.max(h,Math.min(y,ceil-2));   // never above the plot's own top edge
+      l.style.top=bottom+'px';
+      ceil=bottom-h;
+      l.style.left='7px';l.style.whiteSpace='nowrap';l.style.maxWidth='';
+      const pr=plot.getBoundingClientRect();
+      let over=l.getBoundingClientRect().right-pr.right;
+      if(over>0)l.style.left=Math.max(0,7-over-2)+'px';
+      // A record name can be wider than the whole plot on a one-column chart. Left-clamping runs
+      // out first, so let that one wrap rather than lose its tail to the plot's overflow:hidden.
+      if(l.getBoundingClientRect().right-pr.right>0){
+        l.style.whiteSpace='normal';l.style.maxWidth=Math.max(60,pr.width-4)+'px';
+        l.style.top=Math.max(l.offsetHeight,parseFloat(l.style.top))+'px';
+        ceil=parseFloat(l.style.top)-l.offsetHeight;
+      }
+    });
   });
 }
 function rbToggle(row,id){

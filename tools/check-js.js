@@ -530,17 +530,23 @@ setTimeout(()=>{
     /* Each rung's legend key must pair to its own plotted line by data-tier, or fitRbChart cannot
        find the y to sit beside and the key drifts off its line. Assert the pairing, not the count:
        four of each with no shared attribute would pass a count and still render misaligned. */
-    ok('every graded chart pairs each rung key to its own line by data-tier',
+    /* Every rung names ITSELF inside the plot now, so the pairing to guard is label-to-line: one
+       label per plotted rung, each carrying that rung's own class, plus the record. A label with
+       no matching line would float at whatever y the last edit left it, with nothing to notice. */
+    ok('every graded chart labels each rung inside the plot, on its own line',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
-        const keys=[...d.matchAll(/<svg class="rbsw tline" data-tier="([a-z]+)"/g)].map(m=>m[1]);
-        const lines=[...d.matchAll(/<line class="rbt rbt-[a-z]+" data-tier="([a-z]+)"/g)].map(m=>m[1]);
-        return keys.length===4&&keys.join(',')===lines.join(',')&&
-          keys.join(',')==='avg,good,exc,top'&&
-          // the cohort heads the ladder and links once; the top rung carries its own link
+        const lines=[...d.matchAll(/<line class="rbt rbt-([a-z]+)" data-tier="([a-z]+)"/g)];
+        const labs=[...d.matchAll(/<span class="rbclabi rbt-([a-z]+)" style="top:([-0-9.]+)px"/g)];
+        const lineY=Object.fromEntries(lines.map(m=>[m[2],null]));
+        [...d.matchAll(/<line class="rbt rbt-[a-z]+" data-tier="([a-z]+)" x1="0" x2="1000" y1="([-0-9.]+)"/g)]
+          .forEach(m=>lineY[m[1]]=m[2]);
+        return lines.length===4&&labs.length===4&&
+          lines.map(m=>m[2]).join(',')==='avg,good,exc,top'&&
+          labs.every(m=>lineY[m[1]]===m[2])&&           // label sits exactly on its own line
+          !d.includes('class="rbcpad"')&&               // the side legend is gone
+          d.includes('class="rbcdots"')&&               // dots ride their own layer
           (d.split(`class="rbsource" href="${x.target.source}"`).length-1)===1&&
           d.includes(`class="rbsource" href="${x.elite.source}"`)&&
-          // rung keys are bare names: the values are on the axis
-          !/>Average<\/b><span|>Good<\/b><span|>Excellent<\/b><span/.test(d)&&
           d.includes(rbFmt(x,x.athletic.median));}));
     ok('fixed-pace remains personal progression only, with no ladder',
       FD.includes('Personal progression only')&&!FD.includes('rbt-')&&!FD.includes('>Average</b>'));
@@ -558,28 +564,23 @@ setTimeout(()=>{
       peerOnlyDetail.includes('class="rbbg"')&&!peerOnlyDetail.includes('class="rbtg"')&&
       (peerOnlyDetail.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===1&&
       peerOnlyDetail.includes('data-tier="avg"')&&
-      !/>Good<\/b>|>Excellent<\/b>/.test(peerOnlyDetail)&&
+      !/>Good<|>Excellent</.test(peerOnlyDetail)&&
       peerOnlyDetail.includes(`aria-label="Source for ${peerOnly.athletic.label}"`)&&
       !peerOnlyDetail.includes('Source ↗')&&
-      peerOnlyDetail.includes('>Average</b>'));
+      peerOnlyDetail.includes('rbclabi rbt-avg'));
     ok('population source is a compact linked arrow after the comparison name, not a median row',
       VD.includes(`class="rbsource" href="${V.target.source}"`)&&VD.includes('&nbsp;<a class="rbsource"')&&
-      VD.includes('>↗</a></b>')&&
+      VD.includes('class="rbcohline"')&&VD.includes('>↗</a></b>')&&
       !VD.includes('Source ↗')&&!VD.includes('class="rblinks"'));
     ok('5K cohort arrow keeps the requested primary-study URL and accessible label',
       K5D.includes('class="rbsource" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/"')&&
       K5D.includes('aria-label="Source for Trained runners 19–39"'));
-    ok('world-record legend and plot reuse the exact same SVG line style',
-      (ED.match(/<line class="rbwr"/g)||[]).length===2&&
-      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"')&&
-      // the source is the bare ↗ glyph now, matching every other legend link on the card
+    ok('the world record draws one line and names itself beside it',
+      (ED.match(/<line class="rbwr"/g)||[]).length===1&&!ED.includes('class="rbsw wr"')&&
+      /<span class="rbclabi rbclab-wr"/.test(ED)&&
       /aria-label="Source for the world record">↗<\/a>/.test(ED)&&!ED.includes('>Source ↗<'));
-    {const leg=top=>({getBoundingClientRect:()=>({top}),querySelector:()=>({
-       getBoundingClientRect:()=>({top:top+7,height:2})})});
-     ok('legend alignment measures the rendered swatch centre at any page position',
-       rbLegAnchor(leg(10))===8&&rbLegAnchor(leg(410))===8);}
     ok('world-record cards show only the compact two-digit year',
-      ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
+      ED.includes("World record · Usain Bolt '09")&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(
       {date:'2026-08-01',value:14.2},
       {date:'2026-09-01',value:13.6});
