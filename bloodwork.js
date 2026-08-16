@@ -1434,7 +1434,7 @@ window.BLOODWORK =
     },
     {
      "id": "bjump",
-     "name": "Standing broad jump",
+     "name": "Broad Jump",
      "kind": "jump",
      "unit": "cm",
      "direction": "higher",

@@ -1128,16 +1128,16 @@ a.sbuy:hover{color:var(--info)}
 .restrtitle{margin-top:28px}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
-.rbscroll{width:600px;max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
+.rbscroll{width:calc(411px + var(--rbn,0)*105px);max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
-.rbtbl{min-width:598px;width:max(598px,calc(410px + var(--rbn,0)*105px));table-layout:fixed;border-collapse:separate;
+.rbtbl{min-width:calc(409px + var(--rbn,0)*105px);width:calc(409px + var(--rbn,0)*105px);table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
 .rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
   font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--t4);text-align:center;white-space:nowrap}
-.rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:190px;text-align:left;z-index:3;background:var(--stick)}
+.rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:155px;text-align:left;z-index:3;background:var(--stick)}
 .rbtbl thead th.rbname{z-index:5;background:var(--head)}
 .rbtbl th.rbdate,.rbtbl td.rbattempt{width:105px}
-.rbtbl th.rbchange,.rbtbl td.rbchange{width:220px}
+.rbtbl th.rbchange,.rbtbl td.rbchange{width:254px}
 .rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
   color:var(--t2);text-align:center;white-space:nowrap;background:var(--bg)}
 .rbtbl tbody tr:last-child:not(.rbdet)>td{border-bottom:0}
@@ -1405,12 +1405,6 @@ a.sbuy:hover{color:var(--info)}
   .ndrow .frn{margin-top:3px}
   .ndmeta{padding-right:22px}
   .ndcard .frcopy{width:100%}
-  .rbscroll{width:600px;max-width:calc(100vw - 2 * var(--gut,10px))}
-  .rbtbl{min-width:598px;width:max(598px,calc(345px + var(--rbn,0)*95px))}
-  .rbtbl th.rbname,.rbtbl td.rbname{width:165px}
-  .rbtbl th.rbdate,.rbtbl td.rbattempt{width:95px}
-  .rbtbl th.rbchange,.rbtbl td.rbchange{width:180px}
-  .rbname>span{font-size:14.5px}
   .rbchart{min-height:255px;padding-top:12px}
   .rbcpad{flex-basis:180px;padding-left:10px;padding-right:10px}
 }
