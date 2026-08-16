@@ -2892,9 +2892,25 @@ function rbDetail(x,dates,colspan){
     `${rbSvg(x,dates)}<div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
 }
 let openRb=null;
+/* The plot must occupy EXACTLY the span of the date columns above it, because rbSvg places an
+   attempt at (index + .5) / columns of the plot's own width. Left to flex, the plot filled whatever
+   space the gutter and legend did not, which is a different span from the date columns — so a dot
+   sat centred in the plot while its header sat centred over the table, and with one attempt the two
+   were visibly far apart. Measured, not declared: the name and change columns size to their content,
+   so the offset cannot be a constant. getBoundingClientRect, never offsetLeft — the cells are inside
+   a scroller and offsetLeft would resolve against a different origin depending on their position. */
 function fitRbChart(){
-  // Kept as the table's resize/scroll hook: the chart now flexes into the space freed by removing
-  // its descriptive pane, so it needs no measured column geometry.
+  const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
+  const ds=t.querySelectorAll('thead th.rbdate'); if(!ds.length)return;
+  const a=ds[0].getBoundingClientRect(),z=ds[ds.length-1].getBoundingClientRect();
+  const left=a.left,width=z.right-a.left; if(width<=0)return;
+  document.querySelectorAll('.rbchart').forEach(c=>{
+    const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
+    const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
+    plot.style.flex='none';
+    plot.style.width=width+'px';
+    plot.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+  });
 }
 function rbToggle(row,id){
   closePt();const cur=document.querySelector('tr.rbdet');
