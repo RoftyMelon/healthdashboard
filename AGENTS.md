@@ -318,7 +318,12 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   **Grades, not bands.** The chart draws a named ladder — `Average` / `Good` / `Excellent` plus one
   top rung — as four labelled lines, because a shaded band said "anywhere in here is the same
   thing" when it was really a span between two percentiles, and left the reader to decode its own
-  edges. The first three are DERIVED at render time (`Average` = `athletic.median`, `Good` and
+  edges. `Average` is the honest word for what `athletic.median` holds, and the label was briefly
+  renamed `Median` before a check found it is one only sometimes: VO₂max and the broad jump store a
+  published MEAN (55.4 ± 5.7, 220.7 ± 19.2) converted under a normal assumption, and both sprints
+  store an assigned midpoint off a practitioner ladder. Only the runs and the two percentile-derived
+  rows hold a real median. Do not rename it back.
+  The first three are DERIVED at render time (`Average` = `athletic.median`, `Good` and
   `Excellent` = the two `target` edges) and must never be stored: four more numbers beside the
   band they come from is exactly how a grade and its band drift apart. Only the top rung is data,
   in `elite: {label, value, basis, source, evidence, reviewed}`, because it is a different claim

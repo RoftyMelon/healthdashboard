@@ -2949,7 +2949,7 @@ function rbValue(x,a,extra=''){
   const pb=rbIsPB(x,a.value);
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
-/* The grade ladder is DERIVED, never stored. Average is the cohort median, Good and Excellent are
+/* The grade ladder is DERIVED, never stored. Average is the cohort midpoint, Good and Excellent are
    the two edges of the sourced performance target, and only the top rung is held in the data —
    it is the one genuinely separate claim, carrying its own source, and its name changes with the
    event: an Olympic entry standard where one exists, the four-minute mile where the event is not
@@ -3046,7 +3046,7 @@ function rbSvg(x,dates){
    ladder existing: with none rendered, the sentence would describe grades nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
-    ?`<div class="trsummary rbintro">Average is the cohort median, Good its 75th percentile and Excellent its 90th. The top grade is a separate standard and names itself.</div>`:'';
+    ?`<div class="trsummary rbintro">Average is the cohort midpoint — a median where one was published, a mean where only that was. Good is its 75th percentile and Excellent its 90th. The top grade is a separate standard and names itself.</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
