@@ -6,7 +6,7 @@ remain in the personal repository history.
 ## Viewer 1.4.0 · Schema 2 · 2026-08-16
 
 - Stated the P75–P90 meaning once, as an intro line with the green swatch under the Performance benchmarks heading, instead of repeating it inside every target legend; those legends now name the cohort alone, since the chart axis already labels the band edges.
-- Dropped the result from the world-record legend, which the chart already plots, leaving the athlete and year.
+- Dropped the value from the world-record and median legends, which the chart axis already labels, and reduced the world-record source to the same bare ↗ every other legend link uses.
 - Added an optional `TRAINING.maylater` parked list to the Training page: a headed list of activities under consideration, each naming the qualities it would add, with the shared reason for parking in a section note rather than repeated per row.
 
 ## Viewer 1.3.0 · Schema 2 · 2026-08-16

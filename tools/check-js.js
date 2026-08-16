@@ -459,9 +459,12 @@ setTimeout(()=>{
     ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
         (d.match(/<line class="rbmed"/g)||[]).length===2&&d.includes('<svg class="rbsw med"')&&
-        (d.match(/class="rbsource"/g)||[]).length===1&&
-        d.includes(`class="rbsource" href="${x.target.source}"`)&&!d.includes('class="rblinks"')&&
-        (d.match(/>Median<\/b>/g)||[]).length===1&&d.includes(rbFmt(x,x.athletic.median))&&
+        // the world record now links through the same .rbsource glyph, so count the TARGET's
+        // own link rather than every source arrow on the card
+        (d.split(`class="rbsource" href="${x.target.source}"`).length-1)===1&&!d.includes('class="rblinks"')&&
+        // the median key is a bare label: its value is on the axis, not repeated beside the swatch
+        (d.match(/>Median<\/b>/g)||[]).length===1&&!/>Median<\/b><span/.test(d)&&
+        d.includes(rbFmt(x,x.athletic.median))&&
         !d.includes('class="rbbg"')&&!d.includes('P25–P75');}));
     ok('fixed-pace remains personal progression only, with no median',
       FD.includes('Personal progression only')&&!FD.includes('rbmed')&&!FD.includes('>Median</b>'));
@@ -487,7 +490,9 @@ setTimeout(()=>{
       K5D.includes('aria-label="Source for Recreational runners 19–39"'));
     ok('world-record legend and plot reuse the exact same SVG line style',
       (ED.match(/<line class="rbwr"/g)||[]).length===2&&
-      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"')&&ED.includes('Source ↗'));
+      ED.includes('<svg class="rbsw wr"')&&!ED.includes('<i class="rbsw wr"')&&
+      // the source is the bare ↗ glyph now, matching every other legend link on the card
+      /aria-label="Source for the world record">↗<\/a>/.test(ED)&&!ED.includes('>Source ↗<'));
     {const leg=top=>({getBoundingClientRect:()=>({top}),querySelector:()=>({
        getBoundingClientRect:()=>({top:top+7,height:2})})});
      ok('legend alignment measures the rendered swatch centre at any page position',
