@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.7.0 · Schema 2 · 2026-08-16
 
+- Moved the rung names out of the plot into their own column on its right, so a name never strikes the line it labels.
 - Removed the explanatory intro under Performance benchmarks; each rung names its own percentile on the chart, so the sentence was repeating them.
 - Named the three derived rungs by their percentiles — `50th`, `75th`, `90th` — instead of Average, Good and Excellent, so a chart answers what a grade means without the reader going back to the intro.
 

@@ -1232,9 +1232,12 @@ a.sbuy:hover{color:var(--info)}
 /* Rung names, sitting on their own lines inside the plot. The 236-unit viewBox fills a 236px box,
    so the y written on a line is already the pixel the label must sit at; translateY(-100%) lifts
    the text clear of the stroke instead of straddling it. */
-.rbclab{position:absolute;inset:0;pointer-events:none}
-.rbclabi{position:absolute;left:7px;transform:translateY(-100%);padding-bottom:2px;
-  font-size:11.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;pointer-events:auto}
+/* The names column, to the RIGHT of the plot. Its own flex track, so a name never has to dodge
+   the line it labels — only the other names. Height matches the plot exactly (both 236px), which
+   is what lets a line's y in viewBox units be used here as a pixel top with no conversion. */
+.rbclab{flex:1;min-width:96px;position:relative;height:236px;padding-left:12px}
+.rbclabi{position:absolute;left:12px;right:0;font-size:11.5px;font-weight:600;
+  letter-spacing:-.01em;line-height:1.3}
 .rbclabi.rbt-avg{color:var(--t3)}
 .rbclabi.rbt-good{color:var(--info)}
 .rbclabi.rbt-exc{color:var(--ok)}
@@ -3001,7 +3004,7 @@ function rbSvg(x,dates){
      SVG text: the viewBox is stretched with preserveAspectRatio="none", which would squash the
      glyphs by whatever the plot's aspect happens to be. HTML absolutely positioned over it keeps
      the type upright, and the 236-unit viewBox in a 236px box means a y value is already a pixel. */
-  const lab=(y,cls,text,src,name)=>`<span class="rbclabi ${cls}" style="top:${y}px">${esc(text)}`+
+  const lab=(y,cls,text,src,name)=>`<span class="rbclabi ${cls}" style="top:${y}px" data-y="${y}">${esc(text)}`+
     (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc('Source for '+(name||text))}">↗</a>`:'')+
     `</span>`;
   let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k,t.t,t.src,t.t)).join('');
@@ -3026,12 +3029,14 @@ function rbSvg(x,dates){
     kept.push(v);});
   const axis=(kept.length?kept:[lo,hi]).map(v=>
     `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
-  /* The dots get their own layer because the plot now runs WIDER than the date columns — it
-     extends left to make room for the rung names. A dot's `left` is a percentage of its parent,
-     so leaving them in the plot would slide every attempt off its own column header. fitRbChart
-     sizes this wrapper back down to the columns; the lines and labels keep the full width. */
+  /* Three columns: the value gutter, the plot, and the names. The names sat INSIDE the plot for
+     one version and collided with the very lines they label — on the 400m, "Olympic" struck its
+     own dotted rung. Outside, each name owns its own horizontal space and only has to avoid the
+     other names. The dots keep their own layer because the plot still runs wider than the date
+     columns, and a dot's `left` is a percentage of its parent. */
   return `<div class="rbcy">${axis}</div>`+
-    `<div class="rbcplot">${s}<div class="rbclab">${labels}</div><div class="rbcdots">${dots}</div></div>`;
+    `<div class="rbcplot">${s}<div class="rbcdots">${dots}</div></div>`+
+    `<div class="rbclab">${labels}</div>`;
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
@@ -3098,31 +3103,21 @@ function fitRbChart(){
     plot.style.marginLeft='0px';
     const dotsEl=plot.querySelector('.rbcdots');
     if(dotsEl){dotsEl.style.left=(left-plotLeft)+'px';dotsEl.style.width=width+'px';}
-    /* Rung names sit on their own lines, but rungs crowd: the world record and an Olympic standard
-       are within a few tenths on every track event, and the jump grades sit centimetres apart.
-       Walk UPWARD from the lowest label and lift any that would collide — the label already draws
-       above its line, so lifting keeps it nearer its own line than the one below. Then pull back
-       anything running past the right edge, which the longer record names do on a narrow plot. */
-    const labs=[...plot.querySelectorAll('.rbclabi')]
-      .map(l=>({l,y:parseFloat(l.style.top)})).filter(o=>isFinite(o.y)).sort((a,b)=>b.y-a.y);
-    let ceil=Infinity;
-    labs.forEach(({l,y})=>{
-      const h=l.offsetHeight;
-      const bottom=Math.max(h,Math.min(y,ceil-2));   // never above the plot's own top edge
-      l.style.top=bottom+'px';
-      ceil=bottom-h;
-      l.style.left='7px';l.style.whiteSpace='nowrap';l.style.maxWidth='';
-      const pr=plot.getBoundingClientRect();
-      let over=l.getBoundingClientRect().right-pr.right;
-      if(over>0)l.style.left=Math.max(0,7-over-2)+'px';
-      // A record name can be wider than the whole plot on a one-column chart. Left-clamping runs
-      // out first, so let that one wrap rather than lose its tail to the plot's overflow:hidden.
-      if(l.getBoundingClientRect().right-pr.right>0){
-        l.style.whiteSpace='normal';l.style.maxWidth=Math.max(60,pr.width-4)+'px';
-        l.style.top=Math.max(l.offsetHeight,parseFloat(l.style.top))+'px';
-        ceil=parseFloat(l.style.top)-l.offsetHeight;
-      }
-    });
+    /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
+       track event — so names still need spreading. Centre each on its line, then walk downward
+       pushing any that would touch the one above. The column has its own width now, so a long
+       record name wraps instead of being clamped against the plot's edge. */
+    const labWrap=c.querySelector('.rbclab');
+    if(labWrap){
+      const labs=[...labWrap.querySelectorAll('.rbclabi')]
+        .map(l=>({l,y:parseFloat(l.getAttribute('data-y'))})).filter(o=>isFinite(o.y)).sort((a,b)=>a.y-b.y);
+      let floor=0;
+      labs.forEach(({l,y})=>{
+        const h=l.offsetHeight,top=Math.max(floor,y-h/2);
+        l.style.top=top+'px';
+        floor=top+h+3;
+      });
+    }
   });
 }
 function rbToggle(row,id){
