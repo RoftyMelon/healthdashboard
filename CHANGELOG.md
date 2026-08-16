@@ -8,7 +8,7 @@ remain in the personal repository history.
 - Reduced every performance attempt to a date and result, with no method, course, conditions or note metadata.
 - Removed hidden benchmark quality and protocol copy plus the attempt hover/tap bubble; marker-result provenance bubbles remain unchanged.
 - Renamed the mile benchmark to `1 Mile (1609m)` so its exact distance is visible at a glance.
-- Made the performance table follow its current history width on larger screens while retaining horizontal scrolling on phones.
+- Fixed the performance table at a stable measure; narrow windows now scroll it instead of resizing its columns.
 
 ## Marker catalogue · 2026-08-14
 
