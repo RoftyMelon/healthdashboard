@@ -480,8 +480,8 @@ setTimeout(()=>{
     ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
     ok('nutritional profile shows equal-choice averages including Weekly',
-      H.includes('~3,300 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
-      H.includes('~259 g')&&H.includes('~165 g')&&H.includes('~55 g')&&H.includes('~38 g')&&
+      H.includes('~3,250 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
+      H.includes('~257 g')&&H.includes('~160 g')&&H.includes('~54 g')&&H.includes('~35 g')&&
       !H.includes('Weekly starter adds')&&!H.includes('Approximate daily intake')&&
       !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
       'current averages'); }
@@ -508,8 +508,8 @@ setTimeout(()=>{
       wa&&wa.amt==='~22g'&&pi&&pi.amt==='~8g'&&
       JSON.stringify(wa.info).includes('Walnut 12g, almond 10g')&&
       JSON.stringify(pi.info).includes('Pistachio 8g'),'split correctly');
-    ok('the full 30g chocolate serving sits only in the pre-workout snack',
-      chocolate.length===1&&chocolate[0].meal==='presnack'&&chocolate[0].item.amt==='~30g');
+    ok('the full 20g chocolate serving sits only in the pre-workout snack',
+      chocolate.length===1&&chocolate[0].meal==='presnack'&&chocolate[0].item.amt==='~20g');
   }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }

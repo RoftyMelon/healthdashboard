@@ -2941,7 +2941,7 @@ window.BLOODWORK =
      },
      {
       "n": "Dark chocolate",
-      "amt": "~30g",
+      "amt": "~20g",
       "info": {
        "Ingredients": [
         [
@@ -2949,57 +2949,57 @@ window.BLOODWORK =
          "Cocoa 85%, Madagascar origin"
         ]
        ],
-       "Macronutrients — per ~30g": [
+       "Macronutrients — per ~20g": [
         [
          "Energy",
-         "180kcal",
-         "9%"
+         "120kcal",
+         "6%"
         ],
         [
          "Fat",
-         "15g",
-         "21%"
+         "10g",
+         "14%"
         ],
         [
          "– saturates",
-         "9g",
-         "42%"
+         "6g",
+         "28%"
         ],
         [
          "Carbs",
-         "6g",
-         "3%"
+         "4g",
+         "2%"
         ],
         [
          "Fibre",
-         "3g"
+         "2g"
         ]
        ],
        "Standouts": [
         [
          "Magnesium",
-         "69mg",
-         "18%"
+         "46mg",
+         "12%"
         ],
         [
          "Iron",
-         "3.3mg"
+         "2.2mg"
         ],
         [
          "Copper",
-         "0.6mg",
-         "54%"
+         "0.4mg",
+         "36%"
         ],
         [
          "Manganese",
-         "0.6mg",
-         "30%"
+         "0.4mg",
+         "20%"
         ]
        ],
        "Changes": [
         [
          "16 Aug 2026",
-         "full 30g daily serving moved to the pre-workout snack"
+         "full 20g daily serving consolidated in the pre-workout snack"
         ]
        ]
       }
