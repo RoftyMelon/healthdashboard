@@ -1268,7 +1268,7 @@ window.BLOODWORK =
     },
     {
      "id": "runmile",
-     "name": "1 mile",
+     "name": "1 Mile (1609m)",
      "kind": "time",
      "unit": "min:s",
      "direction": "lower",
