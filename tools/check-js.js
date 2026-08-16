@@ -420,10 +420,21 @@ setTimeout(()=>{
       ED.includes('Male PE Students')&&!ED.includes('Active men range')&&ED.includes('World record'));
     ok('active-peer cohort is explicit at a glance',
       ED.includes('Male PE Students<span class="rbage">· 21–25</span>'));
-    ok('VO2max shows the recreational-runner comparison at a glance',
-      !VD.includes('Recreational runners range')&&VD.includes('Male recreational runners<span class="rbage">· 30–39</span>'));
+    ok('VO2max shows only its upper recreational-runner percentile band',
+      !VD.includes('Recreational runners range')&&
+      VD.includes('Male recreational runners 30-39, top quartile to P90')&&VD.includes('P75–P90'));
     ok('performance chart scale includes the full target and its P90 tick',
-      VD.includes('class="rbtg"')&&VD.includes('P75–P90')&&/>62\.7<\/span>/.test(VD));
+      VD.includes('class="rbtg"')&&VD.includes('P75–P90')&&
+      />59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD));
+    ok('a target row shows only P75–P90, without its lower peer band or median',
+      !VD.includes('class="rbbg"')&&!VD.includes('class="rbmed"')&&
+      !VD.includes('P25–P75')&&!VD.includes('median 55.4'));
+    const hiddenPeer=JSON.parse(JSON.stringify(V));
+    Object.assign(hiddenPeer.athletic,{min:-999,max:999,median:0,label:'Hidden peer sentinel',span:'hidden'});
+    ok('hidden peer metadata cannot affect a target-only chart or legend',
+      rbDetail(hiddenPeer,[],2)===VD);
+    ok('a benchmark without a target keeps its peer comparison',
+      ED.includes('class="rbbg"')&&!ED.includes('class="rbtg"'));
     ok('world-record cards show only the compact two-digit year',
       ED.includes('<span class="rbyear">· \'09</span>')&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     R.attempts.push(

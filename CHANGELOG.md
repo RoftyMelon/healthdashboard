@@ -11,6 +11,7 @@ remain in the personal repository history.
 - Fixed the performance table at a stable measure and sized its name column to the longest label; narrow windows scroll instead of resizing columns.
 - Added a small gap between the performance-benchmark section rule and its table.
 - Included performance targets in chart scaling so the complete P75–P90 band and its upper tick remain visible.
+- Showed only P75–P90 on targeted benchmarks, hiding their lower peer band and median while preserving peer-only rows.
 
 ## Marker catalogue · 2026-08-14
 

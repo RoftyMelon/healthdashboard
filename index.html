@@ -2857,8 +2857,8 @@ function rbValue(x,a,extra=''){
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
 function rbSvg(x,dates){
-  const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value);
-  if(x.athletic)vals.push(x.athletic.min,x.athletic.max);
+  const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic;
+  if(peer)vals.push(peer.min,peer.max);
   if(x.target)vals.push(x.target.min,x.target.max);
   if(x.world)vals.push(x.world.value);
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
@@ -2867,15 +2867,14 @@ function rbSvg(x,dates){
   const cols=Math.max(1,dates.length),X=d=>((Math.max(0,dates.indexOf(d))+.5)/cols)*W;
   let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
   /* No gridlines at thirds. They were the companions of the old axis, which labelled thirds of the
-     drawing area; now the axis marks the band edges and the median, a line at 0.33 of the plot names
-     nothing and reads as a threshold that does not exist. The band's own dashed edges and the median
-     line carry every reference this chart has. */
+     drawing area; now the axis marks only the displayed comparison. A target row shows P75–P90 by
+     itself. A row without a target keeps its peer-band edges and optional median. */
   if(x.target){const t1=Y(x.target.min),t2=Y(x.target.max),ty=Math.min(t1,t2),th=Math.abs(t2-t1);
     s+=`<rect class="rbtg" x="0" y="${ty}" width="${W}" height="${Math.max(th,2)}"/>`;}
-  if(x.athletic){const y1=Y(x.athletic.min),y2=Y(x.athletic.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
+  if(peer){const y1=Y(peer.min),y2=Y(peer.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
     // the median is the line that answers above-or-below; the band edges only say "typical"
-    if(x.athletic.median!==undefined){const ym=Y(x.athletic.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
+    if(peer.median!==undefined){const ym=Y(peer.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
@@ -2890,8 +2889,8 @@ function rbSvg(x,dates){
      dropped so two labels never overprint. */
   const ticks=[];
   if(x.target)ticks.push(x.target.min,x.target.max);
-  if(x.athletic){ticks.push(x.athletic.min,x.athletic.max);
-    if(x.athletic.median!==undefined)ticks.push(x.athletic.median);}
+  if(peer){ticks.push(peer.min,peer.max);
+    if(peer.median!==undefined)ticks.push(peer.median);}
   if(x.world)ticks.push(x.world.value);
   const kept=[];
   ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
@@ -2910,7 +2909,7 @@ function rbLegend(x){
     `<small class="rbrange">${x.target.span?esc(x.target.span):`${esc(rbFmt(x,x.target.min))}&ndash;${esc(rbFmt(x,x.target.max))}`}</small>`+
     `<span class="rblinks"><a href="${esc(x.target.source)}" target="_blank" rel="noopener">Source ↗</a></span></span></div>`;
   if(x.world)h+=`<div class="rbleg"><i class="rbsw wr"></i><span><b>World record</b><span class="rbresult">${esc(x.world.display)} · <span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span></span><a href="${esc(x.world.source)}" target="_blank" rel="noopener">Source ↗</a></span></div>`;
-  if(x.athletic){const [cohort,ages]=rbCohort(x.athletic.label);
+  if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}</b>`+
       `<small class="rbrange">${x.athletic.span?esc(x.athletic.span):`${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`}`+
       `${x.athletic.median!==undefined?` <span class="rbmedlab">median ${esc(rbFmt(x,x.athletic.median))}</span>`:''}</small>`+
@@ -2919,12 +2918,11 @@ function rbLegend(x){
   return h;
 }
 /* An untested row draws the SAME plot as a tested one, just with no dots on it. It used to fall
-   back to a bare legend, on the reasoning that an empty chart says nothing — but the bands are the
-   content here, and seeing where the median sits before the first attempt is the point of having
-   sourced them. rbSvg already handles an empty attempts array: it falls back to the band's own
-   values for the scale, so the axis is meaningful without a single result. */
+   back to a bare legend, on the reasoning that an empty chart says nothing — but the requested
+   target or peer comparison is the content here. rbSvg handles an empty attempts array by using
+   the displayed band's own values for the scale, so the axis remains meaningful. */
 function rbDetail(x,dates,colspan){
-  if(!rbAttempts(x).length&&!x.athletic&&!x.world)
+  if(!rbAttempts(x).length&&!x.target&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
     `${rbSvg(x,dates)}<div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;

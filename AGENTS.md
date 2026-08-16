@@ -285,9 +285,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
   no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
-  row expands into the trend chart, INCLUDING before the first attempt — the comparison bands and
-  the median line are the content worth seeing, and a row with a band scaled to it is meaningful
-  with no dots on it. Only a row with no band and no world record falls back to the bare summary.
+  row expands into the trend chart, INCLUDING before the first attempt. A benchmark with a target
+  displays only its P75–P90 target: its lower P25–P75 peer band and median remain stored as source
+  context but do not render. A benchmark without a target keeps its peer band and optional median.
+  Only a row with no band and no world record falls back to the bare summary.
   Benchmark results and chart points deliberately have no hover/tap bubble; the dated column already
   identifies the attempt, and clicking the result should expand the row. Running world records
   must match the event and surface and carry a source plus review date. The green
@@ -299,7 +300,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   percentages of a world record do not qualify. Each band carries an evidence grade and review
   date. Current performance target bands run from P75 to P90 and begin exactly where their peer
   band ends. When a source omits P75, interpolation must be disclosed in `basis`; values above P90
-  are above the target band, never worse.
+  are above the target band, never worse. The viewer never stacks the lower peer range beneath a
+  target: the requested P75–P90 interval is the sole displayed comparison on those rows.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
 
 ---
