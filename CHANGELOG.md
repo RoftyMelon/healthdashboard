@@ -9,6 +9,7 @@ remain in the personal repository history.
 - Removed hidden benchmark quality and protocol copy plus the attempt hover/tap bubble; marker-result provenance bubbles remain unchanged.
 - Renamed the mile benchmark to `1 Mile (1609m)` so its exact distance is visible at a glance.
 - Fixed the performance table at a stable measure and sized its name column to the longest label; narrow windows scroll instead of resizing columns.
+- Added a small gap between the performance-benchmark section rule and its table.
 
 ## Marker catalogue · 2026-08-14
 
