@@ -507,6 +507,7 @@ setTimeout(()=>{
     ok('walnuts and almonds sit with the muesli; dinner keeps pistachios',
       wa&&wa.amt==='~22g'&&pi&&pi.amt==='~8g'&&
       JSON.stringify(wa.info).includes('Walnut 12g, almond 10g')&&
+      JSON.stringify(wa.info).includes('Approx. 3 whole walnut kernels (6 halves) and 8 almonds')&&
       JSON.stringify(pi.info).includes('Pistachio 8g'),'split correctly');
     ok('the full 20g chocolate serving sits only in the pre-workout snack',
       chocolate.length===1&&chocolate[0].meal==='presnack'&&chocolate[0].item.amt==='~20g');

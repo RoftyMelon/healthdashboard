@@ -2936,6 +2936,12 @@ window.BLOODWORK =
          "46mg",
          "12%"
         ]
+       ],
+       "Notes": [
+        [
+         "",
+         "Approx. 3 whole walnut kernels (6 halves) and 8 almonds; use weight because nut size varies"
+        ]
        ]
       }
      },
