@@ -355,7 +355,8 @@ setTimeout(()=>{
     const M=BI.find(x=>x.id==='runmile');
     ok('mile uses the pooled official multi-year road-race band',
       M.athletic.min===336&&M.athletic.max===416&&M.athletic.median===371&&M.athletic.evidence==='moderate'&&
-      M.athletic.label==='Male Fifth Avenue Mile finishers, 19–39'&&M.athletic.basis.includes('21,799')&&
+      M.athletic.label==='Recreational runners, 19–39'&&M.athletic.basis.includes('21,799')&&
+      /Fifth Avenue Mile/.test(M.athletic.basis)&&/elite entrants/.test(M.athletic.basis)&&
       M.target.min===305&&M.target.max===336);
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',

@@ -1311,8 +1311,8 @@ window.BLOODWORK =
       "median": 371,
       "span": "P25–P75",
       "heading": "Recreational runners range",
-      "label": "Male Fifth Avenue Mile finishers, 19–39",
-      "basis": "Observed P25–P75 and median 6:11 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners may occur.",
+      "label": "Recreational runners, 19–39",
+      "basis": "Observed P25–P75 and median 6:11 across 21,799 official finishes by men aged 19–39 in nine in-person Fifth Avenue Mile editions (2016–2019 and 2021–2025); repeated runners and elite entrants may occur, so this is a self-selected road-race field rather than a survey of recreational runners.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1320,7 +1320,7 @@ window.BLOODWORK =
      "target": {
       "min": 305,
       "max": 336,
-      "label": "Male Fifth Avenue Mile finishers 19–39",
+      "label": "Recreational runners 19–39",
       "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
       "source": "https://results.nyrr.org/races",
       "evidence": "moderate",
