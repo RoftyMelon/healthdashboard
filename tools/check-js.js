@@ -417,10 +417,29 @@ setTimeout(()=>{
         !/(top quartile to P90|upper-quartile band|percentile)/.test(x.target.label)&&
         (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
       PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
-    ok('the P75–P90 meaning is stated once, above the benchmarks',
+    ok('the grade ladder is explained once, above the benchmarks',
       count(n.pages.innerHTML,'trsummary rbintro')===1&&
-      n.pages.innerHTML.includes('<i class="rbsw tg"></i>Ranges are the 75th to 90th percentile of the cohort'),
+      n.pages.innerHTML.includes('Average is the cohort median, Good its 75th percentile and Excellent its 90th.'),
       count(n.pages.innerHTML,'trsummary rbintro')+' intro lines');
+    /* Average, Good and Excellent are DERIVED, so the only stored rung is the top one. Assert the
+       derivation rather than the stored numbers: a grade that stopped tracking its own band would
+       still render, and nothing else would notice. */
+    {const bad=PT.filter(x=>{const t=rbTiers(x),lower=x.direction==='lower',by=k=>t.find(z=>z.k===k);
+       return t.length!==4||by('avg').v!==x.athletic.median||
+         by('good').v!==(lower?x.target.max:x.target.min)||
+         by('exc').v!==(lower?x.target.min:x.target.max)||
+         by('top').v!==x.elite.value||by('top').t!==x.elite.label;});
+     ok('every graded row derives Average/Good/Excellent and stores only the top rung',
+       bad.length===0&&PT.every(x=>['Olympic','World class','NFL'].includes(x.elite.label)),
+       bad.length?bad.map(x=>x.id).join(','):PT.map(x=>x.elite.label).join(','));}
+    ok('the top rung sits beyond Excellent on every graded row',
+      PT.every(x=>x.direction==='lower'?x.elite.value<x.target.min:x.elite.value>x.target.max),
+      PT.map(x=>`${x.id}:${x.elite.value}`).join(' '));
+    {const mi=PT.find(x=>x.id==='runmile'),vo=PT.find(x=>x.id==='vo2max');
+     ok('a value below Average earns no grade, and the best reached rung wins',
+       rbGradeOf(mi,420)===null&&rbGradeOf(mi,371).k==='avg'&&rbGradeOf(mi,305).k==='exc'&&
+       rbGradeOf(mi,200).k==='top'&&rbGradeOf(vo,40)===null&&rbGradeOf(vo,62.7).k==='exc'&&
+       rbGradeOf(vo,90).k==='top');}
     ok('peer-range headings match the measured cohorts',
       BI.filter(x=>['run100','run400'].includes(x.id)).every(x=>x.athletic.heading==='Active men range')&&
       BI.filter(x=>['runmile','run5k','run10k','vo2max'].includes(x.id)).every(x=>x.athletic.heading==='Recreational runners range'));
@@ -454,22 +473,27 @@ setTimeout(()=>{
       K5D=rbDetail(BI.find(x=>x.id==='run5k'),[],2),VD=rbDetail(V,[],2),FD=rbDetail(F,[],2);
     // An untested row now draws the plot too, so the bands are visible before the first attempt.
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
-    ok('untested benchmark rows still draw their upper-performance bands',
+    // count PLOT lines only: the legend keys draw the same class, so a bare class match doubles it
+    const rungs=d=>(d.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length;
+    ok('untested benchmark rows still draw their full grade ladder',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Fit men 20–40')&&ED.includes('class="rbtg"')&&
+      ED.includes('Fit men 20–40')&&rungs(ED)===4&&
       !ED.includes('top quartile to P90')&&ED.includes('World record'));
-    ok('mile now shows only its observed P75–P90 band',
-      MD.includes('class="rbtg"')&&MD.includes('5:05')&&MD.includes('5:36')&&
-      !MD.includes('P25–P75')&&!MD.includes('class="rbbg"'));
-    ok('broad jump shows only its modelled P75–P90 band',
-      BD.includes('class="rbtg"')&&BD.includes('234')&&BD.includes('245')&&
-      !BD.includes('P25–P75')&&!BD.includes('class="rbbg"'));
-    ok('VO2max shows only its upper recreational-runner percentile band',
+    ok('the shaded band is gone from every graded row',
+      BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
+        return !d.includes('class="rbtg"')&&!d.includes('class="rbbg"')&&!d.includes('<line class="rbmed"');}));
+    ok('mile plots four rungs and labels Good and Excellent on its axis',
+      rungs(MD)===4&&MD.includes('5:05')&&MD.includes('5:36')&&MD.includes('>4:00<')&&
+      !MD.includes('P25–P75'));
+    ok('broad jump plots four rungs and labels its own',
+      rungs(BD)===4&&BD.includes('234')&&BD.includes('245')&&BD.includes(">"+rbFmt(B,B.elite.value)+"<")&&
+      !BD.includes('P25–P75'));
+    ok('VO2max keeps its cohort name above the ladder',
       !VD.includes('Recreational runners range')&&
-      VD.includes('Male recreational runners 30–39')&&VD.includes('class="rbtg"'));
-    ok('performance chart scale includes target endpoints and median tick',
-      VD.includes('class="rbtg"')&&
-      />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD));
+      VD.includes('Male recreational runners 30–39')&&rungs(VD)===4);
+    ok('performance chart scale spans Average through the top rung',
+      />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD)&&
+      />85<\/span>/.test(VD));
     /* Dropping target.span once made the legend fall through to a numeric range instead of
        printing nothing — the band's edges appeared a third time, beside an axis and an intro
        that already carried them. A target legend prints the cohort alone.
@@ -479,31 +503,41 @@ setTimeout(()=>{
     ok('no target legend prints a range',
       BI.filter(x=>x.target).every(x=>!/<small class="rbrange">/.test(rbDetail(x,[],2))),
       BI.filter(x=>x.target).filter(x=>/<small class="rbrange">/.test(rbDetail(x,[],2))).map(x=>x.id).join(',')||'none leaking');
-    ok('every population-target graph adds one median line and matching SVG legend key, without P25–P75',
-      BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);return x.athletic&&x.athletic.median!==undefined&&
-        (d.match(/<line class="rbmed"/g)||[]).length===2&&d.includes('<svg class="rbsw med"')&&
-        // the world record now links through the same .rbsource glyph, so count the TARGET's
-        // own link rather than every source arrow on the card
-        (d.split(`class="rbsource" href="${x.target.source}"`).length-1)===1&&!d.includes('class="rblinks"')&&
-        // the median key is a bare label: its value is on the axis, not repeated beside the swatch
-        (d.match(/>Median<\/b>/g)||[]).length===1&&!/>Median<\/b><span/.test(d)&&
-        d.includes(rbFmt(x,x.athletic.median))&&
-        !d.includes('class="rbbg"')&&!d.includes('P25–P75');}));
-    ok('fixed-pace remains personal progression only, with no median',
-      FD.includes('Personal progression only')&&!FD.includes('rbmed')&&!FD.includes('>Median</b>'));
+    /* Each rung's legend key must pair to its own plotted line by data-tier, or fitRbChart cannot
+       find the y to sit beside and the key drifts off its line. Assert the pairing, not the count:
+       four of each with no shared attribute would pass a count and still render misaligned. */
+    ok('every graded chart pairs each rung key to its own line by data-tier',
+      BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
+        const keys=[...d.matchAll(/<svg class="rbsw tline" data-tier="([a-z]+)"/g)].map(m=>m[1]);
+        const lines=[...d.matchAll(/<line class="rbt rbt-[a-z]+" data-tier="([a-z]+)"/g)].map(m=>m[1]);
+        return keys.length===4&&keys.join(',')===lines.join(',')&&
+          keys.join(',')==='avg,good,exc,top'&&
+          // the cohort heads the ladder and links once; the top rung carries its own link
+          (d.split(`class="rbsource" href="${x.target.source}"`).length-1)===1&&
+          d.includes(`class="rbsource" href="${x.elite.source}"`)&&
+          // rung keys are bare names: the values are on the axis
+          !/>Average<\/b><span|>Good<\/b><span|>Excellent<\/b><span/.test(d)&&
+          d.includes(rbFmt(x,x.athletic.median));}));
+    ok('fixed-pace remains personal progression only, with no ladder',
+      FD.includes('Personal progression only')&&!FD.includes('rbt-')&&!FD.includes('>Average</b>'));
     const hiddenPeer=JSON.parse(JSON.stringify(V));
     Object.assign(hiddenPeer.athletic,{min:-999,max:999,label:'Hidden peer sentinel',span:'hidden'});
     ok('hidden peer-band metadata cannot affect a target-plus-median chart or legend',
       rbDetail(hiddenPeer,[],2)===VD);
-    const peerOnly=JSON.parse(JSON.stringify(V)); delete peerOnly.target;
+    /* A row with a peer band but no target still works: it keeps the shaded band and shows the one
+       rung it can derive. Good and Excellent come from the target, so a row without one must not
+       invent them — a ladder that quietly filled its middle rungs from the band edges would put
+       two named grades on the page that no source ever stated. */
+    const peerOnly=JSON.parse(JSON.stringify(V)); delete peerOnly.target; delete peerOnly.elite;
     const peerOnlyDetail=rbDetail(peerOnly,[],2);
-    ok('the generic viewer still supports a genuine peer-only band plus median',
+    ok('a peer-only row keeps its band and derives only Average',
       peerOnlyDetail.includes('class="rbbg"')&&!peerOnlyDetail.includes('class="rbtg"')&&
-      (peerOnlyDetail.match(/<line class="rbmed"/g)||[]).length===2&&
-      (peerOnlyDetail.match(/class="rbsource"/g)||[]).length===1&&
+      (peerOnlyDetail.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===1&&
+      peerOnlyDetail.includes('data-tier="avg"')&&
+      !/>Good<\/b>|>Excellent<\/b>/.test(peerOnlyDetail)&&
       peerOnlyDetail.includes(`aria-label="Source for ${peerOnly.athletic.label}"`)&&
       !peerOnlyDetail.includes('Source ↗')&&
-      peerOnlyDetail.includes('>Median</b>'));
+      peerOnlyDetail.includes('>Average</b>'));
     ok('population source is a compact linked arrow after the comparison name, not a median row',
       VD.includes(`class="rbsource" href="${V.target.source}"`)&&VD.includes('&nbsp;<a class="rbsource"')&&
       VD.includes('>↗</a></b>')&&
@@ -540,9 +574,9 @@ setTimeout(()=>{
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
-    ok('expanded benchmark chart draws history, P75–P90 target, median and world-record line',
-      D.includes('rbline')&&D.includes('rbtg')&&!D.includes('rbbg')&&D.includes('rbmed')&&D.includes('rbwr')&&
-      D.includes('class="rbtg"'));
+    ok('expanded benchmark chart draws history, the full grade ladder and the world-record line',
+      D.includes('rbline')&&!D.includes('rbtg')&&!D.includes('rbbg')&&!D.includes('rbmed')&&D.includes('rbwr')&&
+      (D.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===4);
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));

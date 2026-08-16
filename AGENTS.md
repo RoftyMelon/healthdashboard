@@ -315,6 +315,18 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   measured, and must name the timing convention: fully automatic timing reads ~0.24s slower than
   hand timing, which is larger than the gap between two of these rungs. Sprints display one
   decimal, because a tenth is the finest a hand-timed sprint can honestly claim.
+  **Grades, not bands.** The chart draws a named ladder — `Average` / `Good` / `Excellent` plus one
+  top rung — as four labelled lines, because a shaded band said "anywhere in here is the same
+  thing" when it was really a span between two percentiles, and left the reader to decode its own
+  edges. The first three are DERIVED at render time (`Average` = `athletic.median`, `Good` and
+  `Excellent` = the two `target` edges) and must never be stored: four more numbers beside the
+  band they come from is exactly how a grade and its band drift apart. Only the top rung is data,
+  in `elite: {label, value, basis, source, evidence, reviewed}`, because it is a different claim
+  from a different body. `label` is a closed set — `Olympic` (an entry standard), `World class`
+  (the four-minute mile, where the event is not Olympic) or `NFL` (a Combine mark) — so a row
+  cannot invent a fourth authority. `audit()` rejects a top rung that sits inside the target or on
+  a row with no target. Each rung's legend key pairs to its own plotted line by `data-tier`, never
+  by a class-name lookup table: rungs get renamed, and a table strands the key silently.
   **No target carries its own `span`.** The P75–P90 meaning is stated ONCE, by the viewer's intro
   line under the Performance benchmarks heading, so each target legend keeps its line for the
   band's actual numbers. Nine identical "75th to 90th percentile" captions crowded those numbers

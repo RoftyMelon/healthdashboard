@@ -1246,6 +1246,14 @@ window.BLOODWORK =
       "evidence": "weak",
       "reviewed": "2026-08-16"
      },
+     "elite": {
+      "label": "Olympic",
+      "value": 10,
+      "basis": "Men's 100m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
+      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "evidence": "strong",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1286,6 +1294,14 @@ window.BLOODWORK =
       "evidence": "weak",
       "reviewed": "2026-08-16"
      },
+     "elite": {
+      "label": "Olympic",
+      "value": 45,
+      "basis": "Men's 400m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
+      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "evidence": "strong",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1323,6 +1339,14 @@ window.BLOODWORK =
       "label": "Recreational runners 19–39",
       "basis": "Observed P75–P90 performance band across the same 21,799 official finishes by men aged 19–39: nearest-rank P75 is 5:36 and P90 is 5:05. The nine in-person editions span 2016–2019 and 2021–2025; repeated runners and elite entrants may occur.",
       "source": "https://results.nyrr.org/races",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
+     },
+     "elite": {
+      "label": "World class",
+      "value": 240,
+      "basis": "The four-minute mile. The mile is not an Olympic event, so the sport's own recognised threshold stands in: the back of a world-class mile field runs 3:52 to 3:56 and the annual world top-100 cut-off sits near 3:55, which places the barrier just outside that group.",
+      "source": "https://worldathletics.org/records/all-time-toplists/middlelong/one-mile/outdoor/men/senior",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
      },
@@ -1371,6 +1395,14 @@ window.BLOODWORK =
       "evidence": "moderate",
       "reviewed": "2026-08-16"
      },
+     "elite": {
+      "label": "Olympic",
+      "value": 785,
+      "basis": "Men's 5000m entry standard of 13:05.00 for the Paris 2024 Olympic Games. The track 5000m is compared against a road 5km here, and a road course is usually the slower of the two.",
+      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "evidence": "strong",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1409,6 +1441,14 @@ window.BLOODWORK =
       "basis": "Observed P75–P90 performance band from the same 352 men aged 19–39 with a recorded recent 10K: nearest-rank P75 is 38:10 and P90 is 34:50. Times were self-reported by a convenience sample, so the cut points describe this cohort rather than a universal standard.",
       "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/",
       "evidence": "moderate",
+      "reviewed": "2026-08-16"
+     },
+     "elite": {
+      "label": "Olympic",
+      "value": 1620,
+      "basis": "Men's 10,000m entry standard of 27:00.00 for the Paris 2024 Olympic Games. The track 10,000m is compared against a road 10km here, and a road course is usually the slower of the two.",
+      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "evidence": "strong",
       "reviewed": "2026-08-16"
      },
      "attempts": []
@@ -1450,6 +1490,14 @@ window.BLOODWORK =
       "evidence": "weak",
       "reviewed": "2026-08-16"
      },
+     "elite": {
+      "label": "World class",
+      "value": 85,
+      "basis": "Approximate treadmill VO₂max of a world-class endurance athlete. Elite cyclists, cross-country skiers and distance runners cluster between 80 and 90 mL/kg/min; the highest value ever recorded is about 96. A round anchor, not a qualifying mark.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5407738/",
+      "evidence": "weak",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1477,6 +1525,14 @@ window.BLOODWORK =
       "label": "Canadian men 20–39",
       "basis": "Approximate P75 to published P90, summarized equally across the four five-year male age brackets from 20–39 in the Canadian Health Measures Survey Cycle 5. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The four bracket values are then averaged equally, so this is an age-band summary rather than a true pooled percentile.",
       "source": "https://www150.statcan.gc.ca/n1/pub/82-003-x/2019010/article/00002/tbl/tbl04-eng.htm",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
+     },
+     "elite": {
+      "label": "NFL",
+      "value": 101.6,
+      "basis": "Forty inches, the recognised elite mark at the NFL Scouting Combine. The combine record is 46 inches (116.8cm). Combine jumps are reach-and-touch against a Vertec, which reads several centimetres LOWER than the flight-time jump mat behind this row's own band — so the gap to this tier is wider than the numbers suggest.",
+      "source": "https://www.nfl.com/combine/tracker",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
      },
@@ -1510,6 +1566,14 @@ window.BLOODWORK =
       "evidence": "weak",
       "reviewed": "2026-08-16"
      },
+     "elite": {
+      "label": "NFL",
+      "value": 330.2,
+      "basis": "One hundred and thirty inches, the recognised elite mark at the NFL Scouting Combine. The combine record is 147 inches (373.4cm), set by Byron Jones in 2015.",
+      "source": "https://www.nfl.com/combine/tracker",
+      "evidence": "moderate",
+      "reviewed": "2026-08-16"
+     },
      "attempts": []
     },
     {
@@ -1538,6 +1602,14 @@ window.BLOODWORK =
       "basis": "Approximate P75 to published P90 for men aged 30–39 from the international norms. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The 30–34 and 35–39 values are then averaged equally. This is a relative performance band, not a health-outcome optimum.",
       "source": "https://doi.org/10.1016/j.jshs.2024.101014",
       "evidence": "moderate",
+      "reviewed": "2026-08-16"
+     },
+     "elite": {
+      "label": "World class",
+      "value": 90,
+      "basis": "Approximate dynamometer grip of an elite strength-sport athlete. Competitive armwrestlers and strongmen record 90kg and above where a general adult population tops out near 60kg. A practitioner anchor rather than a competition standard, and grip figures vary with dynamometer model and hand position.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6778477/",
+      "evidence": "weak",
       "reviewed": "2026-08-16"
      },
      "attempts": []

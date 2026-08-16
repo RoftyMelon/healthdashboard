@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.4.1">
+<meta name="health-dashboard-viewer-version" content="1.5.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1221,7 +1221,22 @@ a.sbuy:hover{color:var(--info)}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
 /* The key is an SVG copy of the plotted line, so its weight, colour, opacity and 5/4 dash pattern
    cannot drift into the browser-defined border dashes that used to make it look thicker. */
-.rbsw.wr,.rbsw.med{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
+.rbsw.wr,.rbsw.med,.rbsw.tline{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
+/* The grade ladder. One line per rung, weighted so the eye climbs it: Average is the quietest,
+   the top rung the loudest, and Excellent carries the green because it is the one being aimed at.
+   Colour is doing ORDER here, not status — a rung is not a pass or a fail. */
+.rbt{stroke-width:1.25;vector-effect:non-scaling-stroke;fill:none}
+.rbt-avg{stroke:var(--t3);opacity:.55}
+.rbt-good{stroke:var(--t2);opacity:.8}
+.rbt-exc{stroke:var(--ok);opacity:.95}
+.rbt-top{stroke:var(--txt);opacity:.55;stroke-dasharray:2 3}
+.rbleg b.rbtlab{font-weight:600}
+.rbleg b.rbtlab-avg{color:var(--t3)}
+.rbleg b.rbtlab-good{color:var(--t2)}
+.rbleg b.rbtlab-exc{color:var(--ok)}
+/* The cohort heads the ladder and names no line, so it gets no key column and closes up tight
+   against the rung below it — the grades belong to it and should read as one block. */
+.rbleg.rbcoh{grid-template-columns:minmax(0,1fr);margin-bottom:7px}
 /* The intro's chip is the legend's own 9px swatch, but it sits INLINE in a sentence instead of
    in .rbleg's 9px grid column — so it needs a box and a baseline nudge the grid was giving it. */
 .rbintro .rbsw{display:inline-block;margin:0 7px 0 0;vertical-align:middle;position:relative;top:-1px}
@@ -1972,7 +1987,7 @@ function audit(j){
         b.items.forEach(x=>{
           const tag=`TRAINING benchmark "${x&&x.name||'?'}"`;
           if(!x||typeof x!=='object')return bad.push('TRAINING benchmark items must be objects');
-          const itemFields=['id','name','kind','unit','direction','precision','world','athletic','target','attempts'];
+          const itemFields=['id','name','kind','unit','direction','precision','world','athletic','target','elite','attempts'];
           Object.keys(x).forEach(k=>{if(!itemFields.includes(k))bad.push(`${tag}: unknown field "${k}"`);});
           ['id','name','unit'].forEach(k=>{if(typeof x[k]!=='string'||!x[k].trim())bad.push(`${tag}: ${k} is required`);});
           if(bids.has(x.id))bad.push(`${tag}: id "${x.id}" is duplicated`);else bids.add(x.id);
@@ -2048,6 +2063,28 @@ function audit(j){
               // What must fail is a target that reaches back inside the band.
               else if(x.direction==='lower'?g.max>x.athletic.min:g.min<x.athletic.max)
                 bad.push(`${tag}: target must sit beyond the peer band, not inside it`);
+            }
+          }
+          /* The ladder's TOP rung, and the only one stored: Average, Good and Excellent are derived
+             from the median and the target, so storing them would let a band and its own grade drift.
+             This rung is a different claim from a different body — an Olympic entry standard, the
+             four-minute mile, an NFL Combine mark — so it carries its own source and grade, and its
+             label is a closed set to stop a row inventing a fourth authority. It must also sit beyond
+             Excellent: a top grade inside the target band is not a ceiling, it is a duplicate. */
+          if(x.elite!==undefined){const e=x.elite;
+            if(!e||typeof e!=='object')bad.push(`${tag}: elite must be an object`);
+            else{
+              if(!['Olympic','World class','NFL'].includes(e.label))
+                bad.push(`${tag}: elite.label must be Olympic/World class/NFL`);
+              if(typeof e.value!=='number'||!isFinite(e.value))bad.push(`${tag}: elite.value must be numeric`);
+              if(typeof e.basis!=='string'||!e.basis.trim())bad.push(`${tag}: elite.basis is required`);
+              if(typeof e.source!=='string'||!/^https:\/\//.test(e.source))bad.push(`${tag}: elite.source must be https://`);
+              if(!['strong','moderate','weak'].includes(e.evidence))bad.push(`${tag}: elite.evidence must be strong/moderate/weak`);
+              if(typeof e.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(e.reviewed))
+                bad.push(`${tag}: elite.reviewed must be YYYY-MM-DD`);
+              if(!x.target)bad.push(`${tag}: a top grade needs the target it sits above`);
+              else if(x.direction==='lower'?e.value>=x.target.min:e.value<=x.target.max)
+                bad.push(`${tag}: elite must sit beyond Excellent, not inside the target`);
             }
           }
           if(x.kind==='jump'&&x.world)bad.push(`${tag}: a jump has no comparable ratified world record`);
@@ -2892,27 +2929,57 @@ function rbValue(x,a,extra=''){
   const pb=rbIsPB(x,a.value);
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
+/* The grade ladder is DERIVED, never stored. Average is the cohort median, Good and Excellent are
+   the two edges of the sourced performance target, and only the top rung is held in the data —
+   it is the one genuinely separate claim, carrying its own source, and its name changes with the
+   event: an Olympic entry standard where one exists, the four-minute mile where the event is not
+   Olympic, an NFL Combine mark for the jumps. Storing Average/Good/Excellent as four more numbers
+   beside the band they come from would let a band and its own grade drift apart. */
+const RB_TIER_TOP=['Olympic','World class','NFL'];
+function rbTiers(x){
+  if(!x)return [];
+  const out=[],lower=x.direction==='lower',med=x.athletic&&x.athletic.median;
+  if(med!==undefined&&med!==null)out.push({k:'avg',t:'Average',v:med});
+  if(x.target){
+    out.push({k:'good',t:'Good',v:lower?x.target.max:x.target.min});
+    out.push({k:'exc',t:'Excellent',v:lower?x.target.min:x.target.max});
+  }
+  if(x.elite)out.push({k:'top',t:x.elite.label,v:x.elite.value,src:x.elite.source});
+  return out;
+}
+/* Which rung a value has reached. Walks the ladder from the top so the BEST rung wins, and
+   returns null below the first one — "worse than average" is the absence of a grade, not a
+   grade of its own, and inventing a name for it would put a label on the row that no cohort
+   number supports. */
+function rbGradeOf(x,v){
+  if(v==null||!isFinite(v))return null;
+  const t=rbTiers(x),lower=x.direction==='lower';
+  for(let i=t.length-1;i>=0;i--)if(lower?v<=t[i].v:v>=t[i].v)return t[i];
+  return null;
+}
 function rbSvg(x,dates){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic,
+    tiers=rbTiers(x),
     median=x.athletic&&x.athletic.median!==undefined?x.athletic.median:null;
   if(peer)vals.push(peer.min,peer.max);
+  tiers.forEach(t=>vals.push(t.v));
   if(median!==null)vals.push(median);
-  if(x.target)vals.push(x.target.min,x.target.max);
   if(x.world)vals.push(x.world.value);
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
   const gap=Math.max((hi-lo)*.13,x.kind==='time'?1:2);lo-=gap;hi+=gap;if(lo===hi){lo-=1;hi+=1;}
   const Y=v=>x.direction==='lower'?T+(v-lo)/(hi-lo)*(B-T):T+(hi-v)/(hi-lo)*(B-T);
   const cols=Math.max(1,dates.length),X=d=>((Math.max(0,dates.indexOf(d))+.5)/cols)*W;
   let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
-  /* No gridlines at thirds. They were the companions of the old axis, which labelled thirds of the
-     drawing area; now the axis marks only the displayed comparison. A target row shows P75–P90 by
-     itself. A row without a target keeps its peer-band edges and optional median. */
-  if(x.target){const t1=Y(x.target.min),t2=Y(x.target.max),ty=Math.min(t1,t2),th=Math.abs(t2-t1);
-    s+=`<rect class="rbtg" x="0" y="${ty}" width="${W}" height="${Math.max(th,2)}"/>`;}
+  /* Grades are LINES, not a shaded band. A band says "anywhere in here is the same thing", which
+     was never true — it was a span between two percentiles — and it left the reader to work out
+     what its own edges meant. A rung you either reach or you do not needs no legend sentence.
+     Each line carries data-tier so the legend can find the exact y it must sit beside, without
+     the legend and the plot having to agree on a class name twice. */
+  tiers.forEach(t=>{const y=Y(t.v);
+    s+=`<line class="rbt ${'rbt-'+t.k}" data-tier="${t.k}" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
   if(peer){const y1=Y(peer.min),y2=Y(peer.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
   }
-  if(median!==null){const ym=Y(median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
@@ -2926,9 +2993,8 @@ function rbSvg(x,dates){
      already named in the legend and would only crowd the top. Anything within 7% of a neighbour is
      dropped so two labels never overprint. */
   const ticks=[];
-  if(x.target)ticks.push(x.target.min,x.target.max);
+  tiers.forEach(t=>ticks.push(t.v));
   if(peer)ticks.push(peer.min,peer.max);
-  if(median!==null)ticks.push(median);
   if(x.world)ticks.push(x.world.value);
   const kept=[];
   ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
@@ -2939,34 +3005,44 @@ function rbSvg(x,dates){
     `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
   return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
 }
-/* The green band means the same thing on every row it appears on, so it is stated ONCE here
-   rather than repeating "75th to 90th percentile" inside every target legend — nine copies of
-   one sentence, each stealing the line that should have carried the actual numbers. Gated on a
-   target existing: with none rendered, the sentence would describe a colour nothing uses. */
+/* Every ladder means the same thing on every row, so it is stated ONCE here. Only the top rung
+   varies by event — Olympic where a standard exists, the four-minute mile where the event is not
+   Olympic, an NFL Combine mark for the jumps — and that one names itself on the chart. Gated on a
+   ladder existing: with none rendered, the sentence would describe grades nothing uses. */
 function rbIntro(){
-  return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>x.target)
-    ?`<div class="trsummary rbintro"><i class="rbsw tg"></i>Ranges are the 75th to 90th percentile of the cohort</div>`:'';
+  return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
+    ?`<div class="trsummary rbintro">Average is the cohort median, Good its 75th percentile and Excellent its 90th. The top grade is a separate standard and names itself.</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
+// The legend key for a plotted line: an SVG copy of the line itself, so its weight, colour and
+// dash pattern cannot drift into browser-drawn border dashes the way a CSS-bordered box did.
+const rbKey=(cls,tier)=>`<svg class="rbsw ${cls}"${tier?` data-tier="${esc(tier)}"`:''} viewBox="0 0 14 2" `+
+  `preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="${cls==='wr'?'rbwr':`rbt rbt-${tier}`}" x1="0" x2="14" y1="1" y2="1"/></svg>`;
 function rbLegend(x){
-  let h='';
-  /* A target legend carries the cohort and nothing else. Its band edges are already labelled on
-     the chart's own axis, and what the band MEANS is stated once by rbIntro — so a range line
-     here would be the third printing of numbers the eye has two better places to read. The peer
-     legend below still prints its span, because no intro sentence explains P25–P75 for it. */
-  if(x.target)h+=`<div class="rbleg"><i class="rbsw tg"></i><span><b class="rbcohort">${esc(x.target.label)}`+
-    `&nbsp;<a class="rbsource" href="${esc(x.target.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.target.label}`)}">↗</a></b></span></div>`;
-  if(x.world)h+=`<div class="rbleg"><svg class="rbsw wr" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbwr" x1="0" x2="14" y1="1" y2="1"/></svg><span><b>World record</b><span class="rbresult"><span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span>&nbsp;<a class="rbsource" href="${esc(x.world.source)}" target="_blank" rel="noopener" aria-label="Source for the world record">↗</a></span></span></div>`;
+  let h='';const tiers=rbTiers(x);
+  /* The cohort heads the ladder rather than sitting on one rung, because Average, Good and
+     Excellent all come from it while the top rung does not — that one carries its own source
+     arrow. No values anywhere in here: every rung is labelled on the chart's own axis, and a
+     grade you either reach or you do not needs a name, not a number. */
+  const coh=(x.target&&x.target.label)||(x.athletic&&x.athletic.label);
+  const cohSrc=(x.target&&x.target.source)||(x.athletic&&x.athletic.source);
+  if(coh&&tiers.some(t=>t.k!=='top'))
+    h+=`<div class="rbleg rbcoh"><span><b class="rbcohort">${esc(coh)}`+
+      (cohSrc?`&nbsp;<a class="rbsource" href="${esc(cohSrc)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${coh}`)}">↗</a>`:'')+
+      `</b></span></div>`;
+  tiers.forEach(t=>{
+    // The arrow goes INSIDE the <b>. `.rbleg b` is display:block, so a sibling link after the
+    // closing tag starts its own line — the glyph dropped below the rung it belongs to.
+    h+=`<div class="rbleg">${rbKey('tline',t.k)}<span><b class="rbtlab rbtlab-${t.k}">${esc(t.t)}`+
+      (t.src?`&nbsp;<a class="rbsource" href="${esc(t.src)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${t.t}`)}">↗</a>`:'')+
+      `</b></span></div>`;});
+  if(x.world)h+=`<div class="rbleg">${rbKey('wr')}<span><b>World record</b><span class="rbresult"><span class="rbnb">${esc(x.world.athlete)}</span> <span class="rbyear">· ${esc(rbYear(x.world.date))}</span>&nbsp;<a class="rbsource" href="${esc(x.world.source)}" target="_blank" rel="noopener" aria-label="Source for the world record">↗</a></span></span></div>`;
   if(x.athletic&&!x.target){const [cohort,ages]=rbCohort(x.athletic.label);
     h+=`<div class="rbleg"><i class="rbsw band"></i><span><b class="rbcohort">${esc(cohort)}${ages?`<span class="rbage">· ${esc(ages)}</span>`:''}`+
       `&nbsp;<a class="rbsource" href="${esc(x.athletic.source)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${x.athletic.label}`)}">↗</a></b>`+
       `<small class="rbrange">${x.athletic.span?esc(x.athletic.span):`${esc(rbFmt(x,x.athletic.min))}&ndash;${esc(rbFmt(x,x.athletic.max))}${x.kind==='time'?'':` ${esc(x.unit)}`}`}`+
       `</small></span></div>`;}
-  if(x.athletic&&x.athletic.median!==undefined)
-    h+=`<div class="rbleg"><svg class="rbsw med" viewBox="0 0 14 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="rbmed" x1="0" x2="14" y1="1" y2="1"/></svg>`+
-      // No value here either: the median tick is labelled on the chart's own axis.
-      `<span><b class="rbmedlab">Median</b></span></div>`;
   if(!h)h='<div class="rbonly">Personal progression only<br><span>No defensible universal comparison band.</span></div>';
   return h;
 }
@@ -3014,22 +3090,25 @@ function fitRbChart(){
        would collide, and a chart with no bands falls back to normal flow. */
     const pad=c.querySelector('.rbcpad'),svg=plot.querySelector('svg'); if(!pad||!svg)return;
     const legs=[...pad.querySelectorAll('.rbleg')];
-    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr'),med=svg.querySelector('line.rbmed'),tg=svg.querySelector('rect.rbtg');
+    const band=svg.querySelector('rect.rbbg'),wr=svg.querySelector('line.rbwr');
     const mid=r=>r?+r.getAttribute('y')+ +r.getAttribute('height')/2:null;
-    const at=l=>l.querySelector('.rbsw.band')?mid(band)
-             :l.querySelector('.rbsw.tg')?mid(tg)
-             :l.querySelector('.rbsw.med')?(med?+med.getAttribute('y1'):null)
-             :l.querySelector('.rbsw.wr')?(wr?+wr.getAttribute('y1'):null):null;
+    /* data-tier pairs a legend key to its own plotted line, so the two never have to agree on a
+       class name in two places. Grades are added and renamed from the data; a lookup table here
+       would silently strand a key the day a rung changed its name. */
+    const at=l=>{const sw=l.querySelector('.rbsw'); if(!sw)return null;
+      const k=sw.getAttribute('data-tier');
+      if(k){const ln=svg.querySelector(`line[data-tier="${k}"]`);return ln?+ln.getAttribute('y1'):null;}
+      if(sw.classList.contains('band'))return mid(band);
+      if(sw.classList.contains('wr'))return wr?+wr.getAttribute('y1'):null;
+      return null;};
     if(!legs.length||legs.every(l=>at(l)===null)){pad.style.position='';legs.forEach(l=>{l.style.position='';l.style.top='';});return;}
     pad.style.position='relative';pad.style.minHeight=plot.offsetHeight+'px';
-    let lastBottom=-1e9;
-    legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??1e9)-(b.y??1e9)).forEach(({l,y})=>{
-      if(y===null){l.style.position='';l.style.top='';return;}
-      // The target and median share a source; its compact arrow now lives beside the target name.
-      // Five pixels of line-box leading may overlap without the glyphs touching. That tiny allowance
-      // keeps the link-free median key pixel-aligned when a two-line cohort name ends just above it.
-      const collisionGap=l.querySelector('.rbsw.med')?-5:8;
-      const top=Math.max(lastBottom+collisionGap,y-rbLegAnchor(l));
+    let lastBottom=0;
+    // The cohort heading names no line, so it has no y of its own — sort it to the very top and
+    // let the ladder stack below it. Leaving it in normal flow instead let a high rung's absolute
+    // box ride straight over it, since the two positioning schemes do not see each other.
+    legs.map(l=>({l,y:at(l)})).sort((a,b)=>(a.y??-1e9)-(b.y??-1e9)).forEach(({l,y})=>{
+      const top=y===null?lastBottom:Math.max(lastBottom+8,y-rbLegAnchor(l));
       l.style.position='absolute';l.style.top=top+'px';l.style.left='0';l.style.right='0';
       lastBottom=top+l.offsetHeight;});
   });

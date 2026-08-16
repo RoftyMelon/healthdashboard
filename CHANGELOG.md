@@ -3,6 +3,13 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.5.0 · Schema 2 · 2026-08-16
+
+- Replaced the shaded performance band with a named grade ladder: Average, Good, Excellent and one top rung, each drawn as its own labelled line.
+- Added an optional `elite` block holding only that top rung — `Olympic`, `World class` or `NFL`, with its own value, source and evidence grade. Average, Good and Excellent stay derived from the median and the target so a grade cannot drift from the band it came from.
+- `audit()` requires the top rung to sit beyond Excellent, keeps its label to the three-name set, and rejects a top rung on a row with no target.
+- Paired every legend key to its own plotted line through `data-tier`, so a renamed or added rung cannot strand its key off the line it names.
+
 ## Viewer 1.4.1 · Schema 2 · 2026-08-16
 
 - Stripped a dead decimal from m:ss times, so a whole-second value at one-decimal precision renders `1:06` rather than `1:06.0` while a real tenth still shows.
