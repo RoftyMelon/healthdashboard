@@ -1128,7 +1128,7 @@ a.sbuy:hover{color:var(--info)}
 .restrtitle{margin-top:28px}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
-.rbscroll{width:min(calc(100vw - var(--gut,20px) - 20px),1100px);overflow-x:auto;
+.rbscroll{width:min(calc(100vw - var(--gut,20px) - 20px),1100px,max(600px,calc(410px + var(--rbn,0)*105px)));overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
 .rbtbl{min-width:calc(410px + var(--rbn,0)*105px);width:100%;table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
@@ -2996,7 +2996,7 @@ function runningBenchmarks(){
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
       `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
-  return `<div class="rbscroll" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl" style="--rbn:${dates.length}"><thead><tr>`+
+  return `<div class="rbscroll" style="--rbn:${dates.length}" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl"><thead><tr>`+
     `<th class="rbname">Benchmark</th>${th}<th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
