@@ -1966,8 +1966,12 @@ function audit(j){
             if(typeof a.date!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(a.date))bad.push(`${tag}: attempt date must be YYYY-MM-DD`);
             else if(dates.has(a.date))bad.push(`${tag}: attempt date ${a.date} is duplicated`);else dates.add(a.date);
             if(typeof a.value!=='number'||!isFinite(a.value)||a.value<=0)bad.push(`${tag}: attempt value must be a positive number`);
-            ['method','conditions'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: attempt ${k} is required`);});
-            if(a.note!==undefined&&(typeof a.note!=='string'||!a.note.trim()))bad.push(`${tag}: attempt note must be a non-empty string`);
+            /* Optional since 2026-08-16, by the owner's call. The row's own `protocol` already states
+               how the test is run, so a per-attempt method only carries information when it DIFFERS
+               from that default — a borrowed dynamometer, a hand-timed sprint, a treadmill mile. A
+               field that reads 'phone GPS, road' on every row is noise. Still validated when given:
+               an empty string is a slip, not an omission. */
+            ['method','conditions','note'].forEach(k=>{if(a[k]!==undefined&&(typeof a[k]!=='string'||!a[k].trim()))bad.push(`${tag}: attempt ${k} must be a non-empty string when given`);});
           });}
           if(x.world!==undefined){const w=x.world;
             if(!w||typeof w!=='object')bad.push(`${tag}: world must be an object`);

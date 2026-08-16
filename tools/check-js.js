@@ -420,7 +420,9 @@ setTimeout(()=>{
     const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
-    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===4,count(H,'dtl rbval')+' values');
+    // Four synthetic attempts pushed above, plus the one real stored mile from 2026-08-16. This
+    // count tracks the DATA, so it moves whenever a real attempt is recorded — that is the point.
+    ok('attempt history is visible without expanding a row',count(H,'dtl rbval')===5,count(H,'dtl rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     ok('benchmark table has date-only headers and no summary columns',
       H.includes("Aug '26")&&H.includes("Sept '26")&&!H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
@@ -511,8 +513,13 @@ setTimeout(()=>{
   ok('audit rejects a stored personal best',audit(j21).length===1,audit(j21)[0]||'');
   const j22=JSON.parse(JSON.stringify(DATA)); delete j22.TRAINING.benchmarks.items[0].athletic.reviewed;
   ok('audit rejects an unreviewed active-peer band',audit(j22).length===1,audit(j22)[0]||'');
+  // method and conditions became optional on 2026-08-16 — the row's protocol carries the default and
+  // a per-attempt value only means something when it differs. What must still fail is a field that is
+  // PRESENT but blank, which is a slip rather than a deliberate omission.
   const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5,conditions:'Outdoor track'});
-  ok('audit rejects an attempt with no timing method',audit(j23).length===1,audit(j23)[0]||'');
+  ok('audit accepts an attempt with no timing method',audit(j23).length===0,audit(j23)[0]||'');
+  const j23b=JSON.parse(JSON.stringify(DATA)); j23b.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-02',value:13.5,method:'   '});
+  ok('audit rejects an attempt whose method is blank',audit(j23b).length===1,audit(j23b)[0]||'');
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;

@@ -1299,7 +1299,12 @@ window.BLOODWORK =
       "evidence": "moderate",
       "reviewed": "2026-08-09"
      },
-     "attempts": []
+     "attempts": [
+      {
+       "date": "2026-08-16",
+       "value": 366
+      }
+     ]
     },
     {
      "id": "run5k",

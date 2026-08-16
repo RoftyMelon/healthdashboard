@@ -280,7 +280,7 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   scanning; Optional starts collapsed, while deferred reasoning remains available only in the data file.
 - **`TRAINING.benchmarks` is a deliberate test history, not a workout log.** Its `items[]` hold
   the benchmark definition and `attempts[]` holds only intentional tests as
-  `{date, value, method, conditions, note?}`. The viewer derives the change and personal best;
+  `{date, value, method?, conditions?, note?}` — method and conditions are optional, since the row's `protocol` states the default and a per-attempt value only means something when it differs. The viewer derives the change and personal best;
   never store a separate PB or tier the tests into core/optional groups. Keep every attempt visible
   in the row and reveal the full trend chart underneath, like Markers. The table deliberately has
   no intro, descriptions, Latest column or Unit column; attempt headers are only `MMM 'YY`. Every
