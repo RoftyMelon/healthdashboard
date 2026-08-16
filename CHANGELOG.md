@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.7.0 · Schema 2 · 2026-08-16
 
+- Removed the explanatory intro under Performance benchmarks; each rung names its own percentile on the chart, so the sentence was repeating them.
 - Named the three derived rungs by their percentiles — `50th`, `75th`, `90th` — instead of Average, Good and Excellent, so a chart answers what a grade means without the reader going back to the intro.
 
 ## Viewer 1.6.0 · Schema 2 · 2026-08-16

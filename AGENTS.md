@@ -333,10 +333,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   cannot invent a fourth authority. `audit()` rejects a top rung that sits inside the target or on
   a row with no target. Each rung's legend key pairs to its own plotted line by `data-tier`, never
   by a class-name lookup table: rungs get renamed, and a table strands the key silently.
-  **No target carries its own `span`.** The P75–P90 meaning is stated ONCE, by the viewer's intro
-  line under the Performance benchmarks heading, so each target legend keeps its line for the
-  band's actual numbers. Nine identical "75th to 90th percentile" captions crowded those numbers
-  out. The world-record legend names only the athlete and year for the same reason — the chart
+  **No target carries its own `span`.** Each rung names its own percentile on the chart, so a
+  per-row caption would print the same words a fourth time. Nine identical "75th to 90th
+  percentile" captions crowded out the numbers they sat beside; the explanatory intro line that
+  replaced them was removed in turn once the rungs started naming themselves. The world-record legend names only the athlete and year for the same reason — the chart
   already plots the time. `audit()` and `check-js` both reject a per-row `span` coming back.
 - **`TRAINING.maylater` is the parked list, and it is deliberately NOT a card.** A card is a
   bounded set you act on; a list is one you are still reading — the same contrast the Stack and

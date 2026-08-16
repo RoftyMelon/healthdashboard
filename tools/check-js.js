@@ -428,10 +428,6 @@ setTimeout(()=>{
         !/(top quartile to P90|upper-quartile band|percentile)/.test(x.target.label)&&
         (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
       PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
-    ok('the grade ladder is explained once, above the benchmarks',
-      count(n.pages.innerHTML,'trsummary rbintro')===1&&
-      n.pages.innerHTML.includes("Percentiles are the cohort's own — sampled on some rows, interpolated or modelled on others"),
-      count(n.pages.innerHTML,'trsummary rbintro')+' intro lines');
     /* Average, Good and Excellent are DERIVED, so the only stored rung is the top one. Assert the
        derivation rather than the stored numbers: a grade that stopped tracking its own band would
        still render, and nothing else would notice. */
