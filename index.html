@@ -2865,8 +2865,22 @@ function rbSvg(x,dates){
   s+='</svg>';
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
-  const axis=[0,.5,1].map(q=>{const v=x.direction==='lower'?lo+q*(hi-lo):hi-q*(hi-lo);
-    return `<span style="top:${T+q*(B-T)}px">${esc(rbFmt(x,v))}</span>`;}).join('');
+  /* Label the values that MEAN something, not thirds of the drawing area. The old axis printed the
+     plot's own min, midpoint and max — numbers produced by the padding calculation, so 5:19 on a mile
+     chart was neither a percentile nor a target, just where the ruler happened to fall. The band
+     edges and the median are the only heights on this plot a reader can act on; the world record is
+     already named in the legend and would only crowd the top. Anything within 7% of a neighbour is
+     dropped so two labels never overprint. */
+  const ticks=[];
+  if(x.athletic){ticks.push(x.athletic.min,x.athletic.max);
+    if(x.athletic.median!==undefined)ticks.push(x.athletic.median);}
+  const kept=[];
+  ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
+    if(y<T-1||y>B+1)return;
+    if(kept.some(k=>Math.abs(Y(k)-y)<(B-T)*.07))return;
+    kept.push(v);});
+  const axis=(kept.length?kept:[lo,hi]).map(v=>
+    `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
   return `<div class="rbcy">${axis}</div>`+`<div class="rbcplot">${s}${dots}</div>`;
 }
 function rbLegend(x){
