@@ -3046,7 +3046,7 @@ function rbSvg(x,dates){
    ladder existing: with none rendered, the sentence would describe grades nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
-    ?`<div class="trsummary rbintro">Percentiles are the cohort's own; only the 5km and 10km rows sampled theirs, the rest are modelled and each chart's source says which. The top grade is a separate standard and names itself.</div>`:'';
+    ?`<div class="trsummary rbintro">Percentiles are the cohort's own — sampled on some rows, interpolated or modelled on others, and each chart's source says which. The top grade is a separate standard and names itself.</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
