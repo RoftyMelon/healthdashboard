@@ -1974,7 +1974,6 @@ window.BLOODWORK =
     "groups": [
      {
       "t": "Power",
-      "q": "Before everything else, fully rested",
       "items": [
        {
         "n": "Countermovement jump",
