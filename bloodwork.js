@@ -10,7 +10,7 @@
    ============================================================================ */
 window.BLOODWORK =
 {
- "schemaVersion": 1,
+ "schemaVersion": 2,
  "_readme": {
   "what": "Bloodwork + supplement data for one person. THE single source of truth. The dashboard reads this file; so should any AI. Editing this file is how you add a new draw.",
   "how_to_add_a_draw": "APPEND one object to DATA.draws. Do not touch anything else. Do not reorder. Do not delete.\n  {\"id\":\"d2026jul\", \"date\":\"YYYY-MM-DD\", \"note\":\"lab, fasted?, on/off what\",\n   \"v\":{ \"<markerId>\": {\"r\": <EXACTLY what the lab printed>, \"u\": \"<a same-scale label from marker units[]>\"} }}\nRULES, in order of how badly they bite:\n 1. NEVER rescale a value. Keep the exact number the lab printed; the dashboard handles real conversions.\n 2. \"u\" must be a same-scale unit LABEL from that marker units[] array (e.g. \"mg/L\", \"µmol/L\", \"G/L\").\n    Equivalent zero-rescaling notation may be normalized (case, U/L vs UI/L, µUI/mL vs mUI/L). If the numeric scale is not listed, STOP; an obvious report typo may use the correct label only with a cx that records it.\n 3. \"<markerId>\" must be an existing id in MARK. If the lab reports something not in MARK, STOP and\n    say so rather than inventing an id — an unknown id is silently ignored.\n 4. Return the WHOLE file. Never a fragment, never a diff.\n 5. \"a\" is OPTIONAL: the assay/technique EXACTLY as the report printed it, and NOTHING else — no\n    gloss, no interpretation. Its optional companion \"an\" carries what the technique MEANS for\n    reading the number (\"Explicitly ultra-sensitive per report; older report does not identify sensitivity\"), which is usually an\n    inference and must not be smuggled into \"a\". Same split as lr versus cut and target: transcription\n    and interpretation stay in separate fields. \"an\" without \"a\" is rejected by audit(). Use them\n    only on markers where\n    the method can move the number or void the range — calculated vs measured LDL, IDMS-traceable\n    creatinine, standard vs ultra-sensitive CRP, immunoassay vs LC-MS/MS or RIA hormones, IGF-1\n    platform, analyser-dependent MPV. Do NOT add it to markers the method cannot swing (sodium is\n    sodium), and NEVER copy it from a neighbouring draw: absent means UNRECORDED, not unchanged.\n    It exists because this file has already been misled four times by a value that moved when the\n    ASSAY changed and not the subject.\n 6. \"lt\": true marks a CENSORED result — the lab printed \"<x\" because the analyte fell below the\n    assay's detection limit. Store the LIMIT in r (r must be a number) and set lt; the panel then\n    renders \"<x\" instead of passing a bound off as a measurement. Do NOT invent a midpoint or a\n    zero: the only fact is that the true value lies somewhere in [0, x). If an upper bound crosses a high cutoff, the claim is unresolved and renders watch — never\n    confirmed abnormal — because the true value may still sit below it. Beware comparing two censored values\n    across draws — different assays have different limits, so 'Inf a 0,5' then '<0.6' is not a\n    rise, it is two bounds that cannot be ordered.\n 7. A marker carrying \"am\" has been judged assay-SENSITIVE: critical = the method can move the\n    number enough to break comparison between draws (free/total T, estradiol, DHT, LDL by\n    Friedewald, Lp(a), hs-CRP, creatinine, cystatin C, IGF-1, vitamin D, omega-3 index,\n    insulin, thyroid antibodies, PTH, prolactin, free T4/T3, trace elements, MPV, and SHBG +\n    albumin because calculated free T is built from them); useful = worth having if the marker\n    ever drives a decision. On those markers ALWAYS capture \"a\" from the report — the panel\n    names the draws that lack one. No \"am\" means the method cannot swing the number.\n 8. \"lr\" is the lab's OWN printed interval for that result: [lo, hi] in the SAME unit as u, with either end null where the report printed only one side (<5 is [null, 5]). Never invent the missing end. It is provenance, distinct from marker-level reference, cut and target claims. Record it wherever the report prints one. It is worth the bytes for two reasons: a printed interval fingerprints the assay (a distinctive interval can support assay identification, but March’s <5 mg/L alone could not distinguish standard from ultra-sensitive CRP; 8.7-25.0 pg/mL names a direct free-T RIA, the mismatch behind two wrong readings of the 2023 value), and an interval that CHANGES between draws is a method change even when no technique was printed.\n 9. \"cx\" is per-value CONTEXT: how to read THIS number in THIS draw — state at the time (on creatine, 2 days into a diet change) or what the lab did differently (substituted serum for the erythrocyte assay). NOT the same as \"an\": creatine is not an assay. It belongs on the markers it actually explains, never as a draw-wide sentence — the creatine caveat is about creatinine and eGFR and nothing else on that panel. WRITE IT IN FULL SENTENCES for a reader who does not already know the answer: \"ON CREATINE\" was the first draft and it is ambiguous between the supplement and the marker, which differ by two letters and both appear in the same note.\n 10. \"ak\" is what the printed \"a\" actually IS — a canonical key used ONLY for comparing draws, never displayed. It exists because \"a\" is a TRANSCRIPTION and labs transcribe the same method differently: one prints \"Formule de FRIEDEWALD\", another misspells it \"Formule de Friedwald\", a third writes bare \"ECLIA\" where the first named the analyser. Editing \"a\" to make those agree would falsify the record, so \"ak\" carries the equivalence instead. Set it ONLY when you are sure two differently-printed strings are the same assay. Leave it off whenever they might genuinely differ — an absent \"ak\" means \"compare what was printed\", which is the safe default. CKD-EPI deliberately has none: the 2009 and 2021 equations are both printed as \"CKD-EPI\" and are not the same calculation.\n 11. \"t\" on a VALUE overrides the draw's collection time, for a result folded in from a different day (the Dec 2020 zinc, drawn twelve days later and sent to a different laboratory). audit() requires a \"cx\" alongside it: a bare time override is a typo, not a fact.",
@@ -1211,12 +1211,10 @@ window.BLOODWORK =
     {
      "id": "run100",
      "name": "100 m",
-     "quality": "Speed",
      "kind": "time",
      "unit": "s",
      "direction": "lower",
      "precision": 2,
-     "protocol": "Outdoor track from a stationary start. Keep the timing method consistent; fully automatic timing is preferred.",
      "world": {
       "value": 9.58,
       "display": "9.58",
@@ -1242,12 +1240,10 @@ window.BLOODWORK =
     {
      "id": "run400",
      "name": "400 m",
-     "quality": "Speed endurance",
      "kind": "time",
      "unit": "s",
      "direction": "lower",
      "precision": 1,
-     "protocol": "One lap of an outdoor 400 m track from a stationary start. Keep the timing method consistent.",
      "world": {
       "value": 43.03,
       "display": "43.03",
@@ -1273,12 +1269,10 @@ window.BLOODWORK =
     {
      "id": "runmile",
      "name": "1 mile",
-     "quality": "Aerobic power",
      "kind": "time",
      "unit": "min:s",
      "direction": "lower",
      "precision": 0,
-     "protocol": "Outdoor track mile. Record 1609.344 m rather than substituting a 1600 m result, and keep the timing method consistent.",
      "world": {
       "value": 222.66,
       "display": "3:42.66",
@@ -1310,12 +1304,10 @@ window.BLOODWORK =
     {
      "id": "run5k",
      "name": "5 km",
-     "quality": "Running fitness",
      "kind": "time",
      "unit": "min:s",
      "direction": "lower",
      "precision": 0,
-     "protocol": "Flat, accurately measured road course. Avoid mixing road, track and treadmill attempts in one series.",
      "world": {
       "value": 769,
       "display": "12:49",
@@ -1342,12 +1334,10 @@ window.BLOODWORK =
     {
      "id": "run10k",
      "name": "10 km",
-     "quality": "Endurance",
      "kind": "time",
      "unit": "min:s",
      "direction": "lower",
      "precision": 0,
-     "protocol": "Flat, accurately measured road course. Avoid mixing road, track and treadmill attempts in one series.",
      "world": {
       "value": 1591,
       "display": "26:31",
@@ -1374,23 +1364,19 @@ window.BLOODWORK =
     {
      "id": "run20hr",
      "name": "20 min fixed pace",
-     "quality": "Aerobic efficiency",
      "kind": "heart-rate",
      "unit": "avg bpm",
      "direction": "lower",
      "precision": 0,
-     "protocol": "Choose speed, grade, surface and heart-rate device on the first test, then keep all four fixed. Record average heart rate for the full 20 minutes.",
      "attempts": []
     },
     {
      "id": "vo2max",
      "name": "Treadmill VO₂max",
-     "quality": "Measured cardiorespiratory fitness",
      "kind": "vo2",
      "unit": "mL/kg/min",
      "direction": "higher",
      "precision": 1,
-     "protocol": "Direct treadmill cardiopulmonary exercise test with respiratory gas analysis. Do not mix wearable estimates or cycle-ergometer results into this series.",
      "athletic": {
       "min": 51.6,
       "max": 59.2,
@@ -1418,12 +1404,10 @@ window.BLOODWORK =
     {
      "id": "vjump",
      "name": "Vertical jump",
-     "quality": "Lower-body power",
      "kind": "jump",
      "unit": "cm",
      "direction": "higher",
      "precision": 1,
-     "protocol": "Countermovement jump from standing, hands on hips, no step-in. Same measurement method every time — jump mat, force plate or a marked reach-and-touch — and never mix methods within the series, since reach-and-touch reads several centimetres higher than flight-time devices. Fresh, before lifting.",
      "athletic": {
       "min": 39,
       "max": 54,
@@ -1451,12 +1435,10 @@ window.BLOODWORK =
     {
      "id": "bjump",
      "name": "Standing broad jump",
-     "quality": "Horizontal power",
      "kind": "jump",
      "unit": "cm",
      "direction": "higher",
      "precision": 0,
-     "protocol": "Two-footed standing jump for distance, no run-up or step-in, measured from the take-off line to the rearmost heel on landing. The landing must be held — a stumble backwards is not the jump. Fresh, before lifting. Familiarise before the first recorded attempt: in adults the test-retest change was 29cm before a learning period and about 1cm after it (Adult-Fit, doi 10.1002/ejsc.12182), so an untrained first attempt is not a baseline.",
      "athletic": {
       "min": 191,
       "max": 241,
@@ -1472,12 +1454,10 @@ window.BLOODWORK =
     {
      "id": "grip",
      "name": "Grip strength",
-     "quality": "Maximal isometric strength",
      "kind": "strength",
      "unit": "kg",
      "direction": "higher",
      "precision": 1,
-     "protocol": "Jamar-style hand dynamometer at handle position 2, seated, shoulder adducted, elbow at 90 degrees, forearm neutral, no arm swing or body lean. Best of three attempts on the dominant hand, 30 seconds between attempts. Record the device — readings are not interchangeable between hydraulic and spring or strain-gauge dynamometers, so a change of instrument starts a new series.",
      "athletic": {
       "min": 45.4,
       "max": 56.6,
@@ -1504,7 +1484,8 @@ window.BLOODWORK =
     }
    ]
   },
-  "note": "• Pull-Push-Legs, repeated twice - Monday through Saturday.\n• Weights and reps are approximations.\n• Drop sets on most exercises\n• Single leg pogo hops between sets",
+  "note": "Pull–Push–Legs ×2 · Monday–Saturday · Drop sets · Single-leg pogo hops between sets",
+  "footnote": "Weights and reps are approximate.",
   "cards": [
    {
     "id": "pull",

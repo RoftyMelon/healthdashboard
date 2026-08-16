@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.2.0">
+<meta name="health-dashboard-viewer-version" content="1.3.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1125,6 +1125,9 @@ a.sbuy:hover{color:var(--info)}
 /* Running benchmark ledger. It borrows the Markers page's grammar — dated columns, an inline
    expansion and a full-width plot — without pretending everyday training is a lab draw. */
 .rbtitle{margin-top:20px}
+.restrtitle{margin-top:28px}
+.trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
+.trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
 .rbscroll{width:min(calc(100vw - var(--gut,20px) - 20px),1100px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
 .rbtbl{min-width:calc(410px + var(--rbn,0)*105px);width:100%;table-layout:fixed;border-collapse:separate;
@@ -1148,8 +1151,7 @@ a.sbuy:hover{color:var(--info)}
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/9px no-repeat;
   transform:translateY(-50%);transition:transform .18s,background .14s}
 .rbrow.op td.rbname::before{background:var(--sel);transform:translateY(-50%) rotate(90deg)}
-.rbval{display:inline-block;cursor:pointer;font-variant-numeric:tabular-nums;transition:text-shadow .12s,color .12s}
-.rbval:hover,.rbval.act{text-shadow:0 0 7px color-mix(in srgb,var(--sel) 65%,transparent)}
+.rbval{display:inline-block;font-variant-numeric:tabular-nums}
 .rbpb,.rbattempt.pb .rbval{color:var(--ok);font-weight:750}
 .rbnil{color:var(--t4)}
 .rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
@@ -1182,11 +1184,9 @@ a.sbuy:hover{color:var(--info)}
 .rbleg .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
 .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
-.rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
+.rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);
   background:var(--info);border:2px solid var(--bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--info) 55%,transparent)}
-.rbpt:hover,.rbpt.act{box-shadow:0 0 0 3px var(--t3)}
 .rbpt.rbpbpt{background:var(--ok);box-shadow:0 0 0 1px color-mix(in srgb,var(--ok) 60%,transparent)}
-.rbpt.rbpbpt:hover,.rbpt.rbpbpt.act{box-shadow:0 0 0 3px var(--t3)}
 /* MARGIN, not padding. The legend entries are absolutely positioned so they can sit beside the
    line they name, and an abspos child resolves left:0 against its ancestor's PADDING BOX — so
    padding-left on .rbcpad moved nothing. Margin sits outside the box and shifts the whole column. */
@@ -1212,7 +1212,6 @@ a.sbuy:hover{color:var(--info)}
 .rbsw{width:9px;height:9px;margin-top:3px;border-radius:2px}.rbsw.band{background:color-mix(in srgb,var(--ok) 32%,transparent)}
 .rbsw.wr{height:0;margin-top:7px;border-top:1.5px dashed var(--watch);border-radius:0}
 .rbonly{font-size:11.5px;line-height:1.45;color:var(--t2)}.rbonly span{color:var(--t4)}
-.rbpbl{color:var(--ok);font-weight:650;margin:1px 0 2px}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   .orbit-disc,.icon-moon,.icon-sun{transition:none!important}
@@ -1652,7 +1651,7 @@ async function flip(){
   try{if(window.storage)await window.storage.set(TKEY,S.theme);}catch(e){}
 }
 const VIEWER_VERSION='1.0.0';
-const SUPPORTED_SCHEMA_VERSION=1;
+const SUPPORTED_SCHEMA_VERSION=2;
 const DATA_SCOPE=(()=>{try{return (location.pathname||'/').replace(/\/index\.html$/i,'')||'/';}catch(e){return'local';}})();
 const DKEY='healthdashboard.data.v2:'+DATA_SCOPE;
 
@@ -1950,6 +1949,10 @@ function audit(j){
   if(j.TRAINING){
     if(j.TRAINING.cardio!==undefined&&typeof j.TRAINING.cardio!=='string')
       bad.push('TRAINING.cardio must be a string when present');
+    ['note','footnote'].forEach(k=>{
+      if(j.TRAINING[k]!==undefined&&(typeof j.TRAINING[k]!=='string'||!j.TRAINING[k].trim()))
+        bad.push(`TRAINING.${k} must be a non-empty string when present`);
+    });
     const b=j.TRAINING.benchmarks;
     if(b){
       if(b.age!==undefined&&(typeof b.age!=='number'||!isFinite(b.age)||b.age<18))bad.push('TRAINING benchmarks.age must be an adult numeric age');
@@ -1961,7 +1964,9 @@ function audit(j){
         b.items.forEach(x=>{
           const tag=`TRAINING benchmark "${x&&x.name||'?'}"`;
           if(!x||typeof x!=='object')return bad.push('TRAINING benchmark items must be objects');
-          ['id','name','quality','unit','protocol'].forEach(k=>{if(typeof x[k]!=='string'||!x[k].trim())bad.push(`${tag}: ${k} is required`);});
+          const itemFields=['id','name','kind','unit','direction','precision','world','athletic','target','attempts'];
+          Object.keys(x).forEach(k=>{if(!itemFields.includes(k))bad.push(`${tag}: unknown field "${k}"`);});
+          ['id','name','unit'].forEach(k=>{if(typeof x[k]!=='string'||!x[k].trim())bad.push(`${tag}: ${k} is required`);});
           if(bids.has(x.id))bad.push(`${tag}: id "${x.id}" is duplicated`);else bids.add(x.id);
           if(!kinds.includes(x.kind))bad.push(`${tag}: kind must be ${kinds.join('/')}`);
           if(!['lower','higher'].includes(x.direction))bad.push(`${tag}: direction must be lower/higher`);
@@ -1970,15 +1975,10 @@ function audit(j){
           if(!Array.isArray(x.attempts))bad.push(`${tag}: attempts must be an array (empty is fine)`);
           else{const dates=new Set();x.attempts.forEach(a=>{
             if(!a||typeof a!=='object')return bad.push(`${tag}: attempts must be objects`);
+            Object.keys(a).forEach(k=>{if(!['date','value'].includes(k))bad.push(`${tag}: attempt has unknown field "${k}"`);});
             if(typeof a.date!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(a.date))bad.push(`${tag}: attempt date must be YYYY-MM-DD`);
             else if(dates.has(a.date))bad.push(`${tag}: attempt date ${a.date} is duplicated`);else dates.add(a.date);
             if(typeof a.value!=='number'||!isFinite(a.value)||a.value<=0)bad.push(`${tag}: attempt value must be a positive number`);
-            /* Optional since 2026-08-16, by the owner's call. The row's own `protocol` already states
-               how the test is run, so a per-attempt method only carries information when it DIFFERS
-               from that default — a borrowed dynamometer, a hand-timed sprint, a treadmill mile. A
-               field that reads 'phone GPS, road' on every row is noise. Still validated when given:
-               an empty string is a slip, not an omission. */
-            ['method','conditions','note'].forEach(k=>{if(a[k]!==undefined&&(typeof a[k]!=='string'||!a[k].trim()))bad.push(`${tag}: attempt ${k} must be a non-empty string when given`);});
           });}
           if(x.world!==undefined){const w=x.world;
             if(!w||typeof w!=='object')bad.push(`${tag}: world must be an object`);
@@ -2526,31 +2526,17 @@ function ptHTML(m,d){
   if(e.cx)h+=`<span class="pk">Context</span><div>${esc(e.cx)}</div>`;
   return h;
 }
-function rbPtHTML(x,a){
-  if(!x||!a)return '';
-  let h=`<b>${esc(rbFmt(x,a.value))} <span class="pt2">&middot; ${esc(rbDate(a.date))}</span></b>`;
-  if(rbIsPB(x,a.value))h+=`<div class="rbpbl">Personal best</div>`;
-  h+=`<span class="pk">Test</span><div>${esc(a.method)}</div><div class="pq">${esc(a.conditions)}</div>`;
-  if(a.note)h+=`<span class="pk">Context</span><div>${esc(a.note)}</div>`;
-  return h;
-}
 const PTIP=document.getElementById('ptip');
 /* Hover opens it where a pointer exists; tap opens it everywhere. Gated on (hover:hover) so a
    touch device never arms mouse handlers that fire spuriously after a tap. */
 const HOVERS=!!(window.matchMedia&&window.matchMedia('(hover:hover)').matches);
 let ptT=null;
-const ptKey=el=>el.dataset.rb?`r:${el.dataset.rb}:${el.dataset.dt}`:`m:${el.dataset.mk}:${el.dataset.dt}`;
+const ptKey=el=>`m:${el.dataset.mk}:${el.dataset.dt}`;
 function showPt(el){
   const k=ptKey(el);
   if(PTIP.classList.contains('on')&&PTIP.dataset.k===k&&PTIP._anchor===el)return;   // mouseover repeats per move
-  let html='';
-  if(el.dataset.rb){
-    const x=((((TRAINING||{}).benchmarks||{}).items)||[]).find(z=>z.id===el.dataset.rb);
-    const a=x&&rbAttempts(x).find(z=>z.date===el.dataset.dt);html=x&&a?rbPtHTML(x,a):'';
-  }else{
-    const m=MARK.find(x=>x.id===el.dataset.mk),d=chron().find(x=>x.date===el.dataset.dt);
-    html=m&&d?ptHTML(m,d):'';
-  }
+  const m=MARK.find(x=>x.id===el.dataset.mk),d=chron().find(x=>x.date===el.dataset.dt);
+  const html=m&&d?ptHTML(m,d):'';
   if(!html){closePt();return;}
   document.querySelectorAll('.dtl.act').forEach(x=>x.classList.remove('act'));
   el.classList.add('act');
@@ -2836,7 +2822,8 @@ const tipSecs=s=>{
   return secs.map(([k,v])=>tipSec(k,v)).join('');
 };
 
-// RUNNING BENCHMARKS — the data stores deliberate attempts; every summary below is derived.
+// PERFORMANCE BENCHMARKS — each deliberate attempt stores only its date and result; every
+// summary below, including personal best, is derived.
 // Seconds are canonical for timed events so sorting, PBs and comparison bands never depend on a
 // display string. The formatter is the only place that turns them back into a race-clock value.
 const rbAttempts=x=>[...(x.attempts||[])].sort((a,b)=>a.date.localeCompare(b.date));
@@ -2874,7 +2861,7 @@ function rbTrend(x){
 function rbValue(x,a,extra=''){
   if(!a)return '<span class="rbnil">—</span>';
   const pb=rbIsPB(x,a.value);
-  return `<span class="dtl rbval${pb?' rbpb':''}${extra}" data-rb="${esc(x.id)}" data-dt="${esc(a.date)}">${esc(rbFmt(x,a.value))}</span>`;
+  return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
 function rbSvg(x,dates){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value);
@@ -2897,7 +2884,7 @@ function rbSvg(x,dates){
     if(x.athletic.median!==undefined){const ym=Y(x.athletic.median);s+=`<line class="rbmed" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>`;}}
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
-  a.forEach(z=>{dots+=`<span class="dtl rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" data-rb="${esc(x.id)}" data-dt="${esc(z.date)}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
+  a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
   s+='</svg>';
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
@@ -3355,11 +3342,10 @@ function renderPage(p){
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
-      `<div class="pgst">Resistance</div>`+
-      // \n -> <br>, the same as the marker note at det(): this one is written as separate lines
-      // and esc() alone would run them into a single paragraph
-      (TRAINING.note?`<div class="cnote lead">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
-      cardRow(TRAINING.cards);
+      `<div class="pgst restrtitle">Resistance</div>`+
+      (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note)}</div>`:'')+
+      cardRow(TRAINING.cards)+
+      (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'');
   } else if(p==='diet'&&DIET){
     const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
