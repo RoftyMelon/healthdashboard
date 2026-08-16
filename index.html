@@ -2911,7 +2911,7 @@ function rbDetail(x,dates,colspan){
   if(!rbAttempts(x).length&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
-    `${rbSvg(x,dates)}<div class="rbcpad">${rbLegend(x)}</div></div></td></tr>`;
+    `<div class="rbcpad">${rbLegend(x)}</div>${rbSvg(x,dates)}</div></td></tr>`;
 }
 let openRb=null;
 /* The plot must occupy EXACTLY the span of the date columns above it, because rbSvg places an
@@ -2934,7 +2934,12 @@ function fitRbChart(){
     // The whole offset goes on the GUTTER, not the plot: the labels have to sit against the axis
     // they name. Pushing the plot right instead left them stranded at the card edge with a wide
     // empty gap between a number and its own gridline.
-    if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    /* Two passes, because the legend now sits BEFORE the gutter: a margin computed from the row's
+       left edge would double-count whatever precedes it. Zero the margin, read where the gutter
+       actually lands, then shift it by the difference. Order-independent. */
+    if(gut){gut.style.marginLeft='0px';
+      const cur=gut.getBoundingClientRect().left;
+      gut.style.marginLeft=Math.max(0,(left-g)-cur)+'px';}
     plot.style.marginLeft='0px';
   });
 }
