@@ -1132,6 +1132,8 @@ a.sbuy:hover{color:var(--info)}
 .rbtitle{margin-top:20px;margin-bottom:8px}
 .restrtitle{margin-top:28px}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
+/* .rbtitle already spends 8px below itself, so the caption drops its own top padding. */
+.trsummary.rbintro{padding-top:0;margin-bottom:14px;font-size:14px;color:var(--t3)}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
 .rbscroll{width:calc(411px + var(--rbn,0)*105px);max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
@@ -1247,8 +1249,11 @@ a.sbuy:hover{color:var(--info)}
 /* The dots ride in their own layer so the plot can run wider than the date columns; fitRbChart
    pulls this back onto them. */
 .rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
-.rbcohline{padding:4px 0 2px;font-size:11.5px;color:var(--t3)}
-.rbcohline .rbcohort{font-size:12px;color:var(--txt);font-weight:650}
+/* Sits at the foot of the names column, under the lowest rung. Absolute like the rungs, but
+   anchored to the bottom rather than to a line — it names no line of its own. */
+.rbcohline{position:absolute;left:12px;right:0;bottom:0;font-size:11px;color:var(--t4);
+  border-top:.5px solid var(--line2);padding-top:5px}
+.rbcohline .rbcohort{font-size:11px;color:var(--t3);font-weight:600}
 .rbleg b.rbtlab{font-weight:600}
 .rbleg b.rbtlab-avg{color:var(--t3)}
 .rbleg b.rbtlab-good{color:var(--t2)}
@@ -3034,9 +3039,20 @@ function rbSvg(x,dates){
      own dotted rung. Outside, each name owns its own horizontal space and only has to avoid the
      other names. The dots keep their own layer because the plot still runs wider than the date
      columns, and a dot's `left` is a percentage of its parent. */
+  /* The cohort caption closes the names column rather than heading the chart. It qualifies the
+     three percentile rungs and nothing else — the record and the entry standard come from
+     elsewhere — so it belongs beside them, under the lowest one. Above the chart it floated at
+     the card's left edge, aligned to nothing and competing with the row title. */
   return `<div class="rbcy">${axis}</div>`+
     `<div class="rbcplot">${s}<div class="rbcdots">${dots}</div></div>`+
-    `<div class="rbclab">${labels}</div>`;
+    `<div class="rbclab">${labels}${rbCohortLine(x)}</div>`;
+}
+/* Two lines, the owner's own words. Gated on a ladder existing: with none rendered they would
+   describe rungs nothing uses. */
+function rbIntro(){
+  return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
+    ?`<div class="trsummary rbintro">World record and Olympic entry standard to stay humble`+
+     `<br>Percentiles are calculated or modeled from the specified cohort</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
@@ -3074,7 +3090,7 @@ function rbCohortLine(x){
 function rbDetail(x,dates,colspan){
   if(!rbAttempts(x).length&&!x.target&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
-  return `<tr class="rbdet"><td colspan="${colspan}">${rbCohortLine(x)}<div class="rbchart">`+
+  return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
     `${rbSvg(x,dates)}</div></td></tr>`;
 }
 let openRb=null;
@@ -3494,7 +3510,7 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+runningBenchmarks():'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
