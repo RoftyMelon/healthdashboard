@@ -1620,7 +1620,6 @@ window.BLOODWORK =
   "footnote": "Weights and reps are approximate.",
   "maylater": {
    "t": "May add later",
-   "note": "Parked on time, not on merit. Cardio and lifting already carry the longevity case; each of these adds a quality the current week trains only indirectly.",
    "items": [
     {
      "n": "Basketball",
