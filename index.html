@@ -2968,10 +2968,10 @@ const RB_TIER_TOP=['Olympic entry standard','World class','NFL'];
 function rbTiers(x){
   if(!x)return [];
   const out=[],lower=x.direction==='lower',med=x.athletic&&x.athletic.median;
-  if(med!==undefined&&med!==null)out.push({k:'avg',t:'50th percentile',v:med});
+  if(med!==undefined&&med!==null)out.push({k:'avg',t:'Top 50%',v:med});
   if(x.target){
-    out.push({k:'good',t:'75th percentile',v:lower?x.target.max:x.target.min});
-    out.push({k:'exc',t:'90th percentile',v:lower?x.target.min:x.target.max});
+    out.push({k:'good',t:'Top 25%',v:lower?x.target.max:x.target.min});
+    out.push({k:'exc',t:'Top 10%',v:lower?x.target.min:x.target.max});
   }
   if(x.elite)out.push({k:'top',t:x.elite.label,v:x.elite.value,src:x.elite.source});
   return out;

@@ -315,17 +315,19 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   measured, and must name the timing convention: fully automatic timing reads ~0.24s slower than
   hand timing, which is larger than the gap between two of these rungs. Sprints display one
   decimal, because a tenth is the finest a hand-timed sprint can honestly claim.
-  **Grades, not bands.** The chart draws a named ladder — `50th` / `75th` / `90th percentile` plus one
+  **Grades, not bands.** The chart draws a named ladder — `Top 50%` / `Top 25%` / `Top 10%` plus one
   top rung — as four labelled lines, because a shaded band said "anywhere in here is the same
   thing" when it was really a span between two percentiles, and left the reader to decode its own
-  edges. The bottom rung is `50th percentile`, NOT `Median`: VO₂max and the broad jump store a published
-  MEAN (55.4 ± 5.7, 220.7 ± 19.2), and both sprints store a midpoint assigned off a practitioner
-  ladder, so none of those three is a median. Percentile wording survives that, because each row's
-  P75 and P90 rest on the very same normal assumption or ladder mapping the midpoint does — if P75
-  stands on a row, P50 stands on it identically. Naming a specific statistic does not.
-  Only the 5km and 10km rows sampled their percentiles; every other basis says which it is.
-  The first three are DERIVED at render time (`50th` = `athletic.median`, `75th` and
-  `90th` = the two `target` edges) and must never be stored: four more numbers beside the
+  edges. `Top X%`, not `Median` and not a bare percentile number. Not `Median`, because VO₂max and
+  the broad jump store a published MEAN (55.4 ± 5.7, 220.7 ± 19.2) and both sprints store a midpoint
+  assigned off a practitioner ladder, so none of those three is a median — and `Top 50%` survives
+  that, since P75 and P90 rest on the very same normal assumption or ladder mapping the midpoint
+  does. Not `90th percentile`, because DIRECTION flips across the table: on every timed row lower is
+  better, so that rung marks the FAST edge, which is the opposite of what the 90th percentile of a
+  time distribution means. `Top` reads correctly whichever way the number runs, and needs no intro
+  line to decode it. Only the 5km and 10km rows sampled their percentiles; every other basis says
+  which it is. The first three are DERIVED at render time (`Top 50%` = `athletic.median`, `Top 25%`
+  and `Top 10%` = the two `target` edges) and must never be stored: four more numbers beside the
   band they come from is exactly how a grade and its band drift apart. Only the top rung is data,
   in `elite: {label, value, basis, source, evidence, reviewed}`, because it is a different claim
   from a different body. `label` is a closed set — `Olympic entry standard`, `World class`
