@@ -408,7 +408,7 @@ setTimeout(()=>{
        Q.athletic.min===66&&Q.athletic.max===86&&Q.athletic.median===75&&
        Q.target.min===59&&Q.target.max===66&&
        [H,Q].every(x=>x.athletic.evidence==='weak'&&x.target.evidence==='weak'&&
-         x.athletic.label==='Fit men, 20–40'&&x.target.label==='Fit men 20–40'&&
+         x.athletic.label==='Recreational runners, 18–39'&&x.target.label==='Recreational runners 18–39'&&
          !/ijmess|PE students/i.test(x.athletic.source+x.athletic.basis+x.target.basis))&&
        // the multiplier must fall as the athlete gets faster, never rise
        ratio(Q.athletic.max,H.athletic.max)>ratio(Q.athletic.median,H.athletic.median)&&
@@ -497,7 +497,7 @@ setTimeout(()=>{
     const rungs=d=>(d.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length;
     ok('untested benchmark rows still draw their full grade ladder',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Fit men 20–40')&&rungs(ED)===4&&
+      ED.includes('Recreational runners 18–39')&&rungs(ED)===4&&
       !ED.includes('top quartile to P90')&&ED.includes('World record'));
     ok('the shaded band is gone from every graded row',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);

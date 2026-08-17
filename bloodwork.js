@@ -1231,8 +1231,8 @@ window.BLOODWORK =
       "median": 13.5,
       "span": "P25–P75",
       "heading": "Active men range",
-      "label": "Fit men, 20–40",
-      "basis": "Approximate middle 50% for regularly training men aged 20–40, hand-timed from a standing start. Positioned against two practitioner benchmark ladders rather than a sampled distribution: Marathon Handbook places men 18–39 at 14.0s beginner, 13.0s novice and 12.0s intermediate recreational, and those rungs assume sprint-specific training, so a fit man who does not sprint sits at or behind the beginner rung. The median of 13.5s falls between beginner and novice; the 12.6s upper edge falls between novice and intermediate. These are rules of thumb mapped onto percentiles, not measured percentiles, so only large gaps are interpretable. Fully automatic timing reads about 0.24s slower than hand timing, and blocks are worth roughly 0.2–0.3s over a standing start.",
+      "label": "Recreational runners, 18–39",
+      "basis": "Approximate middle 50% for recreational runners aged 18–39, hand-timed from a standing start. Positioned against Marathon Handbook's benchmark ladder rather than a sampled distribution: 14.0s beginner, 13.0s novice, 12.0s intermediate recreational. Every rung there is defined by RUNNING BACKGROUND, not by a time - beginner is new to structured running with a fitness base, novice runs casually with a few races behind them, intermediate has joined a club or hired a coach. The tiers are described in terms of middle-distance running even in a 100m table, so a club 1500m runner and a sprinter share a rung. The 13.5s median falls between beginner and novice; the 12.6s upper edge between novice and intermediate. The article publishes NO proportion for any tier, so these percentile positions are mapped rather than measured and only large gaps are interpretable. Its table rests on coach consensus, race results and IAAF scoring tables; its own citations cover records, not populations. Fully automatic timing reads about 0.24s slower than hand timing, and blocks are worth roughly 0.2-0.3s over a standing start.",
       "source": "https://marathonhandbook.com/average-100-meter-time/",
       "evidence": "weak",
       "reviewed": "2026-08-16"
@@ -1240,8 +1240,8 @@ window.BLOODWORK =
      "target": {
       "min": 11.9,
       "max": 12.6,
-      "label": "Fit men 20–40",
-      "basis": "Approximate P75–P90 band for the same fit men aged 20–40, hand-timed from a standing start. The 11.9s upper edge sits at Marathon Handbook's intermediate-recreational rung for men 18–39, which is where the fastest tenth of fit non-specialists lands. Inferred from practitioner ladders rather than a sampled distribution, so the band marks a region rather than a cut point.",
+      "label": "Recreational runners 18–39",
+      "basis": "Approximate P75-P90 band for the same recreational runners aged 18-39, hand-timed from a standing start. The 11.9s upper edge sits at Marathon Handbook's intermediate-recreational rung, which it defines as a runner who has joined a club or hired a coach. Inferred from a practitioner ladder that publishes no proportions, so the band marks a region rather than a cut point.",
       "source": "https://marathonhandbook.com/average-100-meter-time/",
       "evidence": "weak",
       "reviewed": "2026-08-16"
@@ -1279,8 +1279,8 @@ window.BLOODWORK =
       "median": 75,
       "span": "P25–P75",
       "heading": "Active men range",
-      "label": "Fit men, 20–40",
-      "basis": "Approximate middle 50% for regularly training men aged 20–40. Positioned against a practitioner benchmark ladder rather than a sampled distribution: Fitness Volt places men 30–39 at 1:10–1:34 recreational and 0:55–1:09 trained, and notes that generally active adults land between 75 and 120s. The median of 75s sits at the fast end of recreational, since fit here means regularly training rather than merely active; the 66s upper edge sits inside trained. These are rules of thumb mapped onto percentiles, not measured percentiles. The band stays consistent with the 100m row: dividing each 400m time by four gives 1.24 to 1.39 times the matching 100m time, and that multiplier correctly shrinks as ability rises.",
+      "label": "Recreational runners, 18–39",
+      "basis": "Approximate middle 50% for recreational runners aged 18-39. Positioned against Fitness Volt's benchmark ladder rather than a sampled distribution: 1:10-1:34 recreational and 0:55-1:09 trained for men 30-39, with generally active adults put at 75-120s. The article states outright that its tiers are practical performance ranges, NOT population averages, so the percentile positions here are mapped rather than measured. The 75s median sits at the fast end of recreational; the 66s upper edge inside trained. The band stays consistent with the 100m row: dividing each 400m time by four gives 1.24 to 1.39 times the matching 100m time, and that multiplier correctly shrinks as ability rises.",
       "source": "https://fitnessvolt.com/average-400m-time-by-age/",
       "evidence": "weak",
       "reviewed": "2026-08-16"
@@ -1288,8 +1288,8 @@ window.BLOODWORK =
      "target": {
       "min": 59,
       "max": 66,
-      "label": "Fit men 20–40",
-      "basis": "Approximate P75–P90 band for the same fit men aged 20–40. Both edges sit inside Fitness Volt's trained rung for men 30–39 (0:55–1:09), which is where the fastest quarter of regularly training non-specialists lands. Inferred from a practitioner ladder rather than a sampled distribution, so the band marks a region rather than a cut point.",
+      "label": "Recreational runners 18–39",
+      "basis": "Approximate P75-P90 band for the same recreational runners aged 18-39. Both edges sit inside Fitness Volt's trained rung for men 30-39 (0:55-1:09). Inferred from a practitioner ladder that publishes no proportions and describes its own tiers as performance ranges rather than population averages, so the band marks a region rather than a cut point.",
       "source": "https://fitnessvolt.com/average-400m-time-by-age/",
       "evidence": "weak",
       "reviewed": "2026-08-16"
