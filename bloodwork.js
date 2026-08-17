@@ -1475,7 +1475,7 @@ window.BLOODWORK =
       "median": 55.4,
       "span": "P25–P75",
       "heading": "Recreational runners range",
-      "label": "Male recreational runners, 30–39",
+      "label": "Recreational runners, 30–39",
       "basis": "Middle 50% of 94 male recreational runners aged 30-39, converted from the published mean and SD of 55.4 +/- 5.7mL/kg/min by assuming a normal distribution, so the quartiles sit at mean +/- 0.674 SD. Each runner had at least three years of regular training; beginners and high-performance club runners were excluded. VO2max was measured by graded treadmill test at 5% incline with open-system respiratory gas analysis and plateau plus effort criteria. The normality assumption is the one step added beyond the source.",
       "source": "https://doi.org/10.3390/app12073252",
       "evidence": "moderate",
@@ -1484,7 +1484,7 @@ window.BLOODWORK =
      "target": {
       "min": 59.2,
       "max": 62.7,
-      "label": "Male recreational runners 30–39",
+      "label": "Recreational runners 30–39",
       "basis": "The 75th to 90th percentile of 94 male recreational runners aged 30-39, derived from the published mean and SD of 55.4 +/- 5.7mL/kg/min under the same normal-distribution assumption used for the peer band, so P90 sits at mean + 1.282 SD. The cohort already trains regularly, so this is the top of a trained group rather than of the general population.",
       "source": "https://doi.org/10.3390/app12073252",
       "evidence": "weak",

@@ -382,7 +382,7 @@ setTimeout(()=>{
     const V=BI.find(x=>x.kind==='vo2');
     ok('VO2max uses the measured recreational-runner band and no world-record line',
       V.athletic.min===51.6&&V.athletic.max===59.2&&V.athletic.evidence==='moderate'&&
-      V.athletic.label==='Male recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
+      V.athletic.label==='Recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
     const J=BI.find(x=>x.id==='vjump'),B=BI.find(x=>x.id==='bjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
     ok('vertical jump uses corrected official Canadian percentiles',
@@ -513,7 +513,7 @@ setTimeout(()=>{
       !BD.includes('P25–P75'));
     ok('VO2max keeps its cohort name above the ladder',
       !VD.includes('Recreational runners range')&&
-      VD.includes('Male recreational runners 30–39')&&rungs(VD)===4);
+      VD.includes('Recreational runners 30–39')&&rungs(VD)===4);
     ok('performance chart scale spans Average through the top rung',
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD)&&
       />85<\/span>/.test(VD));
