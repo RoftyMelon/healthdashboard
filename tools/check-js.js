@@ -506,10 +506,10 @@ setTimeout(()=>{
       rungs(MD)===4&&MD.includes('4:58')&&MD.includes('5:22')&&MD.includes('>4:00<')&&
       !MD.includes('P25–P75'));
     ok('broad jump plots four rungs and labels its own',
-      rungs(BD)===4&&BD.includes("234")&&BD.includes("245")&&BD.includes(">"+rbFmt(B,B.elite.value)+"cm")&&
-      />221cm<i class="rbcyin">86.9in<\/i>/.test(BD)&&
+      rungs(BD)===4&&BD.includes("234")&&BD.includes("245")&&BD.includes(">"+rbFmt(B,B.elite.value)+"/")&&
+      />221\/86.9</.test(BD)&&
       // the NFL rung round-trips to exactly the 130-inch combine mark it came from
-      BD.includes(">330cm<i class=\"rbcyin\">130.0in</i>")&&
+      BD.includes(">330/130<")&&BD.includes(">cm/in<")&&
       !BD.includes('P25–P75'));
     ok('VO2max keeps its cohort name above the ladder',
       !VD.includes('Recreational runners range')&&
