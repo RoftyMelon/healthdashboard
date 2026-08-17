@@ -3119,18 +3119,18 @@ function fitRbChart(){
     const dotsEl=plot.querySelector('.rbcdots');
     if(dotsEl){dotsEl.style.left='0px';dotsEl.style.width='100%';}
     /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
-       track event — so names still need spreading. Centre each on its line, then walk downward
-       pushing any that would touch the one above. The column has its own width now, so a long
-       record name wraps instead of being clamped against the plot's edge. */
+       track event — so names still need spreading. Walk UPWARD from the lowest, so the label that
+       gives up its line is always the topmost one. The record is the rung you never reach and the
+       one whose exact height matters least; every rung below it keeps its own line. */
     const labWrap=c.querySelector('.rbclab');
     if(labWrap){
       const labs=[...labWrap.querySelectorAll('.rbclabi')]
-        .map(l=>({l,y:parseFloat(l.getAttribute('data-y'))})).filter(o=>isFinite(o.y)).sort((a,b)=>a.y-b.y);
-      let floor=0;
+        .map(l=>({l,y:parseFloat(l.getAttribute('data-y'))})).filter(o=>isFinite(o.y)).sort((a,b)=>b.y-a.y);
+      let ceil=Infinity;
       labs.forEach(({l,y})=>{
-        const h=l.offsetHeight,top=Math.max(floor,y-h/2);
+        const h=l.offsetHeight,top=Math.max(0,Math.min(y-h/2,ceil-h-3));
         l.style.top=top+'px';
-        floor=top+h+3;
+        ceil=top;
       });
     }
   });
