@@ -1616,7 +1616,7 @@ window.BLOODWORK =
     }
    ]
   },
-  "note": "Pull–Push–Legs ×2 · Monday–Saturday · Drop sets · Single-leg pogo hops between sets",
+  "note": "• Monday–Saturday · Pull–Push–Legs ×2\n• Drop sets on most exercises\n• Single-leg pogo hops between sets when you can",
   "footnote": "Weights and reps are approximate.",
   "maylater": {
    "t": "May add later",
