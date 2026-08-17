@@ -3547,7 +3547,8 @@ function renderPage(p){
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
       `<div class="pgst restrtitle">Resistance</div>`+
-      (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note)}</div>`:'')+
+      // newlines are LOAD-BEARING: the note is a bullet list, and esc() alone collapses it to one run-on line
+      (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards)+
       (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'')+
       trParked();
