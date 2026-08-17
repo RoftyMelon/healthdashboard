@@ -1529,9 +1529,9 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "NFL",
+      "label": "NFL Combine elite",
       "value": 101.6,
-      "basis": "Forty inches, the recognised elite mark at the NFL Scouting Combine. The combine record is 46 inches (116.8cm). Combine jumps are reach-and-touch against a Vertec, which reads several centimetres LOWER than the flight-time jump mat behind this row's own band — so the gap to this tier is wider than the numbers suggest.",
+      "basis": "Forty inches, a standout vertical among NFL draft prospects. The Combine is invite-only, so this is not a qualifying bar the way an Olympic entry standard is: it sits near the top of an already-selected group. Combine averages run about 32-33 inches across positions and the record is 46 inches (116.8cm). Combine jumps are reach-and-touch against a Vertec, which reads several centimetres LOWER than the flight-time jump mat behind this row's own percentiles - so the real gap to this rung is wider than the numbers suggest.",
       "source": "https://www.nfl.com/combine/tracker",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
@@ -1567,9 +1567,9 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "NFL",
+      "label": "NFL Combine elite",
       "value": 330.2,
-      "basis": "One hundred and thirty inches, the recognised elite mark at the NFL Scouting Combine. The combine record is 147 inches (373.4cm), set by Byron Jones in 2015.",
+      "basis": "One hundred and thirty inches, a standout broad jump among NFL draft prospects. The Combine is invite-only, so this is not a qualifying bar the way an Olympic entry standard is: it sits near the top of an already-selected group. The record is 147 inches (373.4cm), set by Byron Jones in 2015.",
       "source": "https://www.nfl.com/combine/tracker",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
