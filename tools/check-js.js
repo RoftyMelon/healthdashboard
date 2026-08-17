@@ -365,18 +365,18 @@ setTimeout(()=>{
        near(M.target.max,K5.target.max/F)&&
        M.athletic.evidence==='weak'&&M.target.evidence==='weak'&&
        M.athletic.source===K5.athletic.source&&
-       M.athletic.label==='Trained runners, 19–39'&&
+       M.athletic.label==='Recreational runners, 19–39'&&
        /MODELLED, not measured/.test(M.athletic.basis)&&
        /Riegel/.test(M.athletic.basis),
        `${M.athletic.median} vs ${(K5.athletic.median/F).toFixed(1)}`);}
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&K5.athletic.median===1198&&
-      K5.athletic.label==='Trained runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
-      K5.target.min===992&&K5.target.max===1070&&K5.target.label==='Trained runners 19–39'&&
+      K5.athletic.label==='Recreational runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
+      K5.target.min===992&&K5.target.max===1070&&K5.target.label==='Recreational runners 19–39'&&
       K10.athletic.min===2290&&K10.athletic.max===3000&&K10.athletic.median===2628.5&&
-      K10.athletic.label==='Trained runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39')&&
-      K10.target.min===2090&&K10.target.max===2290&&K10.target.label==='Trained runners 19–39');
+      K10.athletic.label==='Recreational runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39')&&
+      K10.target.min===2090&&K10.target.max===2290&&K10.target.label==='Recreational runners 19–39');
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
@@ -570,7 +570,7 @@ setTimeout(()=>{
       !VD.includes('Source ↗')&&!VD.includes('class="rblinks"'));
     ok('5K cohort arrow keeps the requested primary-study URL and accessible label',
       K5D.includes('class="rbsource" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/"')&&
-      K5D.includes('aria-label="Source for Trained runners 19–39"'));
+      K5D.includes('aria-label="Source for Recreational runners 19–39"'));
     ok('the world record draws one line and names itself beside it',
       (ED.match(/<line class="rbwr"/g)||[]).length===1&&!ED.includes('class="rbsw wr"')&&
       /<span class="rbclabi rbclab-wr"/.test(ED)&&
