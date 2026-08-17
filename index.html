@@ -1172,9 +1172,14 @@ a.sbuy:hover{color:var(--info)}
 /* The plot used to sit flush against the card edge, so it read as cut off and there was nowhere
    to hang a scale. This is the markers chart's .cy gutter, same job: a fixed column the labels
    live in, positioned against the plot's own height so a label lines up with the value it names. */
-.rbcy{flex:none;width:52px;position:relative;height:236px;color:var(--t3);font-size:11px;
+.rbcy{flex:none;width:62px;position:relative;height:236px;color:var(--t3);font-size:11px;
   font-variant-numeric:tabular-nums}
-.rbcy span{position:absolute;right:8px;transform:translateY(-50%);white-space:nowrap}
+.rbcy span{position:absolute;right:8px;transform:translateY(-50%);white-space:nowrap;text-align:right}
+/* The inch conversion sits under its own tick, quieter than the primary unit. */
+.rbcy .rbcyin{display:block;font-style:normal;font-size:9.5px;color:var(--t4);line-height:1.15}
+/* A long unit is captioned once at the top of the gutter instead of on every tick. */
+.rbcy .rbcyu{position:absolute;top:0;right:8px;font-size:9.5px;font-weight:600;color:var(--t4);
+  letter-spacing:.01em;white-space:nowrap}
 .rbcplot{position:relative;flex:1;min-width:0;height:236px;overflow:hidden;border-left:.5px solid var(--line);
   border-right:.5px solid var(--line)}
 .rbcplot svg{position:absolute;inset:0;width:100%;height:236px;overflow:hidden}
@@ -3037,8 +3042,16 @@ function rbSvg(x,dates){
     if(y<T-1||y>B+1)return;
     if(kept.some(k=>Math.abs(Y(k)-y)<(B-T)*.07))return;
     kept.push(v);});
+  /* Units on the axis. A short one rides on every tick; a long one (mL/kg/min, avg bpm) would
+     triple the gutter's width, so it is captioned once at the top instead. Jumps additionally
+     carry inches on a second line, because the NFL Combine rung they are measured against is
+     quoted in inches and converting in your head defeats the comparison. */
+  const shortUnit=x.kind==='time'?'':(x.unit||'').length<=3?x.unit:'';
+  const inches=x.kind==='jump';
   const axis=(kept.length?kept:[lo,hi]).map(v=>
-    `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}</span>`).join('');
+    `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}${esc(shortUnit)}`+
+    (inches?`<i class="rbcyin">${esc((v/2.54).toFixed(1))}in</i>`:'')+`</span>`).join('');
+  const unitCap=(!shortUnit&&x.kind!=='time'&&x.unit)?`<b class="rbcyu">${esc(x.unit)}</b>`:'';
   /* Three columns: the value gutter, the plot, and the names. The names sat INSIDE the plot for
      one version and collided with the very lines they label — on the 400m, "Olympic" struck its
      own dotted rung. Outside, each name owns its own horizontal space and only has to avoid the
@@ -3048,7 +3061,7 @@ function rbSvg(x,dates){
      three percentile rungs and nothing else — the record and the entry standard come from
      elsewhere — so it belongs beside them, under the lowest one. Above the chart it floated at
      the card's left edge, aligned to nothing and competing with the row title. */
-  return `<div class="rbcy">${axis}</div>`+
+  return `<div class="rbcy">${unitCap}${axis}</div>`+
     `<div class="rbcplot">${s}<div class="rbcdots">${dots}</div></div>`+
     `<div class="rbclab">${labels}${rbCohortLine(x)}</div>`;
 }

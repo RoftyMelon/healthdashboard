@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.7.0 · Schema 2 · 2026-08-16
 
+- Put units on the chart axis: short ones on every tick, long ones captioned once at the top, and both jumps carry an inch conversion under each value so the NFL Combine rung can be read in the units it was set in.
 - Restored a two-line intro under Performance benchmarks, and moved the cohort caption to the foot of the names column, under the rungs it qualifies.
 - Renamed the track events' top rung `Olympic entry standard`, since it is the qualifying mark rather than the slowest athlete in the field.
 - Moved the rung names out of the plot into their own column on its right, so a name never strikes the line it labels.
