@@ -1249,11 +1249,13 @@ a.sbuy:hover{color:var(--info)}
 /* The dots ride in their own layer so the plot can run wider than the date columns; fitRbChart
    pulls this back onto them. */
 .rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
-/* Sits at the foot of the names column, under the lowest rung. Absolute like the rungs, but
-   anchored to the bottom rather than to a line — it names no line of its own. */
-.rbcohline{position:absolute;left:12px;right:0;bottom:0;font-size:11px;color:var(--t4);
-  border-top:.5px solid var(--line2);padding-top:5px}
-.rbcohline .rbcohort{font-size:11px;color:var(--t3);font-weight:600}
+/* A second column to the RIGHT of the rung names, spanning only the percentile rungs — those are
+   the three it qualifies, and the hairline says so by reaching exactly as far as they do. Its top
+   and height are measured in fitRbChart from the rungs themselves, because they move when the
+   labels spread. */
+.rbcohline{position:absolute;left:150px;right:6px;display:flex;align-items:center;
+  border-left:.5px solid var(--line);padding-left:12px;font-size:11px;color:var(--t4)}
+.rbcohline .rbcohort{font-size:11px;color:var(--t3);font-weight:600;line-height:1.35}
 .rbleg b.rbtlab{font-weight:600}
 .rbleg b.rbtlab-avg{color:var(--t3)}
 .rbleg b.rbtlab-good{color:var(--t2)}
@@ -3132,6 +3134,23 @@ function fitRbChart(){
         l.style.top=top+'px';
         ceil=top;
       });
+      /* The caption spans the percentile rungs only — the record and the top standard come from
+         other bodies. Measured after the spread pass, since a lifted rung moves what it must span. */
+      const coh=labWrap.querySelector('.rbcohline');
+      if(coh){
+        const pct=labs.filter(o=>/rbt-(avg|good|exc)/.test(o.l.className)).map(o=>o.l);
+        if(pct.length){
+          const tops=pct.map(l=>parseFloat(l.style.top)),
+                bots=pct.map(l=>parseFloat(l.style.top)+l.offsetHeight);
+          const t=Math.min(...tops),b=Math.max(...bots);
+          // A long cohort name wraps past the rungs it spans. Grow the rule around the same centre
+          // rather than let the text bleed out of both its ends.
+          coh.style.top=t+'px';coh.style.height=(b-t)+'px';
+          const txt=coh.firstElementChild,need=txt?txt.offsetHeight:0;
+          if(need>b-t){const mid=(t+b)/2;
+            coh.style.top=Math.max(0,mid-need/2)+'px';coh.style.height=need+'px';}
+        }
+      }
     }
   });
 }
