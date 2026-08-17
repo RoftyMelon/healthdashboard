@@ -4443,12 +4443,12 @@ window.BLOODWORK =
        "Standouts": [
         [
          "Iron (est.)",
-         "~2.5mg",
+         "2.5mg",
          "~18%"
         ],
         [
          "Copper (est.)",
-         "~0.1mg",
+         "0.1mg",
          "~10%"
         ]
        ],

@@ -2979,7 +2979,8 @@ function rbTiers(x){
 /* Which rung a value has reached. Walks the ladder from the top so the BEST rung wins, and
    returns null below the first one — "worse than average" is the absence of a grade, not a
    grade of its own, and inventing a name for it would put a label on the row that no cohort
-   number supports. */
+   number supports. Nothing on the page calls this yet; check-js exercises it directly, so it is
+   the contract for whatever displays a grade later, not dead code. */
 function rbGradeOf(x,v){
   if(v==null||!isFinite(v))return null;
   const t=rbTiers(x),lower=x.direction==='lower';
@@ -3542,7 +3543,6 @@ function renderPage(p){
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'')+
       // No card-name subtitle here. It read "Pull · Push · Legs" directly above a note opening
       // "Pull-Push-Legs, repeated twice", and the cards themselves are titled a few pixels below.
       // Three statements of the same three words. The note says it better, so it says it alone.
@@ -3551,6 +3551,7 @@ function renderPage(p){
       (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards)+
       (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'')+
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'')+
       trParked();
   } else if(p==='diet'&&DIET){
     const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
