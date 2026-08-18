@@ -1616,7 +1616,7 @@ window.BLOODWORK =
     }
    ]
   },
-  "note": "• Pull–Push–Legs ×2\n• Monday–Saturday\n• Drop sets on most exercises\n• Single-leg pogo hops between sets when you can",
+  "note": "• Pull–Push–Legs ×2\n• Monday–Saturday\n• Drop sets on most exercises\n• Jumps and single-leg pogo hops between sets when you can",
   "footnote": "Weights and reps are approximate.",
   "maylater": {
    "t": "May add later",
@@ -2062,7 +2062,7 @@ window.BLOODWORK =
       "t": "Power",
       "items": [
        {
-        "n": "Countermovement jump",
+        "n": "CMJ",
         "sets": [
          [
           null,
