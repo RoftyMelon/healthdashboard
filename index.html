@@ -2105,8 +2105,8 @@ function audit(j){
           if(x.elite!==undefined){const e=x.elite;
             if(!e||typeof e!=='object')bad.push(`${tag}: elite must be an object`);
             else{
-              if(!['Olympic entry standard','World class','NFL Combine'].includes(e.label))
-                bad.push(`${tag}: elite.label must be Olympic entry standard/World class/NFL Combine`);
+              if(!['Olympic entry standard','World class','NFL Combine','NHL Combine'].includes(e.label))
+                bad.push(`${tag}: elite.label must be Olympic entry standard/World class/NFL Combine/NHL Combine`);
               if(typeof e.value!=='number'||!isFinite(e.value))bad.push(`${tag}: elite.value must be numeric`);
               if(typeof e.basis!=='string'||!e.basis.trim())bad.push(`${tag}: elite.basis is required`);
               if(typeof e.source!=='string'||!/^https:\/\//.test(e.source))bad.push(`${tag}: elite.source must be https://`);
@@ -2966,7 +2966,7 @@ function rbValue(x,a,extra=''){
    event: an Olympic entry standard where one exists, the four-minute mile where the event is not
    Olympic, an NFL Combine mark for the jumps. Storing Average/Good/Excellent as four more numbers
    beside the band they come from would let a band and its own grade drift apart. */
-const RB_TIER_TOP=['Olympic entry standard','World class','NFL Combine'];
+const RB_TIER_TOP=['Olympic entry standard','World class','NFL Combine','NHL Combine'];
 function rbTiers(x){
   if(!x)return [];
   const out=[],lower=x.direction==='lower',med=x.athletic&&x.athletic.median;

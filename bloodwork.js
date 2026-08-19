@@ -1610,12 +1610,12 @@ window.BLOODWORK =
       "reviewed": "2026-08-16"
      },
      "elite": {
-      "label": "World class",
-      "value": 90,
-      "basis": "Approximate dynamometer grip of an elite strength-sport athlete. Competitive armwrestlers and strongmen record 90kg and above where a general adult population tops out near 60kg. A practitioner anchor rather than a competition standard, and grip figures vary with dynamometer model and hand position.",
-      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6778477/",
-      "evidence": "weak",
-      "reviewed": "2026-08-16"
+      "label": "NHL Combine",
+      "value": 85,
+      "basis": "The strongest right-hand grip recorded at the NHL Scouting Combine — about 187 lb (85 kg), set by James Greenway in 2016 — where the average prospect grips roughly 58 kg (128 lb). Hockey players are not grip specialists, so this is a measured athletic-population ceiling rather than a true world-class grip standard, and grip figures vary with dynamometer model and hand position.",
+      "source": "https://www.topendsports.com/sport/icehockey/nhl-combine-results.htm",
+      "evidence": "moderate",
+      "reviewed": "2026-08-19"
      },
      "attempts": []
     }

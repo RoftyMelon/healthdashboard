@@ -439,7 +439,7 @@ setTimeout(()=>{
          by('exc').v!==(lower?x.target.min:x.target.max)||
          by('top').v!==x.elite.value||by('top').t!==x.elite.label;});
      ok('every graded row derives Average/Good/Excellent and stores only the top rung',
-       bad.length===0&&PT.every(x=>['Olympic entry standard','World class','NFL Combine'].includes(x.elite.label)),
+       bad.length===0&&PT.every(x=>['Olympic entry standard','World class','NFL Combine','NHL Combine'].includes(x.elite.label)),
        bad.length?bad.map(x=>x.id).join(','):PT.map(x=>x.elite.label).join(','));}
     /* The 5km and 10km rows come from independent subgroups of one survey, so they are NOT forced
        onto a shared curve — that would swap measured times for modelled ones. What is guarded is
