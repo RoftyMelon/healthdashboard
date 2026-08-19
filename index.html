@@ -1137,15 +1137,15 @@ a.sbuy:hover{color:var(--info)}
 ul.trsummary.rbintro{list-style:disc;padding-left:20px;line-height:1.5}
 ul.trsummary.rbintro li{margin:2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
-.rbscroll{width:calc(411px + var(--rbn,0)*105px);max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
+.rbscroll{width:min(539px, calc(100vw - var(--gut,20px) - 20px));max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
-.rbtbl{min-width:calc(409px + var(--rbn,0)*105px);width:calc(409px + var(--rbn,0)*105px);table-layout:fixed;border-collapse:separate;
+.rbtbl{min-width:539px;width:539px;table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
 .rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
   font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--t4);text-align:center;white-space:nowrap}
 .rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:155px;text-align:left;z-index:3;background:var(--stick)}
 .rbtbl thead th.rbname{z-index:5;background:var(--head)}
-.rbtbl th.rbdate,.rbtbl td.rbattempt{width:105px}
+.rbtbl th.rbresulth,.rbtbl td.rbresult-cell{width:130px}
 .rbtbl th.rbchange,.rbtbl td.rbchange{width:254px}
 .rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
   color:var(--t2);text-align:center;white-space:nowrap;background:var(--bg)}
@@ -1161,7 +1161,7 @@ ul.trsummary.rbintro li{margin:2px 0}
   transform:translateY(-50%);transition:transform .18s,background .14s}
 .rbrow.op td.rbname::before{background:var(--sel);transform:translateY(-50%) rotate(90deg)}
 .rbval{display:inline-block;font-variant-numeric:tabular-nums}
-.rbpb,.rbattempt.pb .rbval{color:var(--ok);font-weight:750}
+.rbpb{color:var(--ok);font-weight:750}
 .rbnil{color:var(--t4)}
 .rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
   font-size:12.5px;font-variant-numeric:tabular-nums}
@@ -3123,20 +3123,14 @@ let openRb=null;
    a scroller and offsetLeft would resolve against a different origin depending on their position. */
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
-  const ds=t.querySelectorAll('thead th.rbdate'); if(!ds.length)return;
-  const a=ds[0].getBoundingClientRect(),z=ds[ds.length-1].getBoundingClientRect();
-  const left=a.left,width=z.right-a.left; if(width<=0)return;
   document.querySelectorAll('.rbchart').forEach(c=>{
     const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
-    const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
-    /* The plot spans EXACTLY the date columns, because rbSvg places an attempt at
-       (index + .5) / columns of its width. The whole offset goes on the GUTTER, so the value
-       labels stay against the axis they name. Names no longer need surplus width on the left —
-       they moved to their own column on the right. */
-    plot.style.flex='none';
-    plot.style.width=width+'px';
-    plot.style.marginLeft='0px';
-    if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    /* No dated columns to align to any more, so the plot keeps its natural flex width and the
+       gutter sits at its own left edge. Attempt dots still spread across the plot by chronological
+       index (rbSvg positions them as a percentage of width), which is all the temporal order the
+       chart needs now that the table shows only a Result. */
+    plot.style.flex='';plot.style.width='';plot.style.marginLeft='';
+    if(gut)gut.style.marginLeft='0px';
     const dotsEl=plot.querySelector('.rbcdots');
     if(dotsEl){dotsEl.style.left='0px';dotsEl.style.width='100%';}
     /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
@@ -3179,19 +3173,20 @@ function rbToggle(row,id){
   if(cur)cur.remove();document.querySelectorAll('.rbrow.op').forEach(r=>r.classList.remove('op'));
   const b=((TRAINING||{}).benchmarks||{}),x=(b.items||[]).find(z=>z.id===id);if(!x)return;
   const dates=rbDates();row.classList.add('op');openRb=row;
-  row.insertAdjacentHTML('afterend',rbDetail(x,dates,dates.length+2));fitRbChart();
+  row.insertAdjacentHTML('afterend',rbDetail(x,dates,3));fitRbChart();
 }
 function runningBenchmarks(){
   const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
-  const dates=rbDates();
-  const th=dates.map(d=>`<th class="rbdate" title="${esc(rbDate(d))}">${esc(rbHeadDate(d))}</th>`).join('');
-  const rows=items.map(x=>{const a=rbAttempts(x);
-    const hist=dates.map(d=>{const z=a.find(q=>q.date===d);return `<td class="rbattempt${z&&rbIsPB(x,z.value)?' pb':''}">${rbValue(x,z)}</td>`;}).join('');
+  // One RESULT column showing the latest attempt, not a column per date. Two attempts in one
+  // month rendered two identical "Aug '26" headers; the dates still live in the data and drive
+  // the trend column and the expanded chart's x-axis, they are just no longer table headers.
+  const rows=items.map(x=>{const a=rbAttempts(x),last=a.length?a[a.length-1]:null;
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
-      `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
-  return `<div class="rbscroll" style="--rbn:${dates.length}" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl"><thead><tr>`+
-    `<th class="rbname">Test</th>${th}<th class="rbchange">Since previous</th>`+
+      `<td class="rbresult-cell">${rbValue(x,last)}</td>`+
+      `<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
+  return `<div class="rbscroll"><table class="rbtbl" id="rbtbl"><thead><tr>`+
+    `<th class="rbname">Test</th><th class="rbresulth">Result</th><th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 

@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.7.0 · Schema 2 · 2026-08-16
 
+- Collapsed the dated attempt columns into a single Result column showing the latest value; the dates stay in the data and drive the trend column and the expanded chart, so two attempts in one month no longer make two identical month headers.
 - Turned the benchmark intro into bullet points and noted most cohort age ranges are about 20–40.
 - Renamed the jumps' top rung `NFL Combine elite`. The Combine is invite-only, so unlike an Olympic entry standard it is not a qualifying bar — it marks the top of an already-selected group.
 - Captioned the unit once at the top of the chart axis, and gave both jumps an inch value beside each centimetre one so the NFL Combine rung can be read in the units it was set in.

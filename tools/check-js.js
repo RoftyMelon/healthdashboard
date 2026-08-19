@@ -591,12 +591,13 @@ setTimeout(()=>{
     const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
-    // Four synthetic attempts pushed above, plus the one real stored mile from 2026-08-16. This
-    // count tracks the DATA, so it moves whenever a real attempt is recorded — that is the point.
-    ok('attempt history is visible without expanding a row',count(H,'rbval')===6,count(H,'rbval')+' values');
+    // One Result cell per benchmark that has any attempt: run100 and vo2max (synthetic), the real
+    // mile, and the real vjump — four rows show a value, the rest render a dash. No date columns.
+    ok('the latest result shows in the row without expanding it',count(H,'rbval')===4,count(H,'rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
-    ok('benchmark table has date-only headers and no summary columns',
-      H.includes("Aug '26")&&H.includes("Sept '26")&&!H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
+    ok('benchmark table has a single Result column and no dated headers',
+      H.includes('>Result</th>')&&!H.includes("Aug '26")&&!H.includes("Sept '26")&&
+      !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
