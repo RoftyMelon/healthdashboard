@@ -3068,7 +3068,8 @@ function rbSvg(x,dates){
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
     ?`<div class="trsummary rbintro">World record and Olympic entry standard to stay humble`+
-     `<br>Percentiles are calculated or modeled from the specified cohort</div>`:'';
+     `<br>Percentiles are calculated or modeled from the specified cohort`+
+     `<br>Most cohorts are men aged roughly 20–40; each row's source has the exact range</div>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
