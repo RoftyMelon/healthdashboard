@@ -1134,6 +1134,8 @@ a.sbuy:hover{color:var(--info)}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
 /* .rbtitle already spends 8px below itself, so the caption drops its own top padding. */
 .trsummary.rbintro{padding-top:0;margin-bottom:14px;font-size:14px;color:var(--t3)}
+ul.trsummary.rbintro{list-style:disc;padding-left:20px;line-height:1.5}
+ul.trsummary.rbintro li{margin:2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
 .rbscroll{width:calc(411px + var(--rbn,0)*105px);max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
@@ -3067,9 +3069,11 @@ function rbSvg(x,dates){
    describe rungs nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
-    ?`<div class="trsummary rbintro">World record and Olympic entry standard to stay humble`+
-     `<br>Percentiles are calculated or modeled from the specified cohort`+
-     `<br>Most cohorts are men aged roughly 20–40; each row's source has the exact range</div>`:'';
+    ?`<ul class="trsummary rbintro">`+
+     `<li>World record and Olympic entry standard to stay humble</li>`+
+     `<li>Percentiles are calculated or modeled from the specified cohort</li>`+
+     `<li>Most age ranges ~20–40 years old</li>`+
+     `</ul>`:'';
 }
 /* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
    band first inverted the chart and made you hunt to map an entry to a line. */
