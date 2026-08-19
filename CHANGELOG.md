@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.9.0 · Schema 2 · 2026-08-19
+
+- Restored persistent benchmark history as one shared column per testing month: each row shows its latest result within that month, later months append without replacing earlier ones, and exact attempt dates remain stored in the chart history.
+- Aligned every chart point with its month column and kept the ledger card fixed-width; additional months scroll horizontally, opening on the newest month.
+
 ## Viewer 1.8.0 · Schema 2 · 2026-08-19
 
 - Replaced the VO₂max top rung's unrelated hyponatremia citation with the relevant physiology review, and clarified that 85 mL/kg/min is a round high-end endurance anchor rather than a universal world-class cutoff.

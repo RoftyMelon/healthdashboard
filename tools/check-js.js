@@ -597,24 +597,37 @@ setTimeout(()=>{
       /aria-label="Source for the world record">↗<\/a>/.test(ED)&&!ED.includes('>Source ↗<'));
     ok('world-record cards show only the compact two-digit year',
       ED.includes("World record · Usain Bolt '09")&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
+    const savedR=R.attempts.slice(),savedV=V.attempts.slice();
     R.attempts.push(
       {date:'2026-08-01',value:14.2},
+      {date:'2026-08-20',value:14.0},
       {date:'2026-09-01',value:13.6});
     V.attempts.push(
       {date:'2026-08-01',value:48.0},
       {date:'2026-09-01',value:51.0});
-    const dates=['2026-08-01','2026-09-01'],H=runningBenchmarks(),D=rbDetail(R,dates,dates.length+2);
+    const months=['2026-08','2026-09'],H=runningBenchmarks(),D=rbDetail(R,months,months.length+2);
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
-    // One Result cell per benchmark that has any attempt: run100 and vo2max (synthetic), the real
-    // mile, and the real vjump — four rows show a value, the rest render a dash. No date columns.
-    ok('the latest result shows in the row without expanding it',count(H,'rbval')===4,count(H,'rbval')+' values');
+    const visible=BI.reduce((n,x)=>n+new Set(x.attempts.map(a=>String(a.date).slice(0,7))).size,0);
+    ok('each populated benchmark-month shows one result without expanding the row',
+      count(H,'rbval')===visible,`${count(H,'rbval')} of ${visible} values`);
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
-    // One dated column, headed by the most recent attempt across the table (Sept '26 here, from
-    // the injected run100/vo2max attempts), never two month headers, and no summary columns.
-    ok('benchmark table has one dated column headed by the latest attempt',
-      (H.match(/Sept '26/g)||[]).length===1&&!H.includes("Aug '26")&&!H.includes('>Result</th>')&&
+    // Shared month buckets prevent two August tests from producing duplicate Aug '26 headers.
+    ok('benchmark table preserves one shared column per testing month',
+      (H.match(/Aug '26/g)||[]).length===1&&(H.match(/Sept '26/g)||[]).length===1&&
+      H.includes('title="August 2026"')&&H.includes('title="September 2026"')&&
+      H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
+    const rrow=(H.match(/<tr class="rbrow" data-rbrow="run100"[\s\S]*?<\/tr>/)||[])[0]||'';
+    ok('a monthly cell shows that row\'s latest exact-date attempt',
+      (rrow.match(/class="rbattempt"/g)||[]).length===2&&rrow.includes('>14s</span>')&&
+      !rrow.includes('14.2s')&&rrow.includes('>13.6s</span>'));
+    ok('all exact attempts stay in the chart and share their month-column centre',
+      (D.match(/left:25%/g)||[]).length===2&&(D.match(/left:75%/g)||[]).length===1&&D.includes('colspan="4"'));
+    const before=rbDetail(V,months,4);
+    R.attempts.push({date:'2026-08-31',value:13.9});
+    const after=rbDetail(V,months,4);R.attempts.pop();
+    ok('an unrelated exact date inside an existing month cannot move another chart',before===after);
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
@@ -624,7 +637,7 @@ setTimeout(()=>{
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));
-    R.attempts.length=0;V.attempts.length=0;
+    R.attempts.splice(0,R.attempts.length,...savedR);V.attempts.splice(0,V.attempts.length,...savedV);
   }catch(e){
     DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
     ok('benchmark history rendering',false,e.message);

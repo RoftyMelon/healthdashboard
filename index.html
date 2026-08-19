@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.8.0">
+<meta name="health-dashboard-viewer-version" content="1.9.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -38,7 +38,7 @@
   --frost:rgba(48,48,46,.72); --frost-b:rgba(245,244,239,.14); --frost-h:rgba(59,59,55,.9);
   --glass:rgba(48,48,46,.08); --glass-b:rgba(245,244,239,.14);
 }
-:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px; --rbn:1}   /* sizing: theme-independent, must not sit in a theme block */
+:root{--thh:30px; --nm:180px; --hh:64px; --noww:84px; --rbw:539px}   /* sizing: theme-independent, must not sit in a theme block */
 /* --noww is the LATEST column's width, and it is declared once because it is used TWICE:
    as that column's own width AND inside the Unit column's sticky left offset. It was two
    hardcoded 68px, so widening one silently overlapped the frozen columns on horizontal
@@ -1127,7 +1127,7 @@ a.sbuy:hover{color:var(--info)}
 .cgnote~.cgnote{border-top:none;margin-top:6px;padding-top:0}   /* stacked notes: only the first carries the divider */
 .cgnote~.cgnote::before{top:0}   /* later notes have no top padding, so the bullet rides up with the text */
 
-/* Performance benchmark ledger: one latest-month result column, an inline expansion and a
+/* Performance benchmark ledger: one shared column per testing month, an inline expansion and a
    full-width plot, without pretending everyday training is a lab draw. */
 .rbtitle{margin-top:20px;margin-bottom:8px}
 .restrtitle{margin-top:28px}
@@ -1139,13 +1139,13 @@ ul.trsummary.rbintro li{margin:2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
 .rbscroll{width:min(539px, calc(100vw - var(--gut,20px) - 20px));max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
   scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
-.rbtbl{min-width:539px;width:539px;table-layout:fixed;border-collapse:separate;
+.rbtbl{min-width:var(--rbw,539px);width:var(--rbw,539px);table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
 .rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
   font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--t4);text-align:center;white-space:nowrap}
 .rbtbl th.rbname,.rbtbl td.rbname{position:sticky;left:0;width:155px;text-align:left;z-index:3;background:var(--stick)}
 .rbtbl thead th.rbname{z-index:5;background:var(--head)}
-.rbtbl th.rbresulth,.rbtbl td.rbresult-cell{width:130px}
+.rbtbl th.rbdate,.rbtbl td.rbattempt{width:130px}
 .rbtbl th.rbchange,.rbtbl td.rbchange{width:254px}
 .rbtbl tbody td{height:58px;padding:9px 8px;border-bottom:.5px solid var(--line2);font-size:14px;
   color:var(--t2);text-align:center;white-space:nowrap;background:var(--bg)}
@@ -2931,11 +2931,12 @@ function rbFmt(x,v,p=x.precision){
 const rbPB=x=>{const a=rbAttempts(x);if(!a.length)return null;
   return x.direction==='lower'?Math.min(...a.map(z=>z.value)):Math.max(...a.map(z=>z.value));};
 const rbIsPB=(x,v)=>{const p=rbPB(x);return p!=null&&Math.abs(v-p)<1e-9;};
-const rbDates=()=>{const s=new Set();
-  (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(a.date)));
+const rbMonth=d=>String(d).slice(0,7);
+const rbMonths=()=>{const s=new Set();
+  (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(rbMonth(a.date))));
   return [...s].sort();};
-const rbDate=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-const rbHeadDate=d=>{const z=new Date(d+'T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
+const rbHeadMonth=m=>{const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
+const rbMonthTitle=m=>new Date(m+'-01T00:00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'});
 const rbYear=d=>`'${String(d).slice(2,4)}`;
 const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
@@ -2985,7 +2986,7 @@ function rbGradeOf(x,v){
   for(let i=t.length-1;i>=0;i--)if(lower?v<=t[i].v:v>=t[i].v)return t[i];
   return null;
 }
-function rbSvg(x,dates){
+function rbSvg(x,months){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic,
     tiers=rbTiers(x),
     median=x.athletic&&x.athletic.median!==undefined?x.athletic.median:null;
@@ -2996,7 +2997,7 @@ function rbSvg(x,dates){
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
   const gap=Math.max((hi-lo)*.13,x.kind==='time'?1:2);lo-=gap;hi+=gap;if(lo===hi){lo-=1;hi+=1;}
   const Y=v=>x.direction==='lower'?T+(v-lo)/(hi-lo)*(B-T):T+(hi-v)/(hi-lo)*(B-T);
-  const cols=Math.max(1,dates.length),X=d=>((Math.max(0,dates.indexOf(d))+.5)/cols)*W;
+  const cols=Math.max(1,months.length),X=d=>((Math.max(0,months.indexOf(rbMonth(d)))+.5)/cols)*W;
   let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="${esc(x.name)} history chart">`,dots='';
   /* Grades are LINES, not a shaded band. A band says "anywhere in here is the same thing", which
      was never true — it was a span between two percentiles — and it left the reader to work out
@@ -3096,25 +3097,31 @@ function rbCohortLine(x){
     (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc(`Source for ${label}`)}">↗</a>`:'')+
     `</b></div>`;
 }
-function rbDetail(x,dates,colspan){
+function rbDetail(x,months,colspan){
   if(!rbAttempts(x).length&&!x.target&&!x.athletic&&!x.world)
     return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbrefs">${rbLegend(x)}</div></td></tr>`;
   return `<tr class="rbdet"><td colspan="${colspan}"><div class="rbchart">`+
-    `${rbSvg(x,dates)}</div></td></tr>`;
+    `${rbSvg(x,months)}</div></td></tr>`;
 }
 let openRb=null;
-/* Keep plot geometry stable after the fixed-width table is laid out. Attempt dots use the full
-   plot width in chronological order; the table no longer exposes a column per attempt date. */
+/* The plot occupies exactly the shared month columns above it. rbSvg places each attempt at the
+   centre of its month, so the dot, its month heading and the chart axis keep one geometry even
+   when the fixed-width card scrolls. The blank Starter still gets one Result slot. */
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
+  const ds=t.querySelectorAll('thead th.rbdate');
+  let left=0,width=0;
+  if(ds.length){const a=ds[0].getBoundingClientRect(),z=ds[ds.length-1].getBoundingClientRect();
+    left=a.left;width=z.right-a.left;}
   document.querySelectorAll('.rbchart').forEach(c=>{
     const plot=c.querySelector('.rbcplot'),gut=c.querySelector('.rbcy'); if(!plot)return;
-    /* No dated columns to align to any more, so the plot keeps its natural flex width and the
-       gutter sits at its own left edge. Attempt dots still spread across the plot by chronological
-       index (rbSvg positions them as a percentage of width), which is all the temporal order the
-       chart needs now that the table shows only a Result. */
-    plot.style.flex='';plot.style.width='';plot.style.marginLeft='';
-    if(gut)gut.style.marginLeft='0px';
+    if(width>0){const row=c.getBoundingClientRect(),g=gut?gut.getBoundingClientRect().width:0;
+      plot.style.flex='none';plot.style.width=width+'px';plot.style.marginLeft='0px';
+      if(gut)gut.style.marginLeft=Math.max(0,left-row.left-g)+'px';
+    }else{
+      plot.style.flex='';plot.style.width='';plot.style.marginLeft='';
+      if(gut)gut.style.marginLeft='0px';
+    }
     const dotsEl=plot.querySelector('.rbcdots');
     if(dotsEl){dotsEl.style.left='0px';dotsEl.style.width='100%';}
     /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
@@ -3156,24 +3163,26 @@ function rbToggle(row,id){
   if(cur&&openRb===row){cur.remove();row.classList.remove('op');openRb=null;return;}
   if(cur)cur.remove();document.querySelectorAll('.rbrow.op').forEach(r=>r.classList.remove('op'));
   const b=((TRAINING||{}).benchmarks||{}),x=(b.items||[]).find(z=>z.id===id);if(!x)return;
-  const dates=rbDates();row.classList.add('op');openRb=row;
-  row.insertAdjacentHTML('afterend',rbDetail(x,dates,3));fitRbChart();
+  const months=rbMonths(),slots=Math.max(1,months.length);row.classList.add('op');openRb=row;
+  row.insertAdjacentHTML('afterend',rbDetail(x,months,slots+2));fitRbChart();
 }
 function runningBenchmarks(){
   const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
-  // ONE dated column showing each row's latest attempt, not a column per date. Two attempts in
-  // one month used to render two identical "Aug '26" headers; the column is headed by the most
-  // recent attempt across the table, and the full dated history still lives in the data and the
-  // expanded chart. A benchmark whose latest attempt predates that header shows its own value.
-  const dates=rbDates(),latest=dates.length?dates[dates.length-1]:null;
-  const head=latest?esc(rbHeadDate(latest)):'Result';
-  const rows=items.map(x=>{const a=rbAttempts(x),last=a.length?a[a.length-1]:null;
+  // One GLOBAL column per month across the table. Exact dates remain in attempts and the chart;
+  // if a row has several tests in one month, its cell shows the latest one from that month.
+  const months=rbMonths(),slots=Math.max(1,months.length),width=409+130*slots;
+  const th=months.length
+    ?months.map(m=>`<th class="rbdate" title="${esc(rbMonthTitle(m))}">${esc(rbHeadMonth(m))}</th>`).join('')
+    :'<th class="rbdate rbplaceholder">Result</th>';
+  const rows=items.map(x=>{const a=rbAttempts(x),byMonth=new Map(a.map(z=>[rbMonth(z.date),z]));
+    const hist=months.length
+      ?months.map(m=>`<td class="rbattempt">${rbValue(x,byMonth.get(m))}</td>`).join('')
+      :'<td class="rbattempt"><span class="rbnil">—</span></td>';
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
-      `<td class="rbresult-cell">${rbValue(x,last)}</td>`+
-      `<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
-  return `<div class="rbscroll"><table class="rbtbl" id="rbtbl"><thead><tr>`+
-    `<th class="rbname">Test</th><th class="rbresulth"${latest?` title="${esc(rbDate(latest))}"`:''}>${head}</th><th class="rbchange">Since previous</th>`+
+      `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
+  return `<div class="rbscroll" style="--rbw:${width}px" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl"><thead><tr>`+
+    `<th class="rbname">Test</th>${th}<th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
@@ -3650,6 +3659,10 @@ function renderPage(p){
       h+=`<div class="dnotes"><b>NOTES</b><ul>${DIET.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
   }
   PGEL.innerHTML=h||`<div class="pgh">${esc(PAGES[p]||p)}</div><div class="pgsub">No data block in bloodwork.js yet.</div>`;
+  // New testing months append to the right. Open the ledger on the newest month while keeping
+  // older months one horizontal scroll away; the sticky Test column remains visible throughout.
+  if(p==='training')requestAnimationFrame(()=>{const s=PGEL.querySelector('.rbscroll');
+    if(s)s.scrollLeft=Math.max(0,s.scrollWidth-s.clientWidth);fitRbChart();});
 }
 const TB=document.getElementById('topbar'),WRAP=document.querySelector('.wrap');
 const R0=document.documentElement.style;

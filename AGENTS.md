@@ -282,12 +282,13 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   only the fields needed to render and compare each benchmark. `attempts[]` holds intentional tests
   as exactly `{date, value}`. Do not store method, course, conditions, notes, quality labels or
   hidden protocols. The viewer derives the change and personal best;
-  never store a separate PB or tier the tests into core/optional groups. The main table shows one
-  latest-result column with each row's LATEST attempt (PB-highlighted) and a `Since previous` change.
-  When any attempt exists, that column is headed by the newest attempt month across the table; before
-  the first attempt it is headed `Result`. The full dated history lives in the data and in the
-  expanded chart, NOT as table columns. It used to be a column per attempt date headed `MMM 'YY`, but
-  two attempts in one month rendered two identical `Aug '26` headers. Every row expands into the
+  never store a separate PB or tier the tests into core/optional groups. The main table has one
+  shared chronological column per testing month, headed `MMM 'YY`, plus `Since previous`. Every row
+  shows its latest exact-date attempt within that month (PB-highlighted) or an em dash. Exact dates
+  remain stored and every attempt remains in the expanded history; multiple attempts in one month
+  share the same column rather than duplicating its month heading. A later month appends a new column
+  without replacing the previous month. Before the first attempt, one `Result` placeholder keeps the
+  blank ledger's layout intact. Every row expands into the
   trend chart, INCLUDING before the first attempt. A target-bearing benchmark renders four lines:
   `Top 50%` from `athletic.median`, `Top 25%` and `Top 10%` from the two `target` edges, and the
   separately sourced top rung from `elite`. Its peer and target ranges remain stored as source
