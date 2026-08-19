@@ -390,8 +390,9 @@ setTimeout(()=>{
       J.target.min===52.5&&J.target.max===57.4&&J.athletic.heading==='General men range'&&
       J.athletic.source.includes('statcan.gc.ca'));
     ok('grip uses the international adult norms rather than inferred confidence intervals',
-      G.athletic.min===43.3&&G.athletic.max===55.9&&G.athletic.median===49.6&&
-      G.target.min===55.9&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
+      G.athletic.min===43&&G.athletic.max===55.4&&G.athletic.median===49.1&&
+      G.target.min===55.4&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
+      /Men 20–39/.test(G.athletic.label)&&
       G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
     /* The sprints have no sampled adult distribution anywhere — the old band was a normal curve
        fitted to 400 PE students in an obscure journal that never reported its timing method.
