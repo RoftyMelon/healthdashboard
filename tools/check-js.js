@@ -531,9 +531,15 @@ setTimeout(()=>{
       />85<\/span>/.test(VD));
     {const ids=['run400','run5k','run10k'],missing=ids.filter(id=>{
        const x=BI.find(y=>y.id===id),d=rbDetail(x,[],2),axis=(d.match(/<div class="rbcy">[\s\S]*?<\/div>/)||[])[0]||'';
-       return !axis.includes(`>${rbFmt(x,x.elite.value)}</span>`);
+       return !axis.includes(`>${rbFmt(x,x.elite.value)}</span>`)||
+         !axis.includes(`class="rbcytick rbcywr"`)||!axis.includes(`>${rbFmt(x,x.world.value)}</span>`);
      });
-     ok('colliding world-record ticks yield to the exact top-rung value',missing.length===0,missing.join(',')||'all visible');}
+     ok('colliding world-record and entry-standard numbers both remain on the axis',
+       missing.length===0,missing.join(',')||'all visible');
+     const placed=rbSpreadLabels([{id:'entry',y:100,h:12},{id:'record',y:94,h:12}]),
+       entry=placed.find(x=>x.id==='entry'),record=placed.find(x=>x.id==='record');
+     ok('the upper world-record number yields above a nearby entry-standard number',
+       record.top+record.h+3<=entry.top,`${record.top}px above ${entry.top}px`);}
     /* Dropping target.span once made the legend fall through to a numeric range instead of
        printing nothing — the band's edges appeared a third time, beside an axis and an intro
        that already carried them. A target legend prints the cohort alone.

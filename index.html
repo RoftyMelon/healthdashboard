@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.9.0">
+<meta name="health-dashboard-viewer-version" content="1.9.1">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -3025,9 +3025,9 @@ function rbSvg(x,months){
     `World record · ${x.world.athlete} ${rbYear(x.world.date)}`,x.world.source,'the world record');
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
-  /* Label the sourced rung values, not arbitrary thirds of the drawing area. When a world record
-     nearly overlaps a rung, the rung value wins the gutter because the record is already named in
-     the plot. Anything within 7% of a kept neighbour is dropped so two labels never overprint. */
+  /* Label sourced rung values, not arbitrary thirds of the drawing area. Population rungs still
+     deduplicate inside 7% of one another. A world-record number is always retained; fitRbChart
+     lifts it above a nearby entry-standard number just as it already lifts the record text. */
   const ticks=[];
   tiers.forEach(t=>ticks.push(t.v));
   if(peer)ticks.push(peer.min,peer.max);
@@ -3037,15 +3037,16 @@ function rbSvg(x,months){
     if(kept.some(k=>Math.abs(Y(k)-y)<(B-T)*.07))return;
     kept.push(v);};
   ticks.sort((p,q)=>p-q).forEach(keepTick);
-  if(x.world)keepTick(x.world.value);
   /* The unit is captioned ONCE at the top of the gutter, never repeated on every tick — a unit on
      each one doubled every label's height and the rungs then collided with each other. Jumps carry
      inches as a second value on the same line, because the NFL Combine rung is quoted in inches
      and converting in your head defeats the comparison. */
   const inches=x.kind==='jump';
   const inFmt=v=>(v/2.54).toFixed(1).replace(/\.0$/,'');
-  const axis=(kept.length?kept:[lo,hi]).map(v=>
-    `<span style="top:${Y(v)}px">${esc(rbFmt(x,v))}${inches?'/'+esc(inFmt(v)):''}</span>`).join('');
+  const axisTicks=(kept.length?kept:[lo,hi]).map(v=>({v,y:Y(v),wr:false}));
+  if(x.world)axisTicks.push({v:x.world.value,y:Y(x.world.value),wr:true});
+  const axis=axisTicks.map(t=>
+    `<span class="rbcytick${t.wr?' rbcywr':''}" data-y="${t.y}" style="top:${t.y}px">${esc(rbFmt(x,t.v))}${inches?'/'+esc(inFmt(t.v)):''}</span>`).join('');
   const unitCap=x.kind==='time'?'':x.unit?`<b class="rbcyu">${esc(inches?'cm/in':x.unit)}</b>`:'';
   /* Three columns: the value gutter, the plot, and the names. The names sat INSIDE the plot for
      one version and collided with the very lines they label — on the 400m, "Olympic" struck its
@@ -3104,6 +3105,16 @@ function rbDetail(x,months,colspan){
     `${rbSvg(x,months)}</div></td></tr>`;
 }
 let openRb=null;
+/* Place labels from the bottom upward. When two natural centres are too close, the upper label
+   yields upward while the lower label stays on its line. The same routine drives the left-axis
+   numbers and the right-side rung names, so their collision behaviour cannot drift apart. */
+function rbSpreadLabels(items){
+  let ceiling=Infinity;
+  return items.filter(o=>isFinite(o.y)&&isFinite(o.h)).sort((a,b)=>b.y-a.y).map(o=>{
+    const top=Math.max(0,Math.min(o.y-o.h/2,ceiling-o.h-3));ceiling=top;
+    return {...o,top};
+  });
+}
 /* The plot occupies exactly the shared month columns above it. rbSvg places each attempt at the
    centre of its month, so the dot, its month heading and the chart axis keep one geometry even
    when the fixed-width card scrolls. The blank Starter still gets one Result slot. */
@@ -3124,20 +3135,19 @@ function fitRbChart(){
     }
     const dotsEl=plot.querySelector('.rbcdots');
     if(dotsEl){dotsEl.style.left='0px';dotsEl.style.width='100%';}
+    if(gut)rbSpreadLabels([...gut.querySelectorAll('.rbcytick')].map(l=>
+      ({l,y:parseFloat(l.getAttribute('data-y')),h:l.offsetHeight}))).forEach(({l,top})=>{
+        l.style.transform='none';l.style.top=top+'px';
+      });
     /* Rungs crowd — the world record sits within a few tenths of the Olympic standard on every
        track event — so names still need spreading. Walk UPWARD from the lowest, so the label that
        gives up its line is always the topmost one. The record is the rung you never reach and the
        one whose exact height matters least; every rung below it keeps its own line. */
     const labWrap=c.querySelector('.rbclab');
     if(labWrap){
-      const labs=[...labWrap.querySelectorAll('.rbclabi')]
-        .map(l=>({l,y:parseFloat(l.getAttribute('data-y'))})).filter(o=>isFinite(o.y)).sort((a,b)=>b.y-a.y);
-      let ceil=Infinity;
-      labs.forEach(({l,y})=>{
-        const h=l.offsetHeight,top=Math.max(0,Math.min(y-h/2,ceil-h-3));
-        l.style.top=top+'px';
-        ceil=top;
-      });
+      const labs=rbSpreadLabels([...labWrap.querySelectorAll('.rbclabi')]
+        .map(l=>({l,y:parseFloat(l.getAttribute('data-y')),h:l.offsetHeight})));
+      labs.forEach(({l,top})=>{l.style.top=top+'px';});
       /* The caption spans the percentile rungs only — the record and the top standard come from
          other bodies. Measured after the spread pass, since a lifted rung moves what it must span. */
       const coh=labWrap.querySelector('.rbcohline');

@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.9.1 · Schema 2 · 2026-08-19
+
+- Kept world-record numbers visible beside nearby Olympic-entry values on the benchmark axis; the record number now yields slightly upward instead of being removed when the two labels would overlap.
+
 ## Viewer 1.9.0 · Schema 2 · 2026-08-19
 
 - Restored persistent benchmark history as one shared column per testing month: each row shows its latest result within that month, later months append without replacing earlier ones, and exact attempt dates remain stored in the chart history.
