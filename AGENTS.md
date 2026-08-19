@@ -343,12 +343,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   percentile" captions crowded out the numbers they sat beside; the explanatory intro line that
   replaced them was removed in turn once the rungs started naming themselves. The world-record label names only the athlete and year for the same reason — the chart
   already plots the time. `audit()` and `check-js` both reject a per-row `span` coming back.
-- **`TRAINING.maylater` is the parked list, and it is deliberately NOT a card.** A card is a
-  bounded set you act on; a list is one you are still reading — the same contrast the Stack and
-  Grooming already draw. `{t, note?, items[{n, q, info?}]}`: `q` names the qualities the activity
-  would add and takes the Stack's dose column, so a row reads name → what it buys. The reason for
-  parking lives in the section `note`, not per row, because all four wait on the same thing
-  (time), not four different things — a per-row trigger would have meant inventing three.
+- **Training is active work only.** It has no `maylater` parking section and no hover tooltips.
+  Exercise rows are `{n, sets, sub?}`; keep any instruction worth retaining in the visible name,
+  sets or programme note. Benchmark month headings, deltas, results and chart points likewise carry
+  no `title` or custom bubble. The exact attempt dates remain in `attempts[]` as source data.
 
 ---
 

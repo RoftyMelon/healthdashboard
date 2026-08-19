@@ -343,6 +343,14 @@ setTimeout(()=>{
   // training cards are organised in muscle-group sub-sections; every set renders a column
   try{ setPage('training');
     const BI=DATA.TRAINING.benchmarks.items,H=n.pages.innerHTML;
+    const exercises=DATA.TRAINING.cards.flatMap(c=>(c.groups||[]).flatMap(g=>g.items||[]))
+      .filter(x=>x&&typeof x==='object');
+    ok('training carries no hover-tooltip data or hooks',
+      exercises.every(x=>x.info===undefined)&&H.includes('Shoulder prep')&&
+      !H.includes('class="infob"')&&!H.includes('class="exinfo')&&
+      !H.includes('onclick="pinTip(')&&!H.includes(' title='));
+    ok('training has no May add later section',
+      DATA.TRAINING.maylater===undefined&&!H.includes('May add later')&&!H.includes('trpark'));
     // Ten since 2026-08-12: two jumps and grip joined the seven running/VO2max rows.
     ok('training shows the ten agreed benchmarks',count(H,'rbrow')===10&&
       BI.map(x=>x.id).join(',')==='run100,run400,runmile,run5k,run10k,run20hr,vo2max,vjump,bjump,grip',
@@ -621,8 +629,7 @@ setTimeout(()=>{
     // Shared month buckets prevent two August tests from producing duplicate Aug '26 headers.
     ok('benchmark table preserves one shared column per testing month',
       (H.match(/Aug '26/g)||[]).length===1&&(H.match(/Sept '26/g)||[]).length===1&&
-      H.includes('title="August 2026"')&&H.includes('title="September 2026"')&&
-      H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
+      !H.includes(' title=')&&H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     const rrow=(H.match(/<tr class="rbrow" data-rbrow="run100"[\s\S]*?<\/tr>/)||[])[0]||'';
     ok('a monthly cell shows that row\'s latest exact-date attempt',
@@ -641,7 +648,8 @@ setTimeout(()=>{
       D.includes('rbline')&&!D.includes('rbtg')&&!D.includes('rbbg')&&!D.includes('rbmed')&&D.includes('rbwr')&&
       (D.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===4);
     ok('benchmark results and chart points have no tooltip hooks',
-      !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!html.includes('function rbPtHTML'));
+      !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!H.includes(' title=')&&
+      !D.includes(' title=')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));
     R.attempts.splice(0,R.attempts.length,...savedR);V.attempts.splice(0,V.attempts.length,...savedV);
   }catch(e){
@@ -742,6 +750,12 @@ setTimeout(()=>{
     const sample=JSON.parse(JSON.stringify(DATA));sample.TRAINING.benchmarks.items[0][field]='legacy';
     return audit(sample).length===1;
   }),legacyBenchmarkFields.join(', '));
+  const jTrainingTip=JSON.parse(JSON.stringify(DATA));
+  jTrainingTip.TRAINING.cards[0].groups[0].items[0].info='legacy tooltip';
+  ok('audit rejects a Training exercise tooltip',audit(jTrainingTip).length===1,audit(jTrainingTip)[0]||'');
+  const jTrainingPark=JSON.parse(JSON.stringify(DATA));
+  jTrainingPark.TRAINING.maylater={t:'May add later',items:[]};
+  ok('audit rejects a Training parked section',audit(jTrainingPark).length===1,audit(jTrainingPark)[0]||'');
   const j15=JSON.parse(JSON.stringify(DATA)); j15.MARK.find(m=>m.id==='o3').target.evidence='certain';
   ok('audit rejects an unknown target evidence level',audit(j15).length===1,audit(j15)[0]||'');
   const j16=JSON.parse(JSON.stringify(DATA)); j16.MARK.find(m=>m.id==='vitd').cut.zones[1].min=10;

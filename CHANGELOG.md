@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.10.0 · Schema 2 · 2026-08-19
+
+- Removed the Training tab's hover tooltips, including the exercise info popover and native benchmark month/delta titles; the underlying exercise tooltip payload is gone as well.
+- Removed `TRAINING.maylater` and its “May add later” section from both the personal dashboard and blank Starter.
+
 ## Viewer 1.9.1 · Schema 2 · 2026-08-19
 
 - Kept world-record numbers visible beside nearby Olympic-entry values on the benchmark axis; the record number now yields slightly upward instead of being removed when the two labels would overlap.

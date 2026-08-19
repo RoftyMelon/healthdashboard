@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.9.1">
+<meta name="health-dashboard-viewer-version" content="1.10.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -705,11 +705,6 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
    above the phone `.pgsec{max-width:335px}` too — which is the point, since the cards go to
    min(356px,100%) on a phone and the list has to follow them, not the 335px text measure. */
 .gwrap+.pgtier+.pgsec.stk{max-width:min(356px,100%)}
-/* Training's parked list carries QUALITIES in the dose column, not a dose — "Vertical jump ·
-   Explosive power · HIIT" is three times a dose's width, so 430px folded every row onto two
-   lines. Specificity 0,3,0, matching the Grooming override above and beating the 0,2,0 base. */
-.pgsec.stk.trpark{max-width:min(560px,100%)}
-.trpark .sd{text-align:right;line-height:1.4}
 .pgsec.ndlist,.ndintro,.ndcollections{max-width:760px}
 .ndintro{margin-top:14px;color:var(--t2);font-size:15px;line-height:1.6}
 .ndcards{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:16px}
@@ -1036,12 +1031,6 @@ a.sbuy:hover{color:var(--info)}
    the anchor, so the bubble drops under its own line instead of the card's top-right corner. */
 .ccard li.lrow{position:relative}
 .ccard li.lrow .exinfo{top:calc(100% + 4px);left:0;right:auto;max-width:min(94vw,260px)}
-/* Shoulder prep is the Push card's one top-level protocol note. Its card has an intentionally
-   empty upper-right quadrant, so anchor this bubble to the CARD instead of dropping it below the
-   row. The narrow measure turns the long ribbon into a compact near-square. */
-.ccard li.lrow.exprep{position:static}
-.ccard li.lrow.exprep .exinfo{top:10px;right:10px;bottom:auto;left:auto;transform:none;
-  width:min(55%,150px);max-width:min(55%,150px);padding:9px 11px}
 /* The ↗ in a card list. Scoped to .ccard li so the Stack's own .sbuy (a flex item in .srow,
    where align-self:center already centres it) is untouched. Here the <li> is a block, so the
    arrow is an inline 11px glyph sitting on the 16px text's baseline — measured 1.7px below the
@@ -2128,30 +2117,14 @@ function audit(j){
         g.items.forEach(x=>{
           if(typeof x==='string')return;
           if(!x.n)bad.push(`TRAINING "${c.t}" / "${g.t}": exercise needs a name`);
+          if(x.info!==undefined)bad.push(`TRAINING "${x.n}": exercise tooltips are not part of the Training contract`);
           if(x.sets!=null&&(!Array.isArray(x.sets)||x.sets.some(s=>!Array.isArray(s)||s.length!==2)))
             bad.push(`TRAINING "${x.n}": sets must be [kg,reps] pairs`);
         });
       });
       else if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
     });
-    /* The parked list. Deliberately NOT a card: a card is a bounded set you act on, a list is one
-       you are still reading — the same contrast the Stack and Grooming draw. Each row carries the
-       qualities the activity would buy, and the shared reason it is parked lives in the section
-       note rather than per-row, because all four wait on the same thing (time), not four things. */
-    {const m=j.TRAINING.maylater;
-     if(m!==undefined){
-       if(!m||typeof m!=='object'||Array.isArray(m))bad.push('TRAINING.maylater must be an object when present');
-       else{
-         if(m.t!==undefined&&(typeof m.t!=='string'||!m.t.trim()))bad.push('TRAINING.maylater.t must be a non-empty string when present');
-         if(m.note!==undefined&&(typeof m.note!=='string'||!m.note.trim()))bad.push('TRAINING.maylater.note must be a non-empty string when present');
-         if(!Array.isArray(m.items))bad.push('TRAINING.maylater.items must be an array (empty is fine)');
-         else m.items.forEach(x=>{
-           if(!x||typeof x!=='object'||!x.n)return bad.push('TRAINING.maylater: every row needs a name');
-           if(!x.q||typeof x.q!=='string')bad.push(`TRAINING.maylater "${x.n}": needs the qualities it would buy`);
-           if(x.info!==undefined&&(typeof x.info!=='string'||!x.info.trim()))bad.push(`TRAINING.maylater "${x.n}": info must be a non-empty string when present`);
-         });
-       }
-     }}
+    if(j.TRAINING.maylater!==undefined)bad.push('TRAINING.maylater is retired; keep the Training tab to active work and recorded benchmarks');
   }
   return bad;
 }
@@ -2936,7 +2909,6 @@ const rbMonths=()=>{const s=new Set();
   (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(rbMonth(a.date))));
   return [...s].sort();};
 const rbHeadMonth=m=>{const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
-const rbMonthTitle=m=>new Date(m+'-01T00:00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'});
 const rbYear=d=>`'${String(d).slice(2,4)}`;
 const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
@@ -2947,7 +2919,7 @@ function rbTrend(x){
   const a=rbAttempts(x);if(a.length<2)return '<span class="rbnil">—</span>';
   const A=a[a.length-2],B=a[a.length-1],d=B.value-A.value,improved=x.direction==='lower'?d<0:d>0;
   const pc=A.value?Math.abs(d/A.value*100):null,yrs=(new Date(B.date)-new Date(A.date))/31557600000;
-  return `<div class="rbtrend" title="${esc(rbFmt(x,A.value))} (${esc(A.date)}) → ${esc(rbFmt(x,B.value))} (${esc(B.date)})">`+
+  return `<div class="rbtrend">`+
     `<span class="rbdlt${d===0?'':improved?' good':' down'}">${d===0?'no change':(d>0?'↑ ':'↓ ')+esc(rbDeltaFmt(x,d))}</span>`+
     `<span class="rbpct">${pc==null||d===0?'':`${pc.toFixed(pc>=10?0:1)}%`}</span>`+
     `<span class="rbtsp">${yrs>=1?fmt(yrs)+'y':Math.max(1,Math.round(yrs*12))+'mo'}</span></div>`;
@@ -3182,7 +3154,7 @@ function runningBenchmarks(){
   // if a row has several tests in one month, its cell shows the latest one from that month.
   const months=rbMonths(),slots=Math.max(1,months.length),width=409+130*slots;
   const th=months.length
-    ?months.map(m=>`<th class="rbdate" title="${esc(rbMonthTitle(m))}">${esc(rbHeadMonth(m))}</th>`).join('')
+    ?months.map(m=>`<th class="rbdate">${esc(rbHeadMonth(m))}</th>`).join('')
     :'<th class="rbdate rbplaceholder">Result</th>';
   const rows=items.map(x=>{const a=rbAttempts(x),byMonth=new Map(a.map(z=>[rbMonth(z.date),z]));
     const hist=months.length
@@ -3219,8 +3191,8 @@ function setPage(p){
   try{history.replaceState(null,'',p==='markers'?location.pathname+location.search:'#'+p);}catch(e){}
 }
 function renderPage(p){
-  // an exercise renders as a gridless set table: one column per set, kg over reps.
-  // Long protocol details hide behind an info tip so the cards stay narrow.
+  // An exercise renders as a gridless set table: one column per set, kg over reps. Training rows
+  // deliberately carry no info popovers; CARE may still use the shared row renderer for product notes.
   const exRow=x=>{
     // "sub": true indents a row under the one above it — a variation of the same movement, done
     // straight after. A red bracket spanning both was tried first and read as an alarm on a page
@@ -3233,7 +3205,7 @@ function renderPage(p){
     if(x.url||x.info){
       const link=x.url?` <a class="sbuy" href="${esc(x.url)}" target="_blank" rel="noopener" aria-label="Open ${esc(x.n)}">&#8599;</a>`:'';
       const tip=x.info?`<button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button><div class="exinfo">${esc(x.info)}</div>`:'';
-      const tipClass=x.info?` class="lrow${x.n==='Shoulder prep'?' exprep':''}"`:'';
+      const tipClass=x.info?' class="lrow"':'';
       return `<li${tipClass}>${esc(x.n)}${link}${tip}</li>`;
     }
     // uniform weight AND reps (the usual case) collapse to ONE line on the name:
@@ -3296,23 +3268,6 @@ function renderPage(p){
       `<div class="pgsec stk nohead"${c.id?` data-care="${esc(c.id)}"`:''}>`+
       (c.note?`<div class="cnote">${esc(c.note)}</div>`:'')+
       ((c.items||[]).length?(c.items||[]).map(row).join(''):(CARD_SHELLS?`<div class="cempty">&mdash;</div>`:''))+`</div>`;};
-  /* Training's parked list, drawn with careTier's own rows so the two pages read alike. The
-     qualities take the Stack's dose column: name on the left, what it would buy on the right —
-     the same left-to-right shape as name → dose, which is what a reader is scanning for here. */
-  const trParked=()=>{
-    const m=(TRAINING||{}).maylater; if(!m||!(m.items||[]).length&&!CARD_SHELLS)return '';
-    return `<div class="pgtier">${esc(m.t||'May add later')}</div>`+
-      `<div class="pgsec stk nohead trpark">`+
-      (m.note?`<div class="cnote">${esc(m.note)}</div>`:'')+
-      ((m.items||[]).length?(m.items||[]).map(x=>
-        `<div class="srow"><div class="stop">`+
-        `<span class="sn">${esc(x.n)}</span><span class="sfill"></span>`+
-        `<span class="sd">${esc(x.q)}</span>`+
-        // .infob and .exinfo stay adjacent siblings inside .tipw — the reveal is `.tipw:hover .exinfo`
-        (x.info?`<span class="tipw"><button class="infob" onclick="pinTip(this,event)" aria-label="${esc(x.n)} details">i</button>`+
-                `<div class="exinfo">${esc(x.info)}</div></span>`
-               :`<span class="tipw"></span>`)+
-        `</div></div>`).join(''):`<div class="cempty">&mdash;</div>`)+`</div>`;};
   // a CARE card carrying a .schedule renders as a day-indexed dot-matrix instead of a card
   const CGISVG={   // section-header icons (schedule.sections[].icon) — line SVGs, inherit the label colour
     sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>',
@@ -3557,8 +3512,7 @@ function renderPage(p){
       (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards)+
       (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'')+
-      trParked();
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks():'');
   } else if(p==='diet'&&DIET){
     const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
