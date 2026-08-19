@@ -365,24 +365,24 @@ setTimeout(()=>{
        near(M.target.max,K5.target.max/F)&&
        M.athletic.evidence==='weak'&&M.target.evidence==='weak'&&
        M.athletic.source===K5.athletic.source&&
-       M.athletic.label==='Recreational runners, 19–39'&&
+       M.athletic.label==='Recreational runners'&&
        /MODELLED, not measured/.test(M.athletic.basis)&&
        /Riegel/.test(M.athletic.basis),
        `${M.athletic.median} vs ${(K5.athletic.median/F).toFixed(1)}`);}
     const K5=BI.find(x=>x.id==='run5k'),K10=BI.find(x=>x.id==='run10k');
     ok('5K and 10K use the age-filtered recreational-runner bands',
       K5.athletic.min===1070&&K5.athletic.max===1372&&K5.athletic.median===1198&&
-      K5.athletic.label==='Recreational runners, 19–39'&&K5.athletic.basis.includes('535 men aged 19–39')&&
-      K5.target.min===992&&K5.target.max===1070&&K5.target.label==='Recreational runners 19–39'&&
+      K5.athletic.label==='Recreational runners'&&K5.athletic.basis.includes('535 men aged 19–39')&&
+      K5.target.min===992&&K5.target.max===1070&&K5.target.label==='Recreational runners'&&
       K10.athletic.min===2290&&K10.athletic.max===3000&&K10.athletic.median===2628.5&&
-      K10.athletic.label==='Recreational runners, 19–39'&&K10.athletic.basis.includes('352 men aged 19–39')&&
-      K10.target.min===2090&&K10.target.max===2290&&K10.target.label==='Recreational runners 19–39');
+      K10.athletic.label==='Recreational runners'&&K10.athletic.basis.includes('352 men aged 19–39')&&
+      K10.target.min===2090&&K10.target.max===2290&&K10.target.label==='Recreational runners');
     ok('fixed-pace heart rate has no invented universal comparison',
       !BI.find(x=>x.kind==='heart-rate').world&&!BI.find(x=>x.kind==='heart-rate').athletic);
     const V=BI.find(x=>x.kind==='vo2');
     ok('VO2max uses the measured recreational-runner band and no world-record line',
       V.athletic.min===51.6&&V.athletic.max===59.2&&V.athletic.evidence==='moderate'&&
-      V.athletic.label==='Recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
+      V.athletic.label==='Recreational runners'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
     const J=BI.find(x=>x.id==='vjump'),B=BI.find(x=>x.id==='bjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
     ok('vertical jump uses the Plyomat trained-athlete percentiles',
@@ -393,7 +393,7 @@ setTimeout(()=>{
     ok('grip uses the international adult norms rather than inferred confidence intervals',
       G.athletic.min===43&&G.athletic.max===55.4&&G.athletic.median===49.1&&
       G.target.min===55.4&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
-      /Men 20–39/.test(G.athletic.label)&&
+      G.athletic.label==='Men, international norms'&&
       G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
     /* The sprints have no sampled adult distribution anywhere — the old band was a normal curve
        fitted to 400 PE students in an obscure journal that never reported its timing method.
@@ -410,7 +410,7 @@ setTimeout(()=>{
        Q.athletic.min===66&&Q.athletic.max===86&&Q.athletic.median===75&&
        Q.target.min===59&&Q.target.max===66&&
        [H,Q].every(x=>x.athletic.evidence==='weak'&&x.target.evidence==='weak'&&
-         x.athletic.label==='Recreational runners, 18–39'&&x.target.label==='Recreational runners 18–39'&&
+         x.athletic.label==='Recreational runners'&&x.target.label==='Recreational runners'&&
          !/ijmess|PE students/i.test(x.athletic.source+x.athletic.basis+x.target.basis))&&
        // the multiplier must fall as the athlete gets faster, never rise
        ratio(Q.athletic.max,H.athletic.max)>ratio(Q.athletic.median,H.athletic.median)&&
@@ -499,7 +499,7 @@ setTimeout(()=>{
     const rungs=d=>(d.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length;
     ok('untested benchmark rows still draw their full grade ladder',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
-      ED.includes('Recreational runners 18–39')&&rungs(ED)===4&&
+      ED.includes('Recreational runners')&&rungs(ED)===4&&
       !ED.includes('top quartile to P90')&&ED.includes('World record'));
     ok('the shaded band is gone from every graded row',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
@@ -515,7 +515,7 @@ setTimeout(()=>{
       !BD.includes('P25–P75'));
     ok('VO2max keeps its cohort name above the ladder',
       !VD.includes('Recreational runners range')&&
-      VD.includes('Recreational runners 30–39')&&rungs(VD)===4);
+      VD.includes('Recreational runners')&&rungs(VD)===4);
     ok('performance chart scale spans Average through the top rung',
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD)&&
       />85<\/span>/.test(VD));
@@ -575,7 +575,7 @@ setTimeout(()=>{
       !VD.includes('Source ↗')&&!VD.includes('class="rblinks"'));
     ok('5K cohort arrow keeps the requested primary-study URL and accessible label',
       K5D.includes('class="rbsource" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5000509/"')&&
-      K5D.includes('aria-label="Source for Recreational runners 19–39"'));
+      K5D.includes('aria-label="Source for Recreational runners"'));
     ok('the world record draws one line and names itself beside it',
       (ED.match(/<line class="rbwr"/g)||[]).length===1&&!ED.includes('class="rbsw wr"')&&
       /<span class="rbclabi rbclab-wr"/.test(ED)&&
