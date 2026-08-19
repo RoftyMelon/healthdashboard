@@ -385,10 +385,11 @@ setTimeout(()=>{
       V.athletic.label==='Recreational runners, 30–39'&&V.athletic.basis.includes('94 male recreational runners')&&
       !V.world);
     const J=BI.find(x=>x.id==='vjump'),B=BI.find(x=>x.id==='bjump'),G=BI.find(x=>x.id==='grip'),PT=BI.filter(x=>x.target);
-    ok('vertical jump uses corrected official Canadian percentiles',
-      J.athletic.min===40.4&&J.athletic.max===52.5&&J.athletic.median===46.7&&
-      J.target.min===52.5&&J.target.max===57.4&&J.athletic.heading==='General men range'&&
-      J.athletic.source.includes('statcan.gc.ca'));
+    ok('vertical jump uses the Plyomat trained-athlete percentiles',
+      J.athletic.min===42.4&&J.athletic.max===63.5&&J.athletic.median===52.3&&
+      J.target.min===63.5&&J.target.max===77.3&&J.athletic.heading==='Active men range'&&
+      J.athletic.label==='Trained athletes'&&J.athletic.evidence==='weak'&&
+      J.athletic.source.includes('plyomat.com'));
     ok('grip uses the international adult norms rather than inferred confidence intervals',
       G.athletic.min===43&&G.athletic.max===55.4&&G.athletic.median===49.1&&
       G.target.min===55.4&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
@@ -592,7 +593,7 @@ setTimeout(()=>{
       D.includes('rbcplot')&&!D.includes('rbrefs'));
     // Four synthetic attempts pushed above, plus the one real stored mile from 2026-08-16. This
     // count tracks the DATA, so it moves whenever a real attempt is recorded — that is the point.
-    ok('attempt history is visible without expanding a row',count(H,'rbval')===5,count(H,'rbval')+' values');
+    ok('attempt history is visible without expanding a row',count(H,'rbval')===6,count(H,'rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     ok('benchmark table has date-only headers and no summary columns',
       H.includes("Aug '26")&&H.includes("Sept '26")&&!H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));

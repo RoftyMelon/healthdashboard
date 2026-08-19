@@ -1508,25 +1508,25 @@ window.BLOODWORK =
      "direction": "higher",
      "precision": 1,
      "athletic": {
-      "min": 40.4,
-      "max": 52.5,
-      "median": 46.7,
+      "min": 42.4,
+      "max": 63.5,
+      "median": 52.3,
       "span": "P25–P75",
-      "heading": "General men range",
-      "label": "Men, 20–39",
-      "basis": "Approximate P25–P75 equal-age summary across men aged 20–24, 25–29, 30–34 and 35–39 in the Canadian Health Measures Survey Cycle 5. Statistics Canada publishes P20, P30, P70 and P80 rather than P25 and P75, so each missing quartile is the midpoint of its two adjacent published percentiles before the four age brackets are averaged equally. The median is the equal-age average of the published P50 values. This is not a true pooled 20–39 percentile. The general-population test was a countermovement jump on a Leonardo Mechanograph force plate; field reach-and-touch results are not interchangeable.",
-      "source": "https://www150.statcan.gc.ca/n1/pub/82-003-x/2019010/article/00002/tbl/tbl04-eng.htm",
-      "evidence": "moderate",
-      "reviewed": "2026-08-16"
+      "heading": "Active men range",
+      "label": "Trained athletes",
+      "basis": "P25–P75 from Plyomat's published norms for 330 male athletes, measured as countermovement jump height by flight time on a switch mat, which the maker validates to within about 1cm of force-plate flight time. The sample is coached athletes across school, club, college and professional programmes plus physiotherapy patients tested on the device. The app records no birth dates, so the cohort is not age-bounded and school-age athletes are mixed in, which lifts the band; arm-swing use is unspecified. A single self-selected device sample, so read the percentiles as indicative rather than a controlled reference. Flight-time results also read a few centimetres above a Vertec reach-and-touch, so a jump-and-reach number placed here sits a little low.",
+      "source": "https://www.plyomat.com/vertical-jump-norms",
+      "evidence": "weak",
+      "reviewed": "2026-08-19"
      },
      "target": {
-      "min": 52.5,
-      "max": 57.4,
-      "label": "Men 20–39",
-      "basis": "Approximate P75 to published P90, summarized equally across the four five-year male age brackets from 20–39 in the Canadian Health Measures Survey Cycle 5. P75 is interpolated as the midpoint of each bracket's published P70 and P80; P90 is published directly. The four bracket values are then averaged equally, so this is an age-band summary rather than a true pooled percentile.",
-      "source": "https://www150.statcan.gc.ca/n1/pub/82-003-x/2019010/article/00002/tbl/tbl04-eng.htm",
-      "evidence": "moderate",
-      "reviewed": "2026-08-16"
+      "min": 63.5,
+      "max": 77.3,
+      "label": "Trained athletes",
+      "basis": "P75 to P90 from the same 330-athlete Plyomat norms. It carries every caveat of the peer band: no age control with school-age athletes mixed in, unspecified arm swing, and a single self-selected device sample. The band therefore runs high for an adult trained man and is graded accordingly.",
+      "source": "https://www.plyomat.com/vertical-jump-norms",
+      "evidence": "weak",
+      "reviewed": "2026-08-19"
      },
      "elite": {
       "label": "NFL Combine",
@@ -1536,7 +1536,12 @@ window.BLOODWORK =
       "evidence": "moderate",
       "reviewed": "2026-08-16"
      },
-     "attempts": []
+     "attempts": [
+      {
+       "date": "2026-08-19",
+       "value": 60
+      }
+     ]
     },
     {
      "id": "bjump",
