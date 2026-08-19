@@ -3177,16 +3177,19 @@ function rbToggle(row,id){
 }
 function runningBenchmarks(){
   const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
-  // One RESULT column showing the latest attempt, not a column per date. Two attempts in one
-  // month rendered two identical "Aug '26" headers; the dates still live in the data and drive
-  // the trend column and the expanded chart's x-axis, they are just no longer table headers.
+  // ONE dated column showing each row's latest attempt, not a column per date. Two attempts in
+  // one month used to render two identical "Aug '26" headers; the column is headed by the most
+  // recent attempt across the table, and the full dated history still lives in the data and the
+  // expanded chart. A benchmark whose latest attempt predates that header shows its own value.
+  const dates=rbDates(),latest=dates.length?dates[dates.length-1]:null;
+  const head=latest?esc(rbHeadDate(latest)):'Result';
   const rows=items.map(x=>{const a=rbAttempts(x),last=a.length?a[a.length-1]:null;
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
       `<td class="rbresult-cell">${rbValue(x,last)}</td>`+
       `<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
   return `<div class="rbscroll"><table class="rbtbl" id="rbtbl"><thead><tr>`+
-    `<th class="rbname">Test</th><th class="rbresulth">Result</th><th class="rbchange">Since previous</th>`+
+    `<th class="rbname">Test</th><th class="rbresulth"${latest?` title="${esc(rbDate(latest))}"`:''}>${head}</th><th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 

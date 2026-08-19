@@ -595,8 +595,10 @@ setTimeout(()=>{
     // mile, and the real vjump — four rows show a value, the rest render a dash. No date columns.
     ok('the latest result shows in the row without expanding it',count(H,'rbval')===4,count(H,'rbval')+' values');
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
-    ok('benchmark table has a single Result column and no dated headers',
-      H.includes('>Result</th>')&&!H.includes("Aug '26")&&!H.includes("Sept '26")&&
+    // One dated column, headed by the most recent attempt across the table (Sept '26 here, from
+    // the injected run100/vo2max attempts), never two month headers, and no summary columns.
+    ok('benchmark table has one dated column headed by the latest attempt',
+      (H.match(/Sept '26/g)||[]).length===1&&!H.includes("Aug '26")&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     ok('benchmark definitions and attempts contain only useful structured fields',
       BI.every(x=>x.quality===undefined&&x.protocol===undefined&&
