@@ -1611,9 +1611,9 @@ window.BLOODWORK =
      },
      "elite": {
       "label": "NHL Combine",
-      "value": 85,
-      "basis": "The strongest right-hand grip recorded at the NHL Scouting Combine — about 187 lb (85 kg), set by James Greenway in 2016 — where the average prospect grips roughly 58 kg (128 lb). Hockey players are not grip specialists, so this is a measured athletic-population ceiling rather than a true world-class grip standard, and grip figures vary with dynamometer model and hand position.",
-      "source": "https://www.topendsports.com/sport/icehockey/nhl-combine-results.htm",
+      "value": 89.3,
+      "basis": "Official NHL Scouting Combine record: Sean Farmer averaged 196.9 lb (89.3 kg) across the left- and right-hand grip tests in 1995. The NHL protocol adjusts a hand-grip dynamometer to hand size, tests with the arm fully extended, and reports the average of both hands. This measures the same basic maximal dynamometer grip as this row, but it is not directly interchangeable with the international norms' seated, elbow-flexed, three-trial maximum protocol. Treat it as a distant athletic ceiling, not a cutoff.",
+      "source": "https://records.nhl.com/draft/combine/grip-strength",
       "evidence": "moderate",
       "reviewed": "2026-08-19"
      },

@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.7.0">
+<meta name="health-dashboard-viewer-version" content="1.8.0">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1127,8 +1127,8 @@ a.sbuy:hover{color:var(--info)}
 .cgnote~.cgnote{border-top:none;margin-top:6px;padding-top:0}   /* stacked notes: only the first carries the divider */
 .cgnote~.cgnote::before{top:0}   /* later notes have no top padding, so the bullet rides up with the text */
 
-/* Running benchmark ledger. It borrows the Markers page's grammar — dated columns, an inline
-   expansion and a full-width plot — without pretending everyday training is a lab draw. */
+/* Performance benchmark ledger: one latest-month result column, an inline expansion and a
+   full-width plot, without pretending everyday training is a lab draw. */
 .rbtitle{margin-top:20px;margin-bottom:8px}
 .restrtitle{margin-top:28px}
 .trsummary{font-size:15px;line-height:1.5;color:var(--t2);padding:10px 2px 0}
@@ -1225,8 +1225,8 @@ ul.trsummary.rbintro li{margin:2px 0}
 /* The key is an SVG copy of the plotted line, so its weight, colour, opacity and 5/4 dash pattern
    cannot drift into the browser-defined border dashes that used to make it look thicker. */
 .rbsw.wr,.rbsw.med,.rbsw.tline{display:block;width:14px;height:2px;margin-top:7px;border:0;border-radius:0;overflow:visible}
-/* The grade ladder. One line per rung, weighted so the eye climbs it: Average is the quietest,
-   the top rung the loudest, and Excellent carries the green because it is the one being aimed at.
+/* The grade ladder. One line per rung, weighted so the eye climbs it: Top 50% is the quietest,
+   the stored top rung the loudest, and Top 10% carries green because it is the performance edge.
    Colour is doing ORDER here, not status — a rung is not a pass or a fail. */
 /* One hue per rung, climbing: neutral → blue → green → amber, with the record in red above them.
    The scale is ORDER, not status — amber and red here mark distance from ordinary, not a problem.
@@ -1251,8 +1251,7 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbclabi.rbt-top{color:var(--watch)}
 .rbclabi.rbclab-wr{color:var(--out);font-weight:500}
 .rbclabi .rbsource{color:inherit;opacity:.75}
-/* The dots ride in their own layer so the plot can run wider than the date columns; fitRbChart
-   pulls this back onto them. */
+/* Attempt dots ride in their own layer and spread chronologically across the plot. */
 .rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
 /* A second column to the RIGHT of the rung names, spanning only the percentile rungs — those are
    the three it qualifies, and the hairline says so by reaching exactly as far as they do. Its top
@@ -1704,7 +1703,6 @@ async function flip(){
   flip._t=setTimeout(()=>H.classList.remove('tfade'),300);   // then get out of hover's way
   try{if(window.storage)await window.storage.set(TKEY,S.theme);}catch(e){}
 }
-const VIEWER_VERSION='1.0.0';
 const SUPPORTED_SCHEMA_VERSION=2;
 const DATA_SCOPE=(()=>{try{return (location.pathname||'/').replace(/\/index\.html$/i,'')||'/';}catch(e){return'local';}})();
 const DKEY='healthdashboard.data.v2:'+DATA_SCOPE;
@@ -2049,9 +2047,8 @@ function audit(j){
               if(typeof a.min!=='number'||!isFinite(a.min)||typeof a.max!=='number'||!isFinite(a.max)||a.min>=a.max)
                 bad.push(`${tag}: athletic must have ascending numeric min/max`);
               ['heading','label','basis'].forEach(k=>{if(typeof a[k]!=='string'||!a[k].trim())bad.push(`${tag}: athletic.${k} is required`);});
-              /* median is OPTIONAL: only three sources publish a P50 alongside their quartiles, and a
-                 band without one is honest rather than incomplete. When present it must sit INSIDE the
-                 band — a median outside its own quartiles means the two came from different places. */
+              /* A midpoint is optional, because a source may publish bounds without one. When
+                 present it must sit inside the range or the derived Top 50% line contradicts it. */
               if(a.span!==undefined&&(typeof a.span!=='string'||!a.span.trim()))
                 bad.push(`${tag}: athletic.span must be a non-empty string when given`);
               if(a.median!==undefined&&(typeof a.median!=='number'||!isFinite(a.median)||a.median<=a.min||a.median>=a.max))
@@ -2074,17 +2071,16 @@ function audit(j){
              standing-jump records are unratified, so nothing comparable exists to sit above the band.
              An athletic band is OPTIONAL here — the countermovement jump has a population dataset and
              the standing broad jump does not, and a row is allowed to say so rather than invent one. */
-          /* An OPTIONAL second band: where the top quarter starts. Same shape as athletic but a
-             different claim — athletic says where peers land, target says what good looks like, the
-             same split the markers page makes between a reference range and an optimal range. It must
-             sit on the better side of the peer band's own edge, or it is not a target at all. */
+          /* Source metadata for the Top 25% and Top 10% ladder rungs. The viewer renders those
+             boundaries as lines, not as a second shaded band. It must sit on the better side of
+             the peer band's own edge, or the two derived grades contradict their source range. */
           if(x.target!==undefined){const g=x.target;
             if(!g||typeof g!=='object')bad.push(`${tag}: target must be an object`);
             else{
               if(typeof g.min!=='number'||!isFinite(g.min)||typeof g.max!=='number'||!isFinite(g.max)||g.min>=g.max)
                 bad.push(`${tag}: target must have ascending numeric min/max`);
               ['label','basis'].forEach(k=>{if(typeof g[k]!=='string'||!g[k].trim())bad.push(`${tag}: target.${k} is required`);});
-              if(g.span!==undefined&&(typeof g.span!=='string'||!g.span.trim()))bad.push(`${tag}: target.span must be a non-empty string when given`);
+              if(g.span!==undefined)bad.push(`${tag}: target.span is not part of the benchmark contract`);
               if(typeof g.source!=='string'||!/^https:\/\//.test(g.source))bad.push(`${tag}: target.source must be https://`);
               if(!['strong','moderate','weak'].includes(g.evidence))bad.push(`${tag}: target.evidence must be strong/moderate/weak`);
               if(typeof g.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(g.reviewed))
@@ -2096,12 +2092,12 @@ function audit(j){
                 bad.push(`${tag}: target must sit beyond the peer band, not inside it`);
             }
           }
-          /* The ladder's TOP rung, and the only one stored: Average, Good and Excellent are derived
+          /* The ladder's TOP rung, and the only one stored: Top 50%, Top 25% and Top 10% are derived
              from the median and the target, so storing them would let a band and its own grade drift.
              This rung is a different claim from a different body — an Olympic entry standard, the
              four-minute mile, an NFL Combine mark — so it carries its own source and grade, and its
-             label is a closed set to stop a row inventing a fourth authority. It must also sit beyond
-             Excellent: a top grade inside the target band is not a ceiling, it is a duplicate. */
+             label is a closed set to stop a row inventing another unsupported authority. It must
+             also sit beyond Top 10%: a top grade inside the target range is not a ceiling, it is a duplicate. */
           if(x.elite!==undefined){const e=x.elite;
             if(!e||typeof e!=='object')bad.push(`${tag}: elite must be an object`);
             else{
@@ -2115,12 +2111,12 @@ function audit(j){
                 bad.push(`${tag}: elite.reviewed must be YYYY-MM-DD`);
               if(!x.target)bad.push(`${tag}: a top grade needs the target it sits above`);
               else if(x.direction==='lower'?e.value>=x.target.min:e.value<=x.target.max)
-                bad.push(`${tag}: elite must sit beyond Excellent, not inside the target`);
+                bad.push(`${tag}: elite must sit beyond Top 10%, not inside the target`);
             }
           }
           if(x.kind==='jump'&&x.world)bad.push(`${tag}: a jump has no comparable ratified world record`);
-          /* Grip records exist but are set on bespoke grippers, not a clinical dynamometer, so
-             nothing ratified sits on the same scale as the measurement. */
+          /* Grip's separate NHL ceiling is stored as elite metadata, not as a ratified world record;
+             its two-hand-average protocol is not interchangeable with the population range. */
           if(x.kind==='strength'&&x.world)bad.push(`${tag}: dynamometer strength has no comparable ratified world record`);
           if(x.kind==='heart-rate'&&(x.athletic||x.world))bad.push(`${tag}: fixed-pace heart rate has no universal athletic band or world record`);
         });
@@ -2960,11 +2956,11 @@ function rbValue(x,a,extra=''){
   const pb=rbIsPB(x,a.value);
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
-/* The grade ladder is DERIVED, never stored. Average is the cohort midpoint, Good and Excellent are
+/* The grade ladder is DERIVED, never stored. Top 50% is the cohort midpoint; Top 25% and Top 10% are
    the two edges of the sourced performance target, and only the top rung is held in the data —
    it is the one genuinely separate claim, carrying its own source, and its name changes with the
    event: an Olympic entry standard where one exists, the four-minute mile where the event is not
-   Olympic, an NFL Combine mark for the jumps. Storing Average/Good/Excellent as four more numbers
+   Olympic, an NFL Combine mark for the jumps. Storing the three derived rungs as more numbers
    beside the band they come from would let a band and its own grade drift apart. */
 const RB_TIER_TOP=['Olympic entry standard','World class','NFL Combine','NHL Combine'];
 function rbTiers(x){
@@ -3028,21 +3024,19 @@ function rbSvg(x,dates){
     `World record · ${x.world.athlete} ${rbYear(x.world.date)}`,x.world.source,'the world record');
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
-  /* Label the values that MEAN something, not thirds of the drawing area. The old axis printed the
-     plot's own min, midpoint and max — numbers produced by the padding calculation, so 5:19 on a mile
-     chart was neither a percentile nor a target, just where the ruler happened to fall. The band
-     edges and the median are the only heights on this plot a reader can act on; the world record is
-     already named in the legend and would only crowd the top. Anything within 7% of a neighbour is
-     dropped so two labels never overprint. */
+  /* Label the sourced rung values, not arbitrary thirds of the drawing area. When a world record
+     nearly overlaps a rung, the rung value wins the gutter because the record is already named in
+     the plot. Anything within 7% of a kept neighbour is dropped so two labels never overprint. */
   const ticks=[];
   tiers.forEach(t=>ticks.push(t.v));
   if(peer)ticks.push(peer.min,peer.max);
-  if(x.world)ticks.push(x.world.value);
   const kept=[];
-  ticks.sort((p,q)=>p-q).forEach(v=>{const y=Y(v);
+  const keepTick=v=>{const y=Y(v);
     if(y<T-1||y>B+1)return;
     if(kept.some(k=>Math.abs(Y(k)-y)<(B-T)*.07))return;
-    kept.push(v);});
+    kept.push(v);};
+  ticks.sort((p,q)=>p-q).forEach(keepTick);
+  if(x.world)keepTick(x.world.value);
   /* The unit is captioned ONCE at the top of the gutter, never repeated on every tick — a unit on
      each one doubled every label's height and the rungs then collided with each other. Jumps carry
      inches as a second value on the same line, because the NFL Combine rung is quoted in inches
@@ -3065,7 +3059,7 @@ function rbSvg(x,dates){
     `<div class="rbcplot">${s}<div class="rbcdots">${dots}</div></div>`+
     `<div class="rbclab">${labels}${rbCohortLine(x)}</div>`;
 }
-/* Two lines, the owner's own words. Gated on a ladder existing: with none rendered they would
+/* Three compact bullets, gated on a ladder existing: with none rendered they would
    describe rungs nothing uses. */
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
@@ -3075,10 +3069,6 @@ function rbIntro(){
      `<li>Most age ranges ~20–40 years old</li>`+
      `</ul>`:'';
 }
-/* World record first: on a lower-is-better event its line sits ABOVE the band, so listing the
-   band first inverted the chart and made you hunt to map an entry to a line. */
-// The legend key for a plotted line: an SVG copy of the line itself, so its weight, colour and
-// dash pattern cannot drift into browser-drawn border dashes the way a CSS-bordered box did.
 /* rbLegend now serves ONE case: a row with no band, no target and no record, which draws no plot
    at all. Everything else names its rungs inside the chart, so the side legend — and the whole
    absolute-positioning pass that used to slide each key onto its line — is gone. */
@@ -3096,10 +3086,8 @@ function rbLegend(x){
    back to a bare legend, on the reasoning that an empty chart says nothing — but the requested
    target or peer comparison is the content here. rbSvg handles an empty attempts array by using
    the displayed band's own values for the scale, so the axis remains meaningful. */
-/* The cohort caption sits ABOVE the plot now that every rung names itself inside it. It was the
-   only thing left in the side pad, and a 220px column holding one line was stealing the width the
-   names needed. Losing the pad also retired the whole absolute-positioning pass that used to slide
-   each legend key onto its line — the names sit on their lines by construction instead. */
+/* The cohort caption sits in the names column and spans only the three population-derived rungs;
+   the stored top rung and any world record keep their own authority and source. */
 function rbCohortLine(x){
   const label=(x.target&&x.target.label)||(x.athletic&&x.athletic.label);
   const src=(x.target&&x.target.source)||(x.athletic&&x.athletic.source);
@@ -3115,12 +3103,8 @@ function rbDetail(x,dates,colspan){
     `${rbSvg(x,dates)}</div></td></tr>`;
 }
 let openRb=null;
-/* The DOTS layer must occupy EXACTLY the span of the date columns above it, because rbSvg places an
-   attempt at (index + .5) / columns of its parent's width. Left to the plot itself, a dot sat
-   centred in the plot while its header sat centred over the table, and with one attempt the two
-   were visibly far apart. Measured, not declared: the name and change columns size to their content,
-   so the offset cannot be a constant. getBoundingClientRect, never offsetLeft — the cells are inside
-   a scroller and offsetLeft would resolve against a different origin depending on their position. */
+/* Keep plot geometry stable after the fixed-width table is laid out. Attempt dots use the full
+   plot width in chronological order; the table no longer exposes a column per attempt date. */
 function fitRbChart(){
   const t=document.getElementById('rbtbl'); if(!t||!t.querySelectorAll)return;   // no-op off a real DOM
   document.querySelectorAll('.rbchart').forEach(c=>{

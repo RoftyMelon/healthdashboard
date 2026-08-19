@@ -3,18 +3,24 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.8.0 · Schema 2 · 2026-08-19
+
+- Replaced the incomplete grip result used as the NHL Combine ceiling with the official 196.9 lb (89.3 kg) two-hand-average record, and documented why its protocol is only a distant comparison with the row's international norms.
+- Kept every exact top-rung value visible on the chart axis: when a nearby world-record tick would collide, the sourced rung value now takes priority while the world-record line and label remain.
+- Made the no-`target.span` benchmark contract enforceable at runtime and aligned the Personal and Starter documentation with the current four-line grade ladder.
+
 ## Viewer 1.7.0 · Schema 2 · 2026-08-16
 
-- Fixed the grip top rung: replaced an unsourced ~90kg estimate (paired with an unrelated older-adult review) with the NHL Combine record grip (~85kg), and added `NHL Combine` to the closed top-rung label set.
+- Added a provisional NHL Combine grip result from an incomplete public table; Viewer 1.8.0 replaces it with the official record and protocol.
 - Collapsed the dated attempt columns into a single column headed by the latest attempt's month, showing each row's latest value; two attempts in one month no longer make two identical headers, and the full dated history stays in the data and the expanded chart.
 - Turned the benchmark intro into bullet points and noted most cohort age ranges are about 20–40.
-- Renamed the jumps' top rung `NFL Combine elite`. The Combine is invite-only, so unlike an Olympic entry standard it is not a qualifying bar — it marks the top of an already-selected group.
+- Renamed the jumps' top rung `NFL Combine`. The Combine is invite-only, so unlike an Olympic entry standard it is not a qualifying bar — it marks the top of an already-selected group.
 - Captioned the unit once at the top of the chart axis, and gave both jumps an inch value beside each centimetre one so the NFL Combine rung can be read in the units it was set in.
 - Restored a two-line intro under Performance benchmarks, and moved the cohort caption to the foot of the names column, under the rungs it qualifies.
 - Renamed the track events' top rung `Olympic entry standard`, since it is the qualifying mark rather than the slowest athlete in the field.
 - Moved the rung names out of the plot into their own column on its right, so a name never strikes the line it labels.
 - Removed the explanatory intro under Performance benchmarks; each rung names its own percentile on the chart, so the sentence was repeating them.
-- Named the three derived rungs by their percentiles — `50th`, `75th`, `90th` — instead of Average, Good and Excellent, so a chart answers what a grade means without the reader going back to the intro.
+- Named the three derived rungs `Top 50%`, `Top 25%` and `Top 10%` instead of Average, Good and Excellent, so the labels read correctly whether lower or higher values are better.
 
 ## Viewer 1.6.0 · Schema 2 · 2026-08-16
 

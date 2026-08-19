@@ -283,36 +283,36 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   as exactly `{date, value}`. Do not store method, course, conditions, notes, quality labels or
   hidden protocols. The viewer derives the change and personal best;
   never store a separate PB or tier the tests into core/optional groups. The main table shows one
-  `Result` column with the LATEST attempt (PB-highlighted) and a `Since previous` change; the full
-  dated history lives in the data and in the expanded chart, NOT as table columns. It used to be a
-  column per attempt date headed `MMM 'YY`, but two attempts in one month rendered two identical
-  `Aug '26` headers, so the dated columns collapsed to the single Result. Every
-  row expands into the trend chart, INCLUDING before the first attempt. A benchmark with a target
-  displays its P75–P90 target plus a neutral median line and value; its lower P25–P75 peer
-  band remains stored as source context but does not render. A benchmark without a target keeps
-  its peer band and optional median.
-  Only a row with no band and no world record falls back to the bare summary.
-  Benchmark results and chart points deliberately have no hover/tap bubble; the dated column already
-  identifies the attempt, and clicking the result should expand the row. Running world records
-  must match the event and surface and carry a source plus review date. The green
-  `athletic` band is a sourced active-peer performance comparison, never labelled a longevity
+  latest-result column with each row's LATEST attempt (PB-highlighted) and a `Since previous` change.
+  When any attempt exists, that column is headed by the newest attempt month across the table; before
+  the first attempt it is headed `Result`. The full dated history lives in the data and in the
+  expanded chart, NOT as table columns. It used to be a column per attempt date headed `MMM 'YY`, but
+  two attempts in one month rendered two identical `Aug '26` headers. Every row expands into the
+  trend chart, INCLUDING before the first attempt. A target-bearing benchmark renders four lines:
+  `Top 50%` from `athletic.median`, `Top 25%` and `Top 10%` from the two `target` edges, and the
+  separately sourced top rung from `elite`. Its peer and target ranges remain stored as source
+  metadata; target-bearing rows render the four-line ladder rather than those ranges directly.
+  A future peer-only row may retain its sourced peer-range fallback. Only a row with no
+  comparison data and no world record falls back to the bare summary.
+  Benchmark results and chart points deliberately have no hover/tap bubble; the month column identifies
+  the test window, and clicking the result should expand the row. Running world records
+  must match the event and surface and carry a source plus review date. The `athletic` range is a
+  sourced active-peer performance comparison, never labelled a longevity
   optimum. Its `heading` names the supported comparison class in the data, but the viewer uses
   the cohort `label` itself as the card heading rather than displaying that generic classification.
-  The label must remain specific about age and comparison class; sex and sampling details remain
-  explicit in `basis`. Modelled
-  percentages of a world record do not qualify. Each band carries an evidence grade and review
-  date. Current performance target bands run from P75 to P90 and begin exactly where their peer
-  band ends. When a source omits P75, interpolation must be disclosed in `basis`; values above P90
-  are above the target band, never worse. The viewer never stacks the lower peer range beneath a
-  target: the requested P75–P90 interval is the sole shaded comparison on those rows, with the
-  median retained only as a neutral line for orientation.
+  The visible label stays concise and may omit age; the applicable age, sex, sampling details and
+  comparison class remain explicit in `basis`. Modelled
+  percentages of a world record do not qualify. Each comparison range carries an evidence grade and
+  review date. Current performance target ranges run from P75 to P90 and begin exactly where their
+  peer range ends. When a source omits P75, interpolation must be disclosed in `basis`; performance
+  beyond P90 is above the `Top 10%` rung, never worse.
   Every current benchmark with a sourced population comparison carries that P75–P90 target;
   fixed-pace heart rate deliberately remains personal-progression-only.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
   Where NO sampled adult distribution exists, a `weak`-graded practitioner benchmark ladder is
-  the honest floor and beats fitting a normal curve to whatever paper turns up. Both sprints ran
-  on 400 PE students from a journal that never reported its timing method, and the 400m band that
-  fell out was 3.6s wide — proportionally TIGHTER than the 100m's, which is backwards. The
+  the honest floor and beats fitting a normal curve to whatever paper turns up. An earlier sprint
+  source used 400 PE students from a journal that never reported its timing method, and the 400m
+  range derived from it was 3.6s wide — proportionally TIGHTER than the 100m's, which is backwards. The
   replacement `basis` must say the percentiles are mapped from rules of thumb rather than
   measured, and must name the timing convention: fully automatic timing reads ~0.24s slower than
   hand timing, which is larger than the gap between two of these rungs. Sprints display one
@@ -329,18 +329,18 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   time distribution means. `Top` reads correctly whichever way the number runs, and needs no intro
   line to decode it. Only the 5km and 10km rows sampled their percentiles; every other basis says
   which it is. The first three are DERIVED at render time (`Top 50%` = `athletic.median`, `Top 25%`
-  and `Top 10%` = the two `target` edges) and must never be stored: four more numbers beside the
+  and `Top 10%` = the two `target` edges) and must never be stored: three more numbers beside the
   band they come from is exactly how a grade and its band drift apart. Only the top rung is data,
   in `elite: {label, value, basis, source, evidence, reviewed}`, because it is a different claim
   from a different body. `label` is a closed set — `Olympic entry standard`, `World class`
   (the four-minute mile, where the event is not Olympic), `NFL Combine` or `NHL Combine` (Combine marks) — so a row
-  cannot invent a fourth authority. `audit()` rejects a top rung that sits inside the target or on
-  a row with no target. Each rung's legend key pairs to its own plotted line by `data-tier`, never
-  by a class-name lookup table: rungs get renamed, and a table strands the key silently.
+  cannot invent another unsupported authority. `audit()` rejects a top rung that sits inside the target or on
+  a row with no target. Each plotted line carries its `data-tier`, and its adjacent label carries the
+  matching rung class, so a label cannot silently drift onto another line.
   **No target carries its own `span`.** Each rung names its own percentile on the chart, so a
   per-row caption would print the same words a fourth time. Nine identical "75th to 90th
   percentile" captions crowded out the numbers they sat beside; the explanatory intro line that
-  replaced them was removed in turn once the rungs started naming themselves. The world-record legend names only the athlete and year for the same reason — the chart
+  replaced them was removed in turn once the rungs started naming themselves. The world-record label names only the athlete and year for the same reason — the chart
   already plots the time. `audit()` and `check-js` both reject a per-row `span` coming back.
 - **`TRAINING.maylater` is the parked list, and it is deliberately NOT a card.** A card is a
   bounded set you act on; a list is one you are still reading — the same contrast the Stack and

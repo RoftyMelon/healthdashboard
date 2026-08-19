@@ -395,6 +395,11 @@ setTimeout(()=>{
       G.target.min===55.4&&G.target.max===61.7&&G.athletic.heading==='General men range'&&
       G.athletic.label==='Men, international norms'&&
       G.athletic.source.includes('10.1016/j.jshs.2024.101014'));
+    ok('grip top rung uses the official NHL two-hand-average record with its protocol caveat',
+      G.elite.label==='NHL Combine'&&G.elite.value===89.3&&
+      G.elite.source==='https://records.nhl.com/draft/combine/grip-strength'&&
+      G.elite.basis.includes('Sean Farmer')&&G.elite.basis.includes('average of both hands')&&
+      G.elite.basis.includes('not directly interchangeable'));
     /* The sprints have no sampled adult distribution anywhere — the old band was a normal curve
        fitted to 400 PE students in an obscure journal that never reported its timing method.
        These are practitioner rules of thumb instead, pinned here so a later pass cannot drift
@@ -430,7 +435,7 @@ setTimeout(()=>{
         !/(top quartile to P90|upper-quartile band|percentile)/.test(x.target.label)&&
         (x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max)),
       PT.map(x=>`${x.id}:${x.target.span===undefined?'edge '+(x.direction==='lower'?x.target.max===x.athletic.min:x.target.min===x.athletic.max):'span still set'}`).join(', '));
-    /* Average, Good and Excellent are DERIVED, so the only stored rung is the top one. Assert the
+    /* Top 50%, Top 25% and Top 10% are DERIVED, so the only stored rung is the top one. Assert the
        derivation rather than the stored numbers: a grade that stopped tracking its own band would
        still render, and nothing else would notice. */
     {const bad=PT.filter(x=>{const t=rbTiers(x),lower=x.direction==='lower',by=k=>t.find(z=>z.k===k);
@@ -438,7 +443,7 @@ setTimeout(()=>{
          by('good').v!==(lower?x.target.max:x.target.min)||
          by('exc').v!==(lower?x.target.min:x.target.max)||
          by('top').v!==x.elite.value||by('top').t!==x.elite.label;});
-     ok('every graded row derives Average/Good/Excellent and stores only the top rung',
+     ok('every graded row derives Top 50%/Top 25%/Top 10% and stores only the top rung',
        bad.length===0&&PT.every(x=>['Olympic entry standard','World class','NFL Combine','NHL Combine'].includes(x.elite.label)),
        bad.length?bad.map(x=>x.id).join(','):PT.map(x=>x.elite.label).join(','));}
     /* The 5km and 10km rows come from independent subgroups of one survey, so they are NOT forced
@@ -454,11 +459,11 @@ setTimeout(()=>{
        ratios.every(r=>r>RIEGEL&&r<2.3)&&ratios[0]>ratios[1]&&ratios[1]>ratios[2]&&
        /independent subgroups/.test(K5.athletic.basis)&&/not the same 535 men/.test(KX.athletic.basis),
        ratios.map(r=>r.toFixed(3)).join(' > ')+` vs Riegel ${RIEGEL.toFixed(3)}`);}
-    ok('the top rung sits beyond Excellent on every graded row',
+    ok('the top rung sits beyond Top 10% on every graded row',
       PT.every(x=>x.direction==='lower'?x.elite.value<x.target.min:x.elite.value>x.target.max),
       PT.map(x=>`${x.id}:${x.elite.value}`).join(' '));
     {const mi=PT.find(x=>x.id==='runmile'),vo=PT.find(x=>x.id==='vo2max');
-     ok('a value below Average earns no grade, and the best reached rung wins',
+     ok('a value below Top 50% earns no grade, and the best reached rung wins',
        rbGradeOf(mi,420)===null&&rbGradeOf(mi,360).k==='avg'&&rbGradeOf(mi,298).k==='exc'&&
        rbGradeOf(mi,200).k==='top'&&rbGradeOf(vo,40)===null&&rbGradeOf(vo,62.7).k==='exc'&&
        rbGradeOf(vo,90).k==='top');}
@@ -504,7 +509,7 @@ setTimeout(()=>{
     ok('the shaded band is gone from every graded row',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
         return !d.includes('class="rbtg"')&&!d.includes('class="rbbg"')&&!d.includes('<line class="rbmed"');}));
-    ok('mile plots four rungs and labels Good and Excellent on its axis',
+    ok('mile plots four rungs and labels its Top 25% and Top 10% values on the axis',
       rungs(MD)===4&&MD.includes('4:58')&&MD.includes('5:22')&&MD.includes('>4:00<')&&
       !MD.includes('P25–P75'));
     ok('broad jump plots four rungs and labels its own',
@@ -516,9 +521,14 @@ setTimeout(()=>{
     ok('VO2max keeps its cohort name above the ladder',
       !VD.includes('Recreational runners range')&&
       VD.includes('Recreational runners')&&rungs(VD)===4);
-    ok('performance chart scale spans Average through the top rung',
+    ok('performance chart scale spans Top 50% through the top rung',
       />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD)&&
       />85<\/span>/.test(VD));
+    {const ids=['run400','run5k','run10k'],missing=ids.filter(id=>{
+       const x=BI.find(y=>y.id===id),d=rbDetail(x,[],2),axis=(d.match(/<div class="rbcy">[\s\S]*?<\/div>/)||[])[0]||'';
+       return !axis.includes(`>${rbFmt(x,x.elite.value)}</span>`);
+     });
+     ok('colliding world-record ticks yield to the exact top-rung value',missing.length===0,missing.join(',')||'all visible');}
     /* Dropping target.span once made the legend fall through to a numeric range instead of
        printing nothing — the band's edges appeared a third time, beside an axis and an intro
        that already carried them. A target legend prints the cohort alone.
@@ -556,16 +566,16 @@ setTimeout(()=>{
     ok('hidden peer-band metadata cannot affect a target-plus-median chart or legend',
       rbDetail(hiddenPeer,[],2)===VD);
     /* A row with a peer band but no target still works: it keeps the shaded band and shows the one
-       rung it can derive. Good and Excellent come from the target, so a row without one must not
+       rung it can derive. Top 25% and Top 10% come from the target, so a row without one must not
        invent them — a ladder that quietly filled its middle rungs from the band edges would put
        two named grades on the page that no source ever stated. */
     const peerOnly=JSON.parse(JSON.stringify(V)); delete peerOnly.target; delete peerOnly.elite;
     const peerOnlyDetail=rbDetail(peerOnly,[],2);
-    ok('a peer-only row keeps its band and derives only Average',
+    ok('a peer-only row keeps its band and derives only Top 50%',
       peerOnlyDetail.includes('class="rbbg"')&&!peerOnlyDetail.includes('class="rbtg"')&&
       (peerOnlyDetail.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===1&&
       peerOnlyDetail.includes('data-tier="avg"')&&
-      !/>Good<|>Excellent</.test(peerOnlyDetail)&&
+      !/>Top 25%<|>Top 10%</.test(peerOnlyDetail)&&
       peerOnlyDetail.includes(`aria-label="Source for ${peerOnly.athletic.label}"`)&&
       !peerOnlyDetail.includes('Source ↗')&&
       peerOnlyDetail.includes('rbclabi rbt-avg'));
@@ -693,6 +703,8 @@ setTimeout(()=>{
   ok('audit rejects a stored personal best',audit(j21).length===1,audit(j21)[0]||'');
   const j22=JSON.parse(JSON.stringify(DATA)); delete j22.TRAINING.benchmarks.items[0].athletic.reviewed;
   ok('audit rejects an unreviewed active-peer band',audit(j22).length===1,audit(j22)[0]||'');
+  const jTargetSpan=JSON.parse(JSON.stringify(DATA)); jTargetSpan.TRAINING.benchmarks.items.find(x=>x.target).target.span='P75–P90';
+  ok('audit rejects a legacy benchmark target span',audit(jTargetSpan).length===1,audit(jTargetSpan)[0]||'');
   const j23=JSON.parse(JSON.stringify(DATA)); j23.TRAINING.benchmarks.items[0].attempts.push({date:'2026-09-01',value:13.5});
   ok('audit accepts a date-and-result-only attempt',audit(j23).length===0,audit(j23)[0]||'');
   const legacyAttemptFields=['method','conditions','course','note'];
