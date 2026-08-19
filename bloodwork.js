@@ -1493,10 +1493,10 @@ window.BLOODWORK =
      "elite": {
       "label": "World class",
       "value": 85,
-      "basis": "Approximate treadmill VO₂max of a world-class endurance athlete. Elite cyclists, cross-country skiers and distance runners cluster between 80 and 90 mL/kg/min; the highest value ever recorded is about 96. A round anchor, not a qualifying mark.",
-      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5407738/",
+      "basis": "Round high-end endurance anchor from a physiology review of primarily male Olympic and world-class athletes. The review estimates an upper limit of 83-85mL/kg/min for most endurance athletes, with rare values above 90. It also states that evidence in champions is scarce and partly based on individual observations. VO2max alone does not define world-class performance, and results across sports and test protocols are not directly interchangeable with this treadmill row.",
+      "source": "https://doi.org/10.1152/physiol.00052.2014",
       "evidence": "weak",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-19"
      },
      "attempts": []
     },
@@ -2063,36 +2063,6 @@ window.BLOODWORK =
     "id": "legs",
     "t": "Legs",
     "groups": [
-     {
-      "t": "Power",
-      "items": [
-       {
-        "n": "CMJ",
-        "sets": [
-         [
-          null,
-          1
-         ],
-         [
-          null,
-          1
-         ],
-         [
-          null,
-          1
-         ],
-         [
-          null,
-          1
-         ],
-         [
-          null,
-          1
-         ]
-        ]
-       }
-      ]
-     },
      {
       "t": "Calves",
       "q": "Unilateral → Bilateral drop sets",

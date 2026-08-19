@@ -462,6 +462,11 @@ setTimeout(()=>{
     ok('the top rung sits beyond Top 10% on every graded row',
       PT.every(x=>x.direction==='lower'?x.elite.value<x.target.min:x.elite.value>x.target.max),
       PT.map(x=>`${x.id}:${x.elite.value}`).join(' '));
+    {const vo=PT.find(x=>x.id==='vo2max');
+     ok('the VO2max world-class anchor uses the relevant physiology review and states its limits',
+       vo.elite.value===85&&vo.elite.source==='https://doi.org/10.1152/physiol.00052.2014'&&
+       /83-85mL\/kg\/min/.test(vo.elite.basis)&&/rare values above 90/.test(vo.elite.basis)&&
+       /does not define world-class performance/.test(vo.elite.basis));}
     {const mi=PT.find(x=>x.id==='runmile'),vo=PT.find(x=>x.id==='vo2max');
      ok('a value below Top 50% earns no grade, and the best reached rung wins',
        rbGradeOf(mi,420)===null&&rbGradeOf(mi,360).k==='avg'&&rbGradeOf(mi,298).k==='exc'&&

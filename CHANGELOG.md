@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.8.0 · Schema 2 · 2026-08-19
 
+- Replaced the VO₂max top rung's unrelated hyponatremia citation with the relevant physiology review, and clarified that 85 mL/kg/min is a round high-end endurance anchor rather than a universal world-class cutoff.
 - Replaced the incomplete grip result used as the NHL Combine ceiling with the official 196.9 lb (89.3 kg) two-hand-average record, and documented why its protocol is only a distant comparison with the row's international norms.
 - Kept every exact top-rung value visible on the chart axis: when a nearby world-record tick would collide, the sourced rung value now takes priority while the world-record line and label remain.
 - Made the no-`target.span` benchmark contract enforceable at runtime and aligned the Personal and Starter documentation with the current four-line grade ladder.
