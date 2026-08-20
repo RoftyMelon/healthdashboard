@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.11.0 · Schema 2 · 2026-08-20
+
+- Added women’s world-record and Olympic-entry reference lines to the five timed running charts as secondary context; they do not affect the owner’s performance grade.
+- Uses the official Olympic 1500m mile-equivalent entry mark on the mile chart and preserves the existing road-record versus track-entry convention for 5km and 10km.
+
 ## Viewer 1.10.0 · Schema 2 · 2026-08-19
 
 - Removed the Training tab's hover tooltips, including the exercise info popover and native benchmark month/delta titles; the underlying exercise tooltip payload is gone as well.

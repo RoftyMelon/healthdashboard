@@ -1254,6 +1254,27 @@ window.BLOODWORK =
       "evidence": "strong",
       "reviewed": "2026-08-16"
      },
+     "women": {
+      "world": {
+       "value": 10.49,
+       "display": "10.49",
+       "athlete": "Florence Griffith Joyner",
+       "venue": "Indianapolis",
+       "date": "1988-07-16",
+       "surface": "Outdoor track",
+       "source": "https://worldathletics.org/records/all-time-toplists/sprints/100-metres/outdoor/women/senior",
+       "reviewed": "2026-08-20"
+      },
+      "entry": {
+       "label": "Olympic entry standard",
+       "value": 11.07,
+       "display": "11.07",
+       "basis": "Women's 100m entry standard of 11.07 for the Paris 2024 Olympic Games, approved by the World Athletics Council in November 2022.",
+       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
+       "evidence": "strong",
+       "reviewed": "2026-08-20"
+      }
+     },
      "attempts": []
     },
     {
@@ -1302,6 +1323,27 @@ window.BLOODWORK =
       "evidence": "strong",
       "reviewed": "2026-08-16"
      },
+     "women": {
+      "world": {
+       "value": 47.6,
+       "display": "47.60",
+       "athlete": "Marita Koch",
+       "venue": "Canberra",
+       "date": "1985-10-06",
+       "surface": "Outdoor track",
+       "source": "https://worldathletics.org/records/all-time-toplists/sprints/400-metres/outdoor/women/senior",
+       "reviewed": "2026-08-20"
+      },
+      "entry": {
+       "label": "Olympic entry standard",
+       "value": 50.95,
+       "display": "50.95",
+       "basis": "Women's 400m entry standard of 50.95 for the Paris 2024 Olympic Games, approved by the World Athletics Council in November 2022.",
+       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
+       "evidence": "strong",
+       "reviewed": "2026-08-20"
+      }
+     },
      "attempts": []
     },
     {
@@ -1349,6 +1391,27 @@ window.BLOODWORK =
       "source": "https://worldathletics.org/records/all-time-toplists/middlelong/one-mile/outdoor/men/senior",
       "evidence": "moderate",
       "reviewed": "2026-08-16"
+     },
+     "women": {
+      "world": {
+       "value": 247.64,
+       "display": "4:07.64",
+       "athlete": "Faith Kipyegon",
+       "venue": "Monaco",
+       "date": "2023-07-21",
+       "surface": "Outdoor track",
+       "source": "https://worldathletics.org/news/press-releases/ratified-records-kipyegon-mile-clarke-u20-400m-hurdles",
+       "reviewed": "2026-08-20"
+      },
+      "entry": {
+       "label": "Olympic entry equivalent",
+       "value": 260.9,
+       "display": "4:20.90",
+       "basis": "Women's mile-equivalent entry standard of 4:20.90 for the 1500m at the Paris 2024 Olympic Games. The mile itself was not an Olympic event; World Athletics published this equivalent beside the 4:02.50 1500m standard.",
+       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
+       "evidence": "strong",
+       "reviewed": "2026-08-20"
+      }
      },
      "attempts": [
       {
@@ -1403,6 +1466,27 @@ window.BLOODWORK =
       "evidence": "strong",
       "reviewed": "2026-08-16"
      },
+     "women": {
+      "world": {
+       "value": 834,
+       "display": "13:54",
+       "athlete": "Beatrice Chebet",
+       "venue": "Barcelona",
+       "date": "2024-12-31",
+       "surface": "Road (mixed race)",
+       "source": "https://worldathletics.org/news/press-releases/ratified-world-records-chebet-duplantis-ingebrigtsen-yamanishi",
+       "reviewed": "2026-08-20"
+      },
+      "entry": {
+       "label": "Olympic entry standard",
+       "value": 892,
+       "display": "14:52.00",
+       "basis": "Women's 5000m entry standard of 14:52.00 for the Paris 2024 Olympic Games. The Olympic standard is for the track 5000m; this dashboard row and its world record use the road 5km.",
+       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
+       "evidence": "strong",
+       "reviewed": "2026-08-20"
+      }
+     },
      "attempts": []
     },
     {
@@ -1450,6 +1534,27 @@ window.BLOODWORK =
       "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
       "evidence": "strong",
       "reviewed": "2026-08-16"
+     },
+     "women": {
+      "world": {
+       "value": 1726,
+       "display": "28:46",
+       "athlete": "Agnes Jebet Ngetich",
+       "venue": "Valencia",
+       "date": "2024-01-14",
+       "surface": "Road (mixed race)",
+       "source": "https://worldathletics.org/news/press-releases/ratified-world-records-mclaughlin-levrone-duplantis-kipyegon-chebet-alekna-ngetich",
+       "reviewed": "2026-08-20"
+      },
+      "entry": {
+       "label": "Olympic entry standard",
+       "value": 1840,
+       "display": "30:40.00",
+       "basis": "Women's 10,000m entry standard of 30:40.00 for the Paris 2024 Olympic Games. The Olympic standard is for the track 10,000m; this dashboard row and its world record use the road 10km.",
+       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
+       "evidence": "strong",
+       "reviewed": "2026-08-20"
+      }
      },
      "attempts": []
     },
