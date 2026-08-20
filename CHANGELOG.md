@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.11.2 · Schema 2 · 2026-08-20
+
+- Simplified performance-chart world-record labels to `Men · World record` and `Women · World record`; the inline source links remain, while athlete and date provenance stay in the data.
+- Re-audited every timed-event record and elite mark against World Athletics, replaced the men’s secondary Paris-standard links with the primary qualification document, and corrected the road-eligibility and four-minute-mile source notes.
+
 ## Viewer 1.11.1 · Schema 2 · 2026-08-20
 
 - Replaced the women’s mile Olympic-1500m equivalent with the event-matched 4:30 world-class mile barrier.

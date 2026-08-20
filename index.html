@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.11.1">
+<meta name="health-dashboard-viewer-version" content="1.11.2">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -2957,7 +2957,6 @@ const rbMonths=()=>{const s=new Set();
   (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(rbMonth(a.date))));
   return [...s].sort();};
 const rbHeadMonth=m=>{const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
-const rbYear=d=>`'${String(d).slice(2,4)}`;
 const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
   if(x.kind==='time')return Math.abs(n)<60?`${Math.abs(n).toFixed(Math.abs(n)<10?1:0).replace(/\.0$/,'')}s`:rbFmt(x,Math.abs(n),0);
@@ -3050,11 +3049,11 @@ function rbSvg(x,months){
   const sexed=!!(womenWorld||womenElite);
   let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k,sexed&&t.k==='top'?`Men · ${t.t}`:t.t,t.src,t.t)).join('');
   if(x.world)labels+=lab(Y(x.world.value),'rbclab-wr',
-    `${sexed?'Men · ':''}World record · ${x.world.athlete} ${rbYear(x.world.date)}`,x.world.source,sexed?"the men's world record":'the world record');
+    `${sexed?'Men · ':''}World record`,x.world.source,sexed?"the men's world record":'the world record');
   if(womenElite)labels+=lab(Y(womenElite.value),'rbclab-women-elite',
     `Women · ${womenElite.label}`,womenElite.source,"the women's elite standard");
   if(womenWorld)labels+=lab(Y(womenWorld.value),'rbclab-women-wr',
-    `Women · World record · ${womenWorld.athlete} ${rbYear(womenWorld.date)}`,womenWorld.source,"the women's world record");
+    `Women · World record`,womenWorld.source,"the women's world record");
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
      positions the gridlines use, with the value each one represents. */
   /* Label sourced rung values, not arbitrary thirds of the drawing area. Population rungs still

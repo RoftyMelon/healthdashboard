@@ -1223,7 +1223,7 @@ window.BLOODWORK =
       "date": "2009-08-16",
       "surface": "Outdoor track",
       "source": "https://worldathletics.org/records/all-time-toplists/sprints/100-metres/outdoor/men/senior",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-20"
      },
      "athletic": {
       "min": 12.6,
@@ -1250,9 +1250,9 @@ window.BLOODWORK =
       "label": "Olympic entry standard",
       "value": 10,
       "basis": "Men's 100m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
-      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
       "evidence": "strong",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-20"
      },
      "women": {
       "world": {
@@ -1292,7 +1292,7 @@ window.BLOODWORK =
       "date": "2016-08-14",
       "surface": "Outdoor track",
       "source": "https://worldathletics.org/records/all-time-toplists/sprints/400-metres/outdoor/men/senior",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-20"
      },
      "athletic": {
       "min": 66,
@@ -1319,9 +1319,9 @@ window.BLOODWORK =
       "label": "Olympic entry standard",
       "value": 45,
       "basis": "Men's 400m entry standard for the Paris 2024 Olympic Games, ratified by the World Athletics Council in November 2022.",
-      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
       "evidence": "strong",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-20"
      },
      "women": {
       "world": {
@@ -1361,7 +1361,7 @@ window.BLOODWORK =
       "date": "2026-07-18",
       "surface": "Outdoor track",
       "source": "https://worldathletics.org/news/feature/mile-world-record-josh-kerr-history-book",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-20"
      },
      "athletic": {
       "min": 322,
@@ -1387,10 +1387,10 @@ window.BLOODWORK =
      "elite": {
       "label": "World class",
       "value": 240,
-      "basis": "The four-minute mile. The mile is not an Olympic event, so the sport's own recognised threshold stands in: the back of a world-class mile field runs 3:52 to 3:56 and the annual world top-100 cut-off sits near 3:55, which places the barrier just outside that group.",
-      "source": "https://worldathletics.org/records/all-time-toplists/middlelong/one-mile/outdoor/men/senior",
+      "basis": "The four-minute mile. World Athletics describes Roger Bannister's first sub-four-minute mile as a historic, barrier-breaking achievement. This is a round historical benchmark, not a competition entry standard or an official World Athletics performance classification.",
+      "source": "https://worldathletics.org/heritage/news/roger-bannister-sub-four-minute-mile-70-years",
       "evidence": "moderate",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-20"
      },
      "women": {
       "world": {
@@ -1435,7 +1435,7 @@ window.BLOODWORK =
       "date": "2021-12-31",
       "surface": "Road",
       "source": "https://worldathletics.org/news/press-releases/ratified-world-5km-records-taye-aregawi",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-20"
      },
      "athletic": {
       "min": 1070,
@@ -1461,10 +1461,10 @@ window.BLOODWORK =
      "elite": {
       "label": "Olympic entry standard",
       "value": 785,
-      "basis": "Men's 5000m entry standard of 13:05.00 for the Paris 2024 Olympic Games. The track 5000m is compared against a road 5km here, and a road course is usually the slower of the two.",
-      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "basis": "Men's 5000m entry standard of 13:05.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 5km, matching this dashboard row's distance and surface.",
+      "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
       "evidence": "strong",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-20"
      },
      "women": {
       "world": {
@@ -1481,7 +1481,7 @@ window.BLOODWORK =
        "label": "Olympic entry standard",
        "value": 892,
        "display": "14:52.00",
-       "basis": "Women's 5000m entry standard of 14:52.00 for the Paris 2024 Olympic Games. The Olympic standard is for the track 5000m; this dashboard row and its world record use the road 5km.",
+       "basis": "Women's 5000m entry standard of 14:52.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 5km, matching this dashboard row's distance and surface.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
        "reviewed": "2026-08-20"
@@ -1504,7 +1504,7 @@ window.BLOODWORK =
       "date": "2025-02-16",
       "surface": "Road",
       "source": "https://worldathletics.org/news/press-releases/ratified-world-records-hoey-kejelcha-yamanishi",
-      "reviewed": "2026-08-09"
+      "reviewed": "2026-08-20"
      },
      "athletic": {
       "min": 2290,
@@ -1530,10 +1530,10 @@ window.BLOODWORK =
      "elite": {
       "label": "Olympic entry standard",
       "value": 1620,
-      "basis": "Men's 10,000m entry standard of 27:00.00 for the Paris 2024 Olympic Games. The track 10,000m is compared against a road 10km here, and a road course is usually the slower of the two.",
-      "source": "https://www.olympics.com/en/news/athletics-track-combined-events-at-paris-2024-the-entry-standards",
+      "basis": "Men's 10,000m entry standard of 27:00.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 10km, matching this dashboard row's distance and surface.",
+      "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
       "evidence": "strong",
-      "reviewed": "2026-08-16"
+      "reviewed": "2026-08-20"
      },
      "women": {
       "world": {
@@ -1550,7 +1550,7 @@ window.BLOODWORK =
        "label": "Olympic entry standard",
        "value": 1840,
        "display": "30:40.00",
-       "basis": "Women's 10,000m entry standard of 30:40.00 for the Paris 2024 Olympic Games. The Olympic standard is for the track 10,000m; this dashboard row and its world record use the road 10km.",
+       "basis": "Women's 10,000m entry standard of 30:40.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 10km, matching this dashboard row's distance and surface.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
        "reviewed": "2026-08-20"

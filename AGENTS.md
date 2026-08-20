@@ -350,8 +350,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   **No target carries its own `span`.** Each rung names its own percentile on the chart, so a
   per-row caption would print the same words a fourth time. Nine identical "75th to 90th
   percentile" captions crowded out the numbers they sat beside; the explanatory intro line that
-  replaced them was removed in turn once the rungs started naming themselves. The world-record label names only the athlete and year for the same reason — the chart
-  already plots the time. `audit()` and `check-js` both reject a per-row `span` coming back.
+  replaced them was removed in turn once the rungs started naming themselves. World-record labels
+  show only `Men · World record` or `Women · World record` plus the inline source arrow; the chart
+  already plots the mark, while athlete and date provenance remain in `bloodwork.js`. `audit()` and
+  `check-js` both reject a per-row `span` coming back.
 - **Training is active work only.** It has no `maylater` parking section and no hover tooltips.
   Exercise rows are `{n, sets, sub?}`; keep any instruction worth retaining in the visible name,
   sets or programme note. Benchmark month headings, deltas, results and chart points likewise carry

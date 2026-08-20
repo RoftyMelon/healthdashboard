@@ -612,9 +612,27 @@ setTimeout(()=>{
       (ED.match(/<line class="rbwr"/g)||[]).length===1&&!ED.includes('class="rbsw wr"')&&
       /<span class="rbclabi rbclab-wr"/.test(ED)&&
       /aria-label="Source for the men's world record">↗<\/a>/.test(ED)&&!ED.includes('>Source ↗<'));
-    ok('world-record cards show only the compact two-digit year',
-      ED.includes("Men · World record · Usain Bolt '09")&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
+    ok('world-record cards show only the compact sex label and source arrow',
+      ED.includes('Men · World record')&&!ED.includes('Usain Bolt')&&!ED.includes("'09")&&
+      !ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     {const timed=BI.filter(x=>x.kind==='time');
+     const olympic=timed.filter(x=>x.id!=='runmile');
+     const waParis='https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf';
+     ok('all timed world records keep current primary World Athletics sources and review dates',
+       timed.every(x=>x.world.source.startsWith('https://worldathletics.org/')&&
+         x.women.world.source.startsWith('https://worldathletics.org/')&&
+         x.world.reviewed==='2026-08-20'&&x.women.world.reviewed==='2026-08-20'));
+     ok('all Paris entry standards use the primary World Athletics document',
+       olympic.every(x=>x.elite.source===waParis&&x.women.elite.source===waParis&&
+         x.elite.reviewed==='2026-08-20'&&x.women.elite.reviewed==='2026-08-20'));
+     ok('the road-distance entry notes preserve World Athletics equivalent-road eligibility',
+       ['run5k','run10k'].every(id=>{const x=BI.find(y=>y.id===id);
+         return x.elite.basis.includes('allowed the standard to be achieved in the equivalent road')&&
+           x.women.elite.basis.includes('allowed the standard to be achieved in the equivalent road');}));
+     ok('the four-minute mile uses direct World Athletics historical evidence, not an invented classification',
+       M.elite.value===240&&M.elite.source==='https://worldathletics.org/heritage/news/roger-bannister-sub-four-minute-mile-70-years'&&
+       M.elite.basis.includes('historical benchmark')&&M.elite.basis.includes('not a competition entry standard')&&
+       M.elite.reviewed==='2026-08-20');
      ok('women records and elite standards render as secondary context without changing the grade ladder',
        timed.every(x=>{const d=rbDetail(x,[],2),plain=JSON.parse(JSON.stringify(x));delete plain.women;
          return (d.match(/<line class="rbwomen-wr"/g)||[]).length===1&&
@@ -622,7 +640,10 @@ setTimeout(()=>{
            d.includes('class="rbclabi rbclab-women-wr"')&&
            d.includes('class="rbclabi rbclab-women-elite"')&&
            d.includes(`>${x.women.world.display}</span>`)&&d.includes(`>${x.women.elite.display}</span>`)&&
-           d.includes('Women · World record ·')&&d.includes(`Women · ${x.women.elite.label}`)&&
+           d.includes('Men · World record')&&d.includes('Women · World record')&&
+           !d.includes(x.world.athlete)&&!d.includes(x.women.world.athlete)&&
+           !d.includes(`'${x.world.date.slice(2,4)}`)&&!d.includes(`'${x.women.world.date.slice(2,4)}`)&&
+           d.includes(`Women · ${x.women.elite.label}`)&&
            JSON.stringify(rbTiers(x))===JSON.stringify(rbTiers(plain))&&
            rbGradeOf(x,x.athletic.median).k===rbGradeOf(plain,plain.athletic.median).k;
        }),timed.map(x=>x.id).join(','));
