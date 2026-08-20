@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.11.1 · Schema 2 · 2026-08-20
+
+- Replaced the women’s mile Olympic-1500m equivalent with the event-matched 4:30 world-class mile barrier.
+- Unified the secondary women’s top reference under `women.elite`; the other four timed events retain their Olympic entry standards, and none of these references affects the owner’s grade.
+
 ## Viewer 1.11.0 · Schema 2 · 2026-08-20
 
 - Added women’s world-record and Olympic-entry reference lines to the five timed running charts as secondary context; they do not affect the owner’s performance grade.

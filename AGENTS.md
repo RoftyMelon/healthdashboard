@@ -309,14 +309,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   beyond P90 is above the `Top 10%` rung, never worse.
   Every current benchmark with a sourced population comparison carries that P75–P90 target;
   fixed-pace heart rate deliberately remains personal-progression-only.
-  Timed running rows may also carry `women:{world,entry}` as a compact cross-field comparison.
+  Timed running rows may also carry `women:{world,elite}` as a compact cross-field comparison.
   `women.world` follows the same provenance contract as the event's main world record;
-  `women.entry` is `{label,value,display,basis,source,evidence,reviewed}`, with `display` preserving
-  the official precision independently of the owner's attempt precision and `label` restricted to
-  `Olympic entry standard` or `Olympic entry equivalent`. These are secondary contextual lines only:
-  they never enter `rbTiers()`, `rbGradeOf()` or the owner's status. The mile uses World Athletics'
-  published mile equivalent for the Olympic 1500m standard; the 5km and 10km rows pair outright road
-  records with Olympic track entry standards, matching the existing men's comparison convention.
+  `women.elite` is `{label,value,display,basis,source,evidence,reviewed}`, with `display` preserving
+  official precision independently of the owner's attempt precision and `label` restricted to
+  `Olympic entry standard` or `World class`. These are secondary contextual lines only: they never
+  enter `rbTiers()`, `rbGradeOf()` or the owner's status. The mile uses the event-matched 4:30
+  historical world-class barrier rather than borrowing an Olympic 1500m equivalent; the other four
+  timed rows retain Olympic entry standards. The 5km and 10km rows pair outright road records with
+  Olympic track entry standards, matching the existing men's comparison convention.
   The event name and unit define the series; no separate testing-protocol metadata is retained.
   Where NO sampled adult distribution exists, a `weak`-graded practitioner benchmark ladder is
   the honest floor and beats fitting a normal curve to whatever paper turns up. An earlier sprint

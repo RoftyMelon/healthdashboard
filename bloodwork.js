@@ -1265,7 +1265,7 @@ window.BLOODWORK =
        "source": "https://worldathletics.org/records/all-time-toplists/sprints/100-metres/outdoor/women/senior",
        "reviewed": "2026-08-20"
       },
-      "entry": {
+      "elite": {
        "label": "Olympic entry standard",
        "value": 11.07,
        "display": "11.07",
@@ -1334,7 +1334,7 @@ window.BLOODWORK =
        "source": "https://worldathletics.org/records/all-time-toplists/sprints/400-metres/outdoor/women/senior",
        "reviewed": "2026-08-20"
       },
-      "entry": {
+      "elite": {
        "label": "Olympic entry standard",
        "value": 50.95,
        "display": "50.95",
@@ -1403,13 +1403,13 @@ window.BLOODWORK =
        "source": "https://worldathletics.org/news/press-releases/ratified-records-kipyegon-mile-clarke-u20-400m-hurdles",
        "reviewed": "2026-08-20"
       },
-      "entry": {
-       "label": "Olympic entry equivalent",
-       "value": 260.9,
-       "display": "4:20.90",
-       "basis": "Women's mile-equivalent entry standard of 4:20.90 for the 1500m at the Paris 2024 Olympic Games. The mile itself was not an Olympic event; World Athletics published this equivalent beside the 4:02.50 1500m standard.",
-       "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
-       "evidence": "strong",
+      "elite": {
+       "label": "World class",
+       "value": 270,
+       "display": "4:30",
+       "basis": "The 4:30 mile. The mile is not an Olympic event, so the sport's own recognised performance barrier stands in. World Athletics records Paola Pigni-Cacchi's 4:29.5 in 1973 as the first women's mile below 4:30. This is a round historical world-class benchmark, not a competition entry standard.",
+       "source": "https://worldathletics.org/heritage/news/50-years-world-cross-country-championships-1973",
+       "evidence": "moderate",
        "reviewed": "2026-08-20"
       }
      },
@@ -1477,7 +1477,7 @@ window.BLOODWORK =
        "source": "https://worldathletics.org/news/press-releases/ratified-world-records-chebet-duplantis-ingebrigtsen-yamanishi",
        "reviewed": "2026-08-20"
       },
-      "entry": {
+      "elite": {
        "label": "Olympic entry standard",
        "value": 892,
        "display": "14:52.00",
@@ -1546,7 +1546,7 @@ window.BLOODWORK =
        "source": "https://worldathletics.org/news/press-releases/ratified-world-records-mclaughlin-levrone-duplantis-kipyegon-chebet-alekna-ngetich",
        "reviewed": "2026-08-20"
       },
-      "entry": {
+      "elite": {
        "label": "Olympic entry standard",
        "value": 1840,
        "display": "30:40.00",

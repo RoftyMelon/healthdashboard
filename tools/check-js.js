@@ -360,8 +360,8 @@ setTimeout(()=>{
       ['pb','personalBest','tier','optional','core'].every(k=>x[k]===undefined)));
     {const timed=BI.filter(x=>x.kind==='time');
      ok('five timed events carry men and women elite context plus athletic comparisons',
-       timed.length===5&&timed.every(x=>x.world&&x.athletic&&x.women&&x.women.world&&x.women.entry&&
-         typeof x.women.entry.display==='string'),
+       timed.length===5&&timed.every(x=>x.world&&x.athletic&&x.women&&x.women.world&&x.women.elite&&
+         typeof x.women.elite.display==='string'),
        timed.map(x=>`${x.id}:${x.women?'women':'missing'}`).join(','));}
     const M=BI.find(x=>x.id==='runmile');
     /* The mile is INDEXED off the 5km row, not measured. Its own 21,799 Fifth Avenue Mile finishes
@@ -615,20 +615,23 @@ setTimeout(()=>{
     ok('world-record cards show only the compact two-digit year',
       ED.includes("Men · World record · Usain Bolt '09")&&!ED.includes('Outdoor track')&&!ED.includes('Berlin')&&!ED.includes('2009-08-16'));
     {const timed=BI.filter(x=>x.kind==='time');
-     ok('women records and entries render as secondary context without changing the grade ladder',
+     ok('women records and elite standards render as secondary context without changing the grade ladder',
        timed.every(x=>{const d=rbDetail(x,[],2),plain=JSON.parse(JSON.stringify(x));delete plain.women;
          return (d.match(/<line class="rbwomen-wr"/g)||[]).length===1&&
-           (d.match(/<line class="rbwomen-entry"/g)||[]).length===1&&
+           (d.match(/<line class="rbwomen-elite"/g)||[]).length===1&&
            d.includes('class="rbclabi rbclab-women-wr"')&&
-           d.includes('class="rbclabi rbclab-women-entry"')&&
-           d.includes(`>${x.women.world.display}</span>`)&&d.includes(`>${x.women.entry.display}</span>`)&&
-           d.includes('Women · World record ·')&&d.includes(`Women · ${x.women.entry.label}`)&&
+           d.includes('class="rbclabi rbclab-women-elite"')&&
+           d.includes(`>${x.women.world.display}</span>`)&&d.includes(`>${x.women.elite.display}</span>`)&&
+           d.includes('Women · World record ·')&&d.includes(`Women · ${x.women.elite.label}`)&&
            JSON.stringify(rbTiers(x))===JSON.stringify(rbTiers(plain))&&
            rbGradeOf(x,x.athletic.median).k===rbGradeOf(plain,plain.athletic.median).k;
        }),timed.map(x=>x.id).join(','));
-     ok('the mile renders the official Olympic mile-equivalent string exactly',
-       M.women.entry.label==='Olympic entry equivalent'&&M.women.entry.display==='4:20.90'&&
-       MD.includes('>4:20.90</span>')&&MD.includes('Women · Olympic entry equivalent'));}
+     ok('the women mile overlay is the 4:30 World class mark, not an Olympic equivalent',
+       M.women.elite.label==='World class'&&M.women.elite.value===270&&M.women.elite.display==='4:30'&&
+       MD.includes('>4:30</span>')&&MD.includes('Women · World class')&&
+       !MD.includes('Olympic entry equivalent'));
+     ok('the other four women overlays retain their Olympic entry standards',
+       timed.filter(x=>x.id!=='runmile').every(x=>x.women.elite.label==='Olympic entry standard'));}
     const savedR=R.attempts.slice(),savedV=V.attempts.slice();
     R.attempts.push(
       {date:'2026-08-01',value:14.2},
@@ -757,10 +760,13 @@ setTimeout(()=>{
   ok('audit rejects a legacy benchmark target span',audit(jTargetSpan).length===1,audit(jTargetSpan)[0]||'');
   const jWomenField=JSON.parse(JSON.stringify(DATA)); jWomenField.TRAINING.benchmarks.items[0].women.world.note='legacy';
   ok('audit rejects an unknown women-overlay field',audit(jWomenField).some(x=>x.includes('women.world has unknown field')),audit(jWomenField)[0]||'');
-  const jWomenDisplay=JSON.parse(JSON.stringify(DATA)); delete jWomenDisplay.TRAINING.benchmarks.items[0].women.entry.display;
-  ok('audit requires an exact women-entry display string',audit(jWomenDisplay).some(x=>x.includes('women.entry.display is required')),audit(jWomenDisplay)[0]||'');
-  const jWomenOrder=JSON.parse(JSON.stringify(DATA)); jWomenOrder.TRAINING.benchmarks.items[0].women.entry.value=9;
-  ok('audit keeps the women world record beyond the entry reference',audit(jWomenOrder).some(x=>x.includes('women world record must be beyond')),audit(jWomenOrder)[0]||'');
+  const jWomenDisplay=JSON.parse(JSON.stringify(DATA)); delete jWomenDisplay.TRAINING.benchmarks.items[0].women.elite.display;
+  ok('audit requires an exact women-elite display string',audit(jWomenDisplay).some(x=>x.includes('women.elite.display is required')),audit(jWomenDisplay)[0]||'');
+  const jWomenOrder=JSON.parse(JSON.stringify(DATA)); jWomenOrder.TRAINING.benchmarks.items[0].women.elite.value=9;
+  ok('audit keeps the women world record beyond the elite reference',audit(jWomenOrder).some(x=>x.includes('women world record must be beyond')),audit(jWomenOrder)[0]||'');
+  const jWomenLegacy=JSON.parse(JSON.stringify(DATA)); jWomenLegacy.TRAINING.benchmarks.items[0].women.entry=
+    JSON.parse(JSON.stringify(jWomenLegacy.TRAINING.benchmarks.items[0].women.elite));
+  ok('audit rejects the legacy women.entry key',audit(jWomenLegacy).some(x=>x.includes('women has unknown field "entry"')),audit(jWomenLegacy)[0]||'');
   const jWomenKind=JSON.parse(JSON.stringify(DATA)); jWomenKind.TRAINING.benchmarks.items.find(x=>x.kind==='vo2').women=
     JSON.parse(JSON.stringify(jWomenKind.TRAINING.benchmarks.items[0].women));
   ok('audit limits women overlays to timed running events',audit(jWomenKind).some(x=>x.includes('women overlays are only valid')),audit(jWomenKind)[0]||'');

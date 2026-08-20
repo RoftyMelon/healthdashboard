@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.11.0">
+<meta name="health-dashboard-viewer-version" content="1.11.1">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1180,7 +1180,7 @@ ul.trsummary.rbintro li{margin:2px 0}
    colour of the matching men's line, but a finer alternating dash and lower opacity keep the
    seven-line sprint charts readable without inventing a second ladder. */
 .rbwomen-wr{stroke:var(--out);stroke-width:1.05;stroke-dasharray:2 4;opacity:.52;vector-effect:non-scaling-stroke}
-.rbwomen-entry{stroke:var(--watch);stroke-width:1.05;stroke-dasharray:5 4;opacity:.58;vector-effect:non-scaling-stroke}
+.rbwomen-elite{stroke:var(--watch);stroke-width:1.05;stroke-dasharray:5 4;opacity:.58;vector-effect:non-scaling-stroke}
 /* Solid, not dashed: the world record is a far-off boundary while the median is neutral cohort
    context. Same weight, different language; only P75-P90 is shaded as a target. */
 .rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
@@ -1245,7 +1245,7 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbclabi.rbt-top{color:var(--watch)}
 .rbclabi.rbclab-wr{color:var(--out);font-weight:500}
 .rbclabi.rbclab-women-wr{color:var(--out);font-weight:500;opacity:.68}
-.rbclabi.rbclab-women-entry{color:var(--watch);font-weight:500;opacity:.72}
+.rbclabi.rbclab-women-elite{color:var(--watch);font-weight:500;opacity:.72}
 .rbclabi .rbsource{color:inherit;opacity:.75}
 /* Attempt dots ride in their own layer and spread chronologically across the plot. */
 .rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
@@ -2044,7 +2044,7 @@ function audit(j){
           if(x.women!==undefined){const q=x.women;
             if(!q||typeof q!=='object'||Array.isArray(q))bad.push(`${tag}: women must be an object`);
             else{
-              Object.keys(q).forEach(k=>{if(!['world','entry'].includes(k))bad.push(`${tag}: women has unknown field "${k}"`);});
+              Object.keys(q).forEach(k=>{if(!['world','elite'].includes(k))bad.push(`${tag}: women has unknown field "${k}"`);});
               if(x.kind!=='time')bad.push(`${tag}: women overlays are only valid for timed running events`);
               const w=q.world;
               if(!w||typeof w!=='object'||Array.isArray(w))bad.push(`${tag}: women.world is required`);
@@ -2057,23 +2057,23 @@ function audit(j){
                 if(typeof w.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(w.reviewed))bad.push(`${tag}: women.world.reviewed must be YYYY-MM-DD`);
                 if(typeof w.source!=='string'||!/^https:\/\//.test(w.source))bad.push(`${tag}: women.world.source must be https://`);
               }
-              if(q.entry!==undefined){const e=q.entry;
-                if(!e||typeof e!=='object'||Array.isArray(e))bad.push(`${tag}: women.entry must be an object`);
+              if(q.elite!==undefined){const e=q.elite;
+                if(!e||typeof e!=='object'||Array.isArray(e))bad.push(`${tag}: women.elite must be an object`);
                 else{
                   const fields=['label','value','display','basis','source','evidence','reviewed'];
-                  Object.keys(e).forEach(k=>{if(!fields.includes(k))bad.push(`${tag}: women.entry has unknown field "${k}"`);});
-                  if(!['Olympic entry standard','Olympic entry equivalent'].includes(e.label))
-                    bad.push(`${tag}: women.entry.label must be Olympic entry standard/equivalent`);
-                  if(typeof e.value!=='number'||!isFinite(e.value)||e.value<=0)bad.push(`${tag}: women.entry.value must be positive`);
-                  if(typeof e.display!=='string'||!e.display.trim())bad.push(`${tag}: women.entry.display is required`);
-                  if(typeof e.basis!=='string'||!e.basis.trim())bad.push(`${tag}: women.entry.basis is required`);
-                  if(typeof e.source!=='string'||!/^https:\/\//.test(e.source))bad.push(`${tag}: women.entry.source must be https://`);
-                  if(!['strong','moderate','weak'].includes(e.evidence))bad.push(`${tag}: women.entry.evidence must be strong/moderate/weak`);
+                  Object.keys(e).forEach(k=>{if(!fields.includes(k))bad.push(`${tag}: women.elite has unknown field "${k}"`);});
+                  if(!['Olympic entry standard','World class'].includes(e.label))
+                    bad.push(`${tag}: women.elite.label must be Olympic entry standard/World class`);
+                  if(typeof e.value!=='number'||!isFinite(e.value)||e.value<=0)bad.push(`${tag}: women.elite.value must be positive`);
+                  if(typeof e.display!=='string'||!e.display.trim())bad.push(`${tag}: women.elite.display is required`);
+                  if(typeof e.basis!=='string'||!e.basis.trim())bad.push(`${tag}: women.elite.basis is required`);
+                  if(typeof e.source!=='string'||!/^https:\/\//.test(e.source))bad.push(`${tag}: women.elite.source must be https://`);
+                  if(!['strong','moderate','weak'].includes(e.evidence))bad.push(`${tag}: women.elite.evidence must be strong/moderate/weak`);
                   if(typeof e.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(e.reviewed))
-                    bad.push(`${tag}: women.entry.reviewed must be YYYY-MM-DD`);
+                    bad.push(`${tag}: women.elite.reviewed must be YYYY-MM-DD`);
                   if(w&&typeof w.value==='number'&&typeof e.value==='number'&&
                     (x.direction==='lower'?w.value>=e.value:w.value<=e.value))
-                    bad.push(`${tag}: women world record must be beyond the entry standard`);
+                    bad.push(`${tag}: women world record must be beyond the elite standard`);
                 }
               }
             }
@@ -3010,13 +3010,13 @@ function rbSvg(x,months){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic,
     tiers=rbTiers(x),
     median=x.athletic&&x.athletic.median!==undefined?x.athletic.median:null,
-    women=x.women||{},womenWorld=women.world||null,womenEntry=women.entry||null;
+    women=x.women||{},womenWorld=women.world||null,womenElite=women.elite||null;
   if(peer)vals.push(peer.min,peer.max);
   tiers.forEach(t=>vals.push(t.v));
   if(median!==null)vals.push(median);
   if(x.world)vals.push(x.world.value);
   if(womenWorld)vals.push(womenWorld.value);
-  if(womenEntry)vals.push(womenEntry.value);
+  if(womenElite)vals.push(womenElite.value);
   let lo=vals.length?Math.min(...vals):(x.kind==='heart-rate'?90:20),hi=vals.length?Math.max(...vals):(x.kind==='heart-rate'?180:65);
   const gap=Math.max((hi-lo)*.13,x.kind==='time'?1:2);lo-=gap;hi+=gap;if(lo===hi){lo-=1;hi+=1;}
   const Y=v=>x.direction==='lower'?T+(v-lo)/(hi-lo)*(B-T):T+(hi-v)/(hi-lo)*(B-T);
@@ -3035,7 +3035,7 @@ function rbSvg(x,months){
   if(x.world){const y=Y(x.world.value);s+=`<line class="rbwr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   /* These two lines are cross-sex elite context only. They deliberately never enter rbTiers,
      so they cannot award a grade or change what Top 10% means for this profile. */
-  if(womenEntry){const y=Y(womenEntry.value);s+=`<line class="rbwomen-entry" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
+  if(womenElite){const y=Y(womenElite.value);s+=`<line class="rbwomen-elite" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(womenWorld){const y=Y(womenWorld.value);s+=`<line class="rbwomen-wr" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;}
   if(a.length>1)s+=`<path class="rbline" d="${a.map((z,i)=>(i?'L':'M')+X(z.date)+' '+Y(z.value)).join(' ')}"/>`;
   a.forEach(z=>{dots+=`<span class="rbpt${rbIsPB(x,z.value)?' rbpbpt':''}" style="left:${X(z.date)/W*100}%;top:${Y(z.value)}px"></span>`;});
@@ -3047,12 +3047,12 @@ function rbSvg(x,months){
   const lab=(y,cls,text,src,name)=>`<span class="rbclabi ${cls}" style="top:${y}px" data-y="${y}">${esc(text)}`+
     (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc('Source for '+(name||text))}">↗</a>`:'')+
     `</span>`;
-  const sexed=!!(womenWorld||womenEntry);
+  const sexed=!!(womenWorld||womenElite);
   let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k,sexed&&t.k==='top'?`Men · ${t.t}`:t.t,t.src,t.t)).join('');
   if(x.world)labels+=lab(Y(x.world.value),'rbclab-wr',
     `${sexed?'Men · ':''}World record · ${x.world.athlete} ${rbYear(x.world.date)}`,x.world.source,sexed?"the men's world record":'the world record');
-  if(womenEntry)labels+=lab(Y(womenEntry.value),'rbclab-women-entry',
-    `Women · ${womenEntry.label}`,womenEntry.source,"the women's Olympic entry reference");
+  if(womenElite)labels+=lab(Y(womenElite.value),'rbclab-women-elite',
+    `Women · ${womenElite.label}`,womenElite.source,"the women's elite standard");
   if(womenWorld)labels+=lab(Y(womenWorld.value),'rbclab-women-wr',
     `Women · World record · ${womenWorld.athlete} ${rbYear(womenWorld.date)}`,womenWorld.source,"the women's world record");
   /* T and B are the plot's top and bottom in viewBox units; the gutter needs the same three
@@ -3077,7 +3077,7 @@ function rbSvg(x,months){
   const inFmt=v=>(v/2.54).toFixed(1).replace(/\.0$/,'');
   const axisTicks=(kept.length?kept:[lo,hi]).map(v=>({v,y:Y(v),cls:'',display:null}));
   if(x.world)axisTicks.push({v:x.world.value,y:Y(x.world.value),cls:' rbcywr',display:x.world.display});
-  if(womenEntry)axisTicks.push({v:womenEntry.value,y:Y(womenEntry.value),cls:' rbcy-women-entry',display:womenEntry.display});
+  if(womenElite)axisTicks.push({v:womenElite.value,y:Y(womenElite.value),cls:' rbcy-women-elite',display:womenElite.display});
   if(womenWorld)axisTicks.push({v:womenWorld.value,y:Y(womenWorld.value),cls:' rbcy-women-wr',display:womenWorld.display});
   const axis=axisTicks.map(t=>
     `<span class="rbcytick${t.cls}" data-y="${t.y}" style="top:${t.y}px">${esc(t.display||rbFmt(x,t.v))}${inches?'/'+esc(inFmt(t.v)):''}</span>`).join('');
@@ -3100,7 +3100,7 @@ function rbSvg(x,months){
 function rbIntro(){
   return (((TRAINING||{}).benchmarks||{}).items||[]).some(x=>rbTiers(x).length)
     ?`<ul class="trsummary rbintro">`+
-     `<li>Men's and women's world records and Olympic entry standards to stay humble</li>`+
+     `<li>Men's and women's world records and elite standards to stay humble</li>`+
      `<li>Percentiles are calculated or modeled from the specified cohort</li>`+
      `<li>Most age ranges ~20–40 years old</li>`+
      `</ul>`:'';
