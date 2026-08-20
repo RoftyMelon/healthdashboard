@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.11.2">
+<meta name="health-dashboard-viewer-version" content="1.11.3">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -29,6 +29,7 @@
   --txt:#F5F4EF; --t2:rgba(245,244,239,.70); --t3:rgba(245,244,239,.56); --t4:rgba(245,244,239,.42);
   --line:rgba(245,244,239,.13); --line2:rgba(245,244,239,.075);
   --ok:#52C07E; --watch:#E5A34A; --out:#F0705F; --info:#7FB3F0;
+  --sex-men:#7FB3F0; --sex-women:#F08AB7;
   --stick:#262624; --head:#30302E;
   --hov:rgba(127,179,240,.10); --hovs:#2B3239; --grp:#2F2F2C; --sel:#7FB3F0;
   --band:rgba(245,244,239,.16);
@@ -62,6 +63,7 @@
   --txt:#1F1E1D; --t2:rgba(31,30,29,.70); --t3:rgba(31,30,29,.56); --t4:rgba(31,30,29,.42);
   --line:rgba(31,30,29,.14); --line2:rgba(31,30,29,.08);
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
+  --sex-men:#3D6AA8; --sex-women:#B23C74;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1175,12 +1177,12 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbgrid{stroke:var(--line2);stroke-width:1;vector-effect:non-scaling-stroke}
 .rbbg{fill:var(--ok);opacity:.13}
 .rbbedge{stroke:var(--ok);stroke-width:.8;stroke-dasharray:3 3;opacity:.55;vector-effect:non-scaling-stroke}
-.rbwr{stroke:var(--out);stroke-width:1.25;stroke-dasharray:5 4;opacity:.8;vector-effect:non-scaling-stroke}
-/* Women's elite marks are context, not extra grades for this profile. They reuse the semantic
-   colour of the matching men's line, but a finer alternating dash and lower opacity keep the
-   seven-line sprint charts readable without inventing a second ladder. */
-.rbwomen-wr{stroke:var(--out);stroke-width:1.05;stroke-dasharray:2 4;opacity:.52;vector-effect:non-scaling-stroke}
-.rbwomen-elite{stroke:var(--watch);stroke-width:1.05;stroke-dasharray:5 4;opacity:.58;vector-effect:non-scaling-stroke}
+.rbwr{stroke:var(--sex-men);stroke-width:1.25;stroke-dasharray:5 4;opacity:.9;vector-effect:non-scaling-stroke}
+/* Sex is encoded by colour: men's references are blue and women's are pink. Claim type remains
+   readable without colour: world records use the 5/4 dash, while elite marks use the 2/3 dash. */
+.rbt-top.rbmen-elite{stroke:var(--sex-men)}
+.rbwomen-wr{stroke:var(--sex-women);stroke-width:1.05;stroke-dasharray:5 4;opacity:.82;vector-effect:non-scaling-stroke}
+.rbwomen-elite{stroke:var(--sex-women);stroke-width:1.05;stroke-dasharray:2 3;opacity:.82;vector-effect:non-scaling-stroke}
 /* Solid, not dashed: the world record is a far-off boundary while the median is neutral cohort
    context. Same weight, different language; only P75-P90 is shaded as a target. */
 .rbmed{stroke:var(--t3);stroke-width:1.25;opacity:.75;vector-effect:non-scaling-stroke}
@@ -1243,10 +1245,13 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbclabi.rbt-good{color:var(--info)}
 .rbclabi.rbt-exc{color:var(--ok)}
 .rbclabi.rbt-top{color:var(--watch)}
-.rbclabi.rbclab-wr{color:var(--out);font-weight:500}
-.rbclabi.rbclab-women-wr{color:var(--out);font-weight:500;opacity:.68}
-.rbclabi.rbclab-women-elite{color:var(--watch);font-weight:500;opacity:.72}
+.rbclabi.rbclab-wr,.rbclabi.rbclab-men-elite{color:var(--sex-men);font-weight:500}
+.rbclabi.rbclab-women-wr,.rbclabi.rbclab-women-elite{color:var(--sex-women);font-weight:500}
+.rbcytick.rbcywr,.rbcytick.rbcy-men-elite{color:var(--sex-men);font-weight:500}
+.rbcytick.rbcy-women-wr,.rbcytick.rbcy-women-elite{color:var(--sex-women);font-weight:500}
 .rbclabi .rbsource{color:inherit;opacity:.75}
+.rbclabi.rbclab-wr .rbsource,.rbclabi.rbclab-men-elite .rbsource,
+.rbclabi.rbclab-women-wr .rbsource,.rbclabi.rbclab-women-elite .rbsource{opacity:1}
 /* Attempt dots ride in their own layer and spread chronologically across the plot. */
 .rbcdots{position:absolute;top:0;bottom:0;left:0;right:0}
 /* A second column to the RIGHT of the rung names, spanning only the percentile rungs — those are
@@ -3009,7 +3014,8 @@ function rbSvg(x,months){
   const a=rbAttempts(x),W=1000,H=236,T=25,B=207,vals=a.map(z=>z.value),peer=x.target?null:x.athletic,
     tiers=rbTiers(x),
     median=x.athletic&&x.athletic.median!==undefined?x.athletic.median:null,
-    women=x.women||{},womenWorld=women.world||null,womenElite=women.elite||null;
+    women=x.women||{},womenWorld=women.world||null,womenElite=women.elite||null,
+    sexed=!!(womenWorld||womenElite);
   if(peer)vals.push(peer.min,peer.max);
   tiers.forEach(t=>vals.push(t.v));
   if(median!==null)vals.push(median);
@@ -3026,8 +3032,8 @@ function rbSvg(x,months){
      what its own edges meant. A rung you either reach or you do not needs no legend sentence.
      Each line carries data-tier so the legend can find the exact y it must sit beside, without
      the legend and the plot having to agree on a class name twice. */
-  tiers.forEach(t=>{const y=Y(t.v);
-    s+=`<line class="rbt ${'rbt-'+t.k}" data-tier="${t.k}" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
+  tiers.forEach(t=>{const y=Y(t.v),menElite=sexed&&t.k==='top'?' rbmen-elite':'';
+    s+=`<line class="rbt ${'rbt-'+t.k}${menElite}" data-tier="${t.k}" x1="0" x2="${W}" y1="${y}" y2="${y}"/>`;});
   if(peer){const y1=Y(peer.min),y2=Y(peer.max),y=Math.min(y1,y2),h=Math.abs(y2-y1);
     s+=`<rect class="rbbg" x="0" y="${y}" width="${W}" height="${Math.max(h,2)}"/>`+`<line class="rbbedge" x1="0" x2="${W}" y1="${y1}" y2="${y1}"/><line class="rbbedge" x1="0" x2="${W}" y1="${y2}" y2="${y2}"/>`;
   }
@@ -3046,8 +3052,8 @@ function rbSvg(x,months){
   const lab=(y,cls,text,src,name)=>`<span class="rbclabi ${cls}" style="top:${y}px" data-y="${y}">${esc(text)}`+
     (src?`&nbsp;<a class="rbsource" href="${esc(src)}" target="_blank" rel="noopener" aria-label="${esc('Source for '+(name||text))}">↗</a>`:'')+
     `</span>`;
-  const sexed=!!(womenWorld||womenElite);
-  let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k,sexed&&t.k==='top'?`Men · ${t.t}`:t.t,t.src,t.t)).join('');
+  let labels=tiers.map(t=>lab(Y(t.v),'rbt-'+t.k+(sexed&&t.k==='top'?' rbclab-men-elite':''),
+    sexed&&t.k==='top'?`Men · ${t.t}`:t.t,t.src,t.t)).join('');
   if(x.world)labels+=lab(Y(x.world.value),'rbclab-wr',
     `${sexed?'Men · ':''}World record`,x.world.source,sexed?"the men's world record":'the world record');
   if(womenElite)labels+=lab(Y(womenElite.value),'rbclab-women-elite',
@@ -3074,7 +3080,8 @@ function rbSvg(x,months){
      and converting in your head defeats the comparison. */
   const inches=x.kind==='jump';
   const inFmt=v=>(v/2.54).toFixed(1).replace(/\.0$/,'');
-  const axisTicks=(kept.length?kept:[lo,hi]).map(v=>({v,y:Y(v),cls:'',display:null}));
+  const axisTicks=(kept.length?kept:[lo,hi]).map(v=>({v,y:Y(v),
+    cls:sexed&&x.elite&&v===x.elite.value?' rbcy-men-elite':'',display:null}));
   if(x.world)axisTicks.push({v:x.world.value,y:Y(x.world.value),cls:' rbcywr',display:x.world.display});
   if(womenElite)axisTicks.push({v:womenElite.value,y:Y(womenElite.value),cls:' rbcy-women-elite',display:womenElite.display});
   if(womenWorld)axisTicks.push({v:womenWorld.value,y:Y(womenWorld.value),cls:' rbcy-women-wr',display:womenWorld.display});

@@ -352,8 +352,10 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   percentile" captions crowded out the numbers they sat beside; the explanatory intro line that
   replaced them was removed in turn once the rungs started naming themselves. World-record labels
   show only `Men · World record` or `Women · World record` plus the inline source arrow; the chart
-  already plots the mark, while athlete and date provenance remain in `bloodwork.js`. `audit()` and
-  `check-js` both reject a per-row `span` coming back.
+  already plots the mark, while athlete and date provenance remain in `bloodwork.js`. On mixed-sex
+  timed charts, every men's reference line, value, label and arrow is blue and every women's one is
+  pink; the 5/4 world-record dash and 2/3 elite dash preserve the distinction without colour.
+  `audit()` and `check-js` both reject a per-row `span` coming back.
 - **Training is active work only.** It has no `maylater` parking section and no hover tooltips.
   Exercise rows are `{n, sets, sub?}`; keep any instruction worth retaining in the visible name,
   sets or programme note. Benchmark month headings, deltas, results and chart points likewise carry

@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.11.3 · Schema 2 · 2026-08-20
+
+- Coloured men's performance references blue and women's pink across plotted lines, axis values, labels and source arrows; world records and elite marks remain distinguishable by dash pattern.
+
 ## Viewer 1.11.2 · Schema 2 · 2026-08-20
 
 - Simplified performance-chart world-record labels to `Men · World record` and `Women · World record`; the inline source links remain, while athlete and date provenance stay in the data.

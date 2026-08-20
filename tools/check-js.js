@@ -517,7 +517,7 @@ setTimeout(()=>{
     // An untested row now draws the plot too, so the bands are visible before the first attempt.
     // rbrefs is reserved for a row with no band AND no record — nothing to plot at all.
     // count PLOT lines only: the legend keys draw the same class, so a bare class match doubles it
-    const rungs=d=>(d.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length;
+    const rungs=d=>(d.match(/<line class="rbt rbt-[a-z]+(?: rbmen-elite)?" data-tier=/g)||[]).length;
     ok('untested benchmark rows still draw their full grade ladder',
       (E.match(/onclick="rbToggle/g)||[]).length===10&&ED.includes('rbcplot')&&
       ED.includes('Recreational runners')&&rungs(ED)===4&&
@@ -568,10 +568,10 @@ setTimeout(()=>{
        no matching line would float at whatever y the last edit left it, with nothing to notice. */
     ok('every graded chart labels each rung inside the plot, on its own line',
       BI.filter(x=>x.target).every(x=>{const d=rbDetail(x,[],2);
-        const lines=[...d.matchAll(/<line class="rbt rbt-([a-z]+)" data-tier="([a-z]+)"/g)];
-        const labs=[...d.matchAll(/<span class="rbclabi rbt-([a-z]+)" style="top:([-0-9.]+)px"/g)];
+        const lines=[...d.matchAll(/<line class="rbt rbt-([a-z]+)(?: rbmen-elite)?" data-tier="([a-z]+)"/g)];
+        const labs=[...d.matchAll(/<span class="rbclabi rbt-([a-z]+)(?: rbclab-men-elite)?" style="top:([-0-9.]+)px"/g)];
         const lineY=Object.fromEntries(lines.map(m=>[m[2],null]));
-        [...d.matchAll(/<line class="rbt rbt-[a-z]+" data-tier="([a-z]+)" x1="0" x2="1000" y1="([-0-9.]+)"/g)]
+        [...d.matchAll(/<line class="rbt rbt-[a-z]+(?: rbmen-elite)?" data-tier="([a-z]+)" x1="0" x2="1000" y1="([-0-9.]+)"/g)]
           .forEach(m=>lineY[m[1]]=m[2]);
         return lines.length===4&&labs.length===4&&
           lines.map(m=>m[2]).join(',')==='avg,good,exc,top'&&
@@ -618,6 +618,19 @@ setTimeout(()=>{
     {const timed=BI.filter(x=>x.kind==='time');
      const olympic=timed.filter(x=>x.id!=='runmile');
      const waParis='https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf';
+     ok('timed references use accessible blue-men and pink-women theme tokens',
+       html.includes('--sex-men:#3D6AA8; --sex-women:#B23C74;')&&
+       html.includes('--sex-men:#7FB3F0; --sex-women:#F08AB7;')&&
+       html.includes('.rbwr{stroke:var(--sex-men)')&&
+       html.includes('.rbwomen-wr{stroke:var(--sex-women)')&&
+       html.includes('.rbwomen-elite{stroke:var(--sex-women)'));
+     ok('every mixed-sex chart classes lines, labels and axis values by sex',
+       timed.every(x=>{const d=rbDetail(x,[],2);return d.includes('class="rbt rbt-top rbmen-elite"')&&
+         d.includes('class="rbclabi rbt-top rbclab-men-elite"')&&
+         d.includes('class="rbcytick rbcy-men-elite"')&&
+         d.includes('class="rbwomen-wr"')&&d.includes('class="rbwomen-elite"')&&
+         d.includes('class="rbcytick rbcy-women-wr"')&&d.includes('class="rbcytick rbcy-women-elite"');})&&
+       !BD.includes('rbmen-elite'));
      ok('all timed world records keep current primary World Athletics sources and review dates',
        timed.every(x=>x.world.source.startsWith('https://worldathletics.org/')&&
          x.women.world.source.startsWith('https://worldathletics.org/')&&
@@ -688,7 +701,7 @@ setTimeout(()=>{
         x.attempts.every(a=>Object.keys(a).sort().join(',')==='date,value')));
     ok('expanded benchmark chart draws history, the full grade ladder and the world-record line',
       D.includes('rbline')&&!D.includes('rbtg')&&!D.includes('rbbg')&&!D.includes('rbmed')&&D.includes('rbwr')&&
-      (D.match(/<line class="rbt rbt-[a-z]+" data-tier=/g)||[]).length===4);
+      (D.match(/<line class="rbt rbt-[a-z]+(?: rbmen-elite)?" data-tier=/g)||[]).length===4);
     ok('benchmark results and chart points have no tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!H.includes(' title=')&&
       !D.includes(' title=')&&!html.includes('function rbPtHTML'));
