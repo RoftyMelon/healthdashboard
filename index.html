@@ -3234,7 +3234,10 @@ function rbToggle(row,id){
    only, so every plotted radius sits between two real sourced numbers and nothing is invented.
    P25 is the floor because it is the lowest value the data actually defines — below it the
    sources cannot resolve, so a result there clamps to the centre rather than inventing a rank. */
-const RB_RINGS=['P25','P50','P75','P90',''];
+// Ring k is stop k, and stop 0 (P25) is the CENTRE POINT, not a ring — so the drawn rings
+// 1..4 are P50, P75, P90 and the top rung. Labelling them from P25 shifted every name one
+// ring inward and put a just-under-P50 result on a line reading "P25".
+const RB_RINGS=['P50','P75','P90',''];
 // The radar has no room for a full row name at 9 axes; the table keeps them in full.
 const RB_RADAR_SHORT={'1 Mile (1609m)':'Mile','Treadmill VO₂max':'VO₂max','Vertical jump':'Vert jump','Grip strength':'Grip'};
 const rbRadarName=n=>RB_RADAR_SHORT[n]||n;
