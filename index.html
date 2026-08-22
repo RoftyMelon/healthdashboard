@@ -32,7 +32,6 @@
   --sex-men:#7FB3F0; --sex-women:#D9A3BC;
   /* Rungs are ORDINAL, not status, so they ride one hue rather than borrowing ok/watch/out. */
   --rung1:#38513F; --rung2:#4F9A6E; --rung3:#5EE39A; --rung4:#C9FFDF;
-  --dot:#BE4258;
   --stick:#262624; --head:#30302E;
   --hov:rgba(127,179,240,.10); --hovs:#2B3239; --grp:#2F2F2C; --sel:#7FB3F0;
   --band:rgba(245,244,239,.16);
@@ -68,7 +67,6 @@
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
   --sex-men:#3D6AA8; --sex-women:#9C5C7C;
   --rung1:#BBD9C4; --rung2:#57A374; --rung3:#1A6136; --rung4:#052A14;
-  --dot:#E01B4C;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1174,7 +1172,7 @@ ul.trsummary.rbintro li{margin:2px 0}
 /* The result is not a grade, so it gets its own colour rather than borrowing a rung's. Burgundy
    reads warm against the green rings; the dark-theme value is lifted because true burgundy sits
    at 1.65:1 on this background and vanishes at 4px. The bg-coloured halo keeps it off the rings. */
-.rddot{fill:var(--dot);stroke:var(--bg);stroke-width:1.5}
+.rddot{fill:var(--t2);stroke:var(--bg);stroke-width:1.5}
 .rdlab{font-size:9px;font-weight:600;fill:var(--t2)}
 .rdringlab{font-size:7.5px;fill:var(--t4)}
 .rdringlab-1{fill:var(--rung1)}
@@ -1219,10 +1217,10 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbleg b.rbmedlab,.rbleg .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
 .rbpt{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);
-  background:var(--dot);border:0;box-shadow:none}
+  background:var(--t2);border:0;box-shadow:none}
 /* A personal best keeps the same hue as any other attempt — it is still your result, not a
    grade. The green it used to borrow collided with the rung ramp. */
-.rbpt.rbpbpt{background:var(--dot);box-shadow:none}
+.rbpt.rbpbpt{background:var(--t2);box-shadow:none}
 /* MARGIN, not padding. The legend entries are absolutely positioned so they can sit beside the
    line they name, and an abspos child resolves left:0 against its ancestor's PADDING BOX — so
    padding-left on .rbcpad moved nothing. Margin sits outside the box and shifts the whole column. */
