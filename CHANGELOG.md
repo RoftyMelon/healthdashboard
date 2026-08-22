@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.0 · Schema 2 · 2026-08-20
+
+- Added a benchmark radar chart: nine rows on one shape, each axis normalised to its own rung ladder (P25 centre, then P50/P75/P90, top rung at the edge) so times, distances and weights become comparable. Only tested rows carry a point; the filled shape appears once every axis has a result.
+
 ## Viewer 1.11.3 · Schema 2 · 2026-08-20
 
 - Coloured men's performance references blue and women's pink across plotted lines, axis values, labels and source arrows; world records and elite marks remain distinguishable by dash pattern.
