@@ -68,7 +68,7 @@
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
   --sex-men:#3D6AA8; --sex-women:#9C5C7C;
   --rung1:#BBD9C4; --rung2:#57A374; --rung3:#1A6136; --rung4:#052A14;
-  --dot:#A32F4A;
+  --dot:#C22648;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1218,11 +1218,11 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbleg .rbsw.tg{background:color-mix(in srgb,var(--ok) 55%,transparent)}
 .rbleg b.rbmedlab,.rbleg .rbmedlab{color:var(--t3)}
 .rbline{fill:none;stroke:var(--t2);stroke-width:2;vector-effect:non-scaling-stroke}
-.rbpt{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);
-  background:var(--dot);border:2px solid var(--bg);box-shadow:0 0 0 1px color-mix(in srgb,var(--dot) 55%,transparent)}
+.rbpt{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);
+  background:var(--dot);border:0;box-shadow:none}
 /* A personal best keeps the same hue as any other attempt — it is still your result, not a
    grade. The green it used to borrow collided with the rung ramp. */
-.rbpt.rbpbpt{background:var(--dot);box-shadow:0 0 0 1px color-mix(in srgb,var(--dot) 60%,transparent)}
+.rbpt.rbpbpt{background:var(--dot);box-shadow:none}
 /* MARGIN, not padding. The legend entries are absolutely positioned so they can sit beside the
    line they name, and an abspos child resolves left:0 against its ancestor's PADDING BOX — so
    padding-left on .rbcpad moved nothing. Margin sits outside the box and shifts the whole column. */
