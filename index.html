@@ -1161,15 +1161,18 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rdwrap{margin-top:18px;max-width:min(380px,100%)}
 .rdsvg{display:block;width:100%;height:auto;overflow:visible}
 /* Rings carry the same rung ramp as the charts, so a radius means the same grade in both. */
-.rdring{fill:none;stroke-width:1}
-.rdring-1{stroke:var(--rung1)}
-.rdring-2{stroke:var(--rung2)}
-.rdring-3{stroke:var(--rung3)}
+.rdring{fill:none}
+.rdring-1{stroke:var(--rung1);stroke-width:1}
+.rdring-2{stroke:var(--rung2);stroke-width:.85}
+.rdring-3{stroke:var(--rung3);stroke-width:.7}
 .rdspoke{stroke:var(--line2);stroke-width:.8}
 .rdfill{fill:color-mix(in srgb,var(--ok) 18%,transparent);stroke:var(--ok);stroke-width:1.5;stroke-linejoin:round}
 .rddot{fill:var(--ok);stroke:var(--bg);stroke-width:1.5}
 .rdlab{font-size:9px;font-weight:600;fill:var(--t2)}
 .rdringlab{font-size:7.5px;fill:var(--t4)}
+.rdringlab-1{fill:var(--rung1)}
+.rdringlab-2{fill:var(--rung2)}
+.rdringlab-3{fill:var(--rung3)}
 .rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
   font-size:12.5px;font-variant-numeric:tabular-nums}
 .rbdlt{color:var(--t2)}.rbdlt.good{color:var(--ok)}.rbdlt.down{color:var(--out)}
@@ -3297,7 +3300,7 @@ function rbRadar(){
   const labs=axes.map((a,i)=>{const[x,y]=pt(i,MAX+0.42);
     const anchor=Math.abs(x-CX)<6?'middle':x>CX?'start':'end';
     return `<text class="rdlab" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${esc(rbRadarName(a.x.name))}</text>`;}).join('');
-  const rings=RB_RINGS.slice(0,MAX).map((t,k)=>t?`<text class="rdringlab" x="${CX+3}" y="${(CY-(k+1)/MAX*R).toFixed(1)}">${t}</text>`:'').join('');
+  const rings=RB_RINGS.slice(0,MAX).map((t,k)=>t?`<text class="rdringlab rdringlab-${k+1}" x="${CX+3}" y="${(CY-(k+1)/MAX*R).toFixed(1)}">${t}</text>`:'').join('');
   return `<div class="rdwrap"><svg class="rdsvg" viewBox="0 0 340 280" role="img" aria-label="Benchmark radar">`+
     g+rings+labs+`</svg>`+
     `</div>`;
