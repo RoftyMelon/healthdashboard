@@ -1217,7 +1217,7 @@ window.BLOODWORK =
      "precision": 1,
      "world": {
       "value": 9.58,
-      "display": "9.58",
+      "display": "9.6",
       "athlete": "Usain Bolt",
       "venue": "Berlin",
       "date": "2009-08-16",
@@ -1257,7 +1257,7 @@ window.BLOODWORK =
      "women": {
       "world": {
        "value": 10.49,
-       "display": "10.49",
+       "display": "10.5",
        "athlete": "Florence Griffith Joyner",
        "venue": "Indianapolis",
        "date": "1988-07-16",
@@ -1268,7 +1268,7 @@ window.BLOODWORK =
       "elite": {
        "label": "Olympic entry standard",
        "value": 11.07,
-       "display": "11.07",
+       "display": "11.1",
        "basis": "Women's 100m entry standard of 11.07 for the Paris 2024 Olympic Games, approved by the World Athletics Council in November 2022.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
@@ -1286,7 +1286,7 @@ window.BLOODWORK =
      "precision": 1,
      "world": {
       "value": 43.03,
-      "display": "43.03",
+      "display": "43",
       "athlete": "Wayde van Niekerk",
       "venue": "Rio de Janeiro",
       "date": "2016-08-14",
@@ -1326,7 +1326,7 @@ window.BLOODWORK =
      "women": {
       "world": {
        "value": 47.6,
-       "display": "47.60",
+       "display": "47.6",
        "athlete": "Marita Koch",
        "venue": "Canberra",
        "date": "1985-10-06",
@@ -1337,7 +1337,7 @@ window.BLOODWORK =
       "elite": {
        "label": "Olympic entry standard",
        "value": 50.95,
-       "display": "50.95",
+       "display": "51",
        "basis": "Women's 400m entry standard of 50.95 for the Paris 2024 Olympic Games, approved by the World Athletics Council in November 2022.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
@@ -1355,7 +1355,7 @@ window.BLOODWORK =
      "precision": 0,
      "world": {
       "value": 222.66,
-      "display": "3:42.66",
+      "display": "3:43",
       "athlete": "Josh Kerr",
       "venue": "London",
       "date": "2026-07-18",
@@ -1395,7 +1395,7 @@ window.BLOODWORK =
      "women": {
       "world": {
        "value": 247.64,
-       "display": "4:07.64",
+       "display": "4:08",
        "athlete": "Faith Kipyegon",
        "venue": "Monaco",
        "date": "2023-07-21",
