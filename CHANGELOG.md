@@ -5,6 +5,9 @@ remain in the personal repository history.
 
 ## Viewer 1.12.0 · Schema 2 · 2026-08-20
 
+- Moved the benchmark radar above the results table and dropped its tested-count caption.
+- Muted the women's reference colour: pink reads hotter than blue at equal saturation, so its chroma now sits below the men's token in both themes.
+
 - Added a benchmark radar chart: nine rows on one shape, each axis normalised to its own rung ladder (P25 centre, then P50/P75/P90, top rung at the edge) so times, distances and weights become comparable. Only tested rows carry a point; the filled shape appears once every axis has a result.
 
 ## Viewer 1.11.3 · Schema 2 · 2026-08-20

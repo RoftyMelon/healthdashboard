@@ -619,8 +619,8 @@ setTimeout(()=>{
      const olympic=timed.filter(x=>x.id!=='runmile');
      const waParis='https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf';
      ok('timed references use accessible blue-men and pink-women theme tokens',
-       html.includes('--sex-men:#3D6AA8; --sex-women:#B23C74;')&&
-       html.includes('--sex-men:#7FB3F0; --sex-women:#F08AB7;')&&
+       html.includes('--sex-men:#3D6AA8; --sex-women:#9C5C7C;')&&
+       html.includes('--sex-men:#7FB3F0; --sex-women:#D9A3BC;')&&
        html.includes('.rbwr{stroke:var(--sex-men)')&&
        html.includes('.rbwomen-wr{stroke:var(--sex-women)')&&
        html.includes('.rbwomen-elite{stroke:var(--sex-women)'));

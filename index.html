@@ -29,7 +29,7 @@
   --txt:#F5F4EF; --t2:rgba(245,244,239,.70); --t3:rgba(245,244,239,.56); --t4:rgba(245,244,239,.42);
   --line:rgba(245,244,239,.13); --line2:rgba(245,244,239,.075);
   --ok:#52C07E; --watch:#E5A34A; --out:#F0705F; --info:#7FB3F0;
-  --sex-men:#7FB3F0; --sex-women:#F08AB7;
+  --sex-men:#7FB3F0; --sex-women:#D9A3BC;
   --stick:#262624; --head:#30302E;
   --hov:rgba(127,179,240,.10); --hovs:#2B3239; --grp:#2F2F2C; --sel:#7FB3F0;
   --band:rgba(245,244,239,.16);
@@ -63,7 +63,7 @@
   --txt:#1F1E1D; --t2:rgba(31,30,29,.70); --t3:rgba(31,30,29,.56); --t4:rgba(31,30,29,.42);
   --line:rgba(31,30,29,.14); --line2:rgba(31,30,29,.08);
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
-  --sex-men:#3D6AA8; --sex-women:#B23C74;
+  --sex-men:#3D6AA8; --sex-women:#9C5C7C;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1166,7 +1166,6 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rdlab-off{fill:var(--t4);font-weight:400}
 .rdringlab{font-size:7.5px;fill:var(--t4)}
 .rdringlab-c{dominant-baseline:middle}
-.rdnote{margin-top:6px;font-size:11px;color:var(--t4)}
 .rbtrend{display:grid;grid-template-columns:minmax(74px,1fr) 46px 39px;gap:5px;align-items:baseline;text-align:left;
   font-size:12.5px;font-variant-numeric:tabular-nums}
 .rbdlt{color:var(--t2)}.rbdlt.good{color:var(--ok)}.rbdlt.down{color:var(--out)}
@@ -3296,8 +3295,7 @@ function rbRadar(){
     RB_RINGS.slice(0,MAX).map((t,k)=>t?`<text class="rdringlab" x="${CX+3}" y="${(CY-(k+1)/MAX*R).toFixed(1)}">${t}</text>`:'').join('');
   return `<div class="rdwrap"><svg class="rdsvg" viewBox="0 0 340 280" role="img" aria-label="Benchmark radar">`+
     g+rings+labs+`</svg>`+
-    `<div class="rdnote">${tested} of ${N} tested`+
-    (tested<N?' — untested axes carry no point':'')+`</div></div>`;
+    `</div>`;
 }
 function runningBenchmarks(){
   const b=((TRAINING||{}).benchmarks||{}),items=b.items||[];if(!items.length)return '';
@@ -3663,7 +3661,7 @@ function renderPage(p){
       (TRAINING.note?`<div class="trsummary">${esc(TRAINING.note).replace(/\n/g,'<br>')}</div>`:'')+
       cardRow(TRAINING.cards)+
       (TRAINING.footnote?`<div class="trfoot">${esc(TRAINING.footnote)}</div>`:'')+
-      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+runningBenchmarks()+rbRadar():'');
+      (TRAINING.benchmarks?`<div class="pgst rbtitle">Performance benchmarks</div>`+rbIntro()+rbRadar()+runningBenchmarks():'');
   } else if(p==='diet'&&DIET){
     const isMealCard=m=>Object.prototype.hasOwnProperty.call(m,'at');
     // meal supp lists DERIVE from STACK.when (taking + planned): one source of truth
