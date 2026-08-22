@@ -1167,7 +1167,9 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rdring-3{stroke:var(--rung3);stroke-width:.7}
 .rdspoke{stroke:var(--line2);stroke-width:.8}
 .rdfill{fill:color-mix(in srgb,var(--ok) 18%,transparent);stroke:var(--ok);stroke-width:1.5;stroke-linejoin:round}
-.rddot{fill:var(--ok);stroke:var(--bg);stroke-width:1.5}
+/* The result is not a grade, so it takes the neutral text token — the one colour defined as
+   maximum contrast in both themes, which a 4px dot needs more than it needs a hue. */
+.rddot{fill:var(--txt);stroke:var(--bg);stroke-width:1.5}
 .rdlab{font-size:9px;font-weight:600;fill:var(--t2)}
 .rdringlab{font-size:7.5px;fill:var(--t4)}
 .rdringlab-1{fill:var(--rung1)}
