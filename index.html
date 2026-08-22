@@ -3234,10 +3234,12 @@ function rbToggle(row,id){
    only, so every plotted radius sits between two real sourced numbers and nothing is invented.
    P25 is the floor because it is the lowest value the data actually defines — below it the
    sources cannot resolve, so a result there clamps to the centre rather than inventing a rank. */
-// Ring k is stop k, and stop 0 (P25) is the CENTRE POINT, not a ring — so the drawn rings
-// 1..4 are P50, P75, P90 and the top rung. Labelling them from P25 shifted every name one
-// ring inward and put a just-under-P50 result on a line reading "P25".
-const RB_RINGS=['P50','P75','P90',''];
+/* Ring k is stop k, and stop 0 is the CENTRE POINT, not a ring — so the drawn rings 1..4 are
+   the 50th, 75th and 90th percentiles and the top rung. Named `Top X%` to match the expanded
+   charts and the documented rule: a bare `P90` is wrong on every timed row, where lower is
+   better and that rung marks the FAST edge rather than the 90th percentile of finish times. */
+const RB_RING_CENTRE='Top 75%';
+const RB_RINGS=['Top 50%','Top 25%','Top 10%',''];
 // The radar has no room for a full row name at 9 axes; the table keeps them in full.
 const RB_RADAR_SHORT={'1 Mile (1609m)':'Mile','Treadmill VO₂max':'VO₂max','Vertical jump':'Vert jump','Grip strength':'Grip'};
 const rbRadarName=n=>RB_RADAR_SHORT[n]||n;
@@ -3290,8 +3292,8 @@ function rbRadar(){
   const labs=axes.map((a,i)=>{const[x,y]=pt(i,MAX+0.42);
     const anchor=Math.abs(x-CX)<6?'middle':x>CX?'start':'end';
     return `<text class="rdlab${vals[i]===null?' rdlab-off':''}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${esc(rbRadarName(a.x.name))}</text>`;}).join('');
-  // P25 sits at the centre point itself, so it is labelled there rather than on a ring.
-  const rings=`<text class="rdringlab rdringlab-c" x="${CX+3}" y="${CY}">P25</text>`+
+  // The centre is a point, not a ring, so its grade is labelled there.
+  const rings=`<text class="rdringlab rdringlab-c" x="${CX+3}" y="${CY}">${RB_RING_CENTRE}</text>`+
     RB_RINGS.slice(0,MAX).map((t,k)=>t?`<text class="rdringlab" x="${CX+3}" y="${(CY-(k+1)/MAX*R).toFixed(1)}">${t}</text>`:'').join('');
   return `<div class="rdwrap"><svg class="rdsvg" viewBox="0 0 340 280" role="img" aria-label="Benchmark radar">`+
     g+rings+labs+`</svg>`+

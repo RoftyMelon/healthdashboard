@@ -5,6 +5,8 @@ remain in the personal repository history.
 
 ## Viewer 1.12.0 · Schema 2 · 2026-08-20
 
+- Renamed the radar rings `Top 75%` to `Top 10%` to match the charts and the documented rule; a bare `P90` reads backwards on timed rows, where that rung is the fast edge.
+
 - Moved the benchmark radar above the results table and dropped its tested-count caption.
 - Muted the women's reference colour: pink reads hotter than blue at equal saturation, so its chroma now sits below the men's token in both themes.
 
