@@ -1160,8 +1160,12 @@ ul.trsummary.rbintro li{margin:2px 0}
 /* Benchmark radar. Rings are polygons, not circles, so they track the axis count. */
 .rdwrap{margin-top:18px;max-width:min(380px,100%)}
 .rdsvg{display:block;width:100%;height:auto;overflow:visible}
-.rdring{fill:none;stroke:var(--line2);stroke-width:.8}
-.rdring-top{stroke:var(--line)}
+/* Rings carry the same rung ramp as the charts, so a radius means the same grade in both. */
+.rdring{fill:none;stroke-width:1}
+.rdring-1{stroke:var(--rung1)}
+.rdring-2{stroke:var(--rung2)}
+.rdring-3{stroke:var(--rung3)}
+.rdring-4{stroke:var(--rung4)}
 .rdspoke{stroke:var(--line2);stroke-width:.8}
 .rdfill{fill:color-mix(in srgb,var(--ok) 18%,transparent);stroke:var(--ok);stroke-width:1.5;stroke-linejoin:round}
 .rddot{fill:var(--ok);stroke:var(--bg);stroke-width:1.5}
@@ -3276,7 +3280,7 @@ function rbRadar(){
   // rings, drawn as polygons so they follow the axis count rather than implying a circle
   for(let k=1;k<=MAX;k++){
     const p=axes.map((_,i)=>pt(i,k).map(n=>n.toFixed(1)).join(',')).join(' ');
-    g+=`<polygon class="rdring${k===MAX?' rdring-top':''}" points="${p}"/>`;
+    g+=`<polygon class="rdring rdring-${k}" points="${p}"/>`;
   }
   axes.forEach((_,i)=>{const[x,y]=pt(i,MAX);
     g+=`<line class="rdspoke" x1="${CX}" y1="${CY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;});
