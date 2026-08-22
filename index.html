@@ -30,6 +30,8 @@
   --line:rgba(245,244,239,.13); --line2:rgba(245,244,239,.075);
   --ok:#52C07E; --watch:#E5A34A; --out:#F0705F; --info:#7FB3F0;
   --sex-men:#7FB3F0; --sex-women:#D9A3BC;
+  /* Rungs are ORDINAL, not status, so they ride one hue rather than borrowing ok/watch/out. */
+  --rung1:#5F7A68; --rung2:#6FA986; --rung3:#63C48D; --rung4:#8FE3B0;
   --stick:#262624; --head:#30302E;
   --hov:rgba(127,179,240,.10); --hovs:#2B3239; --grp:#2F2F2C; --sel:#7FB3F0;
   --band:rgba(245,244,239,.16);
@@ -64,6 +66,7 @@
   --line:rgba(31,30,29,.14); --line2:rgba(31,30,29,.08);
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
   --sex-men:#3D6AA8; --sex-women:#9C5C7C;
+  --rung1:#9DC3A8; --rung2:#5C9E74; --rung3:#2F7A4E; --rung4:#14532D;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1239,10 +1242,10 @@ ul.trsummary.rbintro li{margin:2px 0}
    The scale is ORDER, not status — amber and red here mark distance from ordinary, not a problem.
    Both themes get the same five, since every one is a palette token that already flips. */
 .rbt{stroke-width:1.5;vector-effect:non-scaling-stroke;fill:none}
-.rbt-avg{stroke:var(--t3);opacity:.7}
-.rbt-good{stroke:var(--info);opacity:.85}
-.rbt-exc{stroke:var(--ok);opacity:.95}
-.rbt-top{stroke:var(--watch);opacity:.9;stroke-dasharray:2 3}
+.rbt-avg{stroke:var(--rung1);opacity:.95}
+.rbt-good{stroke:var(--rung2);opacity:.95}
+.rbt-exc{stroke:var(--rung3);opacity:.95}
+.rbt-top{stroke:var(--rung4);opacity:.95;stroke-dasharray:2 3}
 /* Rung names, sitting on their own lines inside the plot. The 236-unit viewBox fills a 236px box,
    so the y written on a line is already the pixel the label must sit at; translateY(-100%) lifts
    the text clear of the stroke instead of straddling it. */
@@ -1252,10 +1255,10 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbclab{flex:1;min-width:96px;position:relative;height:236px;padding-left:12px}
 .rbclabi{position:absolute;left:12px;right:0;font-size:11.5px;font-weight:600;
   letter-spacing:-.01em;line-height:1.3}
-.rbclabi.rbt-avg{color:var(--t3)}
-.rbclabi.rbt-good{color:var(--info)}
-.rbclabi.rbt-exc{color:var(--ok)}
-.rbclabi.rbt-top{color:var(--watch)}
+.rbclabi.rbt-avg{color:var(--rung1)}
+.rbclabi.rbt-good{color:var(--rung2)}
+.rbclabi.rbt-exc{color:var(--rung3)}
+.rbclabi.rbt-top{color:var(--rung4)}
 .rbclabi.rbclab-wr,.rbclabi.rbclab-men-elite{color:var(--sex-men);font-weight:500}
 .rbclabi.rbclab-women-wr,.rbclabi.rbclab-women-elite{color:var(--sex-women);font-weight:500}
 .rbcytick.rbcywr,.rbcytick.rbcy-men-elite{color:var(--sex-men);font-weight:500}
