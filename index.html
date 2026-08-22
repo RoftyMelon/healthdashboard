@@ -32,6 +32,7 @@
   --sex-men:#7FB3F0; --sex-women:#D9A3BC;
   /* Rungs are ORDINAL, not status, so they ride one hue rather than borrowing ok/watch/out. */
   --rung1:#38513F; --rung2:#4F9A6E; --rung3:#5EE39A; --rung4:#C9FFDF;
+  --dot:#BE4258;
   --stick:#262624; --head:#30302E;
   --hov:rgba(127,179,240,.10); --hovs:#2B3239; --grp:#2F2F2C; --sel:#7FB3F0;
   --band:rgba(245,244,239,.16);
@@ -67,6 +68,7 @@
   --ok:#146B45; --watch:#9C5B0D; --out:#B23B30; --info:#3D6AA8;
   --sex-men:#3D6AA8; --sex-women:#9C5C7C;
   --rung1:#BBD9C4; --rung2:#57A374; --rung3:#1A6136; --rung4:#052A14;
+  --dot:#7B2D3B;
   --stick:#FAF9F5; --head:#F0EEE6;
   --hov:rgba(61,106,168,.075); --hovs:#EDF0F6; --grp:#EFEDE3; --sel:#3D6AA8;
   --band:rgba(31,30,29,.16);
@@ -1167,9 +1169,10 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rdring-3{stroke:var(--rung3);stroke-width:.7}
 .rdspoke{stroke:var(--line2);stroke-width:.8}
 .rdfill{fill:color-mix(in srgb,var(--ok) 18%,transparent);stroke:var(--ok);stroke-width:1.5;stroke-linejoin:round}
-/* The result is not a grade, so it takes the neutral text token — the one colour defined as
-   maximum contrast in both themes, which a 4px dot needs more than it needs a hue. */
-.rddot{fill:var(--txt);stroke:var(--bg);stroke-width:1.5}
+/* The result is not a grade, so it gets its own colour rather than borrowing a rung's. Burgundy
+   reads warm against the green rings; the dark-theme value is lifted because true burgundy sits
+   at 1.65:1 on this background and vanishes at 4px. The bg-coloured halo keeps it off the rings. */
+.rddot{fill:var(--dot);stroke:var(--bg);stroke-width:1.5}
 .rdlab{font-size:9px;font-weight:600;fill:var(--t2)}
 .rdringlab{font-size:7.5px;fill:var(--t4)}
 .rdringlab-1{fill:var(--rung1)}
