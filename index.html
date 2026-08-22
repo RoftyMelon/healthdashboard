@@ -1165,7 +1165,6 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rdring-1{stroke:var(--rung1)}
 .rdring-2{stroke:var(--rung2)}
 .rdring-3{stroke:var(--rung3)}
-.rdring-4{stroke:var(--line)}
 .rdspoke{stroke:var(--line2);stroke-width:.8}
 .rdfill{fill:color-mix(in srgb,var(--ok) 18%,transparent);stroke:var(--ok);stroke-width:1.5;stroke-linejoin:round}
 .rddot{fill:var(--ok);stroke:var(--bg);stroke-width:1.5}
@@ -3234,16 +3233,17 @@ function rbToggle(row,id){
   row.insertAdjacentHTML('afterend',rbDetail(x,months,slots+2));fitRbChart();
 }
 /* The radar. Nine benchmarks on one shape, each axis normalised to its OWN rung ladder so
-   seconds, centimetres and kilograms become comparable: ring 0 is P25, then P50, P75, P90, and
-   the outer edge is that row's top rung. Position interpolates linearly BETWEEN adjacent rungs
-   only, so every plotted radius sits between two real sourced numbers and nothing is invented.
-   P25 is the floor because it is the lowest value the data actually defines — below it the
-   sources cannot resolve, so a result there clamps to the centre rather than inventing a rank. */
+   seconds, centimetres and kilograms become comparable: the centre is the 75th-percentile floor,
+   then Top 50%, Top 25%, and Top 10% at the outer edge. The elite rung is deliberately OFF this
+   chart — Olympic and NFL marks sit so far out that every real result collapsed into the middle.
+   Position interpolates linearly BETWEEN adjacent rungs only, so every plotted radius sits
+   between two real sourced numbers. The centre is the lowest value the data defines; below it
+   the sources cannot resolve, so a result there clamps rather than inventing a rank. */
 /* Ring k is stop k, and stop 0 is the CENTRE POINT, not a ring — so the drawn rings 1..4 are
    the 50th, 75th and 90th percentiles and the top rung. Named `Top X%` to match the expanded
    charts and the documented rule: a bare `P90` is wrong on every timed row, where lower is
    better and that rung marks the FAST edge rather than the 90th percentile of finish times. */
-const RB_RINGS=['Top 50%','Top 25%','Top 10%',''];
+const RB_RINGS=['Top 50%','Top 25%','Top 10%'];
 // The radar has no room for a full row name at 9 axes; the table keeps them in full.
 const RB_RADAR_SHORT={'1 Mile (1609m)':'Mile','Treadmill VO₂max':'VO₂max','Vertical jump':'Vert jump','Grip strength':'Grip'};
 const rbRadarName=n=>RB_RADAR_SHORT[n]||n;
@@ -3254,8 +3254,7 @@ function rbRadarAxes(){
       lower?x.athletic.max:x.athletic.min,          // P25
       x.athletic.median,                            // P50
       lower?x.target.max:x.target.min,              // P75
-      lower?x.target.min:x.target.max,              // P90
-      x.elite.value                                 // top rung
+      lower?x.target.min:x.target.max               // Top 10%
     ],lower};
   });
 }
@@ -3272,7 +3271,7 @@ function rbRadarPos(a,v){
 }
 function rbRadar(){
   const axes=rbRadarAxes(); if(axes.length<3)return '';
-  const R=96,CX=170,CY=140,N=axes.length,MAX=4;
+  const R=96,CX=170,CY=140,N=axes.length,MAX=3;
   const pt=(i,r)=>{const ang=-Math.PI/2+i*2*Math.PI/N,d=r/MAX*R;
     return [CX+Math.cos(ang)*d,CY+Math.sin(ang)*d];};
   let g='';

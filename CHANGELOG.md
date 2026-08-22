@@ -5,6 +5,8 @@ remain in the personal repository history.
 
 ## Viewer 1.12.0 · Schema 2 · 2026-08-20
 
+- Ended the radar at Top 10% instead of the elite rung: Olympic and NFL marks sit so far out that every real result collapsed toward the centre.
+
 - Put the percentile rungs on a single green ramp instead of grey/blue/green/amber: they are ordinal, not status, and the old set collided with the men's blue reference while implying amber outranked green.
 
 - Renamed the radar rings `Top 75%` to `Top 10%` to match the charts and the documented rule; a bare `P90` reads backwards on timed rows, where that rung is the fast edge.
