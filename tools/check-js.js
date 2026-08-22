@@ -530,7 +530,7 @@ setTimeout(()=>{
       !MD.includes('P25–P75'));
     ok('broad jump plots four rungs and labels its own',
       rungs(BD)===4&&BD.includes("234")&&BD.includes("245")&&BD.includes(">"+rbFmt(B,B.elite.value)+"/")&&
-      />221\/86.9</.test(BD)&&
+      />221\/87</.test(BD)&&
       // the NFL rung round-trips to exactly the 130-inch combine mark it came from
       BD.includes(">330/130<")&&BD.includes(">cm/in<")&&
       !BD.includes('P25–P75'));

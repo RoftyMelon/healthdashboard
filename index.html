@@ -3095,7 +3095,9 @@ function rbSvg(x,months){
      inches as a second value on the same line, because the NFL Combine rung is quoted in inches
      and converting in your head defeats the comparison. */
   const inches=x.kind==='jump';
-  const inFmt=v=>(v/2.54).toFixed(1).replace(/\.0$/,'');
+  // Whole inches: the cm side of these rows rounds too, and a tenth of an inch is well under
+  // the measurement error of any jump test.
+  const inFmt=v=>String(Math.round(v/2.54));
   const axisTicks=(kept.length?kept:[lo,hi]).map(v=>({v,y:Y(v),
     cls:sexed&&x.elite&&v===x.elite.value?' rbcy-men-elite':'',display:null}));
   if(x.world)axisTicks.push({v:x.world.value,y:Y(x.world.value),cls:' rbcywr',display:x.world.display});
