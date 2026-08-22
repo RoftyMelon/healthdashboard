@@ -1480,7 +1480,7 @@ window.BLOODWORK =
       "elite": {
        "label": "Olympic entry standard",
        "value": 892,
-       "display": "14:52.00",
+       "display": "14:52",
        "basis": "Women's 5000m entry standard of 14:52.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 5km, matching this dashboard row's distance and surface.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
@@ -1549,7 +1549,7 @@ window.BLOODWORK =
       "elite": {
        "label": "Olympic entry standard",
        "value": 1840,
-       "display": "30:40.00",
+       "display": "30:40",
        "basis": "Women's 10,000m entry standard of 30:40.00 for the Paris 2024 Olympic Games. World Athletics allowed the standard to be achieved in the equivalent road 10km, matching this dashboard row's distance and surface.",
        "source": "https://assets.aws.worldathletics.org/document/64b027b60f3d42ed998901b5.pdf",
        "evidence": "strong",
@@ -1573,7 +1573,7 @@ window.BLOODWORK =
      "kind": "vo2",
      "unit": "mL/kg/min",
      "direction": "higher",
-     "precision": 1,
+     "precision": 0,
      "athletic": {
       "min": 51.6,
       "max": 59.2,
@@ -1611,7 +1611,7 @@ window.BLOODWORK =
      "kind": "jump",
      "unit": "cm",
      "direction": "higher",
-     "precision": 1,
+     "precision": 0,
      "athletic": {
       "min": 42.4,
       "max": 63.5,
@@ -1692,7 +1692,7 @@ window.BLOODWORK =
      "kind": "strength",
      "unit": "kg",
      "direction": "higher",
-     "precision": 1,
+     "precision": 0,
      "athletic": {
       "min": 43,
       "max": 55.4,

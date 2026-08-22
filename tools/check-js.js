@@ -538,7 +538,8 @@ setTimeout(()=>{
       !VD.includes('Recreational runners range')&&
       VD.includes('Recreational runners')&&rungs(VD)===4);
     ok('performance chart scale spans Top 50% through the top rung',
-      />55\.4<\/span>/.test(VD)&&/>59\.2<\/span>/.test(VD)&&/>62\.7<\/span>/.test(VD)&&
+      // VO2max renders whole numbers now, so the axis reads 55/59/63, not 55.4/59.2/62.7
+      />55<\/span>/.test(VD)&&/>59<\/span>/.test(VD)&&/>63<\/span>/.test(VD)&&
       />85<\/span>/.test(VD));
     {const ids=['run400','run5k','run10k'],missing=ids.filter(id=>{
        const x=BI.find(y=>y.id===id),d=rbDetail(x,[],2),axis=(d.match(/<div class="rbcy">[\s\S]*?<\/div>/)||[])[0]||'';
