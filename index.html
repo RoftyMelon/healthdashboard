@@ -1133,8 +1133,10 @@ a.sbuy:hover{color:var(--info)}
 ul.trsummary.rbintro{list-style:disc;padding-left:20px;line-height:1.5}
 ul.trsummary.rbintro li{margin:2px 0}
 .trfoot{font-size:12.5px;line-height:1.45;color:var(--t4);font-style:italic;margin-top:-18px;padding:0 2px 2px}
-.rbscroll{width:min(539px, calc(100vw - var(--gut,20px) - 20px));max-width:calc(100vw - var(--gut,20px) - 20px);overflow-x:auto;
-  scrollbar-width:thin;overscroll-behavior-x:contain;border:.5px solid var(--line);border-radius:12px}
+/* The card keeps its full width and simply runs off the right edge on a narrow screen; the PAGE
+   scrolls to reach it, rather than the card owning a private scrollbar. A nested scroller here
+   meant two horizontal gestures on one page and a bar sitting under the table. */
+.rbscroll{width:var(--rbw,539px);border:.5px solid var(--line);border-radius:12px}
 .rbtbl{min-width:var(--rbw,539px);width:var(--rbw,539px);table-layout:fixed;border-collapse:separate;
   border-spacing:0;background:var(--bg)}
 .rbtbl thead th{position:static;top:auto;height:34px;padding:0 8px;background:var(--head);border-bottom:.5px solid var(--line);
@@ -3327,7 +3329,7 @@ function runningBenchmarks(){
     return `<tr class="rbrow" data-rbrow="${esc(x.id)}" onclick="rbToggle(this,'${esc(x.id)}')">`+
       `<td class="rbname"><span>${esc(x.name)}</span></td>`+
       `${hist}<td class="rbchange">${rbTrend(x)}</td></tr>`;}).join('');
-  return `<div class="rbscroll" style="--rbw:${width}px" onscroll="fitRbChart()"><table class="rbtbl" id="rbtbl"><thead><tr>`+
+  return `<div class="rbscroll" style="--rbw:${width}px"><table class="rbtbl" id="rbtbl"><thead><tr>`+
     `<th class="rbname">Test</th>${th}<th class="rbchange">Since previous</th>`+
     `</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
