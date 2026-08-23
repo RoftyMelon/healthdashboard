@@ -2941,12 +2941,6 @@ window.BLOODWORK =
          "1.6mg",
          "16%"
         ]
-       ],
-       "Changes": [
-        [
-         "20 Aug 2026",
-         "replaced rolled oats"
-        ]
        ]
       }
      },
