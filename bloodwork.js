@@ -3255,12 +3255,6 @@ window.BLOODWORK =
          "0.4mg",
          "20%"
         ]
-       ],
-       "Changes": [
-        [
-         "16 Aug 2026",
-         "full 20g daily serving consolidated in the pre-workout snack"
-        ]
        ]
       }
      }
