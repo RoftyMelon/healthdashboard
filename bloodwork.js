@@ -3998,16 +3998,6 @@ window.BLOODWORK =
          "added"
         ]
        ],
-       "Spinach 150g · Notes": [
-        [
-         "",
-         "Its calcium is oxalate-bound — only ~5% is absorbed"
-        ],
-        [
-         "",
-         "Folate is the post-reheat figure — ~25% goes even with no water poured off"
-        ]
-       ],
        "Broccoli 150g · Ingredients": [
         [
          "",
@@ -4066,16 +4056,6 @@ window.BLOODWORK =
         [
          "1 Aug 2026",
          "added"
-        ]
-       ],
-       "Broccoli 150g · Notes": [
-        [
-         "",
-         "Low oxalate — ~60% of its calcium is absorbed, against spinach's 5%"
-        ],
-        [
-         "",
-         "Folate and vitamin C are post-reheat figures — both lose ~25-30% in the pan"
         ]
        ]
       }
