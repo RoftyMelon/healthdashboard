@@ -4291,12 +4291,6 @@ window.BLOODWORK =
          "2g"
         ]
        ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "replaced 100g mozzarella"
-        ]
-       ],
        "Notes": [
         [
          "",
@@ -4552,12 +4546,6 @@ window.BLOODWORK =
          "Magnesium",
          "59mg",
          "16%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "replaced 100g mozzarella"
         ]
        ]
       }
