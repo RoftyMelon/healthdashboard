@@ -2953,15 +2953,6 @@ window.BLOODWORK =
          "",
          "Contains soy lecithin in the chocolate chips"
         ]
-       ],
-        [
-         "",
-         "Slightly less protein and magnesium than 80g of rolled oats; the post-gym shake covers the protein"
-        ],
-        [
-         "",
-         "Contains soy lecithin in the chocolate chips"
-        ]
        ]
       }
      },
