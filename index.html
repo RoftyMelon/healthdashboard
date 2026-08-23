@@ -1160,7 +1160,7 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbpb{color:var(--ok);font-weight:750}
 .rbnil{color:var(--t4)}
 /* Benchmark radar. Rings are polygons, not circles, so they track the axis count. */
-.rdwrap{margin-top:18px;max-width:min(380px,100%)}
+.rdwrap{margin-top:18px;max-width:min(540px,100%)}
 .rdsvg{display:block;width:100%;height:auto;overflow:visible}
 /* Rings carry the same rung ramp as the charts, so a radius means the same grade in both. */
 .rdring{fill:none}
@@ -3302,7 +3302,9 @@ function rbRadar(){
     g+=`<polygon class="rdfill" points="${vals.map((v,i)=>pt(i,v).map(n=>n.toFixed(1)).join(',')).join(' ')}"/>`;
   }
   vals.forEach((v,i)=>{if(v===null)return;const[x,y]=pt(i,v);
-    g+=`<circle class="rddot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"/>`;});
+    const at=rbAttempts(axes[i].x),last=at[at.length-1];
+    g+=`<circle class="rddot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4">`+
+       `<title>${esc(axes[i].x.name)}: ${esc(rbFmt(axes[i].x,last.value))}</title></circle>`;});
   // axis labels, placed just outside the outer ring
   const labs=axes.map((a,i)=>{const[x,y]=pt(i,MAX+0.42);
     const anchor=Math.abs(x-CX)<6?'middle':x>CX?'start':'end';
