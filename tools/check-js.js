@@ -728,7 +728,7 @@ setTimeout(()=>{
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
     ok('nutritional profile shows equal-choice averages including Weekly',
       H.includes('~3,250 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
-      H.includes('~257 g')&&H.includes('~160 g')&&H.includes('~54 g')&&H.includes('~35 g')&&
+      H.includes('~250 g')&&H.includes('~165 g')&&H.includes('~58 g')&&H.includes('~36 g')&&
       !H.includes('Weekly starter adds')&&!H.includes('Approximate daily intake')&&
       !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
       'current averages'); }

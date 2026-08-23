@@ -2870,43 +2870,49 @@ window.BLOODWORK =
     "at": "07:15",
     "items": [
      {
-      "n": "Oats (rolled)",
+      "n": "Granola (dark chocolate)",
       "amt": "80g",
       "info": {
+       "Ingredients": [
+        [
+         "",
+         "Wholegrain oat flakes 59%, barley flakes 25%, chicory root fibre, vegetable oil (rapeseed and sunflower), dark chocolate chips 5%, dried coconut, sunflower seeds, natural flavouring"
+        ]
+       ],
        "Macronutrients — per 80g": [
         [
          "Energy",
-         "291kcal",
+         "307kcal",
          "15%"
         ],
         [
          "Protein",
-         "8.8g",
-         "18%"
+         "8.7g",
+         "17%"
         ],
         [
          "Fat",
-         "5.7g",
-         "8%"
+         "9.8g",
+         "14%"
         ],
         [
          "– saturates",
-         "1.0g",
-         "5%"
+         "2.3g",
+         "12%"
         ],
         [
          "Carbs",
-         "46g",
-         "18%"
+         "39g",
+         "15%"
         ],
         [
          "– sugars",
-         "1.4g",
-         "2%"
+         "3.6g",
+         "4%"
         ],
         [
          "Fibre",
-         "8.8g"
+         "13.4g"
         ],
         [
          "Salt",
@@ -2916,28 +2922,36 @@ window.BLOODWORK =
        ],
        "Standouts": [
         [
-         "Beta-glucan",
-         "3.2g"
-        ],
-        [
-         "Iron",
-         "3.4mg"
+         "Phosphorus",
+         "222mg",
+         "32%"
         ],
         [
          "Magnesium",
-         "101mg",
-         "27%"
+         "70mg",
+         "19%"
+        ],
+        [
+         "Iron",
+         "2.4mg",
+         "17%"
         ],
         [
          "Zinc",
-         "2.9mg"
+         "1.6mg",
+         "16%"
         ]
        ],
        "Changes": [
         [
-         "1 Aug 2026",
-         "added"
+         "20 Aug 2026",
+         "replaced rolled oats"
         ]
+       ],
+       "Notes": [
+        "Fibre is higher than the oats it replaced, but much of the gain is added chicory root inulin rather than grain.",
+        "Slightly less protein and magnesium than 80g of rolled oats; the post-gym shake covers the protein.",
+        "Contains soy lecithin in the chocolate chips."
        ]
       }
      },
