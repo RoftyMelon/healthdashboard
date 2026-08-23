@@ -3520,12 +3520,6 @@ window.BLOODWORK =
          "2mg",
          "20%"
         ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "increased from 10mL to 20mL"
-        ]
        ]
       }
      },
@@ -3810,12 +3804,6 @@ window.BLOODWORK =
          "Vit E",
          "4.8mg",
          "40%"
-        ]
-       ],
-       "Changes": [
-        [
-         "1 Aug 2026",
-         "reduced from 50mL to 40mL"
         ]
        ]
       }
