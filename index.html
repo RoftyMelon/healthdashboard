@@ -3312,7 +3312,7 @@ function rbRadar(){
     const lx=x<CX?x-7:x+7, anchor=x<CX?'end':'start';
     g+=`<g class="rdpt"><circle class="rddot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"/>`+
        `<text class="rdval" x="${lx.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="${anchor}">`+
-       `${esc(rbFmt(axes[i].x,last.value))}</text>`+
+       `${esc(rbFmt(axes[i].x,last.value))}${axes[i].x.kind==='time'?'':esc(axes[i].x.unit?' '+axes[i].x.unit:'')}</text>`+
        `<circle class="rdhit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13"/></g>`;});
   // axis labels, placed just outside the outer ring
   const labs=axes.map((a,i)=>{const[x,y]=pt(i,MAX+0.42);
