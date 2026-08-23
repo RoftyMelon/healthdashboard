@@ -2947,12 +2947,6 @@ window.BLOODWORK =
          "20 Aug 2026",
          "replaced rolled oats"
         ]
-       ],
-       "Notes": [
-        [
-         "",
-         "Contains soy lecithin in the chocolate chips"
-        ]
        ]
       }
      },
