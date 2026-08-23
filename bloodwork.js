@@ -2951,8 +2951,9 @@ window.BLOODWORK =
        "Notes": [
         [
          "",
-         "Fibre is higher than the oats it replaced, but much of that is added chicory root inulin rather than grain"
-        ],
+         "Contains soy lecithin in the chocolate chips"
+        ]
+       ],
         [
          "",
          "Slightly less protein and magnesium than 80g of rolled oats; the post-gym shake covers the protein"
