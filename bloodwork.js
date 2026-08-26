@@ -1155,8 +1155,8 @@ window.BLOODWORK =
        "url": "https://geekandgorgeous.com/products/a-game-20"
       },
       {
-       "n": "Moisturizer - Niacinamide",
-       "url": "https://www.cerave.fr/nos-produits/hydratants/creme-hydratante-visage"
+       "n": "Moisturizer - Noreva Xerodiane CERA+",
+       "url": "https://noreva-laboratoires.com/produit/baume-nutritif-relipidant/"
       },
       "Slugging - Petrolatum",
       {
