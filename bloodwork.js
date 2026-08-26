@@ -1084,10 +1084,15 @@ window.BLOODWORK =
   {
    "t": "10:00",
    "until": "10:30",
-   "do": "Brunch"
+   "do": "Shower"
   },
   {
    "t": "10:30",
+   "until": "11:00",
+   "do": "Brunch"
+  },
+  {
+   "t": "11:00",
    "until": "16:30",
    "do": "Work"
   },
