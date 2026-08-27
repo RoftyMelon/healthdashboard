@@ -2286,7 +2286,7 @@ window.BLOODWORK =
       "t": "Glutes",
       "items": [
        {
-        "n": "Glute Medius thrust",
+        "n": "Glute medius thrust",
         "sets": [
          [
           20,
