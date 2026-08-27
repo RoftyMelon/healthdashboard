@@ -319,7 +319,9 @@ setTimeout(()=>{
       RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
       RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>')&&
       RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(37.5% + 7px)">🚙</span>'));
-    ok('routine emojis share one centered column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4,
+    ok('routine emojis share one visually calibrated column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4&&
+      html.includes('.rphase{position:absolute;left:78px;width:24px;')&&
+      html.includes('.rdo.ricon{width:24px;margin-left:7.5px;'),
       count(RH,'rdo ricon')+' routine rows / '+count(RH,'rphase')+' phase icons');
     ok('both shower icons use the smaller treatment',
       RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&

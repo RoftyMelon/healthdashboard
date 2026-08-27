@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.13 · Schema 2 · 2026-08-27
+
+- Corrected the Routine event-icon offset for the browser's 2× screenshot density, centering ordinary and phase emojis on the same visual axis.
+
 ## Viewer 1.12.12 · Schema 2 · 2026-08-27
 
 - Moved ordinary routine emoji events 15px right so they share the same visual column as the gym phase icons.
