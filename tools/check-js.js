@@ -316,7 +316,7 @@ setTimeout(()=>{
     ok('gym phase icons sit in their respective time slots',
       count(RH,'rphase')===4&&
       RH.includes('aria-label="Commute" style="top:calc(62.5% + 7px)">🚙</span>')&&
-      RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️</span>')&&
+      RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
       RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>')&&
       RH.includes('aria-label="Commute" style="top:calc(37.5% + 7px)">🚙</span>'));
   }
