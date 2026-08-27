@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.6">
+<meta name="health-dashboard-viewer-version" content="1.12.7">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -822,6 +822,7 @@ a.sbuy:hover{color:var(--info)}
 .rmini{position:absolute;left:44px;width:10px;height:.5px;
   background:var(--t4);opacity:.4}
 .rphase{position:absolute;left:78px;font-size:18px;line-height:1;transform:translateY(-50%)}
+.rphase.rphase-car{font-size:14px}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -3643,7 +3644,7 @@ function renderPage(p){
       .map(x=>`<i class="rmini" aria-label="${esc(x.m.t+' '+x.m.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)"></i>`).join('');
     const phaseIcons=(from,to)=>ROUTINE.flatMap(r=>(r.phases||[]).map(p=>({p,n:(_min(p.from)+_min(p.to))/2})))
       .filter(x=>x.n>=from&&x.n<to)
-      .map(x=>`<span class="rphase" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
+      .map(x=>`<span class="rphase${x.p.icon==='🚙'?' rphase-car':''}" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
       // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
