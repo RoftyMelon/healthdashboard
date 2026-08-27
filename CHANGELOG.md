@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.10 · Schema 2 · 2026-08-27
+
+- Shifted the gym phase-icon column 15px left to visually align it with the Routine's meal, work and other event emojis.
+
 ## Viewer 1.12.9 · Schema 2 · 2026-08-27
 
 - Centered every Routine emoji on one fixed 24px column and reduced shower icons to 14px; phase timing remains anchored to each interval's true midpoint.
