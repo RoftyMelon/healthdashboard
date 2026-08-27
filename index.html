@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.2">
+<meta name="health-dashboard-viewer-version" content="1.12.3">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -819,7 +819,8 @@ a.sbuy:hover{color:var(--info)}
 .rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
 .rln{position:absolute;left:44px;width:min(calc(100% - 44px),300px);height:.5px;
   background:var(--t4);opacity:.55}
-.rmini{position:absolute;left:78px;width:110px;height:.5px;background:var(--t4);opacity:.4}
+.rmini{position:absolute;left:44px;width:min(calc(100% - 44px),180px);height:.5px;
+  background:var(--t4);opacity:.4}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -3625,9 +3626,12 @@ function renderPage(p){
         ?`<div class="pgscr">(${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window)</div>`:'')+
       `</div>`;
     let hr=H0;
-    const miniLines=r=>{if(!r.milestones||!r.until)return'';
-      const a=_min(r.t),z=_min(r.until),span=z-a;
-      return r.milestones.map(m=>`<i class="rmini" aria-label="${esc(m.t+' '+m.label)}" style="top:calc(${(_min(m.t)-a)/span*100}% + 7px)"></i>`).join('');};
+    // Milestones follow the absolute hour ruler, not the visually compressed block row.
+    // A 07:45 cut therefore stays between 07:30 and 08:00 even when the block's label
+    // is centred separately over its whole-hour interior.
+    const miniLines=(from,to)=>ROUTINE.flatMap(r=>(r.milestones||[]).map(m=>({r,m,n:_min(m.t)})))
+      .filter(x=>x.n>=from&&x.n<to)
+      .map(x=>`<i class="rmini" aria-label="${esc(x.m.t+' '+x.m.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)"></i>`).join('');
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
       // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
@@ -3638,7 +3642,7 @@ function renderPage(p){
       if(block){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
         const labels=Array.from({length:span},(_,i)=>mark(hr+i)).join('');
-        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(block)}<div class="rcell">`+
+        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(hr*60,endH*60)}<div class="rcell">`+
            `<div class="rev"><div class="rbody"><div class="rdo">${esc(block.do)}</div></div></div></div></div>`;
         hr=endH;continue;
       }
@@ -3674,6 +3678,7 @@ function renderPage(p){
       if(carried){const f=mins(carried.t);if(f>0&&f<1)cuts.add(f);}
       h+=`<div class="rhr${rowEvs.length?'':' rempty'}${rowEvs.length>1?' multi':''}${hr===H1?' rlast':''}${prop?' rprop':''}">`+
         `<span class="rht">${mark(hr)}</span>`+
+        miniLines(hr*60,(hr+1)*60)+
         [...cuts].map(f=>`<i class="rln" style="top:calc(var(--hh)*${f} + 7px)"></i>`).join('')+
         `<div class="rcell">`+
         rowEvs.map((r,i)=>{
@@ -3682,7 +3687,7 @@ function renderPage(p){
         }).join('')+`</div></div>`;
       if(carried){
         const labels=Array.from({length:carriedEnd-(hr+1)},(_,i)=>mark(hr+1+i)).join('');
-        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(carried)}<div class="rcell">`+
+        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines((hr+1)*60,carriedEnd*60)}<div class="rcell">`+
            `<div class="rev"><div class="rbody"><div class="rdo">${esc(carried.do)}</div></div></div></div></div>`;
         hr=carriedEnd;continue;
       }

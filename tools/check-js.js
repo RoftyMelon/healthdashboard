@@ -307,7 +307,13 @@ setTimeout(()=>{
       count(n.pages.innerHTML,'rln')+' cuts');
     const miniN=R.reduce((n,r)=>n+(r.milestones?r.milestones.length:0),0);
     ok(`routine draws ${miniN} internal milestone lines`,count(n.pages.innerHTML,'rmini')===miniN,
-      count(n.pages.innerHTML,'rmini')+' milestone lines'); }
+      count(n.pages.innerHTML,'rmini')+' milestone lines');
+    const RH=n.pages.innerHTML;
+    ok('gym milestones keep their true positions on the hour ruler',
+      RH.includes('aria-label="07:45 Workout start" style="top:calc(75% + 7px)"')&&
+      RH.includes('aria-label="09:00 Workout end, shower start" style="top:calc(0% + 7px)"')&&
+      RH.includes('aria-label="09:15 Shower end" style="top:calc(25% + 7px)"'));
+  }
   catch(e){ ok('routine ruler',false,e.message); }
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
   // The Stack has its own cards (one per daily group), so a bare ccard count no longer proves

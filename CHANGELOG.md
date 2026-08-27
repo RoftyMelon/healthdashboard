@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.3 · Schema 2 · 2026-08-27
+
+- Positioned internal routine milestones on their true clock times instead of compressing them into the block-label row, and aligned their shorter hairlines with the main ruler.
+
 ## Viewer 1.12.2 · Schema 2 · 2026-08-27
 
 - Added short, labelled milestone hairlines inside multi-hour routine blocks without splitting or moving the block label.
