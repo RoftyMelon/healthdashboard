@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.13">
+<meta name="health-dashboard-viewer-version" content="1.12.14">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -840,6 +840,7 @@ a.sbuy:hover{color:var(--info)}
 .rbody{min-width:0}
 .rdo{font-size:16px;color:var(--t2);line-height:1.5}
 .rdo.ricon{width:24px;margin-left:7.5px;text-align:center;white-space:nowrap;overflow:visible}
+.rdo.ricon.rpair{margin-left:1px}
 .rdo.ricon.rsmall{font-size:14px}
 /* a category's own caveat, straight from the data */
 .cnote{font-size:15px;color:var(--t4);font-style:italic;line-height:1.55;padding:8px 2px 2px}
@@ -3645,8 +3646,9 @@ function renderPage(p){
     const miniLines=(from,to)=>ROUTINE.flatMap(r=>(r.milestones||[]).map(m=>({r,m,n:_min(m.t)})))
       .filter(x=>x.n>=from&&x.n<to)
       .map(x=>`<i class="rmini" aria-label="${esc(x.m.t+' '+x.m.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)"></i>`).join('');
-    const routineDo=v=>{const s=String(v||''),icon=/[\u{1F300}-\u{1FAFF}]/u.test(s)&&!/[\p{Letter}\p{Number}]/u.test(s);
-      return `<div class="rdo${icon?' ricon':''}${s.trim()==='🚿'?' rsmall':''}">${esc(s).replace(/\n/g,'<br>')}</div>`;};
+    const routineDo=v=>{const s=String(v||''),glyphs=s.match(/[\u{1F300}-\u{1FAFF}]/gu)||[],
+      icon=glyphs.length>0&&!/[\p{Letter}\p{Number}]/u.test(s);
+      return `<div class="rdo${icon?' ricon':''}${icon&&glyphs.length>1?' rpair':''}${s.trim()==='🚿'?' rsmall':''}">${esc(s).replace(/\n/g,'<br>')}</div>`;};
     const phaseIcons=(from,to)=>ROUTINE.flatMap(r=>(r.phases||[]).map(p=>({p,n:(_min(p.from)+_min(p.to))/2})))
       .filter(x=>x.n>=from&&x.n<to)
       .map(x=>`<span class="rphase${x.p.icon==='🚙'?' rphase-car':x.p.icon==='🚿'?' rphase-shower':''}" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
