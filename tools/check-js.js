@@ -295,6 +295,9 @@ setTimeout(()=>{
         rlnN+=new Set(sp.flatMap(x=>[x.sm,x.em])
           .filter(f=>f>0&&f<1&&!(st.has(f)&&en.has(f)))).size;
       }
+      // A multi-hour block carried out of its fractional first hour still draws its
+      // start boundary on that first hour's ruler.
+      if(car3){const f=mins(car3.t);if(f>0&&f<1)rlnN++;}
       if(car3){hr3=cEnd3;continue;}
       hr3++;
     }

@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.0">
+<meta name="health-dashboard-viewer-version" content="1.12.1">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -3657,11 +3657,14 @@ function renderPage(p){
       // a cut is drawn only where a span ends into EMPTY time: a boundary that is both
       // one event's end and the next one's start needs no line — the texts separate
       const st2=new Set(spans.map(x=>x.sm)),en2=new Set(spans.map(x=>x.em));
-      const cuts=prop?[...new Set(spans.flatMap(x=>[x.sm,x.em])
-        .filter(f=>f>0&&f<1&&!(st2.has(f)&&en2.has(f))))]:[];
+      const cuts=new Set(prop?spans.flatMap(x=>[x.sm,x.em])
+        .filter(f=>f>0&&f<1&&!(st2.has(f)&&en2.has(f))):[]);
+      // A carried block still starts inside this hour. Its own row begins below, but the
+      // boundary belongs at the true start time on this hour's ruler (07:30 for the gym).
+      if(carried){const f=mins(carried.t);if(f>0&&f<1)cuts.add(f);}
       h+=`<div class="rhr${rowEvs.length?'':' rempty'}${rowEvs.length>1?' multi':''}${hr===H1?' rlast':''}${prop?' rprop':''}">`+
         `<span class="rht">${mark(hr)}</span>`+
-        cuts.map(f=>`<i class="rln" style="top:calc(var(--hh)*${f} + 7px)"></i>`).join('')+
+        [...cuts].map(f=>`<i class="rln" style="top:calc(var(--hh)*${f} + 7px)"></i>`).join('')+
         `<div class="rcell">`+
         rowEvs.map((r,i)=>{
           const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} - ${spans[i].sm>0?7:6}px)"`:'';

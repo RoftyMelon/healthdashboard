@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.1 · Schema 2 · 2026-08-27
+
+- Added the missing fractional hairline where a multi-hour routine block starts mid-hour, such as a 07:30 gym block.
+
 ## Viewer 1.12.0 · Schema 2 · 2026-08-20
 
 - Ended the radar at Top 10% instead of the elite rung: Olympic and NFL marks sit so far out that every real result collapsed toward the centre.
