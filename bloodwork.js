@@ -1792,7 +1792,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Single arm row",
+        "n": "Unilateral db row",
         "sets": [
          [
           40,
@@ -1801,6 +1801,32 @@ window.BLOODWORK =
          [
           40,
           8
+         ]
+        ]
+       },
+       {
+        "n": "Single arm lat pulldown",
+        "sets": [
+         [
+          40,
+          8
+         ],
+         [
+          40,
+          8
+         ]
+        ]
+       },
+       {
+        "n": "Bodyweight row",
+        "sets": [
+         [
+          40,
+          5
+         ],
+         [
+          40,
+          5
          ]
         ]
        },
@@ -1849,20 +1875,33 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Preacher curl",
+        "n": "Unilateral preacher curl",
         "sets": [
          [
-          40,
-          12
+          12,
+          5
          ],
          [
-          40,
-          12
+          12,
+          5
          ]
         ]
        },
        {
-        "n": "Single arm cable curl",
+        "n": "Seated incline db curl",
+        "sets": [
+         [
+          8,
+          10
+         ],
+         [
+          8,
+          10
+         ]
+        ]
+       },
+       {
+        "n": "Unilateral arm cable curl",
         "sets": [
          [
           7.5,
