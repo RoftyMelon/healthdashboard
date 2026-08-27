@@ -1071,7 +1071,7 @@ window.BLOODWORK =
   {
    "t": "07:00",
    "until": "07:30",
-   "do": "10min walk/run, snack"
+   "do": "🏃 🍌"
   },
   {
    "t": "07:30",
@@ -1081,40 +1081,40 @@ window.BLOODWORK =
     {"t": "09:00", "label": "Workout end, shower start"},
     {"t": "09:15", "label": "Shower end"}
    ],
-   "do": "Gym (1h15 lifting, shower, commute)"
+   "do": "🚶 🏋️ 🚿 🚶"
   },
   {
    "t": "09:30",
    "until": "10:00",
-   "do": "Brunch"
+   "do": "🍽️"
   },
   {
    "t": "10:00",
    "until": "16:30",
-   "do": "Work"
+   "do": "💻"
   },
   {
    "t": "16:30",
    "until": "17:00",
-   "do": "Dinner"
+   "do": "🍽️"
   },
   {
    "t": "17:00",
    "until": "21:00",
-   "do": "Work"
+   "do": "💻"
   },
   {
    "t": "21:00",
    "until": "21:30",
-   "do": "Shower"
+   "do": "🚿"
   },
   {
    "t": "21:30",
-   "do": "Bedtime"
+   "do": "🛏️"
   },
   {
    "t": "22:00",
-   "do": "Lights out"
+   "do": "🌙"
   }
  ],
  "CARE": [
