@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.6 · Schema 2 · 2026-08-27
+
+- Reduced the Routine tab's main and fractional divider hairlines from 300px to 75px; internal milestone ticks remain 10px.
+
 ## Viewer 1.12.5 · Schema 2 · 2026-08-27
 
 - Positioned phase icons inside their actual routine time slots while preserving short transition ticks and accessible labels.
