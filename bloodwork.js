@@ -1901,7 +1901,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Unilateral arm cable curl",
+        "n": "Unilateral cable curl",
         "sets": [
          [
           7.5,
