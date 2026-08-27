@@ -2063,15 +2063,15 @@ window.BLOODWORK =
         "n": "Rear deltoid",
         "sets": [
          [
-          20,
+          12,
           15
          ],
          [
-          20,
+          12,
           15
          ],
          [
-          20,
+          12,
           15
          ]
         ]
