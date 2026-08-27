@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.7">
+<meta name="health-dashboard-viewer-version" content="1.12.8">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -799,7 +799,7 @@ a.sbuy:hover{color:var(--info)}
    guarantees a boundary hour always STARTS its row. The tabular HH:00 ends ~31px;
    left:0 would strike THROUGH it. */
 .rhl.lt::after{content:"";position:absolute;left:44px;top:7px;height:.5px;
-  width:min(calc(100% - 44px),75px);background:var(--t4);opacity:.55}
+  width:min(calc(100% - 44px),300px);background:var(--t4);opacity:.55}
   /* 300px fits the widest row, "10min run, sunlight, hot/cold shower" (~288px). MAGIC NUMBER: re-measure if you add a longer routine line. */
 /* every row centres its content between the boundary lines of its span. UNIFORM
    HEIGHT IS THE CONTRACT: the padding must leave a 2-line row (07:00) and a
@@ -817,7 +817,7 @@ a.sbuy:hover{color:var(--info)}
 /* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
 .rhr.rprop .rcell{position:relative;padding:0}
 .rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
-.rln{position:absolute;left:44px;width:min(calc(100% - 44px),75px);height:.5px;
+.rln{position:absolute;left:44px;width:min(calc(100% - 44px),300px);height:.5px;
   background:var(--t4);opacity:.55}
 .rmini{position:absolute;left:44px;width:10px;height:.5px;
   background:var(--t4);opacity:.4}

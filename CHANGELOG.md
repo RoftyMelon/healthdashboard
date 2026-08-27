@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.8 · Schema 2 · 2026-08-27
+
+- Restored the Routine tab's main and fractional divider hairlines to their original 300px length; internal milestone ticks remain 10px.
+
 ## Viewer 1.12.7 · Schema 2 · 2026-08-27
 
 - Reduced car phase icons in the Routine timeline from 18px to 14px without changing the other phase icons.
