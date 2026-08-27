@@ -1762,6 +1762,19 @@ window.BLOODWORK =
         ]
        },
        {
+        "n": "OAC top hold",
+        "sets": [
+         [
+          null,
+          "0:05"
+         ],
+         [
+          null,
+          "0:05"
+         ]
+        ]
+       },
+       {
         "n": "Explosive pull up",
         "sets": [
          [
@@ -1848,19 +1861,6 @@ window.BLOODWORK =
      {
       "t": "Biceps",
       "items": [
-       {
-        "n": "Bicep curl",
-        "sets": [
-         [
-          20,
-          8
-         ],
-         [
-          20,
-          8
-         ]
-        ]
-       },
        {
         "n": "Hammer curl",
         "sets": [
