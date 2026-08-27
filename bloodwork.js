@@ -2286,18 +2286,26 @@ window.BLOODWORK =
       "t": "Glutes",
       "items": [
        {
-        "n": "Standing abduction",
+        "n": "Glute Medius thrust",
         "sets": [
          [
-          100,
+          20,
           20
          ],
          [
-          100,
+          20,
           20
          ],
          [
-          100,
+          20,
+          20
+         ],
+         [
+          20,
+          20
+         ],
+         [
+          20,
           20
          ]
         ]
@@ -2320,7 +2328,7 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Hip abduction",
+        "n": "Seated hip abduction",
         "sets": [
          [
           100,
