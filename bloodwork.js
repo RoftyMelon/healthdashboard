@@ -1070,17 +1070,13 @@ window.BLOODWORK =
  "ROUTINE": [
   {
    "t": "07:00",
+   "until": "07:30",
    "do": "10min walk/run, snack"
   },
   {
    "t": "07:30",
    "until": "10:00",
    "do": "Gym (1h15 lifting, commute, shower)"
-  },
-  {
-   "t": "10:00",
-   "until": "10:30",
-   "do": "Shower"
   },
   {
    "t": "10:30",

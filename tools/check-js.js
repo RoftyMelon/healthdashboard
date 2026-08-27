@@ -290,14 +290,16 @@ setTimeout(()=>{
       const sp=evs3.map(r=>{let em=null;
         if(r.until){const uh=parseInt(r.until);em=uh===hr3?mins(r.until):(uh>hr3?1:null);}
         return {sm:mins(r.t),em};});
+      const cuts3=new Set();
       if(evs3.length&&sp.every(x=>x.em!=null)){
         const st=new Set(sp.map(x=>x.sm)),en=new Set(sp.map(x=>x.em));
-        rlnN+=new Set(sp.flatMap(x=>[x.sm,x.em])
-          .filter(f=>f>0&&f<1&&!(st.has(f)&&en.has(f)))).size;
+        sp.flatMap(x=>[x.sm,x.em])
+          .filter(f=>f>0&&f<1&&!(st.has(f)&&en.has(f))).forEach(f=>cuts3.add(f));
       }
       // A multi-hour block carried out of its fractional first hour still draws its
       // start boundary on that first hour's ruler.
-      if(car3){const f=mins(car3.t);if(f>0&&f<1)rlnN++;}
+      if(car3){const f=mins(car3.t);if(f>0&&f<1)cuts3.add(f);}
+      rlnN+=cuts3.size;
       if(car3){hr3=cEnd3;continue;}
       hr3++;
     }
