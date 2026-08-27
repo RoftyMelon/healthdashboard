@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.12 · Schema 2 · 2026-08-27
+
+- Moved ordinary routine emoji events 15px right so they share the same visual column as the gym phase icons.
+
 ## Viewer 1.12.11 · Schema 2 · 2026-08-27
 
 - Reverted the incorrect 15px phase-icon offset; phase and event emoji boxes again share the same 78px horizontal origin and 24px centered width.
