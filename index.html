@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.1">
+<meta name="health-dashboard-viewer-version" content="1.12.2">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -819,6 +819,7 @@ a.sbuy:hover{color:var(--info)}
 .rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
 .rln{position:absolute;left:44px;width:min(calc(100% - 44px),300px);height:.5px;
   background:var(--t4);opacity:.55}
+.rmini{position:absolute;left:78px;width:110px;height:.5px;background:var(--t4);opacity:.4}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -1993,6 +1994,12 @@ function audit(j){
       else{if(r.t<=prev)bad.push(`ROUTINE "${r.t} ${r.do}": times must be ascending`);prev=r.t;}
       if(r.until!=null&&(!/^\d{2}:\d{2}$/.test(r.until)||r.until<=r.t))
         bad.push(`ROUTINE "${r.do}": until "${r.until}" must be HH:MM and later than ${r.t}`);
+      if(r.milestones!==undefined){
+        if(!r.until||!Array.isArray(r.milestones)||r.milestones.some((m,i)=>
+          !m||!/^\d{2}:\d{2}$/.test(m.t)||!m.label||m.t<=r.t||m.t>=r.until||
+          (i&&m.t<=r.milestones[i-1].t)))
+          bad.push(`ROUTINE "${r.do}": milestones must be ascending labelled times inside the block`);
+      }
     });
   }
   if(j.DIET){
@@ -3618,6 +3625,9 @@ function renderPage(p){
         ?`<div class="pgscr">(${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window)</div>`:'')+
       `</div>`;
     let hr=H0;
+    const miniLines=r=>{if(!r.milestones||!r.until)return'';
+      const a=_min(r.t),z=_min(r.until),span=z-a;
+      return r.milestones.map(m=>`<i class="rmini" aria-label="${esc(m.t+' '+m.label)}" style="top:calc(${(_min(m.t)-a)/span*100}% + 7px)"></i>`).join('');};
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
       // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
@@ -3628,7 +3638,7 @@ function renderPage(p){
       if(block){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
         const labels=Array.from({length:span},(_,i)=>mark(hr+i)).join('');
-        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span><div class="rcell">`+
+        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(block)}<div class="rcell">`+
            `<div class="rev"><div class="rbody"><div class="rdo">${esc(block.do)}</div></div></div></div></div>`;
         hr=endH;continue;
       }
@@ -3672,7 +3682,7 @@ function renderPage(p){
         }).join('')+`</div></div>`;
       if(carried){
         const labels=Array.from({length:carriedEnd-(hr+1)},(_,i)=>mark(hr+1+i)).join('');
-        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span><div class="rcell">`+
+        h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(carried)}<div class="rcell">`+
            `<div class="rev"><div class="rbody"><div class="rdo">${esc(carried.do)}</div></div></div></div></div>`;
         hr=carriedEnd;continue;
       }

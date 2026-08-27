@@ -1076,6 +1076,11 @@ window.BLOODWORK =
   {
    "t": "07:30",
    "until": "09:30",
+   "milestones": [
+    {"t": "07:45", "label": "Workout start"},
+    {"t": "09:00", "label": "Workout end, shower start"},
+    {"t": "09:15", "label": "Shower end"}
+   ],
    "do": "Gym (1h15 lifting, shower, commute)"
   },
   {
