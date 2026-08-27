@@ -1075,7 +1075,7 @@ window.BLOODWORK =
   },
   {
    "t": "07:30",
-   "until": "10:00",
+   "until": "09:30",
    "do": "Gym (1h15 lifting, commute, shower)"
   },
   {
