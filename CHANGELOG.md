@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.9 · Schema 2 · 2026-08-27
+
+- Centered every Routine emoji on one fixed 24px column and reduced shower icons to 14px; phase timing remains anchored to each interval's true midpoint.
+
 ## Viewer 1.12.8 · Schema 2 · 2026-08-27
 
 - Restored the Routine tab's main and fractional divider hairlines to their original 300px length; internal milestone ticks remain 10px.

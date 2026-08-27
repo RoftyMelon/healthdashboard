@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.8">
+<meta name="health-dashboard-viewer-version" content="1.12.9">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -821,8 +821,9 @@ a.sbuy:hover{color:var(--info)}
   background:var(--t4);opacity:.55}
 .rmini{position:absolute;left:44px;width:10px;height:.5px;
   background:var(--t4);opacity:.4}
-.rphase{position:absolute;left:78px;font-size:18px;line-height:1;transform:translateY(-50%)}
-.rphase.rphase-car{font-size:14px}
+.rphase{position:absolute;left:78px;width:24px;text-align:center;font-size:18px;line-height:1;
+  transform:translateY(-50%)}
+.rphase.rphase-car,.rphase.rphase-shower{font-size:14px}
 /* blocks need no rule of their own: the base .rcell centres every row vertically,
    and align-items is left at stretch so ALL text shares the same left edge.
    (A legacy row-direction align-items:center here turned into HORIZONTAL centring
@@ -838,6 +839,8 @@ a.sbuy:hover{color:var(--info)}
 .rev{display:flex;gap:12px;align-items:baseline;padding:2px 0}
 .rbody{min-width:0}
 .rdo{font-size:16px;color:var(--t2);line-height:1.5}
+.rdo.ricon{width:24px;text-align:center;white-space:nowrap;overflow:visible}
+.rdo.ricon.rsmall{font-size:14px}
 /* a category's own caveat, straight from the data */
 .cnote{font-size:15px;color:var(--t4);font-style:italic;line-height:1.55;padding:8px 2px 2px}
 /* lead: an intro note under a page's section header is CONTENT, not a footnote —
@@ -3642,9 +3645,11 @@ function renderPage(p){
     const miniLines=(from,to)=>ROUTINE.flatMap(r=>(r.milestones||[]).map(m=>({r,m,n:_min(m.t)})))
       .filter(x=>x.n>=from&&x.n<to)
       .map(x=>`<i class="rmini" aria-label="${esc(x.m.t+' '+x.m.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)"></i>`).join('');
+    const routineDo=v=>{const s=String(v||''),icon=/[\u{1F300}-\u{1FAFF}]/u.test(s)&&!/[\p{Letter}\p{Number}]/u.test(s);
+      return `<div class="rdo${icon?' ricon':''}${s.trim()==='🚿'?' rsmall':''}">${esc(s).replace(/\n/g,'<br>')}</div>`;};
     const phaseIcons=(from,to)=>ROUTINE.flatMap(r=>(r.phases||[]).map(p=>({p,n:(_min(p.from)+_min(p.to))/2})))
       .filter(x=>x.n>=from&&x.n<to)
-      .map(x=>`<span class="rphase${x.p.icon==='🚙'?' rphase-car':''}" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
+      .map(x=>`<span class="rphase${x.p.icon==='🚙'?' rphase-car':x.p.icon==='🚿'?' rphase-shower':''}" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);
       // a multi-hour BLOCK (gym, work) swallows its interior hours: their rail marks stack
@@ -3656,7 +3661,7 @@ function renderPage(p){
         const endH=Math.min(parseInt(block.until),H1+1),span=Math.max(1,endH-hr);
         const labels=Array.from({length:span},(_,i)=>mark(hr+i)).join('');
         h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines(hr*60,endH*60)}${phaseIcons(hr*60,endH*60)}<div class="rcell">`+
-           (block.phases?'':`<div class="rev"><div class="rbody"><div class="rdo">${esc(block.do)}</div></div></div>`)+`</div></div>`;
+           (block.phases?'':`<div class="rev"><div class="rbody">${routineDo(block.do)}</div></div>`)+`</div></div>`;
         hr=endH;continue;
       }
       // a span that STARTS mid-hour but runs on through whole EMPTY hours cannot live in
@@ -3697,12 +3702,12 @@ function renderPage(p){
         `<div class="rcell">`+
         rowEvs.map((r,i)=>{
           const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} - ${spans[i].sm>0?7:6}px)"`:'';
-          return `<div class="rev"${pos}><div class="rbody"><div class="rdo">${esc(r.do).replace(/\n/g,'<br>')}</div></div></div>`;
+          return `<div class="rev"${pos}><div class="rbody">${routineDo(r.do)}</div></div>`;
         }).join('')+`</div></div>`;
       if(carried){
         const labels=Array.from({length:carriedEnd-(hr+1)},(_,i)=>mark(hr+1+i)).join('');
         h+=`<div class="rhr rblockrow"><span class="rht">${labels}</span>${miniLines((hr+1)*60,carriedEnd*60)}${phaseIcons((hr+1)*60,carriedEnd*60)}<div class="rcell">`+
-           (carried.phases?'':`<div class="rev"><div class="rbody"><div class="rdo">${esc(carried.do)}</div></div></div>`)+`</div></div>`;
+           (carried.phases?'':`<div class="rev"><div class="rbody">${routineDo(carried.do)}</div></div>`)+`</div></div>`;
         hr=carriedEnd;continue;
       }
       hr++;

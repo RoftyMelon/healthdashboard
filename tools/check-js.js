@@ -319,6 +319,11 @@ setTimeout(()=>{
       RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
       RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>')&&
       RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(37.5% + 7px)">🚙</span>'));
+    ok('routine emojis share one centered column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4,
+      count(RH,'rdo ricon')+' routine rows / '+count(RH,'rphase')+' phase icons');
+    ok('both shower icons use the smaller treatment',
+      RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&
+      RH.includes('class="rdo ricon rsmall">🚿</div>'));
   }
   catch(e){ ok('routine ruler',false,e.message); }
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
