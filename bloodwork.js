@@ -2044,7 +2044,6 @@ window.BLOODWORK =
        },
        {
         "n": "Incline lateral raise",
-        "sub": true,
         "sets": [
          [
           6,
