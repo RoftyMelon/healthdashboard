@@ -1075,7 +1075,7 @@ window.BLOODWORK =
   {
    "t": "07:30",
    "until": "10:00",
-   "do": "Gym — 1h15 lifting, the rest is commute. Phone stays OFF"
+   "do": "Gym (1h15 lifting, commute, shower)"
   },
   {
    "t": "10:00",
