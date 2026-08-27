@@ -214,7 +214,7 @@ setTimeout(()=>{
   }
   const want={nextdraw:['ndrow',DATA.NEXTDRAW.items.length],
     stack:['srow',DATA.STACK.items.length],
-    routine:['rev',R0.length],   // every entry renders one row now — blocks included
+    routine:['rev',R0.filter(r=>!r.phases).length],   // phased blocks render their icons instead of one combined row
     training:['ccard',DATA.TRAINING.cards.length],
     grooming:['ccard',DATA.CARE.filter(c=>!c.schedule&&!c.tier).length],   // a scheduled card renders as a grid and a .tier one as a plain list — neither is a ccard
     diet:['ccard',DATA.DIET.meals.filter(m=>m.at).length+1]};   // timed meals + Evening; Weekly and the nutrition profile are plain sections
@@ -313,6 +313,11 @@ setTimeout(()=>{
       RH.includes('aria-label="07:45 Workout start" style="top:calc(75% + 7px)"')&&
       RH.includes('aria-label="09:00 Workout end, shower start" style="top:calc(0% + 7px)"')&&
       RH.includes('aria-label="09:15 Shower end" style="top:calc(25% + 7px)"'));
+    ok('gym phase icons sit in their respective time slots',
+      count(RH,'rphase')===4&&
+      RH.includes('aria-label="Commute" style="top:calc(62.5% + 7px)">🚶</span>')&&
+      RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️</span>')&&
+      RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>'));
   }
   catch(e){ ok('routine ruler',false,e.message); }
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
