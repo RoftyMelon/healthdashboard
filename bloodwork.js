@@ -1073,11 +1073,7 @@ window.BLOODWORK =
    "do": "10min walk/run, snack"
   },
   {
-   "t": "07:15",
-   "do": "Pre-workout snack"
-  },
-  {
-   "t": "08:00",
+   "t": "07:30",
    "until": "10:00",
    "do": "Gym — 1h15 lifting, the rest is commute. Phone stays OFF"
   },
