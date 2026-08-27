@@ -1082,12 +1082,12 @@ window.BLOODWORK =
     {"t": "09:15", "label": "Shower end"}
    ],
    "phases": [
-    {"from": "07:30", "to": "07:45", "icon": "🚶", "label": "Commute"},
+    {"from": "07:30", "to": "07:45", "icon": "🚙", "label": "Commute"},
     {"from": "07:45", "to": "09:00", "icon": "🏋️", "label": "Lifting"},
     {"from": "09:00", "to": "09:15", "icon": "🚿", "label": "Shower"},
-    {"from": "09:15", "to": "09:30", "icon": "🚶", "label": "Commute"}
+    {"from": "09:15", "to": "09:30", "icon": "🚙", "label": "Commute"}
    ],
-   "do": "🚶 🏋️ 🚿 🚶"
+   "do": "🚙 🏋️ 🚿 🚙"
   },
   {
    "t": "09:30",
