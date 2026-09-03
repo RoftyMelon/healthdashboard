@@ -756,8 +756,8 @@ setTimeout(()=>{
     ok('diet shows one standalone nutritional profile',pi>=0&&(H.match(/dietprofile/g)||[]).length===1,'one section');
     ok('nutritional profile follows the Weekly rotation',wi>=0&&pi>wi,'below Weekly');
     ok('nutritional profile shows equal-choice averages including Weekly',
-      H.includes('~3,250 kcal')&&H.includes('~174 g')&&!H.includes('g/kg')&&
-      H.includes('~250 g')&&H.includes('~165 g')&&H.includes('~58 g')&&H.includes('~36 g')&&
+      H.includes('~3,150 kcal')&&H.includes('~176 g')&&!H.includes('g/kg')&&
+      H.includes('~248 g')&&H.includes('~156 g')&&H.includes('~60 g')&&H.includes('~31 g')&&
       !H.includes('Weekly starter adds')&&!H.includes('Approximate daily intake')&&
       !H.includes('Ranges reflect')&&!H.includes('class="dpbasis"')&&!H.includes('class="dpnote"'),
       'current averages'); }
@@ -779,14 +779,16 @@ setTimeout(()=>{
     const pre=DATA.DIET.meals.find(m=>m.id==='presnack'),dinner=DATA.DIET.meals.find(m=>m.id==='dinner');
     const wa=pre&&pre.items.find(x=>x&&x.n==='Walnuts + almonds');
     const pi=dinner&&dinner.items.find(x=>x&&x.n==='Pistachios');
+    const cocoa=DATA.DIET.meals.flatMap(m=>(m.items||[]).filter(x=>x&&x.n==='Cocoa powder').map(x=>({meal:m.id,item:x})));
     const chocolate=DATA.DIET.meals.flatMap(m=>(m.items||[]).filter(x=>x&&x.n==='Dark chocolate').map(x=>({meal:m.id,item:x})));
     ok('walnuts and almonds sit with the muesli; dinner keeps pistachios',
       wa&&wa.amt==='~22g'&&pi&&pi.amt==='~8g'&&
       JSON.stringify(wa.info).includes('Walnut 12g, almond 10g')&&
       JSON.stringify(wa.info.Notes)===JSON.stringify([['','3 Walnuts'],['','8 Almonds']])&&
       JSON.stringify(pi.info).includes('Pistachio 8g'),'split correctly');
-    ok('the full 20g chocolate serving sits only in the pre-workout snack',
-      chocolate.length===1&&chocolate[0].meal==='presnack'&&chocolate[0].item.amt==='~20g');
+    ok('the 10g cocoa powder serving replaces standalone chocolate with no change date',
+      cocoa.length===1&&cocoa[0].meal==='presnack'&&cocoa[0].item.amt==='10g'&&
+      !cocoa[0].item.info.Changes&&chocolate.length===0);
   }
   try{ setPage('markers'); ok('back to markers', n.pages.hidden===true); }
   catch(e){ ok('back to markers',false,e.message); }

@@ -3248,60 +3248,75 @@ window.BLOODWORK =
       }
      },
      {
-      "n": "Dark chocolate",
-      "amt": "~20g",
+      "n": "Cocoa powder",
+      "amt": "10g",
       "info": {
-       "Ingredients": [
-        [
-         "",
-         "Cocoa 85%, Madagascar origin"
-        ]
-       ],
-       "Macronutrients — per ~20g": [
+       "Macronutrients — per 10g": [
         [
          "Energy",
-         "120kcal",
-         "6%"
-        ],
-        [
-         "Fat",
-         "10g",
-         "14%"
-        ],
-        [
-         "– saturates",
-         "6g",
-         "28%"
-        ],
-        [
-         "Carbs",
-         "4g",
+         "34kcal",
          "2%"
         ],
         [
+         "Fat",
+         "1.1g",
+         "2%"
+        ],
+        [
+         "– saturates",
+         "0.7g",
+         "4%"
+        ],
+        [
+         "Carbs",
+         "1.5g",
+         "1%"
+        ],
+        [
+         "– sugars",
+         "0.05g",
+         "0%"
+        ],
+        [
          "Fibre",
-         "2g"
+         "3.5g"
+        ],
+        [
+         "Protein",
+         "2.8g",
+         "6%"
+        ],
+        [
+         "Salt",
+         "0.005g",
+         "0%"
         ]
        ],
        "Standouts": [
         [
          "Magnesium",
-         "46mg",
-         "12%"
+         "52mg",
+         "14%"
+        ],
+        [
+         "Phosphorus",
+         "66mg",
+         "9%"
+        ],
+        [
+         "Potassium",
+         "300mg",
+         "15%"
         ],
         [
          "Iron",
-         "2.2mg"
-        ],
-        [
-         "Copper",
-         "0.4mg",
-         "36%"
+         "3mg",
+         "21%"
         ],
         [
          "Manganese",
-         "0.4mg",
-         "20%"
+         "0.38mg",
+         "19%"
         ]
        ]
       }
