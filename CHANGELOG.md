@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## 2026-09-08
+
+- Support optional text sections beneath the Routine timeline, including emphasized text.
+
 ## Viewer 1.12.14 · Schema 2 · 2026-08-27
 
 - Centered the two-emoji wake-up row independently from single-icon Routine rows so its visual midpoint shares their column.

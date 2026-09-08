@@ -1123,6 +1123,15 @@ window.BLOODWORK =
    "do": "🌙"
   }
  ],
+ "ROUTINE_SECTIONS": [
+  {
+   "title": "Travel",
+   "items": [
+    {"text": "Travel after lunch is ideal"},
+    {"text": "Keep your routine during travel - ", "emphasis": "no screens after 9PM and gym in the morning"}
+   ]
+  }
+ ],
  "CARE": [
   {
    "id": "face",

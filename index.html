@@ -3715,6 +3715,10 @@ function renderPage(p){
       hr++;
     }
     }
+    h+=(window.BLOODWORK.ROUTINE_SECTIONS||[]).map(section=>
+      `<div class="dnotes"><b>${esc(section.title)}</b><ul>`+
+      section.items.map(item=>`<li>${esc(item.text)}${item.emphasis?`<em>${esc(item.emphasis)}</em>`:''}</li>`).join('')+
+      `</ul></div>`).join('');
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){
     h=`<div class="pgh">Training</div>`+
       (TRAINING.cardio||CARD_SHELLS?`<div class="pgst">Cardio</div><div class="cnote lead">${TRAINING.cardio?esc(TRAINING.cardio).replace(/\n/g,'<br>'):'—'}</div>`:'')+
