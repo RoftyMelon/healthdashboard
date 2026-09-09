@@ -1065,7 +1065,8 @@ window.BLOODWORK =
  },
  "SCREEN": {
   "from": "10:00",
-  "to": "21:00"
+  "to": "21:00",
+  "note": "No screens during meals - podcasts acceptable"
  },
  "ROUTINE": [
   {

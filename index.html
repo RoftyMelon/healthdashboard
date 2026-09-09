@@ -3638,6 +3638,7 @@ function renderPage(p){
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
         ?`<div class="pgscr">(${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window)</div>`:'')+
+      (SCREEN&&SCREEN.note?`<div class="pgscr" style="font-style:normal">${esc(SCREEN.note)}</div>`:'')+
       `</div>`;
     let hr=H0;
     // Milestones follow the absolute hour ruler, not the visually compressed block row.
