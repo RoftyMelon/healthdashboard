@@ -3716,7 +3716,7 @@ function renderPage(p){
     }
     }
     h+=(window.BLOODWORK.ROUTINE_SECTIONS||[]).map(section=>
-      `<div class="dnotes"><b>${esc(section.title)}</b><ul>`+
+      `<div class="dnotes"><b>${esc(section.title)}</b><ul style="list-style:disc;padding-left:20px">`+
       section.items.map(item=>`<li>${esc(item.text)}${item.emphasis?`<em>${esc(item.emphasis)}</em>`:''}</li>`).join('')+
       `</ul></div>`).join('');
   } else if(p==='training'&&TRAINING&&TRAINING.cards&&TRAINING.cards.length){

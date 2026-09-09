@@ -5,7 +5,7 @@ remain in the personal repository history.
 
 ## 2026-09-08
 
-- Support optional text sections beneath the Routine timeline, including emphasized text.
+- Support optional text sections beneath the Routine timeline, including emphasized text and visible list bullets.
 
 ## Viewer 1.12.14 · Schema 2 · 2026-08-27
 
