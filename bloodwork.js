@@ -1842,19 +1842,6 @@ window.BLOODWORK =
         ]
        },
        {
-        "n": "Bodyweight row",
-        "sets": [
-         [
-          40,
-          5
-         ],
-         [
-          40,
-          5
-         ]
-        ]
-       },
-       {
         "n": "Back extension",
         "sets": [
          [
