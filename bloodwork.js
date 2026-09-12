@@ -1130,7 +1130,7 @@ window.BLOODWORK =
    "items": [
     {"text": "Travel after lunch is ideal"},
     {"text": "Keep your routine during travel - ", "emphasis": "no screens after 9PM and gym in the morning"},
-    {"text": "Family/Friends activities: walking, juggling, ping pong kit, tennis ball, book reading, board games, language book"}
+    {"text": "Family/Friends activities: walking/rucking, juggling, ping pong kit, tennis ball, book reading, board games, language book"}
    ]
   }
  ],
