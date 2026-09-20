@@ -732,7 +732,7 @@ setTimeout(()=>{
     ok('expanded benchmark chart draws history, the full grade ladder and the world-record line',
       D.includes('rbline')&&!D.includes('rbtg')&&!D.includes('rbbg')&&!D.includes('rbmed')&&D.includes('rbwr')&&
       (D.match(/<line class="rbt rbt-[a-z]+(?: rbmen-elite)?" data-tier=/g)||[]).length===4);
-    ok('benchmark results and chart points have no tooltip hooks',
+    ok('benchmark results and chart points have no legacy tooltip hooks',
       !H.includes('dtl rbval')&&!D.includes('dtl rbpt')&&!H.includes(' title=')&&
       !D.includes(' title=')&&!html.includes('function rbPtHTML'));
     ok('laboratory datapoint bubbles remain enabled',html.includes('function ptHTML'));
@@ -740,6 +740,29 @@ setTimeout(()=>{
   }catch(e){
     DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
     ok('benchmark history rendering',false,e.message);
+  }
+  // Imported activity traces are an opt-in exception to the plain benchmark result cells.
+  {const r=DATA.TRAINING.activityRecords[0],x=DATA.TRAINING.benchmarks.items.find(x=>x.id===r.benchmark),
+    a=x.attempts.find(a=>a.date===r.date),h=rbHRHTML(x,a,r),button=rbValue(x,a);
+   ok('5 km benchmark uses interpolated elapsed crossing time, not paused timer time',a.value===1332.083&&rbFmt(x,a.value)==='22:12');
+   ok('all 317 FIT heart-rate samples are retained with relative timestamps',r.samples.length===317&&r.samples[0][0]===0&&r.samples.at(-1)[0]===1337);
+   ok('activity preview has the full trace and a gap at the timer pause',
+     (h.match(/class="rbhrtrace"/g)||[]).length===2&&h.includes('rbhrpause')&&r.pauses[0][0]===664&&r.pauses[0][1]===688);
+   ok('activity summary distinguishes complete recording from benchmark time',
+     h.includes('Table result 22:12')&&h.includes('5.013 km')&&h.includes('22:17')&&h.includes('21:53')&&h.includes('169 bpm')&&h.includes('195 bpm'));
+   ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
+   ok('activity result supports pointer, keyboard and click without expanding the row',
+     button.includes('onpointerenter')&&button.includes('onfocus')&&button.includes('event.stopPropagation()')&&button.includes('aria-haspopup="dialog"'));
+   for(const [name,change] of [
+     ['unordered samples',r=>r.samples[1][0]=0],
+     ['out of range heart rate',r=>r.samples[1][1]=999],
+     ['pause outside recording',r=>r.pauses[0][1]=9999],
+     ['timer greater than elapsed',r=>r.timer=r.elapsed+1],
+     ['unlinked activity',r=>r.date='2000-01-01'],
+     ['unrequested location metadata',r=>r.position_lat=1]]){
+     const j=JSON.parse(JSON.stringify(DATA));change(j.TRAINING.activityRecords[0]);
+     ok('audit rejects activity '+name,audit(j).length>0);
+   }
   }
   // every meal card embeds a derived Supps sub-section (the evening card's title IS its list)
   try{ setPage('diet');

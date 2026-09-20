@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.14">
+<meta name="health-dashboard-viewer-version" content="1.12.15">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -1167,6 +1167,30 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbval{display:inline-block;font-variant-numeric:tabular-nums}
 .rbpb{color:var(--ok);font-weight:750}
 .rbnil{color:var(--t4)}
+
+/* Imported activity previews live outside the table so sticky cells cannot clip them. */
+.rbhrtrigger{font:inherit;background:none;border:0;padding:6px 3px;color:inherit;cursor:pointer;
+  text-decoration:underline dotted;text-underline-offset:4px}
+.rbhrtrigger.rbpb{color:var(--ok);font-weight:750}
+.rbhrtrigger:focus-visible{outline:2px solid var(--info);outline-offset:3px;border-radius:4px}
+.rbhrpanel{position:fixed;z-index:1000;box-sizing:border-box;width:400px;max-width:calc(100vw - 24px);
+  max-height:calc(100dvh - 24px);overflow:auto;padding:16px;background:var(--bg);color:var(--txt);
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 32px #0003;font-size:13px}
+.rbhrpanel[hidden]{display:none}
+.rbhrhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rbhrhead strong{font-size:15px}
+.rbhrclose{font:inherit;font-size:22px;line-height:1;background:none;color:var(--t2);
+  border:0;padding:4px 8px;cursor:pointer}
+.rbhrmeta{font-size:12px;color:var(--t3);margin-top:5px}
+.rbhrstats{display:flex;flex-wrap:wrap;gap:8px 20px;margin:14px 0 4px;font-variant-numeric:tabular-nums}
+.rbhrstats span{color:var(--t3)}
+.rbhrstats b{color:var(--txt)}
+.rbhrsvg{display:block;width:100%;height:auto}
+.rbhrsvg text{fill:var(--t3);font:11px system-ui,sans-serif}
+.rbhrgrid{stroke:var(--line);stroke-width:.7}
+.rbhrtrace{fill:none;stroke:var(--out);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.rbhrpause{fill:var(--t3);opacity:.18}
+.rbhrlegend{color:var(--t3);font-size:11px;text-align:right}
 /* Benchmark radar. Rings are polygons, not circles, so they track the axis count. */
 .rdwrap{margin-top:18px;max-width:min(540px,100%)}
 .rdsvg{display:block;width:100%;height:auto;overflow:visible}
@@ -2234,6 +2258,41 @@ function audit(j){
       });
       else if(!Array.isArray(c.items))bad.push(`TRAINING "${c.t}": items must be an array (empty is fine)`);
     });
+
+    if(j.TRAINING.activityRecords!==undefined){
+      const records=j.TRAINING.activityRecords,keys=new Set(),finite=n=>typeof n==='number'&&Number.isFinite(n);
+      if(!Array.isArray(records))bad.push('TRAINING.activityRecords must be an array');
+      else records.forEach(r=>{
+        const tag='TRAINING activity';
+        if(!r||typeof r!=='object'||Array.isArray(r)){bad.push(tag+' must be an object');return;}
+        const fields=['benchmark','date','distance','elapsed','timer','averageHR','maxHR','pauses','samples'];
+        if(Object.keys(r).some(k=>!fields.includes(k)))bad.push(tag+' has unsupported fields');
+        const x=b?.items?.find(x=>x.id===r.benchmark);
+        if(!x||x.kind!=='time'||!x.attempts?.some(a=>a.date===r.date))bad.push(tag+' must match a timed benchmark attempt');
+        const key=r.benchmark+'/'+r.date;
+        if(keys.has(key))bad.push(tag+' is duplicated');keys.add(key);
+        if(!finite(r.distance)||r.distance<=0||!finite(r.elapsed)||r.elapsed<=0||
+          !finite(r.timer)||r.timer<=0||r.timer>r.elapsed)bad.push(tag+' has invalid distance or duration');
+        if(!Number.isInteger(r.averageHR)||!Number.isInteger(r.maxHR)||r.averageHR<20||
+          r.maxHR<r.averageHR||r.maxHR>250)bad.push(tag+' has invalid heart-rate summary');
+        let end=-1;
+        if(!Array.isArray(r.pauses))bad.push(tag+' pauses must be an array');
+        else r.pauses.forEach(p=>{
+          if(!Array.isArray(p)||p.length!==2||!p.every(finite)||p[0]<0||p[0]<end||p[1]<=p[0]||p[1]>r.elapsed)
+            bad.push(tag+' has invalid pauses');
+          else end=p[1];
+        });
+        let previous=-1;
+        if(!Array.isArray(r.samples)||r.samples.length<2)bad.push(tag+' needs timestamped heart-rate samples');
+        else r.samples.forEach(s=>{
+          if(!Array.isArray(s)||s.length!==2||!finite(s[0])||s[0]<=previous||s[0]<0||s[0]>r.elapsed||
+            (s[1]!==null&&(!Number.isInteger(s[1])||s[1]<20||s[1]>250)))
+            bad.push(tag+' has invalid heart-rate samples');
+          else previous=s[0];
+        });
+        if(Array.isArray(r.samples)&&!r.samples.some(s=>Array.isArray(s)&&Number.isInteger(s[1])))bad.push(tag+' needs a heart-rate value');
+      });
+    }
     if(j.TRAINING.maylater!==undefined)bad.push('TRAINING.maylater is retired; keep the Training tab to active work and recorded benchmarks');
   }
   return bad;
@@ -3037,8 +3096,110 @@ function rbTrend(x){
 function rbValue(x,a,extra=''){
   if(!a)return '<span class="rbnil">—</span>';
   const pb=rbIsPB(x,a.value);
+  if(rbActivity(x,a))return `<button type="button" class="rbval rbhrtrigger${pb?' rbpb':''}${extra}" data-hr-benchmark="${esc(x.id)}" data-hr-date="${esc(a.date)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="rbhrpanel" aria-label="${esc(x.name+' '+rbFmt(x,a.value)+' — heart-rate graph')}" onpointerenter="if(event.pointerType!=='touch')rbHRShow(this)" onpointerleave="rbHRLeave()" onfocus="rbHRShow(this)" onblur="rbHRLeave()" onclick="event.stopPropagation();rbHRClick(this)">${esc(rbFmt(x,a.value))}</button>`;
   return `<span class="rbval${pb?' rbpb':''}${extra}">${esc(rbFmt(x,a.value))}</span>`;
 }
+
+function rbActivity(x,a){
+  return (TRAINING?.activityRecords||[]).find(r=>r.benchmark===x.id&&r.date===a.date);
+}
+function rbHRHTML(x,a,r){
+  const W=368,H=200,L=34,R=12,T=22,B=30,duration=r.elapsed;
+  const values=r.samples.filter(s=>s[1]!=null).map(s=>s[1]);
+  const low=Math.floor((Math.min(...values)-5)/20)*20,high=Math.ceil((Math.max(...values)+5)/20)*20;
+  const X=t=>L+t/duration*(W-L-R),Y=v=>T+(high-v)/(high-low)*(H-T-B);
+  let svg='';
+  for(let v=low;v<=high;v+=20)svg+=
+    '<line class="rbhrgrid" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/>'+
+    '<text x="'+(L-5)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+v+'</text>';
+  const step=duration>1800?600:300;
+  for(let t=0;t<duration&&(X(duration)-X(t))>52;t+=step)svg+='<text x="'+X(t)+'" y="'+(H-11)+'" text-anchor="middle">'+(t===0?'0:00':rbFmt({kind:'time',precision:0},t))+'</text>';
+  svg+='<text x="'+X(duration)+'" y="'+(H-11)+'" text-anchor="end">'+rbFmt({kind:'time',precision:0},duration)+'</text>'+
+    '<text x="'+L+'" y="12">bpm</text>';
+  for(const [from,to] of r.pauses)svg+='<rect class="rbhrpause" x="'+X(from)+'" y="'+T+'" width="'+(X(to)-X(from))+'" height="'+(H-T-B)+'"/>';
+  // Preserve every recorded point and leave breaks at pauses/missing samples.
+  let segments=[],segment=[],previous=null;
+  for(const s of r.samples){
+    if(s[1]==null||r.pauses.some(([from,to])=>s[0]>from&&s[0]<to)){
+      if(segment.length)segments.push(segment);segment=[];previous=null;continue;
+    }
+    if(previous&&r.pauses.some(([from,to])=>previous[0]<=from&&s[0]>=to)){
+      if(segment.length)segments.push(segment);segment=[];
+    }
+    segment.push(X(s[0]).toFixed(2)+','+Y(s[1]).toFixed(2));previous=s;
+  }
+  if(segment.length)segments.push(segment);
+  for(const points of segments)svg+='<polyline class="rbhrtrace" points="'+points.join(' ')+'"/>';
+  const clock=t=>rbFmt({kind:'time',precision:0},t);
+  const date=new Date(a.date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  return '<div class="rbhrhead"><strong id="rbhrheading">Heart rate · '+esc(x.name)+'</strong>'+
+    '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)">×</button></div>'+
+    '<div class="rbhrmeta">'+esc(date)+' · Table result '+esc(rbFmt(x,a.value))+'</div>'+
+    '<div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span></div>'+
+    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Heart rate over elapsed time; pauses shaded">'+svg+'</svg>'+
+    (r.pauses.length?'<div class="rbhrlegend">Shaded: timer paused</div>':'')+
+    '<div class="rbhrmeta">Full activity · '+(r.distance/1000).toFixed(3)+' km</div>'+
+    '<div class="rbhrstats"><span>Elapsed <b>'+clock(r.elapsed)+'</b></span><span>Timer <b>'+clock(r.timer)+'</b></span></div>';
+}
+let rbHRPanel=null,rbHRAnchor=null,rbHRPinned=false,rbHRTimeout=null,rbHRSuppressFocus=false;
+function rbHRPlace(){
+  if(!rbHRPanel||rbHRPanel.hidden||!rbHRAnchor)return;
+  const v=window.visualViewport,w=v?v.width:window.innerWidth,h=v?v.height:window.innerHeight,
+    ox=v?v.offsetLeft:0,oy=v?v.offsetTop:0,a=rbHRAnchor.getBoundingClientRect();
+  rbHRPanel.style.maxWidth=Math.max(0,w-24)+'px';
+  rbHRPanel.style.maxHeight=Math.max(0,h-24)+'px';
+  const b=rbHRPanel.getBoundingClientRect();
+  const left=Math.max(ox+12,Math.min(a.left+a.width/2-b.width/2,ox+w-b.width-12));
+  let top=a.bottom+8;
+  if(top+b.height>oy+h-12)top=a.top-b.height-8;
+  top=Math.max(oy+12,Math.min(top,oy+h-b.height-12));
+  rbHRPanel.style.left=left+'px';rbHRPanel.style.top=top+'px';
+}
+function rbHRShow(el,pin=false){
+  if(rbHRSuppressFocus)return;
+  clearTimeout(rbHRTimeout);
+  if(rbHRPinned&&!pin)return;
+  const x=TRAINING?.benchmarks?.items.find(x=>x.id===el.dataset.hrBenchmark),
+    a=x?.attempts.find(a=>a.date===el.dataset.hrDate),r=a&&rbActivity(x,a);
+  if(!r)return;
+  if(!rbHRPanel){
+    rbHRPanel=document.createElement('div');rbHRPanel.id='rbhrpanel';rbHRPanel.className='rbhrpanel';
+    rbHRPanel.setAttribute('role','dialog');rbHRPanel.setAttribute('aria-labelledby','rbhrheading');
+    rbHRPanel.addEventListener('pointerenter',()=>clearTimeout(rbHRTimeout));
+    rbHRPanel.addEventListener('pointerleave',rbHRLeave);
+    rbHRPanel.addEventListener('focusout',()=>setTimeout(()=>{
+      if(!rbHRPinned&&!rbHRPanel.contains(document.activeElement)&&document.activeElement!==rbHRAnchor)rbHRClose();
+    },0));
+    document.body.appendChild(rbHRPanel);
+  }
+  if(rbHRAnchor)rbHRAnchor.setAttribute('aria-expanded','false');
+  rbHRAnchor=el;rbHRPinned=pin;el.setAttribute('aria-expanded','true');
+  rbHRPanel.innerHTML=rbHRHTML(x,a,r);rbHRPanel.hidden=false;rbHRPlace();
+}
+function rbHRClick(el){
+  if(rbHRAnchor===el&&rbHRPinned){rbHRClose();return;}
+  rbHRShow(el,true);
+}
+function rbHRLeave(){
+  clearTimeout(rbHRTimeout);
+  if(!rbHRPinned)rbHRTimeout=setTimeout(()=>{if(!rbHRPanel?.contains(document.activeElement))rbHRClose();},180);
+}
+function rbHRClose(focus=false){
+  clearTimeout(rbHRTimeout);
+  const anchor=rbHRAnchor;
+  if(rbHRPanel)rbHRPanel.hidden=true;
+  if(anchor)anchor.setAttribute('aria-expanded','false');
+  rbHRAnchor=null;rbHRPinned=false;
+  if(focus&&anchor?.isConnected){rbHRSuppressFocus=true;anchor.focus();rbHRSuppressFocus=false;}
+}
+document.addEventListener('pointerdown',e=>{
+  if(rbHRPanel&&!rbHRPanel.hidden&&!rbHRPanel.contains(e.target)&&!e.target.closest('[data-hr-benchmark]'))rbHRClose();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&rbHRPanel&&!rbHRPanel.hidden)rbHRClose(true);});
+window.addEventListener('resize',rbHRPlace);
+document.addEventListener('scroll',e=>{
+  if(rbHRPanel&&!rbHRPanel.hidden&&!rbHRPanel.contains(e.target))rbHRClose();
+},true);
 /* The grade ladder is DERIVED, never stored. Top 50% is the cohort midpoint; Top 25% and Top 10% are
    the two edges of the sourced performance target, and only the top rung is held in the data —
    it is the one genuinely separate claim, carrying its own source, and its name changes with the
@@ -3375,6 +3536,7 @@ function runningBenchmarks(){
 function setPage(p){
   if(!PAGES[p])return;
   if(p===page)return;
+  rbHRClose();
   page=p;
   document.documentElement.dataset.page=p;
   PGEL.hidden=p==='markers';
@@ -3395,6 +3557,7 @@ function setPage(p){
   try{history.replaceState(null,'',p==='markers'?location.pathname+location.search:'#'+p);}catch(e){}
 }
 function renderPage(p){
+  rbHRClose();
   // An exercise renders as a gridless set table: one column per set, kg over reps. Training rows
   // deliberately carry no info popovers; CARE may still use the shared row renderer for product notes.
   const exRow=x=>{

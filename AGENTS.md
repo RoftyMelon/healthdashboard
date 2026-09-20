@@ -295,8 +295,14 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   metadata; target-bearing rows render the four-line ladder rather than those ranges directly.
   A future peer-only row may retain its sourced peer-range fallback. Only a row with no
   comparison data and no world record falls back to the bare summary.
-  Benchmark results and chart points deliberately have no hover/tap bubble; the month column identifies
-  the test window, and clicking the result should expand the row. Running world records
+  Benchmark results without an imported activity and chart points have no hover/tap bubble; clicking
+  ordinary results expands the row. Optional `TRAINING.activityRecords` entries link by benchmark id
+  and exact date to `{date,value}` attempts. Each carries only distance (metres), full elapsed/timer
+  seconds, averageHR/maxHR (bpm), pauses as elapsed-second pairs and samples as [elapsed second, bpm]
+  pairs (null bpm marks missing data). Preserve every sample; exclude GPS and device identifiers.
+  Linked table results open the heart-rate panel on hover/focus or pin it on tap/click; clicking the
+  test name still opens the comparison chart. Full-activity timing is distinct from a benchmark
+  crossing time. No effort notes are displayed. Running world records
   must match the event and surface and carry a source plus review date. The `athletic` range is a
   sourced active-peer performance comparison, never labelled a longevity
   optimum. Its `heading` names the supported comparison class in the data, but the viewer uses
@@ -356,10 +362,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   timed charts, every men's reference line, value, label and arrow is blue and every women's one is
   pink; the 5/4 world-record dash and 2/3 elite dash preserve the distinction without colour.
   `audit()` and `check-js` both reject a per-row `span` coming back.
-- **Training is active work only.** It has no `maylater` parking section and no hover tooltips.
+- **Training is active work only.** It has no `maylater` parking section or exercise hover tooltips.
   Exercise rows are `{n, sets, sub?}`; keep any instruction worth retaining in the visible name,
   sets or programme note. Benchmark month headings, deltas, results and chart points likewise carry
-  no `title` or custom bubble. The exact attempt dates remain in `attempts[]` as source data.
+  no `title` or generic bubble. Imported-activity result previews are the explicit exception above.
+  The exact attempt dates remain in `attempts[]` as source data.
 
 ---
 
