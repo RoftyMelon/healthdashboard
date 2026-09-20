@@ -3557,25 +3557,9 @@ function rbRadar(){
     /* An in-SVG label revealed on hover, not a <title>: the native tooltip waits about a second
        before appearing, which reads as broken on a chart with two points. A wide transparent
        circle carries the hover so the 4px dot is not a pixel-hunt. */
-    // Avoid every result dot, not just this label's own dot (near-centre results cluster).
-    const text=rbFmt(axes[i].x,last.value)+(axes[i].x.kind==='time'?'':axes[i].x.unit?' '+axes[i].x.unit:''),
-      points=vals.flatMap((v,j)=>v===null?[]:[pt(j,v)]),width=text.length*6;
-    let place=null;
-    for(const gap of [0,14,28]){
-      for(const dy of (y>=CY?[3,14+gap,-9-gap]:[3,-9-gap,14+gap])){
-        for(const side of (x>=CX?[1,-1]:[-1,1])){
-          const lx=x+side*8,ly=y+dy,left=side>0?lx:lx-width,right=left+width;
-          if(left>=2&&right<=338&&ly>=14&&ly<=270&&points.every(([px,py])=>right<px-7||left>px+7||ly<py-7||ly-11>py+7)){
-            place={lx,ly,anchor:side>0?'start':'end'};break;
-          }
-        }
-        if(place)break;
-      }
-      if(place)break;
-    }
-    const {lx,ly,anchor}=place||{lx:x+10,ly:y+31,anchor:'start'};
+    const lx=x+10,ly=y+1,anchor='start';
     g+=`<g class="rdpt"><circle class="rddot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"/>`+
-       `<text class="rdval" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}">`+
+       `<text class="rdval" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">`+
        `${esc(rbFmt(axes[i].x,last.value))}${axes[i].x.kind==='time'?'':esc(axes[i].x.unit?' '+axes[i].x.unit:'')}</text>`+
        `<circle class="rdhit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13"/></g>`;});
   // axis labels, placed just outside the outer ring

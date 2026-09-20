@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Align every radar result label immediately to the right of its datapoint.
 - Show average pace and speed in activity previews, derived from recorded distance and timer time.
 - Position the heart-rate popup close button near its top-right corner.
 - Place radar result labels directly beside their datapoints when collision-free.
