@@ -713,7 +713,7 @@ setTimeout(()=>{
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     // Shared month buckets prevent two August tests from producing duplicate Aug '26 headers.
     ok('benchmark table preserves one shared column per testing month',
-      (H.match(/Aug '26/g)||[]).length===1&&(H.match(/Sept '26/g)||[]).length===1&&
+      (H.match(/Summer '26/g)||[]).length===1&&(H.match(/Sept '26/g)||[]).length===1&&
       !H.includes(' title=')&&H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     const rrow=(H.match(/<tr class="rbrow" data-rbrow="run100"[\s\S]*?<\/tr>/)||[])[0]||'';

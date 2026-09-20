@@ -2059,6 +2059,12 @@ function audit(j){
     });
     const b=j.TRAINING.benchmarks;
     if(b){
+      if(b.monthLabels!==undefined){
+        if(!b.monthLabels||typeof b.monthLabels!=='object'||Array.isArray(b.monthLabels))bad.push('TRAINING benchmarks.monthLabels must be an object');
+        else Object.entries(b.monthLabels).forEach(([month,label])=>{
+          if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)||typeof label!=='string'||!label.trim())bad.push('TRAINING benchmarks.monthLabels needs YYYY-MM keys and non-empty labels');
+        });
+      }
       if(b.age!==undefined&&(typeof b.age!=='number'||!isFinite(b.age)||b.age<18))bad.push('TRAINING benchmarks.age must be an adult numeric age');
       if(b.reviewed!==undefined&&(typeof b.reviewed!=='string'||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(b.reviewed)))
         bad.push('TRAINING benchmarks.reviewed must be YYYY-MM-DD');
@@ -3012,7 +3018,8 @@ const rbMonth=d=>String(d).slice(0,7);
 const rbMonths=()=>{const s=new Set();
   (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(rbMonth(a.date))));
   return [...s].sort();};
-const rbHeadMonth=m=>{const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
+const rbHeadMonth=m=>{const label=TRAINING?.benchmarks?.monthLabels?.[m];if(label)return label;
+  const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
 const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
   if(x.kind==='time')return Math.abs(n)<60?`${Math.abs(n).toFixed(Math.abs(n)<10?1:0).replace(/\.0$/,'')}s`:rbFmt(x,Math.abs(n),0);

@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## 2026-09-20
+
+- Allow personal benchmark column labels without changing stored attempt dates or month grouping.
+
 ## 2026-09-09
 
 - Support an optional personal note beneath the Routine screen window.
