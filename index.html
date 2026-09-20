@@ -3143,14 +3143,14 @@ function rbHRHTML(x,a,r){
   // Bridge a pause by linear interpolation, visibly estimated, without inventing stored samples.
 
   if(r.speeds){
-    const PY=v=>T+(Math.min(v,600)-180)/420*(H-T-B);
-    for(const v of [180,300,420,600])svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="'+(PY(v)+4)+'">'+(v===600?'≥':'')+rbFmt({kind:'time',precision:0},v)+'</text>';
-    svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="12">min/km</text>';
+    const maxSpeed=Math.max(4,Math.ceil(Math.max(...r.speeds.map(s=>(s[1]||0)*3.6))/4)*4),PY=v=>T+(1-v/maxSpeed)*(H-T-B);
+    for(let v=0;v<=maxSpeed;v+=maxSpeed/4)svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="'+(PY(v)+4)+'">'+v+'</text>';
+    svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="12">km/h</text>';
     let chunks=[],chunk=[],prev=null;
     for(const s of r.speeds){
-      if(s[1]==null||s[1]<=0){if(chunk.length)chunks.push(chunk);chunk=[];prev=null;continue;}
+      if(s[1]==null){if(chunk.length)chunks.push(chunk);chunk=[];prev=null;continue;}
       if(prev&&r.pauses.some(([a,b])=>prev[0]<=a&&s[0]>=b)){if(chunk.length)chunks.push(chunk);chunk=[];}
-      chunk.push(X(s[0]).toFixed(2)+','+PY(1000/s[1]).toFixed(2));prev=s;
+      chunk.push(X(s[0]).toFixed(2)+','+PY(s[1]*3.6).toFixed(2));prev=s;
     }
     if(chunk.length)chunks.push(chunk);
     for(const points of chunks)svg+='<polyline class="rbpacetrace" points="'+points.join(' ')+'"/>';
@@ -3172,7 +3172,7 @@ function rbHRHTML(x,a,r){
   const pace=rbFmt({kind:'time',precision:0},r.timer/(r.distance/1000)),speed=(r.distance/r.timer*3.6).toFixed(1);
   return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span><span>Avg pace <b>'+pace+'/km</b></span><span>Avg speed <b>'+speed+' km/h</b></span></div>'+
     '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
-    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate and optional pace timeline. Drag or use arrow keys. Dashed HR segment is estimated; pace slower than 10 minutes per km is clipped at the marked axis limit." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
+    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate and speed timeline. Drag or use arrow keys. Dashed HR segment is estimated." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
     '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="230" height="19" rx="4"/><text x="115" y="13" text-anchor="middle"></text></g></g></svg>';
 }
 
@@ -3201,8 +3201,8 @@ function rbHRBind(r){
     bubble.setAttribute('transform','translate('+Math.max(0,Math.min(x-115,138))+',0)');
     const sec=Math.round(s.time),clock=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'),
       speed=r.speeds?.reduce((best,p)=>!best||Math.abs(p[0]-s.time)<Math.abs(best[0]-s.time)?p:best,null),
-      pace=r.pauses.some(([a,b])=>s.time>a&&s.time<b)||!speed||!speed[1]?'—':rbFmt({kind:'time',precision:0},1000/speed[1]),
-      label=clock+' · '+Math.round(s.bpm)+' bpm'+(s.estimated?' (est.)':'')+(r.speeds?' · '+pace+'/km':'');
+      kmh=r.pauses.some(([a,b])=>s.time>a&&s.time<b)||!speed||speed[1]==null?'—':(speed[1]*3.6).toFixed(1),
+      label=clock+' · '+Math.round(s.bpm)+' bpm'+(s.estimated?' (est.)':'')+(r.speeds?' · '+kmh+' km/h':'');
     cursor.querySelector('text').textContent=label;
     svg.setAttribute('aria-valuenow',Math.round(s.time));svg.setAttribute('aria-valuetext',label);
   };

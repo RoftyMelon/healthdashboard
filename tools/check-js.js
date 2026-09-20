@@ -759,7 +759,7 @@ setTimeout(()=>{
    ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
    ok('activity pace and speed use full recorded distance and timer time',h.includes('4:22/km')&&h.includes('13.7 km/h'));
    ok('HR average reference is horizontal at the recorded mean',h.includes('class="rbhraverage" x1="34" x2="320" y1="60.233333333333334" y2="60.233333333333334" aria-label="Average 169 bpm"'));
-   ok('pace uses all FIT speed samples and a separate right axis',r.speeds.length===317&&h.includes('rbpacetrace')&&h.includes('min/km')&&h.includes('≥10:00'));
+   ok('speed uses all FIT samples and a separate km/h axis',r.speeds.length===317&&h.includes('rbpacetrace')&&h.includes('>km/h</text>')&&!h.includes('min/km')&&!h.includes('≥10:00'));
    {const measured=rbHRReading(r,300),estimated=rbHRReading(r,676),last=rbHRReading(r,9999);
     ok('HR cursor returns recorded data at a measured timestamp',measured.time===300&&measured.bpm===163&&!measured.estimated);
     ok('HR cursor identifies interpolated pause values',estimated.time===676&&estimated.bpm===172&&estimated.estimated);

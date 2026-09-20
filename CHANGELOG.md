@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Switch the blue activity overlay and cursor from pace to speed in km/h.
 - Overlay recorded pace with a right-hand min/km axis and shared cursor; preserve speed samples and leave the paused interval blank.
 - Align every radar result label immediately to the right of its datapoint.
 - Show average pace and speed in activity previews, derived from recorded distance and timer time.
