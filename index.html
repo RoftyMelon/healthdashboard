@@ -3561,9 +3561,9 @@ function rbRadar(){
       points=vals.flatMap((v,j)=>v===null?[]:[pt(j,v)]),width=text.length*6;
     let place=null;
     for(const gap of [0,14,28]){
-      for(const dy of (y>=CY?[17+gap,-12-gap]:[-12-gap,17+gap])){
+      for(const dy of (y>=CY?[3,14+gap,-9-gap]:[3,-9-gap,14+gap])){
         for(const side of (x>=CX?[1,-1]:[-1,1])){
-          const lx=x+side*10,ly=y+dy,left=side>0?lx:lx-width,right=left+width;
+          const lx=x+side*8,ly=y+dy,left=side>0?lx:lx-width,right=left+width;
           if(left>=2&&right<=338&&ly>=14&&ly<=270&&points.every(([px,py])=>right<px-7||left>px+7||ly<py-7||ly-11>py+7)){
             place={lx,ly,anchor:side>0?'start':'end'};break;
           }
