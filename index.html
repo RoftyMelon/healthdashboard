@@ -1196,6 +1196,8 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbhrgrid{stroke:var(--line);stroke-width:.7}
 .rbhraverage{stroke:var(--t2);stroke-width:1;stroke-dasharray:5 4;pointer-events:none}
 .rbhrtrace{fill:none;stroke:var(--out);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.rbpacetrace{fill:none;stroke:var(--info);stroke-width:1.4;stroke-linejoin:round;opacity:.85}
+.rbhrsvg .rbpacelabel{fill:var(--info)}
 .rbhrestimate{fill:none;stroke:var(--out);stroke-width:2;stroke-dasharray:3 3;opacity:.7}
 /* Benchmark radar. Rings are polygons, not circles, so they track the axis count. */
 .rdwrap{margin-top:18px;max-width:min(540px,100%)}
@@ -2279,7 +2281,7 @@ function audit(j){
       else records.forEach(r=>{
         const tag='TRAINING activity';
         if(!r||typeof r!=='object'||Array.isArray(r)){bad.push(tag+' must be an object');return;}
-        const fields=['benchmark','date','distance','elapsed','timer','averageHR','maxHR','pauses','samples'];
+        const fields=['benchmark','date','distance','elapsed','timer','averageHR','maxHR','pauses','samples','speeds'];
         if(Object.keys(r).some(k=>!fields.includes(k)))bad.push(tag+' has unsupported fields');
         const x=b?.items?.find(x=>x.id===r.benchmark);
         if(!x||x.kind!=='time'||!x.attempts?.some(a=>a.date===r.date))bad.push(tag+' must match a timed benchmark attempt');
@@ -2305,6 +2307,13 @@ function audit(j){
           else previous=s[0];
         });
         if(Array.isArray(r.samples)&&!r.samples.some(s=>Array.isArray(s)&&Number.isInteger(s[1])))bad.push(tag+' needs a heart-rate value');
+        if(r.speeds!==undefined){let prev=-1;
+          if(!Array.isArray(r.speeds)||r.speeds.length<2)bad.push(tag+' speeds must be timestamped m/s samples');
+          else r.speeds.forEach(s=>{
+            if(!Array.isArray(s)||s.length!==2||!finite(s[0])||s[0]<0||s[0]<=prev||s[0]>r.elapsed||(s[1]!==null&&(!finite(s[1])||s[1]<0)))bad.push(tag+' has invalid speed samples');
+            else prev=s[0];
+          });
+        }
       });
     }
     if(j.TRAINING.maylater!==undefined)bad.push('TRAINING.maylater is retired; keep the Training tab to active work and recorded benchmarks');
@@ -3118,7 +3127,7 @@ function rbActivity(x,a){
   return (TRAINING?.activityRecords||[]).find(r=>r.benchmark===x.id&&r.date===a.date);
 }
 function rbHRHTML(x,a,r){
-  const W=368,H=200,L=34,R=12,T=22,B=30,duration=r.elapsed;
+  const W=368,H=200,L=34,R=r.speeds?48:12,T=22,B=30,duration=r.elapsed;
   const values=r.samples.filter(s=>s[1]!=null).map(s=>s[1]);
   const low=Math.floor((Math.min(...values)-5)/20)*20,high=Math.ceil((Math.max(...values)+5)/20)*20;
   const X=t=>L+t/duration*(W-L-R),Y=v=>T+(high-v)/(high-low)*(H-T-B);
@@ -3132,6 +3141,20 @@ function rbHRHTML(x,a,r){
   svg+='<text x="'+X(duration)+'" y="'+(H-11)+'" text-anchor="end">'+rbFmt({kind:'time',precision:0},duration)+'</text>'+
     '<text x="'+(L-5)+'" y="12" text-anchor="end">bpm</text>';
   // Bridge a pause by linear interpolation, visibly estimated, without inventing stored samples.
+
+  if(r.speeds){
+    const PY=v=>T+(Math.min(v,600)-180)/420*(H-T-B);
+    for(const v of [180,300,420,600])svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="'+(PY(v)+4)+'">'+(v===600?'≥':'')+rbFmt({kind:'time',precision:0},v)+'</text>';
+    svg+='<text class="rbpacelabel" x="'+(W-R+5)+'" y="12">min/km</text>';
+    let chunks=[],chunk=[],prev=null;
+    for(const s of r.speeds){
+      if(s[1]==null||s[1]<=0){if(chunk.length)chunks.push(chunk);chunk=[];prev=null;continue;}
+      if(prev&&r.pauses.some(([a,b])=>prev[0]<=a&&s[0]>=b)){if(chunk.length)chunks.push(chunk);chunk=[];}
+      chunk.push(X(s[0]).toFixed(2)+','+PY(1000/s[1]).toFixed(2));prev=s;
+    }
+    if(chunk.length)chunks.push(chunk);
+    for(const points of chunks)svg+='<polyline class="rbpacetrace" points="'+points.join(' ')+'"/>';
+  }
   let segments=[],bridges=[],segment=[],previous=null;
   for(const s of r.samples){
     if(s[1]==null){
@@ -3149,8 +3172,8 @@ function rbHRHTML(x,a,r){
   const pace=rbFmt({kind:'time',precision:0},r.timer/(r.distance/1000)),speed=(r.distance/r.timer*3.6).toFixed(1);
   return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span><span>Avg pace <b>'+pace+'/km</b></span><span>Avg speed <b>'+speed+' km/h</b></span></div>'+
     '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
-    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate timeline. Drag or use arrow keys. Dashed segment is estimated." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
-    '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="156" height="19" rx="4"/><text x="78" y="13" text-anchor="middle"></text></g></g></svg>';
+    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate and optional pace timeline. Drag or use arrow keys. Dashed HR segment is estimated; pace slower than 10 minutes per km is clipped at the marked axis limit." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
+    '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="230" height="19" rx="4"/><text x="115" y="13" text-anchor="middle"></text></g></g></svg>';
 }
 
 function rbHRReading(r,time){
@@ -3166,24 +3189,27 @@ function rbHRBind(r){
   const svg=rbHRPanel.querySelector('.rbhrsvg'),cursor=svg.querySelector('.rbhrcursor');
   const values=r.samples.filter(s=>s[1]!=null).map(s=>s[1]),
     low=Math.floor((Math.min(...values)-5)/20)*20,high=Math.ceil((Math.max(...values)+5)/20)*20;
+  const plotWidth=r.speeds?286:322;
   let selected=0;
   const update=time=>{
     const s=rbHRReading(r,time);selected=s.time;
-    const x=34+s.time/r.elapsed*322,y=22+(high-s.bpm)/(high-low)*148;
+    const x=34+s.time/r.elapsed*plotWidth,y=22+(high-s.bpm)/(high-low)*148;
     cursor.style.display='';
     const line=cursor.querySelector('line'),dot=cursor.querySelector('circle'),bubble=cursor.querySelector('g');
     line.setAttribute('x1',x);line.setAttribute('x2',x);
     dot.setAttribute('cx',x);dot.setAttribute('cy',y);
-    bubble.setAttribute('transform','translate('+Math.max(0,Math.min(x-78,212))+',0)');
+    bubble.setAttribute('transform','translate('+Math.max(0,Math.min(x-115,138))+',0)');
     const sec=Math.round(s.time),clock=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'),
-      label=clock+' · '+Math.round(s.bpm)+' bpm'+(s.estimated?' (est.)':'');
+      speed=r.speeds?.reduce((best,p)=>!best||Math.abs(p[0]-s.time)<Math.abs(best[0]-s.time)?p:best,null),
+      pace=r.pauses.some(([a,b])=>s.time>a&&s.time<b)||!speed||!speed[1]?'—':rbFmt({kind:'time',precision:0},1000/speed[1]),
+      label=clock+' · '+Math.round(s.bpm)+' bpm'+(s.estimated?' (est.)':'')+(r.speeds?' · '+pace+'/km':'');
     cursor.querySelector('text').textContent=label;
     svg.setAttribute('aria-valuenow',Math.round(s.time));svg.setAttribute('aria-valuetext',label);
   };
   const pointer=e=>{
     const matrix=svg.getScreenCTM();if(!matrix)return;
     const point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;
-    update((point.matrixTransform(matrix.inverse()).x-34)/322*r.elapsed);
+    update((point.matrixTransform(matrix.inverse()).x-34)/plotWidth*r.elapsed);
   };
   svg.addEventListener('pointerdown',e=>{
     e.preventDefault();rbHRPinned=true;clearTimeout(rbHRTimeout);

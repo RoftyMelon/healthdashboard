@@ -299,7 +299,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   ordinary results expands the row. Optional `TRAINING.activityRecords` entries link by benchmark id
   and exact date to `{date,value}` attempts. Each carries only distance (metres), full elapsed/timer
   seconds, averageHR/maxHR (bpm), pauses as elapsed-second pairs and samples as [elapsed second, bpm]
-  pairs (null bpm marks missing data). Preserve every sample; exclude GPS and device identifiers.
+  pairs (null bpm marks missing data). Optional speeds are [elapsed second, metres/second] pairs
+  from FIT enhanced_speed; derive pace at display time. Preserve every sample; exclude GPS and device identifiers.
   Linked table results open the heart-rate panel on hover/focus or pin it on tap/click; clicking the
   test name still opens the comparison chart. Full-activity timing is distinct from a benchmark
   crossing time. No effort notes are displayed. Running world records

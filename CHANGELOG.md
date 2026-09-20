@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Overlay recorded pace with a right-hand min/km axis and shared cursor; preserve speed samples and leave the paused interval blank.
 - Align every radar result label immediately to the right of its datapoint.
 - Show average pace and speed in activity previews, derived from recorded distance and timer time.
 - Position the heart-rate popup close button near its top-right corner.
