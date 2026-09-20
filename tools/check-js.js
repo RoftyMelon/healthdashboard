@@ -700,11 +700,11 @@ setTimeout(()=>{
     R.attempts.push(
       {date:'2026-08-01',value:14.2},
       {date:'2026-08-20',value:14.0},
-      {date:'2026-09-01',value:13.6});
+      {date:'2026-10-01',value:13.6});
     V.attempts.push(
       {date:'2026-08-01',value:48.0},
-      {date:'2026-09-01',value:51.0});
-    const months=['2026-08','2026-09'],H=runningBenchmarks(),D=rbDetail(R,months,months.length+2);
+      {date:'2026-10-01',value:51.0});
+    const months=['2026-06-21','2026-10'],H=runningBenchmarks(),D=rbDetail(R,months,months.length+2);
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
     const visible=BI.reduce((n,x)=>n+new Set(x.attempts.map(a=>String(a.date).slice(0,7))).size,0);
@@ -713,7 +713,7 @@ setTimeout(()=>{
     ok('PB values stand out in green without their own column',H.includes('rbpb')&&!H.includes('>Personal best</th>'));
     // Shared month buckets prevent two August tests from producing duplicate Aug '26 headers.
     ok('benchmark table preserves one shared column per testing month',
-      (H.match(/Summer '26/g)||[]).length===1&&(H.match(/Sept '26/g)||[]).length===1&&
+      (H.match(/Summer '26/g)||[]).length===1&&(H.match(/Oct '26/g)||[]).length===1&&
       !H.includes(' title=')&&H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     const rrow=(H.match(/<tr class="rbrow" data-rbrow="run100"[\s\S]*?<\/tr>/)||[])[0]||'';
@@ -740,6 +740,12 @@ setTimeout(()=>{
   }catch(e){
     DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
     ok('benchmark history rendering',false,e.message);
+  }
+  {const h=runningBenchmarks(),bucket=(0,eval)('rbMonth');
+   ok('mile and September 5 km share one summer column',
+     (h.match(/class="rbdate"/g)||[]).length===1&&h.includes("Summer '26")&&!h.includes("Sept '26")&&h.includes('6:06')&&h.includes('22:12'));
+   ok('summer grouping respects the 2026 seasonal date boundaries',
+     bucket('2026-06-20')==='2026-06'&&bucket('2026-06-21')==='2026-06-21'&&bucket('2026-09-22')==='2026-06-21'&&bucket('2026-09-23')==='2026-09');
   }
   // Imported activity traces are an opt-in exception to the plain benchmark result cells.
   {const r=DATA.TRAINING.activityRecords[0],x=DATA.TRAINING.benchmarks.items.find(x=>x.id===r.benchmark),

@@ -1270,7 +1270,7 @@ window.BLOODWORK =
   ],
   "cardio": "Upon waking\n• Weekdays: ~10min run\n• Sundays: ~45min run (~10km with intervals)\n\nDaily\n• Aim for 1min bursts per hour throughout the day (squats, jumping jacks in private, stairs, sprints)",
   "benchmarks": {
-   "monthLabels": {"2026-08": "Summer '26"},
+   "periods": [{"from": "2026-06-21", "to": "2026-09-22", "label": "Summer '26"}],
    "age": 31,
    "reviewed": "2026-08-16",
    "items": [

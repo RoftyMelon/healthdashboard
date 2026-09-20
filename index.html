@@ -2083,6 +2083,14 @@ function audit(j){
     });
     const b=j.TRAINING.benchmarks;
     if(b){
+      if(b.periods!==undefined){
+        if(!Array.isArray(b.periods))bad.push('TRAINING benchmarks.periods must be an array');
+        else {let previous='';b.periods.forEach(p=>{
+          const date=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(Date.parse(s))&&new Date(s).toISOString().slice(0,10)===s;
+          if(!p||!date(p.from)||!date(p.to)||p.to<p.from||p.from<=previous||typeof p.label!=='string'||!p.label.trim())bad.push('TRAINING benchmark periods must be dated, ordered and non-overlapping');
+          if(p)previous=p.to;
+        });}
+      }
       if(b.monthLabels!==undefined){
         if(!b.monthLabels||typeof b.monthLabels!=='object'||Array.isArray(b.monthLabels))bad.push('TRAINING benchmarks.monthLabels must be an object');
         else Object.entries(b.monthLabels).forEach(([month,label])=>{
@@ -3073,11 +3081,11 @@ function rbFmt(x,v,p=x.precision){
 const rbPB=x=>{const a=rbAttempts(x);if(!a.length)return null;
   return x.direction==='lower'?Math.min(...a.map(z=>z.value)):Math.max(...a.map(z=>z.value));};
 const rbIsPB=(x,v)=>{const p=rbPB(x);return p!=null&&Math.abs(v-p)<1e-9;};
-const rbMonth=d=>String(d).slice(0,7);
+function rbMonth(d){return (TRAINING?.benchmarks?.periods||[]).find(p=>d>=p.from&&d<=p.to)?.from||String(d).slice(0,7);}
 const rbMonths=()=>{const s=new Set();
   (((TRAINING||{}).benchmarks||{}).items||[]).forEach(x=>(x.attempts||[]).forEach(a=>s.add(rbMonth(a.date))));
   return [...s].sort();};
-const rbHeadMonth=m=>{const label=TRAINING?.benchmarks?.monthLabels?.[m];if(label)return label;
+const rbHeadMonth=m=>{const label=(TRAINING?.benchmarks?.periods||[]).find(p=>p.from===m)?.label||TRAINING?.benchmarks?.monthLabels?.[m];if(label)return label;
   const z=new Date(m+'-01T00:00:00');return `${z.toLocaleDateString('en-GB',{month:'short'})} '${String(z.getFullYear()).slice(-2)}`;};
 const rbCohort=s=>{const i=s.lastIndexOf(', ');return i<0?[s,'']:[s.slice(0,i),s.slice(i+2)];};
 function rbDeltaFmt(x,n){
