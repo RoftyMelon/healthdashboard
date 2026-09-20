@@ -754,9 +754,10 @@ setTimeout(()=>{
    ok('all 317 FIT heart-rate samples are retained with relative timestamps',r.samples.length===317&&r.samples[0][0]===0&&r.samples.at(-1)[0]===1337);
    ok('activity preview bridges the pause as an estimate without shading',
      (h.match(/class="rbhrtrace"/g)||[]).length===2&&h.includes('rbhrestimate')&&!h.includes('rbhrpause')&&r.pauses[0][0]===664&&r.pauses[0][1]===688);
-   ok('activity preview shows only HR summary and graph, not extra metadata',
+   ok('activity preview shows requested summary and graph, not extra metadata',
      !h.includes('Table result')&&!h.includes('Full activity')&&!h.includes('21:53')&&!h.includes('Shaded:')&&!h.includes('20 Sept')&&h.includes('169 bpm')&&h.includes('195 bpm'));
    ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
+   ok('activity pace and speed use full recorded distance and timer time',h.includes('4:22/km')&&h.includes('13.7 km/h'));
    ok('HR average reference is horizontal at the recorded mean',h.includes('class="rbhraverage" x1="34" x2="356" y1="60.233333333333334" y2="60.233333333333334" aria-label="Average 169 bpm"'));
    {const measured=rbHRReading(r,300),estimated=rbHRReading(r,676),last=rbHRReading(r,9999);
     ok('HR cursor returns recorded data at a measured timestamp',measured.time===300&&measured.bpm===163&&!measured.estimated);

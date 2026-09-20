@@ -3146,7 +3146,8 @@ function rbHRHTML(x,a,r){
   if(segment.length)segments.push(segment);
   for(const points of segments)svg+='<polyline class="rbhrtrace" points="'+points.join(' ')+'"/>';
   for(const [a,b] of bridges)svg+='<line class="rbhrestimate" x1="'+X(a[0])+'" y1="'+Y(a[1])+'" x2="'+X(b[0])+'" y2="'+Y(b[1])+'"/>';
-  return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span></div>'+
+  const pace=rbFmt({kind:'time',precision:0},r.timer/(r.distance/1000)),speed=(r.distance/r.timer*3.6).toFixed(1);
+  return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span><span>Avg pace <b>'+pace+'/km</b></span><span>Avg speed <b>'+speed+' km/h</b></span></div>'+
     '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
     '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate timeline. Drag or use arrow keys. Dashed segment is estimated." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
     '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="156" height="19" rx="4"/><text x="78" y="13" text-anchor="middle"></text></g></g></svg>';
