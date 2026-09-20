@@ -1179,8 +1179,9 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbhrpanel[hidden]{display:none}
 .rbhrhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .rbhrhead .rbhrstats{margin:0}
-.rbhrclose{font:inherit;font-size:22px;line-height:1;background:none;color:var(--t2);
-  border:0;padding:4px 8px;cursor:pointer}
+.rbhrclose{display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;
+  width:32px;height:32px;background:none;color:var(--t2);border:0;padding:0;cursor:pointer}
+.rbhrclose svg{display:block;width:14px;height:14px}
 .rbhrstats{display:flex;flex-wrap:wrap;gap:8px 20px;margin:14px 0 4px;font-variant-numeric:tabular-nums}
 .rbhrstats span{color:var(--t3)}
 .rbhrstats b{color:var(--txt)}
@@ -3129,7 +3130,7 @@ function rbHRHTML(x,a,r){
   svg+='<line class="rbhraverage" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(r.averageHR)+'" y2="'+Y(r.averageHR)+'" aria-label="Average '+r.averageHR+' bpm"/>';
   for(let t=0;t<duration&&(X(duration)-X(t))>52;t+=step)svg+='<text x="'+X(t)+'" y="'+(H-11)+'" text-anchor="middle">'+(t===0?'0:00':rbFmt({kind:'time',precision:0},t))+'</text>';
   svg+='<text x="'+X(duration)+'" y="'+(H-11)+'" text-anchor="end">'+rbFmt({kind:'time',precision:0},duration)+'</text>'+
-    '<text x="'+L+'" y="12">bpm</text>';
+    '<text x="'+(L-5)+'" y="12" text-anchor="end">bpm</text>';
   // Bridge a pause by linear interpolation, visibly estimated, without inventing stored samples.
   let segments=[],bridges=[],segment=[],previous=null;
   for(const s of r.samples){
@@ -3146,7 +3147,7 @@ function rbHRHTML(x,a,r){
   for(const points of segments)svg+='<polyline class="rbhrtrace" points="'+points.join(' ')+'"/>';
   for(const [a,b] of bridges)svg+='<line class="rbhrestimate" x1="'+X(a[0])+'" y1="'+Y(a[1])+'" x2="'+X(b[0])+'" y2="'+Y(b[1])+'"/>';
   return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span></div>'+
-    '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)">×</button></div>'+
+    '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
     '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate timeline. Drag or use arrow keys. Dashed segment is estimated." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
     '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="156" height="19" rx="4"/><text x="78" y="13" text-anchor="middle"></text></g></g></svg>';
 }
@@ -3555,9 +3556,25 @@ function rbRadar(){
     /* An in-SVG label revealed on hover, not a <title>: the native tooltip waits about a second
        before appearing, which reads as broken on a chart with two points. A wide transparent
        circle carries the hover so the 4px dot is not a pixel-hunt. */
-    const lx=x<CX?x-7:x+7, anchor=x<CX?'end':'start';
+    // Avoid every result dot, not just this label's own dot (near-centre results cluster).
+    const text=rbFmt(axes[i].x,last.value)+(axes[i].x.kind==='time'?'':axes[i].x.unit?' '+axes[i].x.unit:''),
+      points=vals.flatMap((v,j)=>v===null?[]:[pt(j,v)]),width=text.length*6;
+    let place=null;
+    for(const gap of [0,14,28]){
+      for(const dy of (y>=CY?[17+gap,-12-gap]:[-12-gap,17+gap])){
+        for(const side of (x>=CX?[1,-1]:[-1,1])){
+          const lx=x+side*10,ly=y+dy,left=side>0?lx:lx-width,right=left+width;
+          if(left>=2&&right<=338&&ly>=14&&ly<=270&&points.every(([px,py])=>right<px-7||left>px+7||ly<py-7||ly-11>py+7)){
+            place={lx,ly,anchor:side>0?'start':'end'};break;
+          }
+        }
+        if(place)break;
+      }
+      if(place)break;
+    }
+    const {lx,ly,anchor}=place||{lx:x+10,ly:y+31,anchor:'start'};
     g+=`<g class="rdpt"><circle class="rddot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"/>`+
-       `<text class="rdval" x="${lx.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="${anchor}">`+
+       `<text class="rdval" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}">`+
        `${esc(rbFmt(axes[i].x,last.value))}${axes[i].x.kind==='time'?'':esc(axes[i].x.unit?' '+axes[i].x.unit:'')}</text>`+
        `<circle class="rdhit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13"/></g>`;});
   // axis labels, placed just outside the outer ring

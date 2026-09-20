@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Prevent radar value labels overlapping result dots; align the heart-rate unit label and center the close icon.
 - Show the recorded average heart rate as a horizontal dashed reference line.
 - Add mouse/touch heart-rate scrubbing with timestamp/value readouts, keyboard controls and explicitly estimated pause values.
 - Simplify heart-rate previews to average, maximum and the graph; replace pause shading with a dashed interpolated bridge while preserving original samples.
