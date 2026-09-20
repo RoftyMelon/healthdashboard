@@ -752,10 +752,10 @@ setTimeout(()=>{
     a=x.attempts.find(a=>a.date===r.date),h=rbHRHTML(x,a,r),button=rbValue(x,a);
    ok('5 km benchmark uses interpolated elapsed crossing time, not paused timer time',a.value===1332.083&&rbFmt(x,a.value)==='22:12');
    ok('all 317 FIT heart-rate samples are retained with relative timestamps',r.samples.length===317&&r.samples[0][0]===0&&r.samples.at(-1)[0]===1337);
-   ok('activity preview has the full trace and a gap at the timer pause',
-     (h.match(/class="rbhrtrace"/g)||[]).length===2&&h.includes('rbhrpause')&&r.pauses[0][0]===664&&r.pauses[0][1]===688);
-   ok('activity summary distinguishes complete recording from benchmark time',
-     h.includes('Table result 22:12')&&h.includes('5.013 km')&&h.includes('22:17')&&h.includes('21:53')&&h.includes('169 bpm')&&h.includes('195 bpm'));
+   ok('activity preview bridges the pause as an estimate without shading',
+     (h.match(/class="rbhrtrace"/g)||[]).length===2&&h.includes('rbhrestimate')&&!h.includes('rbhrpause')&&r.pauses[0][0]===664&&r.pauses[0][1]===688);
+   ok('activity preview shows only HR summary and graph, not extra metadata',
+     !h.includes('Table result')&&!h.includes('Full activity')&&!h.includes('21:53')&&!h.includes('Shaded:')&&!h.includes('20 Sept')&&h.includes('169 bpm')&&h.includes('195 bpm'));
    ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
    ok('activity result supports pointer, keyboard and click without expanding the row',
      button.includes('onpointerenter')&&button.includes('onfocus')&&button.includes('event.stopPropagation()')&&button.includes('aria-haspopup="dialog"'));

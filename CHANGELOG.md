@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Simplify heart-rate previews to average, maximum and the graph; replace pause shading with a dashed interpolated bridge while preserving original samples.
 - Support date-bounded testing periods so seasonal columns group results across months without altering exact dates.
 - Add optional imported activity heart-rate previews on benchmark results, with desktop hover, keyboard access and persistent tap/click panels. Keep GPS and device identifiers out of published activity data.
 
