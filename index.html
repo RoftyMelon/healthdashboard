@@ -1193,6 +1193,7 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbhrsvg .rbhrcursor text{fill:var(--txt);font-weight:600}
 .rbhrsvg text{fill:var(--t3);font:11px system-ui,sans-serif}
 .rbhrgrid{stroke:var(--line);stroke-width:.7}
+.rbhraverage{stroke:var(--t2);stroke-width:1;stroke-dasharray:5 4;pointer-events:none}
 .rbhrtrace{fill:none;stroke:var(--out);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .rbhrestimate{fill:none;stroke:var(--out);stroke-width:2;stroke-dasharray:3 3;opacity:.7}
 /* Benchmark radar. Rings are polygons, not circles, so they track the axis count. */
@@ -3125,6 +3126,7 @@ function rbHRHTML(x,a,r){
     '<line class="rbhrgrid" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/>'+
     '<text x="'+(L-5)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+v+'</text>';
   const step=duration>1800?600:300;
+  svg+='<line class="rbhraverage" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(r.averageHR)+'" y2="'+Y(r.averageHR)+'" aria-label="Average '+r.averageHR+' bpm"/>';
   for(let t=0;t<duration&&(X(duration)-X(t))>52;t+=step)svg+='<text x="'+X(t)+'" y="'+(H-11)+'" text-anchor="middle">'+(t===0?'0:00':rbFmt({kind:'time',precision:0},t))+'</text>';
   svg+='<text x="'+X(duration)+'" y="'+(H-11)+'" text-anchor="end">'+rbFmt({kind:'time',precision:0},duration)+'</text>'+
     '<text x="'+L+'" y="12">bpm</text>';

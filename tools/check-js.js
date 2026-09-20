@@ -757,6 +757,7 @@ setTimeout(()=>{
    ok('activity preview shows only HR summary and graph, not extra metadata',
      !h.includes('Table result')&&!h.includes('Full activity')&&!h.includes('21:53')&&!h.includes('Shaded:')&&!h.includes('20 Sept')&&h.includes('169 bpm')&&h.includes('195 bpm'));
    ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
+   ok('HR average reference is horizontal at the recorded mean',h.includes('class="rbhraverage" x1="34" x2="356" y1="60.233333333333334" y2="60.233333333333334" aria-label="Average 169 bpm"'));
    {const measured=rbHRReading(r,300),estimated=rbHRReading(r,676),last=rbHRReading(r,9999);
     ok('HR cursor returns recorded data at a measured timestamp',measured.time===300&&measured.bpm===163&&!measured.estimated);
     ok('HR cursor identifies interpolated pause values',estimated.time===676&&estimated.bpm===172&&estimated.estimated);
