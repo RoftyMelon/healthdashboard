@@ -5,6 +5,7 @@ remain in the personal repository history.
 
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
+- Position the heart-rate popup close button near its top-right corner.
 - Place radar result labels directly beside their datapoints when collision-free.
 - Prevent radar value labels overlapping result dots; align the heart-rate unit label and center the close icon.
 - Show the recorded average heart rate as a horizontal dashed reference line.
