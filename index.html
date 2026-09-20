@@ -1184,7 +1184,13 @@ ul.trsummary.rbintro li{margin:2px 0}
 .rbhrstats{display:flex;flex-wrap:wrap;gap:8px 20px;margin:14px 0 4px;font-variant-numeric:tabular-nums}
 .rbhrstats span{color:var(--t3)}
 .rbhrstats b{color:var(--txt)}
-.rbhrsvg{display:block;width:100%;height:auto}
+.rbhrsvg{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+.rbhrsvg:focus-visible{outline:1px solid var(--info);outline-offset:3px}
+.rbhrcursor{pointer-events:none}
+.rbhrcursor line{stroke:var(--t3);stroke-width:1}
+.rbhrcursor circle{fill:var(--out);stroke:var(--bg);stroke-width:1.5}
+.rbhrcursor rect{fill:var(--head)}
+.rbhrsvg .rbhrcursor text{fill:var(--txt);font-weight:600}
 .rbhrsvg text{fill:var(--t3);font:11px system-ui,sans-serif}
 .rbhrgrid{stroke:var(--line);stroke-width:.7}
 .rbhrtrace{fill:none;stroke:var(--out);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
@@ -3139,7 +3145,55 @@ function rbHRHTML(x,a,r){
   for(const [a,b] of bridges)svg+='<line class="rbhrestimate" x1="'+X(a[0])+'" y1="'+Y(a[1])+'" x2="'+X(b[0])+'" y2="'+Y(b[1])+'"/>';
   return '<div class="rbhrhead"><div class="rbhrstats"><span>Average <b>'+r.averageHR+' bpm</b></span><span>Max <b>'+r.maxHR+' bpm</b></span></div>'+
     '<button type="button" class="rbhrclose" aria-label="Close heart-rate graph" onclick="rbHRClose(true)">×</button></div>'+
-    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Heart rate over elapsed time. Dashed segment estimates missing readings during the pause.">'+svg+'</svg>';
+    '<svg class="rbhrsvg" viewBox="0 0 '+W+' '+H+'" tabindex="0" role="slider" aria-label="Heart rate timeline. Drag or use arrow keys. Dashed segment is estimated." aria-valuemin="0" aria-valuemax="'+Math.round(duration)+'" aria-valuenow="0">'+svg+
+    '<g class="rbhrcursor" style="display:none"><line y1="22" y2="170"/><circle r="3.5"/><g><rect width="156" height="19" rx="4"/><text x="78" y="13" text-anchor="middle"></text></g></g></svg>';
+}
+
+function rbHRReading(r,time){
+  const points=r.samples.filter(s=>s[1]!=null),t=Math.max(points[0][0],Math.min(time,points.at(-1)[0]));
+  const right=points.findIndex(s=>s[0]>=t),b=points[right],a=points[Math.max(0,right-1)];
+  if(b[0]===t)return {time:t,bpm:b[1],estimated:false};
+  if(r.pauses.some(([from,to])=>t>from&&t<to)&&b[0]>a[0])
+    return {time:t,bpm:a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]),estimated:true};
+  const s=t-a[0]<=b[0]-t?a:b;
+  return {time:s[0],bpm:s[1],estimated:false};
+}
+function rbHRBind(r){
+  const svg=rbHRPanel.querySelector('.rbhrsvg'),cursor=svg.querySelector('.rbhrcursor');
+  const values=r.samples.filter(s=>s[1]!=null).map(s=>s[1]),
+    low=Math.floor((Math.min(...values)-5)/20)*20,high=Math.ceil((Math.max(...values)+5)/20)*20;
+  let selected=0;
+  const update=time=>{
+    const s=rbHRReading(r,time);selected=s.time;
+    const x=34+s.time/r.elapsed*322,y=22+(high-s.bpm)/(high-low)*148;
+    cursor.style.display='';
+    const line=cursor.querySelector('line'),dot=cursor.querySelector('circle'),bubble=cursor.querySelector('g');
+    line.setAttribute('x1',x);line.setAttribute('x2',x);
+    dot.setAttribute('cx',x);dot.setAttribute('cy',y);
+    bubble.setAttribute('transform','translate('+Math.max(0,Math.min(x-78,212))+',0)');
+    const sec=Math.round(s.time),clock=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'),
+      label=clock+' · '+Math.round(s.bpm)+' bpm'+(s.estimated?' (est.)':'');
+    cursor.querySelector('text').textContent=label;
+    svg.setAttribute('aria-valuenow',Math.round(s.time));svg.setAttribute('aria-valuetext',label);
+  };
+  const pointer=e=>{
+    const matrix=svg.getScreenCTM();if(!matrix)return;
+    const point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;
+    update((point.matrixTransform(matrix.inverse()).x-34)/322*r.elapsed);
+  };
+  svg.addEventListener('pointerdown',e=>{
+    e.preventDefault();rbHRPinned=true;clearTimeout(rbHRTimeout);
+    svg.setPointerCapture(e.pointerId);pointer(e);
+  });
+  svg.addEventListener('pointermove',e=>{
+    if(e.pointerType==='mouse'||svg.hasPointerCapture(e.pointerId))pointer(e);
+  });
+  svg.addEventListener('focus',()=>update(selected));
+  svg.addEventListener('keydown',e=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+    e.preventDefault();rbHRPinned=true;
+    update(e.key==='Home'?0:e.key==='End'?r.elapsed:selected+(e.key==='ArrowLeft'?-5:5));
+  });
 }
 let rbHRPanel=null,rbHRAnchor=null,rbHRPinned=false,rbHRTimeout=null,rbHRSuppressFocus=false;
 function rbHRPlace(){
@@ -3174,7 +3228,7 @@ function rbHRShow(el,pin=false){
   }
   if(rbHRAnchor)rbHRAnchor.setAttribute('aria-expanded','false');
   rbHRAnchor=el;rbHRPinned=pin;el.setAttribute('aria-expanded','true');
-  rbHRPanel.innerHTML=rbHRHTML(x,a,r);rbHRPanel.hidden=false;rbHRPlace();
+  rbHRPanel.innerHTML=rbHRHTML(x,a,r);rbHRPanel.hidden=false;rbHRPlace();rbHRBind(r);
 }
 function rbHRClick(el){
   if(rbHRAnchor===el&&rbHRPinned){rbHRClose();return;}

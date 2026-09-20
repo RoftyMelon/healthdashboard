@@ -757,6 +757,12 @@ setTimeout(()=>{
    ok('activity preview shows only HR summary and graph, not extra metadata',
      !h.includes('Table result')&&!h.includes('Full activity')&&!h.includes('21:53')&&!h.includes('Shaded:')&&!h.includes('20 Sept')&&h.includes('169 bpm')&&h.includes('195 bpm'));
    ok('activity preview is note-free and location-free',!h.includes('controlled')&&!h.includes('Baseline')&&!JSON.stringify(r).includes('position_')&&!JSON.stringify(r).includes('serial'));
+   {const measured=rbHRReading(r,300),estimated=rbHRReading(r,676),last=rbHRReading(r,9999);
+    ok('HR cursor returns recorded data at a measured timestamp',measured.time===300&&measured.bpm===163&&!measured.estimated);
+    ok('HR cursor identifies interpolated pause values',estimated.time===676&&estimated.bpm===172&&estimated.estimated);
+    ok('HR cursor clamps beyond the end of the recording',last.time===1337&&last.bpm===194&&!last.estimated);
+    ok('HR graph supports accessible scrubbing',h.includes('role="slider"')&&h.includes('rbhrcursor'));
+   }
    ok('activity result supports pointer, keyboard and click without expanding the row',
      button.includes('onpointerenter')&&button.includes('onfocus')&&button.includes('event.stopPropagation()')&&button.includes('aria-haspopup="dialog"'));
    for(const [name,change] of [
