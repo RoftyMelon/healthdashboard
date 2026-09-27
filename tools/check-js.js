@@ -749,8 +749,9 @@ setTimeout(()=>{
      (h.match(/class="rbdate"/g)||[]).length===months.size&&
      (h.match(/Summer '26/g)||[]).length===1&&h.includes('6:06')&&h.includes('22:12')&&
      bucket('2026-08-16')===bucket('2026-09-20'));
-   ok('summer grouping respects the 2026 seasonal date boundaries',
-     bucket('2026-06-20')==='2026-06'&&bucket('2026-06-21')==='2026-06-21'&&bucket('2026-09-22')==='2026-06-21'&&bucket('2026-09-23')==='2026-09');
+   ok('summer testing period includes September 27 without swallowing later dates',
+     bucket('2026-06-20')==='2026-06'&&bucket('2026-06-21')==='2026-06-21'&&
+     bucket('2026-09-27')==='2026-06-21'&&bucket('2026-09-28')==='2026-09');
   }
   // Imported activity traces are an opt-in exception to the plain benchmark result cells.
   {const r=DATA.TRAINING.activityRecords[0],x=DATA.TRAINING.benchmarks.items.find(x=>x.id===r.benchmark),
@@ -788,8 +789,10 @@ setTimeout(()=>{
   {const r=DATA.TRAINING.activityRecords.find(r=>r.benchmark==='run20hr'),
     x=DATA.TRAINING.benchmarks.items.find(x=>x.id==='run20hr'),a=x.attempts.find(a=>a.date===r.date),
     h=rbHRHTML(x,a,r),table=runningBenchmarks();
-   ok('treadmill result is a September fixed-pace HR benchmark',r.date==='2026-09-27'&&a.value===168&&
-     table.includes("Sept '26")&&rbValue(x,a).includes('data-hr-benchmark="run20hr"'));
+   ok('treadmill result stays under Summer while retaining its September 27 date',
+     r.date==='2026-09-27'&&a.date==='2026-09-27'&&a.value===168&&
+     table.includes("Summer '26")&&!table.includes("Sept '26")&&
+     (table.match(/class="rbdate"/g)||[]).length===1&&rbValue(x,a).includes('data-hr-benchmark="run20hr"'));
    ok('all 263 treadmill HR readings include the walking recovery',r.samples.length===263&&
      r.samples[0][0]===0&&r.samples[0][1]===78&&r.samples.at(-1)[0]===1261&&r.samples.at(-1)[1]===144&&
      r.elapsed===1261&&r.timer===1260.547&&r.pauses.length===0);
