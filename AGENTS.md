@@ -297,10 +297,15 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   comparison data and no world record falls back to the bare summary.
   Benchmark results without an imported activity and chart points have no hover/tap bubble; clicking
   ordinary results expands the row. Optional `TRAINING.activityRecords` entries link by benchmark id
-  and exact date to `{date,value}` attempts. Each carries only distance (metres), full elapsed/timer
+  and exact date to timed or heart-rate `{date,value}` attempts. Each carries only distance (metres), full elapsed/timer
   seconds, averageHR/maxHR (bpm), pauses as elapsed-second pairs and samples as [elapsed second, bpm]
   pairs (null bpm marks missing data). Optional speeds are [elapsed second, metres/second] pairs
   from FIT enhanced_speed; derive pace at display time. Preserve every sample; exclude GPS and device identifiers.
+  Optional `summary: {distance, timer}` contains exactly those two positive finite values for a
+  test-only summary; its timer must not exceed the full activity timer. With it, averageHR/maxHR
+  describe the test window and pace/speed use the test summary, while the graph retains all samples
+  through the full elapsed duration. Full-activity distance may be `null` only with a valid summary.
+  Without recorded speeds, omit the speed trace and cursor readout; never invent a speed profile.
   Linked table results open the heart-rate panel on hover/focus or pin it on tap/click; clicking the
   test name still opens the comparison chart. Full-activity timing is distinct from a benchmark
   crossing time. No effort notes are displayed. Running world records

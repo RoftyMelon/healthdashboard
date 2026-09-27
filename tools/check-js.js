@@ -612,7 +612,8 @@ setTimeout(()=>{
           d.includes(`class="rbsource" href="${x.elite.source}"`)&&
           d.includes(rbFmt(x,x.athletic.median));}));
     ok('fixed-pace remains personal progression only, with no ladder',
-      FD.includes('Personal progression only')&&!FD.includes('rbt-')&&!FD.includes('percentile<'));
+      (F.attempts.length?FD.includes('rbcplot'):FD.includes('Personal progression only'))&&
+      !F.athletic&&!F.target&&!F.elite&&!FD.includes('rbt-')&&!FD.includes('percentile<'));
     const hiddenPeer=JSON.parse(JSON.stringify(V));
     Object.assign(hiddenPeer.athletic,{min:-999,max:999,label:'Hidden peer sentinel',span:'hidden'});
     ok('hidden peer-band metadata cannot affect a target-plus-median chart or legend',
@@ -704,7 +705,8 @@ setTimeout(()=>{
     V.attempts.push(
       {date:'2026-08-01',value:48.0},
       {date:'2026-10-01',value:51.0});
-    const months=['2026-06-21','2026-10'],H=runningBenchmarks(),D=rbDetail(R,months,months.length+2);
+    const months=['2026-06-21','2026-10'],H=runningBenchmarks(),D=rbDetail(R,months,months.length+2),
+      tableMonths=new Set(BI.flatMap(x=>x.attempts.map(a=>(0,eval)('rbMonth')(a.date))));
     ok('a first attempt switches the expansion to the full chart',
       D.includes('rbcplot')&&!D.includes('rbrefs'));
     const visible=BI.reduce((n,x)=>n+new Set(x.attempts.map(a=>String(a.date).slice(0,7))).size,0);
@@ -714,11 +716,11 @@ setTimeout(()=>{
     // Shared month buckets prevent two August tests from producing duplicate Aug '26 headers.
     ok('benchmark table preserves one shared column per testing month',
       (H.match(/Summer '26/g)||[]).length===1&&(H.match(/Oct '26/g)||[]).length===1&&
-      !H.includes(' title=')&&H.includes('style="--rbw:669px"')&&!H.includes('>Result</th>')&&
+      !H.includes(' title=')&&(H.match(/class="rbdate"/g)||[]).length===tableMonths.size&&!H.includes('>Result</th>')&&
       !H.includes('>Latest</th>')&&!H.includes('>Unit</th>')&&!H.includes('>Attempts</th>'));
     const rrow=(H.match(/<tr class="rbrow" data-rbrow="run100"[\s\S]*?<\/tr>/)||[])[0]||'';
     ok('a monthly cell shows that row\'s latest exact-date attempt',
-      (rrow.match(/class="rbattempt"/g)||[]).length===2&&rrow.includes('>14s</span>')&&
+      (rrow.match(/class="rbattempt"/g)||[]).length===tableMonths.size&&count(rrow,'rbval')===2&&rrow.includes('>14s</span>')&&
       !rrow.includes('14.2s')&&rrow.includes('>13.6s</span>'));
     ok('all exact attempts stay in the chart and share their month-column centre',
       (D.match(/left:25%/g)||[]).length===2&&(D.match(/left:75%/g)||[]).length===1&&D.includes('colspan="4"'));
@@ -741,9 +743,12 @@ setTimeout(()=>{
     DATA.TRAINING.benchmarks.items.forEach(x=>x.attempts.length=0);
     ok('benchmark history rendering',false,e.message);
   }
-  {const h=runningBenchmarks(),bucket=(0,eval)('rbMonth');
+  {const h=runningBenchmarks(),bucket=(0,eval)('rbMonth'),
+    months=new Set(DATA.TRAINING.benchmarks.items.flatMap(x=>x.attempts.map(a=>bucket(a.date))));
    ok('mile and September 5 km share one summer column',
-     (h.match(/class="rbdate"/g)||[]).length===1&&h.includes("Summer '26")&&!h.includes("Sept '26")&&h.includes('6:06')&&h.includes('22:12'));
+     (h.match(/class="rbdate"/g)||[]).length===months.size&&
+     (h.match(/Summer '26/g)||[]).length===1&&h.includes('6:06')&&h.includes('22:12')&&
+     bucket('2026-08-16')===bucket('2026-09-20'));
    ok('summer grouping respects the 2026 seasonal date boundaries',
      bucket('2026-06-20')==='2026-06'&&bucket('2026-06-21')==='2026-06-21'&&bucket('2026-09-22')==='2026-06-21'&&bucket('2026-09-23')==='2026-09');
   }
@@ -778,6 +783,35 @@ setTimeout(()=>{
      const j=JSON.parse(JSON.stringify(DATA));change(j.TRAINING.activityRecords[0]);
      ok('audit rejects activity '+name,audit(j).length>0);
    }
+  }
+  // The fixed-pace test uses confirmed treadmill totals while preserving the complete HR trace.
+  {const r=DATA.TRAINING.activityRecords.find(r=>r.benchmark==='run20hr'),
+    x=DATA.TRAINING.benchmarks.items.find(x=>x.id==='run20hr'),a=x.attempts.find(a=>a.date===r.date),
+    h=rbHRHTML(x,a,r),table=runningBenchmarks();
+   ok('treadmill result is a September fixed-pace HR benchmark',r.date==='2026-09-27'&&a.value===168&&
+     table.includes("Sept '26")&&rbValue(x,a).includes('data-hr-benchmark="run20hr"'));
+   ok('all 263 treadmill HR readings include the walking recovery',r.samples.length===263&&
+     r.samples[0][0]===0&&r.samples[0][1]===78&&r.samples.at(-1)[0]===1261&&r.samples.at(-1)[1]===144&&
+     r.elapsed===1261&&r.timer===1260.547&&r.pauses.length===0);
+   ok('treadmill summary uses the confirmed 5 km in 20 minutes, not watch estimates',
+     r.distance===null&&r.summary.distance===5000&&r.summary.timer===1200&&r.speeds===undefined&&
+     h.includes('4:00/km')&&h.includes('15.0 km/h')&&!h.includes('rbpacetrace')&&h.includes('21:01'));
+   let area=0;
+   for(let i=1;i<r.samples.length;i++){
+     const [t0,h0]=r.samples[i-1],[t1,h1]=r.samples[i];
+     if(t0>=1200)break;
+     const end=Math.min(t1,1200),hrEnd=h0+(h1-h0)*(end-t0)/(t1-t0);
+     area+=(h0+hrEnd)*(end-t0)/2;
+   }
+   ok('test HR summary is time-weighted and excludes recovery',
+     Math.abs(area/1200-167.76208333333332)<1e-8&&Math.round(area/1200)===r.averageHR&&
+     r.maxHR===186&&h.includes('Test average <b>168 bpm')&&h.includes('Max <b>186 bpm'));
+   ok('treadmill import does not overwrite the outdoor 5 km result',
+     JSON.stringify(DATA.TRAINING.benchmarks.items.find(x=>x.id==='run5k').attempts)===
+     JSON.stringify([{date:'2026-09-20',value:1332.083}]));
+   ok('treadmill recovery stays accessible on the same timeline',
+     rbHRReading(r,1260).bpm===144&&rbHRReading(r,9999).time===1261&&
+     h.includes('Heart rate timeline.')&&!h.includes('Heart rate and speed timeline.'));
   }
   // every meal card embeds a derived Supps sub-section (the evening card's title IS its list)
   try{ setPage('diet');

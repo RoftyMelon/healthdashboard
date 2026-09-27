@@ -3,6 +3,12 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.16 · Schema 2 · 2026-09-27
+
+- Support imported activity previews for fixed-pace heart-rate benchmarks as well as timed tests.
+- Allow a separate test distance/timer summary while retaining the full recorded heart-rate and recovery timeline.
+- Keep activity previews without recorded speed samples heart-rate-only, including their accessible timeline label.
+
 ## Viewer 1.12.15 · Schema 2 · 2026-09-20
 
 - Add a blue speed cursor dot and reduce both cursor dot sizes.
