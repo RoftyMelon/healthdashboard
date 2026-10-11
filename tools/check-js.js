@@ -338,6 +338,9 @@ setTimeout(()=>{
       RH.includes('style="top:calc(var(--hh)*0.25 + 7px)"')&&
       RH.includes('style="top:calc(var(--hh)*0.75 + 7px)"')&&
       !RH.includes(' - 6px)')&&!RH.includes(' - 7px)'));
+    ok('small and regular routine emojis share one vertically centred slot',
+      iconCSS.includes('height:24px;')&&iconCSS.includes('align-items:center;')&&
+      iconCSS.includes('line-height:1;')&&html.includes('.rdo.ricon.rsmall{font-size:11px}'));
     ok('both shower icons use the smaller treatment',
       RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&
       RH.includes('class="rdo ricon rsmall">🚿</div>'));

@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.21 · Schema 2 · 2026-10-11
+
+- Keep small and regular routine emojis in equally sized, vertically centred slots so the evening trio stays evenly spaced.
+
 ## Viewer 1.12.20 · Schema 2 · 2026-10-11
 
 - Centre sub-hour routine events vertically between their timeline boundaries using their actual rendered height.
