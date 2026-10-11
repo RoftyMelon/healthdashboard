@@ -333,6 +333,11 @@ setTimeout(()=>{
       iconCSS.includes('display:flex;')&&iconCSS.includes('justify-content:center;')&&
       iconCSS.includes('white-space:nowrap;')&&iconCSS.includes('overflow:visible')&&
       !html.includes('.rdo.ricon.rpair')&&RH.includes('class="rdo ricon">🏃 🥣</div>'));
+    ok('sub-hour routine events centre on their boundary-line midpoint',
+      html.includes('.rhr.rprop .rev{position:absolute;left:0;right:0;padding:0;transform:translateY(-50%)}')&&
+      RH.includes('style="top:calc(var(--hh)*0.25 + 7px)"')&&
+      RH.includes('style="top:calc(var(--hh)*0.75 + 7px)"')&&
+      !RH.includes(' - 6px)')&&!RH.includes(' - 7px)'));
     ok('both shower icons use the smaller treatment',
       RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&
       RH.includes('class="rdo ricon rsmall">🚿</div>'));

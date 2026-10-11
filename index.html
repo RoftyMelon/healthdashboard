@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.19">
+<meta name="health-dashboard-viewer-version" content="1.12.20">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -817,7 +817,7 @@ a.sbuy:hover{color:var(--info)}
    centre the middle moment between its neighbours (equal 27px gaps) */
 /* sub-hour rows: events sit at their real minutes; hairlines cut the fractions */
 .rhr.rprop .rcell{position:relative;padding:0}
-.rhr.rprop .rev{position:absolute;left:0;right:0;padding:0}
+.rhr.rprop .rev{position:absolute;left:0;right:0;padding:0;transform:translateY(-50%)}
 .rln{position:absolute;left:44px;width:min(calc(100% - 44px),300px);height:.5px;
   background:var(--t4);opacity:.55}
 .rmini{position:absolute;left:44px;width:10px;height:.5px;
@@ -3981,7 +3981,7 @@ function renderPage(p){
         [...cuts].map(f=>`<i class="rln" style="top:calc(var(--hh)*${f} + 7px)"></i>`).join('')+
         `<div class="rcell">`+
         rowEvs.map((r,i)=>{
-          const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} - ${spans[i].sm>0?7:6}px)"`:'';
+          const pos=prop?` style="top:calc(var(--hh)*${(spans[i].sm+spans[i].em)/2} + 7px)"`:'';
           return `<div class="rev"${pos}><div class="rbody">${routineDo(r.do)}</div></div>`;
         }).join('')+`</div></div>`;
       if(carried){
