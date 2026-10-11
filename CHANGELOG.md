@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.19 · Schema 2 · 2026-10-11
+
+- Reduce routine emoji sizes by about 20% while preserving alignment and timeline spacing.
+
 ## Viewer 1.12.18 · Schema 2 · 2026-10-11
 
 - Align routine event emojis, gym phases and the wake-up pair to one shared column across desktop and compact layouts.
