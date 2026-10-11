@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.16">
+<meta name="health-dashboard-viewer-version" content="1.12.17">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -3912,7 +3912,7 @@ function renderPage(p){
       // its own SCREEN block in the data for that reason, not a third pair of times inferred here.
       (SCREEN&&SCREEN.from&&SCREEN.to
         ?`<div class="pgscr">(${esc(SCREEN.from)} &rarr; ${esc(SCREEN.to)} · ${dur(_min(SCREEN.to)-_min(SCREEN.from))} screen window)</div>`:'')+
-      (SCREEN&&SCREEN.note?`<div class="pgscr" style="font-style:normal">${esc(SCREEN.note)}</div>`:'')+
+      (SCREEN&&SCREEN.note?`<div class="pgscr" style="font-style:normal">${esc(SCREEN.note).replace(/\n/g,'<br>')}</div>`:'')+
       `</div>`;
     let hr=H0;
     // Milestones follow the absolute hour ruler, not the visually compressed block row.

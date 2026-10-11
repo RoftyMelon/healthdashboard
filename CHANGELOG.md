@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.17 · Schema 2 · 2026-10-11
+
+- Preserve line breaks in the optional routine screen note while safely escaping its text.
+
 ## Viewer 1.12.16 · Schema 2 · 2026-09-27
 
 - Support imported activity previews for fixed-pace heart-rate benchmarks as well as timed tests.

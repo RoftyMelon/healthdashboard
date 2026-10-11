@@ -101,6 +101,14 @@ setTimeout(() => {
      audit(sample).length===0&&ordinary.includes('Average <b>140 bpm')&&
      ordinary.includes('7:30/km')&&ordinary.includes('8.0 km/h')&&
      ordinary.includes('class="rbpacetrace"')&&ordinary.includes('Heart rate and speed timeline.'));}
+  {const sample=JSON.parse(JSON.stringify(DATA)),boot=(0,eval)('boot');
+   sample.ROUTINE=[{t:'07:00',do:'Test start'},{t:'23:00',do:'Test end'}];
+   sample.SCREEN={note:'First <em>line</em> & "quoted"\nSecond line'};
+   try{
+     boot(sample,false);(0,eval)("renderPage('routine')");
+     check('routine notes preserve line breaks while escaping HTML',
+       elements.pages.innerHTML.includes('<div class="pgscr" style="font-style:normal">First &lt;em&gt;line&lt;/em&gt; &amp; &quot;quoted&quot;<br>Second line</div>'));
+   }finally{boot(DATA,false);}}
   const availablePages = ['record','stack','routine','diet','training','nextdraw','grooming'];
   availablePages.forEach(page => {
     try {

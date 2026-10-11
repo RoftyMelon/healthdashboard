@@ -1066,7 +1066,7 @@ window.BLOODWORK =
  "SCREEN": {
   "from": "10:00",
   "to": "21:00",
-  "note": "No socials during meals. Work acceptable"
+  "note": "Social ONLY on Sundays... AFTER brunch and BEFORE dinner.\nBe intentional, make your best effort to not doomscroll. Your sanity depends on it."
  },
  "ROUTINE": [
   {
