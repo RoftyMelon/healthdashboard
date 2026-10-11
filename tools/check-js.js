@@ -319,12 +319,20 @@ setTimeout(()=>{
       RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
       RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>')&&
       RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(37.5% + 7px)">🚙</span>'));
-    ok('routine emojis share one visually calibrated column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4&&
-      html.includes('.rphase{position:absolute;left:78px;width:24px;')&&
-      html.includes('.rdo.ricon{width:24px;margin-left:7.5px;')&&
-      html.includes('.rdo.ricon.rpair{margin-left:1px}')&&
-      RH.includes('class="rdo ricon rpair">🏃 🥣</div>'),
+    const iconCSS=(html.match(/\.rdo\.ricon\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,''),
+      phaseCSS=(html.match(/\.rphase\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,'');
+    ok('routine emojis share one responsive icon column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4&&
+      phaseCSS.includes('left:var(--routine-icon-left);')&&
+      phaseCSS.includes('width:var(--routine-icon-width);')&&
+      iconCSS.includes('width:var(--routine-icon-width);')&&
+      iconCSS.includes('margin-left:calc(var(--routine-icon-left)-var(--routine-time-width)-var(--routine-gap));')&&
+      /\.rht\s*\{[^}]*width:var\(--routine-time-width\)/.test(html)&&
+      /\.rhr\s*\{[^}]*gap:var\(--routine-gap\)/.test(html),
       count(RH,'rdo ricon')+' routine rows / '+count(RH,'rphase')+' phase icons');
+    ok('wake emojis centre as one group without a pair-specific offset',
+      iconCSS.includes('display:flex;')&&iconCSS.includes('justify-content:center;')&&
+      iconCSS.includes('white-space:nowrap;')&&iconCSS.includes('overflow:visible')&&
+      !html.includes('.rdo.ricon.rpair')&&RH.includes('class="rdo ricon">🏃 🥣</div>'));
     ok('both shower icons use the smaller treatment',
       RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&
       RH.includes('class="rdo ricon rsmall">🚿</div>'));

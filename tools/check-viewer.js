@@ -109,6 +109,19 @@ setTimeout(() => {
      check('routine notes preserve line breaks while escaping HTML',
        elements.pages.innerHTML.includes('<div class="pgscr" style="font-style:normal">First &lt;em&gt;line&lt;/em&gt; &amp; &quot;quoted&quot;<br>Second line</div>'));
    }finally{boot(DATA,false);}}
+  {const sample=JSON.parse(JSON.stringify(DATA)),boot=(0,eval)('boot'),
+     icons=['🍽️','🏃 🥣','🏃🏽','🏃‍♂️','👩‍💻'];
+   sample.ROUTINE=icons.map((icon,i)=>({t:String(7+i).padStart(2,'0')+':00',do:icon}));
+   sample.ROUTINE.push({t:'23:00',do:'Walk & rest'});
+   try{
+     boot(sample,false);(0,eval)("renderPage('routine')");
+     const routine=elements.pages.innerHTML;
+     check('single, paired, modified and joined emojis use the same routine icon slot',
+       icons.every(icon=>routine.includes(`<div class="rdo ricon">${icon}</div>`))&&
+       !routine.includes('rpair'));
+     check('ordinary routine text stays outside the emoji icon slot',
+       routine.includes('<div class="rdo">Walk &amp; rest</div>'));
+   }finally{boot(DATA,false);}}
   const availablePages = ['record','stack','routine','diet','training','nextdraw','grooming'];
   availablePages.forEach(page => {
     try {
