@@ -272,6 +272,11 @@ setTimeout(()=>{
      !/<details\b[^>]*\sopen(?:\s|=|>)/.test(vaccineHTML));
    ok('Records no longer describe the page as a standing-fact count',
      !/\d+ standing facts?/.test(n.pages.innerHTML));
+   ok('Records display data without explanatory footnotes or empty-state advice',
+     !n.pages.innerHTML.includes('recfoot')&&!n.pages.innerHTML.includes('ImmunoCAP Phadia')&&
+     !n.pages.innerHTML.includes('Roche Cobas ECLIA')&&!n.pages.innerHTML.includes('APOE')&&
+     !n.pages.innerHTML.includes('One-off results worth keeping')&&n.pages.innerHTML.includes('Not recorded')&&
+     DATA.RECORD.sections.filter(s=>s.foot).length===2);
   }
   // the routine is a RULER: every hour from wake to lights-out gets a rail mark, and a
   // gym/work block renders as ONE box owning its whole span of hours

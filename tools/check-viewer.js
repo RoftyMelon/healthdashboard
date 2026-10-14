@@ -213,6 +213,24 @@ setTimeout(() => {
        !/\d+ standing facts?/.test(elements.pages.innerHTML));
    }finally{boot(DATA,false);}}
   const availablePages = ['record','stack','routine','diet','training','nextdraw','grooming'];
+  {const sample=JSON.parse(JSON.stringify(DATA)),boot=(0,eval)('boot');
+   sample.RECORD={sections:[
+     {t:'Results',date:'2026-01-01',rows:[['Recorded test','12 IU/L']],foot:'Source-only method and interpretation'},
+     {t:'Profile',line:'Recorded profile',rows:[],foot:'Source-only profile context'},
+     {t:'Unrecorded',rows:[],empty:'Advice that is not recorded data'}
+   ]};
+   const source=JSON.stringify(sample.RECORD);
+   try{
+     boot(sample,false);(0,eval)("renderPage('record')");
+     const result=elements.pages.innerHTML;
+     check('Records hide contextual notes but retain recorded fields and source provenance',
+       result.includes('Recorded test')&&result.includes('12 IU/L')&&result.includes('2026-01-01')&&
+       result.includes('Recorded profile')&&!result.includes('Source-only')&&!result.includes('Advice that')&&
+       !result.includes('recfoot')&&JSON.stringify(sample.RECORD)===source);
+     check('Records use neutral empty states in both personal and Starter views',
+       result.includes('<div class="recempty">'+(sample._template?.cardShells?'—':'Not recorded')+'</div>'));
+   }finally{boot(DATA,false);}
+  }
   availablePages.forEach(page => {
     try {
       (0, eval)(`setPage('${page}')`);

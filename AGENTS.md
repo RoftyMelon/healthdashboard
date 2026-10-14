@@ -245,6 +245,9 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   every source entry and its order within the group. Do not infer equivalent vaccines or merge
   different labels. Details such as lot numbers use native expandable disclosures; keep dates
   visible. Records-specific grid/wrapping styles must not change Stack or Next Draw rows.
+  Records is a data-only display: keep section `foot` provenance and original `empty` notes in
+  source data, but never render the explanatory text. Empty sections show only `Not recorded`
+  (or an em dash in the blank Starter). Preserve recorded result labels and measurements.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
   (from transferrin), free testosterone (Vermeulen, from total T + SHBG + albumin). A MEASURED
   value must always win — that is what the `!d.v.<id>` guards are for. The shared viewer contains

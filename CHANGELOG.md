@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.24 · Schema 2 · 2026-10-14
+
+- Keep Records data-only: hide contextual section footnotes and replace empty-state advice with a neutral status, preserving source data.
+
 ## Viewer 1.12.23 · Schema 2 · 2026-10-14
 
 - Tighten Records to a 600 px reading column with 160 px labels, stronger section titles and lighter row typography.
