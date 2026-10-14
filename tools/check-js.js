@@ -243,6 +243,24 @@ setTimeout(()=>{
     ok(`${live} judge sections in live tooltips`, (H.match(/>Judge by</g)||[]).length===live,
       (H.match(/>Judge by</g)||[]).length+' sections');
   }catch(e){ ok('stack evidence tags',false,e.message); }
+  // Vaccine history uses the approved source entries, not implied coverage or screening tests.
+  {const vaccines=DATA.RECORD.sections.find(s=>s.t==='Vaccinations'),expected=[
+    ['DTP + HIBest','7 Apr 1995'],['DTP + HIBest','14 Jun 1995'],
+    ['DTP + HIBest','27 Sept 1995'],['DTP + HIBest','27 Apr 1996'],
+    ['MMR','27 Jun 1996'],['BCG (Monovax)','11 Oct 2001'],['DTP','22 Oct 2002'],
+    ['Revaxis (DTP)','10 Jan 2007'],['Priorix (MMR)','14 Jan 2011'],['Revaxis','25 Jan 2013'],
+    ['Pfizer (COVID-19) · 3rd dose','26 Jan 2022'],
+    ['Gardasil 9 (HPV)','7 Mar 2026 · lot 3049836'],
+    ['Gardasil 9 (HPV)','16 May 2026 · lot 3053935'],
+    ['Gardasil 9 (HPV)','14 Oct 2026 · lot 3059224']];
+   ok('Records retain all 14 approved vaccine entries with dates and HPV lots',
+     JSON.stringify(vaccines.rows)===JSON.stringify(expected)&&vaccines.empty===undefined);
+   ok('vaccine history excludes tuberculin tests, COVID doses 1-2 and inferred hepatitis B',
+     !/tuberculin|monotest|hepatitis|1st dose|2nd dose/i.test(JSON.stringify(vaccines)));
+   setPage('record');
+   ok('Records renders every vaccine and date',expected.every(([name,date])=>
+     n.pages.innerHTML.includes('>'+name+'</span>')&&n.pages.innerHTML.includes('>'+date+'</span>')));
+  }
   // the routine is a RULER: every hour from wake to lights-out gets a rail mark, and a
   // gym/work block renders as ONE box owning its whole span of hours
   try{ setPage('routine');
