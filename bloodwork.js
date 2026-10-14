@@ -2557,10 +2557,18 @@ window.BLOODWORK =
      ["Gardasil 9 (HPV)", "7 Mar 2026", "Lot 3049836"],
      ["Gardasil 9 (HPV)", "16 May 2026", "Lot 3053935"],
      ["Gardasil 9 (HPV)", "14 Oct 2026", "Lot 3059224"]
+    ],
+    "subsections": [
+     {
+      "t": "Tests",
+      "date": "2023-03-13",
+      "rows": [["Anti-HBs", "93 IU/L — immune (90 in 2022, 94 in 2020)"]]
+     }
     ]
    },
    {
     "t": "Serology",
+    "sourceOnly": true,
     "rows": [
      [
       "HIV 1 & 2 screen",
@@ -2573,10 +2581,6 @@ window.BLOODWORK =
      [
       "Anti-HBc total",
       "Negative"
-     ],
-     [
-      "Anti-HBs",
-      "93 IU/L — immune (90 in 2022, 94 in 2020)"
      ],
      [
       "Anti-HCV",

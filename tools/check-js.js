@@ -277,6 +277,17 @@ setTimeout(()=>{
      !n.pages.innerHTML.includes('Roche Cobas ECLIA')&&!n.pages.innerHTML.includes('APOE')&&
      !n.pages.innerHTML.includes('One-off results worth keeping')&&n.pages.innerHTML.includes('Not recorded')&&
      DATA.RECORD.sections.filter(s=>s.foot).length===2);
+   const tests=vaccines.subsections.find(s=>s.t==='Tests'),archived=DATA.RECORD.sections.find(s=>s.t==='Serology');
+   ok('Anti-HBs appears once as a dated vaccination test, not as a vaccine dose',
+     tests.date==='2023-03-13'&&tests.rows.length===1&&
+     tests.rows[0][0]==='Anti-HBs'&&tests.rows[0][1]==='93 IU/L — immune (90 in 2022, 94 in 2020)'&&
+     !vaccines.rows.some(r=>r[0]==='Anti-HBs')&&
+     (n.pages.innerHTML.match(/>Anti-HBs<\/dt>/g)||[]).length===1&&
+     n.pages.innerHTML.includes('<h3>Tests</h3>')&&n.pages.innerHTML.includes('datetime="2023-03-13"'));
+   ok('old infection screens remain in source data but are hidden from Records',
+     archived.sourceOnly===true&&archived.date==='2023-03-13'&&archived.rows.length===5&&
+     archived.rows.map(r=>r[0]).join('|')==='HIV 1 & 2 screen|HBs antigen|Anti-HBc total|Anti-HCV|Syphilis (TPHA)'&&
+     !n.pages.innerHTML.includes('<h2>Serology</h2>')&&!n.pages.innerHTML.includes('HIV 1 &amp; 2 screen'));
   }
   // the routine is a RULER: every hour from wake to lights-out gets a rail mark, and a
   // gym/work block renders as ONE box owning its whole span of hours

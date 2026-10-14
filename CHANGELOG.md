@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.25 · Schema 2 · 2026-10-14
+
+- Support one level of dated Records subsections beneath a section's rows, with a distinct heading hierarchy.
+- Validate source-only Records sections and subsections while keeping them off the page and preserving their stored contents.
+
 ## Viewer 1.12.24 · Schema 2 · 2026-10-14
 
 - Keep Records data-only: hide contextual section footnotes and replace empty-state advice with a neutral status, preserving source data.

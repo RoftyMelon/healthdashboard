@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.24">
+<meta name="health-dashboard-viewer-version" content="1.12.25">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -754,9 +754,11 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 /* Records use their own grid so label lengths cannot move the value column or squeeze results. */
 .recordview{max-width:600px;min-width:0}
 .recordview .recsection{max-width:none;margin-top:26px}
+.recsubsection{margin-top:19px}
 .rechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:9px;
   border-bottom:1px solid var(--line)}
 .rechead h2{font-size:19px;line-height:1.3;font-weight:650;letter-spacing:-.02em;color:var(--txt);margin:0}
+.rechead h3{font-size:17px;line-height:1.3;font-weight:600;letter-spacing:-.015em;color:var(--txt);margin:0}
 .rechead time{flex:none;font-size:12.5px;line-height:1.4;color:var(--t3);font-variant-numeric:tabular-nums}
 .reclist{margin:0}
 .recrow{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);align-items:start;gap:5px 16px;
@@ -2020,20 +2022,33 @@ function audit(j){
     });
   }
   if(j.RECORD){
-    if(!Array.isArray(j.RECORD.sections))bad.push('RECORD.sections must be an array');
-    else j.RECORD.sections.forEach(sec=>{
-      if(!sec.t)bad.push('RECORD section is missing a title');
+    const checkRecordSection=(sec,nested=false)=>{
+      if(!sec||typeof sec!=='object'||Array.isArray(sec)){
+        bad.push('RECORD '+(nested?'subsection':'section')+' must be an object');return;
+      }
+      if(typeof sec.t!=='string'||!sec.t.trim())bad.push('RECORD section is missing a title');
       if(!Array.isArray(sec.rows))bad.push(`RECORD "${sec.t}": rows must be an array (empty is fine)`);
       else sec.rows.forEach(r=>{if(!Array.isArray(r)||![2,3].includes(r.length)||
         r.some(v=>typeof v!=='string'||!v.trim()))
         bad.push(`RECORD "${sec.t}": every row must be [label, value, optional detail] with non-empty text`);});
       if(sec.groupRows!==undefined&&typeof sec.groupRows!=='boolean')bad.push(`RECORD "${sec.t}": groupRows must be boolean`);
+      if(sec.sourceOnly!==undefined&&typeof sec.sourceOnly!=='boolean')bad.push(`RECORD "${sec.t}": sourceOnly must be boolean`);
+      if(sec.subsections!==undefined){
+        if(nested)bad.push(`RECORD "${sec.t}": subsections may only be nested one level`);
+        if(!Array.isArray(sec.subsections))bad.push(`RECORD "${sec.t}": subsections must be an array`);
+        else if(!nested)sec.subsections.forEach(sub=>checkRecordSection(sub,true));
+      }
+      const populatedSubsections=!nested&&Array.isArray(sec.subsections)&&sec.subsections.some(sub=>
+        sub&&!sub.sourceOnly&&(sub.line||Array.isArray(sub.rows)&&sub.rows.length));
       // Empty sections retain a source acknowledgement; the viewer displays a neutral status.
-      if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line&&!cardShells)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
+      if(Array.isArray(sec.rows)&&!sec.rows.length&&!sec.empty&&!sec.line&&!populatedSubsections&&!cardShells)
+        bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
       // Preserve optional assay/interpretation provenance in source data, not the data-only display.
       if(sec.foot!==undefined&&(typeof sec.foot!=='string'||!sec.foot.trim()))
         bad.push(`RECORD "${sec.t}": "foot" must be a non-empty string when present`);
-    });
+    };
+    if(!Array.isArray(j.RECORD.sections))bad.push('RECORD.sections must be an array');
+    else j.RECORD.sections.forEach(sec=>checkRecordSection(sec));
   }
   if(j.NEXTDRAW){
     const nd=j.NEXTDRAW, ids=new Set(), active=new Set();
@@ -3710,6 +3725,20 @@ function recordRowsHTML(sec){
       return row[2]?`<details class="recdetail"><summary aria-label="${esc('Details for '+group.label+' — '+row[1])}">${value}</summary><div class="recmetatext">${esc(row[2])}</div></details>`:value;
     }).join('')+'</dd></div>').join('');
 }
+function recordSectionHTML(sec,nested=false){
+  if(sec.sourceOnly)return '';
+  const subsections=nested?[]:(sec.subsections||[]).filter(sub=>!sub.sourceOnly);
+  const populatedSubsections=subsections.some(sub=>sub.line||sub.rows.length);
+  const heading=nested?'h3':'h2';
+  return `<section class="${nested?'recsubsection':'pgsec recsection'}"><header class="rechead"><${heading}>${esc(sec.t)}</${heading}>`+
+    (sec.date?`<time datetime="${esc(sec.date)}">${esc(sec.date)}</time>`:'')+'</header>'+
+    (sec.line
+      ? `<div class="recline">${esc(sec.line)}</div>`
+      : sec.rows.length
+        ? `<dl class="reclist">${recordRowsHTML(sec)}</dl>`
+        : populatedSubsections?'':`<div class="recempty">${CARD_SHELLS?'—':'Not recorded'}</div>`)+
+    subsections.map(sub=>recordSectionHTML(sub,true)).join('')+'</section>';
+}
 function renderPage(p){
   rbHRClose();
   // An exercise renders as a gridless set table: one column per set, kg over reps. Training rows
@@ -3845,15 +3874,7 @@ function renderPage(p){
   } else if(p==='record'&&RECORD){
     // Data-only display: source footnotes remain stored, but explanations and empty-state advice stay off the page.
     h=`<div class="recordview"><div class="pgh">Record</div>`+
-      RECORD.sections.map(sec=>
-        `<section class="pgsec recsection"><header class="rechead"><h2>${esc(sec.t)}</h2>`+
-        (sec.date?`<time datetime="${esc(sec.date)}">${esc(sec.date)}</time>`:'')+'</header>'+
-        (sec.line
-          ? `<div class="recline">${esc(sec.line)}</div>`
-          : sec.rows.length
-            ? `<dl class="reclist">${recordRowsHTML(sec)}</dl>`
-            : `<div class="recempty">${CARD_SHELLS?'—':'Not recorded'}</div>`)+
-        `</section>`).join('')+'</div>';
+      RECORD.sections.map(sec=>recordSectionHTML(sec)).join('')+'</div>';
   } else if(p==='stack'&&STACK){
     /* counted, not hardcoded: "Daily doses" described 7 of the 19 and the other 12 have no daily
        dose at all — they are parked. A subtitle that overstates what is being swallowed is the

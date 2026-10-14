@@ -248,6 +248,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   Records is a data-only display: keep section `foot` provenance and original `empty` notes in
   source data, but never render the explanatory text. Empty sections show only `Not recorded`
   (or an em dash in the blank Starter). Preserve recorded result labels and measurements.
+  Optional `subsections: [{t, date?, rows, ...}]` supports one level beneath a section's rows,
+  with the same row, grouping, detail and provenance contract. A populated visible subsection
+  prevents an empty parent from displaying `Not recorded`. Optional `sourceOnly: true` on a
+  section or subsection hides that whole block without removing or bypassing validation of its
+  source data. Main headings use `h2`; subsection headings use `h3` and retain any recorded date.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
   (from transferrin), free testosterone (Vermeulen, from total T + SHBG + albumin). A MEASURED
   value must always win — that is what the `!d.v.<id>` guards are for. The shared viewer contains

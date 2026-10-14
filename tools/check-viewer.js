@@ -237,6 +237,43 @@ setTimeout(() => {
       check(`${page} page renders`, !elements.pages.innerHTML.includes('problem') && !elements.pages.innerHTML.includes('[object Object]'));
     } catch (error) { check(`${page} page renders`, false, error.message); }
   });
+  {const sample=JSON.parse(JSON.stringify(DATA)),boot=(0,eval)('boot'),audit=(0,eval)('audit');
+   sample.RECORD={sections:[
+     {t:'Vaccines <source>',rows:[['Dose','1 Jan 2020']],subsections:[
+       {t:'Tests',date:'2023-03-13',rows:[['Antibody & test','93 IU/L']]},
+       {t:'Hidden child',sourceOnly:true,rows:[['Hidden child test','Negative']]}
+     ]},
+     {t:'Hidden source',sourceOnly:true,rows:[['Historical infection screen','Negative']]},
+     {t:'Subsection only',rows:[],subsections:[{t:'Available test',rows:[['Another test','10 IU/L']]}]}
+   ]};
+   const saved=JSON.stringify(sample.RECORD);
+   check('Record audit accepts one-level test subsections and source-only archives',audit(sample).length===0);
+   try{
+     boot(sample,false);(0,eval)("renderPage('record')");
+     const result=elements.pages.innerHTML;
+     check('Record subsections retain heading hierarchy, date and escaped data',
+       result.includes('<h2>Vaccines &lt;source&gt;</h2>')&&result.includes('<h3>Tests</h3>')&&
+       result.includes('datetime="2023-03-13"')&&result.includes('Antibody &amp; test')&&
+       result.includes('93 IU/L')&&result.includes('1 Jan 2020')&&result.includes('recsubsection'));
+     check('Record hides archived sections and children without changing their source',
+       !result.includes('Hidden child')&&!result.includes('Hidden source')&&!result.includes('Historical infection screen')&&
+       JSON.stringify(sample.RECORD)===saved);
+     check('Parents containing populated subsections do not display a false empty state',
+       result.includes('Another test')&&!result.includes('recempty'));
+   }finally{boot(DATA,false);}
+   for(const [label,change] of [
+     ['null section',s=>s.RECORD.sections[0]=null],
+     ['array section',s=>s.RECORD.sections[0]=[]],
+     ['string source-only flag',s=>s.RECORD.sections[0].sourceOnly='true'],
+     ['null source-only flag',s=>s.RECORD.sections[0].sourceOnly=null],
+     ['object subsections',s=>s.RECORD.sections[0].subsections={}],
+     ['null subsection',s=>s.RECORD.sections[0].subsections[0]=null],
+     ['nested subsections',s=>s.RECORD.sections[0].subsections[0].subsections=[]],
+     ['invalid hidden section row',s=>s.RECORD.sections[1].rows=[['No value']]],
+     ['invalid hidden subsection row',s=>s.RECORD.sections[0].subsections[1].rows=[['No value']]]
+   ]){const invalid=JSON.parse(JSON.stringify(sample));change(invalid);
+     check('Record audit rejects '+label,audit(invalid).length>0);}
+  }
   (0, eval)("setPage('nextdraw')");
   check('deferred Next Draw exclusions stay source-only',
     !elements.pages.innerHTML.includes('Deferred / not this draw') &&
