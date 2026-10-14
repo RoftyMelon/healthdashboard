@@ -3,6 +3,11 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.23 · Schema 2 · 2026-10-14
+
+- Tighten Records to a 600 px reading column with 160 px labels, stronger section titles and lighter row typography.
+- Give long record labels full-width stacked results and simplify section dividers without changing any health data.
+
 ## Viewer 1.12.22 · Schema 2 · 2026-10-14
 
 - Align Records labels and values in consistent columns, with stacked mobile rows and safe text wrapping.

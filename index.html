@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.22">
+<meta name="health-dashboard-viewer-version" content="1.12.23">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -752,19 +752,21 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .ndlist .rline{flex:1;min-width:0;font-size:15px;line-height:1.45;color:var(--t2);user-select:text}
 .ndlist .frn{flex:1;min-width:0;color:var(--t3);font-size:14px;line-height:1.45;user-select:text}
 /* Records use their own grid so label lengths cannot move the value column or squeeze results. */
-.recordview{max-width:760px;min-width:0}
-.recordview .recsection{max-width:none}
-.rechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:7px;
-  border-bottom:.5px solid var(--line);color:var(--t4);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
-.rechead h2{font:inherit;font-weight:600;margin:0}
-.rechead time{flex:none;font-variant-numeric:tabular-nums}
+.recordview{max-width:600px;min-width:0}
+.recordview .recsection{max-width:none;margin-top:26px}
+.rechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:9px;
+  border-bottom:1px solid var(--line)}
+.rechead h2{font-size:19px;line-height:1.3;font-weight:650;letter-spacing:-.02em;color:var(--txt);margin:0}
+.rechead time{flex:none;font-size:12.5px;line-height:1.4;color:var(--t3);font-variant-numeric:tabular-nums}
 .reclist{margin:0}
-.recrow{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:start;gap:5px 20px;
-  padding:11px 0;border-bottom:.5px solid var(--line2)}
+.recrow{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);align-items:start;gap:5px 16px;
+  padding:9px 0;border-bottom:.5px solid var(--line2)}
+.recrow:last-child{border-bottom:0}
+.recrow.reclong{grid-template-columns:minmax(0,1fr);gap:3px}
 .reclabel,.recvalue{min-width:0;margin:0;overflow-wrap:anywhere;line-height:1.5}
-.reclabel{font-size:15px;font-weight:560;color:var(--txt)}
+.reclabel{font-size:14px;font-weight:500;color:var(--txt)}
 .recvalue{font-size:14px;color:var(--t2);user-select:text}
-.recvalues{display:flex;flex-wrap:wrap;align-items:start;gap:6px 18px}
+.recvalues{display:flex;flex-wrap:wrap;align-items:start;gap:6px 14px}
 .recdate{font-variant-numeric:tabular-nums;white-space:nowrap}
 .recdetail{min-width:0}
 .recdetail>summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer;min-height:24px}
@@ -774,9 +776,9 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 .recdetail[open]>summary::after{transform:rotate(225deg);margin-top:3px}
 .recdetail>summary:focus-visible{outline:2px solid var(--info);outline-offset:3px;border-radius:2px}
 .recmetatext{font-size:12px;color:var(--t3);margin-top:3px;overflow-wrap:anywhere}
-.recline,.recempty{padding:11px 0;border-bottom:.5px solid var(--line2);font-size:15px;line-height:1.5;color:var(--t2)}
+.recline,.recempty{padding-top:10px;font-size:14px;line-height:1.5;color:var(--t2)}
 .recempty,.recfoot{color:var(--t3)}
-.recfoot{font-size:13px;line-height:1.55;padding-top:9px;overflow-wrap:anywhere}
+.recfoot{font-size:12.5px;line-height:1.55;padding-top:7px;overflow-wrap:anywhere}
 .ndhead{display:flex;gap:10px;padding:0 0 7px;border-bottom:.5px solid var(--line)}
 .ndhead .sn,.ndhead .frn{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t4)}
 .frcopy{margin-top:8px;font-size:13px;padding:5px 13px;border-radius:7px;border:.5px solid var(--line);background:transparent;color:var(--t2);cursor:pointer;min-width:130px;text-align:center}
@@ -1583,8 +1585,8 @@ ul.trsummary.rbintro li{margin:2px 0}
   .pgs{margin-left:var(--gut,20px);margin-right:var(--gut,20px)}
 }
 @media(max-width:600px){
-  .recrow{grid-template-columns:minmax(0,1fr);gap:3px;padding:10px 0}
-  .reclabel{font-size:14px}
+  .recrow{grid-template-columns:minmax(0,1fr);gap:3px;padding:9px 0}
+  .recordview .recsection{margin-top:24px}
   .recvalues{gap:5px 16px}
 }
 </style>
@@ -3703,7 +3705,7 @@ function recordRowsHTML(sec){
     if(!group){group={label:row[0],values:[]};groups.push(group);if(sec.groupRows)byLabel.set(row[0],group);}
     group.values.push(row);
   }
-  return groups.map(group=>`<div class="recrow"><dt class="reclabel">${esc(group.label)}</dt>`+
+  return groups.map(group=>`<div class="recrow${group.label.length>44?' reclong':''}"><dt class="reclabel">${esc(group.label)}</dt>`+
     `<dd class="recvalue${sec.groupRows?' recvalues':''}">`+group.values.map(row=>{
       const value=sec.groupRows?`<span class="recdate">${esc(row[1])}</span>`:esc(row[1]);
       return row[2]?`<details class="recdetail"><summary aria-label="${esc('Details for '+group.label+' — '+row[1])}">${value}</summary><div class="recmetatext">${esc(row[2])}</div></details>`:value;

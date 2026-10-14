@@ -123,6 +123,15 @@ setTimeout(() => {
        routine.includes('<div class="rdo">Walk &amp; rest</div>'));
    }finally{boot(DATA,false);}}
   // Record grouping is opt-in, lossless and exact; native disclosures keep details off the row.
+  {const heading=Number((html.match(/\.rechead h2\{font-size:(\d+)px/)||[])[1]),
+     label=Number((html.match(/\.reclabel\{font-size:(\d+)px/)||[])[1]),
+     value=Number((html.match(/\.recvalue\{font-size:(\d+)px/)||[])[1]),
+     title='A long record label that needs room for its full medical description',
+     row=(0,eval)('recordRowsHTML')({rows:[[title,'Result stays readable']]});
+   check('Record section titles are larger than both row labels and results',heading>label&&heading>value);
+   check('Long record labels use full-width stacked results without losing content',
+     row.includes('class="recrow reclong"')&&row.includes(title)&&row.includes('Result stays readable'));
+  }
   {const sample=JSON.parse(JSON.stringify(DATA)),audit=(0,eval)('audit'),
      render=(0,eval)('recordRowsHTML'),boot=(0,eval)('boot'),
      section={t:'Record <section>',groupRows:true,rows:[
