@@ -240,6 +240,11 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   under “What it measures”.
 - `audit()` in `index.html` validates the data on load and **refuses to render** rather than
   show a wrong number. Keep it that way.
+- `RECORD.sections[].rows` contains `[label, value]` or `[label, value, detail]`, all non-empty
+  strings. Optional `groupRows: true` groups exact repeated labels for display only, retaining
+  every source entry and its order within the group. Do not infer equivalent vaccines or merge
+  different labels. Details such as lot numbers use native expandable disclosures; keep dates
+  visible. Records-specific grid/wrapping styles must not change Stack or Next Draw rows.
 - Some markers are **DERIVED at load in `derive()`, never stored**: corrected calcium, TIBC
   (from transferrin), free testosterone (Vermeulen, from total T + SHBG + albumin). A MEASURED
   value must always win — that is what the `!d.v.<id>` guards are for. The shared viewer contains

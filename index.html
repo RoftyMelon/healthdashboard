@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.21">
+<meta name="health-dashboard-viewer-version" content="1.12.22">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -751,6 +751,32 @@ html:not([data-page=markers]) .shell,html:not([data-page=markers]) .gutmask{disp
 /* a whole-section one-liner: no label column, so it runs the full width */
 .ndlist .rline{flex:1;min-width:0;font-size:15px;line-height:1.45;color:var(--t2);user-select:text}
 .ndlist .frn{flex:1;min-width:0;color:var(--t3);font-size:14px;line-height:1.45;user-select:text}
+/* Records use their own grid so label lengths cannot move the value column or squeeze results. */
+.recordview{max-width:760px;min-width:0}
+.recordview .recsection{max-width:none}
+.rechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:7px;
+  border-bottom:.5px solid var(--line);color:var(--t4);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.rechead h2{font:inherit;font-weight:600;margin:0}
+.rechead time{flex:none;font-variant-numeric:tabular-nums}
+.reclist{margin:0}
+.recrow{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:start;gap:5px 20px;
+  padding:11px 0;border-bottom:.5px solid var(--line2)}
+.reclabel,.recvalue{min-width:0;margin:0;overflow-wrap:anywhere;line-height:1.5}
+.reclabel{font-size:15px;font-weight:560;color:var(--txt)}
+.recvalue{font-size:14px;color:var(--t2);user-select:text}
+.recvalues{display:flex;flex-wrap:wrap;align-items:start;gap:6px 18px}
+.recdate{font-variant-numeric:tabular-nums;white-space:nowrap}
+.recdetail{min-width:0}
+.recdetail>summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer;min-height:24px}
+.recdetail>summary::-webkit-details-marker{display:none}
+.recdetail>summary::after{content:"";width:5px;height:5px;flex:none;border-right:1.5px solid var(--t4);
+  border-bottom:1.5px solid var(--t4);transform:rotate(45deg);margin-top:-3px}
+.recdetail[open]>summary::after{transform:rotate(225deg);margin-top:3px}
+.recdetail>summary:focus-visible{outline:2px solid var(--info);outline-offset:3px;border-radius:2px}
+.recmetatext{font-size:12px;color:var(--t3);margin-top:3px;overflow-wrap:anywhere}
+.recline,.recempty{padding:11px 0;border-bottom:.5px solid var(--line2);font-size:15px;line-height:1.5;color:var(--t2)}
+.recempty,.recfoot{color:var(--t3)}
+.recfoot{font-size:13px;line-height:1.55;padding-top:9px;overflow-wrap:anywhere}
 .ndhead{display:flex;gap:10px;padding:0 0 7px;border-bottom:.5px solid var(--line)}
 .ndhead .sn,.ndhead .frn{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t4)}
 .frcopy{margin-top:8px;font-size:13px;padding:5px 13px;border-radius:7px;border:.5px solid var(--line);background:transparent;color:var(--t2);cursor:pointer;min-width:130px;text-align:center}
@@ -1556,6 +1582,11 @@ ul.trsummary.rbintro li{margin:2px 0}
   .shell{margin-left:0;width:100%}
   .pgs{margin-left:var(--gut,20px);margin-right:var(--gut,20px)}
 }
+@media(max-width:600px){
+  .recrow{grid-template-columns:minmax(0,1fr);gap:3px;padding:10px 0}
+  .reclabel{font-size:14px}
+  .recvalues{gap:5px 16px}
+}
 </style>
 <script>
 /* Before FIRST PAINT: follow the device's scheme so a system-dark user never sees a
@@ -1992,8 +2023,10 @@ function audit(j){
     else j.RECORD.sections.forEach(sec=>{
       if(!sec.t)bad.push('RECORD section is missing a title');
       if(!Array.isArray(sec.rows))bad.push(`RECORD "${sec.t}": rows must be an array (empty is fine)`);
-      else sec.rows.forEach(r=>{if(!Array.isArray(r)||r.length!==2||!r[0]||!r[1])
-        bad.push(`RECORD "${sec.t}": every row must be [label, value]`);});
+      else sec.rows.forEach(r=>{if(!Array.isArray(r)||![2,3].includes(r.length)||
+        r.some(v=>typeof v!=='string'||!v.trim()))
+        bad.push(`RECORD "${sec.t}": every row must be [label, value, optional detail] with non-empty text`);});
+      if(sec.groupRows!==undefined&&typeof sec.groupRows!=='boolean')bad.push(`RECORD "${sec.t}": groupRows must be boolean`);
       // a section with nothing in it must SAY so — a silent blank reads as a rendering fault
       if(sec.rows&&!sec.rows.length&&!sec.empty&&!sec.line&&!cardShells)bad.push(`RECORD "${sec.t}": empty section needs an "empty" line`);
       // .foot is the scale a section's rows are read against — a ratio means nothing without it
@@ -3663,6 +3696,19 @@ function setPage(p){
   // back-button history.
   try{history.replaceState(null,'',p==='markers'?location.pathname+location.search:'#'+p);}catch(e){}
 }
+function recordRowsHTML(sec){
+  const groups=[],byLabel=new Map();
+  for(const row of sec.rows){
+    let group=sec.groupRows?byLabel.get(row[0]):null;
+    if(!group){group={label:row[0],values:[]};groups.push(group);if(sec.groupRows)byLabel.set(row[0],group);}
+    group.values.push(row);
+  }
+  return groups.map(group=>`<div class="recrow"><dt class="reclabel">${esc(group.label)}</dt>`+
+    `<dd class="recvalue${sec.groupRows?' recvalues':''}">`+group.values.map(row=>{
+      const value=sec.groupRows?`<span class="recdate">${esc(row[1])}</span>`:esc(row[1]);
+      return row[2]?`<details class="recdetail"><summary aria-label="${esc('Details for '+group.label+' — '+row[1])}">${value}</summary><div class="recmetatext">${esc(row[2])}</div></details>`:value;
+    }).join('')+'</dd></div>').join('');
+}
 function renderPage(p){
   rbHRClose();
   // An exercise renders as a gridless set table: one column per set, kg over reps. Training rows
@@ -3796,21 +3842,18 @@ function renderPage(p){
           (rows.length?`<div class="cnote">${esc(blurb)}</div><div class="ndhead"><span class="sn">Marker</span><span class="frn">Pour le labo (FR)</span></div>`+
           rows.map(row).join(''):`<div class="cempty">&mdash;</div>`)+`</${tag}>`;}).join('');
   } else if(p==='record'&&RECORD){
-    /* Standing facts, not trends: nothing here is plotted or judged, so it reuses the plain
-       two-column list rather than anything from the marker table. A section with no rows still
-       renders its heading and says what belongs there — an invisible section reads as a bug. */
-    const n=RECORD.sections.reduce((a,x)=>a+x.rows.filter(r=>r[1]&&r[1]!=='—').length,0);
-    h=`<div class="pgh">Record</div><div class="pgsub">${n} standing fact${n===1?'':'s'}</div>`+
+    // Keep the original facts; grouping is presentation only and details remain keyboard/touch accessible.
+    h=`<div class="recordview"><div class="pgh">Record</div>`+
       RECORD.sections.map(sec=>
-        `<div class="pgsec ndlist"><div class="ndhead"><span class="sn">${esc(sec.t)}</span>`+
-        `<span class="frn">${esc(sec.date||'')}</span></div>`+
+        `<section class="pgsec recsection"><header class="rechead"><h2>${esc(sec.t)}</h2>`+
+        (sec.date?`<time datetime="${esc(sec.date)}">${esc(sec.date)}</time>`:'')+'</header>'+
         (sec.line
-          ? `<div class="srow"><span class="rline">${esc(sec.line)}</span></div>`
+          ? `<div class="recline">${esc(sec.line)}</div>`
           : sec.rows.length
-            ? sec.rows.map(r=>`<div class="srow"><span class="sn">${esc(r[0])}</span><span class="frn">${esc(r[1])}</span></div>`).join('')
-            : `<div class="srow"><span class="sn"></span><span class="frn">${esc(sec.empty||(CARD_SHELLS?'—':''))}</span></div>`)+
-        (sec.foot?`<div class="rfoot">${esc(sec.foot)}</div>`:'')+
-        `</div>`).join('');
+            ? `<dl class="reclist">${recordRowsHTML(sec)}</dl>`
+            : `<div class="recempty">${esc(sec.empty||(CARD_SHELLS?'—':''))}</div>`)+
+        (sec.foot?`<div class="recfoot">${esc(sec.foot)}</div>`:'')+
+        `</section>`).join('')+'</div>';
   } else if(p==='stack'&&STACK){
     /* counted, not hardcoded: "Daily doses" described 7 of the 19 and the other 12 have no daily
        dose at all — they are parked. A subtitle that overstates what is being swallowed is the

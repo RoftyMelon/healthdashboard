@@ -2541,6 +2541,7 @@ window.BLOODWORK =
    },
    {
     "t": "Vaccinations",
+    "groupRows": true,
     "rows": [
      ["DTP + HIBest", "7 Apr 1995"],
      ["DTP + HIBest", "14 Jun 1995"],
@@ -2553,9 +2554,9 @@ window.BLOODWORK =
      ["Priorix (MMR)", "14 Jan 2011"],
      ["Revaxis", "25 Jan 2013"],
      ["Pfizer (COVID-19) · 3rd dose", "26 Jan 2022"],
-     ["Gardasil 9 (HPV)", "7 Mar 2026 · lot 3049836"],
-     ["Gardasil 9 (HPV)", "16 May 2026 · lot 3053935"],
-     ["Gardasil 9 (HPV)", "14 Oct 2026 · lot 3059224"]
+     ["Gardasil 9 (HPV)", "7 Mar 2026", "Lot 3049836"],
+     ["Gardasil 9 (HPV)", "16 May 2026", "Lot 3053935"],
+     ["Gardasil 9 (HPV)", "14 Oct 2026", "Lot 3059224"]
     ]
    },
    {

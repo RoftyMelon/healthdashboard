@@ -122,6 +122,87 @@ setTimeout(() => {
      check('ordinary routine text stays outside the emoji icon slot',
        routine.includes('<div class="rdo">Walk &amp; rest</div>'));
    }finally{boot(DATA,false);}}
+  // Record grouping is opt-in, lossless and exact; native disclosures keep details off the row.
+  {const sample=JSON.parse(JSON.stringify(DATA)),audit=(0,eval)('audit'),
+     render=(0,eval)('recordRowsHTML'),boot=(0,eval)('boot'),
+     section={t:'Record <section>',groupRows:true,rows:[
+       ['Alpha <b>& "label"</b>','1 Jan 2026','Lot <em>& "first"</em>'],
+       ['Beta','2 Jan 2026'],
+       ['Alpha <b>& "label"</b>','1 Jan 2026'],
+       ['alpha <b>& "label"</b>','3 Jan 2026'],
+       ['Alpha <b>& "label"</b>','4 Jan 2026','Lot second']
+     ]},
+     snapshot=JSON.stringify(section),
+     countClass=(markup,cls)=>Array.from(markup.matchAll(/\bclass="([^"]*)"/g)).filter(m=>m[1].split(/\s+/).includes(cls)).length,
+     labels=markup=>Array.from(markup.matchAll(/<[^>]+class="reclabel"[^>]*>([^<]*)</g),m=>m[1]),
+     dates=markup=>Array.from(markup.matchAll(/<[^>]+class="recdate"[^>]*>([^<]*)</g),m=>m[1]);
+   sample.RECORD={sections:[section]};
+   check('Record audit accepts optional grouping and a third detail string',audit(sample).length===0);
+   const grouped=render(section),
+     groups=grouped.split(/<[^>]+class="recrow"[^>]*>/).slice(1),
+     expectedLabels=['Alpha &lt;b&gt;&amp; &quot;label&quot;&lt;/b&gt;','Beta','alpha &lt;b&gt;&amp; &quot;label&quot;&lt;/b&gt;'];
+   check('Record groups nonconsecutive exact labels in first-seen order',
+     countClass(grouped,'recrow')===3&&JSON.stringify(labels(grouped))===JSON.stringify(expectedLabels));
+   check('Record grouping preserves repeated dates and per-label value order',
+     countClass(grouped,'recdate')===5&&
+     JSON.stringify(groups.map(dates))===JSON.stringify([['1 Jan 2026','1 Jan 2026','4 Jan 2026'],['2 Jan 2026'],['3 Jan 2026']]));
+   check('Record grouping does not mutate source rows',JSON.stringify(section)===snapshot);
+   const disclosures=Array.from(grouped.matchAll(/<details\b([^>]*)>([\s\S]*?)<\/details>/g));
+   check('Record details use closed native date-labelled disclosures',
+     disclosures.length===2&&countClass(grouped,'recdetail')===2&&
+     disclosures.every(([,attrs,body],i)=>!/(?:^|\s)open(?:\s|=|$)/.test(attrs)&&
+       /^\s*<summary\b[^>]*><span class="recdate">[^<]+<\/span><\/summary>/.test(body)&&
+       body.includes('aria-label="Details for '+expectedLabels[0]+' — '+section.rows[i?4:0][1]+'"')&&
+       body.includes('class="recmetatext"'))&&
+     !/on(?:click|mouseover)=|\stitle=/.test(grouped));
+   check('Record labels and hidden details are HTML-escaped',
+     grouped.includes(expectedLabels[0])&&
+     grouped.includes('Lot &lt;em&gt;&amp; &quot;first&quot;&lt;/em&gt;')&&
+     !grouped.includes('<b>')&&!grouped.includes('<em>'));
+   const escaped=render({rows:[['A','Date <b>& "value"</b>','Detail <i>& "text"</i>']]});
+   check('Record date summaries also escape supplied HTML',
+     escaped.includes('Date &lt;b&gt;&amp; &quot;value&quot;&lt;/b&gt;')&&
+     escaped.includes('Detail &lt;i&gt;&amp; &quot;text&quot;&lt;/i&gt;')&&
+     !escaped.includes('<b>')&&!escaped.includes('<i>'));
+   for(const mode of ['omitted','false']){
+     const ungrouped={...section};if(mode==='omitted')delete ungrouped.groupRows;else ungrouped.groupRows=false;
+     sample.RECORD.sections=[ungrouped];const markup=render(ungrouped),
+       values=Array.from(markup.matchAll(/<dd class="recvalue">(?:<details\b[^>]*><summary\b[^>]*>)?([^<]+)/g),m=>m[1]);
+     check('Record grouping '+mode+' retains every row in source order',
+       audit(sample).length===0&&countClass(markup,'recrow')===section.rows.length&&
+       JSON.stringify(labels(markup))===JSON.stringify([expectedLabels[0],'Beta',expectedLabels[0],expectedLabels[2],expectedLabels[0]])&&
+       JSON.stringify(values)===JSON.stringify(section.rows.map(row=>row[1])));
+   }
+   sample.RECORD.sections=[section];
+   for(const [label,change] of [
+     ['string grouping flag',s=>s.groupRows='true'],
+     ['numeric grouping flag',s=>s.groupRows=1],
+     ['null grouping flag',s=>s.groupRows=null],
+     ['object grouping flag',s=>s.groupRows={}],
+     ['non-array row',s=>s.rows[0]='not a row'],
+     ['missing row value',s=>s.rows[0]=['Label']],
+     ['extra row field',s=>s.rows[0]=['Label','Value','Detail','Extra']],
+     ['non-string label',s=>s.rows[0][0]=42],
+     ['blank label',s=>s.rows[0][0]='  '],
+     ['non-string value',s=>s.rows[0][1]=42],
+     ['blank value',s=>s.rows[0][1]='  '],
+     ['empty detail',s=>s.rows[0][2]=''],
+     ['blank detail',s=>s.rows[0][2]='  '],
+     ['null detail',s=>s.rows[0][2]=null],
+     ['numeric detail',s=>s.rows[0][2]=42],
+     ['object detail',s=>s.rows[0][2]={text:'Detail'}],
+     ['undefined third field',s=>s.rows[0][2]=undefined]
+   ]){const invalid=JSON.parse(JSON.stringify(sample));change(invalid.RECORD.sections[0]);
+     check('Record audit rejects '+label,audit(invalid).length>0);}
+   try{
+     boot(sample,false);(0,eval)("renderPage('record')");
+     check('Records use their dedicated layout without the standing-fact count',
+       countClass(elements.pages.innerHTML,'recordview')===1&&
+       countClass(elements.pages.innerHTML,'recsection')===1&&
+       elements.pages.innerHTML.includes('Record &lt;section&gt;')&&
+       elements.pages.innerHTML.includes(grouped)&&
+       !/\d+ standing facts?/.test(elements.pages.innerHTML));
+   }finally{boot(DATA,false);}}
   const availablePages = ['record','stack','routine','diet','training','nextdraw','grooming'];
   availablePages.forEach(page => {
     try {

@@ -3,6 +3,12 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.22 · Schema 2 · 2026-10-14
+
+- Align Records labels and values in consistent columns, with stacked mobile rows and safe text wrapping.
+- Support optional exact-label grouping and accessible expandable row details while preserving all source entries.
+- Remove the standing-fact count from the Records heading.
+
 ## Viewer 1.12.21 · Schema 2 · 2026-10-11
 
 - Keep small and regular routine emojis in equally sized, vertically centred slots so the evening trio stays evenly spaced.
