@@ -302,7 +302,14 @@ setTimeout(()=>{
     // block starts/ends earn the LONG tics, clamped to the ruler's range
     const H0=parseInt(R[0].t),H1=parseInt(R[R.length-1].t),lt=new Set();
     R.forEach(r=>{if(r.until){if(parseInt(r.t.slice(3),10)===0)lt.add(parseInt(r.t));if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
+    const minutes=t=>+t.slice(0,2)*60+ +t.slice(3);
+    R.forEach((r,i)=>{const prev=R[i-1];
+      if(prev&&prev.until===r.t&&r.until&&minutes(prev.until)-minutes(prev.t)<60&&
+        minutes(r.until)-minutes(r.t)<60)lt.delete(parseInt(r.t));});
     lt.add(H0);   // mirror the renderer: the day's start draws a boundary line
+    ok('17:00 uses a short tick between dinner and shower',
+      n.pages.innerHTML.includes('<i class="rhl">17:00</i>')&&
+      !n.pages.innerHTML.includes('<i class="rhl lt">17:00</i>'));
     // mirror the suppression rule: an hour whose predecessor ended mid-hour
     // with its own cut draws no boundary line
     {let hh=H0;const mm=t=>parseInt(t.slice(3),10)/60;

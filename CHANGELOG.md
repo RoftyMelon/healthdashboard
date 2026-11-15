@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.27 · Schema 2 · 2026-11-15
+
+- Use short hour ticks between adjacent sub-hour routine activities.
+
 ## Viewer 1.12.26 · Schema 2 · 2026-11-15
 
 - Allow a routine phase to keep its time slot without displaying an emoji.

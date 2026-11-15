@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.26">
+<meta name="health-dashboard-viewer-version" content="1.12.27">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -3949,6 +3949,11 @@ function renderPage(p){
     ROUTINE.forEach(r=>{if(r.until){   // only WHOLE-hour edges draw hour lines; :30s get cuts
       if(parseInt(r.t.slice(3),10)===0)lt.add(parseInt(r.t));
       if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
+    // Adjacent sub-hour activities share a short tick, not a full-width divider.
+    const minutes=t=>+t.slice(0,2)*60+ +t.slice(3);
+    ROUTINE.forEach((r,i)=>{const prev=ROUTINE[i-1];
+      if(prev&&prev.until===r.t&&r.until&&minutes(prev.until)-minutes(prev.t)<60&&
+        minutes(r.until)-minutes(r.t)<60)lt.delete(parseInt(r.t));});
     lt.add(H0);   // the day's start earns a boundary line too
     // a boundary line is REDUNDANT when the hour before it already ended mid-hour
     // with its own cut (the shower ends 17:30 -> no 18:00 line; the gym runs to
