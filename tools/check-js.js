@@ -360,14 +360,14 @@ setTimeout(()=>{
       RH.includes('aria-label="09:00 Workout end, shower start" style="top:calc(0% + 7px)"')&&
       RH.includes('aria-label="09:15 Shower end" style="top:calc(25% + 7px)"'));
     ok('gym phase icons sit in their respective time slots',
-      count(RH,'rphase')===4&&
+      count(RH,'rphase')===3&&
       RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(62.5% + 7px)">🚙</span>')&&
       RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
-      RH.includes('aria-label="Shower" style="top:calc(12.5% + 7px)">🚿</span>')&&
+      !RH.includes('class="rphase rphase-shower"')&&
       RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(37.5% + 7px)">🚙</span>'));
     const iconCSS=(html.match(/\.rdo\.ricon\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,''),
       phaseCSS=(html.match(/\.rphase\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,'');
-    ok('routine emojis share one responsive icon column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===4&&
+    ok('routine emojis share one responsive icon column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===3&&
       phaseCSS.includes('left:var(--routine-icon-left);')&&
       phaseCSS.includes('width:var(--routine-icon-width);')&&
       iconCSS.includes('width:var(--routine-icon-width);')&&
@@ -378,7 +378,7 @@ setTimeout(()=>{
     ok('wake emojis centre as one group without a pair-specific offset',
       iconCSS.includes('display:flex;')&&iconCSS.includes('justify-content:center;')&&
       iconCSS.includes('white-space:nowrap;')&&iconCSS.includes('overflow:visible')&&
-      !html.includes('.rdo.ricon.rpair')&&RH.includes('class="rdo ricon">🏃 🥣</div>'));
+      !html.includes('.rdo.ricon.rpair')&&RH.includes('class="rdo ricon">🚿 🥣</div>'));
     ok('sub-hour routine events centre on their boundary-line midpoint',
       html.includes('.rhr.rprop .rev{position:absolute;left:0;right:0;padding:0;transform:translateY(-50%)}')&&
       RH.includes('style="top:calc(var(--hh)*0.25 + 7px)"')&&
@@ -387,9 +387,11 @@ setTimeout(()=>{
     ok('small and regular routine emojis share one vertically centred slot',
       iconCSS.includes('height:24px;')&&iconCSS.includes('align-items:center;')&&
       iconCSS.includes('line-height:1;')&&html.includes('.rdo.ricon.rsmall{font-size:11px}'));
-    ok('both shower icons use the smaller treatment',
-      RH.includes('class="rphase rphase-shower" role="img" aria-label="Shower"')&&
-      RH.includes('class="rdo ricon rsmall">🚿</div>'));
+    ok('shower replaces the wake-up runner, is absent after gym, and remains in the evening',
+      R.find(r=>r.t==='07:00').do==='🚿 🥣'&&!RH.includes('🏃')&&
+      R.find(r=>r.t==='07:30').phases.find(p=>p.from==='09:00').icon===''&&
+      !RH.includes('class="rphase rphase-shower"')&&
+      R.find(r=>r.t==='21:00').do==='🚿'&&RH.includes('class="rdo ricon rsmall">🚿</div>'));
   }
   catch(e){ ok('routine ruler',false,e.message); }
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.

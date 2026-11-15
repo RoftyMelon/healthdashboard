@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.25">
+<meta name="health-dashboard-viewer-version" content="1.12.26">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -2097,7 +2097,7 @@ function audit(j){
       if(r.phases!==undefined){
         if(!r.until||!Array.isArray(r.phases)||!r.phases.length||r.phases.some((p,i)=>
           !p||!/^\d{2}:\d{2}$/.test(p.from)||!/^\d{2}:\d{2}$/.test(p.to)||
-          !p.icon||!p.label||p.from<r.t||p.to<=p.from||p.to>r.until||
+          typeof p.icon!=='string'||!p.label||p.from<r.t||p.to<=p.from||p.to>r.until||
           (i&&p.from!==r.phases[i-1].to))||r.phases[0].from!==r.t||
           r.phases[r.phases.length-1].to!==r.until)
           bad.push(`ROUTINE "${r.do}": phases must be contiguous labelled icon spans covering the block`);
@@ -3992,7 +3992,7 @@ function renderPage(p){
       icon=/[\u{1F300}-\u{1FAFF}]/u.test(s)&&!/[\p{Letter}\p{Number}]/u.test(s);
       return `<div class="rdo${icon?' ricon':''}${s.trim()==='🚿'?' rsmall':''}">${esc(s).replace(/\n/g,'<br>')}</div>`;};
     const phaseIcons=(from,to)=>ROUTINE.flatMap(r=>(r.phases||[]).map(p=>({p,n:(_min(p.from)+_min(p.to))/2})))
-      .filter(x=>x.n>=from&&x.n<to)
+      .filter(x=>x.p.icon.trim()&&x.n>=from&&x.n<to)
       .map(x=>`<span class="rphase${x.p.icon==='🚙'?' rphase-car':x.p.icon==='🚿'?' rphase-shower':''}" role="img" aria-label="${esc(x.p.label)}" style="top:calc(${(x.n-from)/(to-from)*100}% + 7px)">${esc(x.p.icon)}</span>`).join('');
     while(hr<=H1){
       const evs=ROUTINE.filter(r=>parseInt(r.t)===hr);

@@ -122,6 +122,29 @@ setTimeout(() => {
      check('ordinary routine text stays outside the emoji icon slot',
        routine.includes('<div class="rdo">Walk &amp; rest</div>'));
    }finally{boot(DATA,false);}}
+  {const sample=JSON.parse(JSON.stringify(DATA)),boot=(0,eval)('boot'),audit=(0,eval)('audit');
+   sample.ROUTINE=[{t:'07:00',until:'08:00',do:'Test',phases:[
+     {from:'07:00',to:'07:15',icon:'🚙',label:'First'},
+     {from:'07:15',to:'07:45',icon:'',label:'Unillustrated'},
+     {from:'07:45',to:'08:00',icon:'🚙',label:'Last'}
+   ]},{t:'23:00',do:'End'}];
+   check('routine phases accept an empty icon without changing their time spans',audit(sample).length===0);
+   try{
+     boot(sample,false);(0,eval)("renderPage('routine')");
+     const routine=elements.pages.innerHTML;
+     check('empty routine icons omit the image while keeping neighbouring positions',
+       (routine.match(/class="rphase /g)||[]).length===2&&!routine.includes('aria-label="Unillustrated"')&&
+       routine.includes('aria-label="First" style="top:calc(12.5% + 7px)"')&&
+       routine.includes('aria-label="Last" style="top:calc(87.5% + 7px)"'));
+   }finally{boot(DATA,false);}
+   for(const value of [null,undefined,0,{}]){
+     sample.ROUTINE[0].phases[1].icon=value;
+     check('routine audit rejects a non-string phase icon',audit(sample).length>0);
+   }
+   sample.ROUTINE[0].phases[1].icon='';
+   sample.ROUTINE[0].phases[1].from='07:20';
+   check('empty phase icons do not bypass contiguous timing validation',audit(sample).length>0);
+  }
   // Record grouping is opt-in, lossless and exact; native disclosures keep details off the row.
   {const heading=Number((html.match(/\.rechead h2\{font-size:(\d+)px/)||[])[1]),
      label=Number((html.match(/\.reclabel\{font-size:(\d+)px/)||[])[1]),

@@ -268,6 +268,8 @@ CSS fails **silently**. There is no error. The page just quietly does the wrong 
   printed ones: results arrived rounded (RBC 5.26→5.3, MCHC 347 g/L→34) and whole panels were
   silently dropped (2020 held 30 of its 38 values; the entire thyroid panel was missing). All
   six original reports have now been reconciled against the file. Enter what the lab PRINTED.
+- Routine phases retain contiguous time spans; an empty `icon` string leaves a phase unillustrated
+  without moving the surrounding phase icons.
 - `STACK`, `ROUTINE`, `DIET`, `TRAINING`, `NEXTDRAW`, `CARE` feed the tab pages (Stack /
   Routine / Diet / Training / Next Draw / Grooming); `CARE` is the Grooming tab — Dental AND
   Skincare (id 'face') are both cadence cards now: `groups:[{t, icon?, items[]}]` plus an
