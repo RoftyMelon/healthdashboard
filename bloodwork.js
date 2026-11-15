@@ -1071,30 +1071,30 @@ window.BLOODWORK =
  "ROUTINE": [
   {
    "t": "07:00",
-   "until": "07:30",
+   "until": "07:45",
    "do": "🚿 🥣"
   },
   {
-   "t": "07:30",
-   "until": "09:15",
+   "t": "07:45",
+   "until": "10:00",
    "milestones": [
-    {"t": "07:45", "label": "Workout start"},
-    {"t": "09:00", "label": "Workout end"}
+    {"t": "08:00", "label": "Workout start"},
+    {"t": "09:45", "label": "Workout end"}
    ],
    "phases": [
-    {"from": "07:30", "to": "07:45", "icon": "🚙", "label": "Commute"},
-    {"from": "07:45", "to": "09:00", "icon": "🏋️‍♂️", "label": "Lifting"},
-    {"from": "09:00", "to": "09:15", "icon": "🚙", "label": "Commute"}
+    {"from": "07:45", "to": "08:00", "icon": "🚙", "label": "Commute"},
+    {"from": "08:00", "to": "09:45", "icon": "🏋️‍♂️", "label": "Lifting"},
+    {"from": "09:45", "to": "10:00", "icon": "🚙", "label": "Commute"}
    ],
    "do": "🚙 🏋️‍♂️ 🚙"
   },
   {
-   "t": "09:15",
-   "until": "10:00",
+   "t": "10:00",
+   "until": "10:30",
    "do": "🍽️"
   },
   {
-   "t": "10:00",
+   "t": "10:30",
    "until": "16:30",
    "do": "💻"
   },

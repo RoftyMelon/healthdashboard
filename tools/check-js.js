@@ -356,15 +356,15 @@ setTimeout(()=>{
       count(n.pages.innerHTML,'rmini')+' milestone lines');
     const RH=n.pages.innerHTML;
     ok('gym milestones keep their true positions on the hour ruler',
-      RH.includes('aria-label="07:45 Workout start" style="top:calc(75% + 7px)"')&&
-      RH.includes('aria-label="09:00 Workout end" style="top:calc(0% + 7px)"')&&
+      RH.includes('aria-label="08:00 Workout start" style="top:calc(0% + 7px)"')&&
+      RH.includes('aria-label="09:45 Workout end" style="top:calc(87.5% + 7px)"')&&
       !RH.includes('Shower end')&&!RH.includes('shower start'));
     ok('gym phase icons sit in their respective time slots',
       count(RH,'rphase')===3&&
-      RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(62.5% + 7px)">🚙</span>')&&
-      RH.includes('aria-label="Lifting" style="top:calc(37.5% + 7px)">🏋️‍♂️</span>')&&
+      RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(87.5% + 7px)">🚙</span>')&&
+      RH.includes('aria-label="Lifting" style="top:calc(43.75% + 7px)">🏋️‍♂️</span>')&&
       !RH.includes('class="rphase rphase-shower"')&&
-      RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(12.5% + 7px)">🚙</span>'));
+      RH.includes('class="rphase rphase-car" role="img" aria-label="Commute" style="top:calc(93.75% + 7px)">🚙</span>'));
     const iconCSS=(html.match(/\.rdo\.ricon\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,''),
       phaseCSS=(html.match(/\.rphase\s*\{([^}]+)\}/)||['',''])[1].replace(/\s+/g,'');
     ok('routine emojis share one responsive icon column',count(RH,'rdo ricon')===8&&count(RH,'rphase')===3&&
@@ -389,13 +389,15 @@ setTimeout(()=>{
       iconCSS.includes('line-height:1;')&&html.includes('.rdo.ricon.rsmall{font-size:11px}'));
     ok('shower replaces the wake-up runner, is absent after gym, and remains in the evening',
       R.find(r=>r.t==='07:00').do==='🚿 🥣'&&!RH.includes('🏃')&&
-      R.find(r=>r.t==='07:30').phases.every(p=>p.icon&&p.label!=='Shower')&&
+      R.find(r=>r.t==='07:45').phases.every(p=>p.icon&&p.label!=='Shower')&&
       !RH.includes('class="rphase rphase-shower"')&&
       R.find(r=>r.t==='21:00').do==='🚿'&&RH.includes('class="rdo ricon rsmall">🚿</div>'));
-    const gym=R.find(r=>r.t==='07:30'),home=gym.phases[gym.phases.length-1],brunch=R.find(r=>r.t==='09:15');
-    ok('removing the gym shower brings commute and brunch forward without moving work',
-      gym.until==='09:15'&&gym.phases.length===3&&home.from==='09:00'&&home.to==='09:15'&&
-      home.icon==='🚙'&&brunch.do==='🍽️'&&brunch.until==='10:00'&&R.find(r=>r.t==='10:00').do==='💻');
+    const gym=R.find(r=>r.t==='07:45'),home=gym.phases[gym.phases.length-1],brunch=R.find(r=>r.t==='10:00');
+    ok('morning schedule retains two 15-minute commutes, 105-minute gym and 30-minute brunch',
+      gym.until==='10:00'&&gym.phases.length===3&&home.from==='09:45'&&home.to==='10:00'&&
+      gym.phases[0].from==='07:45'&&gym.phases[0].to==='08:00'&&
+      gym.phases[1].from==='08:00'&&gym.phases[1].to==='09:45'&&
+      home.icon==='🚙'&&brunch.do==='🍽️'&&brunch.until==='10:30'&&R.find(r=>r.t==='10:30').do==='💻');
   }
   catch(e){ ok('routine ruler',false,e.message); }
   // the dental/face protocol cards live on their own Grooming tab now — and must NOT leak back.
