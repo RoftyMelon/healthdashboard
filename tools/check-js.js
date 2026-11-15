@@ -391,7 +391,10 @@ setTimeout(()=>{
       R.find(r=>r.t==='07:00').do==='🚿 🥣'&&!RH.includes('🏃')&&
       R.find(r=>r.t==='07:45').phases.every(p=>p.icon&&p.label!=='Shower')&&
       !RH.includes('class="rphase rphase-shower"')&&
-      R.find(r=>r.t==='21:00').do==='🚿'&&RH.includes('class="rdo ricon rsmall">🚿</div>'));
+      R.find(r=>r.t==='17:00').do==='🚿'&&R.find(r=>r.t==='17:00').until==='17:15'&&
+      R.find(r=>r.t==='17:15').do==='💻'&&R.find(r=>r.t==='17:15').until==='21:00'&&
+      !R.some(r=>r.t==='21:00')&&R.find(r=>r.t==='21:30').do==='🛏️'&&
+      RH.includes('class="rdo ricon rsmall">🚿</div>'));
     const gym=R.find(r=>r.t==='07:45'),home=gym.phases[gym.phases.length-1],brunch=R.find(r=>r.t==='10:00');
     ok('morning schedule retains two 15-minute commutes, 105-minute gym and 30-minute brunch',
       gym.until==='10:00'&&gym.phases.length===3&&home.from==='09:45'&&home.to==='10:00'&&
