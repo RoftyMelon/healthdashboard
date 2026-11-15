@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Health dashboard</title>
-<meta name="health-dashboard-viewer-version" content="1.12.27">
+<meta name="health-dashboard-viewer-version" content="1.12.28">
 <!-- minimum-scale pins iOS: switching back to the wide markers table from a narrow page
      otherwise re-runs Safari's fit-to-width and zooms the whole page out -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -828,6 +828,7 @@ a.sbuy:hover{color:var(--info)}
    It positions against .rhr at the first label's line — safe because the hour-walk
    guarantees a boundary hour always STARTS its row. The tabular HH:00 ends ~31px;
    left:0 would strike THROUGH it. */
+.rhl.st::after{content:"";position:absolute;left:44px;top:7px;width:10px;height:.5px;background:var(--t4);opacity:.4}
 .rhl.lt::after{content:"";position:absolute;left:44px;top:7px;height:.5px;
   width:min(calc(100% - 44px),300px);background:var(--t4);opacity:.55}
   /* 300px fits the widest row, "10min run, sunlight, hot/cold shower" (~288px). MAGIC NUMBER: re-measure if you add a longer routine line. */
@@ -3945,7 +3946,7 @@ function renderPage(p){
     // hours take up (a little) space and the day reads as time, not as glued-together events
     const H0=parseInt(ROUTINE[0].t),H1=parseInt(ROUTINE[ROUTINE.length-1].t);
     // block boundaries earn the LONG tics; every other hour gets a subtle one
-    const lt=new Set();
+    const lt=new Set(),st=new Set();
     ROUTINE.forEach(r=>{if(r.until){   // only WHOLE-hour edges draw hour lines; :30s get cuts
       if(parseInt(r.t.slice(3),10)===0)lt.add(parseInt(r.t));
       if(parseInt(r.until.slice(3),10)===0)lt.add(parseInt(r.until));}});
@@ -3953,7 +3954,7 @@ function renderPage(p){
     const minutes=t=>+t.slice(0,2)*60+ +t.slice(3);
     ROUTINE.forEach((r,i)=>{const prev=ROUTINE[i-1];
       if(prev&&prev.until===r.t&&r.until&&minutes(prev.until)-minutes(prev.t)<60&&
-        minutes(r.until)-minutes(r.t)<60)lt.delete(parseInt(r.t));});
+        minutes(r.until)-minutes(r.t)<60){lt.delete(parseInt(r.t));st.add(parseInt(r.t));}});
     lt.add(H0);   // the day's start earns a boundary line too
     // a boundary line is REDUNDANT when the hour before it already ended mid-hour
     // with its own cut (the shower ends 17:30 -> no 18:00 line; the gym runs to
@@ -3968,7 +3969,7 @@ function renderPage(p){
          return uh===hh?mm(r.until):(uh>hh?1:null);});
        if(e2.length&&em2.every(x=>x!=null)&&Math.max(...em2)<1)supr.add(hh+1);
        hh++;}}
-    const mark=hh=>`<i class="rhl${lt.has(hh)&&!supr.has(hh)?' lt':''}">${String(hh).padStart(2,'0')}:00</i>`;
+    const mark=hh=>`<i class="rhl${lt.has(hh)&&!supr.has(hh)?' lt':st.has(hh)?' st':''}">${String(hh).padStart(2,'0')}:00</i>`;
     // minutes, not parseInt hours: the moment a first/last time carries a :30 (lights-out
     // is 22:30) the hour-only math reads it as 22:00 and prints "9h" for a true 8h30. dur()
     // keeps the half and formats "8h30" / "15h30", collapsing to a bare "9h" when it lands

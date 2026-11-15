@@ -3,6 +3,10 @@
 Only changes shared by the personal dashboard and Starter belong here. Personal health-data edits
 remain in the personal repository history.
 
+## Viewer 1.12.28 · Schema 2 · 2026-11-15
+
+- Render an explicit 10 px short tick at adjacent short-activity boundaries.
+
 ## Viewer 1.12.27 · Schema 2 · 2026-11-15
 
 - Use short hour ticks between adjacent sub-hour routine activities.

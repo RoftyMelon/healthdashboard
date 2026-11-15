@@ -308,7 +308,8 @@ setTimeout(()=>{
         minutes(r.until)-minutes(r.t)<60)lt.delete(parseInt(r.t));});
     lt.add(H0);   // mirror the renderer: the day's start draws a boundary line
     ok('17:00 uses a short tick between dinner and shower',
-      n.pages.innerHTML.includes('<i class="rhl">17:00</i>')&&
+      n.pages.innerHTML.includes('<i class="rhl st">17:00</i>')&&
+      html.includes('.rhl.st::after{content:"";position:absolute;left:44px;top:7px;width:10px;')&&
       !n.pages.innerHTML.includes('<i class="rhl lt">17:00</i>'));
     // mirror the suppression rule: an hour whose predecessor ended mid-hour
     // with its own cut draws no boundary line
